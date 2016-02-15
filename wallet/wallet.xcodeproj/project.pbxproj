@@ -1,0 +1,418 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2CC4845F1C71A2EE0033D700 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC4845E1C71A2EE0033D700 /* main.m */; };
+		2CC484621C71A2EE0033D700 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC484611C71A2EE0033D700 /* AppDelegate.m */; };
+		2CC4846A1C71A2EE0033D700 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CC484691C71A2EE0033D700 /* Assets.xcassets */; };
+		2CC4846D1C71A2EE0033D700 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CC4846B1C71A2EE0033D700 /* LaunchScreen.storyboard */; };
+		2CC4847F1C71A51A0033D700 /* DashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC4847E1C71A51A0033D700 /* DashboardViewController.m */; };
+		2CC484831C71A6310033D700 /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC484821C71A6310033D700 /* SignInViewController.m */; };
+		2CC484861C71A64E0033D700 /* SignInMasterPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC484851C71A64E0033D700 /* SignInMasterPasswordViewController.m */; };
+		2CC484891C71A6570033D700 /* SignInSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC484881C71A6570033D700 /* SignInSettingViewController.m */; };
+		2CC4848C1C71A66C0033D700 /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC4848B1C71A66C0033D700 /* HistoryViewController.m */; };
+		2CC4848F1C71A6850033D700 /* RequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC4848E1C71A6850033D700 /* RequestViewController.m */; };
+		2CC484921C71A6CF0033D700 /* SendEnterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC484911C71A6CF0033D700 /* SendEnterViewController.m */; };
+		2CC484951C71A6ED0033D700 /* SendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC484941C71A6ED0033D700 /* SendViewController.m */; };
+		2CC484981C71A7000033D700 /* SendAdvancedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC484971C71A7000033D700 /* SendAdvancedViewController.m */; };
+		2CC484A91C71A7690033D700 /* AddressArchivedListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC484A41C71A7690033D700 /* AddressArchivedListViewController.m */; };
+		2CC484AA1C71A7690033D700 /* AddressListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC484A61C71A7690033D700 /* AddressListViewController.m */; };
+		2CC484AB1C71A7690033D700 /* AddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC484A81C71A7690033D700 /* AddressViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2CC4845A1C71A2EE0033D700 /* wallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wallet.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2CC4845E1C71A2EE0033D700 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		2CC484601C71A2EE0033D700 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		2CC484611C71A2EE0033D700 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		2CC484691C71A2EE0033D700 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2CC4846C1C71A2EE0033D700 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		2CC4846E1C71A2EE0033D700 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2CC4847D1C71A51A0033D700 /* DashboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardViewController.h; sourceTree = "<group>"; };
+		2CC4847E1C71A51A0033D700 /* DashboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardViewController.m; sourceTree = "<group>"; };
+		2CC484811C71A6310033D700 /* SignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInViewController.h; sourceTree = "<group>"; };
+		2CC484821C71A6310033D700 /* SignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInViewController.m; sourceTree = "<group>"; };
+		2CC484841C71A64E0033D700 /* SignInMasterPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInMasterPasswordViewController.h; sourceTree = "<group>"; };
+		2CC484851C71A64E0033D700 /* SignInMasterPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInMasterPasswordViewController.m; sourceTree = "<group>"; };
+		2CC484871C71A6570033D700 /* SignInSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInSettingViewController.h; sourceTree = "<group>"; };
+		2CC484881C71A6570033D700 /* SignInSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInSettingViewController.m; sourceTree = "<group>"; };
+		2CC4848A1C71A66C0033D700 /* HistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryViewController.h; sourceTree = "<group>"; };
+		2CC4848B1C71A66C0033D700 /* HistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryViewController.m; sourceTree = "<group>"; };
+		2CC4848D1C71A6850033D700 /* RequestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestViewController.h; sourceTree = "<group>"; };
+		2CC4848E1C71A6850033D700 /* RequestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestViewController.m; sourceTree = "<group>"; };
+		2CC484901C71A6CF0033D700 /* SendEnterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendEnterViewController.h; sourceTree = "<group>"; };
+		2CC484911C71A6CF0033D700 /* SendEnterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendEnterViewController.m; sourceTree = "<group>"; };
+		2CC484931C71A6ED0033D700 /* SendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendViewController.h; sourceTree = "<group>"; };
+		2CC484941C71A6ED0033D700 /* SendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendViewController.m; sourceTree = "<group>"; };
+		2CC484961C71A7000033D700 /* SendAdvancedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendAdvancedViewController.h; sourceTree = "<group>"; };
+		2CC484971C71A7000033D700 /* SendAdvancedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendAdvancedViewController.m; sourceTree = "<group>"; };
+		2CC484A31C71A7690033D700 /* AddressArchivedListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressArchivedListViewController.h; sourceTree = "<group>"; };
+		2CC484A41C71A7690033D700 /* AddressArchivedListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressArchivedListViewController.m; sourceTree = "<group>"; };
+		2CC484A51C71A7690033D700 /* AddressListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressListViewController.h; sourceTree = "<group>"; };
+		2CC484A61C71A7690033D700 /* AddressListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressListViewController.m; sourceTree = "<group>"; };
+		2CC484A71C71A7690033D700 /* AddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressViewController.h; sourceTree = "<group>"; };
+		2CC484A81C71A7690033D700 /* AddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2CC484571C71A2EE0033D700 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2CC484511C71A2EE0033D700 = {
+			isa = PBXGroup;
+			children = (
+				2CC4845C1C71A2EE0033D700 /* wallet */,
+				2CC4845B1C71A2EE0033D700 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		2CC4845B1C71A2EE0033D700 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2CC4845A1C71A2EE0033D700 /* wallet.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2CC4845C1C71A2EE0033D700 /* wallet */ = {
+			isa = PBXGroup;
+			children = (
+				2CC484741C71A4D90033D700 /* Controllers */,
+				2CC4845D1C71A2EE0033D700 /* Application */,
+			);
+			path = wallet;
+			sourceTree = "<group>";
+		};
+		2CC4845D1C71A2EE0033D700 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				2CC484601C71A2EE0033D700 /* AppDelegate.h */,
+				2CC484611C71A2EE0033D700 /* AppDelegate.m */,
+				2CC484691C71A2EE0033D700 /* Assets.xcassets */,
+				2CC4846B1C71A2EE0033D700 /* LaunchScreen.storyboard */,
+				2CC4846E1C71A2EE0033D700 /* Info.plist */,
+				2CC4845E1C71A2EE0033D700 /* main.m */,
+			);
+			name = Application;
+			sourceTree = "<group>";
+		};
+		2CC484741C71A4D90033D700 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				2CC4847B1C71A4D90033D700 /* SignIn */,
+				2CC484761C71A4D90033D700 /* Dashboard */,
+				2CC484791C71A4D90033D700 /* Request */,
+				2CC4847A1C71A4D90033D700 /* Send */,
+				2CC484A21C71A7690033D700 /* Address */,
+				2CC484801C71A5F90033D700 /* Profile */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		2CC484761C71A4D90033D700 /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				2CC4847D1C71A51A0033D700 /* DashboardViewController.h */,
+				2CC4847E1C71A51A0033D700 /* DashboardViewController.m */,
+				2CC4848A1C71A66C0033D700 /* HistoryViewController.h */,
+				2CC4848B1C71A66C0033D700 /* HistoryViewController.m */,
+			);
+			path = Dashboard;
+			sourceTree = "<group>";
+		};
+		2CC484791C71A4D90033D700 /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				2CC4848D1C71A6850033D700 /* RequestViewController.h */,
+				2CC4848E1C71A6850033D700 /* RequestViewController.m */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
+		2CC4847A1C71A4D90033D700 /* Send */ = {
+			isa = PBXGroup;
+			children = (
+				2CC484901C71A6CF0033D700 /* SendEnterViewController.h */,
+				2CC484911C71A6CF0033D700 /* SendEnterViewController.m */,
+				2CC484931C71A6ED0033D700 /* SendViewController.h */,
+				2CC484941C71A6ED0033D700 /* SendViewController.m */,
+				2CC484961C71A7000033D700 /* SendAdvancedViewController.h */,
+				2CC484971C71A7000033D700 /* SendAdvancedViewController.m */,
+			);
+			path = Send;
+			sourceTree = "<group>";
+		};
+		2CC4847B1C71A4D90033D700 /* SignIn */ = {
+			isa = PBXGroup;
+			children = (
+				2CC484811C71A6310033D700 /* SignInViewController.h */,
+				2CC484821C71A6310033D700 /* SignInViewController.m */,
+				2CC484841C71A64E0033D700 /* SignInMasterPasswordViewController.h */,
+				2CC484851C71A64E0033D700 /* SignInMasterPasswordViewController.m */,
+				2CC484871C71A6570033D700 /* SignInSettingViewController.h */,
+				2CC484881C71A6570033D700 /* SignInSettingViewController.m */,
+			);
+			path = SignIn;
+			sourceTree = "<group>";
+		};
+		2CC484801C71A5F90033D700 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		2CC484A21C71A7690033D700 /* Address */ = {
+			isa = PBXGroup;
+			children = (
+				2CC484A51C71A7690033D700 /* AddressListViewController.h */,
+				2CC484A61C71A7690033D700 /* AddressListViewController.m */,
+				2CC484A31C71A7690033D700 /* AddressArchivedListViewController.h */,
+				2CC484A41C71A7690033D700 /* AddressArchivedListViewController.m */,
+				2CC484A71C71A7690033D700 /* AddressViewController.h */,
+				2CC484A81C71A7690033D700 /* AddressViewController.m */,
+			);
+			path = Address;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2CC484591C71A2EE0033D700 /* wallet */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2CC484711C71A2EE0033D700 /* Build configuration list for PBXNativeTarget "wallet" */;
+			buildPhases = (
+				2CC484561C71A2EE0033D700 /* Sources */,
+				2CC484571C71A2EE0033D700 /* Frameworks */,
+				2CC484581C71A2EE0033D700 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = wallet;
+			productName = wallet;
+			productReference = 2CC4845A1C71A2EE0033D700 /* wallet.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2CC484521C71A2EE0033D700 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = "";
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = Bitmain;
+				TargetAttributes = {
+					2CC484591C71A2EE0033D700 = {
+						CreatedOnToolsVersion = 7.2.1;
+					};
+				};
+			};
+			buildConfigurationList = 2CC484551C71A2EE0033D700 /* Build configuration list for PBXProject "wallet" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 2CC484511C71A2EE0033D700;
+			productRefGroup = 2CC4845B1C71A2EE0033D700 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2CC484591C71A2EE0033D700 /* wallet */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2CC484581C71A2EE0033D700 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2CC4846D1C71A2EE0033D700 /* LaunchScreen.storyboard in Resources */,
+				2CC4846A1C71A2EE0033D700 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2CC484561C71A2EE0033D700 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2CC484981C71A7000033D700 /* SendAdvancedViewController.m in Sources */,
+				2CC484AB1C71A7690033D700 /* AddressViewController.m in Sources */,
+				2CC484831C71A6310033D700 /* SignInViewController.m in Sources */,
+				2CC484621C71A2EE0033D700 /* AppDelegate.m in Sources */,
+				2CC4848F1C71A6850033D700 /* RequestViewController.m in Sources */,
+				2CC484861C71A64E0033D700 /* SignInMasterPasswordViewController.m in Sources */,
+				2CC484891C71A6570033D700 /* SignInSettingViewController.m in Sources */,
+				2CC4847F1C71A51A0033D700 /* DashboardViewController.m in Sources */,
+				2CC484951C71A6ED0033D700 /* SendViewController.m in Sources */,
+				2CC4848C1C71A66C0033D700 /* HistoryViewController.m in Sources */,
+				2CC484A91C71A7690033D700 /* AddressArchivedListViewController.m in Sources */,
+				2CC484921C71A6CF0033D700 /* SendEnterViewController.m in Sources */,
+				2CC4845F1C71A2EE0033D700 /* main.m in Sources */,
+				2CC484AA1C71A7690033D700 /* AddressListViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		2CC4846B1C71A2EE0033D700 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2CC4846C1C71A2EE0033D700 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		2CC4846F1C71A2EE0033D700 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		2CC484701C71A2EE0033D700 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		2CC484721C71A2EE0033D700 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = wallet/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.btc.wallet-development";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		2CC484731C71A2EE0033D700 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = wallet/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.btc.wallet-development";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2CC484551C71A2EE0033D700 /* Build configuration list for PBXProject "wallet" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2CC4846F1C71A2EE0033D700 /* Debug */,
+				2CC484701C71A2EE0033D700 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2CC484711C71A2EE0033D700 /* Build configuration list for PBXNativeTarget "wallet" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2CC484721C71A2EE0033D700 /* Debug */,
+				2CC484731C71A2EE0033D700 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2CC484521C71A2EE0033D700 /* Project object */;
+}
