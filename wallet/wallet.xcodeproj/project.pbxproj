@@ -23,6 +23,7 @@
 		2CC484A91C71A7690033D700 /* AddressArchivedListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC484A41C71A7690033D700 /* AddressArchivedListViewController.m */; };
 		2CC484AA1C71A7690033D700 /* AddressListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC484A61C71A7690033D700 /* AddressListViewController.m */; };
 		2CC484AB1C71A7690033D700 /* AddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC484A81C71A7690033D700 /* AddressViewController.m */; };
+		2CC484AD1C71CD6B0033D700 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2CC484AC1C71CD6B0033D700 /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +58,7 @@
 		2CC484A61C71A7690033D700 /* AddressListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressListViewController.m; sourceTree = "<group>"; };
 		2CC484A71C71A7690033D700 /* AddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressViewController.h; sourceTree = "<group>"; };
 		2CC484A81C71A7690033D700 /* AddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressViewController.m; sourceTree = "<group>"; };
+		2CC484AC1C71CD6B0033D700 /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 				2CC484691C71A2EE0033D700 /* Assets.xcassets */,
 				2CC4846B1C71A2EE0033D700 /* LaunchScreen.storyboard */,
 				2CC4846E1C71A2EE0033D700 /* Info.plist */,
+				2CC484AC1C71CD6B0033D700 /* InfoPlist.strings */,
 				2CC4845E1C71A2EE0033D700 /* main.m */,
 			);
 			name = Application;
@@ -246,6 +249,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CC4846D1C71A2EE0033D700 /* LaunchScreen.storyboard in Resources */,
+				2CC484AD1C71CD6B0033D700 /* InfoPlist.strings in Resources */,
 				2CC4846A1C71A2EE0033D700 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -411,6 +415,7 @@
 				2CC484731C71A2EE0033D700 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
