@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@class ProfileViewController, Wallet;
+@class ProfileViewController, BTCAccount;
 
 @protocol ProfileViewControllerDelegate <NSObject>
 
 @optional
-- (void)profileViewController:(ProfileViewController *)viewController didSelectWallet:(Wallet *)wallet;
+- (void)profileViewController:(ProfileViewController *)viewController didSelectAccount:(BTCAccount *)account;
 
 @end
 

@@ -9,6 +9,13 @@
 /* Begin PBXBuildFile section */
 		2C9FDEB31C7D52200026AFA5 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDEB21C7D52200026AFA5 /* SettingsViewController.m */; };
 		2C9FDEB61C7D52710026AFA5 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDEB51C7D52710026AFA5 /* ProfileViewController.m */; };
+		2C9FDED51C7D554E0026AFA5 /* BTCAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDEC91C7D554E0026AFA5 /* BTCAccount.m */; };
+		2C9FDED61C7D554E0026AFA5 /* BTCAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDECB1C7D554E0026AFA5 /* BTCAddress.m */; };
+		2C9FDED71C7D554E0026AFA5 /* BTCObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDECD1C7D554E0026AFA5 /* BTCObject.m */; };
+		2C9FDED81C7D554E0026AFA5 /* BTCRecipient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDECF1C7D554E0026AFA5 /* BTCRecipient.m */; };
+		2C9FDED91C7D554E0026AFA5 /* BTCTransaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDED11C7D554E0026AFA5 /* BTCTransaction.m */; };
+		2C9FDEDC1C7D55660026AFA5 /* SystemManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDEDB1C7D55660026AFA5 /* SystemManager.m */; };
+		2C9FDEDF1C7D566F0026AFA5 /* SessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDEDE1C7D566F0026AFA5 /* SessionManager.m */; };
 		2CC4845F1C71A2EE0033D700 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC4845E1C71A2EE0033D700 /* main.m */; };
 		2CC484621C71A2EE0033D700 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC484611C71A2EE0033D700 /* AppDelegate.m */; };
 		2CC4846A1C71A2EE0033D700 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CC484691C71A2EE0033D700 /* Assets.xcassets */; };
@@ -33,6 +40,20 @@
 		2C9FDEB21C7D52200026AFA5 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		2C9FDEB41C7D52710026AFA5 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		2C9FDEB51C7D52710026AFA5 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
+		2C9FDEC81C7D554E0026AFA5 /* BTCAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTCAccount.h; sourceTree = "<group>"; };
+		2C9FDEC91C7D554E0026AFA5 /* BTCAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTCAccount.m; sourceTree = "<group>"; };
+		2C9FDECA1C7D554E0026AFA5 /* BTCAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTCAddress.h; sourceTree = "<group>"; };
+		2C9FDECB1C7D554E0026AFA5 /* BTCAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTCAddress.m; sourceTree = "<group>"; };
+		2C9FDECC1C7D554E0026AFA5 /* BTCObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTCObject.h; sourceTree = "<group>"; };
+		2C9FDECD1C7D554E0026AFA5 /* BTCObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTCObject.m; sourceTree = "<group>"; };
+		2C9FDECE1C7D554E0026AFA5 /* BTCRecipient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTCRecipient.h; sourceTree = "<group>"; };
+		2C9FDECF1C7D554E0026AFA5 /* BTCRecipient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTCRecipient.m; sourceTree = "<group>"; };
+		2C9FDED01C7D554E0026AFA5 /* BTCTransaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTCTransaction.h; sourceTree = "<group>"; };
+		2C9FDED11C7D554E0026AFA5 /* BTCTransaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTCTransaction.m; sourceTree = "<group>"; };
+		2C9FDEDA1C7D55660026AFA5 /* SystemManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemManager.h; sourceTree = "<group>"; };
+		2C9FDEDB1C7D55660026AFA5 /* SystemManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SystemManager.m; sourceTree = "<group>"; };
+		2C9FDEDD1C7D566F0026AFA5 /* SessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionManager.h; sourceTree = "<group>"; };
+		2C9FDEDE1C7D566F0026AFA5 /* SessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionManager.m; sourceTree = "<group>"; };
 		2CC4845A1C71A2EE0033D700 /* wallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wallet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CC4845E1C71A2EE0033D700 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2CC484601C71A2EE0033D700 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -89,6 +110,59 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
+		2C9FDEB71C7D52EF0026AFA5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				2C9FDEC71C7D554E0026AFA5 /* Database */,
+				2C9FDED21C7D554E0026AFA5 /* Keychain */,
+				2C9FDED31C7D554E0026AFA5 /* System */,
+				2C9FDED41C7D554E0026AFA5 /* User */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		2C9FDEC71C7D554E0026AFA5 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				2C9FDEC81C7D554E0026AFA5 /* BTCAccount.h */,
+				2C9FDEC91C7D554E0026AFA5 /* BTCAccount.m */,
+				2C9FDECA1C7D554E0026AFA5 /* BTCAddress.h */,
+				2C9FDECB1C7D554E0026AFA5 /* BTCAddress.m */,
+				2C9FDECC1C7D554E0026AFA5 /* BTCObject.h */,
+				2C9FDECD1C7D554E0026AFA5 /* BTCObject.m */,
+				2C9FDECE1C7D554E0026AFA5 /* BTCRecipient.h */,
+				2C9FDECF1C7D554E0026AFA5 /* BTCRecipient.m */,
+				2C9FDED01C7D554E0026AFA5 /* BTCTransaction.h */,
+				2C9FDED11C7D554E0026AFA5 /* BTCTransaction.m */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
+		2C9FDED21C7D554E0026AFA5 /* Keychain */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Keychain;
+			sourceTree = "<group>";
+		};
+		2C9FDED31C7D554E0026AFA5 /* System */ = {
+			isa = PBXGroup;
+			children = (
+				2C9FDEDA1C7D55660026AFA5 /* SystemManager.h */,
+				2C9FDEDB1C7D55660026AFA5 /* SystemManager.m */,
+			);
+			path = System;
+			sourceTree = "<group>";
+		};
+		2C9FDED41C7D554E0026AFA5 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				2C9FDEDD1C7D566F0026AFA5 /* SessionManager.h */,
+				2C9FDEDE1C7D566F0026AFA5 /* SessionManager.m */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
 		2CC484511C71A2EE0033D700 = {
 			isa = PBXGroup;
 			children = (
@@ -108,6 +182,7 @@
 		2CC4845C1C71A2EE0033D700 /* wallet */ = {
 			isa = PBXGroup;
 			children = (
+				2C9FDEB71C7D52EF0026AFA5 /* Models */,
 				2CC484741C71A4D90033D700 /* Controllers */,
 				2CC4845D1C71A2EE0033D700 /* Application */,
 			);
@@ -273,18 +348,25 @@
 			files = (
 				2CC484981C71A7000033D700 /* SendAdvancedViewController.m in Sources */,
 				2CC484AB1C71A7690033D700 /* AddressViewController.m in Sources */,
+				2C9FDED51C7D554E0026AFA5 /* BTCAccount.m in Sources */,
 				2C9FDEB61C7D52710026AFA5 /* ProfileViewController.m in Sources */,
 				2CC484831C71A6310033D700 /* SignInViewController.m in Sources */,
+				2C9FDED71C7D554E0026AFA5 /* BTCObject.m in Sources */,
 				2C9FDEB31C7D52200026AFA5 /* SettingsViewController.m in Sources */,
 				2CC484621C71A2EE0033D700 /* AppDelegate.m in Sources */,
 				2CC4848F1C71A6850033D700 /* RequestViewController.m in Sources */,
 				2CC484861C71A64E0033D700 /* SignInMasterPasswordViewController.m in Sources */,
 				2CC484891C71A6570033D700 /* SignInSettingViewController.m in Sources */,
 				2CC4847F1C71A51A0033D700 /* DashboardViewController.m in Sources */,
+				2C9FDED91C7D554E0026AFA5 /* BTCTransaction.m in Sources */,
 				2CC484951C71A6ED0033D700 /* SendViewController.m in Sources */,
+				2C9FDED81C7D554E0026AFA5 /* BTCRecipient.m in Sources */,
 				2CC4848C1C71A66C0033D700 /* HistoryViewController.m in Sources */,
+				2C9FDEDC1C7D55660026AFA5 /* SystemManager.m in Sources */,
 				2CC484A91C71A7690033D700 /* AddressArchivedListViewController.m in Sources */,
+				2C9FDED61C7D554E0026AFA5 /* BTCAddress.m in Sources */,
 				2CC484921C71A6CF0033D700 /* SendEnterViewController.m in Sources */,
+				2C9FDEDF1C7D566F0026AFA5 /* SessionManager.m in Sources */,
 				2CC4845F1C71A2EE0033D700 /* main.m in Sources */,
 				2CC484AA1C71A7690033D700 /* AddressListViewController.m in Sources */,
 			);
