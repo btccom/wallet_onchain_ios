@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C9FDEB31C7D52200026AFA5 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDEB21C7D52200026AFA5 /* SettingsViewController.m */; };
+		2C9FDEB61C7D52710026AFA5 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDEB51C7D52710026AFA5 /* ProfileViewController.m */; };
 		2CC4845F1C71A2EE0033D700 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC4845E1C71A2EE0033D700 /* main.m */; };
 		2CC484621C71A2EE0033D700 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC484611C71A2EE0033D700 /* AppDelegate.m */; };
 		2CC4846A1C71A2EE0033D700 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CC484691C71A2EE0033D700 /* Assets.xcassets */; };
@@ -27,6 +29,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2C9FDEB11C7D52200026AFA5 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		2C9FDEB21C7D52200026AFA5 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		2C9FDEB41C7D52710026AFA5 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
+		2C9FDEB51C7D52710026AFA5 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		2CC4845A1C71A2EE0033D700 /* wallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wallet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CC4845E1C71A2EE0033D700 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2CC484601C71A2EE0033D700 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -72,6 +78,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C9FDEAA1C7D4C220026AFA5 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				2C9FDEB41C7D52710026AFA5 /* ProfileViewController.h */,
+				2C9FDEB51C7D52710026AFA5 /* ProfileViewController.m */,
+				2C9FDEB11C7D52200026AFA5 /* SettingsViewController.h */,
+				2C9FDEB21C7D52200026AFA5 /* SettingsViewController.m */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		2CC484511C71A2EE0033D700 = {
 			isa = PBXGroup;
 			children = (
@@ -119,7 +136,7 @@
 				2CC484791C71A4D90033D700 /* Request */,
 				2CC4847A1C71A4D90033D700 /* Send */,
 				2CC484A21C71A7690033D700 /* Address */,
-				2CC484801C71A5F90033D700 /* Profile */,
+				2C9FDEAA1C7D4C220026AFA5 /* Profile */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -168,13 +185,6 @@
 				2CC484881C71A6570033D700 /* SignInSettingViewController.m */,
 			);
 			path = SignIn;
-			sourceTree = "<group>";
-		};
-		2CC484801C71A5F90033D700 /* Profile */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Profile;
 			sourceTree = "<group>";
 		};
 		2CC484A21C71A7690033D700 /* Address */ = {
@@ -263,7 +273,9 @@
 			files = (
 				2CC484981C71A7000033D700 /* SendAdvancedViewController.m in Sources */,
 				2CC484AB1C71A7690033D700 /* AddressViewController.m in Sources */,
+				2C9FDEB61C7D52710026AFA5 /* ProfileViewController.m in Sources */,
 				2CC484831C71A6310033D700 /* SignInViewController.m in Sources */,
+				2C9FDEB31C7D52200026AFA5 /* SettingsViewController.m in Sources */,
 				2CC484621C71A2EE0033D700 /* AppDelegate.m in Sources */,
 				2CC4848F1C71A6850033D700 /* RequestViewController.m in Sources */,
 				2CC484861C71A64E0033D700 /* SignInMasterPasswordViewController.m in Sources */,
