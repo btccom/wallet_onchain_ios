@@ -6,18 +6,18 @@
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "BaseListViewController.h"
 
-@class ProfileViewController, BTCAccount;
+@class ProfileViewController, Account;
 
 @protocol ProfileViewControllerDelegate <NSObject>
 
 @optional
-- (void)profileViewController:(ProfileViewController *)viewController didSelectAccount:(BTCAccount *)account;
+- (void)profileViewController:(ProfileViewController *)viewController didSelectAccount:(Account *)account;
 
 @end
 
 /// Switch wallet, manage recipient contacts, settings
-@interface ProfileViewController : UITableViewController
+@interface ProfileViewController : BaseListViewController
 
 @end

@@ -1,18 +1,18 @@
 //
-//  SignInViewController.m
+//  SignInCreateOrRecoverViewController.m
 //  wallet
 //
-//  Created by Zin on 16/2/15.
+//  Created by Zin on 16/2/25.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
-#import "SignInViewController.h"
+#import "SignInCreateOrRecoverViewController.h"
 
-@interface SignInViewController ()
+@interface SignInCreateOrRecoverViewController ()
 
 @end
 
-@implementation SignInViewController
+@implementation SignInCreateOrRecoverViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

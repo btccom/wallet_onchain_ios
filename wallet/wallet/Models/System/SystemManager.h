@@ -12,6 +12,9 @@
 @interface SystemManager : NSObject
 
 // singleton factory method
-+ (instancetype)manager;
++ (instancetype)defaultManager;
+
+/// check wallet if valid
+- (BOOL)checkWallet;
 
 @end

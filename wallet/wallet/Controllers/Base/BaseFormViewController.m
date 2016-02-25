@@ -1,18 +1,18 @@
 //
-//  AddressArchivedListViewController.m
+//  BaseFormViewController.m
 //  wallet
 //
-//  Created by Zin on 16/2/15.
+//  Created by Zin on 16/2/25.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
-#import "AddressArchivedListViewController.h"
+#import "BaseFormViewController.h"
 
-@interface AddressArchivedListViewController ()
+@interface BaseFormViewController ()
 
 @end
 
-@implementation AddressArchivedListViewController
+@implementation BaseFormViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

@@ -7,10 +7,13 @@
 //
 
 #import "AppDelegate.h"
-#import "SignInViewController.h"
+#import "DashboardViewController.h"
+#import "LockScreenController.h"
 
-@interface AppDelegate ()
+#import "SystemManager.h"
 
+@interface AppDelegate ()<LockScreenControllerDelegate>
+@property (nonatomic, strong) UIWindow *lockScreenWindow;
 @end
 
 @implementation AppDelegate
@@ -20,16 +23,22 @@
     // Override point for customization after application launch.
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
-    SignInViewController *signInViewController = [[SignInViewController alloc] init];
-    self.window.rootViewController = signInViewController;
+    DashboardViewController *dashboardViewController = [[DashboardViewController alloc] init];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:dashboardViewController];
+    self.window.rootViewController = navigationController;
     
     [self.window makeKeyAndVisible];
+    
+    [self lockScreen];
+    
     return YES;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+    
+    [self lockScreen];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
@@ -47,6 +56,41 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+
+#pragma mark - Private Method
+/// lock screen, check wallet to sign up or sign in
+- (void)lockScreen {
+    if (!_lockScreenWindow) {
+        _lockScreenWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+//        _lockScreenWindow.windowLevel = UIWindowLevelNormal;
+        _lockScreenWindow.backgroundColor = [UIColor redColor];
+    }
+    
+    LockScreenController *lockScreenController = [[LockScreenController alloc] init];
+    lockScreenController.actionType = [[SystemManager defaultManager] checkWallet] ? LockScreenActionTypeSignIn : LockScreenActionTypeSignUp;
+    lockScreenController.delegate = self;
+    self.lockScreenWindow.rootViewController = lockScreenController;
+    
+    [self.lockScreenWindow makeKeyAndVisible];
+}
+/// unlock
+- (void)unlockScreen {
+    [UIView animateWithDuration:.3 animations:^{
+        self.lockScreenWindow.alpha = 0;
+    } completion:^(BOOL finished) {
+        [self.lockScreenWindow resignKeyWindow];
+        self.lockScreenWindow = nil;
+    }];
+}
+
+#pragma mark - LockScreenControllerDelegate
+- (void)lockScreenController:(LockScreenController *)controller didUnlockWithActionType:(LockScreenActionType)type {
+    // TODO: route action type
+    
+    // unlock
+    [self unlockScreen];
 }
 
 @end

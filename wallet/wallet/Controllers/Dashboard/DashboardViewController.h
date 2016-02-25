@@ -10,11 +10,12 @@
 
 /// 首页
 /// - Profile
+/// - Address List
+/// - Scan
 /// - Send
-/// - Request
-/// - Recent History
+/// - Receive
+/// - Recent Transactions
 @interface DashboardViewController : UIViewController
-
 
 @end
 

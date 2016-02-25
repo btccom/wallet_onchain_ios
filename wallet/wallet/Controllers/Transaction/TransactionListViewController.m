@@ -1,18 +1,18 @@
 //
-//  AddressListViewController.m
+//  TransactionListViewController.m
 //  wallet
 //
 //  Created by Zin on 16/2/25.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
-#import "AddressListViewController.h"
+#import "TransactionListViewController.h"
 
-@interface AddressListViewController ()
+@interface TransactionListViewController ()
 
 @end
 
-@implementation AddressListViewController
+@implementation TransactionListViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

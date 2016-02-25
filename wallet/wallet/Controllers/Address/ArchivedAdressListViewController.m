@@ -1,18 +1,18 @@
 //
-//  AddressListViewController.m
+//  ArchivedAdressListViewController.m
 //  wallet
 //
 //  Created by Zin on 16/2/25.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
-#import "AddressListViewController.h"
+#import "ArchivedAdressListViewController.h"
 
-@interface AddressListViewController ()
+@interface ArchivedAdressListViewController ()
 
 @end
 
-@implementation AddressListViewController
+@implementation ArchivedAdressListViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

@@ -1,18 +1,18 @@
 //
-//  AddressViewController.m
+//  SendRecipientViewController.m
 //  wallet
 //
-//  Created by Zin on 16/2/15.
+//  Created by Zin on 16/2/25.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
-#import "AddressViewController.h"
+#import "SendRecipientViewController.h"
 
-@interface AddressViewController ()
+@interface SendRecipientViewController ()
 
 @end
 
-@implementation AddressViewController
+@implementation SendRecipientViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

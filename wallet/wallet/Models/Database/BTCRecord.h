@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface BTCObject : NSObject
+@interface BTCRecord : NSObject
 
 @property (nonatomic, strong, readonly, nonnull) NSDate *createdDate;
 @property (nonatomic, strong, nonnull) NSDate *updatedDate;

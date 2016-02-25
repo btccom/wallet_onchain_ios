@@ -6,9 +6,9 @@
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "BaseFormViewController.h"
 
 /// 发款
-@interface SendViewController : UIViewController
+@interface SendViewController : BaseFormViewController
 
 @end

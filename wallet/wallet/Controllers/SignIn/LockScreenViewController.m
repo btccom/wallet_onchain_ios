@@ -1,18 +1,18 @@
 //
-//  SendEnterViewController.m
+//  SignInViewController.m
 //  wallet
 //
 //  Created by Zin on 16/2/15.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
-#import "SendEnterViewController.h"
+#import "LockScreenViewController.h"
 
-@interface SendEnterViewController ()
+@interface LockScreenViewController ()
 
 @end
 
-@implementation SendEnterViewController
+@implementation LockScreenViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

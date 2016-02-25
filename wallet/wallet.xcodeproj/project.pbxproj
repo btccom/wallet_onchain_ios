@@ -7,13 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C31F74C1C7E813600C9228C /* LockScreenController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F7451C7E813600C9228C /* LockScreenController.m */; };
+		2C31F74D1C7E813600C9228C /* CreateOrRecoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F7471C7E813600C9228C /* CreateOrRecoverViewController.m */; };
+		2C31F74E1C7E813600C9228C /* MasterPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F7491C7E813600C9228C /* MasterPasswordViewController.m */; };
+		2C31F74F1C7E813600C9228C /* InitialWalletSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F74B1C7E813600C9228C /* InitialWalletSettingViewController.m */; };
+		2C31F7531C7E83B300C9228C /* ImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F7521C7E83B300C9228C /* ImagePickerController.m */; };
+		2C31F7571C7E848200C9228C /* TransactionListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F7561C7E848200C9228C /* TransactionListViewController.m */; };
+		2C31F75A1C7E84CF00C9228C /* AddressListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F7591C7E84CF00C9228C /* AddressListViewController.m */; };
+		2C31F75D1C7E84EE00C9228C /* ArchivedAdressListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F75C1C7E84EE00C9228C /* ArchivedAdressListViewController.m */; };
+		2C31F7641C7E871A00C9228C /* BaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F7631C7E871A00C9228C /* BaseTableViewController.m */; };
+		2C31F7671C7E872B00C9228C /* BaseFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F7661C7E872B00C9228C /* BaseFormViewController.m */; };
+		2C31F76A1C7E873800C9228C /* BaseListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F7691C7E873800C9228C /* BaseListViewController.m */; };
+		2C31F76D1C7E876900C9228C /* SendRecipientViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F76C1C7E876900C9228C /* SendRecipientViewController.m */; };
 		2C9FDEB31C7D52200026AFA5 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDEB21C7D52200026AFA5 /* SettingsViewController.m */; };
 		2C9FDEB61C7D52710026AFA5 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDEB51C7D52710026AFA5 /* ProfileViewController.m */; };
-		2C9FDED51C7D554E0026AFA5 /* BTCAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDEC91C7D554E0026AFA5 /* BTCAccount.m */; };
-		2C9FDED61C7D554E0026AFA5 /* BTCAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDECB1C7D554E0026AFA5 /* BTCAddress.m */; };
-		2C9FDED71C7D554E0026AFA5 /* BTCObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDECD1C7D554E0026AFA5 /* BTCObject.m */; };
-		2C9FDED81C7D554E0026AFA5 /* BTCRecipient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDECF1C7D554E0026AFA5 /* BTCRecipient.m */; };
-		2C9FDED91C7D554E0026AFA5 /* BTCTransaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDED11C7D554E0026AFA5 /* BTCTransaction.m */; };
+		2C9FDED51C7D554E0026AFA5 /* Account.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDEC91C7D554E0026AFA5 /* Account.m */; };
+		2C9FDED61C7D554E0026AFA5 /* Address.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDECB1C7D554E0026AFA5 /* Address.m */; };
+		2C9FDED71C7D554E0026AFA5 /* RecordObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDECD1C7D554E0026AFA5 /* RecordObject.m */; };
+		2C9FDED81C7D554E0026AFA5 /* Recipient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDECF1C7D554E0026AFA5 /* Recipient.m */; };
+		2C9FDED91C7D554E0026AFA5 /* Transaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDED11C7D554E0026AFA5 /* Transaction.m */; };
 		2C9FDEDC1C7D55660026AFA5 /* SystemManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDEDB1C7D55660026AFA5 /* SystemManager.m */; };
 		2C9FDEDF1C7D566F0026AFA5 /* SessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDEDE1C7D566F0026AFA5 /* SessionManager.m */; };
 		2CC4845F1C71A2EE0033D700 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC4845E1C71A2EE0033D700 /* main.m */; };
@@ -21,35 +33,51 @@
 		2CC4846A1C71A2EE0033D700 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CC484691C71A2EE0033D700 /* Assets.xcassets */; };
 		2CC4846D1C71A2EE0033D700 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CC4846B1C71A2EE0033D700 /* LaunchScreen.storyboard */; };
 		2CC4847F1C71A51A0033D700 /* DashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC4847E1C71A51A0033D700 /* DashboardViewController.m */; };
-		2CC484831C71A6310033D700 /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC484821C71A6310033D700 /* SignInViewController.m */; };
-		2CC484861C71A64E0033D700 /* SignInMasterPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC484851C71A64E0033D700 /* SignInMasterPasswordViewController.m */; };
-		2CC484891C71A6570033D700 /* SignInSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC484881C71A6570033D700 /* SignInSettingViewController.m */; };
-		2CC4848C1C71A66C0033D700 /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC4848B1C71A66C0033D700 /* HistoryViewController.m */; };
-		2CC4848F1C71A6850033D700 /* RequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC4848E1C71A6850033D700 /* RequestViewController.m */; };
-		2CC484921C71A6CF0033D700 /* SendEnterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC484911C71A6CF0033D700 /* SendEnterViewController.m */; };
 		2CC484951C71A6ED0033D700 /* SendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC484941C71A6ED0033D700 /* SendViewController.m */; };
 		2CC484981C71A7000033D700 /* SendAdvancedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC484971C71A7000033D700 /* SendAdvancedViewController.m */; };
-		2CC484A91C71A7690033D700 /* AddressArchivedListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC484A41C71A7690033D700 /* AddressArchivedListViewController.m */; };
-		2CC484AA1C71A7690033D700 /* AddressListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC484A61C71A7690033D700 /* AddressListViewController.m */; };
 		2CC484AB1C71A7690033D700 /* AddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC484A81C71A7690033D700 /* AddressViewController.m */; };
 		2CC484AD1C71CD6B0033D700 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2CC484AC1C71CD6B0033D700 /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2C31F7441C7E813600C9228C /* LockScreenController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LockScreenController.h; sourceTree = "<group>"; };
+		2C31F7451C7E813600C9228C /* LockScreenController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LockScreenController.m; sourceTree = "<group>"; };
+		2C31F7461C7E813600C9228C /* CreateOrRecoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateOrRecoverViewController.h; sourceTree = "<group>"; };
+		2C31F7471C7E813600C9228C /* CreateOrRecoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateOrRecoverViewController.m; sourceTree = "<group>"; };
+		2C31F7481C7E813600C9228C /* MasterPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MasterPasswordViewController.h; sourceTree = "<group>"; };
+		2C31F7491C7E813600C9228C /* MasterPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MasterPasswordViewController.m; sourceTree = "<group>"; };
+		2C31F74A1C7E813600C9228C /* InitialWalletSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InitialWalletSettingViewController.h; sourceTree = "<group>"; };
+		2C31F74B1C7E813600C9228C /* InitialWalletSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InitialWalletSettingViewController.m; sourceTree = "<group>"; };
+		2C31F7511C7E83B300C9228C /* ImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagePickerController.h; sourceTree = "<group>"; };
+		2C31F7521C7E83B300C9228C /* ImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagePickerController.m; sourceTree = "<group>"; };
+		2C31F7551C7E848200C9228C /* TransactionListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionListViewController.h; sourceTree = "<group>"; };
+		2C31F7561C7E848200C9228C /* TransactionListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionListViewController.m; sourceTree = "<group>"; };
+		2C31F7581C7E84CF00C9228C /* AddressListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressListViewController.h; sourceTree = "<group>"; };
+		2C31F7591C7E84CF00C9228C /* AddressListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressListViewController.m; sourceTree = "<group>"; };
+		2C31F75B1C7E84EE00C9228C /* ArchivedAdressListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArchivedAdressListViewController.h; sourceTree = "<group>"; };
+		2C31F75C1C7E84EE00C9228C /* ArchivedAdressListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArchivedAdressListViewController.m; sourceTree = "<group>"; };
+		2C31F7621C7E871A00C9228C /* BaseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableViewController.h; sourceTree = "<group>"; };
+		2C31F7631C7E871A00C9228C /* BaseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTableViewController.m; sourceTree = "<group>"; };
+		2C31F7651C7E872B00C9228C /* BaseFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseFormViewController.h; sourceTree = "<group>"; };
+		2C31F7661C7E872B00C9228C /* BaseFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseFormViewController.m; sourceTree = "<group>"; };
+		2C31F7681C7E873800C9228C /* BaseListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseListViewController.h; sourceTree = "<group>"; };
+		2C31F7691C7E873800C9228C /* BaseListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseListViewController.m; sourceTree = "<group>"; };
+		2C31F76B1C7E876900C9228C /* SendRecipientViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendRecipientViewController.h; sourceTree = "<group>"; };
+		2C31F76C1C7E876900C9228C /* SendRecipientViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendRecipientViewController.m; sourceTree = "<group>"; };
 		2C9FDEB11C7D52200026AFA5 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		2C9FDEB21C7D52200026AFA5 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		2C9FDEB41C7D52710026AFA5 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		2C9FDEB51C7D52710026AFA5 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
-		2C9FDEC81C7D554E0026AFA5 /* BTCAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTCAccount.h; sourceTree = "<group>"; };
-		2C9FDEC91C7D554E0026AFA5 /* BTCAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTCAccount.m; sourceTree = "<group>"; };
-		2C9FDECA1C7D554E0026AFA5 /* BTCAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTCAddress.h; sourceTree = "<group>"; };
-		2C9FDECB1C7D554E0026AFA5 /* BTCAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTCAddress.m; sourceTree = "<group>"; };
-		2C9FDECC1C7D554E0026AFA5 /* BTCObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTCObject.h; sourceTree = "<group>"; };
-		2C9FDECD1C7D554E0026AFA5 /* BTCObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTCObject.m; sourceTree = "<group>"; };
-		2C9FDECE1C7D554E0026AFA5 /* BTCRecipient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTCRecipient.h; sourceTree = "<group>"; };
-		2C9FDECF1C7D554E0026AFA5 /* BTCRecipient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTCRecipient.m; sourceTree = "<group>"; };
-		2C9FDED01C7D554E0026AFA5 /* BTCTransaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTCTransaction.h; sourceTree = "<group>"; };
-		2C9FDED11C7D554E0026AFA5 /* BTCTransaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTCTransaction.m; sourceTree = "<group>"; };
+		2C9FDEC81C7D554E0026AFA5 /* Account.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Account.h; sourceTree = "<group>"; };
+		2C9FDEC91C7D554E0026AFA5 /* Account.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Account.m; sourceTree = "<group>"; };
+		2C9FDECA1C7D554E0026AFA5 /* Address.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Address.h; sourceTree = "<group>"; };
+		2C9FDECB1C7D554E0026AFA5 /* Address.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Address.m; sourceTree = "<group>"; };
+		2C9FDECC1C7D554E0026AFA5 /* RecordObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordObject.h; sourceTree = "<group>"; };
+		2C9FDECD1C7D554E0026AFA5 /* RecordObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordObject.m; sourceTree = "<group>"; };
+		2C9FDECE1C7D554E0026AFA5 /* Recipient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Recipient.h; sourceTree = "<group>"; };
+		2C9FDECF1C7D554E0026AFA5 /* Recipient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Recipient.m; sourceTree = "<group>"; };
+		2C9FDED01C7D554E0026AFA5 /* Transaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Transaction.h; sourceTree = "<group>"; };
+		2C9FDED11C7D554E0026AFA5 /* Transaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Transaction.m; sourceTree = "<group>"; };
 		2C9FDEDA1C7D55660026AFA5 /* SystemManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemManager.h; sourceTree = "<group>"; };
 		2C9FDEDB1C7D55660026AFA5 /* SystemManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SystemManager.m; sourceTree = "<group>"; };
 		2C9FDEDD1C7D566F0026AFA5 /* SessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionManager.h; sourceTree = "<group>"; };
@@ -63,26 +91,10 @@
 		2CC4846E1C71A2EE0033D700 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2CC4847D1C71A51A0033D700 /* DashboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardViewController.h; sourceTree = "<group>"; };
 		2CC4847E1C71A51A0033D700 /* DashboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardViewController.m; sourceTree = "<group>"; };
-		2CC484811C71A6310033D700 /* SignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInViewController.h; sourceTree = "<group>"; };
-		2CC484821C71A6310033D700 /* SignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInViewController.m; sourceTree = "<group>"; };
-		2CC484841C71A64E0033D700 /* SignInMasterPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInMasterPasswordViewController.h; sourceTree = "<group>"; };
-		2CC484851C71A64E0033D700 /* SignInMasterPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInMasterPasswordViewController.m; sourceTree = "<group>"; };
-		2CC484871C71A6570033D700 /* SignInSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInSettingViewController.h; sourceTree = "<group>"; };
-		2CC484881C71A6570033D700 /* SignInSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInSettingViewController.m; sourceTree = "<group>"; };
-		2CC4848A1C71A66C0033D700 /* HistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryViewController.h; sourceTree = "<group>"; };
-		2CC4848B1C71A66C0033D700 /* HistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryViewController.m; sourceTree = "<group>"; };
-		2CC4848D1C71A6850033D700 /* RequestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestViewController.h; sourceTree = "<group>"; };
-		2CC4848E1C71A6850033D700 /* RequestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestViewController.m; sourceTree = "<group>"; };
-		2CC484901C71A6CF0033D700 /* SendEnterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendEnterViewController.h; sourceTree = "<group>"; };
-		2CC484911C71A6CF0033D700 /* SendEnterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendEnterViewController.m; sourceTree = "<group>"; };
 		2CC484931C71A6ED0033D700 /* SendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendViewController.h; sourceTree = "<group>"; };
 		2CC484941C71A6ED0033D700 /* SendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendViewController.m; sourceTree = "<group>"; };
 		2CC484961C71A7000033D700 /* SendAdvancedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendAdvancedViewController.h; sourceTree = "<group>"; };
 		2CC484971C71A7000033D700 /* SendAdvancedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendAdvancedViewController.m; sourceTree = "<group>"; };
-		2CC484A31C71A7690033D700 /* AddressArchivedListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressArchivedListViewController.h; sourceTree = "<group>"; };
-		2CC484A41C71A7690033D700 /* AddressArchivedListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressArchivedListViewController.m; sourceTree = "<group>"; };
-		2CC484A51C71A7690033D700 /* AddressListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressListViewController.h; sourceTree = "<group>"; };
-		2CC484A61C71A7690033D700 /* AddressListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressListViewController.m; sourceTree = "<group>"; };
 		2CC484A71C71A7690033D700 /* AddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressViewController.h; sourceTree = "<group>"; };
 		2CC484A81C71A7690033D700 /* AddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressViewController.m; sourceTree = "<group>"; };
 		2CC484AC1C71CD6B0033D700 /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
@@ -99,6 +111,52 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C31F7431C7E813600C9228C /* LockScreen */ = {
+			isa = PBXGroup;
+			children = (
+				2C31F7441C7E813600C9228C /* LockScreenController.h */,
+				2C31F7451C7E813600C9228C /* LockScreenController.m */,
+				2C31F7461C7E813600C9228C /* CreateOrRecoverViewController.h */,
+				2C31F7471C7E813600C9228C /* CreateOrRecoverViewController.m */,
+				2C31F7481C7E813600C9228C /* MasterPasswordViewController.h */,
+				2C31F7491C7E813600C9228C /* MasterPasswordViewController.m */,
+				2C31F74A1C7E813600C9228C /* InitialWalletSettingViewController.h */,
+				2C31F74B1C7E813600C9228C /* InitialWalletSettingViewController.m */,
+			);
+			path = LockScreen;
+			sourceTree = "<group>";
+		};
+		2C31F7501C7E836D00C9228C /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				2C31F7511C7E83B300C9228C /* ImagePickerController.h */,
+				2C31F7521C7E83B300C9228C /* ImagePickerController.m */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		2C31F7541C7E842F00C9228C /* Transaction */ = {
+			isa = PBXGroup;
+			children = (
+				2C31F7551C7E848200C9228C /* TransactionListViewController.h */,
+				2C31F7561C7E848200C9228C /* TransactionListViewController.m */,
+			);
+			path = Transaction;
+			sourceTree = "<group>";
+		};
+		2C31F7611C7E86F000C9228C /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				2C31F7621C7E871A00C9228C /* BaseTableViewController.h */,
+				2C31F7631C7E871A00C9228C /* BaseTableViewController.m */,
+				2C31F7651C7E872B00C9228C /* BaseFormViewController.h */,
+				2C31F7661C7E872B00C9228C /* BaseFormViewController.m */,
+				2C31F7681C7E873800C9228C /* BaseListViewController.h */,
+				2C31F7691C7E873800C9228C /* BaseListViewController.m */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
 		2C9FDEAA1C7D4C220026AFA5 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
@@ -124,16 +182,16 @@
 		2C9FDEC71C7D554E0026AFA5 /* Database */ = {
 			isa = PBXGroup;
 			children = (
-				2C9FDEC81C7D554E0026AFA5 /* BTCAccount.h */,
-				2C9FDEC91C7D554E0026AFA5 /* BTCAccount.m */,
-				2C9FDECA1C7D554E0026AFA5 /* BTCAddress.h */,
-				2C9FDECB1C7D554E0026AFA5 /* BTCAddress.m */,
-				2C9FDECC1C7D554E0026AFA5 /* BTCObject.h */,
-				2C9FDECD1C7D554E0026AFA5 /* BTCObject.m */,
-				2C9FDECE1C7D554E0026AFA5 /* BTCRecipient.h */,
-				2C9FDECF1C7D554E0026AFA5 /* BTCRecipient.m */,
-				2C9FDED01C7D554E0026AFA5 /* BTCTransaction.h */,
-				2C9FDED11C7D554E0026AFA5 /* BTCTransaction.m */,
+				2C9FDEC81C7D554E0026AFA5 /* Account.h */,
+				2C9FDEC91C7D554E0026AFA5 /* Account.m */,
+				2C9FDECA1C7D554E0026AFA5 /* Address.h */,
+				2C9FDECB1C7D554E0026AFA5 /* Address.m */,
+				2C9FDECE1C7D554E0026AFA5 /* Recipient.h */,
+				2C9FDECF1C7D554E0026AFA5 /* Recipient.m */,
+				2C9FDED01C7D554E0026AFA5 /* Transaction.h */,
+				2C9FDED11C7D554E0026AFA5 /* Transaction.m */,
+				2C9FDECC1C7D554E0026AFA5 /* RecordObject.h */,
+				2C9FDECD1C7D554E0026AFA5 /* RecordObject.m */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -206,12 +264,14 @@
 		2CC484741C71A4D90033D700 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				2CC4847B1C71A4D90033D700 /* SignIn */,
+				2C31F7431C7E813600C9228C /* LockScreen */,
 				2CC484761C71A4D90033D700 /* Dashboard */,
-				2CC484791C71A4D90033D700 /* Request */,
 				2CC4847A1C71A4D90033D700 /* Send */,
 				2CC484A21C71A7690033D700 /* Address */,
+				2C31F7541C7E842F00C9228C /* Transaction */,
 				2C9FDEAA1C7D4C220026AFA5 /* Profile */,
+				2C31F7501C7E836D00C9228C /* Common */,
+				2C31F7611C7E86F000C9228C /* Base */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -221,26 +281,15 @@
 			children = (
 				2CC4847D1C71A51A0033D700 /* DashboardViewController.h */,
 				2CC4847E1C71A51A0033D700 /* DashboardViewController.m */,
-				2CC4848A1C71A66C0033D700 /* HistoryViewController.h */,
-				2CC4848B1C71A66C0033D700 /* HistoryViewController.m */,
 			);
 			path = Dashboard;
-			sourceTree = "<group>";
-		};
-		2CC484791C71A4D90033D700 /* Request */ = {
-			isa = PBXGroup;
-			children = (
-				2CC4848D1C71A6850033D700 /* RequestViewController.h */,
-				2CC4848E1C71A6850033D700 /* RequestViewController.m */,
-			);
-			path = Request;
 			sourceTree = "<group>";
 		};
 		2CC4847A1C71A4D90033D700 /* Send */ = {
 			isa = PBXGroup;
 			children = (
-				2CC484901C71A6CF0033D700 /* SendEnterViewController.h */,
-				2CC484911C71A6CF0033D700 /* SendEnterViewController.m */,
+				2C31F76B1C7E876900C9228C /* SendRecipientViewController.h */,
+				2C31F76C1C7E876900C9228C /* SendRecipientViewController.m */,
 				2CC484931C71A6ED0033D700 /* SendViewController.h */,
 				2CC484941C71A6ED0033D700 /* SendViewController.m */,
 				2CC484961C71A7000033D700 /* SendAdvancedViewController.h */,
@@ -249,26 +298,13 @@
 			path = Send;
 			sourceTree = "<group>";
 		};
-		2CC4847B1C71A4D90033D700 /* SignIn */ = {
-			isa = PBXGroup;
-			children = (
-				2CC484811C71A6310033D700 /* SignInViewController.h */,
-				2CC484821C71A6310033D700 /* SignInViewController.m */,
-				2CC484841C71A64E0033D700 /* SignInMasterPasswordViewController.h */,
-				2CC484851C71A64E0033D700 /* SignInMasterPasswordViewController.m */,
-				2CC484871C71A6570033D700 /* SignInSettingViewController.h */,
-				2CC484881C71A6570033D700 /* SignInSettingViewController.m */,
-			);
-			path = SignIn;
-			sourceTree = "<group>";
-		};
 		2CC484A21C71A7690033D700 /* Address */ = {
 			isa = PBXGroup;
 			children = (
-				2CC484A51C71A7690033D700 /* AddressListViewController.h */,
-				2CC484A61C71A7690033D700 /* AddressListViewController.m */,
-				2CC484A31C71A7690033D700 /* AddressArchivedListViewController.h */,
-				2CC484A41C71A7690033D700 /* AddressArchivedListViewController.m */,
+				2C31F7581C7E84CF00C9228C /* AddressListViewController.h */,
+				2C31F7591C7E84CF00C9228C /* AddressListViewController.m */,
+				2C31F75B1C7E84EE00C9228C /* ArchivedAdressListViewController.h */,
+				2C31F75C1C7E84EE00C9228C /* ArchivedAdressListViewController.m */,
 				2CC484A71C71A7690033D700 /* AddressViewController.h */,
 				2CC484A81C71A7690033D700 /* AddressViewController.m */,
 			);
@@ -348,27 +384,31 @@
 			files = (
 				2CC484981C71A7000033D700 /* SendAdvancedViewController.m in Sources */,
 				2CC484AB1C71A7690033D700 /* AddressViewController.m in Sources */,
-				2C9FDED51C7D554E0026AFA5 /* BTCAccount.m in Sources */,
+				2C31F75D1C7E84EE00C9228C /* ArchivedAdressListViewController.m in Sources */,
+				2C31F7531C7E83B300C9228C /* ImagePickerController.m in Sources */,
+				2C31F7571C7E848200C9228C /* TransactionListViewController.m in Sources */,
+				2C9FDED51C7D554E0026AFA5 /* Account.m in Sources */,
 				2C9FDEB61C7D52710026AFA5 /* ProfileViewController.m in Sources */,
-				2CC484831C71A6310033D700 /* SignInViewController.m in Sources */,
-				2C9FDED71C7D554E0026AFA5 /* BTCObject.m in Sources */,
+				2C31F7641C7E871A00C9228C /* BaseTableViewController.m in Sources */,
+				2C31F76D1C7E876900C9228C /* SendRecipientViewController.m in Sources */,
+				2C9FDED71C7D554E0026AFA5 /* RecordObject.m in Sources */,
 				2C9FDEB31C7D52200026AFA5 /* SettingsViewController.m in Sources */,
 				2CC484621C71A2EE0033D700 /* AppDelegate.m in Sources */,
-				2CC4848F1C71A6850033D700 /* RequestViewController.m in Sources */,
-				2CC484861C71A64E0033D700 /* SignInMasterPasswordViewController.m in Sources */,
-				2CC484891C71A6570033D700 /* SignInSettingViewController.m in Sources */,
+				2C31F76A1C7E873800C9228C /* BaseListViewController.m in Sources */,
 				2CC4847F1C71A51A0033D700 /* DashboardViewController.m in Sources */,
-				2C9FDED91C7D554E0026AFA5 /* BTCTransaction.m in Sources */,
+				2C9FDED91C7D554E0026AFA5 /* Transaction.m in Sources */,
 				2CC484951C71A6ED0033D700 /* SendViewController.m in Sources */,
-				2C9FDED81C7D554E0026AFA5 /* BTCRecipient.m in Sources */,
-				2CC4848C1C71A66C0033D700 /* HistoryViewController.m in Sources */,
+				2C9FDED81C7D554E0026AFA5 /* Recipient.m in Sources */,
 				2C9FDEDC1C7D55660026AFA5 /* SystemManager.m in Sources */,
-				2CC484A91C71A7690033D700 /* AddressArchivedListViewController.m in Sources */,
-				2C9FDED61C7D554E0026AFA5 /* BTCAddress.m in Sources */,
-				2CC484921C71A6CF0033D700 /* SendEnterViewController.m in Sources */,
+				2C31F74E1C7E813600C9228C /* MasterPasswordViewController.m in Sources */,
+				2C9FDED61C7D554E0026AFA5 /* Address.m in Sources */,
+				2C31F7671C7E872B00C9228C /* BaseFormViewController.m in Sources */,
+				2C31F74C1C7E813600C9228C /* LockScreenController.m in Sources */,
 				2C9FDEDF1C7D566F0026AFA5 /* SessionManager.m in Sources */,
 				2CC4845F1C71A2EE0033D700 /* main.m in Sources */,
-				2CC484AA1C71A7690033D700 /* AddressListViewController.m in Sources */,
+				2C31F74F1C7E813600C9228C /* InitialWalletSettingViewController.m in Sources */,
+				2C31F74D1C7E813600C9228C /* CreateOrRecoverViewController.m in Sources */,
+				2C31F75A1C7E84CF00C9228C /* AddressListViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

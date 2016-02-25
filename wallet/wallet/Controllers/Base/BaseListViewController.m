@@ -1,18 +1,18 @@
 //
-//  SignInSettingViewController.m
+//  BaseListViewController.m
 //  wallet
 //
-//  Created by Zin on 16/2/15.
+//  Created by Zin on 16/2/25.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
-#import "SignInSettingViewController.h"
+#import "BaseListViewController.h"
 
-@interface SignInSettingViewController ()
+@interface BaseListViewController ()
 
 @end
 
-@implementation SignInSettingViewController
+@implementation BaseListViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

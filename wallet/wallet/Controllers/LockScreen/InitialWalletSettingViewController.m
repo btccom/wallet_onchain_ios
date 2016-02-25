@@ -1,18 +1,18 @@
 //
-//  AddressViewController.m
+//  SignInSettingViewController.m
 //  wallet
 //
 //  Created by Zin on 16/2/15.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
-#import "AddressViewController.h"
+#import "InitialWalletSettingViewController.h"
 
-@interface AddressViewController ()
+@interface InitialWalletSettingViewController ()
 
 @end
 
-@implementation AddressViewController
+@implementation InitialWalletSettingViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

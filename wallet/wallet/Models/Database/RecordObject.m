@@ -1,13 +1,13 @@
 //
-//  BTCAccount.m
+//  RecordObject.m
 //  wallet
 //
 //  Created by Zin on 16/2/24.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
-#import "BTCAccount.h"
+#import "RecordObject.h"
 
-@implementation BTCAccount
+@implementation RecordObject
 
 @end

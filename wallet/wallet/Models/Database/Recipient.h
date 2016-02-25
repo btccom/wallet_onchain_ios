@@ -1,13 +1,13 @@
 //
-//  BTCAddress.m
+//  Recipient.h
 //  wallet
 //
 //  Created by Zin on 16/2/24.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
-#import "BTCAddress.h"
+#import "RecordObject.h"
 
-@implementation BTCAddress
+@interface Recipient : RecordObject
 
 @end

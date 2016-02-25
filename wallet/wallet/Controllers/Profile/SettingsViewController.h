@@ -6,8 +6,8 @@
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "BaseListViewController.h"
 
-@interface SettingsViewController : UITableViewController
+@interface SettingsViewController : BaseListViewController
 
 @end

@@ -10,4 +10,18 @@
 
 @implementation SystemManager
 
++ (instancetype)defaultManager {
+    static id staticInstance = nil;
+    static dispatch_once_t onceToken;
+    
+    dispatch_once(&onceToken, ^{
+        staticInstance = [[self alloc] init];
+    });
+    return staticInstance;
+}
+
+- (BOOL)checkWallet {
+    return YES;
+}
+
 @end

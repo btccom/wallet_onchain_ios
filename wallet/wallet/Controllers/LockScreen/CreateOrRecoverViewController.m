@@ -1,22 +1,24 @@
 //
-//  AddressViewController.m
+//  CreateOrRecoverViewController.m
 //  wallet
 //
-//  Created by Zin on 16/2/15.
+//  Created by Zin on 16/2/25.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
-#import "AddressViewController.h"
+#import "CreateOrRecoverViewController.h"
 
-@interface AddressViewController ()
+@interface CreateOrRecoverViewController ()
 
 @end
 
-@implementation AddressViewController
+@implementation CreateOrRecoverViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    self.title = NSLocalizedStringFromTable(@"CreateOrRecover Title", @"BTCWallet", @"Welcome");
 }
 
 - (void)didReceiveMemoryWarning {

@@ -1,18 +1,18 @@
 //
-//  AddressViewController.m
+//  ImagePickerController.m
 //  wallet
 //
-//  Created by Zin on 16/2/15.
+//  Created by Zin on 16/2/25.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
-#import "AddressViewController.h"
+#import "ImagePickerController.h"
 
-@interface AddressViewController ()
+@interface ImagePickerController ()
 
 @end
 
-@implementation AddressViewController
+@implementation ImagePickerController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
