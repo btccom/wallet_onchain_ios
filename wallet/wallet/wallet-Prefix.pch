@@ -1,0 +1,23 @@
+//
+//  wallet-Prefix.pch
+//  wallet
+//
+//  Created by Zin on 16/2/25.
+//  Copyright © 2016年 Bitmain. All rights reserved.
+//
+
+#ifndef wallet_Prefix_pch
+#define wallet_Prefix_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+#import "UIColor+Wallet.h"
+
+
+#ifdef DEBUG
+#define NSLog(...) NSLog(__VA_ARGS__)
+#else
+#define NSLog(...) do {} while (0)
+#endif
+
+#endif /* wallet_Prefix_pch */

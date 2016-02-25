@@ -1,0 +1,575 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2C31F74C1C7E813600C9228C /* LockScreenController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F7451C7E813600C9228C /* LockScreenController.m */; };
+		2C31F74D1C7E813600C9228C /* CreateOrRecoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F7471C7E813600C9228C /* CreateOrRecoverViewController.m */; };
+		2C31F74E1C7E813600C9228C /* MasterPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F7491C7E813600C9228C /* MasterPasswordViewController.m */; };
+		2C31F74F1C7E813600C9228C /* InitialWalletSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F74B1C7E813600C9228C /* InitialWalletSettingViewController.m */; };
+		2C31F7531C7E83B300C9228C /* ImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F7521C7E83B300C9228C /* ImagePickerController.m */; };
+		2C31F7571C7E848200C9228C /* TransactionListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F7561C7E848200C9228C /* TransactionListViewController.m */; };
+		2C31F75A1C7E84CF00C9228C /* AddressListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F7591C7E84CF00C9228C /* AddressListViewController.m */; };
+		2C31F75D1C7E84EE00C9228C /* ArchivedAdressListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F75C1C7E84EE00C9228C /* ArchivedAdressListViewController.m */; };
+		2C31F7641C7E871A00C9228C /* BaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F7631C7E871A00C9228C /* BaseTableViewController.m */; };
+		2C31F7671C7E872B00C9228C /* BaseFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F7661C7E872B00C9228C /* BaseFormViewController.m */; };
+		2C31F76A1C7E873800C9228C /* BaseListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F7691C7E873800C9228C /* BaseListViewController.m */; };
+		2C31F76D1C7E876900C9228C /* SendRecipientViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F76C1C7E876900C9228C /* SendRecipientViewController.m */; };
+		2C31F7741C7ED60A00C9228C /* UIColor+Wallet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F7731C7ED60A00C9228C /* UIColor+Wallet.m */; };
+		2C9FDEB31C7D52200026AFA5 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDEB21C7D52200026AFA5 /* SettingsViewController.m */; };
+		2C9FDEB61C7D52710026AFA5 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDEB51C7D52710026AFA5 /* ProfileViewController.m */; };
+		2C9FDED51C7D554E0026AFA5 /* Account.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDEC91C7D554E0026AFA5 /* Account.m */; };
+		2C9FDED61C7D554E0026AFA5 /* Address.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDECB1C7D554E0026AFA5 /* Address.m */; };
+		2C9FDED71C7D554E0026AFA5 /* RecordObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDECD1C7D554E0026AFA5 /* RecordObject.m */; };
+		2C9FDED81C7D554E0026AFA5 /* Recipient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDECF1C7D554E0026AFA5 /* Recipient.m */; };
+		2C9FDED91C7D554E0026AFA5 /* Transaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDED11C7D554E0026AFA5 /* Transaction.m */; };
+		2C9FDEDC1C7D55660026AFA5 /* SystemManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDEDB1C7D55660026AFA5 /* SystemManager.m */; };
+		2C9FDEDF1C7D566F0026AFA5 /* SessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDEDE1C7D566F0026AFA5 /* SessionManager.m */; };
+		2CC4845F1C71A2EE0033D700 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC4845E1C71A2EE0033D700 /* main.m */; };
+		2CC484621C71A2EE0033D700 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC484611C71A2EE0033D700 /* AppDelegate.m */; };
+		2CC4846A1C71A2EE0033D700 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CC484691C71A2EE0033D700 /* Assets.xcassets */; };
+		2CC4846D1C71A2EE0033D700 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CC4846B1C71A2EE0033D700 /* LaunchScreen.storyboard */; };
+		2CC4847F1C71A51A0033D700 /* DashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC4847E1C71A51A0033D700 /* DashboardViewController.m */; };
+		2CC484951C71A6ED0033D700 /* SendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC484941C71A6ED0033D700 /* SendViewController.m */; };
+		2CC484981C71A7000033D700 /* SendAdvancedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC484971C71A7000033D700 /* SendAdvancedViewController.m */; };
+		2CC484AB1C71A7690033D700 /* AddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC484A81C71A7690033D700 /* AddressViewController.m */; };
+		2CC484AD1C71CD6B0033D700 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2CC484AC1C71CD6B0033D700 /* InfoPlist.strings */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2C31F7441C7E813600C9228C /* LockScreenController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LockScreenController.h; sourceTree = "<group>"; };
+		2C31F7451C7E813600C9228C /* LockScreenController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LockScreenController.m; sourceTree = "<group>"; };
+		2C31F7461C7E813600C9228C /* CreateOrRecoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateOrRecoverViewController.h; sourceTree = "<group>"; };
+		2C31F7471C7E813600C9228C /* CreateOrRecoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateOrRecoverViewController.m; sourceTree = "<group>"; };
+		2C31F7481C7E813600C9228C /* MasterPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MasterPasswordViewController.h; sourceTree = "<group>"; };
+		2C31F7491C7E813600C9228C /* MasterPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MasterPasswordViewController.m; sourceTree = "<group>"; };
+		2C31F74A1C7E813600C9228C /* InitialWalletSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InitialWalletSettingViewController.h; sourceTree = "<group>"; };
+		2C31F74B1C7E813600C9228C /* InitialWalletSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InitialWalletSettingViewController.m; sourceTree = "<group>"; };
+		2C31F7511C7E83B300C9228C /* ImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagePickerController.h; sourceTree = "<group>"; };
+		2C31F7521C7E83B300C9228C /* ImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagePickerController.m; sourceTree = "<group>"; };
+		2C31F7551C7E848200C9228C /* TransactionListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionListViewController.h; sourceTree = "<group>"; };
+		2C31F7561C7E848200C9228C /* TransactionListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionListViewController.m; sourceTree = "<group>"; };
+		2C31F7581C7E84CF00C9228C /* AddressListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressListViewController.h; sourceTree = "<group>"; };
+		2C31F7591C7E84CF00C9228C /* AddressListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressListViewController.m; sourceTree = "<group>"; };
+		2C31F75B1C7E84EE00C9228C /* ArchivedAdressListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArchivedAdressListViewController.h; sourceTree = "<group>"; };
+		2C31F75C1C7E84EE00C9228C /* ArchivedAdressListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArchivedAdressListViewController.m; sourceTree = "<group>"; };
+		2C31F7621C7E871A00C9228C /* BaseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableViewController.h; sourceTree = "<group>"; };
+		2C31F7631C7E871A00C9228C /* BaseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTableViewController.m; sourceTree = "<group>"; };
+		2C31F7651C7E872B00C9228C /* BaseFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseFormViewController.h; sourceTree = "<group>"; };
+		2C31F7661C7E872B00C9228C /* BaseFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseFormViewController.m; sourceTree = "<group>"; };
+		2C31F7681C7E873800C9228C /* BaseListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseListViewController.h; sourceTree = "<group>"; };
+		2C31F7691C7E873800C9228C /* BaseListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseListViewController.m; sourceTree = "<group>"; };
+		2C31F76B1C7E876900C9228C /* SendRecipientViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendRecipientViewController.h; sourceTree = "<group>"; };
+		2C31F76C1C7E876900C9228C /* SendRecipientViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendRecipientViewController.m; sourceTree = "<group>"; };
+		2C31F76F1C7ECBB700C9228C /* wallet-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "wallet-Prefix.pch"; sourceTree = "<group>"; };
+		2C31F7721C7ED60A00C9228C /* UIColor+Wallet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Wallet.h"; sourceTree = "<group>"; };
+		2C31F7731C7ED60A00C9228C /* UIColor+Wallet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Wallet.m"; sourceTree = "<group>"; };
+		2C9FDEB11C7D52200026AFA5 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		2C9FDEB21C7D52200026AFA5 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		2C9FDEB41C7D52710026AFA5 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
+		2C9FDEB51C7D52710026AFA5 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
+		2C9FDEC81C7D554E0026AFA5 /* Account.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Account.h; sourceTree = "<group>"; };
+		2C9FDEC91C7D554E0026AFA5 /* Account.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Account.m; sourceTree = "<group>"; };
+		2C9FDECA1C7D554E0026AFA5 /* Address.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Address.h; sourceTree = "<group>"; };
+		2C9FDECB1C7D554E0026AFA5 /* Address.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Address.m; sourceTree = "<group>"; };
+		2C9FDECC1C7D554E0026AFA5 /* RecordObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordObject.h; sourceTree = "<group>"; };
+		2C9FDECD1C7D554E0026AFA5 /* RecordObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordObject.m; sourceTree = "<group>"; };
+		2C9FDECE1C7D554E0026AFA5 /* Recipient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Recipient.h; sourceTree = "<group>"; };
+		2C9FDECF1C7D554E0026AFA5 /* Recipient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Recipient.m; sourceTree = "<group>"; };
+		2C9FDED01C7D554E0026AFA5 /* Transaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Transaction.h; sourceTree = "<group>"; };
+		2C9FDED11C7D554E0026AFA5 /* Transaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Transaction.m; sourceTree = "<group>"; };
+		2C9FDEDA1C7D55660026AFA5 /* SystemManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemManager.h; sourceTree = "<group>"; };
+		2C9FDEDB1C7D55660026AFA5 /* SystemManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SystemManager.m; sourceTree = "<group>"; };
+		2C9FDEDD1C7D566F0026AFA5 /* SessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionManager.h; sourceTree = "<group>"; };
+		2C9FDEDE1C7D566F0026AFA5 /* SessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionManager.m; sourceTree = "<group>"; };
+		2CC4845A1C71A2EE0033D700 /* wallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wallet.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2CC4845E1C71A2EE0033D700 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		2CC484601C71A2EE0033D700 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		2CC484611C71A2EE0033D700 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		2CC484691C71A2EE0033D700 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2CC4846C1C71A2EE0033D700 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		2CC4846E1C71A2EE0033D700 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2CC4847D1C71A51A0033D700 /* DashboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardViewController.h; sourceTree = "<group>"; };
+		2CC4847E1C71A51A0033D700 /* DashboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardViewController.m; sourceTree = "<group>"; };
+		2CC484931C71A6ED0033D700 /* SendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendViewController.h; sourceTree = "<group>"; };
+		2CC484941C71A6ED0033D700 /* SendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendViewController.m; sourceTree = "<group>"; };
+		2CC484961C71A7000033D700 /* SendAdvancedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendAdvancedViewController.h; sourceTree = "<group>"; };
+		2CC484971C71A7000033D700 /* SendAdvancedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendAdvancedViewController.m; sourceTree = "<group>"; };
+		2CC484A71C71A7690033D700 /* AddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressViewController.h; sourceTree = "<group>"; };
+		2CC484A81C71A7690033D700 /* AddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressViewController.m; sourceTree = "<group>"; };
+		2CC484AC1C71CD6B0033D700 /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2CC484571C71A2EE0033D700 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2C31F7431C7E813600C9228C /* LockScreen */ = {
+			isa = PBXGroup;
+			children = (
+				2C31F7441C7E813600C9228C /* LockScreenController.h */,
+				2C31F7451C7E813600C9228C /* LockScreenController.m */,
+				2C31F7461C7E813600C9228C /* CreateOrRecoverViewController.h */,
+				2C31F7471C7E813600C9228C /* CreateOrRecoverViewController.m */,
+				2C31F7481C7E813600C9228C /* MasterPasswordViewController.h */,
+				2C31F7491C7E813600C9228C /* MasterPasswordViewController.m */,
+				2C31F74A1C7E813600C9228C /* InitialWalletSettingViewController.h */,
+				2C31F74B1C7E813600C9228C /* InitialWalletSettingViewController.m */,
+			);
+			path = LockScreen;
+			sourceTree = "<group>";
+		};
+		2C31F7501C7E836D00C9228C /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				2C31F7511C7E83B300C9228C /* ImagePickerController.h */,
+				2C31F7521C7E83B300C9228C /* ImagePickerController.m */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		2C31F7541C7E842F00C9228C /* Transaction */ = {
+			isa = PBXGroup;
+			children = (
+				2C31F7551C7E848200C9228C /* TransactionListViewController.h */,
+				2C31F7561C7E848200C9228C /* TransactionListViewController.m */,
+			);
+			path = Transaction;
+			sourceTree = "<group>";
+		};
+		2C31F7611C7E86F000C9228C /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				2C31F7621C7E871A00C9228C /* BaseTableViewController.h */,
+				2C31F7631C7E871A00C9228C /* BaseTableViewController.m */,
+				2C31F7651C7E872B00C9228C /* BaseFormViewController.h */,
+				2C31F7661C7E872B00C9228C /* BaseFormViewController.m */,
+				2C31F7681C7E873800C9228C /* BaseListViewController.h */,
+				2C31F7691C7E873800C9228C /* BaseListViewController.m */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		2C31F7711C7ED5C100C9228C /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				2C31F7721C7ED60A00C9228C /* UIColor+Wallet.h */,
+				2C31F7731C7ED60A00C9228C /* UIColor+Wallet.m */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		2C9FDEAA1C7D4C220026AFA5 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				2C9FDEB41C7D52710026AFA5 /* ProfileViewController.h */,
+				2C9FDEB51C7D52710026AFA5 /* ProfileViewController.m */,
+				2C9FDEB11C7D52200026AFA5 /* SettingsViewController.h */,
+				2C9FDEB21C7D52200026AFA5 /* SettingsViewController.m */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		2C9FDEB71C7D52EF0026AFA5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				2C9FDEC71C7D554E0026AFA5 /* Database */,
+				2C9FDED21C7D554E0026AFA5 /* Keychain */,
+				2C9FDED31C7D554E0026AFA5 /* System */,
+				2C9FDED41C7D554E0026AFA5 /* User */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		2C9FDEC71C7D554E0026AFA5 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				2C9FDEC81C7D554E0026AFA5 /* Account.h */,
+				2C9FDEC91C7D554E0026AFA5 /* Account.m */,
+				2C9FDECA1C7D554E0026AFA5 /* Address.h */,
+				2C9FDECB1C7D554E0026AFA5 /* Address.m */,
+				2C9FDECE1C7D554E0026AFA5 /* Recipient.h */,
+				2C9FDECF1C7D554E0026AFA5 /* Recipient.m */,
+				2C9FDED01C7D554E0026AFA5 /* Transaction.h */,
+				2C9FDED11C7D554E0026AFA5 /* Transaction.m */,
+				2C9FDECC1C7D554E0026AFA5 /* RecordObject.h */,
+				2C9FDECD1C7D554E0026AFA5 /* RecordObject.m */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
+		2C9FDED21C7D554E0026AFA5 /* Keychain */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Keychain;
+			sourceTree = "<group>";
+		};
+		2C9FDED31C7D554E0026AFA5 /* System */ = {
+			isa = PBXGroup;
+			children = (
+				2C9FDEDA1C7D55660026AFA5 /* SystemManager.h */,
+				2C9FDEDB1C7D55660026AFA5 /* SystemManager.m */,
+			);
+			path = System;
+			sourceTree = "<group>";
+		};
+		2C9FDED41C7D554E0026AFA5 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				2C9FDEDD1C7D566F0026AFA5 /* SessionManager.h */,
+				2C9FDEDE1C7D566F0026AFA5 /* SessionManager.m */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		2CC484511C71A2EE0033D700 = {
+			isa = PBXGroup;
+			children = (
+				2CC4845C1C71A2EE0033D700 /* wallet */,
+				2CC4845B1C71A2EE0033D700 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		2CC4845B1C71A2EE0033D700 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2CC4845A1C71A2EE0033D700 /* wallet.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2CC4845C1C71A2EE0033D700 /* wallet */ = {
+			isa = PBXGroup;
+			children = (
+				2C9FDEB71C7D52EF0026AFA5 /* Models */,
+				2CC484741C71A4D90033D700 /* Controllers */,
+				2C31F7711C7ED5C100C9228C /* Helpers */,
+				2CC4845D1C71A2EE0033D700 /* Application */,
+			);
+			path = wallet;
+			sourceTree = "<group>";
+		};
+		2CC4845D1C71A2EE0033D700 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				2CC484601C71A2EE0033D700 /* AppDelegate.h */,
+				2CC484611C71A2EE0033D700 /* AppDelegate.m */,
+				2CC484691C71A2EE0033D700 /* Assets.xcassets */,
+				2CC4846B1C71A2EE0033D700 /* LaunchScreen.storyboard */,
+				2CC4846E1C71A2EE0033D700 /* Info.plist */,
+				2CC484AC1C71CD6B0033D700 /* InfoPlist.strings */,
+				2CC4845E1C71A2EE0033D700 /* main.m */,
+				2C31F76F1C7ECBB700C9228C /* wallet-Prefix.pch */,
+			);
+			name = Application;
+			sourceTree = "<group>";
+		};
+		2CC484741C71A4D90033D700 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				2C31F7431C7E813600C9228C /* LockScreen */,
+				2CC484761C71A4D90033D700 /* Dashboard */,
+				2CC4847A1C71A4D90033D700 /* Send */,
+				2CC484A21C71A7690033D700 /* Address */,
+				2C31F7541C7E842F00C9228C /* Transaction */,
+				2C9FDEAA1C7D4C220026AFA5 /* Profile */,
+				2C31F7501C7E836D00C9228C /* Common */,
+				2C31F7611C7E86F000C9228C /* Base */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		2CC484761C71A4D90033D700 /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				2CC4847D1C71A51A0033D700 /* DashboardViewController.h */,
+				2CC4847E1C71A51A0033D700 /* DashboardViewController.m */,
+			);
+			path = Dashboard;
+			sourceTree = "<group>";
+		};
+		2CC4847A1C71A4D90033D700 /* Send */ = {
+			isa = PBXGroup;
+			children = (
+				2C31F76B1C7E876900C9228C /* SendRecipientViewController.h */,
+				2C31F76C1C7E876900C9228C /* SendRecipientViewController.m */,
+				2CC484931C71A6ED0033D700 /* SendViewController.h */,
+				2CC484941C71A6ED0033D700 /* SendViewController.m */,
+				2CC484961C71A7000033D700 /* SendAdvancedViewController.h */,
+				2CC484971C71A7000033D700 /* SendAdvancedViewController.m */,
+			);
+			path = Send;
+			sourceTree = "<group>";
+		};
+		2CC484A21C71A7690033D700 /* Address */ = {
+			isa = PBXGroup;
+			children = (
+				2C31F7581C7E84CF00C9228C /* AddressListViewController.h */,
+				2C31F7591C7E84CF00C9228C /* AddressListViewController.m */,
+				2C31F75B1C7E84EE00C9228C /* ArchivedAdressListViewController.h */,
+				2C31F75C1C7E84EE00C9228C /* ArchivedAdressListViewController.m */,
+				2CC484A71C71A7690033D700 /* AddressViewController.h */,
+				2CC484A81C71A7690033D700 /* AddressViewController.m */,
+			);
+			path = Address;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2CC484591C71A2EE0033D700 /* wallet */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2CC484711C71A2EE0033D700 /* Build configuration list for PBXNativeTarget "wallet" */;
+			buildPhases = (
+				2CC484561C71A2EE0033D700 /* Sources */,
+				2CC484571C71A2EE0033D700 /* Frameworks */,
+				2CC484581C71A2EE0033D700 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = wallet;
+			productName = wallet;
+			productReference = 2CC4845A1C71A2EE0033D700 /* wallet.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2CC484521C71A2EE0033D700 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = "";
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = Bitmain;
+				TargetAttributes = {
+					2CC484591C71A2EE0033D700 = {
+						CreatedOnToolsVersion = 7.2.1;
+					};
+				};
+			};
+			buildConfigurationList = 2CC484551C71A2EE0033D700 /* Build configuration list for PBXProject "wallet" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 2CC484511C71A2EE0033D700;
+			productRefGroup = 2CC4845B1C71A2EE0033D700 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2CC484591C71A2EE0033D700 /* wallet */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2CC484581C71A2EE0033D700 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2CC4846D1C71A2EE0033D700 /* LaunchScreen.storyboard in Resources */,
+				2CC484AD1C71CD6B0033D700 /* InfoPlist.strings in Resources */,
+				2CC4846A1C71A2EE0033D700 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2CC484561C71A2EE0033D700 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2CC484981C71A7000033D700 /* SendAdvancedViewController.m in Sources */,
+				2CC484AB1C71A7690033D700 /* AddressViewController.m in Sources */,
+				2C31F75D1C7E84EE00C9228C /* ArchivedAdressListViewController.m in Sources */,
+				2C31F7531C7E83B300C9228C /* ImagePickerController.m in Sources */,
+				2C31F7741C7ED60A00C9228C /* UIColor+Wallet.m in Sources */,
+				2C31F7571C7E848200C9228C /* TransactionListViewController.m in Sources */,
+				2C9FDED51C7D554E0026AFA5 /* Account.m in Sources */,
+				2C9FDEB61C7D52710026AFA5 /* ProfileViewController.m in Sources */,
+				2C31F7641C7E871A00C9228C /* BaseTableViewController.m in Sources */,
+				2C31F76D1C7E876900C9228C /* SendRecipientViewController.m in Sources */,
+				2C9FDED71C7D554E0026AFA5 /* RecordObject.m in Sources */,
+				2C9FDEB31C7D52200026AFA5 /* SettingsViewController.m in Sources */,
+				2CC484621C71A2EE0033D700 /* AppDelegate.m in Sources */,
+				2C31F76A1C7E873800C9228C /* BaseListViewController.m in Sources */,
+				2CC4847F1C71A51A0033D700 /* DashboardViewController.m in Sources */,
+				2C9FDED91C7D554E0026AFA5 /* Transaction.m in Sources */,
+				2CC484951C71A6ED0033D700 /* SendViewController.m in Sources */,
+				2C9FDED81C7D554E0026AFA5 /* Recipient.m in Sources */,
+				2C9FDEDC1C7D55660026AFA5 /* SystemManager.m in Sources */,
+				2C31F74E1C7E813600C9228C /* MasterPasswordViewController.m in Sources */,
+				2C9FDED61C7D554E0026AFA5 /* Address.m in Sources */,
+				2C31F7671C7E872B00C9228C /* BaseFormViewController.m in Sources */,
+				2C31F74C1C7E813600C9228C /* LockScreenController.m in Sources */,
+				2C9FDEDF1C7D566F0026AFA5 /* SessionManager.m in Sources */,
+				2CC4845F1C71A2EE0033D700 /* main.m in Sources */,
+				2C31F74F1C7E813600C9228C /* InitialWalletSettingViewController.m in Sources */,
+				2C31F74D1C7E813600C9228C /* CreateOrRecoverViewController.m in Sources */,
+				2C31F75A1C7E84CF00C9228C /* AddressListViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		2CC4846B1C71A2EE0033D700 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2CC4846C1C71A2EE0033D700 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		2CC4846F1C71A2EE0033D700 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		2CC484701C71A2EE0033D700 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		2CC484721C71A2EE0033D700 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PREFIX_HEADER = "wallet/wallet-Prefix.pch";
+				INFOPLIST_FILE = wallet/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.btc.wallet-development";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		2CC484731C71A2EE0033D700 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PREFIX_HEADER = "wallet/wallet-Prefix.pch";
+				INFOPLIST_FILE = wallet/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.btc.wallet-development";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2CC484551C71A2EE0033D700 /* Build configuration list for PBXProject "wallet" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2CC4846F1C71A2EE0033D700 /* Debug */,
+				2CC484701C71A2EE0033D700 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2CC484711C71A2EE0033D700 /* Build configuration list for PBXNativeTarget "wallet" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2CC484721C71A2EE0033D700 /* Debug */,
+				2CC484731C71A2EE0033D700 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2CC484521C71A2EE0033D700 /* Project object */;
+}
