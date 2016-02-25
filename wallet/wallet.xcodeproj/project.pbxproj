@@ -64,6 +64,7 @@
 		2C31F7691C7E873800C9228C /* BaseListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseListViewController.m; sourceTree = "<group>"; };
 		2C31F76B1C7E876900C9228C /* SendRecipientViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendRecipientViewController.h; sourceTree = "<group>"; };
 		2C31F76C1C7E876900C9228C /* SendRecipientViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendRecipientViewController.m; sourceTree = "<group>"; };
+		2C31F76F1C7ECBB700C9228C /* wallet-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "wallet-Prefix.pch"; sourceTree = "<group>"; };
 		2C9FDEB11C7D52200026AFA5 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		2C9FDEB21C7D52200026AFA5 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		2C9FDEB41C7D52710026AFA5 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
@@ -157,6 +158,13 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
+		2C31F7701C7ED53B00C9228C /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
 		2C9FDEAA1C7D4C220026AFA5 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
@@ -240,6 +248,7 @@
 		2CC4845C1C71A2EE0033D700 /* wallet */ = {
 			isa = PBXGroup;
 			children = (
+				2C31F7701C7ED53B00C9228C /* Helper */,
 				2C9FDEB71C7D52EF0026AFA5 /* Models */,
 				2CC484741C71A4D90033D700 /* Controllers */,
 				2CC4845D1C71A2EE0033D700 /* Application */,
@@ -257,6 +266,7 @@
 				2CC4846E1C71A2EE0033D700 /* Info.plist */,
 				2CC484AC1C71CD6B0033D700 /* InfoPlist.strings */,
 				2CC4845E1C71A2EE0033D700 /* main.m */,
+				2C31F76F1C7ECBB700C9228C /* wallet-Prefix.pch */,
 			);
 			name = Application;
 			sourceTree = "<group>";
@@ -510,6 +520,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PREFIX_HEADER = "wallet/wallet-Prefix.pch";
 				INFOPLIST_FILE = wallet/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -522,6 +533,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PREFIX_HEADER = "wallet/wallet-Prefix.pch";
 				INFOPLIST_FILE = wallet/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
