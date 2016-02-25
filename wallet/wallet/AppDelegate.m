@@ -21,7 +21,15 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    // ui color
+    [[UIButton appearance] setTitleColor:[UIColor walletPrimaryColor] forState:UIControlStateNormal];
+    
+    
+    // create window and root view controller
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    self.window.tintColor = [UIColor walletPrimaryColor];
+    self.window.backgroundColor = [UIColor walletBlackColor];
     
     DashboardViewController *dashboardViewController = [[DashboardViewController alloc] init];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:dashboardViewController];
@@ -65,7 +73,6 @@
     if (!_lockScreenWindow) {
         _lockScreenWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
 //        _lockScreenWindow.windowLevel = UIWindowLevelNormal;
-        _lockScreenWindow.backgroundColor = [UIColor redColor];
     }
     
     LockScreenController *lockScreenController = [[LockScreenController alloc] init];

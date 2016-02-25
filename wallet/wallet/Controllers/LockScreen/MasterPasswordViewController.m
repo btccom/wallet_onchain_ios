@@ -21,7 +21,6 @@
     self.title = NSLocalizedStringFromTable(@"MasterPassword Title", @"BTCWallet", @"Welcome");
     
     UIButton *button = [[UIButton alloc] initWithFrame:self.view.bounds];
-    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [button setTitle:@"Master Password" forState:UIControlStateNormal];
     [button addTarget:self action:@selector(handleButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button];

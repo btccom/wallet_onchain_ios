@@ -23,7 +23,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     self.title = NSLocalizedStringFromTable(@"Dashboard Title", @"BTCWallet", @"Dashboard");
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor walletBackgroundColor];
     UILabel *label = [[UILabel alloc] initWithFrame:self.view.bounds];
     label.text = @"Dashboard";
     [self.view addSubview:label];
