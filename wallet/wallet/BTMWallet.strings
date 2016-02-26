@@ -1,0 +1,19 @@
+/* 
+  Localizable.strings
+  wallet
+
+  Created by Zin on 16/2/26.
+  Copyright © 2016年 Bitmain. All rights reserved.
+*/
+
+"Navigation CreateOrRecover" = "Welcome";
+"Navigation MasterPassword" = "Master Password";
+"Navigation Dashboard" = "BTM Wallet";
+"Navigation Recipient" = "Recipient";
+
+"Button MasterPassword" = "Master Password";
+"Button Send" = "Send";
+"Button Receive" = "Receive";
+
+"%d confirmed" = "%d confirmed";
+"Unconfirmed" = "Unconfirmed";

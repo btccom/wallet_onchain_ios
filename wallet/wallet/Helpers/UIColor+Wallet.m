@@ -25,6 +25,9 @@
 + (instancetype)walletLightGrayColor {
     return [self colorWithWhite:239.f/255.f alpha:1.f];
 }
++ (instancetype)walletExtraLightGrayColor {
+    return [self colorWithWhite:245.f/255.f alpha:1.f];
+}
 
 /// white
 + (instancetype)walletBackgroundColor {
@@ -44,7 +47,7 @@
 }
 /// extra light gray color
 + (instancetype)walletSeparatorColor {
-    return [self colorWithWhite:245.f/255.f alpha:1.f];
+    return [self walletExtraLightGrayColor];
 }
 
 /// green color

@@ -6,7 +6,7 @@
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "BaseListViewController.h"
 
 /// 首页
 /// - Profile
@@ -15,7 +15,7 @@
 /// - Send
 /// - Receive
 /// - Recent Transactions
-@interface DashboardViewController : UIViewController
+@interface DashboardViewController : BaseListViewController
 
 @end
 

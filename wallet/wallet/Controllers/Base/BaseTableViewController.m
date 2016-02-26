@@ -12,11 +12,22 @@
 
 @end
 
+NSString *const BaseTableViewCellTransactionIdentifier = @"cell.transaction";
+
 @implementation BaseTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+    
+    [self.navigationController.navigationBar setTintColor:[UIColor walletPrimaryColor]];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor walletBlackColor]}];
+    self.view.backgroundColor = [UIColor walletBackgroundColor];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"bar_tint_white"] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
+    
+    [self.tableView registerClass:[TransactionCell class] forCellReuseIdentifier:BaseTableViewCellTransactionIdentifier];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -29,25 +40,23 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 0;
+#pragma mark - Public Method
+- (void)dismiss:(id)sender {
+    if (self.presentingViewController) {
+        [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
+#pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 0;
 }
 
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
-    return cell;
+
+#pragma mark - UITableViewDelegate
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return BTMWalletCellHeightDefault;
 }
-*/
 
 /*
 // Override to support conditional editing of the table view.

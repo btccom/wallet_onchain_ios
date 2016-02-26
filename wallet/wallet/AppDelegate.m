@@ -22,21 +22,23 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    // ui color
-    [[UIButton appearance] setTitleColor:[UIColor walletPrimaryColor] forState:UIControlStateNormal];
-    
-    
     // create window and root view controller
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    self.window.tintColor = [UIColor walletPrimaryColor];
     self.window.backgroundColor = [UIColor walletBlackColor];
     
     DashboardViewController *dashboardViewController = [[DashboardViewController alloc] init];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:dashboardViewController];
     self.window.rootViewController = navigationController;
     
+    // ui color
+    [[UIButton appearance] setTitleColor:[UIColor walletPrimaryColor] forState:UIControlStateNormal];
+    [[UILabel appearance] setTextColor:[UIColor walletBlackColor]];
+    self.window.tintColor = [UIColor walletPrimaryColor];
+    
+    // show
     [self.window makeKeyAndVisible];
     
+    // and lock
     [self lockScreen];
     
     return YES;

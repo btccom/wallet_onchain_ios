@@ -18,7 +18,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.title = NSLocalizedStringFromTable(@"CreateOrRecover Title", @"BTCWallet", @"Welcome");
+    self.title = NSLocalizedStringFromTable(@"Navigation CreateOrRecover", @"BTMWallet", @"Welcome");
 }
 
 - (void)didReceiveMemoryWarning {

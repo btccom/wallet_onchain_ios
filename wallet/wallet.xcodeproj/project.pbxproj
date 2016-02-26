@@ -20,6 +20,12 @@
 		2C31F76A1C7E873800C9228C /* BaseListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F7691C7E873800C9228C /* BaseListViewController.m */; };
 		2C31F76D1C7E876900C9228C /* SendRecipientViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F76C1C7E876900C9228C /* SendRecipientViewController.m */; };
 		2C31F7741C7ED60A00C9228C /* UIColor+Wallet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F7731C7ED60A00C9228C /* UIColor+Wallet.m */; };
+		2C31F77A1C7FD67D00C9228C /* DashboardHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F7791C7FD67D00C9228C /* DashboardHeaderView.m */; };
+		2C31F77D1C7FD9B000C9228C /* UIButton+VerticalLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F77C1C7FD9B000C9228C /* UIButton+VerticalLayout.m */; };
+		2C31F7801C7FE4EA00C9228C /* DashboardHeaderActionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F77F1C7FE4EA00C9228C /* DashboardHeaderActionButton.m */; };
+		2C31F7841C7FE97200C9228C /* TransactionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F7831C7FE97200C9228C /* TransactionCell.m */; };
+		2C31F7861C80286500C9228C /* BTMWallet.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2C31F7851C80286500C9228C /* BTMWallet.strings */; };
+		2C31F7891C80414400C9228C /* NSString+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F7881C80414400C9228C /* NSString+Helper.m */; };
 		2C9FDEB31C7D52200026AFA5 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDEB21C7D52200026AFA5 /* SettingsViewController.m */; };
 		2C9FDEB61C7D52710026AFA5 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDEB51C7D52710026AFA5 /* ProfileViewController.m */; };
 		2C9FDED51C7D554E0026AFA5 /* Account.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDEC91C7D554E0026AFA5 /* Account.m */; };
@@ -68,6 +74,17 @@
 		2C31F76F1C7ECBB700C9228C /* wallet-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "wallet-Prefix.pch"; sourceTree = "<group>"; };
 		2C31F7721C7ED60A00C9228C /* UIColor+Wallet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Wallet.h"; sourceTree = "<group>"; };
 		2C31F7731C7ED60A00C9228C /* UIColor+Wallet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Wallet.m"; sourceTree = "<group>"; };
+		2C31F7781C7FD67D00C9228C /* DashboardHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardHeaderView.h; sourceTree = "<group>"; };
+		2C31F7791C7FD67D00C9228C /* DashboardHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardHeaderView.m; sourceTree = "<group>"; };
+		2C31F77B1C7FD9B000C9228C /* UIButton+VerticalLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+VerticalLayout.h"; sourceTree = "<group>"; };
+		2C31F77C1C7FD9B000C9228C /* UIButton+VerticalLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+VerticalLayout.m"; sourceTree = "<group>"; };
+		2C31F77E1C7FE4EA00C9228C /* DashboardHeaderActionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardHeaderActionButton.h; sourceTree = "<group>"; };
+		2C31F77F1C7FE4EA00C9228C /* DashboardHeaderActionButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardHeaderActionButton.m; sourceTree = "<group>"; };
+		2C31F7821C7FE97200C9228C /* TransactionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionCell.h; sourceTree = "<group>"; };
+		2C31F7831C7FE97200C9228C /* TransactionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionCell.m; sourceTree = "<group>"; };
+		2C31F7851C80286500C9228C /* BTMWallet.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = BTMWallet.strings; sourceTree = "<group>"; };
+		2C31F7871C80414400C9228C /* NSString+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Helper.h"; sourceTree = "<group>"; };
+		2C31F7881C80414400C9228C /* NSString+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Helper.m"; sourceTree = "<group>"; };
 		2C9FDEB11C7D52200026AFA5 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		2C9FDEB21C7D52200026AFA5 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		2C9FDEB41C7D52710026AFA5 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
@@ -164,10 +181,51 @@
 		2C31F7711C7ED5C100C9228C /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				2C31F77B1C7FD9B000C9228C /* UIButton+VerticalLayout.h */,
+				2C31F77C1C7FD9B000C9228C /* UIButton+VerticalLayout.m */,
 				2C31F7721C7ED60A00C9228C /* UIColor+Wallet.h */,
 				2C31F7731C7ED60A00C9228C /* UIColor+Wallet.m */,
+				2C31F7871C80414400C9228C /* NSString+Helper.h */,
+				2C31F7881C80414400C9228C /* NSString+Helper.m */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		2C31F7751C7FD5F100C9228C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2C31F7761C7FD64300C9228C /* Dashboard */,
+				2C31F7811C7FE95800C9228C /* Transaction */,
+				2C31F7771C7FD64B00C9228C /* Common */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		2C31F7761C7FD64300C9228C /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				2C31F7781C7FD67D00C9228C /* DashboardHeaderView.h */,
+				2C31F7791C7FD67D00C9228C /* DashboardHeaderView.m */,
+				2C31F77E1C7FE4EA00C9228C /* DashboardHeaderActionButton.h */,
+				2C31F77F1C7FE4EA00C9228C /* DashboardHeaderActionButton.m */,
+			);
+			path = Dashboard;
+			sourceTree = "<group>";
+		};
+		2C31F7771C7FD64B00C9228C /* Common */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		2C31F7811C7FE95800C9228C /* Transaction */ = {
+			isa = PBXGroup;
+			children = (
+				2C31F7821C7FE97200C9228C /* TransactionCell.h */,
+				2C31F7831C7FE97200C9228C /* TransactionCell.m */,
+			);
+			path = Transaction;
 			sourceTree = "<group>";
 		};
 		2C9FDEAA1C7D4C220026AFA5 /* Profile */ = {
@@ -254,6 +312,7 @@
 			isa = PBXGroup;
 			children = (
 				2C9FDEB71C7D52EF0026AFA5 /* Models */,
+				2C31F7751C7FD5F100C9228C /* Views */,
 				2CC484741C71A4D90033D700 /* Controllers */,
 				2C31F7711C7ED5C100C9228C /* Helpers */,
 				2CC4845D1C71A2EE0033D700 /* Application */,
@@ -272,6 +331,7 @@
 				2CC484AC1C71CD6B0033D700 /* InfoPlist.strings */,
 				2CC4845E1C71A2EE0033D700 /* main.m */,
 				2C31F76F1C7ECBB700C9228C /* wallet-Prefix.pch */,
+				2C31F7851C80286500C9228C /* BTMWallet.strings */,
 			);
 			name = Application;
 			sourceTree = "<group>";
@@ -385,6 +445,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CC4846D1C71A2EE0033D700 /* LaunchScreen.storyboard in Resources */,
+				2C31F7861C80286500C9228C /* BTMWallet.strings in Resources */,
 				2CC484AD1C71CD6B0033D700 /* InfoPlist.strings in Resources */,
 				2CC4846A1C71A2EE0033D700 /* Assets.xcassets in Resources */,
 			);
@@ -400,12 +461,14 @@
 				2CC484981C71A7000033D700 /* SendAdvancedViewController.m in Sources */,
 				2CC484AB1C71A7690033D700 /* AddressViewController.m in Sources */,
 				2C31F75D1C7E84EE00C9228C /* ArchivedAdressListViewController.m in Sources */,
+				2C31F77D1C7FD9B000C9228C /* UIButton+VerticalLayout.m in Sources */,
 				2C31F7531C7E83B300C9228C /* ImagePickerController.m in Sources */,
 				2C31F7741C7ED60A00C9228C /* UIColor+Wallet.m in Sources */,
 				2C31F7571C7E848200C9228C /* TransactionListViewController.m in Sources */,
 				2C9FDED51C7D554E0026AFA5 /* Account.m in Sources */,
 				2C9FDEB61C7D52710026AFA5 /* ProfileViewController.m in Sources */,
 				2C31F7641C7E871A00C9228C /* BaseTableViewController.m in Sources */,
+				2C31F7801C7FE4EA00C9228C /* DashboardHeaderActionButton.m in Sources */,
 				2C31F76D1C7E876900C9228C /* SendRecipientViewController.m in Sources */,
 				2C9FDED71C7D554E0026AFA5 /* RecordObject.m in Sources */,
 				2C9FDEB31C7D52200026AFA5 /* SettingsViewController.m in Sources */,
@@ -413,6 +476,7 @@
 				2C31F76A1C7E873800C9228C /* BaseListViewController.m in Sources */,
 				2CC4847F1C71A51A0033D700 /* DashboardViewController.m in Sources */,
 				2C9FDED91C7D554E0026AFA5 /* Transaction.m in Sources */,
+				2C31F7841C7FE97200C9228C /* TransactionCell.m in Sources */,
 				2CC484951C71A6ED0033D700 /* SendViewController.m in Sources */,
 				2C9FDED81C7D554E0026AFA5 /* Recipient.m in Sources */,
 				2C9FDEDC1C7D55660026AFA5 /* SystemManager.m in Sources */,
@@ -424,7 +488,9 @@
 				2CC4845F1C71A2EE0033D700 /* main.m in Sources */,
 				2C31F74F1C7E813600C9228C /* InitialWalletSettingViewController.m in Sources */,
 				2C31F74D1C7E813600C9228C /* CreateOrRecoverViewController.m in Sources */,
+				2C31F77A1C7FD67D00C9228C /* DashboardHeaderView.m in Sources */,
 				2C31F75A1C7E84CF00C9228C /* AddressListViewController.m in Sources */,
+				2C31F7891C80414400C9228C /* NSString+Helper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

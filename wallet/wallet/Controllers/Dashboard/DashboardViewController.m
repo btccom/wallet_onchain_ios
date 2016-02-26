@@ -13,20 +13,57 @@
 #import "TransactionListViewController.h"// list all transactions
 #import "SendRecipientViewController.h"// send
 
-@interface DashboardViewController ()
+#import "DashboardHeaderView.h"
 
+#import "Transaction.h"
+
+@interface DashboardViewController ()
+@property (nonatomic, strong) NSMutableArray *transactions; // of Transaction
 @end
 
 @implementation DashboardViewController
 
+#pragma mark - Property
+- (NSMutableArray *)transactions {
+    if (!_transactions) {
+        _transactions = [[NSMutableArray alloc] init];
+    }
+    return _transactions;
+}
+
+#pragma mark - View Life Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    self.title = NSLocalizedStringFromTable(@"Dashboard Title", @"BTCWallet", @"Dashboard");
-    self.view.backgroundColor = [UIColor walletBackgroundColor];
-    UILabel *label = [[UILabel alloc] initWithFrame:self.view.bounds];
-    label.text = @"Dashboard";
-    [self.view addSubview:label];
+    self.title = NSLocalizedStringFromTable(@"Navigation Dashboard", @"BTMWallet", @"Dashboard");
+    
+    // set navigation buttons
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"navigation_drawer"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleProfile:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"navigation_scan"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleScan:)];
+    
+    // set table header
+    CGFloat offsetHeight = -64.f;// status bar height + navigation bar height
+    CGRect dashboardHeaderViewframe = self.view.bounds;
+    dashboardHeaderViewframe.size.height = roundf(CGRectGetWidth(dashboardHeaderViewframe) / 16.f * 9.f) + offsetHeight;
+    DashboardHeaderView *dashboardHeaderView = [[DashboardHeaderView alloc] initWithFrame:dashboardHeaderViewframe];
+    [dashboardHeaderView.sendButton addTarget:self action:@selector(p_handleSend:) forControlEvents:UIControlEventTouchUpInside];
+    [dashboardHeaderView.receiveButton addTarget:self action:@selector(p_handleReceive:) forControlEvents:UIControlEventTouchUpInside];
+    self.tableView.tableHeaderView = dashboardHeaderView;
+    
+    // test
+    // fake data
+    for (NSInteger i = 0; i < 20; i++) {
+        [self.transactions addObject:[Transaction new]];
+    }
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+    [self.navigationController.navigationBar setTintColor:[UIColor walletWhiteColor]];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"bar_tint_primary"] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor walletWhiteColor]}];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -38,41 +75,57 @@
 #pragma mark Navigation
 
 /// present profile
-- (void)handleProfile:(id)sender {
+- (void)p_handleProfile:(id)sender {
     ProfileViewController *profileViewController = [[ProfileViewController alloc] init];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:profileViewController];
     [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 /// push address list
-- (void)handleAddressList:(id)sender {
+- (void)p_handleAddressList:(id)sender {
     AddressListViewController *addressListViewController = [[AddressListViewController alloc] init];
     [self.navigationController pushViewController:addressListViewController animated:YES];
 }
 
 /// present scan
-- (void)handleScan:(id)sender {
+- (void)p_handleScan:(id)sender {
     ImagePickerController *imagePickerViewController = [[ImagePickerController alloc] init];
     [self presentViewController:imagePickerViewController animated:YES completion:nil];
 }
 
 /// push transactions
-- (void)handleTransactionList:(id)sender {
+- (void)p_handleTransactionList:(id)sender {
     TransactionListViewController *transactionListViewController = [[TransactionListViewController alloc] init];
     [self.navigationController pushViewController:transactionListViewController animated:YES];
 }
 
 /// push send
-- (void)handleSend:(id)sender {
+- (void)p_handleSend:(id)sender {
     SendRecipientViewController *sendRecipientViewController = [[SendRecipientViewController alloc] init];
     [self.navigationController pushViewController:sendRecipientViewController animated:YES];
 }
 
 /// push address list to receive
-- (void)handleReceive:(id)sender {
+- (void)p_handleReceive:(id)sender {
     AddressListViewController *addressListViewController = [[AddressListViewController alloc] init];
     addressListViewController.actionType = AddressListActionTypeReceive;
     [self.navigationController pushViewController:addressListViewController animated:YES];
+}
+
+#pragma mark - UITableViewDataSource
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.transactions.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    TransactionCell *cell = [tableView dequeueReusableCellWithIdentifier:BaseTableViewCellTransactionIdentifier forIndexPath:indexPath];
+    cell.transaction = [self.transactions objectAtIndex:indexPath.row];
+    return cell;
+}
+
+#pragma mark UITableViewDelegate
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return BTMWalletCellHeightTransaction;
 }
 
 @end

@@ -15,6 +15,7 @@
 + (instancetype)walletBlackColor;
 + (instancetype)walletGrayColor;
 + (instancetype)walletLightGrayColor;
++ (instancetype)walletExtraLightGrayColor;
 
 /// white
 + (instancetype)walletBackgroundColor;
