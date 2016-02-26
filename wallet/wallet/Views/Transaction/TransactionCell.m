@@ -48,7 +48,6 @@ static const CGFloat kTransactionCellHorizontalPadding = BTCCLayoutCommonPadding
     }
     
     _transaction = transaction;
-    NSLog(@"transaction cell data: %@", transaction);
     
     if (transaction.type == TransactionTypeSend) {
         self.iconView.tintColor = self.decreasingColor;
@@ -119,13 +118,14 @@ static const CGFloat kTransactionCellHorizontalPadding = BTCCLayoutCommonPadding
 - (void)layoutSubviews {
     [super layoutSubviews];
 
-    
+    // icon
     CGRect iconFrame = self.iconView.frame;
     iconFrame.size = self.iconView.image.size;
     iconFrame.origin.x = kTransactionCellHorizontalPadding;
     iconFrame.origin.y = kTransactionCellVerticalPadding;
     self.iconView.frame = iconFrame;
     
+    // value
     CGFloat valueLeft = CGRectGetMaxX(iconFrame) + BTCCLayoutInnerSpace;
     CGFloat valueWidth = CGRectGetWidth(self.contentView.frame) - valueLeft - kTransactionCellHorizontalPadding;
     CGRect valueFrame = CGRectMake(valueLeft, 0, valueWidth, kTransactionCellAddressLabelHeight);
@@ -134,11 +134,13 @@ static const CGFloat kTransactionCellHorizontalPadding = BTCCLayoutCommonPadding
     
     CGFloat subLabelLeftRightPadding = BTCCLayoutInnerSpace;
     
+    // confirm
     CGFloat confirmedTop = CGRectGetHeight(self.contentView.frame) - kTransactionCellVerticalPadding - kTransactionCellConfirmedLabelHeight;
     CGFloat confirmedWidth = [self.confirmedLabel.text sizeWithFont:self.confirmedLabel.font maxSize:CGSizeMake(valueWidth / 2.f - kTransactionCellHorizontalPadding - subLabelLeftRightPadding, kTransactionCellConfirmedLabelHeight)].width + subLabelLeftRightPadding;
     CGRect confirmedFrame = CGRectMake(valueLeft, confirmedTop, confirmedWidth, kTransactionCellConfirmedLabelHeight);
     self.confirmedLabel.frame = confirmedFrame;
     
+    // address
     CGFloat addressWidth = CGRectGetWidth(valueFrame) - confirmedWidth - kTransactionCellHorizontalPadding;
     CGRect addressFrame = CGRectMake(CGRectGetMaxX(valueFrame) - addressWidth, 0, addressWidth, kTransactionCellValueLabelHeight);
     self.addressLabel.frame = addressFrame;
@@ -150,7 +152,7 @@ static const CGFloat kTransactionCellHorizontalPadding = BTCCLayoutCommonPadding
     [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraph range:NSMakeRange(0, [attributedString length])];
     self.addressLabel.attributedText = attributedString;
 
-    
+    // separator
     UIEdgeInsets inset = self.separatorInset;
     inset.left = CGRectGetMinX(self.valueLabel.frame);
     self.separatorInset = inset;
