@@ -17,8 +17,8 @@ static const CGFloat kTransactionCellConfirmedLabelHeight = 16.f;
 static const CGFloat kTransactionCellAddressLabelFontSize = 14.f;
 static const CGFloat kTransactionCellAddressLabelHeight = 16.f;
 
-static const CGFloat kTransactionCellVerticalPadding = BTMWalletLayoutCommonPadding;
-static const CGFloat kTransactionCellHorizontalPadding = BTMWalletLayoutCommonPadding;
+static const CGFloat kTransactionCellVerticalPadding = BTCCLayoutCommonPadding;
+static const CGFloat kTransactionCellHorizontalPadding = BTCCLayoutCommonPadding;
 
 @interface TransactionCell ()
 
@@ -36,10 +36,10 @@ static const CGFloat kTransactionCellHorizontalPadding = BTMWalletLayoutCommonPa
 
 #pragma mark - Property
 - (UIColor *)increasingColor {
-    return [UIColor walletGreenColor];
+    return [UIColor BTCCGreenColor];
 }
 - (UIColor *)decreasingColor {
-    return [UIColor walletRedColor];
+    return [UIColor BTCCRedColor];
 }
 
 - (void)setTransaction:(Transaction *)transaction {
@@ -60,13 +60,13 @@ static const CGFloat kTransactionCellHorizontalPadding = BTMWalletLayoutCommonPa
     self.valueLabel.text = [NSString stringWithFormat:@"%.8lf", ABS(transaction.value) / 100000000.0];
     self.valueLabel.textColor = self.iconView.tintColor;
     if (transaction.confirmed > 0) {
-        self.confirmedLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTable(@"%d Confirmed", @"BTMWallet", @"Confirmed"), transaction.confirmed];
-        self.confirmedLabel.textColor = [UIColor walletBlackColor];
-        self.confirmedLabel.backgroundColor = [UIColor walletExtraLightGrayColor];
+        self.confirmedLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTable(@"%d Confirmed", @"BTCC", @"Confirmed"), transaction.confirmed];
+        self.confirmedLabel.textColor = [UIColor BTCCBlackColor];
+        self.confirmedLabel.backgroundColor = [UIColor BTCCExtraLightGrayColor];
     } else {
-        self.confirmedLabel.text = NSLocalizedStringFromTable(@"Unconfirmed", @"BTMWallet", @"Unconfirmed");
-        self.confirmedLabel.textColor = [UIColor walletWhiteColor];
-        self.confirmedLabel.backgroundColor = [UIColor walletGrayColor];
+        self.confirmedLabel.text = NSLocalizedStringFromTable(@"Unconfirmed", @"BTCC", @"Unconfirmed");
+        self.confirmedLabel.textColor = [UIColor BTCCWhiteColor];
+        self.confirmedLabel.backgroundColor = [UIColor BTCCGrayColor];
     }
     self.addressLabel.text = transaction.relatedAddress;
 }
@@ -96,7 +96,7 @@ static const CGFloat kTransactionCellHorizontalPadding = BTMWalletLayoutCommonPa
         UILabel *label = [[UILabel alloc] init];
         label.font = [UIFont systemFontOfSize:kTransactionCellConfirmedLabelFontSize];
         label.textAlignment = NSTextAlignmentCenter;
-        label.layer.cornerRadius = BTMWalletLayoutInnerSpace / 2.f;
+        label.layer.cornerRadius = BTCCLayoutInnerSpace / 2.f;
         label.layer.masksToBounds = YES;
         [self.contentView addSubview:label];
         _confirmedLabel = label;
@@ -126,13 +126,13 @@ static const CGFloat kTransactionCellHorizontalPadding = BTMWalletLayoutCommonPa
     iconFrame.origin.y = kTransactionCellVerticalPadding;
     self.iconView.frame = iconFrame;
     
-    CGFloat valueLeft = CGRectGetMaxX(iconFrame) + BTMWalletLayoutInnerSpace;
+    CGFloat valueLeft = CGRectGetMaxX(iconFrame) + BTCCLayoutInnerSpace;
     CGFloat valueWidth = CGRectGetWidth(self.contentView.frame) - valueLeft - kTransactionCellHorizontalPadding;
     CGRect valueFrame = CGRectMake(valueLeft, 0, valueWidth, kTransactionCellAddressLabelHeight);
     self.valueLabel.frame = valueFrame;
     self.valueLabel.center = CGPointMake(CGRectGetMidX(valueFrame), CGRectGetMidY(iconFrame));
     
-    CGFloat subLabelLeftRightPadding = BTMWalletLayoutInnerSpace;
+    CGFloat subLabelLeftRightPadding = BTCCLayoutInnerSpace;
     
     CGFloat confirmedTop = CGRectGetHeight(self.contentView.frame) - kTransactionCellVerticalPadding - kTransactionCellConfirmedLabelHeight;
     CGFloat confirmedWidth = [self.confirmedLabel.text sizeWithFont:self.confirmedLabel.font maxSize:CGSizeMake(valueWidth / 2.f - kTransactionCellHorizontalPadding - subLabelLeftRightPadding, kTransactionCellConfirmedLabelHeight)].width + subLabelLeftRightPadding;

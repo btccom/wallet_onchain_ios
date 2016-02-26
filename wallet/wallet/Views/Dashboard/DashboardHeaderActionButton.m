@@ -14,7 +14,7 @@
     if (self) {
         [self setImage:image forState:UIControlStateNormal];
         [self setTitle:title.uppercaseString forState:UIControlStateNormal];
-        [self setTitleColor:[UIColor walletWhiteColor] forState:UIControlStateNormal];
+        [self setTitleColor:[UIColor BTCCWhiteColor] forState:UIControlStateNormal];
         self.titleLabel.font = [UIFont systemFontOfSize:18.f weight:UIFontWeightLight];
     }
     return self;

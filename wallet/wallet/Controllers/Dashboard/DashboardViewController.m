@@ -36,7 +36,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    self.title = NSLocalizedStringFromTable(@"Navigation Dashboard", @"BTMWallet", @"Dashboard");
+    self.title = NSLocalizedStringFromTable(@"Navigation Dashboard", @"BTCC", @"Dashboard");
     
     // set navigation buttons
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"navigation_drawer"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleProfile:)];
@@ -62,9 +62,9 @@
     [super viewWillAppear:animated];
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
-    [self.navigationController.navigationBar setTintColor:[UIColor walletWhiteColor]];
+    [self.navigationController.navigationBar setTintColor:[UIColor BTCCWhiteColor]];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"bar_tint_primary"] forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor walletWhiteColor]}];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor BTCCWhiteColor]}];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -126,7 +126,7 @@
 
 #pragma mark UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return BTMWalletCellHeightTransaction;
+    return BTCCCellHeightTransaction;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

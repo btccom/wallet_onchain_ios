@@ -21,9 +21,9 @@ NSString *const BaseTableViewCellTransactionIdentifier = @"cell.transaction";
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
     
-    [self.navigationController.navigationBar setTintColor:[UIColor walletPrimaryColor]];
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor walletBlackColor]}];
-    self.view.backgroundColor = [UIColor walletBackgroundColor];
+    [self.navigationController.navigationBar setTintColor:[UIColor BTCCPrimaryColor]];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor BTCCBlackColor]}];
+    self.view.backgroundColor = [UIColor BTCCBackgroundColor];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"bar_tint_white"] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
     
@@ -55,7 +55,7 @@ NSString *const BaseTableViewCellTransactionIdentifier = @"cell.transaction";
 
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return BTMWalletCellHeightDefault;
+    return BTCCCellHeightDefault;
 }
 
 /*

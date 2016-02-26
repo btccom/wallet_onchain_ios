@@ -18,7 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor walletBackgroundColor];
+    self.view.backgroundColor = [UIColor BTCCBackgroundColor];
     [self setViewControllers:@[[[CameraViewController alloc] init]]];
 }
 

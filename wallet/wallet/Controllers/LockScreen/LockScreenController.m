@@ -35,7 +35,7 @@
         }
     }
     
-    self.view.backgroundColor = [UIColor walletBackgroundColor];
+    self.view.backgroundColor = [UIColor BTCCBackgroundColor];
     [self.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     [self.navigationBar setShadowImage:[UIImage new]];
 }

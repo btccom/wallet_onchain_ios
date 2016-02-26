@@ -24,17 +24,17 @@
     
     // create window and root view controller
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    self.window.backgroundColor = [UIColor walletBlackColor];
+    self.window.backgroundColor = [UIColor BTCCBlackColor];
     
     DashboardViewController *dashboardViewController = [[DashboardViewController alloc] init];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:dashboardViewController];
     self.window.rootViewController = navigationController;
     
     // ui color
-    [[UIButton appearance] setTitleColor:[UIColor walletPrimaryColor] forState:UIControlStateNormal];
-    [[UILabel appearance] setTextColor:[UIColor walletBlackColor]];
-    [[UITableView appearance] setSeparatorColor:[UIColor walletSeparatorColor]];
-    self.window.tintColor = [UIColor walletPrimaryColor];
+    [[UIButton appearance] setTitleColor:[UIColor BTCCPrimaryColor] forState:UIControlStateNormal];
+    [[UILabel appearance] setTextColor:[UIColor BTCCBlackColor]];
+    [[UITableView appearance] setSeparatorColor:[UIColor BTCCSeparatorColor]];
+    self.window.tintColor = [UIColor BTCCPrimaryColor];
     
     // show
     [self.window makeKeyAndVisible];

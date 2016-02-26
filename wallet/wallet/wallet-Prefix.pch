@@ -11,16 +11,16 @@
 
 // Include any system framework and library headers here that should be included in all compilation units.
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
-#import "UIColor+Wallet.h"
+#import "UIColor+BTCC.h"
 #import "NSString+Helper.h"
 
-static const CGFloat BTMWalletCellHeightDefault = 48.f;
-static const CGFloat BTMWalletCellHeightTransaction = 76.f;
-static const CGFloat BTMWalletCellHeightAddress = 48.f;
-static const CGFloat BTMWalletCellHeightAddressWithMetadata = 76.f;
+static const CGFloat BTCCCellHeightDefault = 48.f;
+static const CGFloat BTCCCellHeightTransaction = 76.f;
+static const CGFloat BTCCCellHeightAddress = 48.f;
+static const CGFloat BTCCCellHeightAddressWithMetadata = 76.f;
 
-static const CGFloat BTMWalletLayoutCommonPadding = 16.f;
-static const CGFloat BTMWalletLayoutInnerSpace = 8.f;
+static const CGFloat BTCCLayoutCommonPadding = 16.f;
+static const CGFloat BTCCLayoutInnerSpace = 8.f;
 
 #ifdef DEBUG
 #define NSLog(...) NSLog(__VA_ARGS__)
