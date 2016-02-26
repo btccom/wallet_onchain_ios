@@ -17,7 +17,7 @@ static const CGFloat kTransactionCellConfirmedLabelHeight = 16.f;
 static const CGFloat kTransactionCellAddressLabelFontSize = 14.f;
 static const CGFloat kTransactionCellAddressLabelHeight = 16.f;
 
-static const CGFloat kTransactionCellVerticalPadding = 14.f;
+static const CGFloat kTransactionCellVerticalPadding = BTMWalletLayoutCommonPadding;
 static const CGFloat kTransactionCellHorizontalPadding = BTMWalletLayoutCommonPadding;
 
 @interface TransactionCell ()

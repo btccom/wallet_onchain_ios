@@ -15,7 +15,7 @@
         [self setImage:image forState:UIControlStateNormal];
         [self setTitle:title.uppercaseString forState:UIControlStateNormal];
         [self setTitleColor:[UIColor walletWhiteColor] forState:UIControlStateNormal];
-        self.titleLabel.font = [UIFont systemFontOfSize:16.f];
+        self.titleLabel.font = [UIFont systemFontOfSize:18.f weight:UIFontWeightLight];
     }
     return self;
 }

@@ -33,6 +33,7 @@
     // ui color
     [[UIButton appearance] setTitleColor:[UIColor walletPrimaryColor] forState:UIControlStateNormal];
     [[UILabel appearance] setTextColor:[UIColor walletBlackColor]];
+    [[UITableView appearance] setSeparatorColor:[UIColor walletSeparatorColor]];
     self.window.tintColor = [UIColor walletPrimaryColor];
     
     // show
@@ -74,7 +75,7 @@
 - (void)lockScreen {
     if (!_lockScreenWindow) {
         _lockScreenWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-//        _lockScreenWindow.windowLevel = UIWindowLevelNormal;
+        _lockScreenWindow.windowLevel = UIWindowLevelAlert;
     }
     
     LockScreenController *lockScreenController = [[LockScreenController alloc] init];

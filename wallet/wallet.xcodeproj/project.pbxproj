@@ -26,6 +26,8 @@
 		2C31F7841C7FE97200C9228C /* TransactionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F7831C7FE97200C9228C /* TransactionCell.m */; };
 		2C31F7861C80286500C9228C /* BTMWallet.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2C31F7851C80286500C9228C /* BTMWallet.strings */; };
 		2C31F7891C80414400C9228C /* NSString+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F7881C80414400C9228C /* NSString+Helper.m */; };
+		2C31F78C1C80753F00C9228C /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F78B1C80753F00C9228C /* CameraViewController.m */; };
+		2C6961C71C80766A00E40740 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6961C61C80766A00E40740 /* BaseViewController.m */; };
 		2C9FDEB31C7D52200026AFA5 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDEB21C7D52200026AFA5 /* SettingsViewController.m */; };
 		2C9FDEB61C7D52710026AFA5 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDEB51C7D52710026AFA5 /* ProfileViewController.m */; };
 		2C9FDED51C7D554E0026AFA5 /* Account.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDEC91C7D554E0026AFA5 /* Account.m */; };
@@ -85,6 +87,10 @@
 		2C31F7851C80286500C9228C /* BTMWallet.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = BTMWallet.strings; sourceTree = "<group>"; };
 		2C31F7871C80414400C9228C /* NSString+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Helper.h"; sourceTree = "<group>"; };
 		2C31F7881C80414400C9228C /* NSString+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Helper.m"; sourceTree = "<group>"; };
+		2C31F78A1C80753F00C9228C /* CameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraViewController.h; sourceTree = "<group>"; };
+		2C31F78B1C80753F00C9228C /* CameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraViewController.m; sourceTree = "<group>"; };
+		2C6961C51C80766A00E40740 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
+		2C6961C61C80766A00E40740 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		2C9FDEB11C7D52200026AFA5 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		2C9FDEB21C7D52200026AFA5 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		2C9FDEB41C7D52710026AFA5 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
@@ -152,6 +158,8 @@
 			children = (
 				2C31F7511C7E83B300C9228C /* ImagePickerController.h */,
 				2C31F7521C7E83B300C9228C /* ImagePickerController.m */,
+				2C31F78A1C80753F00C9228C /* CameraViewController.h */,
+				2C31F78B1C80753F00C9228C /* CameraViewController.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -168,6 +176,8 @@
 		2C31F7611C7E86F000C9228C /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				2C6961C51C80766A00E40740 /* BaseViewController.h */,
+				2C6961C61C80766A00E40740 /* BaseViewController.m */,
 				2C31F7621C7E871A00C9228C /* BaseTableViewController.h */,
 				2C31F7631C7E871A00C9228C /* BaseTableViewController.m */,
 				2C31F7651C7E872B00C9228C /* BaseFormViewController.h */,
@@ -484,7 +494,9 @@
 				2C9FDED61C7D554E0026AFA5 /* Address.m in Sources */,
 				2C31F7671C7E872B00C9228C /* BaseFormViewController.m in Sources */,
 				2C31F74C1C7E813600C9228C /* LockScreenController.m in Sources */,
+				2C6961C71C80766A00E40740 /* BaseViewController.m in Sources */,
 				2C9FDEDF1C7D566F0026AFA5 /* SessionManager.m in Sources */,
+				2C31F78C1C80753F00C9228C /* CameraViewController.m in Sources */,
 				2CC4845F1C71A2EE0033D700 /* main.m in Sources */,
 				2C31F74F1C7E813600C9228C /* InitialWalletSettingViewController.m in Sources */,
 				2C31F74D1C7E813600C9228C /* CreateOrRecoverViewController.m in Sources */,

@@ -15,9 +15,9 @@
 #import "NSString+Helper.h"
 
 static const CGFloat BTMWalletCellHeightDefault = 48.f;
-static const CGFloat BTMWalletCellHeightTransaction = 72.f;
+static const CGFloat BTMWalletCellHeightTransaction = 76.f;
 static const CGFloat BTMWalletCellHeightAddress = 48.f;
-static const CGFloat BTMWalletCellHeightAddressWithMetadata = 72.f;
+static const CGFloat BTMWalletCellHeightAddressWithMetadata = 76.f;
 
 static const CGFloat BTMWalletLayoutCommonPadding = 16.f;
 static const CGFloat BTMWalletLayoutInnerSpace = 8.f;

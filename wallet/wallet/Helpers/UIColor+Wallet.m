@@ -26,7 +26,7 @@
     return [self colorWithWhite:239.f/255.f alpha:1.f];
 }
 + (instancetype)walletExtraLightGrayColor {
-    return [self colorWithWhite:245.f/255.f alpha:1.f];
+    return [self colorWithWhite:240.f/255.f alpha:1.f];
 }
 
 /// white
