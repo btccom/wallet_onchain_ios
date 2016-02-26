@@ -11,6 +11,7 @@
 #import "AddressListViewController.h"// explorer or receive
 #import "ImagePickerController.h"// scan to explorer or send
 #import "TransactionListViewController.h"// list all transactions
+#import "TransactionViewController.h" // transaction detail
 #import "SendRecipientViewController.h"// send
 
 #import "DashboardHeaderView.h"
@@ -126,6 +127,12 @@
 #pragma mark UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return BTMWalletCellHeightTransaction;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    Transaction *transaction = [self.transactions objectAtIndex:indexPath.row];
+    TransactionViewController *transactionViewController = [[TransactionViewController alloc] initWithTransaction:transaction];
+    [self.navigationController pushViewController:transactionViewController animated:YES];
 }
 
 @end
