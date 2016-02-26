@@ -16,8 +16,4 @@
                               context:nil].size;
 }
 
-- (NSString *)ellipsisStringWithFont:(UIFont *)font maxSize:(CGSize)maxSize {
-    return self;
-}
-
 @end

@@ -10,7 +10,6 @@
 
 @interface NSString (Helper)
 
-- (CGSize)sizeWithFont:(UIFont *)font maxSize:(CGSize)maxSize;
-- (NSString *)ellipsisStringWithFont:(UIFont *)font maxSize:(CGSize)maxSize;
+- (CGSize)sizeWithFont:(nonnull UIFont *)font maxSize:(CGSize)maxSize;
 
 @end

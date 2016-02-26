@@ -12,6 +12,7 @@
 
 @end
 
+NSString *const BaseTableViewCellDefaultIdentifier = @"cell.default";
 NSString *const BaseTableViewCellTransactionIdentifier = @"cell.transaction";
 
 @implementation BaseTableViewController
@@ -27,6 +28,7 @@ NSString *const BaseTableViewCellTransactionIdentifier = @"cell.transaction";
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"bar_tint_white"] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
     
+    [self.tableView registerClass:[DefaultCell class] forCellReuseIdentifier:BaseTableViewCellDefaultIdentifier];
     [self.tableView registerClass:[TransactionCell class] forCellReuseIdentifier:BaseTableViewCellTransactionIdentifier];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;

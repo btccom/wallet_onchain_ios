@@ -9,6 +9,7 @@
 "Navigation CreateOrRecover" = "Welcome";
 "Navigation MasterPassword" = "Master Password";
 "Navigation Dashboard" = "Wallet";
+"Navigation Profile" = "Profile";
 "Navigation Recipient" = "Recipient";
 "Navigation Transaction" = "Transaction";
 
@@ -18,3 +19,10 @@
 
 "%d confirmed" = "%d confirmed";
 "Unconfirmed" = "Unconfirmed";
+
+// Profile
+"Profile Section Accounts" = "Accounts";
+"Profile Cell Settings" = "Settings";
+"Profile Section Backup" = "Backup";
+"Profile Cell Export" = "Export";
+"Profile Cell Sync" = "Sync";

@@ -12,11 +12,11 @@
 
 @interface TransactionCell : UITableViewCell
 
-@property (nonatomic, strong, nonnull) Transaction *transaction;
+@property (nonatomic, strong) Transaction * _Nonnull transaction;
 
-@property (nonatomic, weak, readonly, nullable) UIImageView *iconView;
-@property (nonatomic, weak, readonly, nullable) UILabel *addressLabel;
-@property (nonatomic, weak, readonly, nullable) UILabel *confirmedLabel;
-@property (nonatomic, weak, readonly, nullable) UILabel *valueLabel;
+@property (nonatomic, weak, readonly) UIImageView * _Nullable iconView;
+@property (nonatomic, weak, readonly) UILabel * _Nullable addressLabel;
+@property (nonatomic, weak, readonly) UILabel * _Nullable confirmedLabel;
+@property (nonatomic, weak, readonly) UILabel * _Nullable valueLabel;
 
 @end

@@ -22,13 +22,13 @@ static const CGFloat kTransactionCellHorizontalPadding = BTCCLayoutCommonPadding
 
 @interface TransactionCell ()
 
-@property (nonatomic, weak, readwrite, nullable) UIImageView *iconView;
-@property (nonatomic, weak, readwrite, nullable) UILabel *addressLabel;
-@property (nonatomic, weak, readwrite, nullable) UILabel *confirmedLabel;
-@property (nonatomic, weak, readwrite, nullable) UILabel *valueLabel;
+@property (nonatomic, weak, readwrite) UIImageView * _Nullable iconView;
+@property (nonatomic, weak, readwrite) UILabel * _Nullable addressLabel;
+@property (nonatomic, weak, readwrite) UILabel * _Nullable confirmedLabel;
+@property (nonatomic, weak, readwrite) UILabel * _Nullable valueLabel;
 
-@property (nonatomic, strong, readonly, nonnull) UIColor *increasingColor;
-@property (nonatomic, strong, readonly, nonnull) UIColor *decreasingColor;
+@property (nonatomic, strong, readonly) UIColor * _Nonnull increasingColor;
+@property (nonatomic, strong, readonly) UIColor * _Nonnull decreasingColor;
 
 @end
 
@@ -107,7 +107,7 @@ static const CGFloat kTransactionCellHorizontalPadding = BTCCLayoutCommonPadding
 - (UILabel *)valueLabel {
     if (!_valueLabel) {
         UILabel *label = [[UILabel alloc] init];
-        label.font = [UIFont systemFontOfSize:kTransactionCellValueLabelFontSize weight:UIFontWeightMedium];
+        label.font = [UIFont systemFontOfSize:kTransactionCellValueLabelFontSize];
         [self.contentView addSubview:label];
         _valueLabel = label;
     }

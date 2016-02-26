@@ -7,12 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DefaultCell.h"
 #import "TransactionCell.h"
 
+extern NSString * _Nonnull const BaseTableViewCellDefaultIdentifier;
 extern NSString * _Nonnull const BaseTableViewCellTransactionIdentifier;
 
 @interface BaseTableViewController : UITableViewController
 
-- (void)dismiss:(id _Nullable)sender;
+- (void)dismiss:(nullable id)sender;
 
 @end

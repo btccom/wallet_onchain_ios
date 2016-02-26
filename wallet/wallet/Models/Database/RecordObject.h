@@ -10,7 +10,7 @@
 
 @interface RecordObject : NSObject
 
-@property (nonatomic, strong, readonly, nonnull) NSDate *createdDate;
-@property (nonatomic, strong, nonnull) NSDate *updatedDate;
+@property (nonatomic, strong, readonly) NSDate * _Nonnull createdDate;
+@property (nonatomic, strong) NSDate * _Nonnull updatedDate;
 
 @end

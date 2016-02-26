@@ -13,7 +13,7 @@
 @protocol ProfileViewControllerDelegate <NSObject>
 
 @optional
-- (void)profileViewController:(ProfileViewController *)viewController didSelectAccount:(Account *)account;
+- (void)profileViewController:(nonnull ProfileViewController *)viewController didSelectAccount:(nonnull Account *)account;
 
 @end
 

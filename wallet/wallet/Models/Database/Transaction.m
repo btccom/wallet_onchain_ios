@@ -17,7 +17,7 @@
         self.type = random() % 2;
         self.relatedAddress = @"1SD1ciWyeDNf26YoAUjSsifQZK1ShFJ2s";
         self.confirmed = random() % 10;
-        self.value = random() % 1000000000;
+        self.value = random() % 10000000000;
     }
     return self;
 }
