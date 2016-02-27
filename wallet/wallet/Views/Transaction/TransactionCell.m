@@ -10,6 +10,8 @@
 
 #import "Transaction.h"
 
+static const CGFloat kTransactionCellDateLabelFontSize = 10.f;
+static const CGFloat kTransactionCellDateLabelHeight = 16.f;
 static const CGFloat kTransactionCellValueLabelFontSize = 16.f;
 static const CGFloat kTransactionCellValueLabelHeight = 20.f;
 static const CGFloat kTransactionCellConfirmedLabelFontSize = 10.f;
@@ -23,6 +25,7 @@ static const CGFloat kTransactionCellHorizontalPadding = BTCCLayoutCommonPadding
 @interface TransactionCell ()
 
 @property (nonatomic, weak, readwrite) UIImageView * _Nullable iconView;
+@property (nonatomic, weak, readwrite) UILabel * _Nullable dateLabel;
 @property (nonatomic, weak, readwrite) UILabel * _Nullable addressLabel;
 @property (nonatomic, weak, readwrite) UILabel * _Nullable confirmedLabel;
 @property (nonatomic, weak, readwrite) UILabel * _Nullable valueLabel;
@@ -56,6 +59,7 @@ static const CGFloat kTransactionCellHorizontalPadding = BTCCLayoutCommonPadding
         self.iconView.tintColor = self.increasingColor;
         [self.iconView setImage:[[UIImage imageNamed:@"icon_receive_mini"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
     }
+    self.dateLabel.text = @"12:00";
     self.valueLabel.text = [NSString stringWithFormat:@"%.8lf", ABS(transaction.value) / 100000000.0];
     self.valueLabel.textColor = self.iconView.tintColor;
     if (transaction.confirmed > 0) {
@@ -113,6 +117,17 @@ static const CGFloat kTransactionCellHorizontalPadding = BTCCLayoutCommonPadding
     return _valueLabel;
 }
 
+- (UILabel *)dateLabel {
+    if (!_dateLabel) {
+        UILabel *label = [[UILabel alloc] init];
+        label.font = [UIFont systemFontOfSize:kTransactionCellDateLabelFontSize];
+        label.textColor = [UIColor BTCCMutedTextColor];
+        [self.contentView addSubview:label];
+        _dateLabel = label;
+    }
+    return _dateLabel;
+}
+
 #pragma mark - Initialization
 
 - (void)layoutSubviews {
@@ -125,10 +140,20 @@ static const CGFloat kTransactionCellHorizontalPadding = BTCCLayoutCommonPadding
     iconFrame.origin.y = kTransactionCellVerticalPadding;
     self.iconView.frame = iconFrame;
     
+    // label area
+    CGFloat labelAreaLeft = CGRectGetMaxX(iconFrame) + BTCCLayoutInnerSpace;
+    CGFloat labelAreaWidth = CGRectGetWidth(self.contentView.frame) - labelAreaLeft - kTransactionCellHorizontalPadding;
+    
+    // date
+    CGFloat dateWidth = [self.dateLabel.text sizeWithFont:self.dateLabel.font maxSize:CGSizeMake(labelAreaWidth / 2.f - kTransactionCellHorizontalPadding, kTransactionCellDateLabelHeight)].width;
+    CGFloat dateLeft = labelAreaLeft + labelAreaWidth - dateWidth;
+    CGRect dateFrame = CGRectMake(dateLeft, 0, dateWidth, kTransactionCellDateLabelHeight);
+    self.dateLabel.frame = dateFrame;
+    self.dateLabel.center = CGPointMake(CGRectGetMidX(dateFrame), CGRectGetMidY(iconFrame));
+    
     // value
-    CGFloat valueLeft = CGRectGetMaxX(iconFrame) + BTCCLayoutInnerSpace;
-    CGFloat valueWidth = CGRectGetWidth(self.contentView.frame) - valueLeft - kTransactionCellHorizontalPadding;
-    CGRect valueFrame = CGRectMake(valueLeft, 0, valueWidth, kTransactionCellAddressLabelHeight);
+    CGFloat valueWidth = labelAreaWidth - dateWidth - kTransactionCellHorizontalPadding; // - date with - 间隔
+    CGRect valueFrame = CGRectMake(labelAreaLeft, 0, valueWidth, kTransactionCellAddressLabelHeight);
     self.valueLabel.frame = valueFrame;
     self.valueLabel.center = CGPointMake(CGRectGetMidX(valueFrame), CGRectGetMidY(iconFrame));
     
@@ -136,13 +161,13 @@ static const CGFloat kTransactionCellHorizontalPadding = BTCCLayoutCommonPadding
     
     // confirm
     CGFloat confirmedTop = CGRectGetHeight(self.contentView.frame) - kTransactionCellVerticalPadding - kTransactionCellConfirmedLabelHeight;
-    CGFloat confirmedWidth = [self.confirmedLabel.text sizeWithFont:self.confirmedLabel.font maxSize:CGSizeMake(valueWidth / 2.f - kTransactionCellHorizontalPadding - subLabelLeftRightPadding, kTransactionCellConfirmedLabelHeight)].width + subLabelLeftRightPadding;
-    CGRect confirmedFrame = CGRectMake(valueLeft, confirmedTop, confirmedWidth, kTransactionCellConfirmedLabelHeight);
+    CGFloat confirmedWidth = [self.confirmedLabel.text sizeWithFont:self.confirmedLabel.font maxSize:CGSizeMake(labelAreaWidth / 2.f - kTransactionCellHorizontalPadding - subLabelLeftRightPadding, kTransactionCellConfirmedLabelHeight)].width + subLabelLeftRightPadding; // subLabelLeftRightPadding: 预留内部填充
+    CGRect confirmedFrame = CGRectMake(labelAreaLeft, confirmedTop, confirmedWidth, kTransactionCellConfirmedLabelHeight);
     self.confirmedLabel.frame = confirmedFrame;
     
     // address
-    CGFloat addressWidth = CGRectGetWidth(valueFrame) - confirmedWidth - kTransactionCellHorizontalPadding;
-    CGRect addressFrame = CGRectMake(CGRectGetMaxX(valueFrame) - addressWidth, 0, addressWidth, kTransactionCellValueLabelHeight);
+    CGFloat addressWidth = labelAreaWidth - confirmedWidth - kTransactionCellHorizontalPadding;
+    CGRect addressFrame = CGRectMake(CGRectGetMaxX(confirmedFrame) + kTransactionCellHorizontalPadding, 0, addressWidth, kTransactionCellValueLabelHeight);
     self.addressLabel.frame = addressFrame;
     self.addressLabel.center = CGPointMake(CGRectGetMidX(addressFrame), CGRectGetMidY(confirmedFrame));
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:self.addressLabel.text];

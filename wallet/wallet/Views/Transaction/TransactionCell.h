@@ -15,6 +15,7 @@
 @property (nonatomic, strong) Transaction * _Nonnull transaction;
 
 @property (nonatomic, weak, readonly) UIImageView * _Nullable iconView;
+@property (nonatomic, weak, readonly) UILabel * _Nullable dateLabel;
 @property (nonatomic, weak, readonly) UILabel * _Nullable addressLabel;
 @property (nonatomic, weak, readonly) UILabel * _Nullable confirmedLabel;
 @property (nonatomic, weak, readonly) UILabel * _Nullable valueLabel;
