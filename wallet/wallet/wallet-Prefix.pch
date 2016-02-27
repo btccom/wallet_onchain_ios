@@ -14,6 +14,10 @@
 #import "UIColor+BTCC.h"
 #import "NSString+Helper.h"
 
+static const NSTimeInterval BTCCAnimateDuration = 0.55;
+static const NSTimeInterval BTCCAnimateDurationFast = 0.2;
+static const NSTimeInterval BTCCAnimateDUrationSlow = 0.87;
+
 static const CGFloat BTCCCellHeightDefault = 48.f;
 static const CGFloat BTCCCellHeightTransaction = 76.f;
 static const CGFloat BTCCCellHeightAddress = 48.f;

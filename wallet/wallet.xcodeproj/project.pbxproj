@@ -18,7 +18,6 @@
 		2C31F7641C7E871A00C9228C /* BaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F7631C7E871A00C9228C /* BaseTableViewController.m */; };
 		2C31F7671C7E872B00C9228C /* BaseFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F7661C7E872B00C9228C /* BaseFormViewController.m */; };
 		2C31F76A1C7E873800C9228C /* BaseListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F7691C7E873800C9228C /* BaseListViewController.m */; };
-		2C31F76D1C7E876900C9228C /* SendRecipientViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F76C1C7E876900C9228C /* SendRecipientViewController.m */; };
 		2C31F7741C7ED60A00C9228C /* UIColor+BTCC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F7731C7ED60A00C9228C /* UIColor+BTCC.m */; };
 		2C31F77A1C7FD67D00C9228C /* DashboardHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F7791C7FD67D00C9228C /* DashboardHeaderView.m */; };
 		2C31F77D1C7FD9B000C9228C /* UIButton+VerticalLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F77C1C7FD9B000C9228C /* UIButton+VerticalLayout.m */; };
@@ -45,7 +44,6 @@
 		2CC4846D1C71A2EE0033D700 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CC4846B1C71A2EE0033D700 /* LaunchScreen.storyboard */; };
 		2CC4847F1C71A51A0033D700 /* DashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC4847E1C71A51A0033D700 /* DashboardViewController.m */; };
 		2CC484951C71A6ED0033D700 /* SendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC484941C71A6ED0033D700 /* SendViewController.m */; };
-		2CC484981C71A7000033D700 /* SendAdvancedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC484971C71A7000033D700 /* SendAdvancedViewController.m */; };
 		2CC484AB1C71A7690033D700 /* AddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC484A81C71A7690033D700 /* AddressViewController.m */; };
 		2CC484AD1C71CD6B0033D700 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2CC484AC1C71CD6B0033D700 /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
@@ -73,8 +71,6 @@
 		2C31F7661C7E872B00C9228C /* BaseFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseFormViewController.m; sourceTree = "<group>"; };
 		2C31F7681C7E873800C9228C /* BaseListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseListViewController.h; sourceTree = "<group>"; };
 		2C31F7691C7E873800C9228C /* BaseListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseListViewController.m; sourceTree = "<group>"; };
-		2C31F76B1C7E876900C9228C /* SendRecipientViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendRecipientViewController.h; sourceTree = "<group>"; };
-		2C31F76C1C7E876900C9228C /* SendRecipientViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendRecipientViewController.m; sourceTree = "<group>"; };
 		2C31F76F1C7ECBB700C9228C /* wallet-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "wallet-Prefix.pch"; sourceTree = "<group>"; };
 		2C31F7721C7ED60A00C9228C /* UIColor+BTCC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+BTCC.h"; sourceTree = "<group>"; };
 		2C31F7731C7ED60A00C9228C /* UIColor+BTCC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+BTCC.m"; sourceTree = "<group>"; };
@@ -126,8 +122,6 @@
 		2CC4847E1C71A51A0033D700 /* DashboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardViewController.m; sourceTree = "<group>"; };
 		2CC484931C71A6ED0033D700 /* SendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendViewController.h; sourceTree = "<group>"; };
 		2CC484941C71A6ED0033D700 /* SendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendViewController.m; sourceTree = "<group>"; };
-		2CC484961C71A7000033D700 /* SendAdvancedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendAdvancedViewController.h; sourceTree = "<group>"; };
-		2CC484971C71A7000033D700 /* SendAdvancedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendAdvancedViewController.m; sourceTree = "<group>"; };
 		2CC484A71C71A7690033D700 /* AddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressViewController.h; sourceTree = "<group>"; };
 		2CC484A81C71A7690033D700 /* AddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressViewController.m; sourceTree = "<group>"; };
 		2CC484AC1C71CD6B0033D700 /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
@@ -383,12 +377,8 @@
 		2CC4847A1C71A4D90033D700 /* Send */ = {
 			isa = PBXGroup;
 			children = (
-				2C31F76B1C7E876900C9228C /* SendRecipientViewController.h */,
-				2C31F76C1C7E876900C9228C /* SendRecipientViewController.m */,
 				2CC484931C71A6ED0033D700 /* SendViewController.h */,
 				2CC484941C71A6ED0033D700 /* SendViewController.m */,
-				2CC484961C71A7000033D700 /* SendAdvancedViewController.h */,
-				2CC484971C71A7000033D700 /* SendAdvancedViewController.m */,
 			);
 			path = Send;
 			sourceTree = "<group>";
@@ -478,7 +468,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2CC484981C71A7000033D700 /* SendAdvancedViewController.m in Sources */,
 				2CC484AB1C71A7690033D700 /* AddressViewController.m in Sources */,
 				2C31F75D1C7E84EE00C9228C /* ArchivedAdressListViewController.m in Sources */,
 				2C31F77D1C7FD9B000C9228C /* UIButton+VerticalLayout.m in Sources */,
@@ -490,7 +479,6 @@
 				2C31F7641C7E871A00C9228C /* BaseTableViewController.m in Sources */,
 				2C31F7801C7FE4EA00C9228C /* DashboardHeaderActionButton.m in Sources */,
 				2C87C1FE1C80865000612601 /* DefaultCell.m in Sources */,
-				2C31F76D1C7E876900C9228C /* SendRecipientViewController.m in Sources */,
 				2C9FDED71C7D554E0026AFA5 /* RecordObject.m in Sources */,
 				2C9FDEB31C7D52200026AFA5 /* SettingsViewController.m in Sources */,
 				2CC484621C71A2EE0033D700 /* AppDelegate.m in Sources */,

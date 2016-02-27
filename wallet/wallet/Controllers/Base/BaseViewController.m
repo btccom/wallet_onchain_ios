@@ -21,9 +21,11 @@
     
     [self.navigationController.navigationBar setTintColor:[UIColor BTCCPrimaryColor]];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor BTCCBlackColor]}];
-    self.view.backgroundColor = [UIColor BTCCBackgroundColor];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"bar_tint_white"] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
+    self.navigationController.view.backgroundColor = [UIColor BTCCBackgroundColor];
+    
+    self.view.backgroundColor = [UIColor BTCCBackgroundColor];
 }
 
 @end

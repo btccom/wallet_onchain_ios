@@ -10,7 +10,8 @@
 "Navigation MasterPassword" = "Master Password";
 "Navigation Dashboard" = "Wallet";
 "Navigation Profile" = "Profile";
-"Navigation Recipient" = "Recipient";
+"Navigation Send" = "Quickly Send";
+"Navigation AdvancedSend" = "Advanced Send";
 "Navigation Transaction" = "Transaction";
 
 "Button MasterPassword" = "Master Password";

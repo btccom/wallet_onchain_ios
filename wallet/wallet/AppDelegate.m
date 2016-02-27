@@ -87,7 +87,7 @@
 }
 /// unlock
 - (void)unlockScreen {
-    [UIView animateWithDuration:.3 animations:^{
+    [UIView animateWithDuration:BTCCAnimateDurationFast animations:^{
         self.lockScreenWindow.alpha = 0;
     } completion:^(BOOL finished) {
         [self.lockScreenWindow resignKeyWindow];

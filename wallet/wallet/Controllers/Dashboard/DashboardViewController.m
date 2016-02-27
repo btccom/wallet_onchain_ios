@@ -12,7 +12,7 @@
 #import "ImagePickerController.h"// scan to explorer or send
 #import "TransactionListViewController.h"// list all transactions
 #import "TransactionViewController.h" // transaction detail
-#import "SendRecipientViewController.h"// send
+#import "SendViewController.h"// send
 
 #import "DashboardHeaderView.h"
 
@@ -102,8 +102,8 @@
 
 /// push send
 - (void)p_handleSend:(id)sender {
-    SendRecipientViewController *sendRecipientViewController = [[SendRecipientViewController alloc] init];
-    [self.navigationController pushViewController:sendRecipientViewController animated:YES];
+    SendViewController *sendViewController = [[SendViewController alloc] init];
+    [self.navigationController pushViewController:sendViewController animated:YES];
 }
 
 /// push address list to receive
