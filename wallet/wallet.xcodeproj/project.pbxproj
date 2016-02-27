@@ -29,6 +29,7 @@
 		2C87C1F81C80780000612601 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C87C1F71C80780000612601 /* BaseViewController.m */; };
 		2C87C1FB1C80788B00612601 /* TransactionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C87C1FA1C80788B00612601 /* TransactionViewController.m */; };
 		2C87C1FE1C80865000612601 /* DefaultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C87C1FD1C80865000612601 /* DefaultCell.m */; };
+		2C87C2011C81404F00612601 /* RecipientViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C87C2001C81404F00612601 /* RecipientViewController.m */; };
 		2C9FDEB31C7D52200026AFA5 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDEB21C7D52200026AFA5 /* SettingsViewController.m */; };
 		2C9FDEB61C7D52710026AFA5 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDEB51C7D52710026AFA5 /* ProfileViewController.m */; };
 		2C9FDED51C7D554E0026AFA5 /* Account.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDEC91C7D554E0026AFA5 /* Account.m */; };
@@ -93,6 +94,8 @@
 		2C87C1FA1C80788B00612601 /* TransactionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionViewController.m; sourceTree = "<group>"; };
 		2C87C1FC1C80865000612601 /* DefaultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultCell.h; sourceTree = "<group>"; };
 		2C87C1FD1C80865000612601 /* DefaultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultCell.m; sourceTree = "<group>"; };
+		2C87C1FF1C81404F00612601 /* RecipientViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecipientViewController.h; sourceTree = "<group>"; };
+		2C87C2001C81404F00612601 /* RecipientViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipientViewController.m; sourceTree = "<group>"; };
 		2C9FDEB11C7D52200026AFA5 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		2C9FDEB21C7D52200026AFA5 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		2C9FDEB41C7D52710026AFA5 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
@@ -379,6 +382,8 @@
 			children = (
 				2CC484931C71A6ED0033D700 /* SendViewController.h */,
 				2CC484941C71A6ED0033D700 /* SendViewController.m */,
+				2C87C1FF1C81404F00612601 /* RecipientViewController.h */,
+				2C87C2001C81404F00612601 /* RecipientViewController.m */,
 			);
 			path = Send;
 			sourceTree = "<group>";
@@ -490,6 +495,7 @@
 				2C9FDED81C7D554E0026AFA5 /* Recipient.m in Sources */,
 				2C9FDEDC1C7D55660026AFA5 /* SystemManager.m in Sources */,
 				2C31F74E1C7E813600C9228C /* MasterPasswordViewController.m in Sources */,
+				2C87C2011C81404F00612601 /* RecipientViewController.m in Sources */,
 				2C9FDED61C7D554E0026AFA5 /* Address.m in Sources */,
 				2C31F7671C7E872B00C9228C /* BaseFormViewController.m in Sources */,
 				2C31F74C1C7E813600C9228C /* LockScreenController.m in Sources */,
