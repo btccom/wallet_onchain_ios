@@ -7,7 +7,15 @@
 //
 
 #import "RecordObject.h"
-/// <code>BIP32 m/i</code>,  i to specify account as wallet
+/// <code><b>BIP32</b> m/idx</code>, <code>idx</code> to specify account as wallet
+///
+/// <code>idx < 0</code> means watched account
 @interface Account : RecordObject
+
+/// idx < 0 means watched account
+@property (nonatomic, assign) NSInteger idx;
+@property (nonatomic, copy) NSString * _Nullable label;
+
++ (nonnull instancetype)watchedAccount;
 
 @end

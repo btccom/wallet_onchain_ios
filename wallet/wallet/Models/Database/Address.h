@@ -10,7 +10,12 @@
 
 @interface Address : RecordObject
 
-/// 仅用来观察，不持有私钥，用户有默认的 watched account 来管理该类型地址
-@property (nonatomic, assign, getter=isWatched) BOOL watched;
+/// idx < 0 means watched address
+@property (nonatomic, assign) NSInteger idx;
+@property (nonatomic, copy) NSString * _Nonnull address;
+@property (nonatomic, copy) NSString * _Nullable label;
+/// 是否已经使用过
+@property (nonatomic, assign, getter=isDirty) BOOL dirty;
+@property (nonatomic, assign) long long balance;
 
 @end

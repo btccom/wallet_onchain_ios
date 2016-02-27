@@ -10,20 +10,20 @@
 
 @implementation Transaction
 
-/// fake data
+/// init fake data
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.type = random() % 2;
-        self.relatedAddress = @"1SD1ciWyeDNf26YoAUjSsifQZK1ShFJ2s";
-        self.confirmed = random() % 10;
-        self.value = random() % 10000000000;
+        _type = random() % 2;
+        _relatedAddress = @"1SD1ciWyeDNf26YoAUjSsifQZK1ShFJ2s";
+        _confirmed = random() % 10;
+        _value = random() % 10000000000;
     }
     return self;
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"transaction: %@, %lld satoshi, %ld confirmed", self.relatedAddress, self.value, self.confirmed];
+    return [NSString stringWithFormat:@"transaction, related address %@, %lld satoshi, %ld confirmed", self.relatedAddress, self.value, self.confirmed];
 }
 
 @end

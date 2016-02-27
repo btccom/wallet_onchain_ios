@@ -10,4 +10,19 @@
 
 @implementation Address
 
+/// init fake data
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _address = [NSString stringWithFormat:@"1FakeAddress%ld", random()%100000000000];
+        _label = [NSString stringWithFormat:@"Label %ld", random()%10];
+        _balance = random()%10000000000;
+    }
+    return self;
+}
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"address %@: %@, %lld satoshi", self.label, self.address, self.balance];
+}
+
 @end

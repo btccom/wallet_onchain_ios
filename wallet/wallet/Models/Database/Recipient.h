@@ -10,4 +10,7 @@
 
 @interface Recipient : RecordObject
 
+@property (nonatomic, copy) NSString * _Nonnull address;
+@property (nonatomic, copy) NSString * _Nullable label;
+
 @end

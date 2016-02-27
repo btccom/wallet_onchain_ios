@@ -10,4 +10,13 @@
 
 @implementation RecordObject
 
+/// init fake data
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _updatedDate = _createdDate = [NSDate date];
+    }
+    return self;
+}
+
 @end
