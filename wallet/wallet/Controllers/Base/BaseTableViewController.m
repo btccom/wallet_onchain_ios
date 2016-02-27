@@ -39,11 +39,6 @@ NSString *const BaseTableViewCellTransactionIdentifier = @"cell.transaction";
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 #pragma mark - Public Method
 - (void)dismiss:(id)sender {
     if (self.presentingViewController) {
