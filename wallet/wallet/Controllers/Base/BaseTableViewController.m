@@ -8,6 +8,8 @@
 
 #import "BaseTableViewController.h"
 
+#import "UIViewController+Appearance.h"
+
 @interface BaseTableViewController ()
 
 @end
@@ -20,15 +22,7 @@ NSString *const BaseTableViewCellTransactionIdentifier = @"cell.transaction";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
-    
-    [self.navigationController.navigationBar setTintColor:[UIColor BTCCPrimaryColor]];
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor BTCCBlackColor]}];
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"bar_tint_white"] forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
-    self.navigationController.view.backgroundColor = [UIColor BTCCBackgroundColor];
-    
-    self.view.backgroundColor = [UIColor BTCCBackgroundColor];
+    [self setupAppearance];
     
     [self.tableView registerClass:[DefaultCell class] forCellReuseIdentifier:BaseTableViewCellDefaultIdentifier];
     [self.tableView registerClass:[TransactionCell class] forCellReuseIdentifier:BaseTableViewCellTransactionIdentifier];

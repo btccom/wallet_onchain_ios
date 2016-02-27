@@ -30,6 +30,7 @@
 		2C87C1FB1C80788B00612601 /* TransactionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C87C1FA1C80788B00612601 /* TransactionViewController.m */; };
 		2C87C1FE1C80865000612601 /* DefaultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C87C1FD1C80865000612601 /* DefaultCell.m */; };
 		2C87C2011C81404F00612601 /* RecipientViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C87C2001C81404F00612601 /* RecipientViewController.m */; };
+		2C87C2071C8149C800612601 /* UIViewController+Appearance.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C87C2061C8149C800612601 /* UIViewController+Appearance.m */; };
 		2C9FDEB31C7D52200026AFA5 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDEB21C7D52200026AFA5 /* SettingsViewController.m */; };
 		2C9FDEB61C7D52710026AFA5 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDEB51C7D52710026AFA5 /* ProfileViewController.m */; };
 		2C9FDED51C7D554E0026AFA5 /* Account.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDEC91C7D554E0026AFA5 /* Account.m */; };
@@ -96,6 +97,8 @@
 		2C87C1FD1C80865000612601 /* DefaultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultCell.m; sourceTree = "<group>"; };
 		2C87C1FF1C81404F00612601 /* RecipientViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecipientViewController.h; sourceTree = "<group>"; };
 		2C87C2001C81404F00612601 /* RecipientViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipientViewController.m; sourceTree = "<group>"; };
+		2C87C2051C8149C800612601 /* UIViewController+Appearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Appearance.h"; sourceTree = "<group>"; };
+		2C87C2061C8149C800612601 /* UIViewController+Appearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Appearance.m"; sourceTree = "<group>"; };
 		2C9FDEB11C7D52200026AFA5 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		2C9FDEB21C7D52200026AFA5 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		2C9FDEB41C7D52710026AFA5 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
@@ -202,6 +205,8 @@
 				2C31F7731C7ED60A00C9228C /* UIColor+BTCC.m */,
 				2C31F7871C80414400C9228C /* NSString+Helper.h */,
 				2C31F7881C80414400C9228C /* NSString+Helper.m */,
+				2C87C2051C8149C800612601 /* UIViewController+Appearance.h */,
+				2C87C2061C8149C800612601 /* UIViewController+Appearance.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -473,6 +478,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C87C2071C8149C800612601 /* UIViewController+Appearance.m in Sources */,
 				2CC484AB1C71A7690033D700 /* AddressViewController.m in Sources */,
 				2C31F75D1C7E84EE00C9228C /* ArchivedAdressListViewController.m in Sources */,
 				2C31F77D1C7FD9B000C9228C /* UIButton+VerticalLayout.m in Sources */,

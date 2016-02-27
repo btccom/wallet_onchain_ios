@@ -8,6 +8,8 @@
 
 #import "BaseViewController.h"
 
+#import "UIViewController+Appearance.h"
+
 @interface BaseViewController ()
 
 @end
@@ -17,15 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
-    
-    [self.navigationController.navigationBar setTintColor:[UIColor BTCCPrimaryColor]];
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor BTCCBlackColor]}];
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"bar_tint_white"] forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
-    self.navigationController.view.backgroundColor = [UIColor BTCCBackgroundColor];
-    
-    self.view.backgroundColor = [UIColor BTCCBackgroundColor];
+    [self setupAppearance];
 }
 
 @end

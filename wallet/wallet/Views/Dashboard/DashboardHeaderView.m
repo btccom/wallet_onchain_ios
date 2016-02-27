@@ -22,17 +22,10 @@
 
 @implementation DashboardHeaderView
 
-- (instancetype)initWithFrame:(CGRect)frame {
-    self = [super initWithFrame:frame];
-    if (self) {
-        self.backgroundColor = [UIColor BTCCPrimaryColor];
-    }
-    return self;
-}
-
 - (UIButton *)sendButton {
     if (!_sendButton) {
-        UIButton *button = [[DashboardHeaderActionButton alloc] initWithImage:[UIImage imageNamed:@"dashboard_send"] title:NSLocalizedStringFromTable(@"Button Send", @"BTCC", @"Send")];
+        UIButton *button = [[DashboardHeaderActionButton alloc] initWithImage:[UIImage imageNamed:@"icon_send"] title:NSLocalizedStringFromTable(@"Button Send", @"BTCC", @"Send")];
+        [button setTitleColor:[UIColor BTCCRedColor] forState:UIControlStateNormal];
         [self addSubview:button];
         _sendButton = button;
     }
@@ -42,7 +35,8 @@
 
 - (UIButton *)receiveButton {
     if (!_receiveButton) {
-        UIButton *button = [[DashboardHeaderActionButton alloc] initWithImage:[UIImage imageNamed:@"dashboard_receive"] title:NSLocalizedStringFromTable(@"Button Receive", @"BTCC", @"Receive")];
+        UIButton *button = [[DashboardHeaderActionButton alloc] initWithImage:[UIImage imageNamed:@"icon_receive"] title:NSLocalizedStringFromTable(@"Button Receive", @"BTCC", @"Receive")];
+        [button setTitleColor:[UIColor BTCCGreenColor] forState:UIControlStateNormal];
         [self addSubview:button];
         _receiveButton = button;
     }
@@ -64,7 +58,7 @@
     if (!_overlayBackgroundView) {
         CGFloat screenHeight = CGRectGetHeight([UIScreen mainScreen].bounds);
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, -screenHeight, CGRectGetWidth(self.bounds), screenHeight + CGRectGetHeight(self.bounds))];
-        view.backgroundColor = [UIColor BTCCPrimaryColor];
+        view.backgroundColor = [UIColor BTCCSeparatorColor];
         [self insertSubview:view atIndex:0];
         _overlayBackgroundView = view;
     }
