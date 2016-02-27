@@ -7,6 +7,15 @@
 //
 
 #import "ProfileViewController.h"
+#import "TransactionListViewController.h"
+#import "SettingsViewController.h"
+
+typedef NS_ENUM(NSUInteger, kProfileSection) {
+    kProfileSectionAccounts = 0,
+    kProfileSectionAllTransactions,
+    kProfileSectionSettings,
+    kProfileSectionBackup
+};
 
 @interface ProfileViewController ()
 
@@ -19,7 +28,7 @@
 
 - (NSMutableArray *)accounts {
     if (!_accounts) {
-        _accounts = [[NSMutableArray alloc] init];
+        _accounts = [[NSMutableArray alloc] initWithObjects:NSLocalizedStringFromTable(@"Profile Cell WatchedAccount", @"BTCC", @"Watched Account"), nil];
     }
     return _accounts;
 }
@@ -44,6 +53,7 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_close"] style:UIBarButtonItemStylePlain target:self action:@selector(dismiss:)];
     
     _tableStrings = @[@{NSLocalizedStringFromTable(@"Profile Section Accounts", @"BTCC", @"Accounts"): self.accounts},
+                      @[NSLocalizedStringFromTable(@"Profile Cell AllTransactions", @"BTCC", @"All Transactions")],
                       @[NSLocalizedStringFromTable(@"Profile Cell Settings", @"BTCC", @"Settings")],
                       @{NSLocalizedStringFromTable(@"Profile Section Backup", @"BTCC", @"Sync"):
                             @[
@@ -57,7 +67,9 @@
     [super viewDidAppear:animated];
     
     // fake data
+    [self.accounts removeAllObjects];
     [self.accounts addObjectsFromArray:@[@"Account 1", @"Account 2"]];
+    [self.accounts addObject:NSLocalizedStringFromTable(@"Profile Cell WatchedAccount", @"BTCC", @"Watched Account")];
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
@@ -89,6 +101,24 @@
         cell.textLabel.text = [sectionStrings objectAtIndex:indexPath.row];
     }
     return cell;
+}
+#pragma mark UITableViewDelegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    switch (indexPath.section) {
+        case kProfileSectionAccounts: {
+            break;
+        }
+        case kProfileSectionAllTransactions: {
+            TransactionListViewController *transactionListViewController = [[TransactionListViewController alloc] init];
+            [self.navigationController pushViewController:transactionListViewController animated:YES];
+            break;
+        }
+        case kProfileSectionSettings: {
+            SettingsViewController *settingsViewController = [[SettingsViewController alloc] init];
+            [self.navigationController pushViewController:settingsViewController animated:YES];
+            break;
+        }
+    }
 }
 
 @end
