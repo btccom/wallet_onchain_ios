@@ -8,6 +8,8 @@
 
 #import "BaseListViewController.h"
 
+@class Account;
+
 typedef NS_ENUM(NSUInteger, AddressListActionType) {
     /// default
     AddressListActionTypeList = 0,
@@ -18,5 +20,8 @@ typedef NS_ENUM(NSUInteger, AddressListActionType) {
 @interface AddressListViewController : BaseListViewController
 
 @property (nonatomic, assign) AddressListActionType actionType;
+
+/// 显示该账户地址
+@property (nonatomic, strong) Account * _Nullable account;
 
 @end
