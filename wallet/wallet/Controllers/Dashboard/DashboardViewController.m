@@ -109,6 +109,10 @@
     return self.transactions.count;
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return NSLocalizedStringFromTable(@"Today", @"BTCC", nil).uppercaseString;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TransactionCell *cell = [tableView dequeueReusableCellWithIdentifier:BaseTableViewCellTransactionIdentifier forIndexPath:indexPath];
     cell.transaction = [self.transactions objectAtIndex:indexPath.row];

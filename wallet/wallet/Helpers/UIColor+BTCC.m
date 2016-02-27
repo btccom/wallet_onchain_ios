@@ -26,7 +26,7 @@
     return [self colorWithWhite:220.f/255.f alpha:1.f];
 }
 + (instancetype)BTCCExtraLightGrayColor {
-    return [self colorWithWhite:239.f/255.f alpha:1.f];
+    return [self colorWithWhite:241.f/255.f alpha:1.f];
 }
 
 /// white

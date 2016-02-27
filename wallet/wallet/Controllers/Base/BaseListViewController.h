@@ -7,6 +7,9 @@
 //
 
 #import "BaseTableViewController.h"
+#import "ListSectionHeaderView.h"
+
+extern NSString * _Nonnull const BaseListViewSectionHeaderIdentifier;
 
 @interface BaseListViewController : BaseTableViewController
 
