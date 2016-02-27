@@ -13,6 +13,9 @@
 "Navigation Send" = "Quickly Send";
 "Navigation AdvancedSend" = "Advanced Send";
 "Navigation Transaction" = "Transaction";
+"Navigation Receive" = "Receive";
+"Navigation Address" = "Address";
+"Navigation SelectAddress" = "Select Address";
 
 "Button MasterPassword" = "Master Password";
 "Button Send" = "Send";

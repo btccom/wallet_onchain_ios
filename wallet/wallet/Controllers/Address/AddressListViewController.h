@@ -11,9 +11,9 @@
 @class Account;
 
 typedef NS_ENUM(NSUInteger, AddressListActionType) {
-    /// default
+    /// default, show summary
     AddressListActionTypeList = 0,
-    /// Receive
+    /// Receive, just label + address
     AddressListActionTypeReceive
 };
 
