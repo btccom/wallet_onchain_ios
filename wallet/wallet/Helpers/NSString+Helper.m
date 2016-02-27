@@ -11,9 +11,11 @@
 @implementation NSString (Helper)
 
 - (CGSize)sizeWithFont:(UIFont *)font maxSize:(CGSize)maxSize {
-    return [self boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin
-                           attributes:@{NSFontAttributeName: font}
-                              context:nil].size;
+    CGSize size = [self boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin
+                                  attributes:@{NSFontAttributeName: font}
+                                     context:nil].size;
+    size = CGSizeMake(roundf(size.width), roundf(size.height));
+    return size;
 }
 
 @end
