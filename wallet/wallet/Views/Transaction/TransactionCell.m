@@ -10,6 +10,8 @@
 
 #import "Transaction.h"
 
+#import "NSString+BTCCAddress.h"
+
 static const CGFloat kTransactionCellDateLabelFontSize = 10.f;
 static const CGFloat kTransactionCellDateLabelHeight = 16.f;
 static const CGFloat kTransactionCellValueLabelFontSize = 16.f;
@@ -170,12 +172,7 @@ static const CGFloat kTransactionCellHorizontalPadding = BTCCLayoutCommonPadding
     CGRect addressFrame = CGRectMake(CGRectGetMaxX(confirmedFrame) + kTransactionCellHorizontalPadding, 0, addressWidth, kTransactionCellValueLabelHeight);
     self.addressLabel.frame = addressFrame;
     self.addressLabel.center = CGPointMake(CGRectGetMidX(addressFrame), CGRectGetMidY(confirmedFrame));
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:self.addressLabel.text];
-    NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
-    paragraph.alignment = NSTextAlignmentRight;
-    paragraph.lineBreakMode = NSLineBreakByTruncatingMiddle;
-    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraph range:NSMakeRange(0, [attributedString length])];
-    self.addressLabel.attributedText = attributedString;
+    self.addressLabel.attributedText = [self.addressLabel.text attributedAddressWithAlignment:NSTextAlignmentRight];
 
     // separator
     UIEdgeInsets inset = self.separatorInset;
