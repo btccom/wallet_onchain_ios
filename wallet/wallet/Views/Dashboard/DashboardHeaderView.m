@@ -13,10 +13,10 @@
 
 @interface DashboardHeaderView ()
 
-@property (nonatomic, weak, readwrite) UIButton *sendButton;
-@property (nonatomic, weak, readwrite) UIButton *receiveButton;
+@property (nonatomic, weak, readwrite) UIButton * _Nullable sendButton;
+@property (nonatomic, weak, readwrite) UIButton * _Nullable receiveButton;
 
-@property (nonatomic, weak) UIView *overlayBackgroundView;
+@property (nonatomic, weak) UIView * _Nullable overlayBackgroundView;
 
 @end
 
