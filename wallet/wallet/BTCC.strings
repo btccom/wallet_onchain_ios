@@ -28,10 +28,10 @@
 
 "%d confirmed" = "%d confirmed";
 "Unconfirmed" = "Unconfirmed";
+"Watched Account" = "Watched Account";
 
 // Profile
 "Profile Section Accounts" = "Accounts";
-"Profile Cell WatchedAccount" = "Watched";
 "Profile Cell AllTransactions" = "All Transactions";
 "Profile Cell Settings" = "Settings";
 "Profile Section Backup" = "Backup";

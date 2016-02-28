@@ -10,6 +10,8 @@
 #import "TransactionListViewController.h"
 #import "SettingsViewController.h"
 
+#import "Account.h"
+
 typedef NS_ENUM(NSUInteger, kProfileSection) {
     kProfileSectionAccounts = 0,
     kProfileSectionAllTransactions,
@@ -28,7 +30,7 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
 
 - (NSMutableArray *)accounts {
     if (!_accounts) {
-        _accounts = [[NSMutableArray alloc] initWithObjects:NSLocalizedStringFromTable(@"Profile Cell WatchedAccount", @"BTCC", @"Watched Account"), nil];
+        _accounts = [[NSMutableArray alloc] initWithObjects:[Account watchedAccount], nil];
     }
     return _accounts;
 }
@@ -68,8 +70,10 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
     
     // fake data
     [self.accounts removeAllObjects];
-    [self.accounts addObjectsFromArray:@[@"Account 1", @"Account 2"]];
-    [self.accounts addObject:NSLocalizedStringFromTable(@"Profile Cell WatchedAccount", @"BTCC", @"Watched Account")];
+    for (NSInteger i = 0; i < 5; i++) {
+        [self.accounts addObject:[Account new]];
+    }
+    [self.accounts addObject:[Account watchedAccount]];
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
@@ -101,7 +105,12 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
     DefaultCell *cell = [tableView dequeueReusableCellWithIdentifier:BaseTableViewCellDefaultIdentifier forIndexPath:indexPath];
     id sectionStrings = self.tableStrings[indexPath.section];
     if ([sectionStrings isKindOfClass:[NSDictionary class]]) {
-        cell.textLabel.text = [[[sectionStrings allObjects] firstObject] objectAtIndex:indexPath.row];
+        id object = [[[sectionStrings allObjects] firstObject] objectAtIndex:indexPath.row];
+        if ([object isKindOfClass:[Account class]]) {
+            cell.textLabel.text = [object label];
+        } else {
+            cell.textLabel.text = object;
+        }
     } else {
         cell.textLabel.text = [sectionStrings objectAtIndex:indexPath.row];
     }
@@ -111,6 +120,9 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.section) {
         case kProfileSectionAccounts: {
+            if ([self.delegate respondsToSelector:@selector(profileViewController:didSelectAccount:)]) {
+                [self.delegate profileViewController:self didSelectAccount:self.accounts[indexPath.row]];
+            }
             break;
         }
         case kProfileSectionAllTransactions: {

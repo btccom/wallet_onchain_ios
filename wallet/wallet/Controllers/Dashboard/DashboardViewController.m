@@ -18,7 +18,7 @@
 
 #import "Transaction.h"
 
-@interface DashboardViewController ()
+@interface DashboardViewController ()<ProfileViewControllerDelegate>
 @property (nonatomic, strong) NSMutableArray *transactions; // of Transaction
 @end
 
@@ -69,6 +69,7 @@
 /// present profile
 - (void)p_handleProfile:(id)sender {
     ProfileViewController *profileViewController = [[ProfileViewController alloc] init];
+    profileViewController.delegate = self;
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:profileViewController];
     [self presentViewController:navigationController animated:YES completion:nil];
 }
@@ -133,6 +134,12 @@
         TransactionViewController *transactionViewController = [[TransactionViewController alloc] initWithTransaction:transaction];
         [self.navigationController pushViewController:transactionViewController animated:YES];
     }
+}
+
+#pragma mark - ProfileViewControllerDelegate
+- (void)profileViewController:(ProfileViewController *)viewController didSelectAccount:(Account *)account {
+    NSLog(@"selected account: %@", account);
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

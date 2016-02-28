@@ -14,7 +14,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _label = [NSString stringWithFormat:@"Label %ld", random() % 10];
+        _label = [NSString stringWithFormat:@"Account %ld", random() % 10];
         _idx = random() % 10;
     }
     return self;
