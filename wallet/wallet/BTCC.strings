@@ -12,6 +12,7 @@
 "Navigation Profile" = "Profile";
 "Navigation Send" = "Quickly Send";
 "Navigation AdvancedSend" = "Advanced Send";
+"Navigation AllTransactions" = "All Transactions";
 "Navigation TransactionList" = "Transaction List";
 "Navigation Transaction" = "Transaction";
 "Navigation Receive" = "Receive";
@@ -19,6 +20,7 @@
 "Navigation ArchivedAddressList" = "Archived Address List";
 "Navigation Address" = "Address";
 "Navigation SelectAddress" = "Select Address";
+"Navigation Settings" = "Settings";
 
 "Button MasterPassword" = "Master Password";
 "Button Send" = "Send";
