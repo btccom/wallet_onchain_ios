@@ -32,7 +32,8 @@
     
     // ui color
     [[UIButton appearance] setTitleColor:[UIColor BTCCPrimaryColor] forState:UIControlStateNormal];
-    [[UILabel appearance] setTextColor:[UIColor BTCCBlackColor]];
+    [[UILabel appearance] setTextColor:[UIColor BTCCTextColor]];
+    [[UITextField appearance] setTextColor:[UIColor BTCCTextColor]];
     [[UITableView appearance] setSeparatorColor:[UIColor BTCCSeparatorColor]];
     self.window.tintColor = [UIColor BTCCPrimaryColor];
     

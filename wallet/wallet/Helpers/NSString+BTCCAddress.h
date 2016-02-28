@@ -10,6 +10,8 @@
 
 @interface NSString (BTCCAddress)
 
-- (NSAttributedString *)attributedAddressWithAlignment:(NSTextAlignment)alignment;
+- (nullable NSAttributedString *)attributedAddressWithAlignment:(NSTextAlignment)alignment;
+
+- (nullable UIImage *)qrcodeImageWithSize:(CGSize)size;
 
 @end

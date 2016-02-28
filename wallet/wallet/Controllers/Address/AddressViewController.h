@@ -7,11 +7,25 @@
 //
 
 #import "BaseListViewController.h"
+@class Address;
+
+typedef NS_ENUM(NSUInteger, AddressActionType) {
+    /// default, show summary
+    AddressActionTypeDefault = 0,
+    /// Receive, just label + address
+    AddressActionTypeReceive
+};
 
 /// 地址视图
 /// - 二维码
 /// - 地址
 /// - 标签
 @interface AddressViewController : BaseListViewController
+
+@property (nonatomic, assign) AddressActionType actionType;
+
+@property (nonatomic, strong) Address * _Nullable address;
+
+- (nonnull instancetype)initWithAddress:(nonnull Address *)address;
 
 @end

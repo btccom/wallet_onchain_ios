@@ -100,7 +100,7 @@
 /// push address list to receive
 - (void)p_handleReceive:(id)sender {
     AddressListViewController *addressListViewController = [[AddressListViewController alloc] init];
-    addressListViewController.actionType = AddressListActionTypeReceive;
+    addressListViewController.actionType = AddressActionTypeReceive;
     [self.navigationController pushViewController:addressListViewController animated:YES];
 }
 

@@ -35,14 +35,14 @@
     [super viewDidLoad];
     
     switch (self.actionType) {
-        case AddressListActionTypeList: {
-            self.title = NSLocalizedStringFromTable(@"Navigation Address", @"BTCC", @"Address List");
+        case AddressActionTypeDefault: {
+            self.title = NSLocalizedStringFromTable(@"Navigation AddressList", @"BTCC", @"Address List");
             self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_archived_empty"] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleArchivedAddressList:)],
                                                         [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_create"] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleCreateAddress:)]];
             _datas = @[self.addresses];
             break;
         }
-        case AddressListActionTypeReceive: {
+        case AddressActionTypeReceive: {
             self.title = NSLocalizedStringFromTable(@"Navigation SelectAddress", @"BTCC", @"Select Address to Receive");
             _datas = @[@[NSLocalizedStringFromTable(@"Address Cell NewAddress", @"BTCC", @"New Address")], self.addresses];
             break;
@@ -58,7 +58,6 @@
 #pragma mark - Private Method
 #pragma mark Handlers
 - (void)p_handleCreateAddress:(id)sender {
-    NSLog(@"clicked %@ to create address", sender);
     Address *address = [Address new];
     [self.addresses insertObject:address atIndex:0];
     [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:self.datas.count - 1]] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -70,8 +69,16 @@
 }
 #pragma mark -
 - (void)p_selectAddress:(Address *)address {
+    if (!address) {
+        // TODO: handle miss address error
+        return;
+    }
     AddressViewController *addressViewController = [[AddressViewController alloc] init];
-    [self.navigationController pushViewController:addressViewController animated:YES];
+    addressViewController.actionType = self.actionType;
+    addressViewController.address = address;
+    if (addressViewController) {
+        [self.navigationController pushViewController:addressViewController animated:YES];
+    }
 }
 
 #pragma mark - UITableViewDataSource
@@ -100,7 +107,7 @@
         } else if ([data isKindOfClass:[Address class]]) {
             // address section
             AddressCell *cell = [tableView dequeueReusableCellWithIdentifier:BaseListViewCellAddressIdentifier forIndexPath:indexPath];
-            [cell setMetadataHidden:(self.actionType != AddressListActionTypeList)];
+            [cell setMetadataHidden:(self.actionType != AddressActionTypeDefault)];
             [cell setAddress:data];
             return cell;
         }
@@ -113,7 +120,7 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (self.actionType == AddressListActionTypeReceive && section == 1) {
+    if (self.actionType == AddressActionTypeReceive && section == 1) {
         return NSLocalizedStringFromTable(@"Address Section ReceiveAddress", @"BTCC", @"Address");
     }
     return nil;
@@ -121,7 +128,7 @@
 
 #pragma mark UITableViewDelgate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.actionType == AddressListActionTypeList) {
+    if (self.actionType == AddressActionTypeDefault) {
         return BTCCCellHeightAddressWithMetadata;
     }
     return BTCCCellHeightAddress;

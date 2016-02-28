@@ -14,6 +14,7 @@
 "Navigation AdvancedSend" = "Advanced Send";
 "Navigation Transaction" = "Transaction";
 "Navigation Receive" = "Receive";
+"Navigation AddressList" = "Address List";
 "Navigation Address" = "Address";
 "Navigation SelectAddress" = "Select Address";
 

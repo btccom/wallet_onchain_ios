@@ -96,7 +96,6 @@ static const CGFloat kAddressCellBalanceLabelHeight = 16.f;
     
     // label
     CGFloat labelWidth = [self.labelLabel.text sizeWithFont:self.labelLabel.font maxSize:CGSizeMake(labelAreaWidth, kAddressCellLabelLabelHeight)].width;
-    NSLog(@"label: %@, width: %f", self.labelLabel.text, labelWidth);
     CGRect labelFrame = CGRectMake(labelAreaLeft, BTCCLayoutCommonVerticalPadding, labelWidth, kAddressCellLabelLabelHeight);
     self.labelLabel.frame = labelFrame;
     self.labelLabel.center = CGPointMake(CGRectGetMidX(labelFrame), CGRectGetMidY(self.contentView.bounds));

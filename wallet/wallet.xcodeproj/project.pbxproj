@@ -35,6 +35,7 @@
 		2C87C20E1C81B2D200612601 /* AddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C87C20D1C81B2D200612601 /* AddressCell.m */; };
 		2C87C2111C81B85300612601 /* NSString+BTCCAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C87C2101C81B85300612601 /* NSString+BTCCAddress.m */; };
 		2C87C2141C82B5E200612601 /* ActionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C87C2131C82B5E200612601 /* ActionCell.m */; };
+		2C87C2171C8301A800612601 /* AddressHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C87C2161C8301A800612601 /* AddressHeaderView.m */; };
 		2C9FDEB31C7D52200026AFA5 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDEB21C7D52200026AFA5 /* SettingsViewController.m */; };
 		2C9FDEB61C7D52710026AFA5 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDEB51C7D52710026AFA5 /* ProfileViewController.m */; };
 		2C9FDED51C7D554E0026AFA5 /* Account.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDEC91C7D554E0026AFA5 /* Account.m */; };
@@ -111,6 +112,8 @@
 		2C87C2101C81B85300612601 /* NSString+BTCCAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+BTCCAddress.m"; sourceTree = "<group>"; };
 		2C87C2121C82B5E200612601 /* ActionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionCell.h; sourceTree = "<group>"; };
 		2C87C2131C82B5E200612601 /* ActionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionCell.m; sourceTree = "<group>"; };
+		2C87C2151C8301A800612601 /* AddressHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressHeaderView.h; sourceTree = "<group>"; };
+		2C87C2161C8301A800612601 /* AddressHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressHeaderView.m; sourceTree = "<group>"; };
 		2C9FDEB11C7D52200026AFA5 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		2C9FDEB21C7D52200026AFA5 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		2C9FDEB41C7D52710026AFA5 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
@@ -274,6 +277,8 @@
 			children = (
 				2C87C20C1C81B2D200612601 /* AddressCell.h */,
 				2C87C20D1C81B2D200612601 /* AddressCell.m */,
+				2C87C2151C8301A800612601 /* AddressHeaderView.h */,
+				2C87C2161C8301A800612601 /* AddressHeaderView.m */,
 			);
 			path = Address;
 			sourceTree = "<group>";
@@ -528,6 +533,7 @@
 				2CC4847F1C71A51A0033D700 /* DashboardViewController.m in Sources */,
 				2C9FDED91C7D554E0026AFA5 /* Transaction.m in Sources */,
 				2C31F7841C7FE97200C9228C /* TransactionCell.m in Sources */,
+				2C87C2171C8301A800612601 /* AddressHeaderView.m in Sources */,
 				2CC484951C71A6ED0033D700 /* SendViewController.m in Sources */,
 				2C87C20E1C81B2D200612601 /* AddressCell.m in Sources */,
 				2C9FDED81C7D554E0026AFA5 /* Recipient.m in Sources */,

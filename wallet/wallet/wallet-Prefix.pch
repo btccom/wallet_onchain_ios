@@ -14,6 +14,9 @@
 #import "UIColor+BTCC.h"
 #import "NSString+Helper.h"
 
+#define ScreenWidth CGRectGetWidth([UIScreen mainScreen].bounds)
+#define HDImagePortraitHeight ceilf(ScreenWidth / 16.f * 9.f)
+
 static const NSTimeInterval BTCCAnimateDuration = 0.55;
 static const NSTimeInterval BTCCAnimateDurationFast = 0.2;
 static const NSTimeInterval BTCCAnimateDUrationSlow = 0.87;

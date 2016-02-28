@@ -7,19 +7,13 @@
 //
 
 #import "BaseListViewController.h"
+#import "AddressViewController.h"
 
 @class Account;
 
-typedef NS_ENUM(NSUInteger, AddressListActionType) {
-    /// default, show summary
-    AddressListActionTypeList = 0,
-    /// Receive, just label + address
-    AddressListActionTypeReceive
-};
-
 @interface AddressListViewController : BaseListViewController
 
-@property (nonatomic, assign) AddressListActionType actionType;
+@property (nonatomic, assign) AddressActionType actionType;
 
 /// 显示该账户地址
 @property (nonatomic, strong) Account * _Nullable account;
