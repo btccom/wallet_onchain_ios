@@ -34,6 +34,7 @@
 "Profile Cell Export" = "Export";
 "Profile Cell Sync" = "Sync";
 
-//
+// Address
 "Address Section ReceiveAddress" = "Address";
 "Address Cell NewAddress" = "New Address";
+"Address Section Transactions" = "Transactions";

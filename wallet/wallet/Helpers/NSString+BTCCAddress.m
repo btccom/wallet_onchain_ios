@@ -25,6 +25,7 @@
     if (self.length == 0) {
         return nil;
     }
+    // TODO: in background thread
     // CIQRCodeGenerator filter
     CIFilter *filter = [CIFilter filterWithName:@"CIQRCodeGenerator"];
     [filter setDefaults];

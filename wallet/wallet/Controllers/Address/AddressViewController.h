@@ -22,10 +22,9 @@ typedef NS_ENUM(NSUInteger, AddressActionType) {
 /// - 标签
 @interface AddressViewController : BaseListViewController
 
-@property (nonatomic, assign) AddressActionType actionType;
+@property (nonatomic, assign, readonly) AddressActionType actionType;
+@property (nonatomic, strong, readonly) Address * _Nonnull address;
 
-@property (nonatomic, strong) Address * _Nullable address;
-
-- (nonnull instancetype)initWithAddress:(nonnull Address *)address;
+- (nonnull instancetype)initWithAddress:(nonnull Address *)address actionType:(AddressActionType)actionType;
 
 @end

@@ -73,9 +73,7 @@
         // TODO: handle miss address error
         return;
     }
-    AddressViewController *addressViewController = [[AddressViewController alloc] init];
-    addressViewController.actionType = self.actionType;
-    addressViewController.address = address;
+    AddressViewController *addressViewController = [[AddressViewController alloc] initWithAddress:address actionType:self.actionType];
     if (addressViewController) {
         [self.navigationController pushViewController:addressViewController animated:YES];
     }
