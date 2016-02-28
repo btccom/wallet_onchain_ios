@@ -110,12 +110,15 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return NSLocalizedStringFromTable(@"Today", @"BTCC", nil).uppercaseString;
+    return NSLocalizedStringFromTable(@"Today", @"BTCC", nil);
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    TransactionCell *cell = [tableView dequeueReusableCellWithIdentifier:BaseTableViewCellTransactionIdentifier forIndexPath:indexPath];
-    cell.transaction = [self.transactions objectAtIndex:indexPath.row];
+    TransactionCell *cell = [tableView dequeueReusableCellWithIdentifier:BaseListViewCellTransactionIdentifier forIndexPath:indexPath];
+    Transaction *transaction = [self.transactions objectAtIndex:indexPath.row];
+    if (transaction) {
+        [cell setTransaction:transaction];
+    }
     return cell;
 }
 
@@ -126,8 +129,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     Transaction *transaction = [self.transactions objectAtIndex:indexPath.row];
-    TransactionViewController *transactionViewController = [[TransactionViewController alloc] initWithTransaction:transaction];
-    [self.navigationController pushViewController:transactionViewController animated:YES];
+    if (transaction) {
+        TransactionViewController *transactionViewController = [[TransactionViewController alloc] initWithTransaction:transaction];
+        [self.navigationController pushViewController:transactionViewController animated:YES];
+    }
 }
 
 @end

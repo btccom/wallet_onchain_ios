@@ -5,6 +5,7 @@
 //  Created by Zin on 16/2/26.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
+// TODO: Automatic vertical middle layout
 
 #import "TransactionCell.h"
 
@@ -21,8 +22,8 @@ static const CGFloat kTransactionCellConfirmedLabelHeight = 16.f;
 static const CGFloat kTransactionCellAddressLabelFontSize = 14.f;
 static const CGFloat kTransactionCellAddressLabelHeight = 16.f;
 
-static const CGFloat kTransactionCellVerticalPadding = BTCCLayoutCommonPadding;
-static const CGFloat kTransactionCellHorizontalPadding = BTCCLayoutCommonPadding;
+static const CGFloat kTransactionCellVerticalPadding = BTCCLayoutCommonVerticalPadding;
+static const CGFloat kTransactionCellHorizontalPadding = BTCCLayoutCommonHorizontalPadding;
 
 @interface TransactionCell ()
 
@@ -45,35 +46,6 @@ static const CGFloat kTransactionCellHorizontalPadding = BTCCLayoutCommonPadding
 }
 - (UIColor *)decreasingColor {
     return [UIColor BTCCRedColor];
-}
-
-- (void)setTransaction:(Transaction *)transaction {
-    if ([_transaction isEqual:transaction]) {
-        return;
-    }
-    
-    _transaction = transaction;
-    
-    if (transaction.type == TransactionTypeSend) {
-        self.iconView.tintColor = self.decreasingColor;
-        [self.iconView setImage:[[UIImage imageNamed:@"icon_send_mini"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
-    } else {
-        self.iconView.tintColor = self.increasingColor;
-        [self.iconView setImage:[[UIImage imageNamed:@"icon_receive_mini"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
-    }
-    self.dateLabel.text = @"12:00";
-    self.valueLabel.text = [NSString stringWithFormat:@"%.8lf", ABS(transaction.value) / 100000000.0];
-    self.valueLabel.textColor = self.iconView.tintColor;
-    if (transaction.confirmed > 0) {
-        self.confirmedLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTable(@"%d Confirmed", @"BTCC", @"Confirmed"), transaction.confirmed];
-        self.confirmedLabel.textColor = [UIColor BTCCBlackColor];
-        self.confirmedLabel.backgroundColor = [UIColor BTCCExtraLightGrayColor];
-    } else {
-        self.confirmedLabel.text = NSLocalizedStringFromTable(@"Unconfirmed", @"BTCC", @"Unconfirmed");
-        self.confirmedLabel.textColor = [UIColor BTCCWhiteColor];
-        self.confirmedLabel.backgroundColor = [UIColor BTCCGrayColor];
-    }
-    self.addressLabel.text = transaction.relatedAddress;
 }
 
 - (UIImageView *)iconView {
@@ -131,6 +103,33 @@ static const CGFloat kTransactionCellHorizontalPadding = BTCCLayoutCommonPadding
 }
 
 #pragma mark - Initialization
+
+#pragma mark - Public Method
+
+- (void)setTransaction:(Transaction *)transaction {
+    if (transaction.type == TransactionTypeSend) {
+        self.iconView.tintColor = self.decreasingColor;
+        [self.iconView setImage:[[UIImage imageNamed:@"icon_send_mini"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
+    } else {
+        self.iconView.tintColor = self.increasingColor;
+        [self.iconView setImage:[[UIImage imageNamed:@"icon_receive_mini"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
+    }
+    self.dateLabel.text = @"12:00";
+    self.valueLabel.text = [NSString stringWithFormat:@"%.8lf", ABS(transaction.value) / 100000000.0];
+    self.valueLabel.textColor = self.iconView.tintColor;
+    if (transaction.confirmed > 0) {
+        self.confirmedLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTable(@"%d Confirmed", @"BTCC", @"Confirmed"), transaction.confirmed];
+        self.confirmedLabel.textColor = [UIColor BTCCBlackColor];
+        self.confirmedLabel.backgroundColor = [UIColor BTCCExtraLightGrayColor];
+    } else {
+        self.confirmedLabel.text = NSLocalizedStringFromTable(@"Unconfirmed", @"BTCC", @"Unconfirmed");
+        self.confirmedLabel.textColor = [UIColor BTCCWhiteColor];
+        self.confirmedLabel.backgroundColor = [UIColor BTCCGrayColor];
+    }
+    self.addressLabel.text = transaction.relatedAddress;
+}
+
+#pragma mark - Override
 
 - (void)layoutSubviews {
     [super layoutSubviews];

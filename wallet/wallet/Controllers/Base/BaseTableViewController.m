@@ -15,7 +15,7 @@
 @end
 
 NSString *const BaseTableViewCellDefaultIdentifier = @"cell.default";
-NSString *const BaseTableViewCellTransactionIdentifier = @"cell.transaction";
+NSString *const BaseTableViewCellActionIdentifier = @"cell.action";
 
 @implementation BaseTableViewController
 
@@ -25,7 +25,8 @@ NSString *const BaseTableViewCellTransactionIdentifier = @"cell.transaction";
     [self setupAppearance];
     
     [self.tableView registerClass:[DefaultCell class] forCellReuseIdentifier:BaseTableViewCellDefaultIdentifier];
-    [self.tableView registerClass:[TransactionCell class] forCellReuseIdentifier:BaseTableViewCellTransactionIdentifier];
+    [self.tableView registerClass:[ActionCell class] forCellReuseIdentifier:BaseTableViewCellActionIdentifier];
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     

@@ -32,3 +32,7 @@
 "Profile Section Backup" = "Backup";
 "Profile Cell Export" = "Export";
 "Profile Cell Sync" = "Sync";
+
+//
+"Address Section ReceiveAddress" = "Address";
+"Address Cell NewAddress" = "New Address";

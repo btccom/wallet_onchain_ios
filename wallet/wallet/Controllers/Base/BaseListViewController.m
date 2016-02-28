@@ -9,6 +9,8 @@
 #import "BaseListViewController.h"
 
 NSString *const BaseListViewSectionHeaderIdentifier = @"list.section.header";
+NSString *const BaseListViewCellTransactionIdentifier = @"list.cell.transaction";
+NSString *const BaseListViewCellAddressIdentifier = @"list.cell.address";
 
 @interface BaseListViewController ()
 
@@ -20,6 +22,8 @@ NSString *const BaseListViewSectionHeaderIdentifier = @"list.section.header";
     [super viewDidLoad];
 
     [self.tableView registerClass:[ListSectionHeaderView class] forHeaderFooterViewReuseIdentifier:BaseListViewSectionHeaderIdentifier];
+    [self.tableView registerClass:[TransactionCell class] forCellReuseIdentifier:BaseListViewCellTransactionIdentifier];
+    [self.tableView registerClass:[AddressCell class] forCellReuseIdentifier:BaseListViewCellAddressIdentifier];
 }
 
 #pragma mark - UITableViewDataSource

@@ -27,7 +27,9 @@ static const CGFloat BTCCCellHeightTransaction = 76.f;
 static const CGFloat BTCCCellHeightAddress = 48.f;
 static const CGFloat BTCCCellHeightAddressWithMetadata = 76.f;
 
-static const CGFloat BTCCLayoutCommonPadding = 16.f;
+// TODO: depending on scrren width
+static const CGFloat BTCCLayoutCommonHorizontalPadding = 20.f;
+static const CGFloat BTCCLayoutCommonVerticalPadding = 16.f;
 static const CGFloat BTCCLayoutInnerSpace = 8.f;
 
 #ifdef DEBUG

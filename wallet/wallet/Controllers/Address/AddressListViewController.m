@@ -10,11 +10,24 @@
 #import "ArchivedAdressListViewController.h"
 #import "AddressViewController.h"
 
+#import "Address.h"
+
 @interface AddressListViewController ()
+
+@property (nonatomic, strong) NSArray * _Nullable datas; // action button section (optional) + addresses section
+@property (nonatomic, strong) NSMutableArray * _Nullable addresses; // of Address
 
 @end
 
 @implementation AddressListViewController
+
+#pragma mark - Property
+- (NSMutableArray *)addresses {
+    if (!_addresses) {
+        _addresses = [[NSMutableArray alloc] init];
+    }
+    return _addresses;
+}
 
 #pragma mark - View Life Cycle
 
@@ -26,12 +39,19 @@
             self.title = NSLocalizedStringFromTable(@"Navigation Address", @"BTCC", @"Address List");
             self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_archived_empty"] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleArchivedAddressList:)],
                                                         [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_create"] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleCreateAddress:)]];
+            _datas = @[self.addresses];
             break;
         }
         case AddressListActionTypeReceive: {
             self.title = NSLocalizedStringFromTable(@"Navigation SelectAddress", @"BTCC", @"Select Address to Receive");
+            _datas = @[@[NSLocalizedStringFromTable(@"Address Cell NewAddress", @"BTCC", @"New Address")], self.addresses];
             break;
         }
+    }
+    
+    // test, fake data
+    for (NSInteger i = 0 ; i < 20; i++) {
+        [self.addresses addObject:[Address new]];
     }
 }
 
@@ -39,10 +59,85 @@
 #pragma mark Handlers
 - (void)p_handleCreateAddress:(id)sender {
     NSLog(@"clicked %@ to create address", sender);
+    Address *address = [Address new];
+    [self.addresses insertObject:address atIndex:0];
+    [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:self.datas.count - 1]] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self p_selectAddress:address];
 }
 - (void)p_handleArchivedAddressList:(id)sender {
     ArchivedAdressListViewController *archivedAddressListViewController = [[ArchivedAdressListViewController alloc] init];
     [self.navigationController pushViewController:archivedAddressListViewController animated:YES];
+}
+#pragma mark -
+- (void)p_selectAddress:(Address *)address {
+    AddressViewController *addressViewController = [[AddressViewController alloc] init];
+    [self.navigationController pushViewController:addressViewController animated:YES];
+}
+
+#pragma mark - UITableViewDataSource
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return self.datas.count;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    id rowsData = self.datas[section];
+    if ([rowsData isKindOfClass:[NSArray class]]) {
+        return [rowsData count];
+    }
+    return 0;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    id rowsData = self.datas[indexPath.section];
+    if ([rowsData isKindOfClass:[NSArray class]]) {
+        id data = rowsData[indexPath.row];
+        if ([data isKindOfClass:[NSString class]]) {
+            // action section
+            ActionCell *cell = [tableView dequeueReusableCellWithIdentifier:BaseTableViewCellActionIdentifier forIndexPath:indexPath];
+            cell.imageView.image = [UIImage imageNamed:@"icon_create_mini"];
+            cell.textLabel.text = data;
+            return cell;
+        } else if ([data isKindOfClass:[Address class]]) {
+            // address section
+            AddressCell *cell = [tableView dequeueReusableCellWithIdentifier:BaseListViewCellAddressIdentifier forIndexPath:indexPath];
+            [cell setMetadataHidden:(self.actionType != AddressListActionTypeList)];
+            [cell setAddress:data];
+            return cell;
+        }
+    }
+    // empty cell
+    DefaultCell *cell = [tableView dequeueReusableCellWithIdentifier:BaseTableViewCellDefaultIdentifier forIndexPath:indexPath];
+    cell.textLabel.text = @"NaN";
+    
+    return cell;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if (self.actionType == AddressListActionTypeReceive && section == 1) {
+        return NSLocalizedStringFromTable(@"Address Section ReceiveAddress", @"BTCC", @"Address");
+    }
+    return nil;
+}
+
+#pragma mark UITableViewDelgate
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.actionType == AddressListActionTypeList) {
+        return BTCCCellHeightAddressWithMetadata;
+    }
+    return BTCCCellHeightAddress;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    id rowsData = self.datas[indexPath.section];
+    if ([rowsData isKindOfClass:[NSArray class]]) {
+        id data = rowsData[indexPath.row];
+        if ([data isKindOfClass:[NSString class]]) {
+            // action section
+            [self p_handleCreateAddress:nil];
+        } else if ([data isKindOfClass:[Address class]]) {
+            // address section
+            [self p_selectAddress:data];
+        }
+    }
 }
 
 @end

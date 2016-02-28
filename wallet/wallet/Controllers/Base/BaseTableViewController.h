@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "DefaultCell.h"
-#import "TransactionCell.h"
+#import "ActionCell.h"
 
 extern NSString * _Nonnull const BaseTableViewCellDefaultIdentifier;
-extern NSString * _Nonnull const BaseTableViewCellTransactionIdentifier;
+extern NSString * _Nonnull const BaseTableViewCellActionIdentifier;
 
 @interface BaseTableViewController : UITableViewController
 

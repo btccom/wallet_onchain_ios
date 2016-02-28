@@ -28,7 +28,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"account %@: idx = %ld", self.label, self.idx];
+    return [NSString stringWithFormat:@"account %@: idx = %ld", self.label, (long)self.idx];
 }
 
 @end
