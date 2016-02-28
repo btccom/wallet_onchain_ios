@@ -12,9 +12,11 @@
 "Navigation Profile" = "Profile";
 "Navigation Send" = "Quickly Send";
 "Navigation AdvancedSend" = "Advanced Send";
+"Navigation TransactionList" = "Transaction List";
 "Navigation Transaction" = "Transaction";
 "Navigation Receive" = "Receive";
 "Navigation AddressList" = "Address List";
+"Navigation ArchivedAddressList" = "Archived Address List";
 "Navigation Address" = "Address";
 "Navigation SelectAddress" = "Select Address";
 
@@ -34,7 +36,9 @@
 "Profile Cell Export" = "Export";
 "Profile Cell Sync" = "Sync";
 
-// Address
+// Address List
 "Address Section ReceiveAddress" = "Address";
 "Address Cell NewAddress" = "New Address";
+
+// Address
 "Address Section Transactions" = "Transactions";
