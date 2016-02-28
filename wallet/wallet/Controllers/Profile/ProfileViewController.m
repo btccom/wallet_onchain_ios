@@ -92,6 +92,11 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
     }
     return nil;
 }
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    ListSectionHeaderView *view = [tableView dequeueReusableHeaderFooterViewWithIdentifier:BaseListViewSectionHeaderIdentifier];
+    view.topHairlineHidden = YES;
+    return view;
+}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     DefaultCell *cell = [tableView dequeueReusableCellWithIdentifier:BaseTableViewCellDefaultIdentifier forIndexPath:indexPath];
     id sectionStrings = self.tableStrings[indexPath.section];

@@ -23,12 +23,14 @@
     self.textLabel.textColor = [UIColor BTCCSubTextColor];
     self.contentView.backgroundColor = [UIColor BTCCBackgroundColor];
     
-    CGRect hairlineFrame = newSuperview.bounds;
-    hairlineFrame.size.height = 1.f / [UIScreen mainScreen].scale;
-    hairlineFrame.origin.y = -CGRectGetHeight(hairlineFrame);
-    UIView *hairline = [[UIView alloc] initWithFrame:hairlineFrame];
-    hairline.backgroundColor = [UIColor BTCCSeparatorColor];
-    [self.contentView insertSubview:hairline atIndex:0];
+    if (!self.isTopHairlineHidden) {
+        CGRect hairlineFrame = newSuperview.bounds;
+        hairlineFrame.size.height = 1.f / [UIScreen mainScreen].scale;
+        hairlineFrame.origin.y = -CGRectGetHeight(hairlineFrame);
+        UIView *hairline = [[UIView alloc] initWithFrame:hairlineFrame];
+        hairline.backgroundColor = [UIColor BTCCSeparatorColor];
+        [self.contentView insertSubview:hairline atIndex:0];
+    }
 }
 
 - (void)layoutSubviews {

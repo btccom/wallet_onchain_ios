@@ -10,4 +10,6 @@
 
 @interface ListSectionHeaderView : UITableViewHeaderFooterView
 
+@property (nonatomic, assign, getter=isTopHairlineHidden) BOOL topHairlineHidden;
+
 @end
