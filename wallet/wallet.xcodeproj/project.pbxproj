@@ -18,12 +18,12 @@
 		2C31F7641C7E871A00C9228C /* BaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F7631C7E871A00C9228C /* BaseTableViewController.m */; };
 		2C31F7671C7E872B00C9228C /* BaseFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F7661C7E872B00C9228C /* BaseFormViewController.m */; };
 		2C31F76A1C7E873800C9228C /* BaseListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F7691C7E873800C9228C /* BaseListViewController.m */; };
-		2C31F7741C7ED60A00C9228C /* UIColor+BTCC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F7731C7ED60A00C9228C /* UIColor+BTCC.m */; };
+		2C31F7741C7ED60A00C9228C /* UIColor+CBW.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F7731C7ED60A00C9228C /* UIColor+CBW.m */; };
 		2C31F77A1C7FD67D00C9228C /* DashboardHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F7791C7FD67D00C9228C /* DashboardHeaderView.m */; };
 		2C31F77D1C7FD9B000C9228C /* UIButton+VerticalLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F77C1C7FD9B000C9228C /* UIButton+VerticalLayout.m */; };
 		2C31F7801C7FE4EA00C9228C /* DashboardHeaderActionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F77F1C7FE4EA00C9228C /* DashboardHeaderActionButton.m */; };
 		2C31F7841C7FE97200C9228C /* TransactionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F7831C7FE97200C9228C /* TransactionCell.m */; };
-		2C31F7861C80286500C9228C /* BTCC.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2C31F7851C80286500C9228C /* BTCC.strings */; };
+		2C31F7861C80286500C9228C /* CBW.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2C31F7851C80286500C9228C /* CBW.strings */; };
 		2C31F7891C80414400C9228C /* NSString+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F7881C80414400C9228C /* NSString+Helper.m */; };
 		2C31F78C1C80753F00C9228C /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F78B1C80753F00C9228C /* CameraViewController.m */; };
 		2C87C1F81C80780000612601 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C87C1F71C80780000612601 /* BaseViewController.m */; };
@@ -33,7 +33,7 @@
 		2C87C2071C8149C800612601 /* UIViewController+Appearance.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C87C2061C8149C800612601 /* UIViewController+Appearance.m */; };
 		2C87C20A1C81563000612601 /* ListSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C87C2091C81563000612601 /* ListSectionHeaderView.m */; };
 		2C87C20E1C81B2D200612601 /* AddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C87C20D1C81B2D200612601 /* AddressCell.m */; };
-		2C87C2111C81B85300612601 /* NSString+BTCCAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C87C2101C81B85300612601 /* NSString+BTCCAddress.m */; };
+		2C87C2111C81B85300612601 /* NSString+CBWAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C87C2101C81B85300612601 /* NSString+CBWAddress.m */; };
 		2C87C2141C82B5E200612601 /* ActionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C87C2131C82B5E200612601 /* ActionCell.m */; };
 		2C87C2171C8301A800612601 /* AddressHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C87C2161C8301A800612601 /* AddressHeaderView.m */; };
 		2C9FDEB31C7D52200026AFA5 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9FDEB21C7D52200026AFA5 /* SettingsViewController.m */; };
@@ -79,8 +79,8 @@
 		2C31F7681C7E873800C9228C /* BaseListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseListViewController.h; sourceTree = "<group>"; };
 		2C31F7691C7E873800C9228C /* BaseListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseListViewController.m; sourceTree = "<group>"; };
 		2C31F76F1C7ECBB700C9228C /* wallet-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "wallet-Prefix.pch"; sourceTree = "<group>"; };
-		2C31F7721C7ED60A00C9228C /* UIColor+BTCC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+BTCC.h"; sourceTree = "<group>"; };
-		2C31F7731C7ED60A00C9228C /* UIColor+BTCC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+BTCC.m"; sourceTree = "<group>"; };
+		2C31F7721C7ED60A00C9228C /* UIColor+CBW.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+CBW.h"; sourceTree = "<group>"; };
+		2C31F7731C7ED60A00C9228C /* UIColor+CBW.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CBW.m"; sourceTree = "<group>"; };
 		2C31F7781C7FD67D00C9228C /* DashboardHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardHeaderView.h; sourceTree = "<group>"; };
 		2C31F7791C7FD67D00C9228C /* DashboardHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardHeaderView.m; sourceTree = "<group>"; };
 		2C31F77B1C7FD9B000C9228C /* UIButton+VerticalLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+VerticalLayout.h"; sourceTree = "<group>"; };
@@ -89,7 +89,7 @@
 		2C31F77F1C7FE4EA00C9228C /* DashboardHeaderActionButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardHeaderActionButton.m; sourceTree = "<group>"; };
 		2C31F7821C7FE97200C9228C /* TransactionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionCell.h; sourceTree = "<group>"; };
 		2C31F7831C7FE97200C9228C /* TransactionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionCell.m; sourceTree = "<group>"; };
-		2C31F7851C80286500C9228C /* BTCC.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = BTCC.strings; sourceTree = "<group>"; };
+		2C31F7851C80286500C9228C /* CBW.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = CBW.strings; sourceTree = "<group>"; };
 		2C31F7871C80414400C9228C /* NSString+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Helper.h"; sourceTree = "<group>"; };
 		2C31F7881C80414400C9228C /* NSString+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Helper.m"; sourceTree = "<group>"; };
 		2C31F78A1C80753F00C9228C /* CameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraViewController.h; sourceTree = "<group>"; };
@@ -108,8 +108,8 @@
 		2C87C2091C81563000612601 /* ListSectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListSectionHeaderView.m; sourceTree = "<group>"; };
 		2C87C20C1C81B2D200612601 /* AddressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressCell.h; sourceTree = "<group>"; };
 		2C87C20D1C81B2D200612601 /* AddressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressCell.m; sourceTree = "<group>"; };
-		2C87C20F1C81B85300612601 /* NSString+BTCCAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+BTCCAddress.h"; sourceTree = "<group>"; };
-		2C87C2101C81B85300612601 /* NSString+BTCCAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+BTCCAddress.m"; sourceTree = "<group>"; };
+		2C87C20F1C81B85300612601 /* NSString+CBWAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+CBWAddress.h"; sourceTree = "<group>"; };
+		2C87C2101C81B85300612601 /* NSString+CBWAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+CBWAddress.m"; sourceTree = "<group>"; };
 		2C87C2121C82B5E200612601 /* ActionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionCell.h; sourceTree = "<group>"; };
 		2C87C2131C82B5E200612601 /* ActionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionCell.m; sourceTree = "<group>"; };
 		2C87C2151C8301A800612601 /* AddressHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressHeaderView.h; sourceTree = "<group>"; };
@@ -216,12 +216,12 @@
 			children = (
 				2C31F77B1C7FD9B000C9228C /* UIButton+VerticalLayout.h */,
 				2C31F77C1C7FD9B000C9228C /* UIButton+VerticalLayout.m */,
-				2C31F7721C7ED60A00C9228C /* UIColor+BTCC.h */,
-				2C31F7731C7ED60A00C9228C /* UIColor+BTCC.m */,
+				2C31F7721C7ED60A00C9228C /* UIColor+CBW.h */,
+				2C31F7731C7ED60A00C9228C /* UIColor+CBW.m */,
 				2C31F7871C80414400C9228C /* NSString+Helper.h */,
 				2C31F7881C80414400C9228C /* NSString+Helper.m */,
-				2C87C20F1C81B85300612601 /* NSString+BTCCAddress.h */,
-				2C87C2101C81B85300612601 /* NSString+BTCCAddress.m */,
+				2C87C20F1C81B85300612601 /* NSString+CBWAddress.h */,
+				2C87C2101C81B85300612601 /* NSString+CBWAddress.m */,
 				2C87C2051C8149C800612601 /* UIViewController+Appearance.h */,
 				2C87C2061C8149C800612601 /* UIViewController+Appearance.m */,
 			);
@@ -386,7 +386,7 @@
 				2CC4845E1C71A2EE0033D700 /* main.m */,
 				2C31F76F1C7ECBB700C9228C /* wallet-Prefix.pch */,
 				2CC484AC1C71CD6B0033D700 /* InfoPlist.strings */,
-				2C31F7851C80286500C9228C /* BTCC.strings */,
+				2C31F7851C80286500C9228C /* CBW.strings */,
 			);
 			name = Application;
 			sourceTree = "<group>";
@@ -498,7 +498,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CC4846D1C71A2EE0033D700 /* LaunchScreen.storyboard in Resources */,
-				2C31F7861C80286500C9228C /* BTCC.strings in Resources */,
+				2C31F7861C80286500C9228C /* CBW.strings in Resources */,
 				2CC484AD1C71CD6B0033D700 /* InfoPlist.strings in Resources */,
 				2CC4846A1C71A2EE0033D700 /* Assets.xcassets in Resources */,
 			);
@@ -518,7 +518,7 @@
 				2C31F75D1C7E84EE00C9228C /* ArchivedAdressListViewController.m in Sources */,
 				2C31F77D1C7FD9B000C9228C /* UIButton+VerticalLayout.m in Sources */,
 				2C31F7531C7E83B300C9228C /* ImagePickerController.m in Sources */,
-				2C31F7741C7ED60A00C9228C /* UIColor+BTCC.m in Sources */,
+				2C31F7741C7ED60A00C9228C /* UIColor+CBW.m in Sources */,
 				2C31F7571C7E848200C9228C /* TransactionListViewController.m in Sources */,
 				2C9FDED51C7D554E0026AFA5 /* Account.m in Sources */,
 				2C9FDEB61C7D52710026AFA5 /* ProfileViewController.m in Sources */,
@@ -526,7 +526,7 @@
 				2C31F7801C7FE4EA00C9228C /* DashboardHeaderActionButton.m in Sources */,
 				2C87C1FE1C80865000612601 /* DefaultCell.m in Sources */,
 				2C9FDED71C7D554E0026AFA5 /* RecordObject.m in Sources */,
-				2C87C2111C81B85300612601 /* NSString+BTCCAddress.m in Sources */,
+				2C87C2111C81B85300612601 /* NSString+CBWAddress.m in Sources */,
 				2C9FDEB31C7D52200026AFA5 /* SettingsViewController.m in Sources */,
 				2CC484621C71A2EE0033D700 /* AppDelegate.m in Sources */,
 				2C31F76A1C7E873800C9228C /* BaseListViewController.m in Sources */,

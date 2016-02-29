@@ -24,8 +24,8 @@
 
 - (UIButton *)sendButton {
     if (!_sendButton) {
-        UIButton *button = [[DashboardHeaderActionButton alloc] initWithImage:[UIImage imageNamed:@"icon_send"] title:NSLocalizedStringFromTable(@"Button Send", @"BTCC", @"Send")];
-        [button setTitleColor:[UIColor BTCCRedColor] forState:UIControlStateNormal];
+        UIButton *button = [[DashboardHeaderActionButton alloc] initWithImage:[UIImage imageNamed:@"icon_send"] title:NSLocalizedStringFromTable(@"Button Send", @"CBW", @"Send")];
+        [button setTitleColor:[UIColor CBWRedColor] forState:UIControlStateNormal];
         [self addSubview:button];
         _sendButton = button;
     }
@@ -35,8 +35,8 @@
 
 - (UIButton *)receiveButton {
     if (!_receiveButton) {
-        UIButton *button = [[DashboardHeaderActionButton alloc] initWithImage:[UIImage imageNamed:@"icon_receive"] title:NSLocalizedStringFromTable(@"Button Receive", @"BTCC", @"Receive")];
-        [button setTitleColor:[UIColor BTCCGreenColor] forState:UIControlStateNormal];
+        UIButton *button = [[DashboardHeaderActionButton alloc] initWithImage:[UIImage imageNamed:@"icon_receive"] title:NSLocalizedStringFromTable(@"Button Receive", @"CBW", @"Receive")];
+        [button setTitleColor:[UIColor CBWGreenColor] forState:UIControlStateNormal];
         [self addSubview:button];
         _receiveButton = button;
     }
@@ -50,15 +50,15 @@
     frame.size.width = CGRectGetWidth(frame) / 2.f;
     
     self.sendButton.frame = frame;
-    [self.sendButton centerVerticallyWithPadding:BTCCLayoutInnerSpace];
+    [self.sendButton centerVerticallyWithPadding:CBWLayoutInnerSpace];
     
     self.receiveButton.frame = CGRectOffset(frame, CGRectGetWidth(frame), 0);
-    [self.receiveButton centerVerticallyWithPadding:BTCCLayoutInnerSpace];
+    [self.receiveButton centerVerticallyWithPadding:CBWLayoutInnerSpace];
     
     if (!_overlayBackgroundView) {
         CGFloat screenHeight = CGRectGetHeight([UIScreen mainScreen].bounds);
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, -screenHeight, CGRectGetWidth(self.bounds), screenHeight + CGRectGetHeight(self.bounds))];
-        view.backgroundColor = [UIColor BTCCSeparatorColor];
+        view.backgroundColor = [UIColor CBWSeparatorColor];
         [self insertSubview:view atIndex:0];
         _overlayBackgroundView = view;
     }

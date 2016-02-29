@@ -1,5 +1,5 @@
 //
-//  NSString+BTCCAddress.h
+//  NSString+CBWAddress.h
 //  wallet
 //
 //  Created by Zin on 16/2/27.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSString (BTCCAddress)
+@interface NSString (CBWAddress)
 
 - (nullable NSAttributedString *)attributedAddressWithAlignment:(NSTextAlignment)alignment;
 

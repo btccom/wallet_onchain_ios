@@ -8,10 +8,10 @@
 
 #import "AddressHeaderView.h"
 
-#import "NSString+BTCCAddress.h"
+#import "NSString+CBWAddress.h"
 
 static const CGFloat kAddressHeaderViewVerticalPadding = 48.f;
-static const CGFloat kAddressHeaderViewHorizontalPadding = BTCCLayoutCommonHorizontalPadding;
+static const CGFloat kAddressHeaderViewHorizontalPadding = CBWLayoutCommonHorizontalPadding;
 static const CGFloat kAddressHeaderViewSubviewMargin = 16.f;
 static const CGFloat kAddressHeaderViewAddressFontSize = 16.f;
 static const CGFloat kAddressHeaderViewAddressHeight = 20.f;

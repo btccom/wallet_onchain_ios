@@ -13,15 +13,15 @@
 - (void)setupAppearance {
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
     
-    [self.navigationController.navigationBar setTintColor:[UIColor BTCCPrimaryColor]];
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor BTCCBlackColor]}];
+    [self.navigationController.navigationBar setTintColor:[UIColor CBWPrimaryColor]];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor CBWBlackColor]}];
 //    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"bar_tint_white"] forBarMetrics:UIBarMetricsDefault];
 //    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
     [self p_hideNavigationBarHairline];
     
-    self.navigationController.view.backgroundColor = [UIColor BTCCBackgroundColor];
+    self.navigationController.view.backgroundColor = [UIColor CBWBackgroundColor];
     
-    self.view.backgroundColor = [UIColor BTCCBackgroundColor];
+    self.view.backgroundColor = [UIColor CBWBackgroundColor];
 }
 
 #pragma - Private Method

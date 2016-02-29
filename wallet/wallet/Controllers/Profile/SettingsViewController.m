@@ -17,7 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = NSLocalizedStringFromTable(@"Navigation Settings", @"BTCC", @"Settings");
+    self.title = NSLocalizedStringFromTable(@"Navigation Settings", @"CBW", @"Settings");
 }
 
 @end

@@ -35,7 +35,7 @@
         }
     }
     
-    self.view.backgroundColor = [UIColor BTCCBackgroundColor];
+    self.view.backgroundColor = [UIColor CBWBackgroundColor];
     [self.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     [self.navigationBar setShadowImage:[UIImage new]];
 }

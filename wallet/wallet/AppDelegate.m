@@ -24,18 +24,18 @@
     
     // create window and root view controller
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    self.window.backgroundColor = [UIColor BTCCBlackColor];
+    self.window.backgroundColor = [UIColor CBWBlackColor];
     
     DashboardViewController *dashboardViewController = [[DashboardViewController alloc] init];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:dashboardViewController];
     self.window.rootViewController = navigationController;
     
     // ui color
-    [[UIButton appearance] setTitleColor:[UIColor BTCCPrimaryColor] forState:UIControlStateNormal];
-    [[UILabel appearance] setTextColor:[UIColor BTCCTextColor]];
-    [[UITextField appearance] setTextColor:[UIColor BTCCTextColor]];
-    [[UITableView appearance] setSeparatorColor:[UIColor BTCCSeparatorColor]];
-    self.window.tintColor = [UIColor BTCCPrimaryColor];
+    [[UIButton appearance] setTitleColor:[UIColor CBWPrimaryColor] forState:UIControlStateNormal];
+    [[UILabel appearance] setTextColor:[UIColor CBWTextColor]];
+    [[UITextField appearance] setTextColor:[UIColor CBWTextColor]];
+    [[UITableView appearance] setSeparatorColor:[UIColor CBWSeparatorColor]];
+    self.window.tintColor = [UIColor CBWPrimaryColor];
     
     // show
     [self.window makeKeyAndVisible];
@@ -88,7 +88,7 @@
 }
 /// unlock
 - (void)unlockScreen {
-    [UIView animateWithDuration:BTCCAnimateDurationFast animations:^{
+    [UIView animateWithDuration:CBWAnimateDurationFast animations:^{
         self.lockScreenWindow.alpha = 0;
     } completion:^(BOOL finished) {
         [self.lockScreenWindow resignKeyWindow];

@@ -11,7 +11,7 @@
 
 #import "Transaction.h"
 
-#import "NSString+BTCCAddress.h"
+#import "NSString+CBWAddress.h"
 
 static const CGFloat kTransactionCellDateLabelFontSize = 10.f;
 static const CGFloat kTransactionCellDateLabelHeight = 16.f;
@@ -22,8 +22,8 @@ static const CGFloat kTransactionCellConfirmedLabelHeight = 16.f;
 static const CGFloat kTransactionCellAddressLabelFontSize = 14.f;
 static const CGFloat kTransactionCellAddressLabelHeight = 16.f;
 
-static const CGFloat kTransactionCellVerticalPadding = BTCCLayoutCommonVerticalPadding;
-static const CGFloat kTransactionCellHorizontalPadding = BTCCLayoutCommonHorizontalPadding;
+static const CGFloat kTransactionCellVerticalPadding = CBWLayoutCommonVerticalPadding;
+static const CGFloat kTransactionCellHorizontalPadding = CBWLayoutCommonHorizontalPadding;
 
 @interface TransactionCell ()
 
@@ -42,10 +42,10 @@ static const CGFloat kTransactionCellHorizontalPadding = BTCCLayoutCommonHorizon
 
 #pragma mark - Property
 - (UIColor *)increasingColor {
-    return [UIColor BTCCGreenColor];
+    return [UIColor CBWGreenColor];
 }
 - (UIColor *)decreasingColor {
-    return [UIColor BTCCRedColor];
+    return [UIColor CBWRedColor];
 }
 
 - (UIImageView *)iconView {
@@ -73,7 +73,7 @@ static const CGFloat kTransactionCellHorizontalPadding = BTCCLayoutCommonHorizon
         UILabel *label = [[UILabel alloc] init];
         label.font = [UIFont systemFontOfSize:kTransactionCellConfirmedLabelFontSize];
         label.textAlignment = NSTextAlignmentCenter;
-        label.layer.cornerRadius = BTCCLayoutInnerSpace / 2.f;
+        label.layer.cornerRadius = CBWLayoutInnerSpace / 2.f;
         label.layer.masksToBounds = YES;
         [self.contentView addSubview:label];
         _confirmedLabel = label;
@@ -95,7 +95,7 @@ static const CGFloat kTransactionCellHorizontalPadding = BTCCLayoutCommonHorizon
     if (!_dateLabel) {
         UILabel *label = [[UILabel alloc] init];
         label.font = [UIFont systemFontOfSize:kTransactionCellDateLabelFontSize];
-        label.textColor = [UIColor BTCCMutedTextColor];
+        label.textColor = [UIColor CBWMutedTextColor];
         [self.contentView addSubview:label];
         _dateLabel = label;
     }
@@ -118,13 +118,13 @@ static const CGFloat kTransactionCellHorizontalPadding = BTCCLayoutCommonHorizon
     self.valueLabel.text = [NSString stringWithFormat:@"%.8lf", ABS(transaction.value) / 100000000.0];
     self.valueLabel.textColor = self.iconView.tintColor;
     if (transaction.confirmed > 0) {
-        self.confirmedLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTable(@"%d Confirmed", @"BTCC", @"Confirmed"), transaction.confirmed];
-        self.confirmedLabel.textColor = [UIColor BTCCBlackColor];
-        self.confirmedLabel.backgroundColor = [UIColor BTCCExtraLightGrayColor];
+        self.confirmedLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTable(@"%d Confirmed", @"CBW", @"Confirmed"), transaction.confirmed];
+        self.confirmedLabel.textColor = [UIColor CBWBlackColor];
+        self.confirmedLabel.backgroundColor = [UIColor CBWExtraLightGrayColor];
     } else {
-        self.confirmedLabel.text = NSLocalizedStringFromTable(@"Unconfirmed", @"BTCC", @"Unconfirmed");
-        self.confirmedLabel.textColor = [UIColor BTCCWhiteColor];
-        self.confirmedLabel.backgroundColor = [UIColor BTCCGrayColor];
+        self.confirmedLabel.text = NSLocalizedStringFromTable(@"Unconfirmed", @"CBW", @"Unconfirmed");
+        self.confirmedLabel.textColor = [UIColor CBWWhiteColor];
+        self.confirmedLabel.backgroundColor = [UIColor CBWGrayColor];
     }
     self.addressLabel.text = transaction.relatedAddress;
 }
@@ -142,7 +142,7 @@ static const CGFloat kTransactionCellHorizontalPadding = BTCCLayoutCommonHorizon
     self.iconView.frame = iconFrame;
     
     // label area
-    CGFloat labelAreaLeft = CGRectGetMaxX(iconFrame) + BTCCLayoutInnerSpace;
+    CGFloat labelAreaLeft = CGRectGetMaxX(iconFrame) + CBWLayoutInnerSpace;
     CGFloat labelAreaWidth = CGRectGetWidth(self.contentView.frame) - labelAreaLeft - kTransactionCellHorizontalPadding;
     
     // date
@@ -158,7 +158,7 @@ static const CGFloat kTransactionCellHorizontalPadding = BTCCLayoutCommonHorizon
     self.valueLabel.frame = valueFrame;
     self.valueLabel.center = CGPointMake(CGRectGetMidX(valueFrame), CGRectGetMidY(iconFrame));
     
-    CGFloat subLabelLeftRightPadding = BTCCLayoutInnerSpace;
+    CGFloat subLabelLeftRightPadding = CBWLayoutInnerSpace;
     
     // confirm
     CGFloat confirmedTop = CGRectGetHeight(self.contentView.frame) - kTransactionCellVerticalPadding - kTransactionCellConfirmedLabelHeight;

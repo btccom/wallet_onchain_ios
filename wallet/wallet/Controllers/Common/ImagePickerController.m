@@ -18,7 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor BTCCBackgroundColor];
+    self.view.backgroundColor = [UIColor CBWBackgroundColor];
     [self setViewControllers:@[[[CameraViewController alloc] init]]];
 }
 

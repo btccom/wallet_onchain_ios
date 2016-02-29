@@ -18,10 +18,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.title = NSLocalizedStringFromTable(@"Navigation MasterPassword", @"BTCC", @"Master Password");
+    self.title = NSLocalizedStringFromTable(@"Navigation MasterPassword", @"CBW", @"Master Password");
     
     UIButton *button = [[UIButton alloc] initWithFrame:self.view.bounds];
-    [button setTitle:NSLocalizedStringFromTable(@"Button MasterPassword", @"BTCC", @"Master Password") forState:UIControlStateNormal];
+    [button setTitle:NSLocalizedStringFromTable(@"Button MasterPassword", @"CBW", @"Master Password") forState:UIControlStateNormal];
     [button addTarget:self action:@selector(handleButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button];
 }

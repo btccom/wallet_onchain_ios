@@ -36,15 +36,15 @@
     
     switch (self.actionType) {
         case AddressActionTypeDefault: {
-            self.title = NSLocalizedStringFromTable(@"Navigation AddressList", @"BTCC", @"Address List");
+            self.title = NSLocalizedStringFromTable(@"Navigation AddressList", @"CBW", @"Address List");
             self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_archived_empty"] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleArchivedAddressList:)],
                                                         [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_create"] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleCreateAddress:)]];
             _datas = @[self.addresses];
             break;
         }
         case AddressActionTypeReceive: {
-            self.title = NSLocalizedStringFromTable(@"Navigation SelectAddress", @"BTCC", @"Select Address to Receive");
-            _datas = @[@[NSLocalizedStringFromTable(@"Address Cell NewAddress", @"BTCC", @"New Address")], self.addresses];
+            self.title = NSLocalizedStringFromTable(@"Navigation SelectAddress", @"CBW", @"Select Address to Receive");
+            _datas = @[@[NSLocalizedStringFromTable(@"Address Cell NewAddress", @"CBW", @"New Address")], self.addresses];
             break;
         }
     }
@@ -119,7 +119,7 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if (self.actionType == AddressActionTypeReceive && section == 1) {
-        return NSLocalizedStringFromTable(@"Address Section ReceiveAddress", @"BTCC", @"Address");
+        return NSLocalizedStringFromTable(@"Address Section ReceiveAddress", @"CBW", @"Address");
     }
     return nil;
 }
@@ -127,9 +127,9 @@
 #pragma mark UITableViewDelgate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.actionType == AddressActionTypeDefault) {
-        return BTCCCellHeightAddressWithMetadata;
+        return CBWCellHeightAddressWithMetadata;
     }
-    return BTCCCellHeightAddress;
+    return CBWCellHeightAddress;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     id rowsData = self.datas[indexPath.section];

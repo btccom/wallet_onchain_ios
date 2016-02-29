@@ -49,7 +49,7 @@ NSString *const BaseTableViewCellActionIdentifier = @"cell.action";
 
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return BTCCCellHeightDefault;
+    return CBWCellHeightDefault;
 }
 
 /*

@@ -34,7 +34,7 @@ NSString *const BaseListViewCellAddressIdentifier = @"list.cell.address";
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if ([self tableView:tableView titleForHeaderInSection:section].length > 0) {
-        return BTCCListSectionHeaderHeight;
+        return CBWListSectionHeaderHeight;
     }
     return 0;// auto
 }

@@ -1,16 +1,16 @@
 //
-//  NSString+BTCCAddress.m
+//  NSString+CBWAddress.m
 //  wallet
 //
 //  Created by Zin on 16/2/27.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
-#import "NSString+BTCCAddress.h"
+#import "NSString+CBWAddress.h"
 //#import <CoreImage/CoreImage.h>
 //#import <AVFoundation/AVFoundation.h>
 
-@implementation NSString (BTCCAddress)
+@implementation NSString (CBWAddress)
 
 - (NSAttributedString *)attributedAddressWithAlignment:(NSTextAlignment)alignment {
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:self];

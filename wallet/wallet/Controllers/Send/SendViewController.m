@@ -18,9 +18,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = NSLocalizedStringFromTable(@"Navigation Send", @"BTCC", @"Quickly Send");
+    self.title = NSLocalizedStringFromTable(@"Navigation Send", @"CBW", @"Quickly Send");
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedStringFromTable(@"Navigation AdvancedSend", @"BTCC", @"Advanced Send") style:UIBarButtonItemStylePlain target:self action:@selector(p_handleSwitchMode:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedStringFromTable(@"Navigation AdvancedSend", @"CBW", @"Advanced Send") style:UIBarButtonItemStylePlain target:self action:@selector(p_handleSwitchMode:)];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -38,25 +38,25 @@
         case SendViewControllerModeQuickly: {
             // to advanced
             self.mode = SendViewControllerModeAdvanced;
-            self.title = NSLocalizedStringFromTable(@"Navigation AdvancedSend", @"BTCC", @"Advanced Send");
-            self.navigationItem.rightBarButtonItem.title = NSLocalizedStringFromTable(@"Navigation Send", @"BTCC", @"Quickly Send");
+            self.title = NSLocalizedStringFromTable(@"Navigation AdvancedSend", @"CBW", @"Advanced Send");
+            self.navigationItem.rightBarButtonItem.title = NSLocalizedStringFromTable(@"Navigation Send", @"CBW", @"Quickly Send");
             break;
         }
         case SendViewControllerModeAdvanced: {
             // to quickly
             self.mode = SendViewControllerModeQuickly;
-            self.title = NSLocalizedStringFromTable(@"Navigation Send", @"BTCC", @"Quickly Send");
-            self.navigationItem.rightBarButtonItem.title = NSLocalizedStringFromTable(@"Navigation AdvancedSend", @"BTCC", @"Advanced Send");
+            self.title = NSLocalizedStringFromTable(@"Navigation Send", @"CBW", @"Quickly Send");
+            self.navigationItem.rightBarButtonItem.title = NSLocalizedStringFromTable(@"Navigation AdvancedSend", @"CBW", @"Advanced Send");
             break;
         }
     }
     
     // reload table view
-    [UIView animateWithDuration:BTCCAnimateDurationFast animations:^{
+    [UIView animateWithDuration:CBWAnimateDurationFast animations:^{
         self.tableView.alpha = 0;
     } completion:^(BOOL finished) {
         [self.tableView reloadData];
-        [UIView animateWithDuration:BTCCAnimateDurationFast animations:^{
+        [UIView animateWithDuration:CBWAnimateDurationFast animations:^{
             self.tableView.alpha = 1.f;
         } completion:nil];
     }];

@@ -13,7 +13,7 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.textLabel.textColor = [UIColor BTCCPrimaryColor];
+        self.textLabel.textColor = [UIColor CBWPrimaryColor];
     }
     return self;
 }

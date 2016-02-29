@@ -50,17 +50,17 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = NSLocalizedStringFromTable(@"Navigation Profile", @"BTCC", @"Profile");
+    self.title = NSLocalizedStringFromTable(@"Navigation Profile", @"CBW", @"Profile");
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_close"] style:UIBarButtonItemStylePlain target:self action:@selector(dismiss:)];
     
-    _tableStrings = @[@{NSLocalizedStringFromTable(@"Profile Section Accounts", @"BTCC", @"Accounts"): self.accounts},
-                      @[NSLocalizedStringFromTable(@"Profile Cell AllTransactions", @"BTCC", @"All Transactions")],
-                      @[NSLocalizedStringFromTable(@"Profile Cell Settings", @"BTCC", @"Settings")],
-                      @{NSLocalizedStringFromTable(@"Profile Section Backup", @"BTCC", @"Sync"):
+    _tableStrings = @[@{NSLocalizedStringFromTable(@"Profile Section Accounts", @"CBW", @"Accounts"): self.accounts},
+                      @[NSLocalizedStringFromTable(@"Profile Cell AllTransactions", @"CBW", @"All Transactions")],
+                      @[NSLocalizedStringFromTable(@"Profile Cell Settings", @"CBW", @"Settings")],
+                      @{NSLocalizedStringFromTable(@"Profile Section Backup", @"CBW", @"Sync"):
                             @[
-                                NSLocalizedStringFromTable(@"Profile Cell Export", @"BTCC", @"Export"),
-                                NSLocalizedStringFromTable(@"Profile Cell Sync", @"BTCC", @"Sync")
+                                NSLocalizedStringFromTable(@"Profile Cell Export", @"CBW", @"Export"),
+                                NSLocalizedStringFromTable(@"Profile Cell Sync", @"CBW", @"Sync")
                                 ]
                         }
                       ];

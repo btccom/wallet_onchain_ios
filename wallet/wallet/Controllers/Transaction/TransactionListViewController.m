@@ -18,9 +18,9 @@
     [super viewDidLoad];
     
     if (!self.account) {
-        self.title = NSLocalizedStringFromTable(@"Navigation AllTransactions", @"BTCC", @"All Transactions");
+        self.title = NSLocalizedStringFromTable(@"Navigation AllTransactions", @"CBW", @"All Transactions");
     } else {
-        self.title = NSLocalizedStringFromTable(@"Navigation TransactionList", @"BTCC", @"Transaction List");
+        self.title = NSLocalizedStringFromTable(@"Navigation TransactionList", @"CBW", @"Transaction List");
     }
 }
 

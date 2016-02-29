@@ -11,7 +11,7 @@
 
 #import "Address.h"
 
-#import "NSString+BTCCAddress.h"
+#import "NSString+CBWAddress.h"
 
 static const CGFloat kAddressCellLabelLabelFontSize = 16.f;
 static const CGFloat kAddressCellLabelLabelHeight = 20.f;
@@ -47,7 +47,7 @@ static const CGFloat kAddressCellBalanceLabelHeight = 16.f;
     if (!_addressLabel) {
         UILabel *label = [[UILabel alloc] init];
         label.font = [UIFont fontWithName:@"Courier" size:kAddressCellAddressLabelFontSize];
-        label.textColor = [UIColor BTCCSubTextColor];
+        label.textColor = [UIColor CBWSubTextColor];
         [self.contentView addSubview:label];
         _addressLabel = label;
     }
@@ -57,7 +57,7 @@ static const CGFloat kAddressCellBalanceLabelHeight = 16.f;
     if (!_txsLabel) {
         UILabel *label = [[UILabel alloc] init];
         label.font = [UIFont systemFontOfSize:kAddressCellTxsLabelFontSize weight:UIFontWeightMedium];
-        label.textColor = [UIColor BTCCSubTextColor];
+        label.textColor = [UIColor CBWSubTextColor];
         [self.contentView addSubview:label];
         _txsLabel = label;
     }
@@ -68,7 +68,7 @@ static const CGFloat kAddressCellBalanceLabelHeight = 16.f;
         UILabel *label = [[UILabel alloc] init];
         label.font = [UIFont systemFontOfSize:kAddressCellBalanceLabelFontSize weight:UIFontWeightMedium];
         label.textAlignment = NSTextAlignmentRight;
-        label.textColor = [UIColor BTCCSubTextColor];
+        label.textColor = [UIColor CBWSubTextColor];
         [self.contentView addSubview:label];
         _balanceLabel = label;
     }
@@ -91,12 +91,12 @@ static const CGFloat kAddressCellBalanceLabelHeight = 16.f;
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    CGFloat labelAreaLeft = BTCCLayoutCommonHorizontalPadding;
+    CGFloat labelAreaLeft = CBWLayoutCommonHorizontalPadding;
     CGFloat labelAreaWidth = CGRectGetWidth(self.contentView.bounds) - labelAreaLeft * 2.f;
     
     // label
     CGFloat labelWidth = [self.labelLabel.text sizeWithFont:self.labelLabel.font maxSize:CGSizeMake(labelAreaWidth, kAddressCellLabelLabelHeight)].width;
-    CGRect labelFrame = CGRectMake(labelAreaLeft, BTCCLayoutCommonVerticalPadding, labelWidth, kAddressCellLabelLabelHeight);
+    CGRect labelFrame = CGRectMake(labelAreaLeft, CBWLayoutCommonVerticalPadding, labelWidth, kAddressCellLabelLabelHeight);
     self.labelLabel.frame = labelFrame;
     self.labelLabel.center = CGPointMake(CGRectGetMidX(labelFrame), CGRectGetMidY(self.contentView.bounds));
     
@@ -104,11 +104,11 @@ static const CGFloat kAddressCellBalanceLabelHeight = 16.f;
     CGFloat addressLeft = labelAreaLeft;
     CGFloat addressWidth = labelAreaWidth;
     if (labelWidth > 0) {
-        CGFloat addressOffsetLeft = labelWidth + BTCCLayoutInnerSpace;
+        CGFloat addressOffsetLeft = labelWidth + CBWLayoutInnerSpace;
         addressLeft += addressOffsetLeft;
         addressWidth -= addressOffsetLeft;
     }
-    CGRect addressFrame = CGRectMake(addressLeft, BTCCLayoutCommonVerticalPadding, addressWidth, kAddressCellAddressLabelHeight);
+    CGRect addressFrame = CGRectMake(addressLeft, CBWLayoutCommonVerticalPadding, addressWidth, kAddressCellAddressLabelHeight);
     self.addressLabel.frame = addressFrame;
     self.addressLabel.center = CGPointMake(CGRectGetMidX(addressFrame), CGRectGetMidY(self.contentView.bounds));
     self.addressLabel.attributedText = [self.addressLabel.text attributedAddressWithAlignment:NSTextAlignmentRight];
@@ -116,13 +116,13 @@ static const CGFloat kAddressCellBalanceLabelHeight = 16.f;
     if (!self.isMetadataHidden) {
         // layout txs and balance labels
         // txs
-        CGFloat txsWidth = (labelAreaWidth - BTCCLayoutInnerSpace) / 2.f;
-        CGFloat txsTop = CGRectGetHeight(self.contentView.frame) - BTCCLayoutCommonVerticalPadding - kAddressCellTxsLabelHeight;
+        CGFloat txsWidth = (labelAreaWidth - CBWLayoutInnerSpace) / 2.f;
+        CGFloat txsTop = CGRectGetHeight(self.contentView.frame) - CBWLayoutCommonVerticalPadding - kAddressCellTxsLabelHeight;
         CGRect txsFrame = CGRectMake(labelAreaLeft, txsTop, txsWidth, kAddressCellTxsLabelHeight);
         self.txsLabel.frame = txsFrame;
         
         // balance
-        self.balanceLabel.frame = CGRectMake(CGRectGetMaxX(txsFrame) + BTCCLayoutInnerSpace, txsTop, txsWidth, kAddressCellBalanceLabelHeight);
+        self.balanceLabel.frame = CGRectMake(CGRectGetMaxX(txsFrame) + CBWLayoutInnerSpace, txsTop, txsWidth, kAddressCellBalanceLabelHeight);
         
         // move up label and address labels
         self.labelLabel.frame = labelFrame;

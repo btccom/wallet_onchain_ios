@@ -18,7 +18,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.title = NSLocalizedStringFromTable(@"Navigation CreateOrRecover", @"BTCC", @"Welcome");
+    self.title = NSLocalizedStringFromTable(@"Navigation CreateOrRecover", @"CBW", @"Welcome");
 }
 
 - (void)didReceiveMemoryWarning {

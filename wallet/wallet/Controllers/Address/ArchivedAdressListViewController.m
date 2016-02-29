@@ -17,7 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = NSLocalizedStringFromTable(@"Navigation ArchivedAddressList", @"BTCC", @"Archived Address List");
+    self.title = NSLocalizedStringFromTable(@"Navigation ArchivedAddressList", @"CBW", @"Archived Address List");
 }
 
 - (void)didReceiveMemoryWarning {
