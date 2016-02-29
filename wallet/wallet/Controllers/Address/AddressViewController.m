@@ -8,6 +8,7 @@
 
 #import "AddressViewController.h"
 #import "AddressHeaderView.h"
+#import "TransactionViewController.h"
 
 #import "Address.h"
 #import "Transaction.h"
@@ -123,6 +124,16 @@
 #pragma mark UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return CBWCellHeightTransaction;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.actionType == AddressActionTypeDefault) {
+        // goto transaction
+        Transaction *transaction = self.transactions[indexPath.row];
+        if (transaction) {
+            TransactionViewController *transactionViewController = [[TransactionViewController alloc] initWithTransaction:transaction];
+            [self.navigationController pushViewController:transactionViewController animated:YES];
+        }
+    }
 }
 
 #pragma mark AddressHeaderViewDelegate
