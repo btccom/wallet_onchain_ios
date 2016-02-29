@@ -18,7 +18,7 @@ static const CGFloat kAddressHeaderViewAddressHeight = 20.f;
 static const CGFloat kAddressHeaderViewLabelFontSize = 16.f;
 static const CGFloat kAddressHeaderViewLabelHeight = 20.f;
 
-@interface AddressHeaderView()
+@interface AddressHeaderView()<UITextFieldDelegate>
 
 @property (nonatomic, weak) UIImageView * _Nullable qrcodeImageView;
 @property (nonatomic, weak) UILabel * _Nullable addressLabel;
@@ -65,7 +65,9 @@ static const CGFloat kAddressHeaderViewLabelHeight = 20.f;
         UITextField *field = [[UITextField alloc] initWithFrame:fieldFrame];
         field.textAlignment = NSTextAlignmentCenter;
         field.font = [UIFont systemFontOfSize:kAddressHeaderViewLabelFontSize];
+        field.returnKeyType = UIReturnKeyDone;
         field.userInteractionEnabled = NO;
+        field.delegate = self;
         [self addSubview:field];
         _labelField = field;
     }
@@ -84,6 +86,15 @@ static const CGFloat kAddressHeaderViewLabelHeight = 20.f;
     [self.qrcodeImageView setImage:[address qrcodeImageWithSize:self.qrcodeImageView.frame.size]];
     self.addressLabel.attributedText = [address attributedAddressWithAlignment:NSTextAlignmentCenter];
     self.labelField.text = label;
+}
+
+#pragma mark - UITextFieldDelegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    if ([self.delegate respondsToSelector:@selector(addressHeaderViewDidEndEditing:)]) {
+        [self.delegate addressHeaderViewDidEndEditing:self];
+    }
+    return YES;
 }
 
 @end

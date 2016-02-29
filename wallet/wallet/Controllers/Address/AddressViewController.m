@@ -12,7 +12,7 @@
 #import "Address.h"
 #import "Transaction.h"
 
-@interface AddressViewController ()
+@interface AddressViewController ()<AddressHeaderViewDelegate>
 
 @property (nonatomic, strong) NSMutableArray * _Nullable transactions;
 
@@ -53,12 +53,14 @@
     // Do any additional setup after loading the view.
     AddressHeaderView *addressHeaderView = [[AddressHeaderView alloc] init];
     [addressHeaderView setAddress:self.address.address withLabel:self.address.label];
+    addressHeaderView.delegate = self;
     [self.tableView setTableHeaderView:addressHeaderView];
     switch (self.actionType) {
         case AddressActionTypeDefault: {
             self.title = NSLocalizedStringFromTable(@"Navigation Address", @"BTCC", @"Address");
             self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_archive"] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleArchive:)],
                                                         [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_share"] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleShare:)]];
+            addressHeaderView.labelEditable = YES;
             [self p_fetchTransactions];
             break;
         }
@@ -117,9 +119,15 @@
     [cell setTransaction:transaction];
     return cell;
 }
+
 #pragma mark UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return BTCCCellHeightTransaction;
+}
+
+#pragma mark AddressHeaderViewDelegate
+- (void)addressHeaderViewDidEndEditing:(AddressHeaderView *)view {
+    NSLog(@"address's label changed: %@", view.label);
 }
 
 @end
