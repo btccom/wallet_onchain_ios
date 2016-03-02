@@ -17,7 +17,7 @@ typedef NS_ENUM(NSUInteger, FormControlCellStatus) {
     FormControlCellStatusError
 };
 
-@interface FormControlCell : UITableViewCell
+@interface BaseFormControlCell : UITableViewCell
 
 @property (nonatomic, assign) FormControlCellStatus status;
 

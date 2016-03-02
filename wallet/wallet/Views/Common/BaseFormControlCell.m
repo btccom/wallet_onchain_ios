@@ -6,9 +6,9 @@
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
-#import "FormControlCell.h"
+#import "BaseFormControlCell.h"
 
-@implementation FormControlCell
+@implementation BaseFormControlCell
 
 - (void)setStatus:(FormControlCellStatus)status animated:(BOOL)animated {
     [self setStatus:status];

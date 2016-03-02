@@ -6,20 +6,20 @@
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
-#import "FormControlCell.h"
+#import "BaseFormControlCell.h"
 
 typedef NS_ENUM(NSUInteger, BlockButtonCellStyle) {
-    /// default <code>FormControllCellStatusHighlighted</code>
+    /// default <code>BaseFormControllCellStatusHighlighted</code>
     BlockButtonCellStylePrimary,
-    /// <code>FormControllCellStatusDefault</code>
+    /// <code>BaseFormControllCellStatusDefault</code>
     BlockButtonCellStyleDefault,
-    /// <code>FormControllCellStatusSuccess</code>
+    /// <code>BaseFormControllCellStatusSuccess</code>
     BlockButtonCellStyleSuccess,
-    /// like <code>FormControllCellStatusError</code>
+    /// like <code>BaseFormControllCellStatusError</code>
     BlockButtonCellStyleDanger
 };
 
-@interface BlockButtonCell : FormControlCell
+@interface BlockButtonCell : BaseFormControlCell
 
 @property (nonatomic, assign) BlockButtonCellStyle buttonCellStyle;
 
