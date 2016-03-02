@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C10C4411C8473BB000EF520 /* FormControlCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C10C4401C8473BB000EF520 /* FormControlCell.m */; };
 		2C31F74C1C7E813600C9228C /* LockScreenController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F7451C7E813600C9228C /* LockScreenController.m */; };
 		2C31F74D1C7E813600C9228C /* CreateOrRecoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F7471C7E813600C9228C /* CreateOrRecoverViewController.m */; };
 		2C31F74E1C7E813600C9228C /* MasterPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F7491C7E813600C9228C /* MasterPasswordViewController.m */; };
@@ -26,6 +27,7 @@
 		2C31F7861C80286500C9228C /* CBW.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2C31F7851C80286500C9228C /* CBW.strings */; };
 		2C31F7891C80414400C9228C /* NSString+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F7881C80414400C9228C /* NSString+Helper.m */; };
 		2C31F78C1C80753F00C9228C /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C31F78B1C80753F00C9228C /* CameraViewController.m */; };
+		2C5C17181C84504900CF2395 /* BlockButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5C17171C84504900CF2395 /* BlockButtonCell.m */; };
 		2C87C1F81C80780000612601 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C87C1F71C80780000612601 /* BaseViewController.m */; };
 		2C87C1FB1C80788B00612601 /* TransactionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C87C1FA1C80788B00612601 /* TransactionViewController.m */; };
 		2C87C1FE1C80865000612601 /* DefaultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C87C1FD1C80865000612601 /* DefaultCell.m */; };
@@ -56,6 +58,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2C10C43F1C8473BB000EF520 /* FormControlCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormControlCell.h; sourceTree = "<group>"; };
+		2C10C4401C8473BB000EF520 /* FormControlCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormControlCell.m; sourceTree = "<group>"; };
 		2C31F7441C7E813600C9228C /* LockScreenController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LockScreenController.h; sourceTree = "<group>"; };
 		2C31F7451C7E813600C9228C /* LockScreenController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LockScreenController.m; sourceTree = "<group>"; };
 		2C31F7461C7E813600C9228C /* CreateOrRecoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateOrRecoverViewController.h; sourceTree = "<group>"; };
@@ -94,6 +98,8 @@
 		2C31F7881C80414400C9228C /* NSString+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Helper.m"; sourceTree = "<group>"; };
 		2C31F78A1C80753F00C9228C /* CameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraViewController.h; sourceTree = "<group>"; };
 		2C31F78B1C80753F00C9228C /* CameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraViewController.m; sourceTree = "<group>"; };
+		2C5C17161C84504900CF2395 /* BlockButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockButtonCell.h; sourceTree = "<group>"; };
+		2C5C17171C84504900CF2395 /* BlockButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockButtonCell.m; sourceTree = "<group>"; };
 		2C87C1F61C80780000612601 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		2C87C1F71C80780000612601 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		2C87C1F91C80788B00612601 /* TransactionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionViewController.h; sourceTree = "<group>"; };
@@ -259,6 +265,10 @@
 				2C87C2131C82B5E200612601 /* ActionCell.m */,
 				2C87C2081C81563000612601 /* ListSectionHeaderView.h */,
 				2C87C2091C81563000612601 /* ListSectionHeaderView.m */,
+				2C10C43F1C8473BB000EF520 /* FormControlCell.h */,
+				2C10C4401C8473BB000EF520 /* FormControlCell.m */,
+				2C5C17161C84504900CF2395 /* BlockButtonCell.h */,
+				2C5C17171C84504900CF2395 /* BlockButtonCell.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -543,6 +553,7 @@
 				2C9FDED61C7D554E0026AFA5 /* Address.m in Sources */,
 				2C31F7671C7E872B00C9228C /* BaseFormViewController.m in Sources */,
 				2C31F74C1C7E813600C9228C /* LockScreenController.m in Sources */,
+				2C5C17181C84504900CF2395 /* BlockButtonCell.m in Sources */,
 				2C87C1F81C80780000612601 /* BaseViewController.m in Sources */,
 				2C9FDEDF1C7D566F0026AFA5 /* SessionManager.m in Sources */,
 				2C31F78C1C80753F00C9228C /* CameraViewController.m in Sources */,
@@ -551,6 +562,7 @@
 				2C31F74D1C7E813600C9228C /* CreateOrRecoverViewController.m in Sources */,
 				2C31F77A1C7FD67D00C9228C /* DashboardHeaderView.m in Sources */,
 				2C31F75A1C7E84CF00C9228C /* AddressListViewController.m in Sources */,
+				2C10C4411C8473BB000EF520 /* FormControlCell.m in Sources */,
 				2C31F7891C80414400C9228C /* NSString+Helper.m in Sources */,
 				2C87C1FB1C80788B00612601 /* TransactionViewController.m in Sources */,
 			);
