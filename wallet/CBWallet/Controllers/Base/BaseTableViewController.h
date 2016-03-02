@@ -11,7 +11,8 @@
 #import "ActionButtonCell.h"
 
 extern NSString * _Nonnull const BaseTableViewCellDefaultIdentifier;
-extern NSString * _Nonnull const BaseTableViewCellActionIdentifier;
+extern NSString * _Nonnull const BaseTableViewCellActionButtonIdentifier;
+extern NSString * _Nonnull const BaseTableViewCellBlockButtonIdentifier;
 
 @interface BaseTableViewController : UITableViewController
 

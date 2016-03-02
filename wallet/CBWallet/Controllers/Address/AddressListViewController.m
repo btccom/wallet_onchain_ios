@@ -98,7 +98,7 @@
         id data = rowsData[indexPath.row];
         if ([data isKindOfClass:[NSString class]]) {
             // action section
-            ActionButtonCell *cell = [tableView dequeueReusableCellWithIdentifier:BaseTableViewCellActionIdentifier forIndexPath:indexPath];
+            ActionButtonCell *cell = [tableView dequeueReusableCellWithIdentifier:BaseTableViewCellActionButtonIdentifier forIndexPath:indexPath];
             cell.imageView.image = [UIImage imageNamed:@"icon_create_mini"];
             cell.textLabel.text = data;
             return cell;

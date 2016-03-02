@@ -15,7 +15,8 @@
 @end
 
 NSString *const BaseTableViewCellDefaultIdentifier = @"cell.default";
-NSString *const BaseTableViewCellActionIdentifier = @"cell.action";
+NSString *const BaseTableViewCellActionButtonIdentifier = @"cell.button.action";
+NSString *const BaseTableViewCellBlockButtonIdentifier = @"cell.button.block";
 
 @implementation BaseTableViewController
 
@@ -25,7 +26,7 @@ NSString *const BaseTableViewCellActionIdentifier = @"cell.action";
     [self setupAppearance];
     
     [self.tableView registerClass:[DefaultTableViewCell class] forCellReuseIdentifier:BaseTableViewCellDefaultIdentifier];
-    [self.tableView registerClass:[ActionButtonCell class] forCellReuseIdentifier:BaseTableViewCellActionIdentifier];
+    [self.tableView registerClass:[ActionButtonCell class] forCellReuseIdentifier:BaseTableViewCellActionButtonIdentifier];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
