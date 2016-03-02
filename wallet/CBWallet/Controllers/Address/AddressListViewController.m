@@ -98,7 +98,7 @@
         id data = rowsData[indexPath.row];
         if ([data isKindOfClass:[NSString class]]) {
             // action section
-            ActionCell *cell = [tableView dequeueReusableCellWithIdentifier:BaseTableViewCellActionIdentifier forIndexPath:indexPath];
+            ActionButtonCell *cell = [tableView dequeueReusableCellWithIdentifier:BaseTableViewCellActionIdentifier forIndexPath:indexPath];
             cell.imageView.image = [UIImage imageNamed:@"icon_create_mini"];
             cell.textLabel.text = data;
             return cell;
@@ -111,7 +111,7 @@
         }
     }
     // empty cell
-    DefaultCell *cell = [tableView dequeueReusableCellWithIdentifier:BaseTableViewCellDefaultIdentifier forIndexPath:indexPath];
+    DefaultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:BaseTableViewCellDefaultIdentifier forIndexPath:indexPath];
     cell.textLabel.text = @"NaN";
     
     return cell;

@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 
 /// has sub title
-@interface DefaultCell : UITableViewCell
+@interface DefaultTableViewCell : UITableViewCell
 
 @end

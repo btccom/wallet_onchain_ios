@@ -24,8 +24,8 @@ NSString *const BaseTableViewCellActionIdentifier = @"cell.action";
     
     [self setupAppearance];
     
-    [self.tableView registerClass:[DefaultCell class] forCellReuseIdentifier:BaseTableViewCellDefaultIdentifier];
-    [self.tableView registerClass:[ActionCell class] forCellReuseIdentifier:BaseTableViewCellActionIdentifier];
+    [self.tableView registerClass:[DefaultTableViewCell class] forCellReuseIdentifier:BaseTableViewCellDefaultIdentifier];
+    [self.tableView registerClass:[ActionButtonCell class] forCellReuseIdentifier:BaseTableViewCellActionIdentifier];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;

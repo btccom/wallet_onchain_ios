@@ -6,8 +6,9 @@
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
-#import "DefaultCell.h"
+#import "BaseFormControlCell.h"
 
-@interface ActionCell : DefaultCell
+/// with icon, text label and detail text label
+@interface ActionButtonCell : BaseFormControlCell
 
 @end

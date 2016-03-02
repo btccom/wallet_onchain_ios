@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DefaultCell.h"
-#import "ActionCell.h"
+#import "DefaultTableViewCell.h"
+#import "ActionButtonCell.h"
 
 extern NSString * _Nonnull const BaseTableViewCellDefaultIdentifier;
 extern NSString * _Nonnull const BaseTableViewCellActionIdentifier;

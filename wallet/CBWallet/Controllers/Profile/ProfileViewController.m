@@ -102,7 +102,7 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
     return view;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    DefaultCell *cell = [tableView dequeueReusableCellWithIdentifier:BaseTableViewCellDefaultIdentifier forIndexPath:indexPath];
+    DefaultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:BaseTableViewCellDefaultIdentifier forIndexPath:indexPath];
     id sectionStrings = self.tableStrings[indexPath.section];
     if ([sectionStrings isKindOfClass:[NSDictionary class]]) {
         id object = [[[sectionStrings allObjects] firstObject] objectAtIndex:indexPath.row];

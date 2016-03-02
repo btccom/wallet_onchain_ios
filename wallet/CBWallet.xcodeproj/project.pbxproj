@@ -41,10 +41,9 @@
 		2C9CAF661C868B61008194EB /* SessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF2D1C868B61008194EB /* SessionManager.m */; };
 		2C9CAF671C868B61008194EB /* AddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF311C868B61008194EB /* AddressCell.m */; };
 		2C9CAF681C868B61008194EB /* AddressHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF331C868B61008194EB /* AddressHeaderView.m */; };
-		2C9CAF691C868B61008194EB /* ActionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF361C868B61008194EB /* ActionCell.m */; };
-		2C9CAF6A1C868B61008194EB /* BaseFormControlCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF381C868B61008194EB /* BaseFormControlCell.m */; };
+		2C9CAF691C868B61008194EB /* ActionButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF361C868B61008194EB /* ActionButtonCell.m */; };
 		2C9CAF6B1C868B61008194EB /* BlockButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF3A1C868B61008194EB /* BlockButtonCell.m */; };
-		2C9CAF6C1C868B61008194EB /* DefaultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF3C1C868B61008194EB /* DefaultCell.m */; };
+		2C9CAF6C1C868B61008194EB /* DefaultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF3C1C868B61008194EB /* DefaultTableViewCell.m */; };
 		2C9CAF6D1C868B61008194EB /* ListSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF3E1C868B61008194EB /* ListSectionHeaderView.m */; };
 		2C9CAF6E1C868B61008194EB /* DashboardHeaderActionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF411C868B61008194EB /* DashboardHeaderActionButton.m */; };
 		2C9CAF6F1C868B61008194EB /* DashboardHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF431C868B61008194EB /* DashboardHeaderView.m */; };
@@ -55,6 +54,7 @@
 		2C9CAF7D1C868B98008194EB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2C9CAF771C868B98008194EB /* InfoPlist.strings */; };
 		2C9CAF7E1C868B98008194EB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF781C868B98008194EB /* main.m */; };
 		2C9CAF811C868BCB008194EB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C9CAF7F1C868BCB008194EB /* LaunchScreen.storyboard */; };
+		2C9CAF871C868E17008194EB /* BaseFormControlCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF861C868E17008194EB /* BaseFormControlCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -126,14 +126,12 @@
 		2C9CAF311C868B61008194EB /* AddressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressCell.m; sourceTree = "<group>"; };
 		2C9CAF321C868B61008194EB /* AddressHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressHeaderView.h; sourceTree = "<group>"; };
 		2C9CAF331C868B61008194EB /* AddressHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressHeaderView.m; sourceTree = "<group>"; };
-		2C9CAF351C868B61008194EB /* ActionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionCell.h; sourceTree = "<group>"; };
-		2C9CAF361C868B61008194EB /* ActionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionCell.m; sourceTree = "<group>"; };
-		2C9CAF371C868B61008194EB /* BaseFormControlCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseFormControlCell.h; sourceTree = "<group>"; };
-		2C9CAF381C868B61008194EB /* BaseFormControlCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseFormControlCell.m; sourceTree = "<group>"; };
+		2C9CAF351C868B61008194EB /* ActionButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionButtonCell.h; sourceTree = "<group>"; };
+		2C9CAF361C868B61008194EB /* ActionButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionButtonCell.m; sourceTree = "<group>"; };
 		2C9CAF391C868B61008194EB /* BlockButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockButtonCell.h; sourceTree = "<group>"; };
 		2C9CAF3A1C868B61008194EB /* BlockButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockButtonCell.m; sourceTree = "<group>"; };
-		2C9CAF3B1C868B61008194EB /* DefaultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultCell.h; sourceTree = "<group>"; };
-		2C9CAF3C1C868B61008194EB /* DefaultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultCell.m; sourceTree = "<group>"; };
+		2C9CAF3B1C868B61008194EB /* DefaultTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultTableViewCell.h; sourceTree = "<group>"; };
+		2C9CAF3C1C868B61008194EB /* DefaultTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultTableViewCell.m; sourceTree = "<group>"; };
 		2C9CAF3D1C868B61008194EB /* ListSectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListSectionHeaderView.h; sourceTree = "<group>"; };
 		2C9CAF3E1C868B61008194EB /* ListSectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListSectionHeaderView.m; sourceTree = "<group>"; };
 		2C9CAF401C868B61008194EB /* DashboardHeaderActionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardHeaderActionButton.h; sourceTree = "<group>"; };
@@ -151,6 +149,8 @@
 		2C9CAF781C868B98008194EB /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = CBWallet/main.m; sourceTree = SOURCE_ROOT; };
 		2C9CAF801C868BCB008194EB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = CBWallet/Base.lproj/LaunchScreen.storyboard; sourceTree = SOURCE_ROOT; };
 		2C9CAF821C868CAE008194EB /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = CBWallet/Info.plist; sourceTree = SOURCE_ROOT; };
+		2C9CAF851C868E17008194EB /* BaseFormControlCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseFormControlCell.h; sourceTree = "<group>"; };
+		2C9CAF861C868E17008194EB /* BaseFormControlCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseFormControlCell.m; sourceTree = "<group>"; };
 		2CC4845A1C71A2EE0033D700 /* CBWallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CBWallet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -344,10 +344,11 @@
 		2C9CAF2E1C868B61008194EB /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				2C9CAF2F1C868B61008194EB /* Address */,
-				2C9CAF341C868B61008194EB /* Common */,
 				2C9CAF3F1C868B61008194EB /* Dashboard */,
+				2C9CAF2F1C868B61008194EB /* Address */,
 				2C9CAF441C868B61008194EB /* Transaction */,
+				2C9CAF341C868B61008194EB /* Common */,
+				2C9CAF841C868E17008194EB /* Base */,
 			);
 			name = Views;
 			path = CBWallet/Views;
@@ -367,14 +368,12 @@
 		2C9CAF341C868B61008194EB /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				2C9CAF351C868B61008194EB /* ActionCell.h */,
-				2C9CAF361C868B61008194EB /* ActionCell.m */,
-				2C9CAF371C868B61008194EB /* BaseFormControlCell.h */,
-				2C9CAF381C868B61008194EB /* BaseFormControlCell.m */,
+				2C9CAF351C868B61008194EB /* ActionButtonCell.h */,
+				2C9CAF361C868B61008194EB /* ActionButtonCell.m */,
 				2C9CAF391C868B61008194EB /* BlockButtonCell.h */,
 				2C9CAF3A1C868B61008194EB /* BlockButtonCell.m */,
-				2C9CAF3B1C868B61008194EB /* DefaultCell.h */,
-				2C9CAF3C1C868B61008194EB /* DefaultCell.m */,
+				2C9CAF3B1C868B61008194EB /* DefaultTableViewCell.h */,
+				2C9CAF3C1C868B61008194EB /* DefaultTableViewCell.m */,
 				2C9CAF3D1C868B61008194EB /* ListSectionHeaderView.h */,
 				2C9CAF3E1C868B61008194EB /* ListSectionHeaderView.m */,
 			);
@@ -399,6 +398,15 @@
 				2C9CAF461C868B61008194EB /* TransactionCell.m */,
 			);
 			path = Transaction;
+			sourceTree = "<group>";
+		};
+		2C9CAF841C868E17008194EB /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				2C9CAF851C868E17008194EB /* BaseFormControlCell.h */,
+				2C9CAF861C868E17008194EB /* BaseFormControlCell.m */,
+			);
+			path = Base;
 			sourceTree = "<group>";
 		};
 		2CC484511C71A2EE0033D700 = {
@@ -524,13 +532,14 @@
 				2C9CAF531C868B61008194EB /* LockScreenController.m in Sources */,
 				2C9CAF611C868B61008194EB /* Address.m in Sources */,
 				2C9CAF561C868B61008194EB /* SettingsViewController.m in Sources */,
-				2C9CAF691C868B61008194EB /* ActionCell.m in Sources */,
+				2C9CAF691C868B61008194EB /* ActionButtonCell.m in Sources */,
 				2C9CAF591C868B61008194EB /* TransactionListViewController.m in Sources */,
+				2C9CAF871C868E17008194EB /* BaseFormControlCell.m in Sources */,
 				2C9CAF7E1C868B98008194EB /* main.m in Sources */,
 				2C9CAF491C868B61008194EB /* ArchivedAdressListViewController.m in Sources */,
 				2C9CAF5D1C868B61008194EB /* UIButton+VerticalLayout.m in Sources */,
 				2C9CAF471C868B61008194EB /* AddressListViewController.m in Sources */,
-				2C9CAF6C1C868B61008194EB /* DefaultCell.m in Sources */,
+				2C9CAF6C1C868B61008194EB /* DefaultTableViewCell.m in Sources */,
 				2C9CAF701C868B61008194EB /* TransactionCell.m in Sources */,
 				2C9CAF671C868B61008194EB /* AddressCell.m in Sources */,
 				2C9CAF521C868B61008194EB /* InitialWalletSettingViewController.m in Sources */,
@@ -555,7 +564,6 @@
 				2C9CAF4C1C868B61008194EB /* BaseTableViewController.m in Sources */,
 				2C9CAF511C868B61008194EB /* CreateOrRecoverViewController.m in Sources */,
 				2C9CAF6F1C868B61008194EB /* DashboardHeaderView.m in Sources */,
-				2C9CAF6A1C868B61008194EB /* BaseFormControlCell.m in Sources */,
 				2C9CAF601C868B61008194EB /* Account.m in Sources */,
 				2C9CAF4B1C868B61008194EB /* BaseListViewController.m in Sources */,
 				2C9CAF631C868B61008194EB /* RecordObject.m in Sources */,
