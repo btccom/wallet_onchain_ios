@@ -7,6 +7,9 @@
 //
 
 #import "BaseTableViewController.h"
+#import "BlockButtonCell.h"
+
+extern NSString * _Nonnull const BaseListViewSectionHeaderIdentifier;
 
 @interface BaseFormViewController : BaseTableViewController
 

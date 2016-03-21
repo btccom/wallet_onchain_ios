@@ -19,6 +19,7 @@ typedef NS_ENUM(NSUInteger, BlockButtonCellStyle) {
     BlockButtonCellStyleDanger
 };
 
+/// align center, like sign up button
 @interface BlockButtonCell : BaseFormControlCell
 
 @property (nonatomic, assign) BlockButtonCellStyle buttonCellStyle;

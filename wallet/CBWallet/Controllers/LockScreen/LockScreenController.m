@@ -10,7 +10,7 @@
 #import "CreateOrRecoverViewController.h"
 #import "MasterPasswordViewController.h"
 
-@interface LockScreenController ()<MasterPasswordViewControllerDelegate>
+@interface LockScreenController ()
 
 @end
 
@@ -29,6 +29,7 @@
         }
         case LockScreenActionTypeSignIn: {
             MasterPasswordViewController *masterPasswordViewController = [[MasterPasswordViewController alloc] init];
+            masterPasswordViewController.actionType = self.actionType;
             masterPasswordViewController.delegate = self;
             [self setViewControllers:@[masterPasswordViewController]];
             break;
@@ -36,7 +37,7 @@
     }
     
     self.view.backgroundColor = [UIColor CBWBackgroundColor];
-    [self.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationBar setBackgroundImage:[UIImage imageNamed:@"bar_tint_white"] forBarMetrics:UIBarMetricsDefault];
     [self.navigationBar setShadowImage:[UIImage new]];
 }
 
@@ -49,11 +50,16 @@
 
 #pragma mark - Private Method
 
-#pragma mark MasterPasswordViewControllerDelegate
+#pragma mark <MasterPasswordViewControllerDelegate>
 - (void)masterPasswordViewController:(MasterPasswordViewController *)controller didInputPassword:(NSString *)password {
     // TODO: check master password
     
     // call delegate
+    [self.delegate lockScreenController:self didUnlockWithActionType:self.actionType];
+}
+
+#pragma mark <InitialWalletSettingViewControllerDelegate>
+- (void)initialWalletSettingViewControllerDidComplete:(InitialWalletSettingViewController *)controller {
     [self.delegate lockScreenController:self didUnlockWithActionType:self.actionType];
 }
 

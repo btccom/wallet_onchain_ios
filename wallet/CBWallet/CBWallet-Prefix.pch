@@ -17,6 +17,13 @@
 #define ScreenWidth CGRectGetWidth([UIScreen mainScreen].bounds)
 #define HDImagePortraitHeight ceilf(ScreenWidth / 16.f * 9.f)
 
+typedef NS_ENUM(NSUInteger, LockScreenActionType) {
+    /// 注册，初始化钱包，create or recover
+    LockScreenActionTypeSignUp,
+    /// 登录，如应用被唤醒时，master password
+    LockScreenActionTypeSignIn
+};
+
 static const NSTimeInterval CBWAnimateDuration = 0.55;
 static const NSTimeInterval CBWAnimateDurationFast = 0.2;
 static const NSTimeInterval CBWAnimateDUrationSlow = 0.87;
@@ -31,7 +38,8 @@ static const CGFloat CBWCellHeightAddress = 48.f;
 static const CGFloat CBWCellHeightAddressWithMetadata = 76.f;
 
 // TODO: depending on scrren width
-static const CGFloat CBWLayoutCommonHorizontalPadding = 20.f;
+static const CGFloat CBWLayoutCommonHorizontalPadding = 16.f;
+static const CGFloat CBWLayoutCommonHorizontalPaddingPlus = 20.f;
 static const CGFloat CBWLayoutCommonVerticalPadding = 16.f;
 static const CGFloat CBWLayoutInnerSpace = 8.f;
 

@@ -11,7 +11,7 @@
 @implementation UIViewController (Appearance)
 
 - (void)setupAppearance {
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
     
     [self.navigationController.navigationBar setTintColor:[UIColor CBWPrimaryColor]];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor CBWBlackColor]}];
@@ -22,6 +22,9 @@
     self.navigationController.view.backgroundColor = [UIColor CBWBackgroundColor];
     
     self.view.backgroundColor = [UIColor CBWBackgroundColor];
+}
+- (UIStatusBarStyle *)preferredStatusBarStyle {
+    return UIStatusBarStyleDefault;
 }
 
 #pragma - Private Method

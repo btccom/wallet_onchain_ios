@@ -8,7 +8,7 @@
 
 #import "BaseFormControlCell.h"
 
-/// with icon, text label and detail text label
+/// with icon, text label and detail text label, align left
 @interface ActionButtonCell : BaseFormControlCell
 
 @end

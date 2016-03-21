@@ -23,6 +23,8 @@
 /// 启动: 输入主密码或指纹登录
 @interface MasterPasswordViewController : UIViewController
 
+@property (nonatomic, assign) LockScreenActionType actionType;
+
 @property (nonatomic, weak, nullable) id<MasterPasswordViewControllerDelegate> delegate;
 
 @end

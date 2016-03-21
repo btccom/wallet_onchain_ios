@@ -7,13 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
-typedef NS_ENUM(NSUInteger, LockScreenActionType) {
-    /// 注册，初始化钱包，create or recover
-    LockScreenActionTypeSignUp,
-    /// 登录，如应用被唤醒时，master password
-    LockScreenActionTypeSignIn
-};
+#import "MasterPasswordViewController.h"
+#import "InitialWalletSettingViewController.h"
 
 @class LockScreenController;
 
@@ -24,7 +19,7 @@ typedef NS_ENUM(NSUInteger, LockScreenActionType) {
 @end
 
 /// Container, 启动后的登录页
-@interface LockScreenController : UINavigationController
+@interface LockScreenController : UINavigationController<MasterPasswordViewControllerDelegate, InitialWalletSettingViewControllerDelegate>
 
 @property (nonatomic, assign) LockScreenActionType actionType;
 @property (nonatomic, weak, nullable) id<LockScreenControllerDelegate> delegate;
