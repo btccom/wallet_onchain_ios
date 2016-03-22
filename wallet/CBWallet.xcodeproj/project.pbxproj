@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C99A17C1CA0E434007D7AC3 /* Guard.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C99A17B1CA0E434007D7AC3 /* Guard.m */; };
+		2C99A1801CA1029C007D7AC3 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C99A17F1CA1029C007D7AC3 /* libsqlite3.tbd */; };
 		2C9CAF471C868B61008194EB /* AddressListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAEE31C868B61008194EB /* AddressListViewController.m */; };
 		2C9CAF481C868B61008194EB /* AddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAEE51C868B61008194EB /* AddressViewController.m */; };
 		2C9CAF491C868B61008194EB /* ArchivedAdressListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAEE71C868B61008194EB /* ArchivedAdressListViewController.m */; };
@@ -85,6 +87,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2C99A17A1CA0E434007D7AC3 /* Guard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Guard.h; sourceTree = "<group>"; };
+		2C99A17B1CA0E434007D7AC3 /* Guard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Guard.m; sourceTree = "<group>"; };
+		2C99A17F1CA1029C007D7AC3 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		2C9CAEE21C868B61008194EB /* AddressListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressListViewController.h; sourceTree = "<group>"; };
 		2C9CAEE31C868B61008194EB /* AddressListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressListViewController.m; sourceTree = "<group>"; };
 		2C9CAEE41C868B61008194EB /* AddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressViewController.h; sourceTree = "<group>"; };
@@ -369,6 +374,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C99A1801CA1029C007D7AC3 /* libsqlite3.tbd in Frameworks */,
 				2CF24D5F1C965F6500C7EDB9 /* libz.tbd in Frameworks */,
 				2CF24D121C96377600C7EDB9 /* AVFoundation.framework in Frameworks */,
 				2CF24D0C1C9635AE00C7EDB9 /* CoreBitcoin.framework in Frameworks */,
@@ -548,6 +554,8 @@
 			children = (
 				2C9CAF291C868B61008194EB /* SystemManager.h */,
 				2C9CAF2A1C868B61008194EB /* SystemManager.m */,
+				2C99A17A1CA0E434007D7AC3 /* Guard.h */,
+				2C99A17B1CA0E434007D7AC3 /* Guard.m */,
 				2CF24D0E1C96367900C7EDB9 /* Test.h */,
 				2CF24D0F1C96367900C7EDB9 /* Test.m */,
 			);
@@ -668,6 +676,7 @@
 		2CC4845D1C71A2EE0033D700 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				2C99A17F1CA1029C007D7AC3 /* libsqlite3.tbd */,
 				2CF24D5E1C965F6500C7EDB9 /* libz.tbd */,
 				2CF24D111C96377600C7EDB9 /* AVFoundation.framework */,
 				2C9CAF821C868CAE008194EB /* Info.plist */,
@@ -1053,6 +1062,7 @@
 				2C9CAF581C868B61008194EB /* SendViewController.m in Sources */,
 				2C9CAF681C868B61008194EB /* AddressHeaderView.m in Sources */,
 				2CF24D781C97A53200C7EDB9 /* AFURLResponseSerialization.m in Sources */,
+				2C99A17C1CA0E434007D7AC3 /* Guard.m in Sources */,
 				2CD0A9181CA02ACA006AF02F /* FMDatabase.m in Sources */,
 				2C9CAF4C1C868B61008194EB /* BaseTableViewController.m in Sources */,
 				2C9CAF511C868B61008194EB /* CreateOrRecoverViewController.m in Sources */,
@@ -1176,6 +1186,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/CBWallet/Vendors/CoreBitCoin/iOS",
+					"$(SDKROOT)/usr/lib/system",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.btc.wallet-development";
 				PRODUCT_NAME = CBWallet;
@@ -1198,6 +1209,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/CBWallet/Vendors/CoreBitCoin/iOS",
+					"$(SDKROOT)/usr/lib/system",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.btc.wallet-development";
 				PRODUCT_NAME = CBWallet;
