@@ -20,10 +20,13 @@
 
 #import "NSString+CBWAddress.h"
 #import "Test.h"
-#import "BTCQRCode.h"
+#import <CoreBitcoin/BTCQRCode.h>
 #import "YYImage.h"
 
 #import "AFNetworking.h"
+
+#import "NSData+AES256.h"
+#import "NSString+PBKDF2.h"
 
 
 @interface DashboardViewController ()<ProfileViewControllerDelegate>
@@ -66,41 +69,23 @@
     }
     
     // 测试 core bitcoin
-    [Test runAllTests];
+//    [Test runAllTests];
+    
+    // 测试 AES
+    NSString *password = @"password";
+    NSString *salt = @"salt";
+    NSLog(@"key: %@", [password PBKDF2KeyWithSalt:salt]);
+    
+    NSString *secret = @"secret";
+    NSData *encryptedData = [[secret dataUsingEncoding:NSUTF8StringEncoding] AES256EncryptWithKey:[password PBKDF2KeyWithSalt:salt]];
+    NSLog(@"encrypted data: %@", [encryptedData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength]);
+    
+    NSData *decryptedData = [encryptedData AES256DecryptWithKey:[password PBKDF2KeyWithSalt:salt]];
+    NSLog(@"decrypted secret: %@", [[NSString alloc] initWithData:decryptedData encoding:NSUTF8StringEncoding]);
+    NSLog(@"================================");
     
     // 测试二维码编码解码
-    
-    // 二维码生成
-    NSString *qrcode1 = @"qr code string 1";
-    NSString *qrcode2 = @"qr code string 2";
-    UIImage *qrcodeImage1 = [BTCQRCode imageForString:qrcode1 size:CGSizeMake(200.f, 200.f) scale:2.f];
-    UIImage *qrcodeImage2 = [BTCQRCode imageForString:qrcode2 size:CGSizeMake(200.f, 200.f) scale:2.f];
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:qrcodeImage1];
-    [self.view addSubview:imageView];
-    
-    // 编码
-    YYImageEncoder *encoder = [[YYImageEncoder alloc] initWithType:YYImageTypePNG];
-    encoder.loopCount = 0;
-    [encoder addImage:qrcodeImage1 duration:0];
-    [encoder addImage:qrcodeImage2 duration:0];
-    NSData *apngData = [encoder encode];
-    
-    // 解码
-    YYImageDecoder *decoder = [YYImageDecoder decoderWithData:apngData scale:2.f];
-    UIImage *decodedQRCodeImage2 = [decoder frameAtIndex:1 decodeForDisplay:NO].image;
-    
-    // 获取二维码
-    CIDetector* detector = [CIDetector detectorOfType:CIDetectorTypeQRCode context:[CIContext contextWithOptions:nil] options:@{CIDetectorAccuracy:CIDetectorAccuracyHigh}];
-    if (detector) {
-        NSLog(@"detector ready");
-        CIImage *ciimg = [CIImage imageWithCGImage:decodedQRCodeImage2.CGImage];
-        NSArray *featuresR = [detector featuresInImage:ciimg];
-        NSString *decodeR;
-        for (CIQRCodeFeature* featureR in featuresR) {
-            NSLog(@"decode: %@ ",featureR.messageString);
-            decodeR = featureR.messageString;
-        }
-    }
+    [self testQRCode];
     
     // 测试 http 请求
     // 1. config session
@@ -119,6 +104,61 @@
     }];
     [dataTask resume];
     
+}
+
+- (void)testQRCode {
+    // 二维码生成
+    NSString *password = @"password";
+    NSString *salt = @"salt";
+    NSLog(@"key: %@", [password PBKDF2KeyWithSalt:salt]);
+    
+    NSString *uuid = [NSUUID UUID].UUIDString;
+    NSString *seed = @"Life is a long journey. Enjoy it when you feel lonely.";
+
+    NSString *secret = [NSString stringWithFormat:@"%@:%@", uuid, seed];
+    NSData *encryptedData = [[secret dataUsingEncoding:NSUTF8StringEncoding] AES256EncryptWithKey:[password PBKDF2KeyWithSalt:salt]];
+    NSLog(@"encrypted data: %@", [encryptedData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength]);
+    
+    NSData *decryptedData = [encryptedData AES256DecryptWithKey:[password PBKDF2KeyWithSalt:salt]];
+    NSLog(@"secret: %@", [[NSString alloc] initWithData:decryptedData encoding:NSUTF8StringEncoding]);
+    NSLog(@"===============================");
+    NSString *qrcode1 = [encryptedData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    NSString *qrcode2 = @"qr code string 2";
+    UIImage *qrcodeImage1 = [BTCQRCode imageForString:qrcode1 size:CGSizeMake(200.f, 200.f) scale:2.f];
+    UIImage *qrcodeImage2 = [BTCQRCode imageForString:qrcode2 size:CGSizeMake(200.f, 200.f) scale:2.f];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:qrcodeImage1];
+    [self.view addSubview:imageView];
+    
+    // 编码
+    YYImageEncoder *encoder = [[YYImageEncoder alloc] initWithType:YYImageTypePNG];
+    encoder.loopCount = 0;
+    [encoder addImage:qrcodeImage1 duration:0];
+    [encoder addImage:qrcodeImage2 duration:0];
+    NSData *apngData = [encoder encode];
+    
+    // 解码
+    YYImageDecoder *decoder = [YYImageDecoder decoderWithData:apngData scale:2.f];
+    UIImage *decodedQRCodeImage2 = [decoder frameAtIndex:0 decodeForDisplay:NO].image;
+    
+    // 获取二维码
+    CIDetector* detector = [CIDetector detectorOfType:CIDetectorTypeQRCode context:[CIContext contextWithOptions:nil] options:@{CIDetectorAccuracy:CIDetectorAccuracyHigh}];
+    if (detector) {
+        NSLog(@"detector ready");
+        CIImage *ciimg = [CIImage imageWithCGImage:decodedQRCodeImage2.CGImage];
+        NSArray *featuresR = [detector featuresInImage:ciimg];
+        NSString *decodeR;
+        for (CIQRCodeFeature* featureR in featuresR) {
+            NSLog(@"decode: %@ ", featureR.messageString);
+            
+            NSData *decodedData = [[NSData alloc] initWithBase64EncodedString:featureR.messageString options:NSDataBase64DecodingIgnoreUnknownCharacters];
+            
+            NSData *decryptedData = [decodedData AES256DecryptWithKey:[password PBKDF2KeyWithSalt:salt]];
+            
+            NSString *secret = [[NSString alloc] initWithData:decryptedData encoding:NSUTF8StringEncoding];
+            NSLog(@"secret: %@", secret);
+            decodeR = featureR.messageString;
+        }
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {

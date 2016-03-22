@@ -81,9 +81,9 @@
 #ifndef HEADER_SEED_H
 #define HEADER_SEED_H
 
-#include <CoreBitcoin/openssl/opensslconf.h>
-#include <CoreBitcoin/openssl/e_os2.h>
-#include <CoreBitcoin/openssl/crypto.h>
+#include <openssl/opensslconf.h>
+#include <openssl/e_os2.h>
+#include <openssl/crypto.h>
 
 #ifdef OPENSSL_NO_SEED
 #error SEED is disabled.

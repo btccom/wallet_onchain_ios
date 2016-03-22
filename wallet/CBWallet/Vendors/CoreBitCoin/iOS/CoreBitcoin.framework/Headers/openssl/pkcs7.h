@@ -59,12 +59,12 @@
 #ifndef HEADER_PKCS7_H
 #define HEADER_PKCS7_H
 
-#include <CoreBitcoin/openssl/asn1.h>
-#include <CoreBitcoin/openssl/bio.h>
-#include <CoreBitcoin/openssl/e_os2.h>
+#include <openssl/asn1.h>
+#include <openssl/bio.h>
+#include <openssl/e_os2.h>
 
-#include <CoreBitcoin/openssl/symhacks.h>
-#include <CoreBitcoin/openssl/ossl_typ.h>
+#include <openssl/symhacks.h>
+#include <openssl/ossl_typ.h>
 
 #ifdef  __cplusplus
 extern "C" {

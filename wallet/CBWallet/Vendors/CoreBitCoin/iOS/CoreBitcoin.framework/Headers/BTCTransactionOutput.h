@@ -1,7 +1,7 @@
 // CoreBitcoin by Oleg Andreev <oleganza@gmail.com>, WTFPL.
 
 #import <Foundation/Foundation.h>
-#import <CoreBitcoin/BTCUnitsAndLimits.h>
+#import "BTCUnitsAndLimits.h"
 
 @class BTCScript;
 @class BTCAddress;

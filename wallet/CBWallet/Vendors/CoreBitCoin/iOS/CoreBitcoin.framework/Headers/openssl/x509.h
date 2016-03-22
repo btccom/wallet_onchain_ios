@@ -64,49 +64,49 @@
 #ifndef HEADER_X509_H
 #define HEADER_X509_H
 
-#include <CoreBitcoin/openssl/e_os2.h>
-#include <CoreBitcoin/openssl/symhacks.h>
+#include <openssl/e_os2.h>
+#include <openssl/symhacks.h>
 #ifndef OPENSSL_NO_BUFFER
-#include <CoreBitcoin/openssl/buffer.h>
+#include <openssl/buffer.h>
 #endif
 #ifndef OPENSSL_NO_EVP
-#include <CoreBitcoin/openssl/evp.h>
+#include <openssl/evp.h>
 #endif
 #ifndef OPENSSL_NO_BIO
-#include <CoreBitcoin/openssl/bio.h>
+#include <openssl/bio.h>
 #endif
-#include <CoreBitcoin/openssl/stack.h>
-#include <CoreBitcoin/openssl/asn1.h>
-#include <CoreBitcoin/openssl/safestack.h>
+#include <openssl/stack.h>
+#include <openssl/asn1.h>
+#include <openssl/safestack.h>
 
 #ifndef OPENSSL_NO_EC
-#include <CoreBitcoin/openssl/ec.h>
+#include <openssl/ec.h>
 #endif
 
 #ifndef OPENSSL_NO_ECDSA
-#include <CoreBitcoin/openssl/ecdsa.h>
+#include <openssl/ecdsa.h>
 #endif
 
 #ifndef OPENSSL_NO_ECDH
-#include <CoreBitcoin/openssl/ecdh.h>
+#include <openssl/ecdh.h>
 #endif
 
 #ifndef OPENSSL_NO_DEPRECATED
 #ifndef OPENSSL_NO_RSA
-#include <CoreBitcoin/openssl/rsa.h>
+#include <openssl/rsa.h>
 #endif
 #ifndef OPENSSL_NO_DSA
-#include <CoreBitcoin/openssl/dsa.h>
+#include <openssl/dsa.h>
 #endif
 #ifndef OPENSSL_NO_DH
-#include <CoreBitcoin/openssl/dh.h>
+#include <openssl/dh.h>
 #endif
 #endif
 
 #ifndef OPENSSL_NO_SHA
-#include <CoreBitcoin/openssl/sha.h>
+#include <openssl/sha.h>
 #endif
-#include <CoreBitcoin/openssl/ossl_typ.h>
+#include <openssl/ossl_typ.h>
 
 #ifdef  __cplusplus
 extern "C" {
@@ -597,8 +597,8 @@ struct pkcs8_priv_key_info_st
 }
 #endif
 
-#include <CoreBitcoin/openssl/x509_vfy.h>
-#include <CoreBitcoin/openssl/pkcs7.h>
+#include <openssl/x509_vfy.h>
+#include <openssl/pkcs7.h>
 
 #ifdef  __cplusplus
 extern "C" {

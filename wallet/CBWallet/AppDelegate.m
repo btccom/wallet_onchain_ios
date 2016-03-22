@@ -11,6 +11,7 @@
 #import "LockScreenController.h"
 
 #import "SystemManager.h"
+#import "Guard.h"
 
 @interface AppDelegate ()<LockScreenControllerDelegate>
 @property (nonatomic, strong) UIWindow *lockScreenWindow;
@@ -42,6 +43,8 @@
     
     // and lock
     [self lockScreen];
+    
+    [[Guard globalGuard] checkInWithCode:@"code"];
     
     return YES;
 }

@@ -59,7 +59,7 @@
 #ifndef HEADER_NEW_DES_H
 #define HEADER_NEW_DES_H
 
-#include <CoreBitcoin/openssl/e_os2.h>	/* OPENSSL_EXTERN, OPENSSL_NO_DES,
+#include <openssl/e_os2.h>	/* OPENSSL_EXTERN, OPENSSL_NO_DES,
 				   DES_LONG (via openssl/opensslconf.h */
 
 #ifdef OPENSSL_NO_DES

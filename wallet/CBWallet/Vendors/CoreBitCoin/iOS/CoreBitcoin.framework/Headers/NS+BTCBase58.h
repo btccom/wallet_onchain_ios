@@ -1,7 +1,7 @@
 // CoreBitcoin by Oleg Andreev <oleganza@gmail.com>, WTFPL.
 
 #import <Foundation/Foundation.h>
-#import <CoreBitcoin/BTCBase58.h>
+#import "BTCBase58.h"
 
 // These categories are optional and provided for convenience only.
 // For documentation look into BTCBase58.h.

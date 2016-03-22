@@ -60,8 +60,8 @@
 #define HEADER_RAND_H
 
 #include <stdlib.h>
-#include <CoreBitcoin/openssl/ossl_typ.h>
-#include <CoreBitcoin/openssl/e_os2.h>
+#include <openssl/ossl_typ.h>
+#include <openssl/e_os2.h>
 
 #if defined(OPENSSL_SYS_WINDOWS)
 #include <windows.h>

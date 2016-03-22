@@ -2,7 +2,7 @@
 #ifndef HEADER_COMP_H
 #define HEADER_COMP_H
 
-#include <CoreBitcoin/openssl/crypto.h>
+#include <openssl/crypto.h>
 
 #ifdef  __cplusplus
 extern "C" {

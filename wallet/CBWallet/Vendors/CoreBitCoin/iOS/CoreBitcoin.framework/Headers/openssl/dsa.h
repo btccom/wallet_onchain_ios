@@ -65,20 +65,20 @@
 #ifndef HEADER_DSA_H
 #define HEADER_DSA_H
 
-#include <CoreBitcoin/openssl/e_os2.h>
+#include <openssl/e_os2.h>
 
 #ifdef OPENSSL_NO_DSA
 #error DSA is disabled.
 #endif
 
 #ifndef OPENSSL_NO_BIO
-#include <CoreBitcoin/openssl/bio.h>
+#include <openssl/bio.h>
 #endif
-#include <CoreBitcoin/openssl/crypto.h>
-#include <CoreBitcoin/openssl/ossl_typ.h>
+#include <openssl/crypto.h>
+#include <openssl/ossl_typ.h>
 
 #ifndef OPENSSL_NO_DEPRECATED
-#include <CoreBitcoin/openssl/bn.h>
+#include <openssl/bn.h>
 #ifndef OPENSSL_NO_DH
 # include <openssl/dh.h>
 #endif

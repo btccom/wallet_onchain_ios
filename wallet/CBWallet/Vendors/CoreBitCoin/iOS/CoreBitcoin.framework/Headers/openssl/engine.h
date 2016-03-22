@@ -64,38 +64,38 @@
 #ifndef HEADER_ENGINE_H
 #define HEADER_ENGINE_H
 
-#include <CoreBitcoin/openssl/opensslconf.h>
+#include <openssl/opensslconf.h>
 
 #ifdef OPENSSL_NO_ENGINE
 #error ENGINE is disabled.
 #endif
 
 #ifndef OPENSSL_NO_DEPRECATED
-#include <CoreBitcoin/openssl/bn.h>
+#include <openssl/bn.h>
 #ifndef OPENSSL_NO_RSA
-#include <CoreBitcoin/openssl/rsa.h>
+#include <openssl/rsa.h>
 #endif
 #ifndef OPENSSL_NO_DSA
-#include <CoreBitcoin/openssl/dsa.h>
+#include <openssl/dsa.h>
 #endif
 #ifndef OPENSSL_NO_DH
-#include <CoreBitcoin/openssl/dh.h>
+#include <openssl/dh.h>
 #endif
 #ifndef OPENSSL_NO_ECDH
-#include <CoreBitcoin/openssl/ecdh.h>
+#include <openssl/ecdh.h>
 #endif
 #ifndef OPENSSL_NO_ECDSA
-#include <CoreBitcoin/openssl/ecdsa.h>
+#include <openssl/ecdsa.h>
 #endif
-#include <CoreBitcoin/openssl/rand.h>
-#include <CoreBitcoin/openssl/ui.h>
-#include <CoreBitcoin/openssl/err.h>
+#include <openssl/rand.h>
+#include <openssl/ui.h>
+#include <openssl/err.h>
 #endif
 
-#include <CoreBitcoin/openssl/ossl_typ.h>
-#include <CoreBitcoin/openssl/symhacks.h>
+#include <openssl/ossl_typ.h>
+#include <openssl/symhacks.h>
 
-#include <CoreBitcoin/openssl/x509.h>
+#include <openssl/x509.h>
 
 #ifdef  __cplusplus
 extern "C" {

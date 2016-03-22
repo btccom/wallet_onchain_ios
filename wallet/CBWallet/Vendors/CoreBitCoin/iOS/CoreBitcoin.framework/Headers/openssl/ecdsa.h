@@ -59,16 +59,16 @@
 #ifndef HEADER_ECDSA_H
 #define HEADER_ECDSA_H
 
-#include <CoreBitcoin/openssl/opensslconf.h>
+#include <openssl/opensslconf.h>
 
 #ifdef OPENSSL_NO_ECDSA
 #error ECDSA is disabled.
 #endif
 
-#include <CoreBitcoin/openssl/ec.h>
-#include <CoreBitcoin/openssl/ossl_typ.h>
+#include <openssl/ec.h>
+#include <openssl/ossl_typ.h>
 #ifndef OPENSSL_NO_DEPRECATED
-#include <CoreBitcoin/openssl/bn.h>
+#include <openssl/bn.h>
 #endif
 
 #ifdef __cplusplus

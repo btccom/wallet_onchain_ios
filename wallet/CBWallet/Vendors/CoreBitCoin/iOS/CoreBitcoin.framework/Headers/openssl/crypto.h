@@ -119,24 +119,24 @@
 
 #include <stdlib.h>
 
-#include <CoreBitcoin/openssl/e_os2.h>
+#include <openssl/e_os2.h>
 
 #ifndef OPENSSL_NO_FP_API
 #include <stdio.h>
 #endif
 
-#include <CoreBitcoin/openssl/stack.h>
-#include <CoreBitcoin/openssl/safestack.h>
-#include <CoreBitcoin/openssl/opensslv.h>
-#include <CoreBitcoin/openssl/ossl_typ.h>
+#include <openssl/stack.h>
+#include <openssl/safestack.h>
+#include <openssl/opensslv.h>
+#include <openssl/ossl_typ.h>
 
 #ifdef CHARSET_EBCDIC
-#include <CoreBitcoin/openssl/ebcdic.h>
+#include <openssl/ebcdic.h>
 #endif
 
 /* Resolve problems on some operating systems with symbol names that clash
    one way or another */
-#include <CoreBitcoin/openssl/symhacks.h>
+#include <openssl/symhacks.h>
 
 #ifdef  __cplusplus
 extern "C" {

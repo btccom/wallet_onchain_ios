@@ -59,7 +59,7 @@
 #ifndef HEADER_DSO_H
 #define HEADER_DSO_H
 
-#include <CoreBitcoin/openssl/crypto.h>
+#include <openssl/crypto.h>
 
 #ifdef __cplusplus
 extern "C" {
