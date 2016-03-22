@@ -20,8 +20,15 @@
     return staticInstance;
 }
 
-- (BOOL)checkWallet {
-    return YES;
+- (BOOL)isWalletInstalled {
+    return NO;
+}
+
+- (BOOL)isiCloudAccountSignedIn {
+    if ([NSFileManager defaultManager].ubiquityIdentityToken) {
+        return YES;
+    }
+    return NO;
 }
 
 @end

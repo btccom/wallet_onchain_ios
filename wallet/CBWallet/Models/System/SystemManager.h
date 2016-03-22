@@ -15,6 +15,8 @@
 + (instancetype)defaultManager;
 
 /// check wallet if valid
-- (BOOL)checkWallet;
+- (BOOL)isWalletInstalled;
+
+- (BOOL)isiCloudAccountSignedIn;
 
 @end

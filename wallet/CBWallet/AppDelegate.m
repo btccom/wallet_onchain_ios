@@ -80,7 +80,7 @@
     }
     
     LockScreenController *lockScreenController = [[LockScreenController alloc] init];
-    lockScreenController.actionType = [[SystemManager defaultManager] checkWallet] ? LockScreenActionTypeSignIn : LockScreenActionTypeSignUp;
+    lockScreenController.actionType = [[SystemManager defaultManager] isWalletInstalled] ? LockScreenActionTypeSignIn : LockScreenActionTypeSignUp;
     lockScreenController.delegate = self;
     self.lockScreenWindow.rootViewController = lockScreenController;
     

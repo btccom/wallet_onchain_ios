@@ -55,6 +55,13 @@
 		2C9CAF7E1C868B98008194EB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF781C868B98008194EB /* main.m */; };
 		2C9CAF811C868BCB008194EB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C9CAF7F1C868BCB008194EB /* LaunchScreen.storyboard */; };
 		2C9CAF871C868E17008194EB /* BaseFormControlCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF861C868E17008194EB /* BaseFormControlCell.m */; };
+		2CD0A9181CA02ACA006AF02F /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD0A90E1CA02ACA006AF02F /* FMDatabase.m */; };
+		2CD0A9191CA02ACA006AF02F /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD0A9101CA02ACA006AF02F /* FMDatabaseAdditions.m */; };
+		2CD0A91A1CA02ACA006AF02F /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD0A9121CA02ACA006AF02F /* FMDatabasePool.m */; };
+		2CD0A91B1CA02ACA006AF02F /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD0A9141CA02ACA006AF02F /* FMDatabaseQueue.m */; };
+		2CD0A91C1CA02ACA006AF02F /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD0A9171CA02ACA006AF02F /* FMResultSet.m */; };
+		2CD0A91F1CA02B45006AF02F /* DatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD0A91E1CA02B45006AF02F /* DatabaseManager.m */; };
+		2CD0A9221CA02CF5006AF02F /* DatabaseManager+Account.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD0A9211CA02CF5006AF02F /* DatabaseManager+Account.m */; };
 		2CF24D0C1C9635AE00C7EDB9 /* CoreBitcoin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CF24D0A1C9635AE00C7EDB9 /* CoreBitcoin.framework */; };
 		2CF24D0D1C9635AE00C7EDB9 /* libCoreBitcoin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CF24D0B1C9635AE00C7EDB9 /* libCoreBitcoin.a */; };
 		2CF24D101C96367900C7EDB9 /* Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF24D0F1C96367900C7EDB9 /* Test.m */; };
@@ -172,6 +179,22 @@
 		2C9CAF851C868E17008194EB /* BaseFormControlCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseFormControlCell.h; sourceTree = "<group>"; };
 		2C9CAF861C868E17008194EB /* BaseFormControlCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseFormControlCell.m; sourceTree = "<group>"; };
 		2CC4845A1C71A2EE0033D700 /* CBWallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CBWallet.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2CD0A9081CA016C7006AF02F /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = CBWallet/Constants.h; sourceTree = SOURCE_ROOT; };
+		2CD0A90D1CA02ACA006AF02F /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
+		2CD0A90E1CA02ACA006AF02F /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
+		2CD0A90F1CA02ACA006AF02F /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		2CD0A9101CA02ACA006AF02F /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
+		2CD0A9111CA02ACA006AF02F /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
+		2CD0A9121CA02ACA006AF02F /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
+		2CD0A9131CA02ACA006AF02F /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseQueue.h; sourceTree = "<group>"; };
+		2CD0A9141CA02ACA006AF02F /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
+		2CD0A9151CA02ACA006AF02F /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
+		2CD0A9161CA02ACA006AF02F /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
+		2CD0A9171CA02ACA006AF02F /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
+		2CD0A91D1CA02B45006AF02F /* DatabaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatabaseManager.h; sourceTree = "<group>"; };
+		2CD0A91E1CA02B45006AF02F /* DatabaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatabaseManager.m; sourceTree = "<group>"; };
+		2CD0A9201CA02CF5006AF02F /* DatabaseManager+Account.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DatabaseManager+Account.h"; sourceTree = "<group>"; };
+		2CD0A9211CA02CF5006AF02F /* DatabaseManager+Account.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DatabaseManager+Account.m"; sourceTree = "<group>"; };
 		2CF24CBE1C9635AE00C7EDB9 /* aes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aes.h; sourceTree = "<group>"; };
 		2CF24CBF1C9635AE00C7EDB9 /* asn1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = asn1.h; sourceTree = "<group>"; };
 		2CF24CC01C9635AE00C7EDB9 /* asn1_mac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = asn1_mac.h; sourceTree = "<group>"; };
@@ -512,6 +535,10 @@
 				2C9CAF271C868B61008194EB /* Transaction.m */,
 				2C9CAF241C868B61008194EB /* RecordObject.h */,
 				2C9CAF251C868B61008194EB /* RecordObject.m */,
+				2CD0A91D1CA02B45006AF02F /* DatabaseManager.h */,
+				2CD0A91E1CA02B45006AF02F /* DatabaseManager.m */,
+				2CD0A9201CA02CF5006AF02F /* DatabaseManager+Account.h */,
+				2CD0A9211CA02CF5006AF02F /* DatabaseManager+Account.m */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -649,6 +676,7 @@
 				2C9CAF731C868B98008194EB /* Assets.xcassets */,
 				2C9CAF741C868B98008194EB /* CBW.strings */,
 				2C9CAF751C868B98008194EB /* CBWallet-Prefix.pch */,
+				2CD0A9081CA016C7006AF02F /* Constants.h */,
 				2C9CAF771C868B98008194EB /* InfoPlist.strings */,
 				2C9CAF781C868B98008194EB /* main.m */,
 				2C9CAF7F1C868BCB008194EB /* LaunchScreen.storyboard */,
@@ -656,9 +684,28 @@
 			name = Application;
 			sourceTree = "<group>";
 		};
+		2CD0A90C1CA02ACA006AF02F /* fmdb */ = {
+			isa = PBXGroup;
+			children = (
+				2CD0A90D1CA02ACA006AF02F /* FMDatabase.h */,
+				2CD0A90E1CA02ACA006AF02F /* FMDatabase.m */,
+				2CD0A90F1CA02ACA006AF02F /* FMDatabaseAdditions.h */,
+				2CD0A9101CA02ACA006AF02F /* FMDatabaseAdditions.m */,
+				2CD0A9111CA02ACA006AF02F /* FMDatabasePool.h */,
+				2CD0A9121CA02ACA006AF02F /* FMDatabasePool.m */,
+				2CD0A9131CA02ACA006AF02F /* FMDatabaseQueue.h */,
+				2CD0A9141CA02ACA006AF02F /* FMDatabaseQueue.m */,
+				2CD0A9151CA02ACA006AF02F /* FMDB.h */,
+				2CD0A9161CA02ACA006AF02F /* FMResultSet.h */,
+				2CD0A9171CA02ACA006AF02F /* FMResultSet.m */,
+			);
+			path = fmdb;
+			sourceTree = "<group>";
+		};
 		2CF24C3C1C96357B00C7EDB9 /* Vendors */ = {
 			isa = PBXGroup;
 			children = (
+				2CD0A90C1CA02ACA006AF02F /* fmdb */,
 				2CF24D661C97A53200C7EDB9 /* AFNetworking */,
 				2CF24D4A1C965C7200C7EDB9 /* SSKeychain */,
 				2CF24D4D1C965C7200C7EDB9 /* YYImage */,
@@ -954,6 +1001,7 @@
 				2C9CAF4D1C868B61008194EB /* BaseViewController.m in Sources */,
 				2C9CAF531C868B61008194EB /* LockScreenController.m in Sources */,
 				2C9CAF611C868B61008194EB /* Address.m in Sources */,
+				2CD0A9191CA02ACA006AF02F /* FMDatabaseAdditions.m in Sources */,
 				2C9CAF561C868B61008194EB /* SettingsViewController.m in Sources */,
 				2C9CAF691C868B61008194EB /* ActionButtonCell.m in Sources */,
 				2C9CAF591C868B61008194EB /* TransactionListViewController.m in Sources */,
@@ -978,6 +1026,8 @@
 				2C9CAF541C868B61008194EB /* MasterPasswordViewController.m in Sources */,
 				2C9CAF641C868B61008194EB /* Transaction.m in Sources */,
 				2C9CAF6B1C868B61008194EB /* BlockButtonCell.m in Sources */,
+				2CD0A91C1CA02ACA006AF02F /* FMResultSet.m in Sources */,
+				2CD0A91B1CA02ACA006AF02F /* FMDatabaseQueue.m in Sources */,
 				2C9CAF4E1C868B61008194EB /* CameraViewController.m in Sources */,
 				2CF24D581C965C7200C7EDB9 /* SSKeychain.m in Sources */,
 				2CF24D761C97A53200C7EDB9 /* AFSecurityPolicy.m in Sources */,
@@ -993,13 +1043,17 @@
 				2CF24D101C96367900C7EDB9 /* Test.m in Sources */,
 				2C9CAF621C868B61008194EB /* Recipient.m in Sources */,
 				2CF24D621C97880500C7EDB9 /* PrimaryButton.m in Sources */,
+				2CD0A91A1CA02ACA006AF02F /* FMDatabasePool.m in Sources */,
 				2C9CAF4A1C868B61008194EB /* BaseFormViewController.m in Sources */,
 				2CF24D651C97890400C7EDB9 /* RecoverViewController.m in Sources */,
 				2CF24D751C97A53200C7EDB9 /* AFNetworkReachabilityManager.m in Sources */,
 				2C9CAF4F1C868B61008194EB /* ImagePickerController.m in Sources */,
+				2CD0A9221CA02CF5006AF02F /* DatabaseManager+Account.m in Sources */,
+				2CD0A91F1CA02B45006AF02F /* DatabaseManager.m in Sources */,
 				2C9CAF581C868B61008194EB /* SendViewController.m in Sources */,
 				2C9CAF681C868B61008194EB /* AddressHeaderView.m in Sources */,
 				2CF24D781C97A53200C7EDB9 /* AFURLResponseSerialization.m in Sources */,
+				2CD0A9181CA02ACA006AF02F /* FMDatabase.m in Sources */,
 				2C9CAF4C1C868B61008194EB /* BaseTableViewController.m in Sources */,
 				2C9CAF511C868B61008194EB /* CreateOrRecoverViewController.m in Sources */,
 				2C9CAF6F1C868B61008194EB /* DashboardHeaderView.m in Sources */,

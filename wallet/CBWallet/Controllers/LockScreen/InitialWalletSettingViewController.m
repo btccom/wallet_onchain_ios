@@ -10,7 +10,14 @@
 
 #import "PrimaryButton.h"
 
-@interface InitialWalletSettingViewController ()
+#import "SystemManager.h"
+
+@import LocalAuthentication;
+
+@interface InitialWalletSettingViewController ()<UITableViewDataSource, UITableViewDelegate>
+
+@property (nonatomic, weak) UISwitch *iCloudSwitch;
+@property (nonatomic, weak) UISwitch *touchIDSwitch;
 
 @end
 
@@ -22,12 +29,21 @@
     self.view.backgroundColor = [UIColor CBWWhiteColor];
     self.title = NSLocalizedStringFromTable(@"Navigation Initial Wallet Setting", @"CBW", @"Initial Wallet Setting");
     
-    CGFloat stageWidth = CGRectGetWidth(self.view.frame);
-    CGFloat stageHeight = CGRectGetHeight(self.view.frame);
-    PrimaryButton *button = [[PrimaryButton alloc] initWithFrame:CGRectMake(20.f, stageHeight * 0.6f, stageWidth - 40.f, CBWCellHeightDefault)];
-    [button setTitle:NSLocalizedStringFromTable(@"Button Complete", @"CBW", @"Complete Initial Settings") forState:UIControlStateNormal];
-    [button addTarget:self action:@selector(p_handleCreate:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:button];
+    // default
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:CBWUserDefaultsiCloudEnabledKey] == nil) {
+        if ([[SystemManager defaultManager] isiCloudAccountSignedIn]) {
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:CBWUserDefaultsiCloudEnabledKey];
+        } else {
+            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:CBWUserDefaultsiCloudEnabledKey];
+        }
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    
+    UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+    tableView.backgroundColor = [UIColor CBWWhiteColor];
+    tableView.delegate = self;
+    tableView.dataSource = self;
+    [self.view addSubview:tableView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -38,6 +54,123 @@
 #pragma mark - Private Method
 - (void)p_handleCreate:(id)sender {
     [self.delegate initialWalletSettingViewControllerDidComplete:self];
+}
+
+- (void)p_toggleiCloudEnabled:(id)sender {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:CBWUserDefaultsiCloudEnabledKey]) {
+        // turn off
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:CBWUserDefaultsiCloudEnabledKey];
+        if ([[NSUserDefaults standardUserDefaults] synchronize]) {
+            [self.iCloudSwitch setOn:NO animated:YES];
+        } else {
+            [self.iCloudSwitch setOn:YES animated:YES];
+        }
+    } else {
+        // turn on
+        if ([[SystemManager defaultManager] isiCloudAccountSignedIn]) {
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:CBWUserDefaultsiCloudEnabledKey];
+            if ([[NSUserDefaults standardUserDefaults] synchronize]) {
+                [self.iCloudSwitch setOn:YES animated:YES];
+            } else {
+                [self.iCloudSwitch setOn:NO animated:YES];
+            }
+        } else {
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil) message:NSLocalizedStringFromTable(@"Alert Message Need iCloud Signed In", @"CBW", nil) preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *alertAction = [UIAlertAction actionWithTitle:@"Okay" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                [self dismissViewControllerAnimated:YES completion:nil];
+                [self.iCloudSwitch setOn:NO animated:YES];
+            }];
+            [alertController addAction:alertAction];
+            [self presentViewController:alertController animated:YES completion:nil];
+        }
+    }
+}
+
+- (void)p_toggleTouchIDEnabled:(id)sender {
+    // TODO: toggle touch id
+    if ([sender isEqual:self.touchIDSwitch]) {
+        return;
+    }
+    self.touchIDSwitch.on = !self.touchIDSwitch.on;
+}
+
+#pragma mark - <UITableViewDataSource>
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    NSError *error = nil;
+    LAContext *laContext = [[LAContext alloc] init];
+    if (![laContext canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error]) {
+        return 1;
+    }
+    return 2;// iCloud, Touch ID
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSString *identifier = [NSString stringWithFormat:@"cell-%lu-%lu", (unsigned long)indexPath.section, (unsigned long)indexPath.row];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        switch (indexPath.section) {
+            case 0: {
+                cell.textLabel.text = NSLocalizedStringFromTable(@"Setting iCloud", @"CBWallet", @"iCloud");
+                UISwitch *aSwitch = [[UISwitch alloc] init];
+                aSwitch.on = [[NSUserDefaults standardUserDefaults] boolForKey:CBWUserDefaultsiCloudEnabledKey];
+                [aSwitch addTarget:self action:@selector(p_toggleiCloudEnabled:) forControlEvents:UIControlEventValueChanged];
+                self.iCloudSwitch = aSwitch;
+                cell.accessoryView = aSwitch;
+                break;
+            }
+            case 1: {
+                cell.textLabel.text = NSLocalizedStringFromTable(@"Setting Touch ID", @"CBWallet", @"Touch ID");
+                UISwitch *aSwitch = [[UISwitch alloc] init];
+                aSwitch.on = [[NSUserDefaults standardUserDefaults] boolForKey:CBWUserDefaultsTouchIdEnabledKey];
+                [aSwitch addTarget:self action:@selector(p_toggleTouchIDEnabled:) forControlEvents:UIControlEventValueChanged];
+                self.touchIDSwitch = aSwitch;
+                cell.accessoryView = aSwitch;
+                break;
+            }
+        }
+    }
+    return cell;
+}
+
+#pragma mark - <UITableViewDelegate>
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    if (section == tableView.numberOfSections - 1) {
+
+        CGFloat stageWidth = CGRectGetWidth(self.view.frame);
+        
+        UITableViewHeaderFooterView *view = [[UITableViewHeaderFooterView alloc] initWithFrame:CGRectMake(0, 0, stageWidth, CBWCellHeightDefault + CBWLayoutCommonVerticalPadding * 3.f)];
+
+        PrimaryButton *button = [[PrimaryButton alloc] initWithFrame:CGRectMake(20.f, CBWCellHeightDefault, stageWidth - 40.f, CBWCellHeightDefault)];
+        [button setTitle:NSLocalizedStringFromTable(@"Button Complete", @"CBW", @"Complete Initial Settings") forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(p_handleCreate:) forControlEvents:UIControlEventTouchUpInside];
+        [view.contentView addSubview:button];
+        
+        return view;
+    }
+    return nil;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    if (section == tableView.numberOfSections - 1) {
+        return CBWCellHeightDefault + CBWLayoutCommonVerticalPadding * 3.f;
+    }
+    return 0;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    switch (indexPath.section) {
+        case 0:
+            [self p_toggleiCloudEnabled:nil];
+            break;
+            
+        default:
+            [self p_toggleTouchIDEnabled:nil];
+            break;
+    }
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 @end
