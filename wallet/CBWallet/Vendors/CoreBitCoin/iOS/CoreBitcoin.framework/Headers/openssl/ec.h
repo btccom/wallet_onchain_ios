@@ -76,16 +76,16 @@
 #ifndef HEADER_EC_H
 #define HEADER_EC_H
 
-#include <CoreBitcoin/openssl/opensslconf.h>
+#include <openssl/opensslconf.h>
 
 #ifdef OPENSSL_NO_EC
 #error EC is disabled.
 #endif
 
-#include <CoreBitcoin/openssl/asn1.h>
-#include <CoreBitcoin/openssl/symhacks.h>
+#include <openssl/asn1.h>
+#include <openssl/symhacks.h>
 #ifndef OPENSSL_NO_DEPRECATED
-#include <CoreBitcoin/openssl/bn.h>
+#include <openssl/bn.h>
 #endif
 
 #ifdef  __cplusplus

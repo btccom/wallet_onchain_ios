@@ -59,31 +59,31 @@
 #ifndef HEADER_TS_H
 #define HEADER_TS_H
 
-#include <CoreBitcoin/openssl/opensslconf.h>
-#include <CoreBitcoin/openssl/symhacks.h>
+#include <openssl/opensslconf.h>
+#include <openssl/symhacks.h>
 #ifndef OPENSSL_NO_BUFFER
-#include <CoreBitcoin/openssl/buffer.h>
+#include <openssl/buffer.h>
 #endif
 #ifndef OPENSSL_NO_EVP
-#include <CoreBitcoin/openssl/evp.h>
+#include <openssl/evp.h>
 #endif
 #ifndef OPENSSL_NO_BIO
-#include <CoreBitcoin/openssl/bio.h>
+#include <openssl/bio.h>
 #endif
-#include <CoreBitcoin/openssl/stack.h>
-#include <CoreBitcoin/openssl/asn1.h>
-#include <CoreBitcoin/openssl/safestack.h>
+#include <openssl/stack.h>
+#include <openssl/asn1.h>
+#include <openssl/safestack.h>
 
 #ifndef OPENSSL_NO_RSA
-#include <CoreBitcoin/openssl/rsa.h>
+#include <openssl/rsa.h>
 #endif
 
 #ifndef OPENSSL_NO_DSA
-#include <CoreBitcoin/openssl/dsa.h>
+#include <openssl/dsa.h>
 #endif
 
 #ifndef OPENSSL_NO_DH
-#include <CoreBitcoin/openssl/dh.h>
+#include <openssl/dh.h>
 #endif
 
 #ifdef  __cplusplus
@@ -95,8 +95,8 @@ extern "C" {
 #undef X509_NAME
 #endif
 
-#include <CoreBitcoin/openssl/x509.h>
-#include <CoreBitcoin/openssl/x509v3.h>
+#include <openssl/x509.h>
+#include <openssl/x509v3.h>
 
 /*
 MessageImprint ::= SEQUENCE  {

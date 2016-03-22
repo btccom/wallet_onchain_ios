@@ -59,15 +59,15 @@
 #ifndef HEADER_RSA_H
 #define HEADER_RSA_H
 
-#include <CoreBitcoin/openssl/asn1.h>
+#include <openssl/asn1.h>
 
 #ifndef OPENSSL_NO_BIO
-#include <CoreBitcoin/openssl/bio.h>
+#include <openssl/bio.h>
 #endif
-#include <CoreBitcoin/openssl/crypto.h>
-#include <CoreBitcoin/openssl/ossl_typ.h>
+#include <openssl/crypto.h>
+#include <openssl/ossl_typ.h>
 #ifndef OPENSSL_NO_DEPRECATED
-#include <CoreBitcoin/openssl/bn.h>
+#include <openssl/bn.h>
 #endif
 
 #ifdef OPENSSL_NO_RSA

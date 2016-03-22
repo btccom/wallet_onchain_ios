@@ -21,7 +21,7 @@
 }
 
 - (BOOL)isWalletInstalled {
-    return NO;
+    return YES;
 }
 
 - (BOOL)isiCloudAccountSignedIn {

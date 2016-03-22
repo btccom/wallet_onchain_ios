@@ -59,16 +59,16 @@
 #ifndef HEADER_PEM_H
 #define HEADER_PEM_H
 
-#include <CoreBitcoin/openssl/e_os2.h>
+#include <openssl/e_os2.h>
 #ifndef OPENSSL_NO_BIO
-#include <CoreBitcoin/openssl/bio.h>
+#include <openssl/bio.h>
 #endif
 #ifndef OPENSSL_NO_STACK
-#include <CoreBitcoin/openssl/stack.h>
+#include <openssl/stack.h>
 #endif
-#include <CoreBitcoin/openssl/evp.h>
-#include <CoreBitcoin/openssl/x509.h>
-#include <CoreBitcoin/openssl/pem2.h>
+#include <openssl/evp.h>
+#include <openssl/x509.h>
+#include <openssl/pem2.h>
 
 #ifdef  __cplusplus
 extern "C" {
@@ -454,7 +454,7 @@ void	PEM_proc_type(char *buf, int type);
 void	PEM_dek_info(char *buf, const char *type, int len, char *str);
 
 
-#include <CoreBitcoin/openssl/symhacks.h>
+#include <openssl/symhacks.h>
 
 DECLARE_PEM_rw(X509, X509)
 

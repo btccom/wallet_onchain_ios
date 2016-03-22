@@ -60,18 +60,18 @@
 #define HEADER_ASN1_H
 
 #include <time.h>
-#include <CoreBitcoin/openssl/e_os2.h>
+#include <openssl/e_os2.h>
 #ifndef OPENSSL_NO_BIO
-#include <CoreBitcoin/openssl/bio.h>
+#include <openssl/bio.h>
 #endif
-#include <CoreBitcoin/openssl/stack.h>
-#include <CoreBitcoin/openssl/safestack.h>
+#include <openssl/stack.h>
+#include <openssl/safestack.h>
 
-#include <CoreBitcoin/openssl/symhacks.h>
+#include <openssl/symhacks.h>
 
-#include <CoreBitcoin/openssl/ossl_typ.h>
+#include <openssl/ossl_typ.h>
 #ifndef OPENSSL_NO_DEPRECATED
-#include <CoreBitcoin/openssl/bn.h>
+#include <openssl/bn.h>
 #endif
 
 #ifdef OPENSSL_BUILD_SHLIBCRYPTO

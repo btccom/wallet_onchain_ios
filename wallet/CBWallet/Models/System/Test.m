@@ -8,11 +8,7 @@
 
 #import "Test.h"
 
-#import "BTCData.h"
-#import "BTCBase58.h"
-#import "BTCKey.h"
-#import "BTCAddress.h"
-#import "BTCKeychain.h"
+#import <CoreBitcoin/CoreBitcoin.h>
 
 @implementation Test
 

@@ -50,4 +50,3 @@
 #import <CoreBitcoin/BTCTransactionInput.h>
 #import <CoreBitcoin/BTCTransactionOutput.h>
 #import <CoreBitcoin/BTCUnitsAndLimits.h>
-#import <CoreBitcoin/SwiftBridgingHeader.h>

@@ -67,12 +67,12 @@
 # undef OPENSSL_ALGORITHM_DEFINES
 #endif
 
-#include <CoreBitcoin/openssl/ossl_typ.h>
+#include <openssl/ossl_typ.h>
 
-#include <CoreBitcoin/openssl/symhacks.h>
+#include <openssl/symhacks.h>
 
 #ifndef OPENSSL_NO_BIO
-#include <CoreBitcoin/openssl/bio.h>
+#include <openssl/bio.h>
 #endif
 
 /*
@@ -91,7 +91,7 @@
 /* Default PKCS#5 iteration count */
 #define PKCS5_DEFAULT_ITER		2048
 
-#include <CoreBitcoin/openssl/objects.h>
+#include <openssl/objects.h>
 
 #define EVP_PK_RSA	0x0001
 #define EVP_PK_DSA	0x0002
