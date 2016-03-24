@@ -58,13 +58,6 @@
     
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 #pragma mark - Private Method
 #pragma mark Navigation
