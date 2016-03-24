@@ -23,7 +23,7 @@
 
 @property (nonatomic, assign, getter=isLabelEditable) BOOL labelEditable;
 @property (nonatomic, strong, readonly) NSString * _Nullable label;
-@property (nonatomic, weak) id<AddressHeaderViewDelegate> delegate;
+@property (nonatomic, weak, nullable) id<AddressHeaderViewDelegate> delegate;
 
 - (void)setAddress:(nonnull NSString *)address withLabel:(nullable NSString *)label;
 

@@ -20,6 +20,6 @@
 /// Switch wallet, manage recipient contacts, settings
 @interface ProfileViewController : BaseListViewController
 
-@property (nonatomic, weak) id<ProfileViewControllerDelegate> delegate;
+@property (nonatomic, weak, nullable) id<ProfileViewControllerDelegate> delegate;
 
 @end
