@@ -21,4 +21,18 @@
     return size;
 }
 
++ (instancetype)randomStringWithLength:(NSUInteger)length {
+    if (length == 0) {
+        return nil;
+    }
+    NSString *alphabet  = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXZY0123456789";
+    NSMutableString *s = [NSMutableString stringWithCapacity:length];
+    for (NSUInteger i = 0; i < length; i++) {
+        u_int32_t r = arc4random() % [alphabet length];
+        unichar c = [alphabet characterAtIndex:r];
+        [s appendFormat:@"%C", c];
+    }
+    return s;
+}
+
 @end

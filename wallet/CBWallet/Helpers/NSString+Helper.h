@@ -11,5 +11,6 @@
 @interface NSString (Helper)
 
 - (CGSize)sizeWithFont:(nonnull UIFont *)font maxSize:(CGSize)maxSize;
++ (nullable instancetype)randomStringWithLength:(NSUInteger)length;
 
 @end

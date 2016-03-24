@@ -10,6 +10,8 @@
 #import "CreateOrRecoverViewController.h"
 #import "MasterPasswordViewController.h"
 
+#import "Guard.h"
+
 @interface LockScreenController ()
 
 @end
@@ -52,10 +54,12 @@
 
 #pragma mark <MasterPasswordViewControllerDelegate>
 - (void)masterPasswordViewController:(MasterPasswordViewController *)controller didInputPassword:(NSString *)password {
-    // TODO: check master password
-    
-    // call delegate to unlock
-    [self.delegate lockScreenController:self didUnlockWithActionType:self.actionType];
+    if ([[Guard globalGuard] checkInWithCode:password]) {
+        // call delegate to unlock
+        [self.delegate lockScreenController:self didUnlockWithActionType:self.actionType];
+    } else {
+        
+    };
 }
 
 #pragma mark <InitialWalletSettingViewControllerDelegate>

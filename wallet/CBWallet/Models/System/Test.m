@@ -9,6 +9,11 @@
 #import "Test.h"
 
 #import <CoreBitcoin/CoreBitcoin.h>
+#import "YYImage.h"
+#import "AFNetworking.h"
+
+#import "NSString+PBKDF2.h"
+#import "NSData+AES256.h"
 
 @implementation Test
 
@@ -31,9 +36,97 @@
     [self testPaths];
     [self testStandardTestVectors];
     [self testZeroPaddedPrivateKeys];
+    [self testQRCode];
+    [self testAES];
 }
 
-+ (void) testPaths {
+
++ (void)testQRCode {
+    // 二维码生成
+    NSString *password = @"password";
+    NSString *salt = @"salt";
+    NSLog(@"key: %@", [password PBKDF2KeyWithSalt:salt]);
+    
+    NSString *uuid = [NSUUID UUID].UUIDString;
+    NSString *seed = @"Life is a long journey. Enjoy it when you feel lonely.";
+    
+    NSString *secret = [NSString stringWithFormat:@"%@:%@", uuid, seed];
+    NSData *encryptedData = [[secret dataUsingEncoding:NSUTF8StringEncoding] AES256EncryptWithKey:[password PBKDF2KeyWithSalt:salt]];
+    NSLog(@"encrypted data: %@", [encryptedData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength]);
+    
+    NSData *decryptedData = [encryptedData AES256DecryptWithKey:[password PBKDF2KeyWithSalt:salt]];
+    NSLog(@"secret: %@", [[NSString alloc] initWithData:decryptedData encoding:NSUTF8StringEncoding]);
+    NSLog(@"===============================");
+    NSString *qrcode1 = [encryptedData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    NSString *qrcode2 = @"qr code string 2";
+    UIImage *qrcodeImage1 = [BTCQRCode imageForString:qrcode1 size:CGSizeMake(200.f, 200.f) scale:2.f];
+    UIImage *qrcodeImage2 = [BTCQRCode imageForString:qrcode2 size:CGSizeMake(200.f, 200.f) scale:2.f];
+    
+    // 编码
+    YYImageEncoder *encoder = [[YYImageEncoder alloc] initWithType:YYImageTypePNG];
+    encoder.loopCount = 0;
+    [encoder addImage:qrcodeImage1 duration:0];
+    [encoder addImage:qrcodeImage2 duration:0];
+    NSData *apngData = [encoder encode];
+    
+    // 解码
+    YYImageDecoder *decoder = [YYImageDecoder decoderWithData:apngData scale:2.f];
+    UIImage *decodedQRCodeImage2 = [decoder frameAtIndex:0 decodeForDisplay:NO].image;
+    
+    // 获取二维码
+    CIDetector* detector = [CIDetector detectorOfType:CIDetectorTypeQRCode context:[CIContext contextWithOptions:nil] options:@{CIDetectorAccuracy:CIDetectorAccuracyHigh}];
+    if (detector) {
+        NSLog(@"detector ready");
+        CIImage *ciimg = [CIImage imageWithCGImage:decodedQRCodeImage2.CGImage];
+        NSArray *featuresR = [detector featuresInImage:ciimg];
+        NSString *decodeR;
+        for (CIQRCodeFeature* featureR in featuresR) {
+            NSLog(@"decode: %@ ", featureR.messageString);
+            
+            NSData *decodedData = [[NSData alloc] initWithBase64EncodedString:featureR.messageString options:NSDataBase64DecodingIgnoreUnknownCharacters];
+            
+            NSData *decryptedData = [decodedData AES256DecryptWithKey:[password PBKDF2KeyWithSalt:salt]];
+            
+            NSString *secret = [[NSString alloc] initWithData:decryptedData encoding:NSUTF8StringEncoding];
+            NSLog(@"secret: %@", secret);
+            decodeR = featureR.messageString;
+        }
+    }
+}
+
++ (void)testAES {
+    // 测试 AES
+    NSString *password = @"password";
+    NSString *salt = @"salt";
+    NSLog(@"key: %@", [password PBKDF2KeyWithSalt:salt]);
+    
+    NSString *secret = @"secret";
+    NSData *encryptedData = [[secret dataUsingEncoding:NSUTF8StringEncoding] AES256EncryptWithKey:[password PBKDF2KeyWithSalt:salt]];
+    NSLog(@"encrypted data: %@", [encryptedData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength]);
+    
+    NSData *decryptedData = [encryptedData AES256DecryptWithKey:[password PBKDF2KeyWithSalt:salt]];
+    NSLog(@"decrypted secret: %@", [[NSString alloc] initWithData:decryptedData encoding:NSUTF8StringEncoding]);
+    NSLog(@"================================");
+    
+    // 测试 http 请求
+    // 1. config session
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    // 2. create manager with configuration
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+    // 3. create request
+    NSURLRequest *request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"GET" URLString:@"https://chain.btc.com/api/v1/address/1F1MAvhTKg2VG29w8cXsiSN2PJ8gSsrJw" parameters:@{@"limit": @"10"} error:nil];
+    // 4. fetch
+    NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+        if (error) {
+            NSLog(@"Error: %@", error);
+        } else {
+            NSLog(@"OK: %@ %@", response, responseObject);
+        }
+    }];
+    [dataTask resume];
+}
+
++ (void)testPaths {
     BTCKeychain* keychain = [[BTCKeychain alloc] initWithExtendedKey:@"xprv9s21ZrQH143K3QTDL4LXw2F7HEK3wJUD2nW2nRk4stbPy6cq3jPPqjiChkVvvNKmPGJxWUtg6LnF5kejMRNNU3TGtRBeJgk33yuGBxrMPHi"];
     
     NSLog(@"root public key: %@", [keychain derivedKeychainWithPath:@""].extendedPublicKey);

@@ -8,15 +8,19 @@
 
 #import "CreateOrRecoverViewController.h"
 #import "LockScreenController.h"
-
 // create
 #import "MasterPasswordViewController.h"
 #import "InitialWalletSettingViewController.h"
-
 // recover
 #import "RecoverViewController.h"
 
 #import "PrimaryButton.h"
+
+#import "Guard.h"
+#import "SSKeychain.h"
+
+#import "NSString+PBKDF2.h"
+#import "NSData+AES256.h"
 
 @interface CreateOrRecoverViewController ()<MasterPasswordViewControllerDelegate>
 
@@ -56,17 +60,33 @@
 
 #pragma mark - <MasterPasswordViewControllerDelegate>
 - (void)masterPasswordViewController:(MasterPasswordViewController *)controller didInputPassword:(NSString *)password {
-    NSLog(@"create with code: %@", password);
+    NSLog(@"create wallet");
     // create uuid
+    NSString *uuid = [NSUUID UUID].UUIDString;
     // create seed
+    NSString *seed = [NSString randomStringWithLength:64];
+    NSLog(@"uuid: %@, seed: %@", uuid, seed);
     // get pbkdf2 key from password with uuid (as salt)
+    NSString *key = [password PBKDF2KeyWithSalt:uuid];
+    NSLog(@"pbkdf2 key: %@", key);
     // encrypt seed with key
+    NSData *seedData = [seed dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *encryptedSeedData = [seedData AES256EncryptWithKey:key];
+    NSLog(@"encrypted seed: %@", [encryptedSeedData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed]);
     // save uuid to key chain
-    // save encrypted seed to keychain
-    // next
-    InitialWalletSettingViewController *initialWalletSettingViewController = [[InitialWalletSettingViewController alloc] init];
-    initialWalletSettingViewController.delegate = (LockScreenController *)self.navigationController;
-    [self.navigationController pushViewController:initialWalletSettingViewController animated:YES];
+    [SSKeychain setPassword:uuid forService:CBWKeyChainUUIDService account:CBWKeyChainAccountDefault];
+    // save encrypted seed hex to keychain
+    [SSKeychain setPasswordData:encryptedSeedData forService:CBWKeyChainSeedService account:CBWKeyChainAccountDefault];
+    // call guard to check and cache password
+    if ([[Guard globalGuard] checkInWithCode:password]) {
+        // thank you, go
+        InitialWalletSettingViewController *initialWalletSettingViewController = [[InitialWalletSettingViewController alloc] init];
+        initialWalletSettingViewController.delegate = (LockScreenController *)self.navigationController;
+        [self.navigationController pushViewController:initialWalletSettingViewController animated:YES];
+    } else {
+        // sorry, handle error
+        // restart
+    }
 }
 
 @end

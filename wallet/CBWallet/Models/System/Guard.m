@@ -42,10 +42,13 @@ static const NSTimeInterval kGuardAvaibleTimeDefault = 10 * 60; // 默认十分�
 
 - (BOOL)checkInWithCode:(NSString *)code {
     NSString *uuid = [SSKeychain passwordForService:CBWKeyChainUUIDService account:CBWKeyChainAccountDefault];
+    NSLog(@"check in uuid: %@", uuid);
     if (uuid.length > 0) {
         NSData *seed = [SSKeychain passwordDataForService:CBWKeyChainSeedService account:CBWKeyChainAccountDefault];
-        NSString *decryptedSeed = [[NSString alloc] initWithData:[seed AES256DecryptWithKey:code] encoding:NSUTF8StringEncoding];
+        NSString *key = [code PBKDF2KeyWithSalt:uuid];
+        NSString *decryptedSeed = [[NSString alloc] initWithData:[seed AES256DecryptWithKey:key] encoding:NSUTF8StringEncoding];
         if (decryptedSeed) {// success
+            NSLog(@"welcome");
             // cache code
             _code = code;
             // add timer into run loop

@@ -44,8 +44,6 @@
     // and lock
     [self lockScreen];
     
-    [[Guard globalGuard] checkInWithCode:@"code"];
-    
     return YES;
 }
 
@@ -88,6 +86,8 @@
     self.lockScreenWindow.rootViewController = lockScreenController;
     
     [self.lockScreenWindow makeKeyAndVisible];
+    
+    [[Guard globalGuard] checkOut];
 }
 /// unlock
 - (void)unlockScreen {
