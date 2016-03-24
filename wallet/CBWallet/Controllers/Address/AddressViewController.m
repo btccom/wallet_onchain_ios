@@ -58,7 +58,7 @@
     [self.tableView setTableHeaderView:addressHeaderView];
     switch (self.actionType) {
         case AddressActionTypeDefault: {
-            self.title = NSLocalizedStringFromTable(@"Navigation Address", @"CBW", @"Address");
+            self.title = NSLocalizedStringFromTable(@"Navigation address", @"CBW", @"Address");
             self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_archive"] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleArchive:)],
                                                         [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_share"] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleShare:)]];
             addressHeaderView.labelEditable = YES;
@@ -67,7 +67,7 @@
         }
             
         case AddressActionTypeReceive: {
-            self.title = NSLocalizedStringFromTable(@"Navigation Receive", @"CBW", @"Receive");
+            self.title = NSLocalizedStringFromTable(@"Navigation receive", @"CBW", @"Receive");
             break;
         }
     }
@@ -101,7 +101,7 @@
 #pragma mark - UITableDataSource
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if (self.actionType == AddressActionTypeDefault) {
-        return NSLocalizedStringFromTable(@"Address Section Transactions", @"CBW", @"Transactions");
+        return NSLocalizedStringFromTable(@"Address Section transactions", @"CBW", @"Transactions");
     }
     return nil;
 }

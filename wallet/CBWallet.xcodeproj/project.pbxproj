@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C1E88F91CA3ADCB006F86E1 /* NSString+Password.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E88F81CA3ADCB006F86E1 /* NSString+Password.m */; };
 		2C99A17C1CA0E434007D7AC3 /* Guard.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C99A17B1CA0E434007D7AC3 /* Guard.m */; };
 		2C99A1801CA1029C007D7AC3 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C99A17F1CA1029C007D7AC3 /* libsqlite3.tbd */; };
 		2C9CAF471C868B61008194EB /* AddressListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAEE31C868B61008194EB /* AddressListViewController.m */; };
@@ -89,6 +90,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2C1E88F71CA3ADCB006F86E1 /* NSString+Password.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Password.h"; sourceTree = "<group>"; };
+		2C1E88F81CA3ADCB006F86E1 /* NSString+Password.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Password.m"; sourceTree = "<group>"; };
 		2C99A17A1CA0E434007D7AC3 /* Guard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Guard.h; sourceTree = "<group>"; };
 		2C99A17B1CA0E434007D7AC3 /* Guard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Guard.m; sourceTree = "<group>"; };
 		2C99A17F1CA1029C007D7AC3 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
@@ -551,6 +554,8 @@
 				2C9CAF131C868B61008194EB /* NSString+CBWAddress.m */,
 				2C9CAF141C868B61008194EB /* NSString+Helper.h */,
 				2C9CAF151C868B61008194EB /* NSString+Helper.m */,
+				2C1E88F71CA3ADCB006F86E1 /* NSString+Password.h */,
+				2C1E88F81CA3ADCB006F86E1 /* NSString+Password.m */,
 				2C9CAF161C868B61008194EB /* UIButton+VerticalLayout.h */,
 				2C9CAF171C868B61008194EB /* UIButton+VerticalLayout.m */,
 				2C9CAF181C868B61008194EB /* UIColor+CBW.h */,
@@ -926,6 +931,7 @@
 				2C9CAF5D1C868B61008194EB /* UIButton+VerticalLayout.m in Sources */,
 				2C9CAF471C868B61008194EB /* AddressListViewController.m in Sources */,
 				2CF24D5B1C965C7200C7EDB9 /* YYImage.m in Sources */,
+				2C1E88F91CA3ADCB006F86E1 /* NSString+Password.m in Sources */,
 				2C9CAF6C1C868B61008194EB /* DefaultTableViewCell.m in Sources */,
 				2CA200F31CA134A600392099 /* NSString+PBKDF2.m in Sources */,
 				2C9CAF701C868B61008194EB /* TransactionCell.m in Sources */,

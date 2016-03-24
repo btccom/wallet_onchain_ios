@@ -27,7 +27,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor CBWWhiteColor];
-    self.title = NSLocalizedStringFromTable(@"Navigation Initial Wallet Setting", @"CBW", @"Initial Wallet Setting");
+    self.title = NSLocalizedStringFromTable(@"Navigation initial_wallet_setting", @"CBW", @"Initial Wallet Setting");
+    
+    // remove back
+    [self.navigationItem setHidesBackButton:YES];
+    self.navigationController.viewControllers = @[self];
     
     // default
     if ([[NSUserDefaults standardUserDefaults] objectForKey:CBWUserDefaultsiCloudEnabledKey] == nil) {
@@ -75,8 +79,8 @@
                 [self.iCloudSwitch setOn:NO animated:YES];
             }
         } else {
-            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil) message:NSLocalizedStringFromTable(@"Alert Message Need iCloud Signed In", @"CBW", nil) preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *alertAction = [UIAlertAction actionWithTitle:@"Okay" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil) message:NSLocalizedStringFromTable(@"Message need_icloud_signed_in", @"CBW", @"Please enable iCloud for me.") preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *alertAction = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Okay", @"CBW", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
                 [self dismissViewControllerAnimated:YES completion:nil];
                 [self.iCloudSwitch setOn:NO animated:YES];
             }];
@@ -115,7 +119,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
         switch (indexPath.section) {
             case 0: {
-                cell.textLabel.text = NSLocalizedStringFromTable(@"Setting iCloud", @"CBWallet", @"iCloud");
+                cell.textLabel.text = NSLocalizedStringFromTable(@"Initial Cell icloud", @"CBW", @"iCloud");
                 UISwitch *aSwitch = [[UISwitch alloc] init];
                 aSwitch.on = [[NSUserDefaults standardUserDefaults] boolForKey:CBWUserDefaultsiCloudEnabledKey];
                 [aSwitch addTarget:self action:@selector(p_toggleiCloudEnabled:) forControlEvents:UIControlEventValueChanged];
@@ -124,7 +128,7 @@
                 break;
             }
             case 1: {
-                cell.textLabel.text = NSLocalizedStringFromTable(@"Setting Touch ID", @"CBWallet", @"Touch ID");
+                cell.textLabel.text = NSLocalizedStringFromTable(@"Initial Cell touch_id", @"CBW", @"Touch ID");
                 UISwitch *aSwitch = [[UISwitch alloc] init];
                 aSwitch.on = [[NSUserDefaults standardUserDefaults] boolForKey:CBWUserDefaultsTouchIdEnabledKey];
                 [aSwitch addTarget:self action:@selector(p_toggleTouchIDEnabled:) forControlEvents:UIControlEventValueChanged];
@@ -146,7 +150,7 @@
         UITableViewHeaderFooterView *view = [[UITableViewHeaderFooterView alloc] initWithFrame:CGRectMake(0, 0, stageWidth, CBWCellHeightDefault + CBWLayoutCommonVerticalPadding * 3.f)];
 
         PrimaryButton *button = [[PrimaryButton alloc] initWithFrame:CGRectMake(20.f, CBWCellHeightDefault, stageWidth - 40.f, CBWCellHeightDefault)];
-        [button setTitle:NSLocalizedStringFromTable(@"Button Complete", @"CBW", @"Complete Initial Settings") forState:UIControlStateNormal];
+        [button setTitle:NSLocalizedStringFromTable(@"Button complete", @"CBW", @"Complete Initial Settings") forState:UIControlStateNormal];
         [button addTarget:self action:@selector(p_handleCreate:) forControlEvents:UIControlEventTouchUpInside];
         [view.contentView addSubview:button];
         

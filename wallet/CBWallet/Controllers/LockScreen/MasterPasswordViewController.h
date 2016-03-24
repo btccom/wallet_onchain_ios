@@ -25,6 +25,8 @@
 
 @property (nonatomic, assign) LockScreenActionType actionType;
 
+@property (nonatomic, copy, nullable) NSString *hint;
+
 @property (nonatomic, weak, nullable) id<MasterPasswordViewControllerDelegate> delegate;
 
 @end

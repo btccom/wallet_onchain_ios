@@ -36,15 +36,15 @@
     
     switch (self.actionType) {
         case AddressActionTypeDefault: {
-            self.title = NSLocalizedStringFromTable(@"Navigation AddressList", @"CBW", @"Address List");
+            self.title = NSLocalizedStringFromTable(@"Navigation address_list", @"CBW", @"Address List");
             self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_archived_empty"] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleArchivedAddressList:)],
                                                         [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_create"] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleCreateAddress:)]];
             _datas = @[self.addresses];
             break;
         }
         case AddressActionTypeReceive: {
-            self.title = NSLocalizedStringFromTable(@"Navigation SelectAddress", @"CBW", @"Select Address to Receive");
-            _datas = @[@[NSLocalizedStringFromTable(@"Address Cell NewAddress", @"CBW", @"New Address")], self.addresses];
+            self.title = NSLocalizedStringFromTable(@"Navigation select_address", @"CBW", @"Select Address to Receive");
+            _datas = @[@[NSLocalizedStringFromTable(@"Address Cell new_address", @"CBW", @"New Address")], self.addresses];
             break;
         }
     }
@@ -119,7 +119,7 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if (self.actionType == AddressActionTypeReceive && section == 1) {
-        return NSLocalizedStringFromTable(@"Address Section ReceiveAddress", @"CBW", @"Address");
+        return NSLocalizedStringFromTable(@"Address Section receive_address", @"CBW", @"Address");
     }
     return nil;
 }

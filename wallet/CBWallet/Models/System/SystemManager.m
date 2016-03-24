@@ -7,6 +7,7 @@
 //
 
 #import "SystemManager.h"
+#import "SSKeychain.h"
 
 @implementation SystemManager
 
@@ -21,7 +22,11 @@
 }
 
 - (BOOL)isWalletInstalled {
-    return YES;
+    NSData *seed = [SSKeychain passwordDataForService:CBWKeyChainSeedService account:CBWKeyChainAccountDefault];
+    if (seed) {
+        return YES;
+    }
+    return NO;
 }
 
 - (BOOL)isiCloudAccountSignedIn {

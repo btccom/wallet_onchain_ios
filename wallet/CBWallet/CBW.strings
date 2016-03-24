@@ -6,41 +6,56 @@
   Copyright © 2016年 Bitmain. All rights reserved.
 */
 
-"Navigation CreateOrRecover" = "Welcome";
-"Navigation MasterPassword" = "Master Password";
-"Navigation Dashboard" = "Wallet";
-"Navigation Profile" = "Profile";
-"Navigation Send" = "Quickly Send";
-"Navigation AdvancedSend" = "Advanced Send";
-"Navigation AllTransactions" = "All Transactions";
-"Navigation TransactionList" = "Transaction List";
-"Navigation Transaction" = "Transaction";
-"Navigation Receive" = "Receive";
-"Navigation AddressList" = "Address List";
-"Navigation ArchivedAddressList" = "Archived Address List";
-"Navigation Address" = "Address";
-"Navigation SelectAddress" = "Select Address";
-"Navigation Settings" = "Settings";
+"Navigation create_or_recover" = "Welcome";
+"Navigation master_password" = "Master Password";
+"Navigation initial_wallet_setting" = "Setting";
 
-"Button MasterPassword" = "Master Password";
-"Button Send" = "Send";
-"Button Receive" = "Receive";
+"Navigation dashboard" = "Wallet";
+"Navigation profile" = "Profile";
+"Navigation send" = "Quickly Send";
+"Navigation advanced_send" = "Advanced Send";
+"Navigation all_transactions" = "All Transactions";
+"Navigation transaction_list" = "Transaction List";
+"Navigation transaction" = "Transaction";
+"Navigation receive" = "Receive";
+"Navigation address_list" = "Address List";
+"Navigation archived_address_list" = "Archived Address List";
+"Navigation address" = "Address";
+"Navigation select_address" = "Select Address";
+"Navigation settings" = "Settings";
+
+"Button create_wallet" = "Create Wallet";
+"Button recover_wallet" = "Recover Wallet";
+"Button master_password" = "Master Password";
+"Button scan_qrcode" = "Scan QRCode";
+"Button photo_library" = "Photo Library";
+"Button send" = "Send";
+"Button receive" = "Receive";
+"Button complete" = "Complete";
+
+"Placeholder master_password" = "Master Password";
+"Placeholder confirm_master_password" = "Confirm Master Password";
+"Placeholder hint" = "Hint";
 
 "%d confirmed" = "%d confirmed";
 "Unconfirmed" = "Unconfirmed";
 "Watched Account" = "Watched Account";
 
+// Initial Wallet Setting
+"Initial Cell icloud" = "iCloud";
+"Initial Cell touch_id" = "Touch ID";
+
 // Profile
-"Profile Section Accounts" = "Accounts";
-"Profile Cell AllTransactions" = "All Transactions";
-"Profile Cell Settings" = "Settings";
-"Profile Section Backup" = "Backup";
-"Profile Cell Export" = "Export";
-"Profile Cell Sync" = "Sync";
+"Profile Section accounts" = "Accounts";
+"Profile Cell all_transactions" = "All Transactions";
+"Profile Cell settings" = "Settings";
+"Profile Section backup" = "Backup";
+"Profile Cell export" = "Export";
+"Profile Cell sync" = "Sync";
 
 // Address List
-"Address Section ReceiveAddress" = "Address";
-"Address Cell NewAddress" = "New Address";
+"Address Section receive_address" = "Address";
+"Address Cell new_address" = "New Address";
 
 // Address
-"Address Section Transactions" = "Transactions";
+"Address Section transactions" = "Transactions";

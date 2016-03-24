@@ -54,12 +54,13 @@
 - (void)masterPasswordViewController:(MasterPasswordViewController *)controller didInputPassword:(NSString *)password {
     // TODO: check master password
     
-    // call delegate
+    // call delegate to unlock
     [self.delegate lockScreenController:self didUnlockWithActionType:self.actionType];
 }
 
 #pragma mark <InitialWalletSettingViewControllerDelegate>
 - (void)initialWalletSettingViewControllerDidComplete:(InitialWalletSettingViewController *)controller {
+    // call delegate to unlock
     [self.delegate lockScreenController:self didUnlockWithActionType:self.actionType];
 }
 

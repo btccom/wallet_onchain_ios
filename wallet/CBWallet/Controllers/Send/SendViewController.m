@@ -18,9 +18,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = NSLocalizedStringFromTable(@"Navigation Send", @"CBW", @"Quickly Send");
+    self.title = NSLocalizedStringFromTable(@"Navigation send", @"CBW", @"Quickly Send");
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedStringFromTable(@"Navigation AdvancedSend", @"CBW", @"Advanced Send") style:UIBarButtonItemStylePlain target:self action:@selector(p_handleSwitchMode:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedStringFromTable(@"Navigation advanced_send", @"CBW", @"Advanced Send") style:UIBarButtonItemStylePlain target:self action:@selector(p_handleSwitchMode:)];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -38,15 +38,15 @@
         case SendViewControllerModeQuickly: {
             // to advanced
             self.mode = SendViewControllerModeAdvanced;
-            self.title = NSLocalizedStringFromTable(@"Navigation AdvancedSend", @"CBW", @"Advanced Send");
+            self.title = NSLocalizedStringFromTable(@"Navigation advanced_send", @"CBW", @"Advanced Send");
             self.navigationItem.rightBarButtonItem.title = NSLocalizedStringFromTable(@"Navigation Send", @"CBW", @"Quickly Send");
             break;
         }
         case SendViewControllerModeAdvanced: {
             // to quickly
             self.mode = SendViewControllerModeQuickly;
-            self.title = NSLocalizedStringFromTable(@"Navigation Send", @"CBW", @"Quickly Send");
-            self.navigationItem.rightBarButtonItem.title = NSLocalizedStringFromTable(@"Navigation AdvancedSend", @"CBW", @"Advanced Send");
+            self.title = NSLocalizedStringFromTable(@"Navigation send", @"CBW", @"Quickly Send");
+            self.navigationItem.rightBarButtonItem.title = NSLocalizedStringFromTable(@"Navigation advanced_send", @"CBW", @"Advanced Send");
             break;
         }
     }

@@ -20,8 +20,10 @@ static NSString *const CBWUserDefaultsTouchIdEnabledKey = @"cbw.user.defaults.to
 
 // Key Chain
 
-static NSString *const CBWKeyChainSeedKey = @"cbw.seed";
-static NSString *const CBWKeyChainUUIDKey = @"cbw.uuid";
+static NSString *const CBWKeyChainSeedService = @"com.btc.wallet.seed";
+static NSString *const CBWKeyChainUUIDService = @"com.btc.wallet.uuid";
+static NSString *const CBWKeyChainMasterPasswordService = @"com.btc.wallet.masterPassword";
+static NSString *const CBWKeyChainAccountDefault = @"com.btc.wallet";
 
 
 #endif /* Constants_h */

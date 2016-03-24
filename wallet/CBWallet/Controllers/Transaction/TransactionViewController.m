@@ -25,7 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = NSLocalizedStringFromTable(@"Navigation Transaction", @"CBW", @"Transaction Detail");
+    self.title = NSLocalizedStringFromTable(@"Navigation transaction", @"CBW", @"Transaction Detail");
 }
 
 - (void)didReceiveMemoryWarning {

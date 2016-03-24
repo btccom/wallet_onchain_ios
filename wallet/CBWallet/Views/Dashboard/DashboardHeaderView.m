@@ -24,7 +24,7 @@
 
 - (UIButton *)sendButton {
     if (!_sendButton) {
-        UIButton *button = [[DashboardHeaderActionButton alloc] initWithImage:[UIImage imageNamed:@"icon_send"] title:NSLocalizedStringFromTable(@"Button Send", @"CBW", @"Send")];
+        UIButton *button = [[DashboardHeaderActionButton alloc] initWithImage:[UIImage imageNamed:@"icon_send"] title:NSLocalizedStringFromTable(@"Button send", @"CBW", @"Send")];
         [button setTitleColor:[UIColor CBWRedColor] forState:UIControlStateNormal];
         [self addSubview:button];
         _sendButton = button;
@@ -35,7 +35,7 @@
 
 - (UIButton *)receiveButton {
     if (!_receiveButton) {
-        UIButton *button = [[DashboardHeaderActionButton alloc] initWithImage:[UIImage imageNamed:@"icon_receive"] title:NSLocalizedStringFromTable(@"Button Receive", @"CBW", @"Receive")];
+        UIButton *button = [[DashboardHeaderActionButton alloc] initWithImage:[UIImage imageNamed:@"icon_receive"] title:NSLocalizedStringFromTable(@"Button receive", @"CBW", @"Receive")];
         [button setTitleColor:[UIColor CBWGreenColor] forState:UIControlStateNormal];
         [self addSubview:button];
         _receiveButton = button;

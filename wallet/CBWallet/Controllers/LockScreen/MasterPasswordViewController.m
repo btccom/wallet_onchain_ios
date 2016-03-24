@@ -8,10 +8,11 @@
 
 #import "MasterPasswordViewController.h"
 #import "LockScreenController.h"
-#import "InitialWalletSettingViewController.h"
 
 #import "PrimaryButton.h"
 #import "InputTableViewCell.h"
+
+#import "NSString+Password.h"
 
 @interface MasterPasswordViewController ()<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 
@@ -27,7 +28,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = NSLocalizedStringFromTable(@"Navigation MasterPassword", @"CBW", @"Master Password");
+    self.title = NSLocalizedStringFromTable(@"Navigation master_password", @"CBW", @"Master Password");
     self.view.backgroundColor = [UIColor CBWWhiteColor];
     
     UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
@@ -40,18 +41,42 @@
 
 #pragma mark - Private Method
 
-- (void)p_handleCreate:(id)sender {
+- (void)p_handleNext:(id)sender {
     [self.view endEditing:YES];
     
-    InitialWalletSettingViewController *walletSettingViewController = [[InitialWalletSettingViewController alloc] init];
-    walletSettingViewController.delegate = (LockScreenController *)self.navigationController;
-    [self.navigationController pushViewController:walletSettingViewController animated:YES];
-}
-
-- (void)p_handleUnlock:(id)sender {
-    [self.view endEditing:YES];
+    NSString *password = self.masterPasswordCell.textField.text;
     
-    [self.delegate masterPasswordViewController:self didInputPassword:@"master password"];
+    NSMutableArray *messages = [NSMutableArray array];
+    
+    // valid password
+    if ([password passwordStrength] < 80) {
+        [messages addObject:NSLocalizedStringFromTable(@"Message need_strong_password", @"CBW", @"Please input a strong password.")];
+    }
+    
+    // check confirm and hint
+    if (self.actionType == LockScreenActionTypeSignUp) {
+        // confirm
+        NSString *confirmPassword = self.confirmMasterPasswordCell.textField.text;
+        if (![password isEqualToString:confirmPassword]) {
+            [messages addObject:NSLocalizedStringFromTable(@"Message confirm_password", @"CBW", @"Please confirm password.")];
+        }
+        
+        // hint
+        // not happen to be empty
+    }
+    
+    if (messages.count > 0) {
+        // alert message
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil) message:[messages componentsJoinedByString:@"\n"] preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *action = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Okay", @"CBW", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }];
+        [alert addAction:action];
+        [self presentViewController:alert animated:YES completion:nil];
+        return;
+    }
+    
+    [self.delegate masterPasswordViewController:self didInputPassword:password];
 }
 
 - (BOOL)p_handleEditingChanged:(UITextField *)textField {
@@ -133,7 +158,7 @@
                     // master password
                     self.masterPasswordCell = (InputTableViewCell *)cell;
                     self.masterPasswordCell.textField.secureTextEntry = YES;
-                    self.masterPasswordCell.textField.placeholder = NSLocalizedStringFromTable(@"Input Master Password", @"CBWallet", @"Master Password");
+                    self.masterPasswordCell.textField.placeholder = NSLocalizedStringFromTable(@"Placeholder master_password", @"CBW", @"Master Password");
                     self.masterPasswordCell.textField.returnKeyType = (self.actionType == LockScreenActionTypeSignIn) ? UIReturnKeyDone : UIReturnKeyNext;
                     break;
                 }
@@ -141,8 +166,9 @@
                     // confirm password
                     self.confirmMasterPasswordCell = (InputTableViewCell *)cell;
                     self.confirmMasterPasswordCell.textField.secureTextEntry = YES;
-                    self.confirmMasterPasswordCell.textField.placeholder = NSLocalizedStringFromTable(@"Input Confirm Master Password", @"CBWallet", @"Confirm Master Password");
+                    self.confirmMasterPasswordCell.textField.placeholder = NSLocalizedStringFromTable(@"Placeholder confirm_master_password", @"CBW", @"Confirm Master Password");
                     self.confirmMasterPasswordCell.textField.returnKeyType = UIReturnKeyNext;
+                    break;
                 }
             }
             break;
@@ -150,8 +176,10 @@
         case 1: {
             // hint
             self.hintCell = (InputTableViewCell *)cell;
-            self.hintCell.textField.placeholder = NSLocalizedStringFromTable(@"Input Hint", @"CBWallet", "Hint");
+            self.hintCell.textField.placeholder = NSLocalizedStringFromTable(@"Placeholder hint", @"CBW", "Hint");
             self.hintCell.textField.returnKeyType = UIReturnKeyDone;
+            self.hintCell.textField.text = self.hint;
+            break;
         }
     }
     
@@ -168,8 +196,8 @@
         UITableViewHeaderFooterView *view = [[UITableViewHeaderFooterView alloc] initWithFrame:CGRectMake(0, 0, stageWidth, CBWCellHeightDefault + CBWLayoutCommonVerticalPadding * 3.f)];
         
         PrimaryButton *button = [[PrimaryButton alloc] initWithFrame:CGRectMake(16.f, CBWLayoutCommonVerticalPadding * 2.f, stageWidth - 40.f, CBWCellHeightDefault)];
-        [button setTitle:(self.actionType == LockScreenActionTypeSignIn ? NSLocalizedStringFromTable(@"Button MasterPassword", @"CBW", @"Master Password") : NSLocalizedStringFromTable(@"Button Create Wallet", @"CBW", @"Create Wallet")) forState:UIControlStateNormal];
-        [button addTarget:self action:(self.actionType == LockScreenActionTypeSignIn ? @selector(p_handleUnlock:) : @selector(p_handleCreate:)) forControlEvents:UIControlEventTouchUpInside];
+        [button setTitle:(self.actionType == LockScreenActionTypeSignIn ? NSLocalizedStringFromTable(@"Button master_password", @"CBW", @"Master Password") : NSLocalizedStringFromTable(@"Button create_wallet", @"CBW", @"Create Wallet")) forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(p_handleNext:) forControlEvents:UIControlEventTouchUpInside];
         button.enabled = NO;
         [view.contentView addSubview:button];
         self.nextButton = button;
@@ -201,11 +229,7 @@
             return YES;
         }
         // valid, not empty
-        if (self.actionType == LockScreenActionTypeSignIn) {
-            [self p_handleUnlock:nil];
-        } else {
-            [self p_handleCreate:nil];
-        }
+        [self p_handleNext:nil];
     }
     return YES;
 }
