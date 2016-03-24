@@ -12,8 +12,8 @@
 
 "Navigation dashboard" = "Wallet";
 "Navigation profile" = "Profile";
-"Navigation send" = "Quickly Send";
-"Navigation advanced_send" = "Advanced Send";
+"Navigation send" = "Send";
+"Navigation advanced_send" = "Advanced";
 "Navigation all_transactions" = "All Transactions";
 "Navigation transaction_list" = "Transaction List";
 "Navigation transaction" = "Transaction";
