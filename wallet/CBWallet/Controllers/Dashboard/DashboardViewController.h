@@ -17,5 +17,7 @@
 /// - Recent Transactions
 @interface DashboardViewController : BaseListViewController
 
+- (void)reload;
+
 @end
 
