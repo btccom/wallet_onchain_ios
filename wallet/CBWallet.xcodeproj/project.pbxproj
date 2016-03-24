@@ -68,7 +68,6 @@
 		2CD0A91F1CA02B45006AF02F /* DatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD0A91E1CA02B45006AF02F /* DatabaseManager.m */; };
 		2CD0A9221CA02CF5006AF02F /* DatabaseManager+Account.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD0A9211CA02CF5006AF02F /* DatabaseManager+Account.m */; };
 		2CF24D0C1C9635AE00C7EDB9 /* CoreBitcoin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CF24D0A1C9635AE00C7EDB9 /* CoreBitcoin.framework */; };
-		2CF24D0D1C9635AE00C7EDB9 /* libCoreBitcoin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CF24D0B1C9635AE00C7EDB9 /* libCoreBitcoin.a */; };
 		2CF24D101C96367900C7EDB9 /* Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF24D0F1C96367900C7EDB9 /* Test.m */; };
 		2CF24D121C96377600C7EDB9 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CF24D111C96377600C7EDB9 /* AVFoundation.framework */; };
 		2CF24D581C965C7200C7EDB9 /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF24D4C1C965C7200C7EDB9 /* SSKeychain.m */; };
@@ -285,7 +284,6 @@
 		2CD0A9201CA02CF5006AF02F /* DatabaseManager+Account.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DatabaseManager+Account.h"; sourceTree = "<group>"; };
 		2CD0A9211CA02CF5006AF02F /* DatabaseManager+Account.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DatabaseManager+Account.m"; sourceTree = "<group>"; };
 		2CF24D0A1C9635AE00C7EDB9 /* CoreBitcoin.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CoreBitcoin.framework; sourceTree = "<group>"; };
-		2CF24D0B1C9635AE00C7EDB9 /* libCoreBitcoin.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libCoreBitcoin.a; sourceTree = "<group>"; };
 		2CF24D0E1C96367900C7EDB9 /* Test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Test.h; sourceTree = "<group>"; };
 		2CF24D0F1C96367900C7EDB9 /* Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Test.m; sourceTree = "<group>"; };
 		2CF24D111C96377600C7EDB9 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -332,7 +330,6 @@
 				2CF24D5F1C965F6500C7EDB9 /* libz.tbd in Frameworks */,
 				2CF24D121C96377600C7EDB9 /* AVFoundation.framework in Frameworks */,
 				2CF24D0C1C9635AE00C7EDB9 /* CoreBitcoin.framework in Frameworks */,
-				2CF24D0D1C9635AE00C7EDB9 /* libCoreBitcoin.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -787,7 +784,6 @@
 			isa = PBXGroup;
 			children = (
 				2CF24D0A1C9635AE00C7EDB9 /* CoreBitcoin.framework */,
-				2CF24D0B1C9635AE00C7EDB9 /* libCoreBitcoin.a */,
 			);
 			path = iOS;
 			sourceTree = "<group>";

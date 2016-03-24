@@ -1,8 +1,8 @@
 // CoreBitcoin by Oleg Andreev <oleganza@gmail.com>, WTFPL.
 
 #import <Foundation/Foundation.h>
-#import "BTCOpcode.h"
-#import "BTCSignatureHashType.h"
+#import <CoreBitcoin/BTCOpcode.h>
+#import <CoreBitcoin/BTCSignatureHashType.h>
 
 typedef NS_ENUM(NSInteger, BTCScriptSimulationOptions) {
     // Default is strict conservative simulation (uncompressed pubkeys, no P2SH interpretation)

@@ -18,6 +18,8 @@
 
 #import "Transaction.h"
 
+#import "Test.h"
+
 #import "AFNetworking.h"
 
 #import "NSString+CBWAddress.h"
@@ -55,6 +57,8 @@
     [dashboardHeaderView.sendButton addTarget:self action:@selector(p_handleSend:) forControlEvents:UIControlEventTouchUpInside];
     [dashboardHeaderView.receiveButton addTarget:self action:@selector(p_handleReceive:) forControlEvents:UIControlEventTouchUpInside];
     self.tableView.tableHeaderView = dashboardHeaderView;
+    
+    [Test runAllTests];
     
 }
 

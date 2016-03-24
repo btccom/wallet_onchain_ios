@@ -1,7 +1,7 @@
 // CoreBitcoin by Oleg Andreev <oleganza@gmail.com>, WTFPL.
 
 #import <Foundation/Foundation.h>
-#import "BTCData.h"
+#import <CoreBitcoin/BTCData.h>
 
 // This category is for user's convenience only.
 // For documentation look into BTCData.h.

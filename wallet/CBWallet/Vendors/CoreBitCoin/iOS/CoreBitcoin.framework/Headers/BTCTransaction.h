@@ -1,8 +1,8 @@
 // CoreBitcoin by Oleg Andreev <oleganza@gmail.com>, WTFPL.
 
 #import <Foundation/Foundation.h>
-#import "BTCUnitsAndLimits.h"
-#import "BTCSignatureHashType.h"
+#import <CoreBitcoin/BTCUnitsAndLimits.h>
+#import <CoreBitcoin/BTCSignatureHashType.h>
 
 static const uint32_t BTCTransactionCurrentVersion = 1;
 static const BTCAmount BTCTransactionDefaultFeeRate = 10000; // 10K satoshis per 1000 bytes
