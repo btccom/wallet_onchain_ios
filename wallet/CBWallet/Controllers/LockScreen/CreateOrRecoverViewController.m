@@ -61,10 +61,8 @@
     NSLog(@"create wallet");
     // create seed
     NSString *seed = [NSString randomStringWithLength:64];
-    NSLog(@"seed: %@", seed);
     // encrypt seed with key
     NSString *encryptedSeed = [AESCrypt encrypt:seed password:password];
-    NSLog(@"encrypted seed: %@", encryptedSeed);
     // save encrypted seed hex to keychain
     [SSKeychain setPassword:encryptedSeed forService:CBWKeyChainSeedService account:CBWKeyChainAccountDefault];
     // call guard to check and cache password

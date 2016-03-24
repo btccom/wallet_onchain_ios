@@ -41,11 +41,9 @@ static const NSTimeInterval kGuardAvaibleTimeDefault = 10 * 60; // 默认十分�
 
 - (BOOL)checkInWithCode:(NSString *)code {
     NSString *encryptedSeed = [SSKeychain passwordForService:CBWKeyChainSeedService account:CBWKeyChainAccountDefault];
-    NSLog(@"check in encrypted seed: %@", encryptedSeed);
     
     if (encryptedSeed.length > 0) {
         NSString *decryptedSeed = [AESCrypt decrypt:encryptedSeed password:code];
-        NSLog(@"check in seed: %@", decryptedSeed);
         if (decryptedSeed) {// success
             NSLog(@"welcome");
             // cache code
@@ -60,52 +58,6 @@ static const NSTimeInterval kGuardAvaibleTimeDefault = 10 * 60; // 默认十分�
     
     return NO;
 }
-
-//- (void)checkInWithCode:(NSString *)code completion:(void (^)(BOOL success))completion {
-//    NSString *salt = [SSKeychain passwordForService:CBWKeyChainSaltService account:CBWKeyChainAccountDefault];
-//    NSLog(@"check in salt: %@", salt);
-//    if (salt.length > 0) {
-//        NSString *encryptedSeed = [SSKeychain passwordForService:CBWKeyChainSeedService account:CBWKeyChainAccountDefault];
-//        NSLog(@"check in encrypted seed: %@", encryptedSeed);
-//        NSString *key = [code pbkdf2KeyWithSalt:salt iterations:CBWPBKDF2Iterations];
-//        NSLog(@"check in key: %@", key);
-////        for (NSInteger i = 0; i < CBWPBKDF2Iterations; i++) {
-////            NSString *decryptedSeed = [encryptedSeed decryptWithKey:key];
-////            NSLog(@"check in round %ld seed: %@", (long)i, decryptedSeed);
-////            if (decryptedSeed) {// success
-////                NSLog(@"welcome");
-////                // cache code
-////                _code = code;
-////                // add timer into run loop
-////                NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
-////                [runLoop addTimer:self.timer forMode:NSDefaultRunLoopMode];
-////                // return
-////                completion(YES);
-////                break;
-////            }
-////        }
-////        completion(NO);
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            NSString *decryptedSeed = [encryptedSeed decryptWithKey:key];
-//            NSLog(@"check in seed: %@", decryptedSeed);
-//            if (decryptedSeed) {// success
-//                NSLog(@"welcome");
-//                
-//                // cache code
-//                _code = code;
-//                
-//                // add timer into run loop
-//                NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
-//                [runLoop addTimer:self.timer forMode:NSDefaultRunLoopMode];
-//                
-//                //return
-//                completion(YES);
-//            } else {
-//                completion(NO);
-//            }
-//        });
-//    }
-//}
 
 - (void)checkOut {
     _code = @"";
