@@ -16,11 +16,13 @@
 
 #import "DashboardHeaderView.h"
 
+#import "Guard.h"
 #import "Transaction.h"
 
-#import "Test.h"
-
+#import "SSKeychain.h"
+#import <CoreBitcoin/CoreBitcoin.h>
 #import "AFNetworking.h"
+#import "AESCrypt.h"
 
 #import "NSString+CBWAddress.h"
 
@@ -57,11 +59,19 @@
     [dashboardHeaderView.sendButton addTarget:self action:@selector(p_handleSend:) forControlEvents:UIControlEventTouchUpInside];
     [dashboardHeaderView.receiveButton addTarget:self action:@selector(p_handleReceive:) forControlEvents:UIControlEventTouchUpInside];
     self.tableView.tableHeaderView = dashboardHeaderView;
-    
-    [Test runAllTests];
-    
 }
 
+#pragma mark - Public Method
+- (void)reload {
+    NSString *encryptedSeed = [SSKeychain passwordForService:CBWKeyChainSeedService account:CBWKeyChainAccountDefault];
+    NSString *seed = [AESCrypt decrypt:encryptedSeed password:[Guard globalGuard].code];
+    
+    if (seed) {
+        NSData *btcSeedData = BTCDataWithUTF8CString(seed.UTF8String);
+        BTCKeychain *masterChain = [[BTCKeychain alloc] initWithSeed:btcSeedData];
+        NSLog(@"account 0, address 7: %@", [masterChain derivedKeychainWithPath:@"0/7"].key.compressedPublicKeyAddress.string);
+    }
+}
 
 #pragma mark - Private Method
 #pragma mark Navigation

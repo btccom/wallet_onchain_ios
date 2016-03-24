@@ -42,7 +42,7 @@
 #import <CoreBitcoin/BTCQRCode.h>
 #import <CoreBitcoin/BTCScript.h>
 #import <CoreBitcoin/BTCScriptMachine.h>
-#import <CoreBitcoin/BTCScriptTestData.h>
+//#import <CoreBitcoin/BTCScriptTestData.h>
 #import <CoreBitcoin/BTCSecretSharing.h>
 #import <CoreBitcoin/BTCSignatureHashType.h>
 #import <CoreBitcoin/BTCTransaction.h>

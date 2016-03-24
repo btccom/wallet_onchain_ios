@@ -14,7 +14,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _address = [NSString stringWithFormat:@"1FakeAddress%ld", random()%100000000000];
+        _address = [NSString stringWithFormat:@"1FakeAddress%lld", random()%100000000000];
         _label = [NSString stringWithFormat:@"Label %ld", random()%10];
     }
     return self;

@@ -15,6 +15,7 @@
 
 @interface AppDelegate ()<LockScreenControllerDelegate>
 @property (nonatomic, strong) UIWindow *lockScreenWindow;
+@property (nonatomic, weak) DashboardViewController *dashboardViewController;
 @end
 
 @implementation AppDelegate
@@ -28,6 +29,7 @@
     self.window.backgroundColor = [UIColor CBWBlackColor];
     
     DashboardViewController *dashboardViewController = [[DashboardViewController alloc] init];
+    _dashboardViewController = dashboardViewController;
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:dashboardViewController];
     self.window.rootViewController = navigationController;
     
@@ -101,8 +103,7 @@
 
 #pragma mark - LockScreenControllerDelegate
 - (void)lockScreenController:(LockScreenController *)controller didUnlockWithActionType:(LockScreenActionType)type {
-    // TODO: route action type
-    
+    [self.dashboardViewController reload];
     // unlock
     [self unlockScreen];
 }

@@ -10,4 +10,6 @@
 
 @interface Test : NSObject
 + (void)runAllTests;
+
++ (void)testAES;
 @end

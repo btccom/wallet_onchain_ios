@@ -39,7 +39,7 @@
             // to advanced
             self.mode = SendViewControllerModeAdvanced;
             self.title = NSLocalizedStringFromTable(@"Navigation advanced_send", @"CBW", @"Advanced Send");
-            self.navigationItem.rightBarButtonItem.title = NSLocalizedStringFromTable(@"Navigation Send", @"CBW", @"Quickly Send");
+            self.navigationItem.rightBarButtonItem.title = NSLocalizedStringFromTable(@"Navigation send", @"CBW", @"Quickly Send");
             break;
         }
         case SendViewControllerModeAdvanced: {

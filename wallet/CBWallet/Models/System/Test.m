@@ -13,8 +13,7 @@
 #import "YYImage.h"
 #import "AFNetworking.h"
 
-#import "NSString+PBKDF2.h"
-#import "NSData+AES256.h"
+#import "AESCrypt.h"
 
 @implementation Test
 
@@ -39,26 +38,25 @@
     [self testZeroPaddedPrivateKeys];
     [self testQRCode];
     [self testAES];
+    [self testReuqest];
 }
 
 
 + (void)testQRCode {
     // 二维码生成
     NSString *password = @"password";
-    NSString *salt = @"salt";
-    NSLog(@"key: %@", [password PBKDF2KeyWithSalt:salt]);
     
     NSString *uuid = [NSUUID UUID].UUIDString;
     NSString *seed = @"Life is a long journey. Enjoy it when you feel lonely.";
     
     NSString *secret = [NSString stringWithFormat:@"%@:%@", uuid, seed];
-    NSData *encryptedData = [[secret dataUsingEncoding:NSUTF8StringEncoding] AES256EncryptWithKey:[password PBKDF2KeyWithSalt:salt]];
-    NSLog(@"encrypted data: %@", [encryptedData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength]);
+    NSString *encryptedString = [AESCrypt encrypt:secret password:password];
+    NSLog(@"encrypted string: %@", encryptedString);
     
-    NSData *decryptedData = [encryptedData AES256DecryptWithKey:[password PBKDF2KeyWithSalt:salt]];
-    NSLog(@"secret: %@", [[NSString alloc] initWithData:decryptedData encoding:NSUTF8StringEncoding]);
+    NSString *decryptedString = [AESCrypt decrypt:encryptedString password:password];
+    NSLog(@"secret: %@", decryptedString);
     NSLog(@"===============================");
-    NSString *qrcode1 = [encryptedData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    NSString *qrcode1 = encryptedString;
     NSString *qrcode2 = @"qr code string 2";
     UIImage *qrcodeImage1 = [BTCQRCode imageForString:qrcode1 size:CGSizeMake(200.f, 200.f) scale:2.f];
     UIImage *qrcodeImage2 = [BTCQRCode imageForString:qrcode2 size:CGSizeMake(200.f, 200.f) scale:2.f];
@@ -84,11 +82,10 @@
         for (CIQRCodeFeature* featureR in featuresR) {
             NSLog(@"decode: %@ ", featureR.messageString);
             
-            NSData *decodedData = [[NSData alloc] initWithBase64EncodedString:featureR.messageString options:NSDataBase64DecodingIgnoreUnknownCharacters];
             
-            NSData *decryptedData = [decodedData AES256DecryptWithKey:[password PBKDF2KeyWithSalt:salt]];
+            NSString *secret = [AESCrypt decrypt:featureR.messageString password:password];
+
             
-            NSString *secret = [[NSString alloc] initWithData:decryptedData encoding:NSUTF8StringEncoding];
             NSLog(@"secret: %@", secret);
             decodeR = featureR.messageString;
         }
@@ -97,17 +94,23 @@
 
 + (void)testAES {
     // 测试 AES
-    NSString *password = @"password";
-    NSString *salt = @"salt";
-    NSLog(@"key: %@", [password PBKDF2KeyWithSalt:salt]);
+    NSString *password = @"passwordpasswordpasswordpassword";
     
     NSString *secret = @"secret";
-    NSData *encryptedData = [[secret dataUsingEncoding:NSUTF8StringEncoding] AES256EncryptWithKey:[password PBKDF2KeyWithSalt:salt]];
-    NSLog(@"encrypted data: %@", [encryptedData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength]);
     
-    NSData *decryptedData = [encryptedData AES256DecryptWithKey:[password PBKDF2KeyWithSalt:salt]];
-    NSLog(@"decrypted secret: %@", [[NSString alloc] initWithData:decryptedData encoding:NSUTF8StringEncoding]);
+    //
+    NSLog(@"================================ AES");
+    
+    NSString *encrypted = [AESCrypt encrypt:secret password:password];
+    NSLog(@"encrypted: %@", encrypted);
+    NSLog(@"decrypted wrong: %@", [AESCrypt decrypt:encrypted password:@"wrong"]);
+    NSLog(@"decrypted: %@", [AESCrypt decrypt:encrypted password:password]);
+    
     NSLog(@"================================");
+}
+
++ (void)testReuqest {
+    
     
     // 测试 http 请求
     // 1. config session
