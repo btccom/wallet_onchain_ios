@@ -69,6 +69,12 @@
 		2CD0A91C1CA02ACA006AF02F /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD0A9171CA02ACA006AF02F /* FMResultSet.m */; };
 		2CD0A91F1CA02B45006AF02F /* DatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD0A91E1CA02B45006AF02F /* DatabaseManager.m */; };
 		2CD0A9221CA02CF5006AF02F /* DatabaseManager+Account.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD0A9211CA02CF5006AF02F /* DatabaseManager+Account.m */; };
+		2CEFC3531CA4CBAC00FECCA4 /* RecordObjectStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEFC3521CA4CBAC00FECCA4 /* RecordObjectStore.m */; };
+		2CEFC3561CA4CBD600FECCA4 /* AccountStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEFC3551CA4CBD600FECCA4 /* AccountStore.m */; };
+		2CEFC3591CA4D25000FECCA4 /* AddressStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEFC3581CA4D25000FECCA4 /* AddressStore.m */; };
+		2CEFC35C1CA4D65C00FECCA4 /* TransactionStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEFC35B1CA4D65C00FECCA4 /* TransactionStore.m */; };
+		2CEFC3601CA501B200FECCA4 /* Installation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEFC35F1CA501B200FECCA4 /* Installation.m */; };
+		2CEFC3661CA50EF900FECCA4 /* Schema in Resources */ = {isa = PBXBuildFile; fileRef = 2CEFC3651CA50EF900FECCA4 /* Schema */; };
 		2CF24D0C1C9635AE00C7EDB9 /* CoreBitcoin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CF24D0A1C9635AE00C7EDB9 /* CoreBitcoin.framework */; };
 		2CF24D101C96367900C7EDB9 /* Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF24D0F1C96367900C7EDB9 /* Test.m */; };
 		2CF24D121C96377600C7EDB9 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CF24D111C96377600C7EDB9 /* AVFoundation.framework */; };
@@ -289,6 +295,18 @@
 		2CD0A91E1CA02B45006AF02F /* DatabaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatabaseManager.m; sourceTree = "<group>"; };
 		2CD0A9201CA02CF5006AF02F /* DatabaseManager+Account.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DatabaseManager+Account.h"; sourceTree = "<group>"; };
 		2CD0A9211CA02CF5006AF02F /* DatabaseManager+Account.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DatabaseManager+Account.m"; sourceTree = "<group>"; };
+		2CEFC3511CA4CBAC00FECCA4 /* RecordObjectStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordObjectStore.h; sourceTree = "<group>"; };
+		2CEFC3521CA4CBAC00FECCA4 /* RecordObjectStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordObjectStore.m; sourceTree = "<group>"; };
+		2CEFC3541CA4CBD600FECCA4 /* AccountStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountStore.h; sourceTree = "<group>"; };
+		2CEFC3551CA4CBD600FECCA4 /* AccountStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountStore.m; sourceTree = "<group>"; };
+		2CEFC3571CA4D25000FECCA4 /* AddressStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressStore.h; sourceTree = "<group>"; };
+		2CEFC3581CA4D25000FECCA4 /* AddressStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressStore.m; sourceTree = "<group>"; };
+		2CEFC35A1CA4D65C00FECCA4 /* TransactionStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionStore.h; sourceTree = "<group>"; };
+		2CEFC35B1CA4D65C00FECCA4 /* TransactionStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionStore.m; sourceTree = "<group>"; };
+		2CEFC35D1CA4D67D00FECCA4 /* Database.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Database.h; sourceTree = "<group>"; };
+		2CEFC35E1CA501B200FECCA4 /* Installation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Installation.h; sourceTree = "<group>"; };
+		2CEFC35F1CA501B200FECCA4 /* Installation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Installation.m; sourceTree = "<group>"; };
+		2CEFC3651CA50EF900FECCA4 /* Schema */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Schema; path = CBWallet/Schema; sourceTree = SOURCE_ROOT; };
 		2CF24D0A1C9635AE00C7EDB9 /* CoreBitcoin.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CoreBitcoin.framework; sourceTree = "<group>"; };
 		2CF24D0E1C96367900C7EDB9 /* Test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Test.h; sourceTree = "<group>"; };
 		2CF24D0F1C96367900C7EDB9 /* Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Test.m; sourceTree = "<group>"; };
@@ -605,10 +623,19 @@
 				2C9CAF271C868B61008194EB /* Transaction.m */,
 				2C9CAF241C868B61008194EB /* RecordObject.h */,
 				2C9CAF251C868B61008194EB /* RecordObject.m */,
+				2CEFC3511CA4CBAC00FECCA4 /* RecordObjectStore.h */,
+				2CEFC3521CA4CBAC00FECCA4 /* RecordObjectStore.m */,
+				2CEFC3541CA4CBD600FECCA4 /* AccountStore.h */,
+				2CEFC3551CA4CBD600FECCA4 /* AccountStore.m */,
+				2CEFC3571CA4D25000FECCA4 /* AddressStore.h */,
+				2CEFC3581CA4D25000FECCA4 /* AddressStore.m */,
+				2CEFC35A1CA4D65C00FECCA4 /* TransactionStore.h */,
+				2CEFC35B1CA4D65C00FECCA4 /* TransactionStore.m */,
 				2CD0A91D1CA02B45006AF02F /* DatabaseManager.h */,
 				2CD0A91E1CA02B45006AF02F /* DatabaseManager.m */,
 				2CD0A9201CA02CF5006AF02F /* DatabaseManager+Account.h */,
 				2CD0A9211CA02CF5006AF02F /* DatabaseManager+Account.m */,
+				2CEFC35D1CA4D67D00FECCA4 /* Database.h */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -620,6 +647,8 @@
 				2C9CAF2A1C868B61008194EB /* SystemManager.m */,
 				2C99A17A1CA0E434007D7AC3 /* Guard.h */,
 				2C99A17B1CA0E434007D7AC3 /* Guard.m */,
+				2CEFC35E1CA501B200FECCA4 /* Installation.h */,
+				2CEFC35F1CA501B200FECCA4 /* Installation.m */,
 				2CF24D0E1C96367900C7EDB9 /* Test.h */,
 				2CF24D0F1C96367900C7EDB9 /* Test.m */,
 			);
@@ -740,6 +769,7 @@
 		2CC4845D1C71A2EE0033D700 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				2CEFC3651CA50EF900FECCA4 /* Schema */,
 				2C99A17F1CA1029C007D7AC3 /* libsqlite3.tbd */,
 				2CF24D5E1C965F6500C7EDB9 /* libz.tbd */,
 				2CF24D111C96377600C7EDB9 /* AVFoundation.framework */,
@@ -910,6 +940,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CEFC3661CA50EF900FECCA4 /* Schema in Resources */,
 				2C9CAF7D1C868B98008194EB /* InfoPlist.strings in Resources */,
 				2C9CAF7B1C868B98008194EB /* CBW.strings in Resources */,
 				2C9CAF7A1C868B98008194EB /* Assets.xcassets in Resources */,
@@ -925,6 +956,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C9CAF5E1C868B61008194EB /* UIColor+CBW.m in Sources */,
+				2CEFC3531CA4CBAC00FECCA4 /* RecordObjectStore.m in Sources */,
 				2C9CAF571C868B61008194EB /* RecipientViewController.m in Sources */,
 				2C9CAF4D1C868B61008194EB /* BaseViewController.m in Sources */,
 				2C9CAF531C868B61008194EB /* LockScreenController.m in Sources */,
@@ -970,7 +1002,9 @@
 				2C9CAF501C868B61008194EB /* DashboardViewController.m in Sources */,
 				2C9CAF5A1C868B61008194EB /* TransactionViewController.m in Sources */,
 				2C1E8C501CA42A7D006F86E1 /* NSData+CommonCrypto.m in Sources */,
+				2CEFC3601CA501B200FECCA4 /* Installation.m in Sources */,
 				2C9CAF5B1C868B61008194EB /* NSString+CBWAddress.m in Sources */,
+				2CEFC3591CA4D25000FECCA4 /* AddressStore.m in Sources */,
 				2C9CAF5F1C868B61008194EB /* UIViewController+Appearance.m in Sources */,
 				2C9CAF791C868B98008194EB /* AppDelegate.m in Sources */,
 				2CF24D101C96367900C7EDB9 /* Test.m in Sources */,
@@ -985,6 +1019,7 @@
 				2CD0A91F1CA02B45006AF02F /* DatabaseManager.m in Sources */,
 				2C9CAF581C868B61008194EB /* SendViewController.m in Sources */,
 				2C9CAF681C868B61008194EB /* AddressHeaderView.m in Sources */,
+				2CEFC3561CA4CBD600FECCA4 /* AccountStore.m in Sources */,
 				2CF24D781C97A53200C7EDB9 /* AFURLResponseSerialization.m in Sources */,
 				2C99A17C1CA0E434007D7AC3 /* Guard.m in Sources */,
 				2CD0A9181CA02ACA006AF02F /* FMDatabase.m in Sources */,
@@ -993,6 +1028,7 @@
 				2C9CAF6F1C868B61008194EB /* DashboardHeaderView.m in Sources */,
 				2C9CAF601C868B61008194EB /* Account.m in Sources */,
 				2C9CAF4B1C868B61008194EB /* BaseListViewController.m in Sources */,
+				2CEFC35C1CA4D65C00FECCA4 /* TransactionStore.m in Sources */,
 				2C9CAF631C868B61008194EB /* RecordObject.m in Sources */,
 				2C9CAF6E1C868B61008194EB /* DashboardHeaderActionButton.m in Sources */,
 				2C9CAF661C868B61008194EB /* SessionManager.m in Sources */,

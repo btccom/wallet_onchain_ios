@@ -17,6 +17,6 @@
 /// 是否已经使用过
 @property (nonatomic, assign, getter=isDirty) BOOL dirty;
 @property (nonatomic, assign) long long balance;
-@property (nonatomic, assign) NSUInteger txs;
+@property (nonatomic, assign) NSUInteger txCount;
 
 @end

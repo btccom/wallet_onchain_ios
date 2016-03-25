@@ -20,16 +20,16 @@
 + (void) runAllTests {
     NSData *seed = BTCDataWithUTF8CString("开个玩笑");
     BTCKeychain *masterChain = [[BTCKeychain alloc] initWithSeed:seed];
-    NSLog(@"hello address: %@", masterChain.key.compressedPublicKeyAddress.string);//1NxpBNuFAq9FSv7mNrigyYc4ww6137zarP
-    NSLog(@".: %@", [masterChain derivedKeychainWithPath:@""].key.compressedPublicKeyAddress.string);//1NxpBNuFAq9FSv7mNrigyYc4ww6137zarP
-    NSLog(@"m: %@", [masterChain derivedKeychainWithPath:@"m"].key.compressedPublicKeyAddress.string);//1NxpBNuFAq9FSv7mNrigyYc4ww6137zarP
-    NSLog(@"m/0: %@", [masterChain derivedKeychainWithPath:@"0"].key.compressedPublicKeyAddress.string);//1CwQtRNYdSkqzPwoWgamdinpebFBVqdS1C
-    NSLog(@"m/0/7: %@", [masterChain derivedKeychainWithPath:@"m/0/7"].key.compressedPublicKeyAddress.string);//1KxHzE3BXjbGFHVV1GnAxojcbjPYozYJpP
-    NSLog(@"0/7: %@", [masterChain derivedKeychainWithPath:@"0/7"].key.compressedPublicKeyAddress.string);//1KxHzE3BXjbGFHVV1GnAxojcbjPYozYJpP
-    NSLog(@"m/0/7(private): %@", [masterChain derivedKeychainWithPath:@"m/0/7"].key.privateKeyAddress.string);//L5aT3ccqkongzwf6bGfTqChkogQvR7HjV4bzaikcmiMT6oaEyXi7
+    DLog(@"hello address: %@", masterChain.key.compressedPublicKeyAddress.string);//1NxpBNuFAq9FSv7mNrigyYc4ww6137zarP
+    DLog(@".: %@", [masterChain derivedKeychainWithPath:@""].key.compressedPublicKeyAddress.string);//1NxpBNuFAq9FSv7mNrigyYc4ww6137zarP
+    DLog(@"m: %@", [masterChain derivedKeychainWithPath:@"m"].key.compressedPublicKeyAddress.string);//1NxpBNuFAq9FSv7mNrigyYc4ww6137zarP
+    DLog(@"m/0: %@", [masterChain derivedKeychainWithPath:@"0"].key.compressedPublicKeyAddress.string);//1CwQtRNYdSkqzPwoWgamdinpebFBVqdS1C
+    DLog(@"m/0/7: %@", [masterChain derivedKeychainWithPath:@"m/0/7"].key.compressedPublicKeyAddress.string);//1KxHzE3BXjbGFHVV1GnAxojcbjPYozYJpP
+    DLog(@"0/7: %@", [masterChain derivedKeychainWithPath:@"0/7"].key.compressedPublicKeyAddress.string);//1KxHzE3BXjbGFHVV1GnAxojcbjPYozYJpP
+    DLog(@"m/0/7(private): %@", [masterChain derivedKeychainWithPath:@"m/0/7"].key.privateKeyAddress.string);//L5aT3ccqkongzwf6bGfTqChkogQvR7HjV4bzaikcmiMT6oaEyXi7
     NSData *signature = [[masterChain derivedKeychainWithPath:@"0/7"].key signatureForMessage:@"hello"];
-    NSLog(@"signature: %@", BTCHexFromData(signature));
-    NSLog(@"check valid? %d", [[masterChain derivedKeychainWithPath:@"0/7"].key isValidSignature:signature forMessage:@"hello"]);
+    DLog(@"signature: %@", BTCHexFromData(signature));
+    DLog(@"check valid? %d", [[masterChain derivedKeychainWithPath:@"0/7"].key isValidSignature:signature forMessage:@"hello"]);
     
     
     
@@ -51,11 +51,11 @@
     
     NSString *secret = [NSString stringWithFormat:@"%@:%@", uuid, seed];
     NSString *encryptedString = [AESCrypt encrypt:secret password:password];
-    NSLog(@"encrypted string: %@", encryptedString);
+    DLog(@"encrypted string: %@", encryptedString);
     
     NSString *decryptedString = [AESCrypt decrypt:encryptedString password:password];
-    NSLog(@"secret: %@", decryptedString);
-    NSLog(@"===============================");
+    DLog(@"secret: %@", decryptedString);
+    DLog(@"===============================");
     NSString *qrcode1 = encryptedString;
     NSString *qrcode2 = @"qr code string 2";
     UIImage *qrcodeImage1 = [BTCQRCode imageForString:qrcode1 size:CGSizeMake(200.f, 200.f) scale:2.f];
@@ -75,18 +75,18 @@
     // 获取二维码
     CIDetector* detector = [CIDetector detectorOfType:CIDetectorTypeQRCode context:[CIContext contextWithOptions:nil] options:@{CIDetectorAccuracy:CIDetectorAccuracyHigh}];
     if (detector) {
-        NSLog(@"detector ready");
+        DLog(@"detector ready");
         CIImage *ciimg = [CIImage imageWithCGImage:decodedQRCodeImage2.CGImage];
         NSArray *featuresR = [detector featuresInImage:ciimg];
         NSString *decodeR;
         for (CIQRCodeFeature* featureR in featuresR) {
-            NSLog(@"decode: %@ ", featureR.messageString);
+            DLog(@"decode: %@ ", featureR.messageString);
             
             
             NSString *secret = [AESCrypt decrypt:featureR.messageString password:password];
 
             
-            NSLog(@"secret: %@", secret);
+            DLog(@"secret: %@", secret);
             decodeR = featureR.messageString;
         }
     }
@@ -99,14 +99,14 @@
     NSString *secret = @"secret";
     
     //
-    NSLog(@"================================ AES");
+    DLog(@"================================ AES");
     
     NSString *encrypted = [AESCrypt encrypt:secret password:password];
-    NSLog(@"encrypted: %@", encrypted);
-    NSLog(@"decrypted wrong: %@", [AESCrypt decrypt:encrypted password:@"wrong"]);
-    NSLog(@"decrypted: %@", [AESCrypt decrypt:encrypted password:password]);
+    DLog(@"encrypted: %@", encrypted);
+    DLog(@"decrypted wrong: %@", [AESCrypt decrypt:encrypted password:@"wrong"]);
+    DLog(@"decrypted: %@", [AESCrypt decrypt:encrypted password:password]);
     
-    NSLog(@"================================");
+    DLog(@"================================");
 }
 
 + (void)testReuqest {
@@ -122,9 +122,9 @@
     // 4. fetch
     NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
         if (error) {
-            NSLog(@"Error: %@", error);
+            DLog(@"Error: %@", error);
         } else {
-            NSLog(@"OK: %@ %@", response, responseObject);
+            DLog(@"OK: %@ %@", response, responseObject);
         }
     }];
     [dataTask resume];
@@ -133,7 +133,7 @@
 + (void)testPaths {
     BTCKeychain* keychain = [[BTCKeychain alloc] initWithExtendedKey:@"xprv9s21ZrQH143K3QTDL4LXw2F7HEK3wJUD2nW2nRk4stbPy6cq3jPPqjiChkVvvNKmPGJxWUtg6LnF5kejMRNNU3TGtRBeJgk33yuGBxrMPHi"];
     
-    NSLog(@"root public key: %@", [keychain derivedKeychainWithPath:@""].extendedPublicKey);
+    DLog(@"root public key: %@", [keychain derivedKeychainWithPath:@""].extendedPublicKey);
 //    NSAssert([[keychain derivedKeychainWithPath:@""].extendedPublicKey isEqual:keychain.extendedPublicKey], @"must return root key");
 //    NSAssert([[keychain derivedKeychainWithPath:@"m"].extendedPublicKey isEqual:keychain.extendedPublicKey], @"must return root key");
 //    NSAssert([[keychain derivedKeychainWithPath:@"/"].extendedPublicKey isEqual:keychain.extendedPublicKey], @"must return root key");

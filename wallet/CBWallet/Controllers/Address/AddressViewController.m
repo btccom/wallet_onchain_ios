@@ -81,11 +81,11 @@
 #pragma mark - Private Method
 #pragma mark Handlers
 - (void)p_handleShare:(id)sender {
-    NSLog(@"clicked share");
+    DLog(@"clicked share");
 }
 
 - (void)p_handleArchive:(id)sender {
-    NSLog(@"clicked archive");
+    DLog(@"clicked archive");
 }
 
 #pragma mark -
@@ -138,7 +138,7 @@
 
 #pragma mark AddressHeaderViewDelegate
 - (void)addressHeaderViewDidEndEditing:(AddressHeaderView *)view {
-    NSLog(@"address's label changed: %@", view.label);
+    DLog(@"address's label changed: %@", view.label);
 }
 
 @end

@@ -17,6 +17,8 @@ static NSString *const CBWUserDefaultsiCloudEnabledKey = @"cbw.user.defaults.icl
 /// bool value
 static NSString *const CBWUserDefaultsTouchIdEnabledKey = @"cbw.user.defaults.touchid.enabled";
 
+/// intenger value
+static NSString *const CBWUserDefaultsLocalVersion = @"cbw.user.defaults.localVersion";
 
 // Key Chain
 static NSString *const CBWKeyChainSeedService = @"com.btc.wallet.seed";

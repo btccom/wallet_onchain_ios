@@ -52,7 +52,7 @@
 
 #pragma mark - <MasterPasswordViewControllerDelegate>
 - (void)masterPasswordViewController:(MasterPasswordViewController *)controller didInputPassword:(NSString *)password {
-    NSLog(@"try to recover with code: %@", password);
+    DLog(@"try to recover with code: %@", password);
     
     // decode qr code image
     // get uuid

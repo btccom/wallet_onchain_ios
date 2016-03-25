@@ -17,7 +17,8 @@
 #import "DashboardHeaderView.h"
 
 #import "Guard.h"
-#import "Transaction.h"
+#import "Database.h"
+
 
 #import "SSKeychain.h"
 #import <CoreBitcoin/CoreBitcoin.h>
@@ -59,6 +60,22 @@
     [dashboardHeaderView.sendButton addTarget:self action:@selector(p_handleSend:) forControlEvents:UIControlEventTouchUpInside];
     [dashboardHeaderView.receiveButton addTarget:self action:@selector(p_handleReceive:) forControlEvents:UIControlEventTouchUpInside];
     self.tableView.tableHeaderView = dashboardHeaderView;
+    
+    AccountStore *accountStore = [[AccountStore alloc] init];
+    Account *foo = [Account newRecordInStore:accountStore];
+    foo.label = @"foo";
+    [foo saveWithError:nil];
+    
+    Account *bar = [Account newRecordInStore:accountStore];
+    bar.label = @"bar";
+    [bar saveWithError:nil];
+    
+    Account *defaultAccount = [accountStore customDefaultAccount];
+    DLog(@"default account label: %@ idx: %ld", defaultAccount.label, (long)defaultAccount.idx);
+    
+    Account *a2 = [accountStore recordAtIndex:1];
+    DLog(@"2nd account label: %@idx: %ld", a2.label, (long)defaultAccount.idx);
+    
 }
 
 #pragma mark - Public Method
@@ -69,7 +86,7 @@
     if (seed) {
         NSData *btcSeedData = BTCDataWithUTF8CString(seed.UTF8String);
         BTCKeychain *masterChain = [[BTCKeychain alloc] initWithSeed:btcSeedData];
-        NSLog(@"account 0, address 7: %@", [masterChain derivedKeychainWithPath:@"0/7"].key.compressedPublicKeyAddress.string);
+        DLog(@"account 0, address 7: %@", [masterChain derivedKeychainWithPath:@"0/7"].key.compressedPublicKeyAddress.string);
     }
 }
 
@@ -148,7 +165,7 @@
 
 #pragma mark - ProfileViewControllerDelegate
 - (void)profileViewController:(ProfileViewController *)viewController didSelectAccount:(Account *)account {
-    NSLog(@"selected account: %@", account);
+    DLog(@"selected account: %@", account);
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

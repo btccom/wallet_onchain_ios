@@ -13,6 +13,7 @@
 @interface DatabaseManager (Account)
 
 - (NSArray *)fetchAccounts;
-- (void)saveAccount:(Account **)account;
+- (void)saveAccount:(Account *)account;
+- (void)deleteAccount:(Account *)account;
 
 @end

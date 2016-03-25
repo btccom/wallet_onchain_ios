@@ -7,6 +7,7 @@
 //
 
 #import "Address.h"
+#import "AddressStore.h"
 
 @implementation Address
 
@@ -17,9 +18,14 @@
         _address = [NSString stringWithFormat:@"1FakeAddressWithLongLongNumber%lld", (long long)random() % 100000000000];
         _label = [NSString stringWithFormat:@"Label %ld", random() % 10];
         _balance = random() % 10000000000;
-        _txs = random() % 50;
+        _txCount = random() % 50;
     }
     return self;
+}
+
+- (void)deleteFromStore:(RecordObjectStore *)store {
+    DLog(@"will never delete an address");
+    return;
 }
 
 - (NSString *)description {

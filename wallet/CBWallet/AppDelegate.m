@@ -10,6 +10,7 @@
 #import "DashboardViewController.h"
 #import "LockScreenController.h"
 
+#import "Installation.h"
 #import "SystemManager.h"
 #import "Guard.h"
 
@@ -23,6 +24,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    [Installation launchWithCompletion:^(BOOL needUpdate, BOOL success) {
+        NSLog(@"need update? %d, update success? %d", needUpdate, success);
+    }];
     
     // create window and root view controller
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];

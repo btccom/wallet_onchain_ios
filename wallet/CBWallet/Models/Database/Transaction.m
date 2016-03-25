@@ -10,16 +10,9 @@
 
 @implementation Transaction
 
-/// init fake data
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        _type = random() % 2;
-        _relatedAddress = @"1SD1ciWyeDNf26YoAUjSsifQZK1ShFJ2s";
-        _confirmed = random() % 10;
-        _value = random() % 10000000000;
-    }
-    return self;
+- (void)deleteFromStore:(RecordObjectStore *)store {
+    DLog(@"will never delete a transaction");
+    return;
 }
 
 - (NSString *)description {

@@ -8,7 +8,7 @@
 
 #import "DatabaseManager.h"
 
-NSString *const DatabaseManagerDBPath = @"cbdb.w";
+NSString *const DatabaseManagerDBPath = @"cbwdb.ss";// sqlite storage
 
 @implementation DatabaseManager
 

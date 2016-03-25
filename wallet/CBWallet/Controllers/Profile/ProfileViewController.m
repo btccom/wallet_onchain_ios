@@ -30,7 +30,7 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
 
 - (NSMutableArray *)accounts {
     if (!_accounts) {
-        _accounts = [[NSMutableArray alloc] initWithObjects:[Account watchedAccount], nil];
+        _accounts = [[NSMutableArray alloc] initWithObjects:[Account accountWatchedOnly], nil];
     }
     return _accounts;
 }
@@ -69,11 +69,11 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
     [super viewDidAppear:animated];
     
     // fake data
-    [self.accounts removeAllObjects];
-    for (NSInteger i = 0; i < 5; i++) {
-        [self.accounts addObject:[Account new]];
-    }
-    [self.accounts addObject:[Account watchedAccount]];
+//    [self.accounts removeAllObjects];
+//    for (NSInteger i = 0; i < 5; i++) {
+//        [self.accounts addObject:[Account new]];
+//    }
+//    [self.accounts addObject:[Account accountWatchedOnly]];
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 

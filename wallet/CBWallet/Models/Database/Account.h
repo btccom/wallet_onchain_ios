@@ -7,6 +7,12 @@
 //
 
 #import "RecordObject.h"
+
+@class AccountStore;
+
+extern NSString *const _Nonnull AccountWathcedOnlyLabel;
+extern const NSInteger AccountWatchedOnlyIdx;
+
 /// <code><b>BIP32</b> m/idx</code>, <code>idx</code> to specify account as wallet
 ///
 /// <code>idx < 0</code> means watched account
@@ -14,8 +20,14 @@
 
 /// idx < 0 means watched account
 @property (nonatomic, assign) NSInteger idx;
-@property (nonatomic, copy) NSString * _Nullable label;
+@property (nonatomic, copy, nullable) NSString *label;
+@property (nonatomic, assign, getter=isCustomDefaultEnabled) BOOL customDefaultEnabled;
 
-+ (nonnull instancetype)watchedAccount;
+/// create account, import account.
+/// if database error, return nil
++ (nullable instancetype)newAccountWithIdx:(NSInteger)idx label:(nullable NSString *)label inStore:(nonnull AccountStore *)store;
+
+/// get watched only account, without store
++ (nonnull instancetype)accountWatchedOnly;
 
 @end

@@ -18,3 +18,5 @@ extern NSString *const DatabaseManagerDBPath;
 - (FMDatabase *)db;
 
 @end
+
+#import "DatabaseManager+Account.h"
