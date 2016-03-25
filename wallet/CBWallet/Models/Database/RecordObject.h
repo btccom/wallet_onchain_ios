@@ -15,7 +15,7 @@
 
 /// 新记录 rid = -1，保存后会被更新
 @property (nonatomic, assign) NSInteger rid;
-@property (nonatomic, strong, readonly, nonnull) NSDate *creationDate;
+@property (nonatomic, strong, nonnull) NSDate *creationDate;
 @property (nonatomic, strong, nonnull) NSDate *modificationDate;
 @property (nonatomic, weak, nullable) RecordObjectStore *store;
 

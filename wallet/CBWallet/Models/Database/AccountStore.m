@@ -11,6 +11,11 @@
 
 @implementation AccountStore
 
+- (void)fetch {
+    [records removeAllObjects];
+    [[DatabaseManager defaultManager] fetchAccountsToStore:self];
+}
+
 - (Account *)customDefaultAccount {
     __block Account *account = (Account *)[records firstObject];
     [records enumerateObjectsUsingBlock:^(RecordObject * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {

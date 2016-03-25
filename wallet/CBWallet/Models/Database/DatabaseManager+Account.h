@@ -8,12 +8,11 @@
 
 #import "DatabaseManager.h"
 
-@class Account;
+@class Account, AccountStore;
 
 @interface DatabaseManager (Account)
 
-- (NSArray *)fetchAccounts;
+- (void)fetchAccountsToStore:(AccountStore *)store;
 - (void)saveAccount:(Account *)account;
-- (void)deleteAccount:(Account *)account;
 
 @end

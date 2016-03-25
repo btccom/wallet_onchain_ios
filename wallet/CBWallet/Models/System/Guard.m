@@ -51,6 +51,8 @@ static const NSTimeInterval kGuardAvaibleTimeDefault = 10 * 60; // 默认十分�
             // add timer into run loop
             NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
             [runLoop addTimer:self.timer forMode:NSDefaultRunLoopMode];
+            // notification
+            [[NSNotificationCenter defaultCenter] postNotificationName:CBWNotificationCheckedIn object:nil];
             // return
             return YES;
         }
@@ -62,6 +64,8 @@ static const NSTimeInterval kGuardAvaibleTimeDefault = 10 * 60; // 默认十分�
 - (void)checkOut {
     _code = @"";
     [self.timer invalidate];
+    // notification
+    [[NSNotificationCenter defaultCenter] postNotificationName:CBWNotificationCheckedOut object:nil];
     self.timer = nil;
 }
 

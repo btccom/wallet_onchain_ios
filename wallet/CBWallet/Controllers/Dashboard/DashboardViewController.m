@@ -29,7 +29,11 @@
 
 
 @interface DashboardViewController ()<ProfileViewControllerDelegate>
+
 @property (nonatomic, strong) NSMutableArray *transactions; // of Transaction
+@property (nonatomic, strong) AccountStore *accountStore;
+@property (nonatomic, strong) Account *account;
+
 @end
 
 @implementation DashboardViewController
@@ -42,6 +46,14 @@
     return _transactions;
 }
 
+- (AccountStore *)accountStore {
+    if (!_accountStore) {
+        _accountStore = [[AccountStore alloc] init];
+        [_accountStore fetch];
+    }
+    return _accountStore;
+}
+
 #pragma mark - View Life Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -52,6 +64,10 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"navigation_drawer"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleProfile:)];
     self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_address"] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleAddressList:)], [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"navigation_scan"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleScan:)]];
     
+    
+    [self p_registerNotifications];
+    
+    
     // set table header
     CGFloat offsetHeight = -64.f;// status bar height + navigation bar height
     CGRect dashboardHeaderViewframe = self.view.bounds;
@@ -61,21 +77,9 @@
     [dashboardHeaderView.receiveButton addTarget:self action:@selector(p_handleReceive:) forControlEvents:UIControlEventTouchUpInside];
     self.tableView.tableHeaderView = dashboardHeaderView;
     
-    AccountStore *accountStore = [[AccountStore alloc] init];
-    Account *foo = [Account newRecordInStore:accountStore];
-    foo.label = @"foo";
-    [foo saveWithError:nil];
-    
-    Account *bar = [Account newRecordInStore:accountStore];
-    bar.label = @"bar";
-    [bar saveWithError:nil];
-    
-    Account *defaultAccount = [accountStore customDefaultAccount];
-    DLog(@"default account label: %@ idx: %ld", defaultAccount.label, (long)defaultAccount.idx);
-    
-    Account *a2 = [accountStore recordAtIndex:1];
-    DLog(@"2nd account label: %@idx: %ld", a2.label, (long)defaultAccount.idx);
-    
+    if (!self.account) {
+        self.account = [self.accountStore customDefaultAccount];
+    }
 }
 
 #pragma mark - Public Method
@@ -88,9 +92,19 @@
         BTCKeychain *masterChain = [[BTCKeychain alloc] initWithSeed:btcSeedData];
         DLog(@"account 0, address 7: %@", [masterChain derivedKeychainWithPath:@"0/7"].key.compressedPublicKeyAddress.string);
     }
+    
+    [self.accountStore fetch];
+    
+    Account *defaultAccount = [self.accountStore customDefaultAccount];
+    NSLog(@"default account: %@", defaultAccount);
 }
 
 #pragma mark - Private Method
+
+- (void)p_registerNotifications {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reload) name:CBWNotificationCheckedIn object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reload) name:CBWNotificationCheckedOut object:nil];
+}
 #pragma mark Navigation
 
 /// present profile
