@@ -31,6 +31,10 @@ extern NSString *const DatabaseManagerColAddress;
 /// text / string
 extern NSString *const DatabaseManagerColLabel;
 
+// in account
+/// integer / bool
+extern NSString *const DatabaseManagerColCustomDefaultEnabled;
+
 // in address
 /// integer / bool
 extern NSString *const DatabaseManagerColDirty;
@@ -39,7 +43,7 @@ extern NSString *const DatabaseManagerColBalance;
 /// integer
 extern NSString *const DatabaseManagerColTxCount;
 /// integer
-extern NSString *const DatabaseManagerColAccountId;
+extern NSString *const DatabaseManagerColAccountRid;
 /// integer
 extern NSString *const DatabaseManagerColAccountIdx;
 
@@ -52,3 +56,4 @@ extern NSString *const DatabaseManagerColAccountIdx;
 @end
 
 #import "DatabaseManager+Account.h"
+#import "DatabaseManager+Address.h"

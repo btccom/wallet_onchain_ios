@@ -18,18 +18,21 @@ NSString *const DatabaseManagerTableRecipient = @"recipient";
 
 // columns
 // common
-NSString *const DatabaseManagerColRid = @"id";
+NSString *const DatabaseManagerColRid = @"rid";
 NSString *const DatabaseManagerColCreationDate = @"creationDate";
 NSString *const DatabaseManagerColModificationDate = @"modificationDate";
 NSString *const DatabaseManagerColIdx = @"idx";
 NSString *const DatabaseManagerColAddress = @"address";
 NSString *const DatabaseManagerColLabel = @"label";
 
+// in account
+NSString *const DatabaseManagerColCustomDefaultEnabled = @"customDefaultEnabled";
+
 // in address
 NSString *const DatabaseManagerColDirty = @"dirty";
 NSString *const DatabaseManagerColBalance = @"balance";
 NSString *const DatabaseManagerColTxCount = @"txCount";
-NSString *const DatabaseManagerColAccountId = @"accountId";
+NSString *const DatabaseManagerColAccountRid = @"accountRid";
 NSString *const DatabaseManagerColAccountIdx = @"accountIdx";
 
 @implementation DatabaseManager

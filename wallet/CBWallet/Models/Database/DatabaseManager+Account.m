@@ -50,17 +50,19 @@
     FMDatabase *db = [self db];
     if ([db open]) {
         
-        NSString *sql = [NSString stringWithFormat:@"INSERT INTO %@ (%@, %@, %@, %@) VALUES (?, ?, ?, ?)", DatabaseManagerTableAccount,
+        NSString *sql = [NSString stringWithFormat:@"INSERT INTO %@ (%@, %@, %@, %@, %@) VALUES (?, ?, ?, ?, ?)", DatabaseManagerTableAccount,
                          DatabaseManagerColCreationDate,
                          DatabaseManagerColModificationDate,
                          DatabaseManagerColIdx,
-                         DatabaseManagerColLabel];
+                         DatabaseManagerColLabel,
+                         DatabaseManagerColCustomDefaultEnabled];
         
         created = [db executeUpdate:sql,
                    account.creationDate,
                    account.modificationDate,
                    @(account.idx),
-                   account.label];
+                   account.label,
+                   @(account.isCustomDefaultEnabled)];
         if (created) {
             account.rid = [db lastInsertRowId];
         }
@@ -95,18 +97,20 @@
     FMDatabase *db = [self db];
     if ([db open]) {
         
-        NSString *sql = [NSString stringWithFormat:@"UPDATE %@ SET %@ = ?, %@ = ?, %@ = ?, %@ = ? WHERE %@ = ?", DatabaseManagerTableAccount,
+        NSString *sql = [NSString stringWithFormat:@"UPDATE %@ SET %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ? WHERE %@ = ?", DatabaseManagerTableAccount,
                          DatabaseManagerColCreationDate,
                          DatabaseManagerColModificationDate,
                          DatabaseManagerColIdx,
                          DatabaseManagerColLabel,
-                         DatabaseManagerColRid];
+                         DatabaseManagerColRid,
+                         DatabaseManagerColCustomDefaultEnabled];
         updated = [db executeUpdate:sql,
                    account.creationDate,
                    account.modificationDate,
                    @(account.idx),
                    account.label,
-                   @(account.rid)];
+                   @(account.rid),
+                   @(account.isCustomDefaultEnabled)];
         
         [db close];
     }

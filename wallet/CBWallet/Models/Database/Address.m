@@ -11,22 +11,21 @@
 
 @implementation Address
 
-/// init fake data
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        _address = [NSString stringWithFormat:@"1FakeAddressWithLongLongNumber%lld", (long long)random() % 100000000000];
-        _label = [NSString stringWithFormat:@"Label %ld", random() % 10];
-        _balance = random() % 10000000000;
-        _txCount = random() % 50;
-    }
-    return self;
++ (instancetype)newAdress:(NSString *)aAddress withLabel:(NSString *)label idx:(NSInteger)idx dirty:(BOOL)dirty accountRid:(NSInteger)accountRid accountIdx:(NSInteger)accountIdx inStore:(AddressStore *)store {
+    Address *address = [Address newRecordInStore:store];
+    address.address = aAddress;
+    address.label = label;
+    address.idx = idx;
+    address.dirty = dirty;
+    address.accountRid = accountRid;
+    address.accountIdx = accountIdx;
+    return address;
 }
 
-- (void)deleteFromStore:(RecordObjectStore *)store {
-    DLog(@"will never delete an address");
-    return;
-}
+//- (void)deleteFromStore:(RecordObjectStore *)store {
+//    DLog(@"will never delete an address");
+//    return;
+//}
 
 - (NSString *)description {
     return [NSString stringWithFormat:@"address %@: %@, %lld satoshi", self.label, self.address, self.balance];

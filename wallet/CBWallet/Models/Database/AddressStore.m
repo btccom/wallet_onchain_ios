@@ -7,7 +7,13 @@
 //
 
 #import "AddressStore.h"
+#import "DatabaseManager.h"
 
 @implementation AddressStore
+
+- (void)fetch {
+    [records removeAllObjects];
+    [[DatabaseManager defaultManager] fetchAddressToStore:self];
+}
 
 @end

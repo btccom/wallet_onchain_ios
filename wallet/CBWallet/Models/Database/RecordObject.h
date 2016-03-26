@@ -23,7 +23,7 @@
 + (nonnull instancetype)newRecordInStore:(nonnull RecordObjectStore *)store;
 
 /// 从内存中删除记录，并删除数据库记录
-- (void)deleteFromStore:(nonnull RecordObjectStore *)store;
+//- (void)deleteFromStore:(nonnull RecordObjectStore *)store;
 
 - (void)saveWithError:(NSError * _Nullable * _Nullable)error;
 @end

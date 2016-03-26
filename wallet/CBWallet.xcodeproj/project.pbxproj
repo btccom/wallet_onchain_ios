@@ -12,6 +12,7 @@
 		2C1E8C4F1CA42A7D006F86E1 /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E8C491CA42A7D006F86E1 /* Base64.m */; };
 		2C1E8C501CA42A7D006F86E1 /* NSData+CommonCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E8C4B1CA42A7D006F86E1 /* NSData+CommonCrypto.m */; };
 		2C1E8C511CA42A7D006F86E1 /* PBKDF2.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E8C4D1CA42A7D006F86E1 /* PBKDF2.m */; };
+		2C77D25B1CA66207001DDB1F /* DatabaseManager+Address.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D25A1CA66207001DDB1F /* DatabaseManager+Address.m */; };
 		2C99A17C1CA0E434007D7AC3 /* Guard.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C99A17B1CA0E434007D7AC3 /* Guard.m */; };
 		2C99A1801CA1029C007D7AC3 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C99A17F1CA1029C007D7AC3 /* libsqlite3.tbd */; };
 		2C9CAF471C868B61008194EB /* AddressListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAEE31C868B61008194EB /* AddressListViewController.m */; };
@@ -107,6 +108,8 @@
 		2C1E8C4B1CA42A7D006F86E1 /* NSData+CommonCrypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+CommonCrypto.m"; sourceTree = "<group>"; };
 		2C1E8C4C1CA42A7D006F86E1 /* PBKDF2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBKDF2.h; sourceTree = "<group>"; };
 		2C1E8C4D1CA42A7D006F86E1 /* PBKDF2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBKDF2.m; sourceTree = "<group>"; };
+		2C77D2591CA66207001DDB1F /* DatabaseManager+Address.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DatabaseManager+Address.h"; sourceTree = "<group>"; };
+		2C77D25A1CA66207001DDB1F /* DatabaseManager+Address.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DatabaseManager+Address.m"; sourceTree = "<group>"; };
 		2C99A17A1CA0E434007D7AC3 /* Guard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Guard.h; sourceTree = "<group>"; };
 		2C99A17B1CA0E434007D7AC3 /* Guard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Guard.m; sourceTree = "<group>"; };
 		2C99A17F1CA1029C007D7AC3 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
@@ -635,6 +638,8 @@
 				2CD0A91E1CA02B45006AF02F /* DatabaseManager.m */,
 				2CD0A9201CA02CF5006AF02F /* DatabaseManager+Account.h */,
 				2CD0A9211CA02CF5006AF02F /* DatabaseManager+Account.m */,
+				2C77D2591CA66207001DDB1F /* DatabaseManager+Address.h */,
+				2C77D25A1CA66207001DDB1F /* DatabaseManager+Address.m */,
 				2CEFC35D1CA4D67D00FECCA4 /* Database.h */,
 			);
 			path = Database;
@@ -980,6 +985,7 @@
 				2C1E88F91CA3ADCB006F86E1 /* NSString+Password.m in Sources */,
 				2C9CAF6C1C868B61008194EB /* DefaultTableViewCell.m in Sources */,
 				2C1E8C511CA42A7D006F86E1 /* PBKDF2.m in Sources */,
+				2C77D25B1CA66207001DDB1F /* DatabaseManager+Address.m in Sources */,
 				2C9CAF701C868B61008194EB /* TransactionCell.m in Sources */,
 				2C9CAF671C868B61008194EB /* AddressCell.m in Sources */,
 				2C1E8C4F1CA42A7D006F86E1 /* Base64.m in Sources */,

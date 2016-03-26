@@ -34,10 +34,10 @@ const NSInteger AccountWatchedOnlyIdx = -1;
     return account;
 }
 
-- (void)deleteFromStore:(RecordObjectStore *)store {
-    DLog(@"will never delete an account");
-    return;
-}
+//- (void)deleteFromStore:(RecordObjectStore *)store {
+//    DLog(@"will never delete an account");
+//    return;
+//}
 
 - (void)saveWithError:(NSError *__autoreleasing  _Nullable *)error {
     [[DatabaseManager defaultManager] saveAccount:self];

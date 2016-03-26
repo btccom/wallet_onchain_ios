@@ -24,8 +24,7 @@ extern const NSInteger AccountWatchedOnlyIdx;
 @property (nonatomic, assign, getter=isCustomDefaultEnabled) BOOL customDefaultEnabled;
 
 /// create account, import account.
-/// if database error, return nil
-+ (nullable instancetype)newAccountWithIdx:(NSInteger)idx label:(nullable NSString *)label inStore:(nonnull AccountStore *)store;
++ (nonnull instancetype)newAccountWithIdx:(NSInteger)idx label:(nullable NSString *)label inStore:(nonnull AccountStore *)store;
 
 /// get watched only account, without store
 + (nonnull instancetype)accountWatchedOnly;
