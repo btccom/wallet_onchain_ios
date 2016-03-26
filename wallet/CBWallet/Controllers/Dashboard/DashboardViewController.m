@@ -84,19 +84,8 @@
 
 #pragma mark - Public Method
 - (void)reload {
-    NSString *encryptedSeed = [SSKeychain passwordForService:CBWKeyChainSeedService account:CBWKeyChainAccountDefault];
-    NSString *seed = [AESCrypt decrypt:encryptedSeed password:[Guard globalGuard].code];
-    
-    if (seed) {
-        NSData *btcSeedData = BTCDataWithUTF8CString(seed.UTF8String);
-        BTCKeychain *masterChain = [[BTCKeychain alloc] initWithSeed:btcSeedData];
-        DLog(@"account 0, address 7: %@", [masterChain derivedKeychainWithPath:@"0/7"].key.compressedPublicKeyAddress.string);
-    }
-    
     [self.accountStore fetch];
-    
-    Account *defaultAccount = [self.accountStore customDefaultAccount];
-    NSLog(@"default account: %@", defaultAccount);
+    [self.tableView reloadData];
 }
 
 #pragma mark - Private Method
@@ -109,7 +98,7 @@
 
 /// present profile
 - (void)p_handleProfile:(id)sender {
-    ProfileViewController *profileViewController = [[ProfileViewController alloc] init];
+    ProfileViewController *profileViewController = [[ProfileViewController alloc] initWithAccountStore:self.accountStore];
     profileViewController.delegate = self;
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:profileViewController];
     [self presentViewController:navigationController animated:YES completion:nil];
@@ -180,6 +169,12 @@
 #pragma mark - ProfileViewControllerDelegate
 - (void)profileViewController:(ProfileViewController *)viewController didSelectAccount:(Account *)account {
     DLog(@"selected account: %@", account);
+    if ([account isEqual:self.account]) {
+        return;
+    }
+    
+    self.account = account;
+    [self reload];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

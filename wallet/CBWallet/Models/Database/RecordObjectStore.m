@@ -20,6 +20,10 @@
 
 - (void)fetch {}
 
+- (NSUInteger)count {
+    return records.count;
+}
+
 - (id)recordAtIndex:(NSUInteger)idx {
     if (idx < records.count) {
         return [records objectAtIndex:idx];

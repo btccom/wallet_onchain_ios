@@ -8,7 +8,7 @@
 
 #import "BaseListViewController.h"
 
-@class ProfileViewController, Account;
+@class ProfileViewController, Account, AccountStore;
 
 @protocol ProfileViewControllerDelegate <NSObject>
 
@@ -20,6 +20,9 @@
 /// Switch wallet, manage recipient contacts, settings
 @interface ProfileViewController : BaseListViewController
 
+@property (nonatomic, strong, nonnull) AccountStore *accountStore;
 @property (nonatomic, weak, nullable) id<ProfileViewControllerDelegate> delegate;
+
+- (nonnull instancetype)initWithAccountStore:(nonnull AccountStore *)store;
 
 @end

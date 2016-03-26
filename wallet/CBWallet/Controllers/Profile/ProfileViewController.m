@@ -10,7 +10,7 @@
 #import "TransactionListViewController.h"
 #import "SettingsViewController.h"
 
-#import "Account.h"
+#import "AccountStore.h"
 
 typedef NS_ENUM(NSUInteger, kProfileSection) {
     kProfileSectionAccounts = 0,
@@ -22,20 +22,21 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
 @interface ProfileViewController ()
 
 @property (nonatomic, strong) NSArray * _Nonnull tableStrings;
-@property (nonatomic, strong) NSMutableArray * _Nonnull accounts; // of Account
 
 @end
 
 @implementation ProfileViewController
 
-- (NSMutableArray *)accounts {
-    if (!_accounts) {
-        _accounts = [[NSMutableArray alloc] initWithObjects:[Account accountWatchedOnly], nil];
+#pragma mark - Initialization
+
+- (instancetype)initWithAccountStore:(AccountStore *)store {
+    self = [super initWithStyle:UITableViewStyleGrouped];
+    if (self) {
+        _accountStore = store;
     }
-    return _accounts;
+    return self;
 }
 
-#pragma mark - Initialization
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithStyle:UITableViewStyleGrouped];
     return self;
@@ -54,7 +55,7 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_close"] style:UIBarButtonItemStylePlain target:self action:@selector(dismiss:)];
     
-    _tableStrings = @[@{NSLocalizedStringFromTable(@"Profile Section accounts", @"CBW", @"Accounts"): self.accounts},
+    _tableStrings = @[@{NSLocalizedStringFromTable(@"Profile Section accounts", @"CBW", @"Accounts"): @[]},
                       @[NSLocalizedStringFromTable(@"Profile Cell all_transactions", @"CBW", @"All Transactions")],
                       @[NSLocalizedStringFromTable(@"Profile Cell settings", @"CBW", @"Settings")],
                       @{NSLocalizedStringFromTable(@"Profile Section backup", @"CBW", @"Sync"):
@@ -65,17 +66,6 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
                         }
                       ];
 }
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    
-    // fake data
-//    [self.accounts removeAllObjects];
-//    for (NSInteger i = 0; i < 5; i++) {
-//        [self.accounts addObject:[Account new]];
-//    }
-//    [self.accounts addObject:[Account accountWatchedOnly]];
-    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
-}
 
 #pragma mark - Private Method
 #pragma mark - UITableViewDataSource
@@ -83,6 +73,9 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
     return self.tableStrings.count;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (section == kProfileSectionAccounts) {
+        return self.accountStore.count;
+    }
     id sectionStrings = self.tableStrings[section];
     if ([sectionStrings isKindOfClass:[NSDictionary class]]) {
         return [[[sectionStrings allObjects] firstObject] count];
@@ -103,14 +96,16 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     DefaultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:BaseTableViewCellDefaultIdentifier forIndexPath:indexPath];
+    if (indexPath.section == kProfileSectionAccounts) {
+        Account *account = [self.accountStore recordAtIndex:indexPath.row];
+        cell.textLabel.text = account.label;
+        return cell;
+    }
+    
     id sectionStrings = self.tableStrings[indexPath.section];
     if ([sectionStrings isKindOfClass:[NSDictionary class]]) {
         id object = [[[sectionStrings allObjects] firstObject] objectAtIndex:indexPath.row];
-        if ([object isKindOfClass:[Account class]]) {
-            cell.textLabel.text = [object label];
-        } else {
-            cell.textLabel.text = object;
-        }
+        cell.textLabel.text = object;
     } else {
         cell.textLabel.text = [sectionStrings objectAtIndex:indexPath.row];
     }
@@ -121,7 +116,7 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
     switch (indexPath.section) {
         case kProfileSectionAccounts: {
             if ([self.delegate respondsToSelector:@selector(profileViewController:didSelectAccount:)]) {
-                [self.delegate profileViewController:self didSelectAccount:self.accounts[indexPath.row]];
+                [self.delegate profileViewController:self didSelectAccount:[self.accountStore recordAtIndex:indexPath.row]];
             }
             break;
         }

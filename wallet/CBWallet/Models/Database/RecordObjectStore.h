@@ -16,6 +16,7 @@
 /// 获取数据库中全部记录
 - (void)fetch;
 
+- (NSUInteger)count;
 - (nullable id)recordAtIndex:(NSUInteger)idx;
 /// 加入内存
 - (void)addRecord:(nullable RecordObject *)record;
