@@ -36,7 +36,8 @@
         return;
     }
     record.store = self;
-    [records addObject:record];
+    DLog(@"store add record: %@", record);
+    [records insertObject:record atIndex:0]; /// DESC
 }
 
 - (void)deleteRecord:(RecordObject *)record {

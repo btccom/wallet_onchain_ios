@@ -16,6 +16,8 @@
 @property (nonatomic, assign) AddressActionType actionType;
 
 /// 显示该账户地址
-@property (nonatomic, strong) Account * _Nullable account;
+@property (nonatomic, strong, nullable) Account *account;
+
+- (nonnull instancetype)initWithAccount:(nonnull Account *)account;
 
 @end

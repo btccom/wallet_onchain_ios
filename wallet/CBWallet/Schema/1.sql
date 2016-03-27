@@ -15,6 +15,7 @@ CREATE TABLE IF NOT EXISTS 'address' (
 	'label' TEXT,
     'archived' INTEGER,
     'dirty' INTEGER,
+    'internal' INTEGER,
     'balance' INTEGER,
     'txCount' INTEGER,
     'accountRid' INTEGER,

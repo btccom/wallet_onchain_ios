@@ -19,14 +19,7 @@
 #import "Guard.h"
 #import "Database.h"
 
-
-#import "SSKeychain.h"
-#import <CoreBitcoin/CoreBitcoin.h>
-#import "AFNetworking.h"
-#import "AESCrypt.h"
-
 #import "NSString+CBWAddress.h"
-
 
 @interface DashboardViewController ()<ProfileViewControllerDelegate>
 
@@ -113,7 +106,7 @@
 
 /// push address list
 - (void)p_handleAddressList:(id)sender {
-    AddressListViewController *addressListViewController = [[AddressListViewController alloc] init];
+    AddressListViewController *addressListViewController = [[AddressListViewController alloc] initWithAccount:self.account];
     [self.navigationController pushViewController:addressListViewController animated:YES];
 }
 

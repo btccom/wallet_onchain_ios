@@ -15,21 +15,25 @@
 - (void)fetchAddressWithAccountIdx:(NSInteger)accountIdx toStore:(AddressStore *)store {
     FMDatabase *db = [self db];
     if ([db open]) {
-        NSMutableString *sql = [NSMutableString stringWithFormat:@"SELECT * FROM %@", DatabaseManagerTableAccount];
+        NSMutableString *sql = [NSMutableString stringWithFormat:@"SELECT * FROM %@", DatabaseManagerTableAddress];
         FMResultSet *results = nil;
         if (accountIdx > -2) {// -1 for watched only
             [sql appendFormat:@" WHERE %@ = ?", DatabaseManagerColAccountIdx];
+            DLog(@"database manager fetch addresses of account: %ld", accountIdx);
             results = [db executeQuery:sql, @(accountIdx)];
         } else {
             results = [db executeQuery:sql];
         }
+        NSLog(@"database manager fetched address results: %@", results);
         while ([results next]) {
             Address *address = [[Address alloc] init];
             address.rid = [results intForColumn:DatabaseManagerColRid];
             address.idx = [results intForColumn:DatabaseManagerColRid];
             address.address = [results stringForColumn:DatabaseManagerColAddress];
             address.label = [results stringForColumn:DatabaseManagerColLabel];
+            address.archived = [results boolForColumn:DatabaseManagerColArchived];
             address.dirty = [results boolForColumn:DatabaseManagerColDirty];
+            address.internal = [results boolForColumn:DatabaseManagerColInternal];
             address.balance = [results longLongIntForColumn:DatabaseManagerColBalance];
             address.txCount = [results intForColumn:DatabaseManagerColTxCount];
             address.accountIdx = accountIdx;//[results intForColumn:DatabaseManagerColAccountIdx];
@@ -61,7 +65,7 @@
     FMDatabase *db = [self db];
     if ([db open]) {
         
-        NSString *sql = [NSString stringWithFormat:@"INSERT INTO %@ (%@, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", DatabaseManagerTableAddress,
+        NSString *sql = [NSString stringWithFormat:@"INSERT INTO %@ (%@, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", DatabaseManagerTableAddress,
                          DatabaseManagerColCreationDate,
                          DatabaseManagerColModificationDate,
                          DatabaseManagerColIdx,
@@ -69,6 +73,7 @@
                          DatabaseManagerColLabel,
                          DatabaseManagerColArchived,
                          DatabaseManagerColDirty,
+                         DatabaseManagerColInternal,
                          DatabaseManagerColBalance,
                          DatabaseManagerColTxCount,
                          DatabaseManagerColAccountRid,
@@ -82,6 +87,7 @@
                    address.label,
                    @(address.isArchived),
                    @(address.dirty),
+                   @(address.internal),
                    @(address.balance),
                    @(address.txCount),
                    @(address.accountRid),
@@ -92,6 +98,8 @@
         
         [db close];
     }
+    
+    DLog(@"database manager create address: %@, %d", address.address, created);
     
     return created;
 }
@@ -120,7 +128,7 @@
     FMDatabase *db = [self db];
     if ([db open]) {
         
-        NSString *sql = [NSString stringWithFormat:@"UPDATE %@ SET %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ? WHERE %@ = ?", DatabaseManagerTableAddress,
+        NSString *sql = [NSString stringWithFormat:@"UPDATE %@ SET %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ? WHERE %@ = ?", DatabaseManagerTableAddress,
                          DatabaseManagerColCreationDate,
                          DatabaseManagerColModificationDate,
                          DatabaseManagerColIdx,
@@ -128,6 +136,7 @@
                          DatabaseManagerColLabel,
                          DatabaseManagerColArchived,
                          DatabaseManagerColDirty,
+                         DatabaseManagerColInternal,
                          DatabaseManagerColBalance,
                          DatabaseManagerColTxCount,
                          DatabaseManagerColAccountRid,
@@ -141,6 +150,7 @@
                    address.label,
                    @(address.isArchived),
                    @(address.dirty),
+                   @(address.internal),
                    @(address.balance),
                    @(address.txCount),
                    @(address.accountRid),
@@ -149,6 +159,8 @@
         
         [db close];
     }
+    
+    DLog(@"database manager update address: %@, %d", address.address, updated);
     
     return updated;
 }

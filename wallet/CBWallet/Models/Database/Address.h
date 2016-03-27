@@ -19,6 +19,7 @@
 @property (nonatomic, assign, getter=isArchived) BOOL archived;
 /// 是否已经使用过
 @property (nonatomic, assign, getter=isDirty) BOOL dirty;
+@property (nonatomic, assign, getter=isInternal) BOOL internal;
 @property (nonatomic, assign) long long balance;
 @property (nonatomic, assign) NSUInteger txCount;
 
@@ -26,9 +27,12 @@
 @property (nonatomic, assign) NSInteger accountIdx;
 
 /// create or import
-+ (nonnull instancetype)newAdress:(nonnull NSString *)aAddress withLabel:(nullable NSString *)label idx:(NSInteger)idx archived:(BOOL)archived dirty:(BOOL)dirty accountRid:(NSInteger)accountRid accountIdx:(NSInteger)accountIdx inStore:(nonnull AddressStore *)store;
++ (nonnull instancetype)newAdress:(nonnull NSString *)aAddress withLabel:(nullable NSString *)label idx:(NSInteger)idx archived:(BOOL)archived dirty:(BOOL)dirty internal:(BOOL)internal accountRid:(NSInteger)accountRid accountIdx:(NSInteger)accountIdx inStore:(nonnull AddressStore *)store;
 
 /// create
 + (nonnull instancetype)newAdress:(nonnull NSString *)aAddress withLabel:(nullable NSString *)label idx:(NSInteger)idx accountRid:(NSInteger)accountRid accountIdx:(NSInteger)accountIdx inStore:(nonnull AddressStore *)store;
+
+/// generate address with m/account idx/address idx
++ (nullable NSString *)addressStringWithIdx:(NSUInteger)idx acountIdx:(NSUInteger)accoundIdx;
 
 @end

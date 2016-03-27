@@ -10,23 +10,35 @@
 #import "ArchivedAdressListViewController.h"
 #import "AddressViewController.h"
 
-#import "Address.h"
+#import "Database.h"
 
 @interface AddressListViewController ()
 
-@property (nonatomic, strong) NSArray * _Nullable datas; // action button section (optional) + addresses section
-@property (nonatomic, strong) NSMutableArray * _Nullable addresses; // of Address
+@property (nonatomic, strong) NSArray * _Nullable actionCells; // create address button...
+@property (nonatomic, strong) AddressStore * _Nullable addressStore;
 
 @end
 
 @implementation AddressListViewController
 
-#pragma mark - Property
-- (NSMutableArray *)addresses {
-    if (!_addresses) {
-        _addresses = [[NSMutableArray alloc] init];
+- (instancetype)initWithAccount:(Account *)account {
+    self = [super initWithStyle:UITableViewStylePlain];
+    if (self) {
+        _account = account;
     }
-    return _addresses;
+    return self;
+}
+
+#pragma mark - Property
+- (AddressStore *)addressStore {
+    if (!_addressStore) {
+        NSInteger accountIdx = -2;
+        if (self.account) {
+            accountIdx = self.account.idx;
+        }
+        _addressStore = [[AddressStore alloc] initWithAccountIdx:accountIdx];
+    }
+    return _addressStore;
 }
 
 #pragma mark - View Life Cycle
@@ -39,28 +51,48 @@
             self.title = NSLocalizedStringFromTable(@"Navigation address_list", @"CBW", @"Address List");
             self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_archived_empty"] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleArchivedAddressList:)],
                                                         [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_create"] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleCreateAddress:)]];
-            _datas = @[self.addresses];
             break;
         }
         case AddressActionTypeReceive: {
             self.title = NSLocalizedStringFromTable(@"Navigation select_address", @"CBW", @"Select Address to Receive");
-            _datas = @[@[NSLocalizedStringFromTable(@"Address Cell new_address", @"CBW", @"New Address")], self.addresses];
+            _actionCells = @[NSLocalizedStringFromTable(@"Address Cell new_address", @"CBW", @"New Address")];
             break;
         }
     }
     
-    // test, fake data
-    for (NSInteger i = 0 ; i < 20; i++) {
-        [self.addresses addObject:[Address new]];
-    }
+    DLog(@"address list of account: %ld", (long)self.account.idx);
+    [self.addressStore fetch];
+    [self.tableView reloadData];
 }
 
 #pragma mark - Private Method
 #pragma mark Handlers
 - (void)p_handleCreateAddress:(id)sender {
-    Address *address = [Address new];
-    [self.addresses insertObject:address atIndex:0];
-    [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:self.datas.count - 1]] withRowAnimation:UITableViewRowAnimationAutomatic];
+    if (!self.account) {
+        NSLog(@"can not create address without account");
+        return;
+    }
+    if (self.account.idx < 0) {
+        NSLog(@"can not create address with account idx < 0 (watched only)");
+        return;
+    }
+    
+    NSUInteger idx = self.addressStore.count;
+    NSString *aAddress = [Address addressStringWithIdx:idx acountIdx:self.account.idx];
+    if (!aAddress) {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil) message:NSLocalizedStringFromTable(@"Message failed_to_generate_address", @"CBW", nil) preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okayAction = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Okay", @"CBW", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }];
+        [alertController addAction:okayAction];
+        [self presentViewController:alertController animated:YES completion:nil];
+        return;
+    }
+    
+    Address *address = [Address newAdress:aAddress withLabel:@"" idx:idx accountRid:self.account.rid accountIdx:self.account.idx inStore:self.addressStore];
+    [address saveWithError:nil];
+    
+    [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:self.actionCells.count > 0 ? 1 : 0]] withRowAnimation:UITableViewRowAnimationAutomatic];
     [self p_selectAddress:address];
 }
 - (void)p_handleArchivedAddressList:(id)sender {
@@ -81,39 +113,35 @@
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.datas.count;
+    return self.actionCells.count > 0 ? 2 : 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    id rowsData = self.datas[section];
-    if ([rowsData isKindOfClass:[NSArray class]]) {
-        return [rowsData count];
+    if (section == 0) {
+        if (self.actionCells.count > 0) {
+            // action section
+            return self.actionCells.count;
+        }
     }
-    return 0;
+    // accress section
+    return self.addressStore.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    id rowsData = self.datas[indexPath.section];
-    if ([rowsData isKindOfClass:[NSArray class]]) {
-        id data = rowsData[indexPath.row];
-        if ([data isKindOfClass:[NSString class]]) {
+    if (indexPath.section == 0) {
+        if (self.actionCells.count > 0) {
             // action section
             ActionButtonCell *cell = [tableView dequeueReusableCellWithIdentifier:BaseTableViewCellActionButtonIdentifier forIndexPath:indexPath];
             cell.imageView.image = [UIImage imageNamed:@"icon_create_mini"];
-            cell.textLabel.text = data;
-            return cell;
-        } else if ([data isKindOfClass:[Address class]]) {
-            // address section
-            AddressCell *cell = [tableView dequeueReusableCellWithIdentifier:BaseListViewCellAddressIdentifier forIndexPath:indexPath];
-            [cell setMetadataHidden:(self.actionType != AddressActionTypeDefault)];
-            [cell setAddress:data];
+            cell.textLabel.text = self.actionCells[indexPath.row];
             return cell;
         }
     }
-    // empty cell
-    DefaultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:BaseTableViewCellDefaultIdentifier forIndexPath:indexPath];
-    cell.textLabel.text = @"NaN";
-    
+    // address section
+    AddressCell *cell = [tableView dequeueReusableCellWithIdentifier:BaseListViewCellAddressIdentifier forIndexPath:indexPath];
+    [cell setMetadataHidden:(self.actionType != AddressActionTypeDefault)];
+    Address *address = [self.addressStore recordAtIndex:indexPath.row];
+    [cell setAddress:address];
     return cell;
 }
 
@@ -132,17 +160,15 @@
     return CBWCellHeightAddress;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    id rowsData = self.datas[indexPath.section];
-    if ([rowsData isKindOfClass:[NSArray class]]) {
-        id data = rowsData[indexPath.row];
-        if ([data isKindOfClass:[NSString class]]) {
+    if (indexPath == 0) {
+        if (self.actionCells.count > 0) {
             // action section
+            // TODO: handle differenct action
             [self p_handleCreateAddress:nil];
-        } else if ([data isKindOfClass:[Address class]]) {
-            // address section
-            [self p_selectAddress:data];
         }
     }
+    Address *address = [self.addressStore recordAtIndex:indexPath.row];
+    [self p_selectAddress:address];
 }
 
 @end

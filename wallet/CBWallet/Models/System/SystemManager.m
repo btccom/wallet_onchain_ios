@@ -22,8 +22,8 @@
 }
 
 - (BOOL)isWalletInstalled {
-#warning 未测试方便，每次都会清理已注册密码
-    [SSKeychain deletePasswordForService:CBWKeyChainSeedService account:CBWKeyChainAccountDefault];
+//#warning clearing seed every launch for development.
+//    [SSKeychain deletePasswordForService:CBWKeyChainSeedService account:CBWKeyChainAccountDefault];
     NSData *seed = [SSKeychain passwordDataForService:CBWKeyChainSeedService account:CBWKeyChainAccountDefault];
     if (seed) {
         return YES;

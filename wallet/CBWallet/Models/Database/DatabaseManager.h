@@ -40,6 +40,8 @@ extern NSString *const DatabaseManagerColCustomDefaultEnabled;
 extern NSString *const DatabaseManagerColArchived;
 /// integer / bool
 extern NSString *const DatabaseManagerColDirty;
+/// integer / bool
+extern NSString *const DatabaseManagerColInternal;
 /// integer / long long in satoshi
 extern NSString *const DatabaseManagerColBalance;
 /// integer
