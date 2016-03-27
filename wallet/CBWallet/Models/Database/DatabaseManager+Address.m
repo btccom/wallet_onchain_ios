@@ -50,7 +50,7 @@
 }
 - (BOOL)p_createAddress:(Address *)address {
     BOOL created = NO;
-    DLog(@"create account: %@", address);
+    DLog(@"create address: %@", address);
     
     FMDatabase *db = [self db];
     if ([db open]) {
@@ -95,8 +95,8 @@
     FMDatabase *db = [self db];
     if ([db open]) {
         
-        NSString *sql = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ?", DatabaseManagerTableAccount,
-                         DatabaseManagerColIdx];
+        NSString *sql = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ?", DatabaseManagerTableAddress,
+                         DatabaseManagerColAddress];
         FMResultSet *result = [db executeQuery:sql, aAddress];
         if ([result next]) {
             rid = [result intForColumn:DatabaseManagerColRid];
@@ -109,7 +109,7 @@
 }
 - (BOOL)p_updateAddress:(Address *)address {
     BOOL updated = NO;
-    DLog(@"update account: %@", address);
+    DLog(@"update address: %@", address);
     
     FMDatabase *db = [self db];
     if ([db open]) {
