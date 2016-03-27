@@ -24,6 +24,7 @@
         // update
         if ([self p_updateFrom:localVersion to:buildVersion]) {
             // success
+            NSLog(@"updated success");
             // update local version
             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
             [defaults setInteger:buildVersion forKey:CBWUserDefaultsLocalVersion];
@@ -44,8 +45,9 @@
 + (BOOL)p_updateFrom:(NSInteger)from to:(NSInteger)to {
     BOOL inited = YES;
     
+    NSLog(@"update database");
     // 升级数据库
-    FMDatabase *db = [[DatabaseManager defaultManager] db];
+    FMDatabase *db = [DatabaseManager installDb];
     if ([db open]) {
         // 读取sql schema目录
         NSString *bundlePath = [[NSBundle mainBundle] bundlePath];

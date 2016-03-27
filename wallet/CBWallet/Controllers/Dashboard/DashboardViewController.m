@@ -79,12 +79,17 @@
     
     if (!self.account) {
         self.account = [self.accountStore customDefaultAccount];
+        DLog(@"dashboard initial account: %@", self.account);
     }
 }
 
 #pragma mark - Public Method
 - (void)reload {
     [self.accountStore fetch];
+    if (!self.account) {
+        self.account = [self.accountStore customDefaultAccount];
+        DLog(@"dashboard reloaded account: %@", self.account);
+    }
     [self.tableView reloadData];
 }
 
@@ -93,6 +98,8 @@
 - (void)p_registerNotifications {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reload) name:CBWNotificationCheckedIn object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reload) name:CBWNotificationCheckedOut object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reload) name:CBWNotificationWalletCreated object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reload) name:CBWNotificationWalletRecovered object:nil];
 }
 #pragma mark Navigation
 
@@ -168,7 +175,7 @@
 
 #pragma mark - ProfileViewControllerDelegate
 - (void)profileViewController:(ProfileViewController *)viewController didSelectAccount:(Account *)account {
-    DLog(@"selected account: %@", account);
+    DLog(@"dashboard selected account: %@", account);
     if ([account isEqual:self.account]) {
         return;
     }

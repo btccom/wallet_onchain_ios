@@ -22,12 +22,14 @@ static NSString *const CBWUserDefaultsLocalVersion = @"cbw.user.defaults.localVe
 
 // Key Chain
 static NSString *const CBWKeyChainSeedService = @"com.btc.wallet.seed";
-static NSString *const CBWKeyChainMasterPasswordService = @"com.btc.wallet.masterPassword";
+//static NSString *const CBWKeyChainMasterPasswordService = @"com.btc.wallet.masterPassword";
 static NSString *const CBWKeyChainAccountDefault = @"com.btc.wallet";
 
 // Notification
 static NSString *const CBWNotificationCheckedIn = @"cbw.notification.checked.in";
 static NSString *const CBWNotificationCheckedOut = @"cbw.notification.checked.out";
+static NSString *const CBWNotificationWalletCreated = @"cbw.notification.wallet.created";
+static NSString *const CBWNotificationWalletRecovered = @"cbw.notification.wallet.recovered";
 
 
 #endif /* Constants_h */

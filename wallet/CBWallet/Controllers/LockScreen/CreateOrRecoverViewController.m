@@ -17,6 +17,8 @@
 #import "PrimaryButton.h"
 
 #import "Guard.h"
+#import "Database.h"
+
 #import "SSKeychain.h"
 #import "AESCrypt.h"
 
@@ -67,6 +69,17 @@
     [SSKeychain setPassword:encryptedSeed forService:CBWKeyChainSeedService account:CBWKeyChainAccountDefault];
     // call guard to check and cache password
     if ([[Guard globalGuard] checkInWithCode:password]) {
+        // create first account
+        AccountStore *store = [[AccountStore alloc] init];
+        Account *account = [Account newAccountWithIdx:0 label:NSLocalizedStringFromTable(@"Label default_account", @"CBW", nil) inStore:store];
+        NSLog(@"create first account: %@", account.label);
+        NSError *error = nil;
+        [account saveWithError:&error];
+        if (error) {
+            NSLog(@"create first account error: %@", error);
+        }
+        // notification
+        [[NSNotificationCenter defaultCenter] postNotificationName:CBWNotificationWalletCreated object:nil];
         // thank you, go
         InitialWalletSettingViewController *initialWalletSettingViewController = [[InitialWalletSettingViewController alloc] init];
         initialWalletSettingViewController.delegate = (LockScreenController *)self.navigationController;

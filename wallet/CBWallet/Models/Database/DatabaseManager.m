@@ -47,6 +47,12 @@ NSString *const DatabaseManagerColAccountIdx = @"accountIdx";
     return staticInstance;
 }
 
++ (FMDatabase *)installDb {
+    NSString *documentDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
+    NSString *dbPath = [documentDirectory stringByAppendingPathComponent:DatabaseManagerDBPath];
+    return [FMDatabase databaseWithPath:dbPath];
+}
+
 - (FMDatabase *)db {
     if ([Guard globalGuard].code.length == 0) {
         NSLog(@"need check in to access database");

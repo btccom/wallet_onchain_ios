@@ -50,6 +50,7 @@ extern NSString *const DatabaseManagerColAccountIdx;
 @interface DatabaseManager : NSObject
 
 + (instancetype)defaultManager;
++ (FMDatabase *)installDb;
 
 - (FMDatabase *)db;
 
