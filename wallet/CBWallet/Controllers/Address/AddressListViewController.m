@@ -8,26 +8,19 @@
 
 #import "AddressListViewController.h"
 #import "ArchivedAdressListViewController.h"
-#import "AddressViewController.h"
 
 #import "Database.h"
 
 @interface AddressListViewController ()
 
-@property (nonatomic, strong) NSArray * _Nullable actionCells; // create address button...
-@property (nonatomic, strong) AddressStore * _Nullable addressStore;
+@property (nonatomic, strong) NSArray *actionCells; // create address button...
+@property (nonatomic, strong) AddressStore *addressStore;
+
+@property (nonatomic, weak) UIBarButtonItem *archivedListButtonItem;
 
 @end
 
 @implementation AddressListViewController
-
-- (instancetype)initWithAccount:(Account *)account {
-    self = [super initWithStyle:UITableViewStylePlain];
-    if (self) {
-        _account = account;
-    }
-    return self;
-}
 
 #pragma mark - Property
 - (AddressStore *)addressStore {
@@ -41,6 +34,24 @@
     return _addressStore;
 }
 
+#pragma mark - Initializer
+
+- (instancetype)initWithAccount:(Account *)account {
+    self = [super initWithStyle:UITableViewStylePlain];
+    if (self) {
+        _account = account;
+    }
+    return self;
+}
+
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    return nil;
+}
+
+- (instancetype)initWithStyle:(UITableViewStyle)style {
+    return nil;
+}
+
 #pragma mark - View Life Cycle
 
 - (void)viewDidLoad {
@@ -49,8 +60,10 @@
     switch (self.actionType) {
         case AddressActionTypeDefault: {
             self.title = NSLocalizedStringFromTable(@"Navigation address_list", @"CBW", @"Address List");
-            self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_archived_empty"] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleArchivedAddressList:)],
+            UIBarButtonItem *archivedListButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_archived_empty"] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleArchivedAddressList:)];
+            self.navigationItem.rightBarButtonItems = @[archivedListButtonItem,
                                                         [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_create"] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleCreateAddress:)]];
+            self.archivedListButtonItem = archivedListButtonItem;
             break;
         }
         case AddressActionTypeReceive: {
@@ -61,6 +74,20 @@
     }
     
     DLog(@"address list of account: %ld", (long)self.account.idx);
+    [self.addressStore fetch];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    if (self.addressStore.count < self.addressStore.countAllAddresses) {
+        self.archivedListButtonItem.image = [UIImage imageNamed:@"navigation_archived"];
+    } else {
+        self.archivedListButtonItem.image = [UIImage imageNamed:@"navigation_archived_empty"];
+    }
+    [self.tableView reloadData];
+}
+
+#pragma mark - Public Method
+- (void)reload {
     [self.addressStore fetch];
     [self.tableView reloadData];
 }
@@ -77,7 +104,7 @@
         return;
     }
     
-    NSUInteger idx = self.addressStore.count;
+    NSUInteger idx = self.addressStore.countAllAddresses;
     NSString *aAddress = [Address addressStringWithIdx:idx acountIdx:self.account.idx];
     if (!aAddress) {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil) message:NSLocalizedStringFromTable(@"Message failed_to_generate_address", @"CBW", nil) preferredStyle:UIAlertControllerStyleAlert];
@@ -96,15 +123,11 @@
     [self p_selectAddress:address];
 }
 - (void)p_handleArchivedAddressList:(id)sender {
-    ArchivedAdressListViewController *archivedAddressListViewController = [[ArchivedAdressListViewController alloc] init];
+    ArchivedAdressListViewController *archivedAddressListViewController = [[ArchivedAdressListViewController alloc] initWithAccount:self.account];
     [self.navigationController pushViewController:archivedAddressListViewController animated:YES];
 }
 #pragma mark -
 - (void)p_selectAddress:(Address *)address {
-    if (!address) {
-        // TODO: handle miss address error
-        return;
-    }
     AddressViewController *addressViewController = [[AddressViewController alloc] initWithAddress:address actionType:self.actionType];
     if (addressViewController) {
         [self.navigationController pushViewController:addressViewController animated:YES];

@@ -13,6 +13,8 @@
 @interface DatabaseManager (Address)
 
 - (void)fetchAddressWithAccountIdx:(NSInteger)accountIdx toStore:(AddressStore *)store;
+- (void)fetchAddressWithAccountIdx:(NSInteger)accountIdx archived:(BOOL)archived toStore:(AddressStore *)store;
 - (void)saveAddress:(Address *)address;
+- (NSUInteger)countAllAddressesWithAccountIdx:(NSInteger)accountIdx;
 
 @end

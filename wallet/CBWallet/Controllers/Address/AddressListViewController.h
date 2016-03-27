@@ -20,4 +20,6 @@
 
 - (nonnull instancetype)initWithAccount:(nonnull Account *)account;
 
+- (void)reload;
+
 @end

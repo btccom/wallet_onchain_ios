@@ -13,34 +13,46 @@
 
 
 - (void)fetchAddressWithAccountIdx:(NSInteger)accountIdx toStore:(AddressStore *)store {
+    [self fetchAddressWithAccountIdx:accountIdx archived:NO toStore:store];
+}
+
+- (void)fetchAddressWithAccountIdx:(NSInteger)accountIdx archived:(BOOL)archived toStore:(AddressStore *)store {
     FMDatabase *db = [self db];
     if ([db open]) {
-        NSMutableString *sql = [NSMutableString stringWithFormat:@"SELECT * FROM %@", DatabaseManagerTableAddress];
+        NSMutableString *sql = [NSMutableString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ?", DatabaseManagerTableAddress,
+                                DatabaseManagerColArchived];
         FMResultSet *results = nil;
         if (accountIdx > -2) {// -1 for watched only
-            [sql appendFormat:@" WHERE %@ = ?", DatabaseManagerColAccountIdx];
+            [sql appendFormat:@" AND %@ = ?", DatabaseManagerColAccountIdx];
             DLog(@"database manager fetch addresses of account: %ld", accountIdx);
-            results = [db executeQuery:sql, @(accountIdx)];
+            results = [db executeQuery:sql,
+                       @(archived),
+                       @(accountIdx)];
         } else {
-            results = [db executeQuery:sql];
+            results = [db executeQuery:sql,
+                       @(archived)];
         }
         NSLog(@"database manager fetched address results: %@", results);
-        while ([results next]) {
-            Address *address = [[Address alloc] init];
-            address.rid = [results intForColumn:DatabaseManagerColRid];
-            address.idx = [results intForColumn:DatabaseManagerColRid];
-            address.address = [results stringForColumn:DatabaseManagerColAddress];
-            address.label = [results stringForColumn:DatabaseManagerColLabel];
-            address.archived = [results boolForColumn:DatabaseManagerColArchived];
-            address.dirty = [results boolForColumn:DatabaseManagerColDirty];
-            address.internal = [results boolForColumn:DatabaseManagerColInternal];
-            address.balance = [results longLongIntForColumn:DatabaseManagerColBalance];
-            address.txCount = [results intForColumn:DatabaseManagerColTxCount];
-            address.accountIdx = accountIdx;//[results intForColumn:DatabaseManagerColAccountIdx];
-            address.accountRid = [results intForColumn:DatabaseManagerColAccountRid];
-            [store addRecord:address];
-        }
+        [self p_transformResultSet:results toStore:store];
         [db close];
+    }
+}
+
+- (void)p_transformResultSet:(FMResultSet *)results toStore:(AddressStore *)store {
+    while ([results next]) {
+        Address *address = [[Address alloc] init];
+        address.rid = [results intForColumn:DatabaseManagerColRid];
+        address.idx = [results intForColumn:DatabaseManagerColRid];
+        address.address = [results stringForColumn:DatabaseManagerColAddress];
+        address.label = [results stringForColumn:DatabaseManagerColLabel];
+        address.archived = [results boolForColumn:DatabaseManagerColArchived];
+        address.dirty = [results boolForColumn:DatabaseManagerColDirty];
+        address.internal = [results boolForColumn:DatabaseManagerColInternal];
+        address.balance = [results longLongIntForColumn:DatabaseManagerColBalance];
+        address.txCount = [results intForColumn:DatabaseManagerColTxCount];
+        address.accountIdx = [results intForColumn:DatabaseManagerColAccountIdx];
+        address.accountRid = [results intForColumn:DatabaseManagerColAccountRid];
+        [store addRecord:address];
     }
 }
 
@@ -163,6 +175,22 @@
     DLog(@"database manager update address: %@, %d", address.address, updated);
     
     return updated;
+}
+
+- (NSUInteger)countAllAddressesWithAccountIdx:(NSInteger)accountIdx {
+    NSUInteger count = 0;
+    FMDatabase *db = [self db];
+    if ([db open]) {
+        
+        NSString *sql = [NSString stringWithFormat:@"SELECT COUNT(*) FROM %@", DatabaseManagerTableAddress];
+        FMResultSet *results = [db executeQuery:sql];
+        if ([results next]) {
+            count = [results intForColumnIndex:0];
+        }
+        
+        [db close];
+    }
+    return count;
 }
 
 @end

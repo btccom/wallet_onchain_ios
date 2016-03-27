@@ -12,7 +12,10 @@
 @interface AddressStore : RecordObjectStore
 
 @property (nonatomic, assign) NSInteger accountIdx;
+@property (nonatomic, assign, getter=isArchived) BOOL archived;
 
 - (instancetype)initWithAccountIdx:(NSInteger)accountIdx;
+
+- (NSUInteger)countAllAddresses;
 
 @end

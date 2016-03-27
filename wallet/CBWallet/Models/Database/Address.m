@@ -56,6 +56,9 @@
 }
 
 - (void)saveWithError:(NSError *__autoreleasing  _Nullable *)error {
+    if (self.isArchived != ((AddressStore *)self.store).isArchived) {
+        [self.store deleteRecord:self];
+    }
     [[DatabaseManager defaultManager] saveAddress:self];
 }
 

@@ -21,7 +21,15 @@
 
 - (void)fetch {
     [records removeAllObjects];
+    if (self.isArchived) {
+        [[DatabaseManager defaultManager] fetchAddressWithAccountIdx:self.accountIdx archived:YES toStore:self];
+        return;
+    }
     [[DatabaseManager defaultManager] fetchAddressWithAccountIdx:self.accountIdx toStore:self];
+}
+
+- (NSUInteger)countAllAddresses {
+    return [[DatabaseManager defaultManager] countAllAddressesWithAccountIdx:self.accountIdx];
 }
 
 @end

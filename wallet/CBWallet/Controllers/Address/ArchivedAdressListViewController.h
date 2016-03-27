@@ -7,7 +7,16 @@
 //
 
 #import "BaseListViewController.h"
+#import "AddressViewController.h"
+
+@class Account;
 
 @interface ArchivedAdressListViewController : BaseListViewController
+
+@property (nonatomic, assign) AddressActionType actionType;
+/// 显示该账户地址
+@property (nonatomic, strong, nullable) Account *account;
+
+- (nonnull instancetype)initWithAccount:(nonnull Account *)account;
 
 @end

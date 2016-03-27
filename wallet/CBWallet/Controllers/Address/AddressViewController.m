@@ -9,8 +9,9 @@
 #import "AddressViewController.h"
 #import "AddressHeaderView.h"
 #import "TransactionViewController.h"
+#import "AddressListViewController.h"
 
-#import "Address.h"
+#import "Database.h"
 #import "Transaction.h"
 
 @interface AddressViewController ()<AddressHeaderViewDelegate>
@@ -59,7 +60,7 @@
     switch (self.actionType) {
         case AddressActionTypeDefault: {
             self.title = NSLocalizedStringFromTable(@"Navigation address", @"CBW", @"Address");
-            self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_archive"] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleArchive:)],
+            self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:self.address.archived ? @"navigation_unarchive" : @"navigation_archive"] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleArchive:)],
                                                         [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_share"] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleShare:)]];
             addressHeaderView.labelEditable = YES;
             [self p_fetchTransactions];
@@ -86,6 +87,28 @@
 
 - (void)p_handleArchive:(id)sender {
     DLog(@"clicked archive");
+    if (self.address.accountIdx == -1) {
+        // TODO: 如果是 watched only address，则执行删除
+        return;
+    }
+    self.address.archived = !self.address.archived;
+    [self.address saveWithError:nil];
+    
+    // pop back
+    if (((AddressStore *)self.address.store).isArchived) {
+        // 检查是否为空
+        if (self.address.store.count == 0) {
+            // TODO: improve
+            NSArray *viewControllers = self.navigationController.viewControllers;
+            UIViewController *vc = [viewControllers objectAtIndex:(viewControllers.count - 3)];
+            if ([vc isKindOfClass:[AddressListViewController class]]) {
+                [((AddressListViewController *)vc) reload];
+                [self.navigationController popToViewController:vc animated:YES];
+                return;
+            }
+        }
+    }
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark -
