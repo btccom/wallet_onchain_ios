@@ -15,8 +15,14 @@
 - (void)fetchAddressWithAccountIdx:(NSInteger)accountIdx toStore:(AddressStore *)store {
     FMDatabase *db = [self db];
     if ([db open]) {
-        NSString *sql = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ?", DatabaseManagerTableAccount, DatabaseManagerColAccountIdx];
-        FMResultSet *results = [db executeQuery:sql, @(accountIdx)];
+        NSMutableString *sql = [NSMutableString stringWithFormat:@"SELECT * FROM %@", DatabaseManagerTableAccount];
+        FMResultSet *results = nil;
+        if (accountIdx > -2) {// -1 for watched only
+            [sql appendFormat:@" WHERE %@ = ?", DatabaseManagerColAccountIdx];
+            results = [db executeQuery:sql, @(accountIdx)];
+        } else {
+            results = [db executeQuery:sql];
+        }
         while ([results next]) {
             Address *address = [[Address alloc] init];
             address.rid = [results intForColumn:DatabaseManagerColRid];
