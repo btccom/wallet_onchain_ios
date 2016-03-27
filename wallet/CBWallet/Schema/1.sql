@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS 'address' (
 	'idx' INTEGER,
     'address' TEXT UNIQUE,
 	'label' TEXT,
+    'archived' INTEGER,
     'dirty' INTEGER,
     'balance' INTEGER,
     'txCount' INTEGER,

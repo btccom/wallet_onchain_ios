@@ -11,15 +11,20 @@
 
 @implementation Address
 
-+ (instancetype)newAdress:(NSString *)aAddress withLabel:(NSString *)label idx:(NSInteger)idx dirty:(BOOL)dirty accountRid:(NSInteger)accountRid accountIdx:(NSInteger)accountIdx inStore:(AddressStore *)store {
++ (instancetype)newAdress:(NSString *)aAddress withLabel:(NSString *)label idx:(NSInteger)idx archived:(BOOL)archived dirty:(BOOL)dirty accountRid:(NSInteger)accountRid accountIdx:(NSInteger)accountIdx inStore:(nonnull AddressStore *)store {
     Address *address = [Address newRecordInStore:store];
     address.address = aAddress;
     address.label = label;
     address.idx = idx;
+    address.archived = archived;
     address.dirty = dirty;
     address.accountRid = accountRid;
     address.accountIdx = accountIdx;
     return address;
+}
+
++ (instancetype)newAdress:(NSString *)aAddress withLabel:(NSString *)label idx:(NSInteger)idx accountRid:(NSInteger)accountRid accountIdx:(NSInteger)accountIdx inStore:(AddressStore *)store {
+    return [self newAdress:aAddress withLabel:label idx:idx archived:NO dirty:NO accountRid:accountRid accountIdx:accountIdx inStore:store];
 }
 
 //- (void)deleteFromStore:(RecordObjectStore *)store {

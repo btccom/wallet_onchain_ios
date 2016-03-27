@@ -12,7 +12,7 @@
 
 @interface DatabaseManager (Address)
 
-- (void)fetchAddressToStore:(AddressStore *)store;
+- (void)fetchAddressWithAccountIdx:(NSInteger)accountIdx toStore:(AddressStore *)store;
 - (void)saveAddress:(Address *)address;
 
 @end

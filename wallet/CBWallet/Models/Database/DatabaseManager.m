@@ -29,6 +29,7 @@ NSString *const DatabaseManagerColLabel = @"label";
 NSString *const DatabaseManagerColCustomDefaultEnabled = @"customDefaultEnabled";
 
 // in address
+NSString *const DatabaseManagerColArchived = @"archived";
 NSString *const DatabaseManagerColDirty = @"dirty";
 NSString *const DatabaseManagerColBalance = @"balance";
 NSString *const DatabaseManagerColTxCount = @"txCount";

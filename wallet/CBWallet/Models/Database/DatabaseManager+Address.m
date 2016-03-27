@@ -12,11 +12,11 @@
 @implementation DatabaseManager (Address)
 
 
-- (void)fetchAddressToStore:(AddressStore *)store {
+- (void)fetchAddressWithAccountIdx:(NSInteger)accountIdx toStore:(AddressStore *)store {
     FMDatabase *db = [self db];
     if ([db open]) {
-        NSString *sql = [NSString stringWithFormat:@"SELECT * FROM %@", DatabaseManagerTableAccount];
-        FMResultSet *results = [db executeQuery:sql];
+        NSString *sql = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ?", DatabaseManagerTableAccount, DatabaseManagerColAccountIdx];
+        FMResultSet *results = [db executeQuery:sql, @(accountIdx)];
         while ([results next]) {
             Address *address = [[Address alloc] init];
             address.rid = [results intForColumn:DatabaseManagerColRid];
@@ -26,7 +26,7 @@
             address.dirty = [results boolForColumn:DatabaseManagerColDirty];
             address.balance = [results longLongIntForColumn:DatabaseManagerColBalance];
             address.txCount = [results intForColumn:DatabaseManagerColTxCount];
-            address.accountIdx = [results intForColumn:DatabaseManagerColAccountIdx];
+            address.accountIdx = accountIdx;//[results intForColumn:DatabaseManagerColAccountIdx];
             address.accountRid = [results intForColumn:DatabaseManagerColAccountRid];
             [store addRecord:address];
         }
@@ -55,12 +55,13 @@
     FMDatabase *db = [self db];
     if ([db open]) {
         
-        NSString *sql = [NSString stringWithFormat:@"INSERT INTO %@ (%@, %@, %@, %@, %@, %@, %@, %@, %@, %@) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", DatabaseManagerTableAddress,
+        NSString *sql = [NSString stringWithFormat:@"INSERT INTO %@ (%@, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", DatabaseManagerTableAddress,
                          DatabaseManagerColCreationDate,
                          DatabaseManagerColModificationDate,
                          DatabaseManagerColIdx,
                          DatabaseManagerColAddress,
                          DatabaseManagerColLabel,
+                         DatabaseManagerColArchived,
                          DatabaseManagerColDirty,
                          DatabaseManagerColBalance,
                          DatabaseManagerColTxCount,
@@ -73,6 +74,7 @@
                    @(address.idx),
                    address.address,
                    address.label,
+                   @(address.isArchived),
                    @(address.dirty),
                    @(address.balance),
                    @(address.txCount),
@@ -112,12 +114,13 @@
     FMDatabase *db = [self db];
     if ([db open]) {
         
-        NSString *sql = [NSString stringWithFormat:@"UPDATE %@ SET %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ? WHERE %@ = ?", DatabaseManagerTableAddress,
+        NSString *sql = [NSString stringWithFormat:@"UPDATE %@ SET %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ? WHERE %@ = ?", DatabaseManagerTableAddress,
                          DatabaseManagerColCreationDate,
                          DatabaseManagerColModificationDate,
                          DatabaseManagerColIdx,
                          DatabaseManagerColAddress,
                          DatabaseManagerColLabel,
+                         DatabaseManagerColArchived,
                          DatabaseManagerColDirty,
                          DatabaseManagerColBalance,
                          DatabaseManagerColTxCount,
@@ -130,6 +133,7 @@
                    @(address.idx),
                    address.address,
                    address.label,
+                   @(address.isArchived),
                    @(address.dirty),
                    @(address.balance),
                    @(address.txCount),

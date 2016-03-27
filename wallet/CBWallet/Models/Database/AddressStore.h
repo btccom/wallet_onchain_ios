@@ -11,4 +11,8 @@
 
 @interface AddressStore : RecordObjectStore
 
+@property (nonatomic, assign) NSInteger accountIdx;
+
+- (instancetype)initWithAccountIdx:(NSInteger)accountIdx;
+
 @end

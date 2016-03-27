@@ -11,9 +11,17 @@
 
 @implementation AddressStore
 
+- (instancetype)initWithAccountIdx:(NSInteger)accountIdx {
+    self = [super init];
+    if (self) {
+        _accountIdx = accountIdx;
+    }
+    return self;
+}
+
 - (void)fetch {
     [records removeAllObjects];
-    [[DatabaseManager defaultManager] fetchAddressToStore:self];
+    [[DatabaseManager defaultManager] fetchAddressWithAccountIdx:self.accountIdx toStore:self];
 }
 
 @end

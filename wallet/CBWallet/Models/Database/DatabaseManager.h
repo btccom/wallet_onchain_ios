@@ -37,6 +37,8 @@ extern NSString *const DatabaseManagerColCustomDefaultEnabled;
 
 // in address
 /// integer / bool
+extern NSString *const DatabaseManagerColArchived;
+/// integer / bool
 extern NSString *const DatabaseManagerColDirty;
 /// integer / long long in satoshi
 extern NSString *const DatabaseManagerColBalance;
