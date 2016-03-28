@@ -9,8 +9,13 @@
 #import "RecordObjectStore.h"
 #import "Account.h"
 
+extern NSString *const _Nonnull AccountStoreWatchedAccountLabel;
+
 @interface AccountStore : RecordObjectStore
 
 - (nonnull Account *)customDefaultAccount;
+
+/// get watched only account
+- (nonnull Account *)watchedAccount;
 
 @end

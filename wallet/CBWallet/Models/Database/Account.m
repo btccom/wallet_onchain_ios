@@ -9,9 +9,6 @@
 #import "Account.h"
 #import "AccountStore.h"
 
-NSString *const AccountWathcedOnlyLabel = @"Watched Only Account";
-const NSInteger AccountWatchedOnlyIdx = -1;
-
 @implementation Account
 
 - (void)setIdx:(NSInteger)idx {
@@ -24,13 +21,6 @@ const NSInteger AccountWatchedOnlyIdx = -1;
     Account *account = [self newRecordInStore:store];
     account.idx = idx;
     account.label = label;
-    return account;
-}
-
-+ (instancetype)accountWatchedOnly {
-    Account *account = [[Account alloc] init];
-    account.idx = AccountWatchedOnlyIdx;
-    account.label = AccountWathcedOnlyLabel;
     return account;
 }
 

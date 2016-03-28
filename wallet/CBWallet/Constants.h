@@ -10,6 +10,8 @@
 #define Constants_h
 
 
+static const NSInteger RecordWatchedIdx = -1;
+
 // User Defaults
 
 /// bool value

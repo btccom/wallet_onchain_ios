@@ -10,9 +10,6 @@
 
 @class AccountStore;
 
-extern NSString *const _Nonnull AccountWathcedOnlyLabel;
-extern const NSInteger AccountWatchedOnlyIdx;
-
 /// <code><b>BIP32</b> m/idx</code>, <code>idx</code> to specify account as wallet
 ///
 /// <code>idx < 0</code> means watched account
@@ -25,8 +22,5 @@ extern const NSInteger AccountWatchedOnlyIdx;
 
 /// create account, import account.
 + (nonnull instancetype)newAccountWithIdx:(NSInteger)idx label:(nullable NSString *)label inStore:(nonnull AccountStore *)store;
-
-/// get watched only account, without store
-+ (nonnull instancetype)accountWatchedOnly;
 
 @end

@@ -71,9 +71,12 @@
     if ([[Guard globalGuard] checkInWithCode:password]) {
         // create first account
         AccountStore *store = [[AccountStore alloc] init];
+        NSError *error = nil;
+        Account *watchedAccount = [Account newAccountWithIdx:RecordWatchedIdx label:NSLocalizedStringFromTable(AccountStoreWatchedAccountLabel, @"CBW", nil) inStore:store];
+        NSLog(@"create watched account: %@", watchedAccount.label);
+        [watchedAccount saveWithError:&error];
         Account *account = [Account newAccountWithIdx:0 label:NSLocalizedStringFromTable(@"Label default_account", @"CBW", nil) inStore:store];
         NSLog(@"create first account: %@", account.label);
-        NSError *error = nil;
         [account saveWithError:&error];
         if (error) {
             NSLog(@"create first account error: %@", error);

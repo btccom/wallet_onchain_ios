@@ -26,6 +26,7 @@
 @property (nonatomic, strong) NSMutableArray *transactions; // of Transaction
 @property (nonatomic, strong) AccountStore *accountStore;
 @property (nonatomic, strong) Account *account;
+@property (nonatomic, weak) DashboardHeaderView *headerView;
 
 @end
 
@@ -69,6 +70,7 @@
     [dashboardHeaderView.sendButton addTarget:self action:@selector(p_handleSend:) forControlEvents:UIControlEventTouchUpInside];
     [dashboardHeaderView.receiveButton addTarget:self action:@selector(p_handleReceive:) forControlEvents:UIControlEventTouchUpInside];
     self.tableView.tableHeaderView = dashboardHeaderView;
+    _headerView = dashboardHeaderView;
     
     if (!self.account) {
         self.account = [self.accountStore customDefaultAccount];
@@ -83,6 +85,11 @@
         self.account = [self.accountStore customDefaultAccount];
         DLog(@"dashboard reloaded account: %@", self.account);
     }
+    [self reloadTransactions];
+}
+
+- (void)reloadTransactions {
+    self.headerView.sendButton.enabled = self.account.idx >= 0;
     [self.tableView reloadData];
 }
 
@@ -130,7 +137,7 @@
 
 /// push address list to receive
 - (void)p_handleReceive:(id)sender {
-    AddressListViewController *addressListViewController = [[AddressListViewController alloc] init];
+    AddressListViewController *addressListViewController = [[AddressListViewController alloc] initWithAccount:self.account];
     addressListViewController.actionType = AddressActionTypeReceive;
     [self.navigationController pushViewController:addressListViewController animated:YES];
 }
@@ -173,9 +180,9 @@
         return;
     }
     
-    self.account = account;
-    [self reload];
     [self dismissViewControllerAnimated:YES completion:nil];
+    self.account = account;
+    [self reloadTransactions];
 }
 
 @end

@@ -18,6 +18,7 @@
 @interface DashboardViewController : BaseListViewController
 
 - (void)reload;
+- (void)reloadTransactions;
 
 @end
 

@@ -13,6 +13,8 @@
 		2C1E8C501CA42A7D006F86E1 /* NSData+CommonCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E8C4B1CA42A7D006F86E1 /* NSData+CommonCrypto.m */; };
 		2C1E8C511CA42A7D006F86E1 /* PBKDF2.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E8C4D1CA42A7D006F86E1 /* PBKDF2.m */; };
 		2C77D25B1CA66207001DDB1F /* DatabaseManager+Address.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D25A1CA66207001DDB1F /* DatabaseManager+Address.m */; };
+		2C77D2631CA8C095001DDB1F /* CBWRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D2621CA8C095001DDB1F /* CBWRequest.m */; };
+		2C77D2661CA8C14E001DDB1F /* CBWRequest+Address.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D2651CA8C14E001DDB1F /* CBWRequest+Address.m */; };
 		2C99A17C1CA0E434007D7AC3 /* Guard.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C99A17B1CA0E434007D7AC3 /* Guard.m */; };
 		2C99A1801CA1029C007D7AC3 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C99A17F1CA1029C007D7AC3 /* libsqlite3.tbd */; };
 		2C9CAF471C868B61008194EB /* AddressListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAEE31C868B61008194EB /* AddressListViewController.m */; };
@@ -110,6 +112,10 @@
 		2C1E8C4D1CA42A7D006F86E1 /* PBKDF2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBKDF2.m; sourceTree = "<group>"; };
 		2C77D2591CA66207001DDB1F /* DatabaseManager+Address.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DatabaseManager+Address.h"; sourceTree = "<group>"; };
 		2C77D25A1CA66207001DDB1F /* DatabaseManager+Address.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DatabaseManager+Address.m"; sourceTree = "<group>"; };
+		2C77D2611CA8C095001DDB1F /* CBWRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBWRequest.h; sourceTree = "<group>"; };
+		2C77D2621CA8C095001DDB1F /* CBWRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBWRequest.m; sourceTree = "<group>"; };
+		2C77D2641CA8C14E001DDB1F /* CBWRequest+Address.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBWRequest+Address.h"; sourceTree = "<group>"; };
+		2C77D2651CA8C14E001DDB1F /* CBWRequest+Address.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBWRequest+Address.m"; sourceTree = "<group>"; };
 		2C99A17A1CA0E434007D7AC3 /* Guard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Guard.h; sourceTree = "<group>"; };
 		2C99A17B1CA0E434007D7AC3 /* Guard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Guard.m; sourceTree = "<group>"; };
 		2C99A17F1CA1029C007D7AC3 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
@@ -378,6 +384,17 @@
 			path = "aes-pbkdf2";
 			sourceTree = "<group>";
 		};
+		2C77D2601CA8C05F001DDB1F /* API */ = {
+			isa = PBXGroup;
+			children = (
+				2C77D2611CA8C095001DDB1F /* CBWRequest.h */,
+				2C77D2621CA8C095001DDB1F /* CBWRequest.m */,
+				2C77D2641CA8C14E001DDB1F /* CBWRequest+Address.h */,
+				2C77D2651CA8C14E001DDB1F /* CBWRequest+Address.m */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
 		2C99A1DB1CA116D5007D7AC3 /* include */ = {
 			isa = PBXGroup;
 			children = (
@@ -605,6 +622,7 @@
 		2C9CAF1C1C868B61008194EB /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				2C77D2601CA8C05F001DDB1F /* API */,
 				2C9CAF1D1C868B61008194EB /* Database */,
 				2C9CAF281C868B61008194EB /* System */,
 				2C9CAF2B1C868B61008194EB /* User */,
@@ -966,6 +984,7 @@
 				2C9CAF4D1C868B61008194EB /* BaseViewController.m in Sources */,
 				2C9CAF531C868B61008194EB /* LockScreenController.m in Sources */,
 				2C9CAF611C868B61008194EB /* Address.m in Sources */,
+				2C77D2661CA8C14E001DDB1F /* CBWRequest+Address.m in Sources */,
 				2CD0A9191CA02ACA006AF02F /* FMDatabaseAdditions.m in Sources */,
 				2C9CAF561C868B61008194EB /* SettingsViewController.m in Sources */,
 				2C9CAF691C868B61008194EB /* ActionButtonCell.m in Sources */,
@@ -1004,6 +1023,7 @@
 				2C9CAF6D1C868B61008194EB /* ListSectionHeaderView.m in Sources */,
 				2C9CAF651C868B61008194EB /* SystemManager.m in Sources */,
 				2C9CAF551C868B61008194EB /* ProfileViewController.m in Sources */,
+				2C77D2631CA8C095001DDB1F /* CBWRequest.m in Sources */,
 				2C9CAF481C868B61008194EB /* AddressViewController.m in Sources */,
 				2C9CAF501C868B61008194EB /* DashboardViewController.m in Sources */,
 				2C9CAF5A1C868B61008194EB /* TransactionViewController.m in Sources */,

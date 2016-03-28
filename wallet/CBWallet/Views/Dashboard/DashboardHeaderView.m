@@ -26,6 +26,7 @@
     if (!_sendButton) {
         UIButton *button = [[DashboardHeaderActionButton alloc] initWithImage:[UIImage imageNamed:@"icon_send"] title:NSLocalizedStringFromTable(@"Button send", @"CBW", @"Send")];
         [button setTitleColor:[UIColor CBWRedColor] forState:UIControlStateNormal];
+        [button setTitleColor:[[UIColor CBWRedColor] colorWithAlphaComponent:.5]  forState:UIControlStateDisabled];
         [self addSubview:button];
         _sendButton = button;
     }

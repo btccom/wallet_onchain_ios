@@ -9,6 +9,8 @@
 #import "AccountStore.h"
 #import "DatabaseManager.h"
 
+NSString *const AccountStoreWatchedAccountLabel = @"Watched Only Account";
+
 @implementation AccountStore
 
 - (void)fetch {
@@ -24,6 +26,13 @@
             *stop = YES;
         }
     }];
+    return account;
+}
+
+- (Account *)watchedAccount {
+    Account *account = [[Account alloc] init];
+    account.idx = RecordWatchedIdx;
+    account.label = AccountStoreWatchedAccountLabel;
     return account;
 }
 

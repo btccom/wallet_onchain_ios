@@ -9,6 +9,8 @@
 #import "AddressListViewController.h"
 #import "ArchivedAdressListViewController.h"
 
+#import "ImagePickerController.h"
+
 #import "Database.h"
 
 @interface AddressListViewController ()
@@ -101,6 +103,8 @@
     }
     if (self.account.idx < 0) {
         NSLog(@"can not create address with account idx < 0 (watched only)");
+        NSLog(@"create manualy");
+        [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
         return;
     }
     
@@ -183,11 +187,12 @@
     return CBWCellHeightAddress;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath == 0) {
+    if (indexPath.section == 0) {
         if (self.actionCells.count > 0) {
             // action section
             // TODO: handle differenct action
             [self p_handleCreateAddress:nil];
+            return;
         }
     }
     Address *address = [self.addressStore recordAtIndex:indexPath.row];

@@ -37,6 +37,7 @@
 "Placeholder confirm_master_password" = "Confirm Master Password";
 "Placeholder hint" = "Hint";
 
+"Label watched_account" = "Watched Account";
 "Label default_account" = "Default Account";
 
 "%d confirmed" = "%d confirmed";
