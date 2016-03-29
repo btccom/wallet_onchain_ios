@@ -80,6 +80,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     if (self.addressStore.count < self.addressStore.countAllAddresses) {
         self.archivedListButtonItem.image = [UIImage imageNamed:@"navigation_archived"];
     } else {

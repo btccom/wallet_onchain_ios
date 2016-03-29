@@ -182,8 +182,10 @@
     FMDatabase *db = [self db];
     if ([db open]) {
         
-        NSString *sql = [NSString stringWithFormat:@"SELECT COUNT(*) FROM %@", DatabaseManagerTableAddress];
-        FMResultSet *results = [db executeQuery:sql];
+        NSString *sql = [NSString stringWithFormat:@"SELECT COUNT(*) FROM %@ WHERE %@ = ?", DatabaseManagerTableAddress,
+                         DatabaseManagerColAccountIdx];
+        FMResultSet *results = [db executeQuery:sql,
+                                @(accountIdx)];
         if ([results next]) {
             count = [results intForColumnIndex:0];
         }
