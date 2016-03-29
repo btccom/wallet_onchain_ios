@@ -23,11 +23,19 @@
 #pragma mark - View Life Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor CBWBlackColor];
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_close"] style:UIBarButtonItemStylePlain target:self action:@selector(p_dismiss:)];
+    if (self.navigationController) {
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_close"] style:UIBarButtonItemStylePlain target:self action:@selector(p_dismiss:)];
+    } else {
+        UIButton *closeButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 20.f, 60.f, 44.f)];
+        [closeButton addTarget:self action:@selector(p_dismiss:) forControlEvents:UIControlEventTouchUpInside];
+        [closeButton setImage:[UIImage imageNamed:@"navigation_close"] forState:UIControlStateNormal];
+        [self.view addSubview:closeButton];
+    }
     
     UIView *cameraView = [[UIView alloc] initWithFrame:self.view.bounds];
-    [self.view addSubview:cameraView];
+    [self.view insertSubview:cameraView atIndex:0];
     _cameraView = cameraView;
     
     UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.frame) - 120.f, CGRectGetWidth(self.view.frame), 20.f)];
@@ -35,7 +43,7 @@
     tipLabel.textColor = [UIColor CBWMutedTextColor];
     tipLabel.textAlignment = NSTextAlignmentCenter;
     tipLabel.text = NSLocalizedStringFromTable(@"Tip scan_qr", @"CBW", nil);
-    [self.view addSubview:tipLabel];
+    [self.view insertSubview:tipLabel aboveSubview:cameraView];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -68,7 +76,6 @@
     // input
     AVCaptureDeviceInput *deviceInput = [[AVCaptureDeviceInput alloc] initWithDevice:captureDevice error:&error];
     if (!deviceInput) {
-        //        NSLog(@"%@", [error localizedDescription]);
         return NO;
     }
     
@@ -90,7 +97,7 @@
     _previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:_captureSession];
     [_previewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
     [_previewLayer setFrame:_cameraView.layer.bounds];
-    [_previewLayer setBackgroundColor:[UIColor whiteColor].CGColor];
+    [_previewLayer setBackgroundColor:[UIColor CBWBlackColor].CGColor];
     [_cameraView.layer addSublayer:_previewLayer];
     
     // start
