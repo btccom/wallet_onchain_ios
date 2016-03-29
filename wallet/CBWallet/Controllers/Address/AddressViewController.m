@@ -89,6 +89,9 @@
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         if (!error) {
             DLog(@"request transactions \n%@", response);
+            self.address.balance = [[response objectForKey:@"final_balance"] longLongValue];
+            self.address.txCount = [[[NSString stringWithFormat:@"%@", [response objectForKey:@"n_tx"]] numberValue] unsignedIntegerValue];
+            [self.address saveWithError:nil];
         }
     }];
 }
@@ -165,6 +168,8 @@
 #pragma mark AddressHeaderViewDelegate
 - (void)addressHeaderViewDidEndEditing:(AddressHeaderView *)view {
     DLog(@"address's label changed: %@", view.label);
+    self.address.label = view.label;
+    [self.address saveWithError:nil];
 }
 
 @end

@@ -8,10 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString *const _Nonnull NSStringAddressInfoAddressKey;
+extern NSString *const _Nonnull NSStringAddressInfoLabelKey;
+
 @interface NSString (CBWAddress)
 
 - (nullable NSAttributedString *)attributedAddressWithAlignment:(NSTextAlignment)alignment;
 
 - (nullable UIImage *)qrcodeImageWithSize:(CGSize)size;
+
+- (nullable NSDictionary *)addressInfo;
 
 @end

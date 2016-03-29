@@ -10,7 +10,7 @@
 #define Constants_h
 
 
-static const NSInteger RecordWatchedIdx = -1;
+static const NSInteger CBWRecordWatchedIdx = -1;
 
 // User Defaults
 

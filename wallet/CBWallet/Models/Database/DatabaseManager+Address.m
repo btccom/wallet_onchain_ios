@@ -72,7 +72,7 @@
 }
 - (BOOL)p_createAddress:(Address *)address {
     BOOL created = NO;
-    DLog(@"create address: %@", address);
+    DLog(@"database manager create address: %@", address);
     
     FMDatabase *db = [self db];
     if ([db open]) {
@@ -111,7 +111,7 @@
         [db close];
     }
     
-    DLog(@"database manager create address: %@, %d", address.address, created);
+    DLog(@"database manager created address: %@, %d", address.address, created);
     
     return created;
 }

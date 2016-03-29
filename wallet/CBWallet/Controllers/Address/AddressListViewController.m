@@ -9,11 +9,13 @@
 #import "AddressListViewController.h"
 #import "ArchivedAdressListViewController.h"
 
-#import "ImagePickerController.h"
+#import "ScanViewController.h"
 
 #import "Database.h"
 
-@interface AddressListViewController ()
+#import "NSString+CBWAddress.h"
+
+@interface AddressListViewController ()<ScanViewControllerDelegate>
 
 @property (nonatomic, strong) NSArray *actionCells; // create address button...
 @property (nonatomic, strong) AddressStore *addressStore;
@@ -98,40 +100,74 @@
 #pragma mark - Private Method
 #pragma mark Handlers
 - (void)p_handleCreateAddress:(id)sender {
+    
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+    
     if (!self.account) {
-        NSLog(@"can not create address without account");
+        DLog(@"can not create address without account");
         return;
     }
     if (self.account.idx < 0) {
-        NSLog(@"can not create address with account idx < 0 (watched only)");
-        NSLog(@"create manualy");
-        [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+        DLog(@"can not create address with account idx < 0 (watched only)");
+        DLog(@"create manualy");
+        
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Alert Title new_address", @"CBW", nil) message:NSLocalizedStringFromTable(@"Alert Message new_address", @"CBW", nil) preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+            textField.font = [UIFont monospacedFontOfSize:16.f];
+            textField.placeholder = NSLocalizedStringFromTable(@"Placeholder bitcoin_address", @"CBW", nil);
+        }];
+        UIAlertAction *saveAction = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Alert Action save_address", @"CBW", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            NSString *addressString = [alertController.textFields firstObject].text;
+            // TODO: 验证地址有效性
+            if (addressString.length > 0) {
+                [self p_saveAddressString:addressString withIdx:CBWRecordWatchedIdx];
+            }
+        }];
+        UIAlertAction *scanAction = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Alert Action scan_qr_code", @"CBS", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            DLog(@"to scan qrcode");
+            [self p_handleScan:nil];
+        }];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Cancel", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
+        [alertController addAction:cancelAction];
+        [alertController addAction:saveAction];
+        [alertController addAction:scanAction];
+        [self presentViewController:alertController animated:YES completion:nil];
+        
         return;
     }
     
     NSUInteger idx = self.addressStore.countAllAddresses;
-    NSString *aAddress = [Address addressStringWithIdx:idx acountIdx:self.account.idx];
-    if (!aAddress) {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil) message:NSLocalizedStringFromTable(@"Message failed_to_generate_address", @"CBW", nil) preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *okayAction = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Okay", @"CBW", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            [self dismissViewControllerAnimated:YES completion:nil];
-        }];
-        [alertController addAction:okayAction];
-        [self presentViewController:alertController animated:YES completion:nil];
-        return;
-    }
-    
-    Address *address = [Address newAdress:aAddress withLabel:@"" idx:idx accountRid:self.account.rid accountIdx:self.account.idx inStore:self.addressStore];
-    [address saveWithError:nil];
-    
-    [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:self.actionCells.count > 0 ? 1 : 0]] withRowAnimation:UITableViewRowAnimationAutomatic];
-    [self p_selectAddress:address];
+    NSString *addressString = [Address addressStringWithIdx:idx acountIdx:self.account.idx];
+    [self p_saveAddressString:addressString withIdx:idx];
 }
 - (void)p_handleArchivedAddressList:(id)sender {
     ArchivedAdressListViewController *archivedAddressListViewController = [[ArchivedAdressListViewController alloc] initWithAccount:self.account];
     [self.navigationController pushViewController:archivedAddressListViewController animated:YES];
 }
+- (void)p_handleScan:(id)sender {
+    ScanViewController *scanViewController = [[ScanViewController alloc] init];
+    scanViewController.delegate = self;
+    [self presentViewController:scanViewController animated:YES completion:nil];
+}
 #pragma mark -
+- (void)p_saveAddressString:(NSString *)addressString withIdx:(NSInteger)idx {
+    [self p_saveAddressString:addressString withIdx:idx label:@""];
+}
+- (void)p_saveAddressString:(NSString *)addressString withIdx:(NSInteger)idx label:(NSString *)label {
+    if (!addressString) {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil) message:NSLocalizedStringFromTable(@"Alert Message failed_to_generate_address", @"CBW", nil) preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okayAction = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Okay", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
+        [alertController addAction:okayAction];
+        [self presentViewController:alertController animated:YES completion:nil];
+        return;
+    }
+    
+    Address *address = [Address newAdress:addressString withLabel:label idx:idx accountRid:self.account.rid accountIdx:self.account.idx inStore:self.addressStore];
+    [address saveWithError:nil];
+    
+    [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:self.actionCells.count > 0 ? 1 : 0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self p_selectAddress:address];
+}
 - (void)p_selectAddress:(Address *)address {
     AddressViewController *addressViewController = [[AddressViewController alloc] initWithAddress:address actionType:self.actionType];
     if (addressViewController) {
@@ -139,7 +175,7 @@
     }
 }
 
-#pragma mark - UITableViewDataSource
+#pragma mark - <UITableViewDataSource>
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.actionCells.count > 0 ? 2 : 1;
 }
@@ -180,7 +216,7 @@
     return nil;
 }
 
-#pragma mark UITableViewDelgate
+#pragma mark <UITableViewDelgate>
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.actionType == AddressActionTypeDefault) {
         return CBWCellHeightAddressWithMetadata;
@@ -198,6 +234,26 @@
     }
     Address *address = [self.addressStore recordAtIndex:indexPath.row];
     [self p_selectAddress:address];
+}
+
+#pragma mark <ScanViewControllerDelegate>
+- (BOOL)scanViewControllerWillDismiss:(ScanViewController *)viewController {
+    [self dismissViewControllerAnimated:YES completion:nil];
+    return YES;
+}
+
+- (void)scanViewController:(ScanViewController *)viewController didScanString:(NSString *)string {
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+    NSDictionary *addressInfo = [string addressInfo];
+    if (!addressInfo) {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil) message:NSLocalizedStringFromTable(@"Alert Message invalid_address", @"CBW", nil) preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Okay", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
+        [alertController addAction:okAction];
+        [self presentViewController:alertController animated:YES completion:nil];
+        return;
+    }
+    [self p_saveAddressString:[addressInfo objectForKey:NSStringAddressInfoAddressKey] withIdx:CBWRecordWatchedIdx label:[addressInfo objectForKey:NSStringAddressInfoLabelKey]];
 }
 
 @end

@@ -50,7 +50,7 @@
     
     // valid password
     if ([password passwordStrength] < 80) {
-        [messages addObject:NSLocalizedStringFromTable(@"Message need_strong_password", @"CBW", @"Please input a strong password.")];
+        [messages addObject:NSLocalizedStringFromTable(@"Alert Message need_strong_password", @"CBW", @"Please input a strong password.")];
     }
     
     // check confirm and hint
@@ -58,7 +58,7 @@
         // confirm
         NSString *confirmPassword = self.confirmMasterPasswordCell.textField.text;
         if (![password isEqualToString:confirmPassword]) {
-            [messages addObject:NSLocalizedStringFromTable(@"Message confirm_password", @"CBW", @"Please confirm password.")];
+            [messages addObject:NSLocalizedStringFromTable(@"Alert Message confirm_password", @"CBW", @"Please confirm password.")];
         }
         
         // hint
@@ -68,9 +68,7 @@
     if (messages.count > 0) {
         // alert message
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil) message:[messages componentsJoinedByString:@"\n"] preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *action = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Okay", @"CBW", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            [self dismissViewControllerAnimated:YES completion:nil];
-        }];
+        UIAlertAction *action = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Okay", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
         [alert addAction:action];
         [self presentViewController:alert animated:YES completion:nil];
         return;

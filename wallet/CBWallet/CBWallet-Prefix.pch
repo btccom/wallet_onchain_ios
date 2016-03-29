@@ -13,6 +13,7 @@
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 #import "UIColor+CBW.h"
 #import "NSString+Helper.h"
+#import "UIFont+CBW.h"
 #import "Constants.h"
 
 #define ScreenWidth CGRectGetWidth([UIScreen mainScreen].bounds)

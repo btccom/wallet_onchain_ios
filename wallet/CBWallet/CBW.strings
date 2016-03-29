@@ -36,6 +36,7 @@
 "Placeholder master_password" = "Master Password";
 "Placeholder confirm_master_password" = "Confirm Master Password";
 "Placeholder hint" = "Hint";
+"Placeholder bitcoin_address" = "Bitcoin Address";
 
 "Label watched_account" = "Watched Account";
 "Label default_account" = "Default Account";

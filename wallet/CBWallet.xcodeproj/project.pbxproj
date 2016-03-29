@@ -15,6 +15,7 @@
 		2C77D25B1CA66207001DDB1F /* DatabaseManager+Address.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D25A1CA66207001DDB1F /* DatabaseManager+Address.m */; };
 		2C77D2631CA8C095001DDB1F /* CBWRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D2621CA8C095001DDB1F /* CBWRequest.m */; };
 		2C77D2661CA8C14E001DDB1F /* CBWRequest+Address.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D2651CA8C14E001DDB1F /* CBWRequest+Address.m */; };
+		2C77D2731CAA10EE001DDB1F /* UIFont+CBW.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D2721CAA10EE001DDB1F /* UIFont+CBW.m */; };
 		2C99A17C1CA0E434007D7AC3 /* Guard.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C99A17B1CA0E434007D7AC3 /* Guard.m */; };
 		2C99A1801CA1029C007D7AC3 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C99A17F1CA1029C007D7AC3 /* libsqlite3.tbd */; };
 		2C9CAF471C868B61008194EB /* AddressListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAEE31C868B61008194EB /* AddressListViewController.m */; };
@@ -24,7 +25,7 @@
 		2C9CAF4B1C868B61008194EB /* BaseListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAEEC1C868B61008194EB /* BaseListViewController.m */; };
 		2C9CAF4C1C868B61008194EB /* BaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAEEE1C868B61008194EB /* BaseTableViewController.m */; };
 		2C9CAF4D1C868B61008194EB /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAEF01C868B61008194EB /* BaseViewController.m */; };
-		2C9CAF4E1C868B61008194EB /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAEF31C868B61008194EB /* CameraViewController.m */; };
+		2C9CAF4E1C868B61008194EB /* ScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAEF31C868B61008194EB /* ScanViewController.m */; };
 		2C9CAF4F1C868B61008194EB /* ImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAEF51C868B61008194EB /* ImagePickerController.m */; };
 		2C9CAF501C868B61008194EB /* DashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAEF81C868B61008194EB /* DashboardViewController.m */; };
 		2C9CAF511C868B61008194EB /* CreateOrRecoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAEFB1C868B61008194EB /* CreateOrRecoverViewController.m */; };
@@ -116,6 +117,8 @@
 		2C77D2621CA8C095001DDB1F /* CBWRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBWRequest.m; sourceTree = "<group>"; };
 		2C77D2641CA8C14E001DDB1F /* CBWRequest+Address.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBWRequest+Address.h"; sourceTree = "<group>"; };
 		2C77D2651CA8C14E001DDB1F /* CBWRequest+Address.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBWRequest+Address.m"; sourceTree = "<group>"; };
+		2C77D2711CAA10EE001DDB1F /* UIFont+CBW.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+CBW.h"; sourceTree = "<group>"; };
+		2C77D2721CAA10EE001DDB1F /* UIFont+CBW.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+CBW.m"; sourceTree = "<group>"; };
 		2C99A17A1CA0E434007D7AC3 /* Guard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Guard.h; sourceTree = "<group>"; };
 		2C99A17B1CA0E434007D7AC3 /* Guard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Guard.m; sourceTree = "<group>"; };
 		2C99A17F1CA1029C007D7AC3 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
@@ -208,8 +211,8 @@
 		2C9CAEEE1C868B61008194EB /* BaseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTableViewController.m; sourceTree = "<group>"; };
 		2C9CAEEF1C868B61008194EB /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		2C9CAEF01C868B61008194EB /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
-		2C9CAEF21C868B61008194EB /* CameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraViewController.h; sourceTree = "<group>"; };
-		2C9CAEF31C868B61008194EB /* CameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraViewController.m; sourceTree = "<group>"; };
+		2C9CAEF21C868B61008194EB /* ScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanViewController.h; sourceTree = "<group>"; };
+		2C9CAEF31C868B61008194EB /* ScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanViewController.m; sourceTree = "<group>"; };
 		2C9CAEF41C868B61008194EB /* ImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagePickerController.h; sourceTree = "<group>"; };
 		2C9CAEF51C868B61008194EB /* ImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagePickerController.m; sourceTree = "<group>"; };
 		2C9CAEF71C868B61008194EB /* DashboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardViewController.h; sourceTree = "<group>"; };
@@ -532,8 +535,8 @@
 		2C9CAEF11C868B61008194EB /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				2C9CAEF21C868B61008194EB /* CameraViewController.h */,
-				2C9CAEF31C868B61008194EB /* CameraViewController.m */,
+				2C9CAEF21C868B61008194EB /* ScanViewController.h */,
+				2C9CAEF31C868B61008194EB /* ScanViewController.m */,
 				2C9CAEF41C868B61008194EB /* ImagePickerController.h */,
 				2C9CAEF51C868B61008194EB /* ImagePickerController.m */,
 			);
@@ -612,6 +615,8 @@
 				2C9CAF171C868B61008194EB /* UIButton+VerticalLayout.m */,
 				2C9CAF181C868B61008194EB /* UIColor+CBW.h */,
 				2C9CAF191C868B61008194EB /* UIColor+CBW.m */,
+				2C77D2711CAA10EE001DDB1F /* UIFont+CBW.h */,
+				2C77D2721CAA10EE001DDB1F /* UIFont+CBW.m */,
 				2C9CAF1A1C868B61008194EB /* UIViewController+Appearance.h */,
 				2C9CAF1B1C868B61008194EB /* UIViewController+Appearance.m */,
 			);
@@ -1017,7 +1022,7 @@
 				2C9CAF6B1C868B61008194EB /* BlockButtonCell.m in Sources */,
 				2CD0A91C1CA02ACA006AF02F /* FMResultSet.m in Sources */,
 				2CD0A91B1CA02ACA006AF02F /* FMDatabaseQueue.m in Sources */,
-				2C9CAF4E1C868B61008194EB /* CameraViewController.m in Sources */,
+				2C9CAF4E1C868B61008194EB /* ScanViewController.m in Sources */,
 				2CF24D581C965C7200C7EDB9 /* SSKeychain.m in Sources */,
 				2CF24D761C97A53200C7EDB9 /* AFSecurityPolicy.m in Sources */,
 				2C9CAF6D1C868B61008194EB /* ListSectionHeaderView.m in Sources */,
@@ -1039,6 +1044,7 @@
 				2CD0A91A1CA02ACA006AF02F /* FMDatabasePool.m in Sources */,
 				2C9CAF4A1C868B61008194EB /* BaseFormViewController.m in Sources */,
 				2CF24D651C97890400C7EDB9 /* RecoverViewController.m in Sources */,
+				2C77D2731CAA10EE001DDB1F /* UIFont+CBW.m in Sources */,
 				2CF24D751C97A53200C7EDB9 /* AFNetworkReachabilityManager.m in Sources */,
 				2C9CAF4F1C868B61008194EB /* ImagePickerController.m in Sources */,
 				2CD0A9221CA02CF5006AF02F /* DatabaseManager+Account.m in Sources */,

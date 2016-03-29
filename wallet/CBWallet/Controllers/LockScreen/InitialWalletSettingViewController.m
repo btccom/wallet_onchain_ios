@@ -79,9 +79,8 @@
                 [self.iCloudSwitch setOn:NO animated:YES];
             }
         } else {
-            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil) message:NSLocalizedStringFromTable(@"Message need_icloud_signed_in", @"CBW", @"Please enable iCloud for me.") preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil) message:NSLocalizedStringFromTable(@"Alert Message need_icloud_signed_in", @"CBW", @"Please enable iCloud for me.") preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction *alertAction = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Okay", @"CBW", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                [self dismissViewControllerAnimated:YES completion:nil];
                 [self.iCloudSwitch setOn:NO animated:YES];
             }];
             [alertController addAction:alertAction];

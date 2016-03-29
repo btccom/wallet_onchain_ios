@@ -7,7 +7,7 @@
 //
 
 #import "ImagePickerController.h"
-#import "CameraViewController.h"
+#import "ScanViewController.h"
 
 @interface ImagePickerController ()
 
@@ -19,7 +19,7 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor CBWBackgroundColor];
-    [self setViewControllers:@[[[CameraViewController alloc] init]]];
+    [self setViewControllers:@[[[ScanViewController alloc] init]]];
 }
 
 @end

@@ -9,7 +9,7 @@
 #import "AccountStore.h"
 #import "DatabaseManager.h"
 
-NSString *const AccountStoreWatchedAccountLabel = @"Watched Only Account";
+NSString *const AccountStoreWatchedAccountLabel = @"Label watched_account";
 
 @implementation AccountStore
 
@@ -30,9 +30,15 @@ NSString *const AccountStoreWatchedAccountLabel = @"Watched Only Account";
 }
 
 - (Account *)watchedAccount {
-    Account *account = [[Account alloc] init];
-    account.idx = RecordWatchedIdx;
+    __block Account *account = [[Account alloc] init];
+    account.idx = CBWRecordWatchedIdx;
     account.label = AccountStoreWatchedAccountLabel;
+    [records enumerateObjectsUsingBlock:^(RecordObject * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (((Account *)obj).idx == CBWRecordWatchedIdx) {
+            account = (Account *)obj;
+            *stop = YES;
+        }
+    }];
     return account;
 }
 

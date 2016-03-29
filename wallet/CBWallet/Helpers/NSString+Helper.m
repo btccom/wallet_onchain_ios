@@ -35,4 +35,10 @@
     return s;
 }
 
+- (NSNumber *)numberValue {
+    NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+    f.numberStyle = NSNumberFormatterDecimalStyle;
+    return [f numberFromString:self];
+}
+
 @end

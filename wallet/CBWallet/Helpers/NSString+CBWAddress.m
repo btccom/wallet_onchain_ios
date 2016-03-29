@@ -10,6 +10,9 @@
 //#import <CoreImage/CoreImage.h>
 //#import <AVFoundation/AVFoundation.h>
 
+NSString *const NSStringAddressInfoAddressKey = @"address";
+NSString *const NSStringAddressInfoLabelKey = @"label";
+
 @implementation NSString (CBWAddress)
 
 - (NSAttributedString *)attributedAddressWithAlignment:(NSTextAlignment)alignment {
@@ -58,6 +61,45 @@
     CGImageRelease(cgImage);
     
     return image;
+}
+
+- (NSDictionary *)addressInfo {
+    NSString *address = [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    address = [address stringByReplacingOccurrencesOfString:@"bitcoin://" withString:@""];
+    address = [address stringByReplacingOccurrencesOfString:@"bitcoin:" withString:@""];
+    
+    // get address string
+    NSURL *addressURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://getbitcard.com/%@", address]];
+    NSString *addressString = [addressURL.path stringByReplacingOccurrencesOfString:@"/" withString:@""];
+    
+    // valid address
+    NSString *pattern = @"^[1|3][a-zA-Z1-9]{26,33}$";// not including 0
+    NSError *error = nil;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:NSRegularExpressionCaseInsensitive error:&error];
+    NSAssert(regex, @"Unable to create regular expression");
+    NSRange textRange = NSMakeRange(0, addressString.length);
+    NSRange matchRange = [regex rangeOfFirstMatchInString:addressString options:NSMatchingReportProgress range:textRange];
+    if (matchRange.location == NSNotFound) {
+        return nil;
+    }
+    if ([addressString rangeOfString:@"I"].location != NSNotFound) return nil;
+    if ([addressString rangeOfString:@"l"].location != NSNotFound) return nil;
+    if ([addressString rangeOfString:@"O"].location != NSNotFound) return nil;
+    
+    // get label
+    __block NSString *label = @"";
+    NSArray *queries = [addressURL.query componentsSeparatedByString:@"&"];
+    [queries enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSArray *kvPair = [obj componentsSeparatedByString:@"="];
+        if (kvPair.count > 1) {
+            if ([kvPair[0] isEqualToString:@"label"]) {
+                label = [kvPair[1] stringByRemovingPercentEncoding];
+                *stop = YES;
+            }
+        }
+    }];
+    
+    return @{NSStringAddressInfoAddressKey: addressString, NSStringAddressInfoLabelKey: label};
 }
 
 @end
