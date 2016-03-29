@@ -67,6 +67,15 @@
 //    return;
 //}
 
+- (void)deleteWatchedAddressFromStore:(RecordObjectStore *)store {
+    if (self.accountIdx != CBWRecordWatchedIdx) {
+        return;
+    }
+    
+    [store deleteRecord:self];
+    [[DatabaseManager defaultManager] deleteAddress:self];
+}
+
 - (NSString *)description {
     return [NSString stringWithFormat:@"address %@: %@, %lld satoshi", self.label, self.address, self.balance];
 }

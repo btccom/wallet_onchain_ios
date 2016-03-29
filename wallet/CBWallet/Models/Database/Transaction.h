@@ -16,8 +16,8 @@ typedef NS_ENUM(NSUInteger, TransactionType) {
 @interface Transaction : RecordObject
 
 @property (nonatomic, copy) NSString * _Nonnull hashId;
-/// 对方地址
-@property (nonatomic, copy) NSString * _Nonnull relatedAddress;
+/// 相关地址
+@property (nonatomic, copy) NSArray * _Nonnull relatedAddresses;
 @property (nonatomic, assign) TransactionType type;
 /// 交易数量，正负值，单位 satoshi
 @property (nonatomic, assign) long long value;

@@ -64,10 +64,16 @@
     switch (self.actionType) {
         case AddressActionTypeDefault: {
             self.title = NSLocalizedStringFromTable(@"Navigation address_list", @"CBW", @"Address List");
-            UIBarButtonItem *archivedListButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_archived_empty"] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleArchivedAddressList:)];
-            self.navigationItem.rightBarButtonItems = @[archivedListButtonItem,
-                                                        [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_create"] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleCreateAddress:)]];
-            self.archivedListButtonItem = archivedListButtonItem;
+            UIBarButtonItem *createButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_create"] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleCreateAddress:)];
+            NSMutableArray *items = [NSMutableArray arrayWithObject:createButtonItem];
+            
+            if (self.account.idx != CBWRecordWatchedIdx) {
+                UIBarButtonItem *archivedListButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_archived_empty"] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleArchivedAddressList:)];
+                [items insertObject:archivedListButtonItem atIndex:0];
+                self.archivedListButtonItem = archivedListButtonItem;
+            }
+            
+            self.navigationItem.rightBarButtonItems = items;
             break;
         }
         case AddressActionTypeReceive: {

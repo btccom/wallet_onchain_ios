@@ -22,6 +22,7 @@
 /// 新建记录在内存中，需要调用 saveWithError: 写入数据库
 + (nonnull instancetype)newRecordInStore:(nonnull RecordObjectStore *)store;
 
+// 所有记录均无法删除，watched address 例外
 /// 从内存中删除记录，并删除数据库记录
 //- (void)deleteFromStore:(nonnull RecordObjectStore *)store;
 

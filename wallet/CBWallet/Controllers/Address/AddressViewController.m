@@ -60,8 +60,15 @@
     switch (self.actionType) {
         case AddressActionTypeDefault: {
             self.title = NSLocalizedStringFromTable(@"Navigation address", @"CBW", @"Address");
-            self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:self.address.archived ? @"navigation_unarchive" : @"navigation_archive"] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleArchive:)],
-                                                        [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_share"] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleShare:)]];
+            NSString *archiveItemImageName = @"navigation_trash";
+            if (self.address.accountIdx != CBWRecordWatchedIdx) {
+                archiveItemImageName = self.address.archived ? @"navigation_unarchive" : @"navigation_archive";
+            }
+            UIImage *archiveItemImage = [UIImage imageNamed:archiveItemImageName];
+            UIBarButtonItem *archiveItem = [[UIBarButtonItem alloc] initWithImage:archiveItemImage style:UIBarButtonItemStylePlain target:self action:@selector(p_handleArchive:)];
+            UIBarButtonItem *shareItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_share"] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleShare:)];
+            self.navigationItem.rightBarButtonItems = @[archiveItem,
+                                                        shareItem];
             addressHeaderView.labelEditable = YES;
             [self.transactionStore fetch];
             break;
@@ -102,11 +109,14 @@
 }
 
 - (void)p_handleArchive:(id)sender {
-    DLog(@"clicked archive");
-    if (self.address.accountIdx == -1) {
-        // TODO: 如果是 watched only address，则执行删除
+    DLog(@"clicked archive, %ld, %ld", (long)self.address.accountIdx, (long)self.address.idx);
+    if (self.address.accountIdx == CBWRecordWatchedIdx) {
+        DLog(@"to delete watched address");
+        [self.address deleteWatchedAddressFromStore:self.address.store];
+        [self.navigationController popViewControllerAnimated:YES];
         return;
     }
+    
     self.address.archived = !self.address.archived;
     [self.address saveWithError:nil];
     

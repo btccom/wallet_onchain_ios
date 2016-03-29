@@ -126,7 +126,7 @@ static const CGFloat kTransactionCellHorizontalPadding = CBWLayoutCommonHorizont
         self.confirmedLabel.textColor = [UIColor CBWWhiteColor];
         self.confirmedLabel.backgroundColor = [UIColor CBWGrayColor];
     }
-    self.addressLabel.text = transaction.relatedAddress;
+    self.addressLabel.text = [transaction.relatedAddresses firstObject];
 }
 
 #pragma mark - Override

@@ -32,7 +32,6 @@
             results = [db executeQuery:sql,
                        @(archived)];
         }
-        NSLog(@"database manager fetched address results: %@", results);
         [self p_transformResultSet:results toStore:store];
         [db close];
     }
@@ -72,7 +71,7 @@
 }
 - (BOOL)p_createAddress:(Address *)address {
     BOOL created = NO;
-    DLog(@"database manager create address: %@", address);
+    DLog(@"database manager create address: %@, idx: %ld", address, (long)address.idx);
     
     FMDatabase *db = [self db];
     if ([db open]) {
@@ -111,7 +110,7 @@
         [db close];
     }
     
-    DLog(@"database manager created address: %@, %d", address.address, created);
+    DLog(@"database manager created address: %@, success? %d", address.address, created);
     
     return created;
 }
@@ -175,6 +174,24 @@
     DLog(@"database manager update address: %@, %d", address.address, updated);
     
     return updated;
+}
+
+- (void)deleteAddress:(Address *)address {
+    if (address.accountIdx != CBWRecordWatchedIdx) {
+        return;
+    }
+    FMDatabase *db = [self db];
+    if ([db open]) {
+        
+        NSString *sql = [NSString stringWithFormat:@"DELETE FROM %@ WHERE %@ = ? AND %@ = ?", DatabaseManagerTableAddress,
+                         DatabaseManagerColRid,
+                         DatabaseManagerColAddress];
+        [db executeUpdate:sql,
+         @(address.rid),
+         address.address];
+        
+        [db close];
+    }
 }
 
 - (NSUInteger)countAllAddressesWithAccountIdx:(NSInteger)accountIdx {

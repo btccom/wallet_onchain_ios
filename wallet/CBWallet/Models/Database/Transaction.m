@@ -16,7 +16,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"transaction, related address %@, %lld satoshi, %ld confirmed", self.relatedAddress, self.value, (unsigned long)self.confirmed];
+    return [NSString stringWithFormat:@"transaction, related addresses %@, %lld satoshi, %ld confirmed", self.relatedAddresses, self.value, (unsigned long)self.confirmed];
 }
 
 @end

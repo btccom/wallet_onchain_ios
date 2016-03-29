@@ -73,10 +73,10 @@
         AccountStore *store = [[AccountStore alloc] init];
         NSError *error = nil;
         Account *watchedAccount = [Account newAccountWithIdx:CBWRecordWatchedIdx label:NSLocalizedStringFromTable(AccountStoreWatchedAccountLabel, @"CBW", nil) inStore:store];
-        NSLog(@"create watched account: %@", watchedAccount.label);
+        DLog(@"create watched account: %@", watchedAccount.label);
         [watchedAccount saveWithError:&error];
         Account *account = [Account newAccountWithIdx:0 label:NSLocalizedStringFromTable(@"Label default_account", @"CBW", nil) inStore:store];
-        NSLog(@"create first account: %@", account.label);
+        DLog(@"create first account: %@", account.label);
         [account saveWithError:&error];
         if (error) {
             NSLog(@"create first account error: %@", error);

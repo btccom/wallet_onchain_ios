@@ -33,7 +33,7 @@ const NSUInteger CBWRequestLimitDefault = 20;
     AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
     // 3. create request
     NSString *urlString = [[self baseURLString] stringByAppendingPathComponent:path];
-    NSLog(@"request: %@", urlString);
+    DLog(@"request: %@", urlString);
     NSURLRequest *request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"GET" URLString:urlString parameters:parameters error:nil];
     // 4. fetch
     NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
