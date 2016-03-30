@@ -49,7 +49,7 @@
     // and lock
     [self lockScreen];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(lockScreen) name:CBWNotificationCheckedOut object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(lockScreen) name:CBWNotificationCheckedOut object:nil];
     
     return YES;
 }

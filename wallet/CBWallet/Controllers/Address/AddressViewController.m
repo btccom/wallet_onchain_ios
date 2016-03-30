@@ -17,6 +17,8 @@
 @interface AddressViewController ()<AddressHeaderViewDelegate>
 
 @property (nonatomic, strong) TransactionStore *transactionStore;
+@property (nonatomic, assign) NSUInteger page;
+@property (nonatomic, assign) BOOL fetching;
 
 @end
 
@@ -72,6 +74,10 @@
             addressHeaderView.labelEditable = YES;
             [self.transactionStore fetch];
             [self.tableView reloadData];
+            
+            // 请求摘要及交易信息
+            [self p_requestAddressSummary];
+            
             break;
         }
             
@@ -82,53 +88,85 @@
     }
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    if (self.actionType == AddressActionTypeDefault) {
-        [self p_fetchTransactionsFromServerSide];
-    }
-}
-
 #pragma mark - Private Method
 #pragma mark Request Logic
-- (void)p_fetchTransactionsFromServerSide {
+- (void)p_requestAddressSummary {
+    if (self.fetching) {
+        DLog(@"fetching");
+        return;
+    }
+    
+    self.fetching = YES;
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     CBWRequest *request = [[CBWRequest alloc] init];
-    // 获取块高度
-    [request blockLatestWithCompletion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
+    // 获取地址信息
+    [request addressSummaryWithAddressString:self.address.address completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
         if (error) {
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+            self.fetching = NO;
         } else {
-            NSInteger blockHeight = [[response objectForKey:@"height"] integerValue];
-            self.transactionStore.blockHeight = blockHeight;
-            DLog(@"max block height: %ld", (long)blockHeight);
+            // 保存地址信息
+            self.address.balance = [[response objectForKey:@"balance"] longLongValue];
+            self.address.txCount = [[[NSString stringWithFormat:@"%@", [response objectForKey:@"tx_count"]] numberValue] unsignedIntegerValue];
+            [self.address saveWithError:nil];
             
-            [request addressSummaryWithAddressString:self.address.address completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
-                if (error) {
+            if (self.address.txCount > 0) {
+                // 获取块高度
+                [request blockLatestWithCompletion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
                     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-                } else {
-                    // address
-                    self.address.balance = [[response objectForKey:@"balance"] longLongValue];
-                    self.address.txCount = [[[NSString stringWithFormat:@"%@", [response objectForKey:@"tx_count"]] numberValue] unsignedIntegerValue];
-                    [self.address saveWithError:nil];
-                    
-                    if (self.address.txCount > 0) {
-                        [request addressTransactionsWithAddressString:self.address.address page:0 pagesize:0 completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
-                            // transactions
-                            [self.transactionStore addTransactionsFromJsonObject:[response objectForKey:@"list"]];
-                            
-                            // update ui
-                            if ([self.tableView numberOfSections] == 0) {
-                                [self.tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationTop];
-                            } else {
-                                [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
-                            }
-                            // TODO: fetch with offset, then insert cells
-                        }];
+                    self.fetching = NO;
+                    if (!error) {
+                        NSInteger blockHeight = [[response objectForKey:@"height"] integerValue];
+                        DLog(@"max block height: %ld", (long)blockHeight);
+                        
+                        if (blockHeight > 0) {
+                            self.transactionStore.blockHeight = blockHeight;
+                            // 重置分页信息后获取交易
+                            self.page = 0;
+                            [self p_requestTransactions];
+                        }
                     }
+                }];
+            }
+        }
+    }];
+}
+- (void)p_requestTransactions {
+    if (self.fetching) {
+        DLog(@"fetching more? fetching");
+        return;
+    }
+    
+    self.fetching = YES;
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    CBWRequest *request = [[CBWRequest alloc] init];
+    
+    [request addressTransactionsWithAddressString:self.address.address page:(self.page + 1) pagesize:0 completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
+        
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        self.fetching = NO;
+        
+        if (!error) {
+            // transactions
+            NSArray *list = [response objectForKey:@"list"];
+            if (list.count > 0) {
+                if (self.page == 0) {
+                    // 第一页，清空数据
+                    [self.transactionStore flush];
                 }
-            }];
+                // 记录当前页
+                self.page ++;
+                
+                // 解析交易
+                [self.transactionStore addTransactionsFromJsonObject:list];
+                
+                // 更新界面
+                if ([self.tableView numberOfSections] == 0) {
+                    [self.tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationTop];
+                } else {
+                    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+                }
+            }
         }
     }];
 }

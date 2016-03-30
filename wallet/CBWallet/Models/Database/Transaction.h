@@ -20,10 +20,6 @@ typedef NS_ENUM(NSUInteger, TransactionType) {
 @property (nonatomic, assign, readonly) TransactionType type;
 /// 交易数量，正负值，单位 satoshi
 @property (nonatomic, assign, readonly) long long value;
-/// long long value
-@property (nonatomic, strong, readonly, nonnull) NSNumber *inputsValue;
-/// long long value
-@property (nonatomic, strong, readonly, nonnull) NSNumber *outputsValue;
 
 // 需计算的属性
 /// 相关地址
