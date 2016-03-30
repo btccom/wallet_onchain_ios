@@ -40,10 +40,12 @@ static const CGFloat CBWCellHeightAddress = 48.f;
 static const CGFloat CBWCellHeightAddressWithMetadata = 76.f;
 
 // TODO: depending on scrren width
-static const CGFloat CBWLayoutCommonHorizontalPadding = 16.f;
+//static const CGFloat CBWLayoutCommonHorizontalPadding = 16.f;
 static const CGFloat CBWLayoutCommonHorizontalPaddingPlus = 20.f;
 static const CGFloat CBWLayoutCommonVerticalPadding = 16.f;
 static const CGFloat CBWLayoutInnerSpace = 8.f;
+
+#define CBWLayoutCommonHorizontalPadding (CGRectGetWidth([UIScreen mainScreen].bounds) < 414.f ? 16.f : 20.f)
 
 #ifdef DEBUG
 #define DLog(...) NSLog(__VA_ARGS__)

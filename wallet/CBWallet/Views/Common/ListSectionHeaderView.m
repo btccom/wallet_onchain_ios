@@ -9,6 +9,7 @@
 #import "ListSectionHeaderView.h"
 
 @implementation ListSectionHeaderView
+@synthesize detailTextLabel = _detailTextLabel;
 
 //- (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier {
 //    self = [super initWithReuseIdentifier:reuseIdentifier];
@@ -17,6 +18,18 @@
 //    }
 //    return self;
 //}
+
+- (UILabel *)detailTextLabel {
+    if (!_detailTextLabel) {
+        UILabel *label = [[UILabel alloc] init];
+        label.textAlignment = NSTextAlignmentRight;
+        label.font = [UIFont systemFontOfSize:12.f];
+        label.textColor = [UIColor CBWSubTextColor];
+        [self.contentView addSubview:label];
+        _detailTextLabel = label;
+    }
+    return _detailTextLabel;
+}
 
 - (void)willMoveToSuperview:(UIView *)newSuperview {
     self.textLabel.font = [UIFont systemFontOfSize:CBWSectionHeaderFontSize weight:UIFontWeightBold];
@@ -35,7 +48,9 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
+    
     self.textLabel.text = self.textLabel.text.uppercaseString;
+    self.detailTextLabel.frame = CGRectMake(CGRectGetMaxX(self.textLabel.frame), CGRectGetMinY(self.textLabel.frame), CGRectGetWidth(self.contentView.frame) - CGRectGetMinX(self.textLabel.frame) - CGRectGetMaxX(self.textLabel.frame), CGRectGetHeight(self.textLabel.frame));
 }
 
 @end

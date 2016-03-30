@@ -229,6 +229,11 @@
 }
 
 #pragma mark UITableViewDelegate
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    ListSectionHeaderView *headerView = (ListSectionHeaderView *)[super tableView:tableView viewForHeaderInSection:section];
+    headerView.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTable(@"%d txs", @"CBW", nil), self.address.txCount];
+    return headerView;
+}
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return CBWCellHeightTransaction;
 }

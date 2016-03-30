@@ -24,7 +24,6 @@ static const CGFloat kTransactionCellAddressLabelFontSize = 14.f;
 static const CGFloat kTransactionCellAddressLabelHeight = 16.f;
 
 static const CGFloat kTransactionCellVerticalPadding = CBWLayoutCommonVerticalPadding;
-static const CGFloat kTransactionCellHorizontalPadding = CBWLayoutCommonHorizontalPadding;
 
 @interface TransactionCell ()
 
@@ -140,26 +139,27 @@ static const CGFloat kTransactionCellHorizontalPadding = CBWLayoutCommonHorizont
 - (void)layoutSubviews {
     [super layoutSubviews];
 
+    CGFloat horizontalPadding = CBWLayoutCommonHorizontalPadding;
     // icon
     CGRect iconFrame = self.iconView.frame;
     iconFrame.size = self.iconView.image.size;
-    iconFrame.origin.x = kTransactionCellHorizontalPadding;
+    iconFrame.origin.x = horizontalPadding;
     iconFrame.origin.y = kTransactionCellVerticalPadding;
     self.iconView.frame = iconFrame;
     
     // label area
     CGFloat labelAreaLeft = CGRectGetMaxX(iconFrame) + CBWLayoutInnerSpace;
-    CGFloat labelAreaWidth = CGRectGetWidth(self.contentView.frame) - labelAreaLeft - kTransactionCellHorizontalPadding;
+    CGFloat labelAreaWidth = CGRectGetWidth(self.contentView.frame) - labelAreaLeft - horizontalPadding;
     
     // date
-    CGFloat dateWidth = [self.dateLabel.text sizeWithFont:self.dateLabel.font maxSize:CGSizeMake(labelAreaWidth / 2.f - kTransactionCellHorizontalPadding, kTransactionCellDateLabelHeight)].width;
+    CGFloat dateWidth = [self.dateLabel.text sizeWithFont:self.dateLabel.font maxSize:CGSizeMake(labelAreaWidth / 2.f - horizontalPadding, kTransactionCellDateLabelHeight)].width;
     CGFloat dateLeft = labelAreaLeft + labelAreaWidth - dateWidth;
     CGRect dateFrame = CGRectMake(dateLeft, 0, dateWidth, kTransactionCellDateLabelHeight);
     self.dateLabel.frame = dateFrame;
     self.dateLabel.center = CGPointMake(CGRectGetMidX(dateFrame), CGRectGetMidY(iconFrame));
     
     // value
-    CGFloat valueWidth = labelAreaWidth - dateWidth - kTransactionCellHorizontalPadding; // - date with - 间隔
+    CGFloat valueWidth = labelAreaWidth - dateWidth - horizontalPadding; // - date with - 间隔
     CGRect valueFrame = CGRectMake(labelAreaLeft, 0, valueWidth, kTransactionCellAddressLabelHeight);
     self.valueLabel.frame = valueFrame;
     self.valueLabel.center = CGPointMake(CGRectGetMidX(valueFrame), CGRectGetMidY(iconFrame));
@@ -168,13 +168,13 @@ static const CGFloat kTransactionCellHorizontalPadding = CBWLayoutCommonHorizont
     
     // confirm
     CGFloat confirmedTop = CGRectGetHeight(self.contentView.frame) - kTransactionCellVerticalPadding - kTransactionCellConfirmedLabelHeight;
-    CGFloat confirmedWidth = [self.confirmedLabel.text sizeWithFont:self.confirmedLabel.font maxSize:CGSizeMake(labelAreaWidth / 2.f - kTransactionCellHorizontalPadding - subLabelLeftRightPadding, kTransactionCellConfirmedLabelHeight)].width + subLabelLeftRightPadding; // subLabelLeftRightPadding: 预留内部填充
+    CGFloat confirmedWidth = [self.confirmedLabel.text sizeWithFont:self.confirmedLabel.font maxSize:CGSizeMake(labelAreaWidth / 2.f - horizontalPadding - subLabelLeftRightPadding, kTransactionCellConfirmedLabelHeight)].width + subLabelLeftRightPadding; // subLabelLeftRightPadding: 预留内部填充
     CGRect confirmedFrame = CGRectMake(labelAreaLeft, confirmedTop, confirmedWidth, kTransactionCellConfirmedLabelHeight);
     self.confirmedLabel.frame = confirmedFrame;
     
     // address
-    CGFloat addressWidth = labelAreaWidth - confirmedWidth - kTransactionCellHorizontalPadding;
-    CGRect addressFrame = CGRectMake(CGRectGetMaxX(confirmedFrame) + kTransactionCellHorizontalPadding, 0, addressWidth, kTransactionCellValueLabelHeight);
+    CGFloat addressWidth = labelAreaWidth - confirmedWidth - horizontalPadding;
+    CGRect addressFrame = CGRectMake(CGRectGetMaxX(confirmedFrame) + horizontalPadding, 0, addressWidth, kTransactionCellValueLabelHeight);
     self.addressLabel.frame = addressFrame;
     self.addressLabel.center = CGPointMake(CGRectGetMidX(addressFrame), CGRectGetMidY(confirmedFrame));
     self.addressLabel.attributedText = [self.addressLabel.text attributedAddressWithAlignment:NSTextAlignmentRight];

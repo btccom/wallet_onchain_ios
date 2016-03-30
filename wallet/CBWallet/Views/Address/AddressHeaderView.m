@@ -11,7 +11,6 @@
 #import "NSString+CBWAddress.h"
 
 static const CGFloat kAddressHeaderViewVerticalPadding = 48.f;
-static const CGFloat kAddressHeaderViewHorizontalPadding = CBWLayoutCommonHorizontalPadding;
 static const CGFloat kAddressHeaderViewSubviewMargin = 16.f;
 static const CGFloat kAddressHeaderViewAddressFontSize = 16.f;
 static const CGFloat kAddressHeaderViewAddressHeight = 20.f;
@@ -50,7 +49,7 @@ static const CGFloat kAddressHeaderViewLabelHeight = 20.f;
 
 - (UILabel *)addressLabel {
     if (!_addressLabel) {
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(kAddressHeaderViewHorizontalPadding, kAddressHeaderViewVerticalPadding + HDImagePortraitHeight + kAddressHeaderViewSubviewMargin, ScreenWidth - kAddressHeaderViewHorizontalPadding * 2.f, kAddressHeaderViewAddressHeight)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(CBWLayoutCommonHorizontalPadding, kAddressHeaderViewVerticalPadding + HDImagePortraitHeight + kAddressHeaderViewSubviewMargin, ScreenWidth - CBWLayoutCommonHorizontalPadding * 2.f, kAddressHeaderViewAddressHeight)];
         label.font = [UIFont fontWithName:@"Courier" size:kAddressHeaderViewAddressFontSize];
         label.textAlignment = NSTextAlignmentCenter;
         [self addSubview:label];
