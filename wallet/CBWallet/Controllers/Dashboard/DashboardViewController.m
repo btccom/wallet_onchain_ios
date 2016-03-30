@@ -176,11 +176,12 @@
 #pragma mark - ProfileViewControllerDelegate
 - (void)profileViewController:(ProfileViewController *)viewController didSelectAccount:(Account *)account {
     DLog(@"dashboard selected account: %@", account);
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
     if ([account isEqual:self.account]) {
         return;
     }
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
     self.account = account;
     [self reloadTransactions];
 }
