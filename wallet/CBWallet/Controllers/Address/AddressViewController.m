@@ -100,28 +100,33 @@
         if (error) {
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         } else {
-            NSInteger blockHeight = [[[response firstObject] objectForKey:@"height"] integerValue];
+            NSInteger blockHeight = [[response objectForKey:@"height"] integerValue];
             self.transactionStore.blockHeight = blockHeight;
             DLog(@"max block height: %ld", (long)blockHeight);
             
-            [request addressTransactionsWithAddressString:self.address.address limit:0 timestamp:0 completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
-                [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-                if (!error) {
+            [request addressSummaryWithAddressString:self.address.address completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
+                if (error) {
+                    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+                } else {
                     // address
-                    self.address.balance = [[response objectForKey:@"final_balance"] longLongValue];
-                    self.address.txCount = [[[NSString stringWithFormat:@"%@", [response objectForKey:@"n_tx"]] numberValue] unsignedIntegerValue];
+                    self.address.balance = [[response objectForKey:@"balance"] longLongValue];
+                    self.address.txCount = [[[NSString stringWithFormat:@"%@", [response objectForKey:@"tx_count"]] numberValue] unsignedIntegerValue];
                     [self.address saveWithError:nil];
                     
-                    // transactions
-                    [self.transactionStore addTransactionsFromJsonObject:[response objectForKey:@"txs"]];
-                    
-                    // update ui
-                    if ([self.tableView numberOfSections] == 0) {
-                        [self.tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationTop];
-                    } else {
-                        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    if (self.address.txCount > 0) {
+                        [request addressTransactionsWithAddressString:self.address.address page:0 pagesize:0 completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
+                            // transactions
+                            [self.transactionStore addTransactionsFromJsonObject:[response objectForKey:@"list"]];
+                            
+                            // update ui
+                            if ([self.tableView numberOfSections] == 0) {
+                                [self.tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationTop];
+                            } else {
+                                [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+                            }
+                            // TODO: fetch with offset, then insert cells
+                        }];
                     }
-                    // TODO: fetch with offset, then insert cells
                 }
             }];
         }

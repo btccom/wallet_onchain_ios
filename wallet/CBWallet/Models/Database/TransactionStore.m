@@ -33,7 +33,6 @@
 }
 
 - (void)addTransactionsFromJsonObject:(id)jsonObject {
-    DLog(@"add transactions from json object: %@", jsonObject);
     if (!self.isUpToDate) {
         // 缓存
     }

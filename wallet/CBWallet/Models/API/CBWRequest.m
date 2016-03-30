@@ -10,16 +10,16 @@
 
 #import "AFNetworking.h"
 
-NSString *const CBWRequestAPIHost = @"https://chain.btc.com";
-NSString *const CBWRequestAPIPath = @"api";
-NSString *const CBWRequestAPIVersion = @"v1";
+NSString *const CBWRequestAPIHost = @"http://123.56.188.103:8079";
+NSString *const CBWRequestAPIPath = @"";
+NSString *const CBWRequestAPIVersion = @"";
 
-const NSUInteger CBWRequestLimitDefault = 20;
+const NSUInteger CBWRequestPageSizeDefault = 20;
 
 @implementation CBWRequest
 
 + (NSString *)baseURLString {
-    return [NSString stringWithFormat:@"%@/%@/%@", CBWRequestAPIHost, CBWRequestAPIPath, CBWRequestAPIVersion];
+    return [[CBWRequestAPIHost stringByAppendingPathComponent:CBWRequestAPIPath] stringByAppendingPathComponent:CBWRequestAPIVersion];
 }
 
 - (NSString *)baseURLString {
@@ -43,7 +43,8 @@ const NSUInteger CBWRequestLimitDefault = 20;
             // TODO: handle error
             completion(error, statusCode, nil);
         } else {
-            completion(nil, statusCode, responseObject);
+            DLog(@"response [%ld]: %@", (long)statusCode, responseObject);
+            completion(nil, statusCode, [responseObject objectForKey:@"data"]);
         }
     }];
     [dataTask resume];

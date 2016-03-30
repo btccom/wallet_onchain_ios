@@ -15,18 +15,25 @@ typedef NS_ENUM(NSUInteger, TransactionType) {
 
 @interface Transaction : RecordObject
 
-@property (nonatomic, copy, nonnull) NSString *hashId;
+@property (nonatomic, copy, readonly, nonnull) NSString *hashId;
+@property (nonatomic, assign) NSInteger blockHeight;
+@property (nonatomic, assign, readonly) TransactionType type;
 /// 交易数量，正负值，单位 satoshi
-@property (nonatomic, assign) long long value;
-@property (nonatomic, assign) TransactionType type;
+@property (nonatomic, assign, readonly) long long value;
+/// long long value
+@property (nonatomic, strong, readonly, nonnull) NSNumber *inputsValue;
+/// long long value
+@property (nonatomic, strong, readonly, nonnull) NSNumber *outputsValue;
+
+// 需计算的属性
 /// 相关地址
 @property (nonatomic, copy, readonly, nonnull) NSArray *relatedAddresses;
-@property (nonatomic, assign) NSInteger blockHeight;
 
+// relation
 /// array of InputItem
-@property (nonatomic, strong, readonly, nonnull) NSArray *inputsData;
+@property (nonatomic, strong, readonly, nonnull) NSArray *inputs;
 /// array of OutItem
-@property (nonatomic, strong, readonly, nonnull) NSArray *outData;
+@property (nonatomic, strong, readonly, nonnull) NSArray *outputs;
 
 - (nullable instancetype)initWithDictionary:(nullable NSDictionary *)dictionary;
 
@@ -36,8 +43,10 @@ typedef NS_ENUM(NSUInteger, TransactionType) {
 
 @interface OutItem : NSObject
 
-@property (nonatomic, strong, readonly, nonnull) NSArray *addr;// of address string
-@property (nonatomic, strong, readonly, nonnull) NSNumber *value;// long long value
+///  Array<String> 输出地址
+@property (nonatomic, strong, readonly, nonnull) NSArray *addresses;
+/// long long 输出金额
+@property (nonatomic, strong, readonly, nonnull) NSNumber *value;
 
 - (nullable instancetype)initWithDictionary:(nullable NSDictionary *)dictionary;
 
@@ -45,7 +54,10 @@ typedef NS_ENUM(NSUInteger, TransactionType) {
 
 @interface InputItem : NSObject
 
-@property (nonatomic, strong, readonly, nonnull) OutItem *prevOut;
+///  Array<String> 输入地址
+@property (nonatomic, strong, readonly, nonnull) NSArray *prevAddresses;
+/// long long 前向交易输入金额
+@property (nonatomic, strong, readonly, nonnull) NSNumber *prevValue;
 
 - (nullable instancetype)initWithDictionary:(nullable NSDictionary *)dictionary;
 

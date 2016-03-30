@@ -18,10 +18,10 @@
         NSString *selfAddress = ((TransactionStore *)self.store).addressString;
         __block NSMutableArray *addresses = [NSMutableArray array];
         if (self.type == TransactionTypeSend) {
-            [self.outData enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [self.outputs enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 OutItem *o = obj;
-                if (![o.addr containsObject:selfAddress]) {
-                    [o.addr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if (![o.addresses containsObject:selfAddress]) {
+                    [o.addresses enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                         // 去重
                         if (![addresses containsObject:obj]) {
                             [addresses addObject:obj];
@@ -30,10 +30,10 @@
                 }
             }];
         } else {
-            [self.inputsData enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [self.inputs enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 InputItem *i = obj;
-                if (![i.prevOut.addr containsObject:selfAddress]) {
-                    [i.prevOut.addr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if (![i.prevAddresses containsObject:selfAddress]) {
+                    [i.prevAddresses enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                         // 去重
                         if (![addresses containsObject:obj]) {
                             [addresses addObject:obj];
@@ -85,14 +85,9 @@
 }
 
 #pragma mark - KVC
-- (void)setValue:(id)value forUndefinedKey:(NSString *)key {
-    if ([key isEqualToString:@"hash"]) {
-        _hashId = value;
-    } else if ([key isEqualToString:@"balance_diff"]) {
-        _value = [value longLongValue];
-        _type = (_value > 0) ? TransactionTypeReceive : TransactionTypeSend;
-    } else if ([key isEqualToString:@"inputs"]) {
-        // handle inputs data
+- (void)setValue:(id)value forKey:(NSString *)key {
+    if ([key isEqualToString:@"inputs"]) {
+        // inputs
         if ([value isKindOfClass:[NSArray class]]) {
             __block NSMutableArray *inputs = [NSMutableArray array];// capacity = vin_size
             [value enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -101,10 +96,10 @@
                     [inputs addObject:i];
                 }
             }];
-            _inputsData = [inputs copy];
+            _inputs = [inputs copy];
         }
-    } else if ([key isEqualToString:@"out"]) {
-        // handle out
+    } else if ([key isEqualToString:@"outputs"]) {
+        // outputs
         if ([value isKindOfClass:[NSArray class]]) {
             __block NSMutableArray *outs = [NSMutableArray array];
             [value enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -113,8 +108,18 @@
                     [outs addObject:o];
                 }
             }];
-            _outData = [outs copy];
+            _outputs = [outs copy];
         }
+    } else {
+        [super setValue:value forKey:key];
+    }
+}
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key {
+    if ([key isEqualToString:@"hash"]) {
+        _hashId = value;
+    } else if ([key isEqualToString:@"balance_diff"]) {
+        _value = [value longLongValue];
+        _type = (_value > 0) ? TransactionTypeReceive : TransactionTypeSend;
     } else if ([key isEqualToString:@"created_at"]) {
         NSTimeInterval timestamp = [value doubleValue];
         self.creationDate = [NSDate dateWithTimeIntervalSince1970:timestamp];
@@ -165,8 +170,10 @@
 }
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key {
-    if ([key isEqualToString:@"prev_out"]) {
-        _prevOut = [[OutItem alloc] initWithDictionary:value];
+    if ([key isEqualToString:@"prev_addresses"]) {
+        _prevAddresses = value;
+    } else if ([key isEqualToString:@"prev_value"]) {
+        _prevValue = value;
     }
 }
 

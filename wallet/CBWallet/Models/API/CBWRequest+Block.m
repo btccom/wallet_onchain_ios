@@ -11,9 +11,8 @@
 @implementation CBWRequest (Block)
 
 - (void)blockLatestWithCompletion:(CBWRequestCompletion)completion {
-    NSString *path = @"rawblock";
-    NSDictionary *parameters = @{@"limit":@1};
-    [self requestWithPath:path parameters:parameters completion:completion];
+    NSString *path = @"block/latest";
+    [self requestWithPath:path parameters:nil completion:completion];
 }
 
 @end

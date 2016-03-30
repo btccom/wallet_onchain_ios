@@ -10,6 +10,7 @@
 
 @interface CBWRequest (Address)
 
-- (void)addressTransactionsWithAddressString:(nonnull NSString *)addressString limit:(NSUInteger)limit timestamp:(NSUInteger)timestamp completion:(nullable CBWRequestCompletion)completion;
-
+- (void)addressSummaryWithAddressString:(nonnull NSString *)addressString completion:(nullable CBWRequestCompletion)completion;
+- (void)addressTransactionsWithAddressString:(nonnull NSString *)addressString page:(NSUInteger)page pagesize:(NSUInteger)pagesize completion:(nullable CBWRequestCompletion)completion;
+- (void)addressUnspentWithAddressString:(nonnull NSString *)addressString completion:(nullable CBWRequestCompletion)completion;
 @end

@@ -10,16 +10,26 @@
 
 @implementation CBWRequest (Address)
 
-- (void)addressTransactionsWithAddressString:(NSString *)addressString limit:(NSUInteger)limit timestamp:(NSUInteger)timestamp completion:(CBWRequestCompletion)completion {
+- (void)addressSummaryWithAddressString:(NSString *)addressString completion:(CBWRequestCompletion)completion {
     NSString *path = [NSString stringWithFormat:@"address/%@", addressString];
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    if (limit > 0) {
-        [parameters setObject:@(limit) forKey:@"limit"];
+    [self requestWithPath:path parameters:nil completion:completion];
+}
+
+- (void)addressTransactionsWithAddressString:(NSString *)addressString page:(NSUInteger)page pagesize:(NSUInteger)pagesize completion:(CBWRequestCompletion)completion {
+    NSString *path = [NSString stringWithFormat:@"address/%@/tx", addressString];
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithObject:@(CBWRequestPageSizeDefault) forKey:@"pagesize"];
+    if (pagesize > 0) {
+        [parameters setObject:@(pagesize) forKey:@"pagesize"];
     }
-    if (timestamp > 0) {
-        [parameters setObject:@(timestamp) forKey:@"timestamp"];
+    if (page > 0) {
+        [parameters setObject:@(page) forKey:@"page"];
     }
     [self requestWithPath:path parameters:parameters completion:completion];
+}
+
+- (void)addressUnspentWithAddressString:(NSString *)addressString completion:(CBWRequestCompletion)completion {
+    NSString *path = [NSString stringWithFormat:@"address/%@/unspent", addressString];
+    [self requestWithPath:path parameters:nil completion:completion];
 }
 
 @end
