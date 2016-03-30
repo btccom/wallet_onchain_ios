@@ -18,7 +18,13 @@
     return self;
 }
 
-- (void)fetch {}
+- (void)fetch {
+    [self flush];
+}
+
+- (void)flush {
+    [records removeAllObjects];
+}
 
 - (NSUInteger)count {
     return records.count;
@@ -32,6 +38,9 @@
 }
 
 - (void)addRecord:(RecordObject *)record {
+    if (!record) {
+        return;
+    }
     if ([records containsObject:record]) {
         return;
     }

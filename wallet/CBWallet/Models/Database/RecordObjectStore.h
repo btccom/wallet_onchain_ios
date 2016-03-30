@@ -13,8 +13,10 @@
     NSMutableArray<RecordObject *> *records;
 }
 
-/// 获取数据库中全部记录
+/// 获取数据库中全部记录，会触发 flush
 - (void)fetch;
+/// 清空内存数据
+- (void)flush;
 
 - (NSUInteger)count;
 - (nullable id)recordAtIndex:(NSUInteger)idx;

@@ -19,7 +19,7 @@
 }
 
 - (void)fetch {
-    [records removeAllObjects];
+    [super fetch];
     [self loadCache];
 }
 
@@ -27,13 +27,22 @@
     
 }
 
+- (void)flush {
+    [super flush];
+    _upToDate = NO;
+}
+
 - (void)addTransactionsFromJsonObject:(id)jsonObject {
+    DLog(@"add transactions from json object: %@", jsonObject);
     if (!self.isUpToDate) {
         // 缓存
     }
-    _upToDate = NO;
+    _upToDate = YES;
     if ([jsonObject isKindOfClass:[NSArray class]]) {
-        
+        [jsonObject enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            Transaction *transaction = [[Transaction alloc] initWithDictionary:obj];
+            [self addRecord:transaction];
+        }];
     }
 }
 

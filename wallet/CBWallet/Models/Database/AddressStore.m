@@ -20,7 +20,7 @@
 }
 
 - (void)fetch {
-    [records removeAllObjects];
+    [super fetch];
     if (self.isArchived) {
         [[DatabaseManager defaultManager] fetchAddressWithAccountIdx:self.accountIdx archived:YES toStore:self];
         return;

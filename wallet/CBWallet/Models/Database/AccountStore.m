@@ -14,7 +14,7 @@ NSString *const AccountStoreWatchedAccountLabel = @"Label watched_account";
 @implementation AccountStore
 
 - (void)fetch {
-    [records removeAllObjects];
+    [super fetch];
     [[DatabaseManager defaultManager] fetchAccountsToStore:self];
 }
 

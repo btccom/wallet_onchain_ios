@@ -15,12 +15,37 @@ typedef NS_ENUM(NSUInteger, TransactionType) {
 
 @interface Transaction : RecordObject
 
-@property (nonatomic, copy) NSString * _Nonnull hashId;
-/// 相关地址
-@property (nonatomic, copy) NSArray * _Nonnull relatedAddresses;
-@property (nonatomic, assign) TransactionType type;
+@property (nonatomic, copy, nonnull) NSString *hashId;
 /// 交易数量，正负值，单位 satoshi
 @property (nonatomic, assign) long long value;
+@property (nonatomic, assign) TransactionType type;
+/// 相关地址
+@property (nonatomic, copy, readonly, nonnull) NSArray *relatedAddresses;
+// TODO: not sure the key in response data
 @property (nonatomic, assign) NSUInteger confirmed;
+
+/// array of InputItem
+@property (nonatomic, strong, readonly, nonnull) NSArray *inputsData;
+/// array of OutItem
+@property (nonatomic, strong, readonly, nonnull) NSArray *outData;
+
+- (nullable instancetype)initWithDictionary:(nullable NSDictionary *)dictionary;
+
+@end
+
+@interface OutItem : NSObject
+
+@property (nonatomic, strong, readonly, nonnull) NSArray *addr;// of address string
+@property (nonatomic, strong, readonly, nonnull) NSNumber *value;// long long value
+
+- (nullable instancetype)initWithDictionary:(nullable NSDictionary *)dictionary;
+
+@end
+
+@interface InputItem : NSObject
+
+@property (nonatomic, strong, readonly, nonnull) OutItem *prevOut;
+
+- (nullable instancetype)initWithDictionary:(nullable NSDictionary *)dictionary;
 
 @end

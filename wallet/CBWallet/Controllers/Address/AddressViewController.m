@@ -71,6 +71,7 @@
                                                         shareItem];
             addressHeaderView.labelEditable = YES;
             [self.transactionStore fetch];
+            [self.tableView reloadData];
             break;
         }
             
@@ -84,7 +85,9 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [self p_fetchTransactionsFromServerSide];
+    if (self.actionType == AddressActionTypeDefault) {
+        [self p_fetchTransactionsFromServerSide];
+    }
 }
 
 #pragma mark - Private Method
@@ -95,10 +98,21 @@
     [request addressTransactionsWithAddressString:self.address.address limit:0 timestamp:0 completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         if (!error) {
-            DLog(@"request transactions \n%@", response);
+            // address
             self.address.balance = [[response objectForKey:@"final_balance"] longLongValue];
             self.address.txCount = [[[NSString stringWithFormat:@"%@", [response objectForKey:@"n_tx"]] numberValue] unsignedIntegerValue];
             [self.address saveWithError:nil];
+            
+            // transactions
+            [self.transactionStore addTransactionsFromJsonObject:[response objectForKey:@"txs"]];
+            
+            // update ui
+            if ([self.tableView numberOfSections] == 0) {
+                [self.tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationTop];
+            } else {
+                [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+            }
+            // TODO: fetch with offset, then insert cells
         }
     }];
 }
