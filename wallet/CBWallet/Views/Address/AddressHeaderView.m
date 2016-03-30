@@ -32,6 +32,7 @@ static const CGFloat kAddressHeaderViewLabelHeight = 20.f;
 - (void)setLabelEditable:(BOOL)labelEditable {
     _labelEditable = labelEditable;
     self.labelField.userInteractionEnabled = labelEditable;
+    self.labelField.placeholder = labelEditable ? NSLocalizedStringFromTable(@"Placeholder add_label_for_address", @"CBW", nil) : nil;
 }
 
 - (NSString *)label {
