@@ -119,10 +119,14 @@ static const CGFloat kTransactionCellHorizontalPadding = CBWLayoutCommonHorizont
     self.dateLabel.text = [transaction.creationDate stringWithFormat:@"yyyy-MM-dd HH:mm:ss"];
     self.valueLabel.text = [NSString stringWithFormat:@"%.8lf", ABS(transaction.value) / 100000000.0];
     self.valueLabel.textColor = self.iconView.tintColor;
-    if (transaction.confirmed > 0) {
-        self.confirmedLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTable(@"%d Confirmed", @"CBW", @"Confirmed"), transaction.confirmed];
+    if (transaction.confirmedCount > 0) {
         self.confirmedLabel.textColor = [UIColor CBWBlackColor];
         self.confirmedLabel.backgroundColor = [UIColor CBWExtraLightGrayColor];
+        if (transaction.confirmedCount > CBWMaxConfirmedCount) {
+            self.confirmedLabel.text = NSLocalizedStringFromTable(@"Confirmed", @"CBW", nil);
+        } else {
+            self.confirmedLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTable(@"%d confirmed", @"CBW", @"Confirmed"), transaction.confirmedCount];
+        }
     } else {
         self.confirmedLabel.text = NSLocalizedStringFromTable(@"Unconfirmed", @"CBW", @"Unconfirmed");
         self.confirmedLabel.textColor = [UIColor CBWWhiteColor];

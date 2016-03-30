@@ -15,6 +15,8 @@
 @property (nonatomic, copy) NSString *addressString;
 @property (nonatomic, assign, readonly, getter=isUpToDate) BOOL upToDate;
 
+@property (nonatomic, assign) NSInteger blockHeight;
+
 - (instancetype)initWithAddressString:(NSString *)addressString;
 /// 从缓存获取交易记录
 - (void)loadCache;

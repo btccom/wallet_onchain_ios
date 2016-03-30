@@ -47,6 +47,12 @@
     return _relatedAddresses;
 }
 
+- (NSUInteger)confirmedCount {
+    if (self.blockHeight > -1) {
+        return MAX(((TransactionStore *)self.store).blockHeight - self.blockHeight + 1, 0);
+    }
+    return 0;
+}
 #pragma mark - Initialization
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary {
     if (!dictionary || ![dictionary isKindOfClass:[NSDictionary class]]) {
@@ -75,7 +81,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"transaction, related addresses %@, %lld satoshi, %ld confirmed", self.relatedAddresses, self.value, (unsigned long)self.confirmed];
+    return [NSString stringWithFormat:@"transaction, related addresses %@, %lld satoshi, %ld confirmed", self.relatedAddresses, self.value, (unsigned long)self.confirmedCount];
 }
 
 #pragma mark - KVC
@@ -109,9 +115,13 @@
             }];
             _outData = [outs copy];
         }
-    } else if ([key isEqualToString:@"time"]) {
+    } else if ([key isEqualToString:@"created_at"]) {
         NSTimeInterval timestamp = [value doubleValue];
         self.creationDate = [NSDate dateWithTimeIntervalSince1970:timestamp];
+    } else if ([key isEqualToString:@"block_height"]) {
+        if (![value isKindOfClass:[NSNull class]]) {
+            _blockHeight = [value integerValue];
+        }
     }
 }
 

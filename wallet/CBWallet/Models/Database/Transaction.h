@@ -21,8 +21,7 @@ typedef NS_ENUM(NSUInteger, TransactionType) {
 @property (nonatomic, assign) TransactionType type;
 /// 相关地址
 @property (nonatomic, copy, readonly, nonnull) NSArray *relatedAddresses;
-// TODO: not sure the key in response data
-@property (nonatomic, assign) NSUInteger confirmed;
+@property (nonatomic, assign) NSInteger blockHeight;
 
 /// array of InputItem
 @property (nonatomic, strong, readonly, nonnull) NSArray *inputsData;
@@ -30,6 +29,8 @@ typedef NS_ENUM(NSUInteger, TransactionType) {
 @property (nonatomic, strong, readonly, nonnull) NSArray *outData;
 
 - (nullable instancetype)initWithDictionary:(nullable NSDictionary *)dictionary;
+
+- (NSUInteger)confirmedCount;
 
 @end
 

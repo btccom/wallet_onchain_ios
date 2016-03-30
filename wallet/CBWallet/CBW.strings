@@ -43,6 +43,7 @@
 
 "%d confirmed" = "%d confirmed";
 "Unconfirmed" = "Unconfirmed";
+"Confirmed" = "Confirmed";
 "Watched Account" = "Watched Account";
 
 // Initial Wallet Setting

@@ -27,3 +27,4 @@ typedef void(^CBWRequestCompletion) (NSError * _Nullable error, NSInteger status
 @end
 
 #import "CBWRequest+Address.h"
+#import "CBWRequest+Block.h"

@@ -11,6 +11,7 @@
 
 
 static const NSInteger CBWRecordWatchedIdx = -1;
+static const NSInteger CBWMaxConfirmedCount = 100;
 
 // User Defaults
 

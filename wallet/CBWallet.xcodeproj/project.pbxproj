@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2C1684A01CAB5F4800BD434A /* NSDate+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C16849F1CAB5F4800BD434A /* NSDate+Helper.m */; };
+		2C1684A31CAB6B4B00BD434A /* CBWRequest+Block.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1684A21CAB6B4B00BD434A /* CBWRequest+Block.m */; };
 		2C1E88F91CA3ADCB006F86E1 /* NSString+Password.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E88F81CA3ADCB006F86E1 /* NSString+Password.m */; };
 		2C1E8C4E1CA42A7D006F86E1 /* AESCrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E8C471CA42A7D006F86E1 /* AESCrypt.m */; };
 		2C1E8C4F1CA42A7D006F86E1 /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E8C491CA42A7D006F86E1 /* Base64.m */; };
@@ -104,6 +105,8 @@
 /* Begin PBXFileReference section */
 		2C16849E1CAB5F4800BD434A /* NSDate+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Helper.h"; sourceTree = "<group>"; };
 		2C16849F1CAB5F4800BD434A /* NSDate+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Helper.m"; sourceTree = "<group>"; };
+		2C1684A11CAB6B4B00BD434A /* CBWRequest+Block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBWRequest+Block.h"; sourceTree = "<group>"; };
+		2C1684A21CAB6B4B00BD434A /* CBWRequest+Block.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBWRequest+Block.m"; sourceTree = "<group>"; };
 		2C1E88F71CA3ADCB006F86E1 /* NSString+Password.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Password.h"; sourceTree = "<group>"; };
 		2C1E88F81CA3ADCB006F86E1 /* NSString+Password.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Password.m"; sourceTree = "<group>"; };
 		2C1E8C461CA42A7D006F86E1 /* AESCrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AESCrypt.h; sourceTree = "<group>"; };
@@ -397,6 +400,8 @@
 				2C77D2621CA8C095001DDB1F /* CBWRequest.m */,
 				2C77D2641CA8C14E001DDB1F /* CBWRequest+Address.h */,
 				2C77D2651CA8C14E001DDB1F /* CBWRequest+Address.m */,
+				2C1684A11CAB6B4B00BD434A /* CBWRequest+Block.h */,
+				2C1684A21CAB6B4B00BD434A /* CBWRequest+Block.m */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -996,6 +1001,7 @@
 				2C9CAF531C868B61008194EB /* LockScreenController.m in Sources */,
 				2C9CAF611C868B61008194EB /* Address.m in Sources */,
 				2C77D2661CA8C14E001DDB1F /* CBWRequest+Address.m in Sources */,
+				2C1684A31CAB6B4B00BD434A /* CBWRequest+Block.m in Sources */,
 				2CD0A9191CA02ACA006AF02F /* FMDatabaseAdditions.m in Sources */,
 				2C9CAF561C868B61008194EB /* SettingsViewController.m in Sources */,
 				2C9CAF691C868B61008194EB /* ActionButtonCell.m in Sources */,
