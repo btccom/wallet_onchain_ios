@@ -38,6 +38,10 @@
 }
 
 - (void)addRecord:(RecordObject *)record {
+    [self addRecord:record ASC:NO];
+}
+
+- (void)addRecord:(RecordObject *)record ASC:(BOOL)ASC {
     if (!record) {
         return;
     }
@@ -46,7 +50,11 @@
     }
     record.store = self;
     DLog(@"store add record: %@", record);
-    [records insertObject:record atIndex:0]; /// DESC
+    if (ASC) {
+        [records addObject:record];
+    } else {
+        [records insertObject:record atIndex:0]; /// DESC
+    }
 }
 
 - (void)deleteRecord:(RecordObject *)record {

@@ -41,7 +41,7 @@
     if ([jsonObject isKindOfClass:[NSArray class]]) {
         [jsonObject enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             Transaction *transaction = [[Transaction alloc] initWithDictionary:obj];
-            [self addRecord:transaction];
+            [self addRecord:transaction ASC:YES];
         }];
     }
 }

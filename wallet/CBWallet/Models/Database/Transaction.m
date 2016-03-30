@@ -109,6 +109,9 @@
             }];
             _outData = [outs copy];
         }
+    } else if ([key isEqualToString:@"time"]) {
+        NSTimeInterval timestamp = [value doubleValue];
+        self.creationDate = [NSDate dateWithTimeIntervalSince1970:timestamp];
     }
 }
 

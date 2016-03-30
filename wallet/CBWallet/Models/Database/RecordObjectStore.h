@@ -20,8 +20,10 @@
 
 - (NSUInteger)count;
 - (nullable id)recordAtIndex:(NSUInteger)idx;
-/// 加入内存
+/// 加入内存, DESC, insert at index:0
 - (void)addRecord:(nullable RecordObject *)record;
+///
+- (void)addRecord:(nullable RecordObject *)record ASC:(BOOL)ASC;
 /// 移出内存
 - (void)deleteRecord:(nullable RecordObject *)record;
 

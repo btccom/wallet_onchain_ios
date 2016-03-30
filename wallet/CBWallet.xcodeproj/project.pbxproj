@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C1684A01CAB5F4800BD434A /* NSDate+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C16849F1CAB5F4800BD434A /* NSDate+Helper.m */; };
 		2C1E88F91CA3ADCB006F86E1 /* NSString+Password.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E88F81CA3ADCB006F86E1 /* NSString+Password.m */; };
 		2C1E8C4E1CA42A7D006F86E1 /* AESCrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E8C471CA42A7D006F86E1 /* AESCrypt.m */; };
 		2C1E8C4F1CA42A7D006F86E1 /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E8C491CA42A7D006F86E1 /* Base64.m */; };
@@ -101,6 +102,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2C16849E1CAB5F4800BD434A /* NSDate+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Helper.h"; sourceTree = "<group>"; };
+		2C16849F1CAB5F4800BD434A /* NSDate+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Helper.m"; sourceTree = "<group>"; };
 		2C1E88F71CA3ADCB006F86E1 /* NSString+Password.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Password.h"; sourceTree = "<group>"; };
 		2C1E88F81CA3ADCB006F86E1 /* NSString+Password.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Password.m"; sourceTree = "<group>"; };
 		2C1E8C461CA42A7D006F86E1 /* AESCrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AESCrypt.h; sourceTree = "<group>"; };
@@ -605,6 +608,8 @@
 		2C9CAF111C868B61008194EB /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				2C16849E1CAB5F4800BD434A /* NSDate+Helper.h */,
+				2C16849F1CAB5F4800BD434A /* NSDate+Helper.m */,
 				2C9CAF121C868B61008194EB /* NSString+CBWAddress.h */,
 				2C9CAF131C868B61008194EB /* NSString+CBWAddress.m */,
 				2C9CAF141C868B61008194EB /* NSString+Helper.h */,
@@ -983,6 +988,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C1684A01CAB5F4800BD434A /* NSDate+Helper.m in Sources */,
 				2C9CAF5E1C868B61008194EB /* UIColor+CBW.m in Sources */,
 				2CEFC3531CA4CBAC00FECCA4 /* RecordObjectStore.m in Sources */,
 				2C9CAF571C868B61008194EB /* RecipientViewController.m in Sources */,

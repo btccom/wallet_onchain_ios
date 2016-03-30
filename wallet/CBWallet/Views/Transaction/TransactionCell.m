@@ -12,6 +12,7 @@
 #import "Transaction.h"
 
 #import "NSString+CBWAddress.h"
+#import "NSDate+Helper.h"
 
 static const CGFloat kTransactionCellDateLabelFontSize = 10.f;
 static const CGFloat kTransactionCellDateLabelHeight = 16.f;
@@ -114,7 +115,8 @@ static const CGFloat kTransactionCellHorizontalPadding = CBWLayoutCommonHorizont
         self.iconView.tintColor = self.increasingColor;
         [self.iconView setImage:[[UIImage imageNamed:@"icon_receive_mini"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
     }
-    self.dateLabel.text = @"12:00";
+    // TODO: today....
+    self.dateLabel.text = [transaction.creationDate stringWithFormat:@"yyyy-MM-dd HH:mm:ss"];
     self.valueLabel.text = [NSString stringWithFormat:@"%.8lf", ABS(transaction.value) / 100000000.0];
     self.valueLabel.textColor = self.iconView.tintColor;
     if (transaction.confirmed > 0) {
