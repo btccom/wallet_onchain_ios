@@ -15,6 +15,7 @@ NSString *const CBWRequestAPIPath = @"";
 NSString *const CBWRequestAPIVersion = @"";
 
 const NSUInteger CBWRequestPageSizeDefault = 20;
+const NSUInteger CBWRequestPageSizeMax = 50;
 
 @implementation CBWRequest
 
@@ -26,7 +27,7 @@ const NSUInteger CBWRequestPageSizeDefault = 20;
     return [CBWRequest baseURLString];
 }
 
-- (void)requestWithPath:(NSString *)path parameters:(NSDictionary *)parameters completion:(CBWRequestCompletion)completion {
+- (void)requestWithPath:(NSString *)path method:(NSString *)method parameters:(NSDictionary *)parameters completion:(CBWRequestCompletion)completion {
     // 1. config session
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     // 2. create manager with configuration
@@ -34,7 +35,7 @@ const NSUInteger CBWRequestPageSizeDefault = 20;
     // 3. create request
     NSString *urlString = [[self baseURLString] stringByAppendingPathComponent:path];
     DLog(@"request: %@", urlString);
-    NSURLRequest *request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"GET" URLString:urlString parameters:parameters error:nil];
+    NSURLRequest *request = [[AFJSONRequestSerializer serializer] requestWithMethod:method URLString:urlString parameters:parameters error:nil];
     // 4. fetch
     NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
         NSInteger statusCode = ((NSHTTPURLResponse *)response).statusCode;
@@ -43,11 +44,20 @@ const NSUInteger CBWRequestPageSizeDefault = 20;
             // TODO: handle error
             completion(error, statusCode, nil);
         } else {
-            DLog(@"response [%ld]: %@", (long)statusCode, responseObject);
+//            DLog(@"request response [%ld]: %@", (long)statusCode, responseObject);
+            DLog(@"request response [%ld]", (long)statusCode);
             completion(nil, statusCode, [responseObject objectForKey:@"data"]);
         }
     }];
     [dataTask resume];
+}
+
+- (void)requestWithPath:(NSString *)path parameters:(NSDictionary *)parameters completion:(CBWRequestCompletion)completion {
+    [self requestWithPath:path method:@"GET" parameters:parameters completion:completion];
+}
+
+- (void)dealloc {
+    DLog(@"request dealloc");
 }
 
 @end

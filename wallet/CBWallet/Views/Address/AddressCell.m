@@ -37,7 +37,7 @@ static const CGFloat kAddressCellBalanceLabelHeight = 16.f;
 - (UILabel *)labelLabel {
     if (!_labelLabel) {
         UILabel *label = [[UILabel alloc] init];
-        label.font = [UIFont systemFontOfSize:kAddressCellLabelLabelFontSize];
+        label.font = [UIFont systemFontOfSize:kAddressCellLabelLabelFontSize weight:UIFontWeightMedium];
         [self.contentView addSubview:label];
         _labelLabel = label;
     }

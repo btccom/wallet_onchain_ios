@@ -13,6 +13,7 @@ extern NSString *const _Nonnull CBWRequestAPIPath;
 extern NSString *const _Nonnull CBWRequestAPIVersion;
 
 extern const NSUInteger CBWRequestPageSizeDefault;
+extern const NSUInteger CBWRequestPageSizeMax;
 
 typedef void(^CBWRequestCompletion) (NSError * _Nullable error, NSInteger statusCode, id _Nullable response);
 
@@ -22,9 +23,12 @@ typedef void(^CBWRequestCompletion) (NSError * _Nullable error, NSInteger status
 + (nonnull NSString *)baseURLString;
 - (nonnull NSString *)baseURLString;
 
+- (void)requestWithPath:(nonnull NSString *)path method:(nonnull NSString *)method parameters:(nullable NSDictionary *)parameters completion:(nullable CBWRequestCompletion)completion;
 - (void)requestWithPath:(nonnull NSString *)path parameters:(nullable NSDictionary *)parameters completion:(nullable CBWRequestCompletion)completion;
 
 @end
 
 #import "CBWRequest+Address.h"
 #import "CBWRequest+Block.h"
+#import "CBWRequest+Transaction.h"
+#import "CBWRequest+Tools.h"

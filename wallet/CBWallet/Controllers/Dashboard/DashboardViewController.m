@@ -6,6 +6,9 @@
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
+// TODO: 获取批量获取地址摘要信息，对比 tx count，如果发生变化（变多），则获取最新交易信息，page size = MIN(delta, maxSize)
+// TODO: 将新交易重新排序后缓存，刷新UI
+
 #import "DashboardViewController.h"
 #import "ProfileViewController.h"
 #import "AddressListViewController.h"// explorer or receive
@@ -18,27 +21,24 @@
 
 #import "Guard.h"
 #import "Database.h"
+#import "CBWRequest.h"
 
 #import "NSString+CBWAddress.h"
 
 @interface DashboardViewController ()<ProfileViewControllerDelegate>
 
-@property (nonatomic, strong) NSMutableArray *transactions; // of Transaction
 @property (nonatomic, strong) AccountStore *accountStore;
+@property (nonatomic, strong) TransactionStore *transactionStore;
 @property (nonatomic, strong) Account *account;
 @property (nonatomic, weak) DashboardHeaderView *headerView;
+
+@property (nonatomic, assign) BOOL fetching;
 
 @end
 
 @implementation DashboardViewController
 
 #pragma mark - Property
-- (NSMutableArray *)transactions {
-    if (!_transactions) {
-        _transactions = [[NSMutableArray alloc] init];
-    }
-    return _transactions;
-}
 
 - (AccountStore *)accountStore {
     if (!_accountStore) {
@@ -48,12 +48,20 @@
     return _accountStore;
 }
 
+- (TransactionStore *)transactionStore {
+    if (!_transactionStore) {
+        // TODO: transaction store 可以指定 account 而不是 address
+        _transactionStore = [TransactionStore new];
+        [_transactionStore fetch];
+    }
+    return _transactionStore;
+}
+
 #pragma mark - View Life Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     self.title = NSLocalizedStringFromTable(@"Navigation dashboard", @"CBW", @"Dashboard");
-    
     // set navigation buttons
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"navigation_drawer"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleProfile:)];
     self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_address"] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleAddressList:)], [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"navigation_scan"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleScan:)]];
@@ -72,25 +80,114 @@
     self.tableView.tableHeaderView = dashboardHeaderView;
     _headerView = dashboardHeaderView;
     
-    if (!self.account) {
-        self.account = [self.accountStore customDefaultAccount];
-        DLog(@"dashboard initial account: %@", self.account);
-    }
+    
+    
+    [self reload];
 }
 
 #pragma mark - Public Method
 - (void)reload {
     [self.accountStore fetch];
+    // set default account
+    // TODO: save to get last selected account
     if (!self.account) {
         self.account = [self.accountStore customDefaultAccount];
         DLog(@"dashboard reloaded account: %@", self.account);
     }
+    
+//    [self.tableView reloadData];
+    
     [self reloadTransactions];
 }
 
 - (void)reloadTransactions {
-    self.headerView.sendButton.enabled = self.account.idx >= 0;
+    
+    if (!self.account) {
+        return;
+    }
+    
+    if (self.fetching) {
+        return;
+    }
+    
+    [self.transactionStore flush];
     [self.tableView reloadData];
+    
+    [self p_requestDidStart];
+    
+    CBWRequest *request = [CBWRequest new];
+    // 获取块高度
+    [request blockLatestWithCompletion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
+        if (error) {
+            [self p_requestDidStop];
+        } else {
+            NSInteger blockHeight = [[response objectForKey:@"height"] integerValue];
+            DLog(@"max block height: %ld", (long)blockHeight);
+            
+            if (blockHeight > 0) {
+                self.transactionStore.blockHeight = blockHeight;
+                
+                
+                // 根据账号地址获取交易
+                AddressStore *addressStore = [[AddressStore alloc] initWithAccountIdx:self.account.idx];
+                [addressStore fetch];
+                [request addressSummariesWithAddressStrings:addressStore.allAddressStrings completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
+                    [self p_requestDidStop];
+                    if (!error) {
+                        // 找到交易变化的地址
+                        __block NSMutableArray *updatedAddresses = [NSMutableArray array];
+                        __block NSMutableArray *unupdatedAddresses = [NSMutableArray array];
+                        if ([response isKindOfClass:[NSArray class]]) {
+                            [response enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                                if (![obj isKindOfClass:[NSNull class]]) {
+                                    
+                                    NSDictionary *responsedAddress = obj;
+                                    NSString *addressString = [responsedAddress objectForKey:@"address"];
+                                    Address *address = [addressStore addressWithAddressString:addressString];
+                                    NSUInteger responsedTxCount = [[responsedAddress objectForKey:@"tx_count"] unsignedIntegerValue];
+                                    if (responsedTxCount > address.txCount) {
+                                        [updatedAddresses addObject:addressString];
+                                    } else {
+                                        [unupdatedAddresses addObject:addressString];
+                                    }
+                                    
+                                }
+                            }];
+                        }
+                        
+                        // 拉取交易列表
+                        //            NSArray *addresses = updatedAddresses.count > 0 ? updatedAddresses : unupdatedAddresses;
+                        [updatedAddresses addObjectsFromArray:unupdatedAddresses];// 暂时没有缓存逻辑，全部拉取
+                        NSArray *addresses = [updatedAddresses copy];
+                        if (addresses.count > 0) {
+                            DLog(@"try to load transactions with addresses: %@", addresses);
+                            
+                            // fetch
+                            [request addressTransactionsWithAddressStrings:addresses completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
+                                if (!error) {
+                                    DLog(@"fetched transactions count: %lu", [[response objectForKey:@"total_count"] unsignedIntegerValue]);
+                                    
+                                    // 解析交易
+                                    [self.transactionStore addTransactionsFromJsonObject:[response objectForKey:@"list"]];
+                                    [self.transactionStore sort];
+                                    
+                                    // 更新界面
+                                    if ([self.tableView numberOfSections] == 0) {
+                                        [self.tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationTop];
+                                    } else {
+                                        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+                                    }
+                                }
+                            }];
+                        }
+                        
+                        // 更新地址
+                        [addressStore updateAddresses:response];
+                    }
+                }];
+            }
+        }
+    }];
 }
 
 #pragma mark - Private Method
@@ -142,9 +239,20 @@
     [self.navigationController pushViewController:addressListViewController animated:YES];
 }
 
+#pragma mark - 
+- (void)p_requestDidStart {
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    self.fetching = YES;
+}
+
+- (void)p_requestDidStop {
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    self.fetching = NO;
+}
+
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.transactions.count;
+    return self.transactionStore.count;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -153,7 +261,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TransactionCell *cell = [tableView dequeueReusableCellWithIdentifier:BaseListViewCellTransactionIdentifier forIndexPath:indexPath];
-    Transaction *transaction = [self.transactions objectAtIndex:indexPath.row];
+    Transaction *transaction = [self.transactionStore recordAtIndex:indexPath.row];
     if (transaction) {
         [cell setTransaction:transaction];
     }
@@ -166,7 +274,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    Transaction *transaction = [self.transactions objectAtIndex:indexPath.row];
+    Transaction *transaction = [self.transactionStore recordAtIndex:indexPath.row];
     if (transaction) {
         TransactionViewController *transactionViewController = [[TransactionViewController alloc] initWithTransaction:transaction];
         [self.navigationController pushViewController:transactionViewController animated:YES];
@@ -183,6 +291,7 @@
         return;
     }
     self.account = account;
+    self.headerView.sendButton.enabled = self.account.idx >= 0;
     [self reloadTransactions];
 }
 

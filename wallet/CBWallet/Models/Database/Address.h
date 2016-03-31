@@ -38,4 +38,6 @@
 /// 仅 watched address 支持删除方法
 - (void)deleteWatchedAddressFromStore:(nonnull RecordObjectStore *)store;
 
+- (void)updateWithDictionary:(nullable id)dictionary;
+
 @end

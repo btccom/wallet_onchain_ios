@@ -84,7 +84,7 @@ static const CGFloat kTransactionCellVerticalPadding = CBWLayoutCommonVerticalPa
 - (UILabel *)valueLabel {
     if (!_valueLabel) {
         UILabel *label = [[UILabel alloc] init];
-        label.font = [UIFont systemFontOfSize:kTransactionCellValueLabelFontSize];
+        label.font = [UIFont systemFontOfSize:kTransactionCellValueLabelFontSize weight:UIFontWeightMedium];
         [self.contentView addSubview:label];
         _valueLabel = label;
     }
@@ -131,7 +131,11 @@ static const CGFloat kTransactionCellVerticalPadding = CBWLayoutCommonVerticalPa
         self.confirmedLabel.textColor = [UIColor CBWWhiteColor];
         self.confirmedLabel.backgroundColor = [UIColor CBWGrayColor];
     }
-    self.addressLabel.text = [transaction.relatedAddresses firstObject];
+    NSString *relatedAddress = [transaction.relatedAddresses firstObject];
+    if (!relatedAddress) {
+        relatedAddress = @"Coinbase";
+    }
+    self.addressLabel.text = relatedAddress;
 }
 
 #pragma mark - Override

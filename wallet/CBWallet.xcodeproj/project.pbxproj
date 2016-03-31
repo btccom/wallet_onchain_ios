@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		2C1684A01CAB5F4800BD434A /* NSDate+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C16849F1CAB5F4800BD434A /* NSDate+Helper.m */; };
 		2C1684A31CAB6B4B00BD434A /* CBWRequest+Block.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1684A21CAB6B4B00BD434A /* CBWRequest+Block.m */; };
+		2C1684A61CACA89D00BD434A /* CBWRequest+Transaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1684A51CACA89D00BD434A /* CBWRequest+Transaction.m */; };
+		2C1684A91CACAA2D00BD434A /* CBWRequest+Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1684A81CACAA2D00BD434A /* CBWRequest+Tools.m */; };
 		2C1E88F91CA3ADCB006F86E1 /* NSString+Password.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E88F81CA3ADCB006F86E1 /* NSString+Password.m */; };
 		2C1E8C4E1CA42A7D006F86E1 /* AESCrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E8C471CA42A7D006F86E1 /* AESCrypt.m */; };
 		2C1E8C4F1CA42A7D006F86E1 /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E8C491CA42A7D006F86E1 /* Base64.m */; };
@@ -107,6 +109,10 @@
 		2C16849F1CAB5F4800BD434A /* NSDate+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Helper.m"; sourceTree = "<group>"; };
 		2C1684A11CAB6B4B00BD434A /* CBWRequest+Block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBWRequest+Block.h"; sourceTree = "<group>"; };
 		2C1684A21CAB6B4B00BD434A /* CBWRequest+Block.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBWRequest+Block.m"; sourceTree = "<group>"; };
+		2C1684A41CACA89D00BD434A /* CBWRequest+Transaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBWRequest+Transaction.h"; sourceTree = "<group>"; };
+		2C1684A51CACA89D00BD434A /* CBWRequest+Transaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBWRequest+Transaction.m"; sourceTree = "<group>"; };
+		2C1684A71CACAA2D00BD434A /* CBWRequest+Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBWRequest+Tools.h"; sourceTree = "<group>"; };
+		2C1684A81CACAA2D00BD434A /* CBWRequest+Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBWRequest+Tools.m"; sourceTree = "<group>"; };
 		2C1E88F71CA3ADCB006F86E1 /* NSString+Password.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Password.h"; sourceTree = "<group>"; };
 		2C1E88F81CA3ADCB006F86E1 /* NSString+Password.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Password.m"; sourceTree = "<group>"; };
 		2C1E8C461CA42A7D006F86E1 /* AESCrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AESCrypt.h; sourceTree = "<group>"; };
@@ -402,6 +408,10 @@
 				2C77D2651CA8C14E001DDB1F /* CBWRequest+Address.m */,
 				2C1684A11CAB6B4B00BD434A /* CBWRequest+Block.h */,
 				2C1684A21CAB6B4B00BD434A /* CBWRequest+Block.m */,
+				2C1684A41CACA89D00BD434A /* CBWRequest+Transaction.h */,
+				2C1684A51CACA89D00BD434A /* CBWRequest+Transaction.m */,
+				2C1684A71CACAA2D00BD434A /* CBWRequest+Tools.h */,
+				2C1684A81CACAA2D00BD434A /* CBWRequest+Tools.m */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -1041,6 +1051,7 @@
 				2C9CAF651C868B61008194EB /* SystemManager.m in Sources */,
 				2C9CAF551C868B61008194EB /* ProfileViewController.m in Sources */,
 				2C77D2631CA8C095001DDB1F /* CBWRequest.m in Sources */,
+				2C1684A91CACAA2D00BD434A /* CBWRequest+Tools.m in Sources */,
 				2C9CAF481C868B61008194EB /* AddressViewController.m in Sources */,
 				2C9CAF501C868B61008194EB /* DashboardViewController.m in Sources */,
 				2C9CAF5A1C868B61008194EB /* TransactionViewController.m in Sources */,
@@ -1074,6 +1085,7 @@
 				2C9CAF4B1C868B61008194EB /* BaseListViewController.m in Sources */,
 				2CEFC35C1CA4D65C00FECCA4 /* TransactionStore.m in Sources */,
 				2C9CAF631C868B61008194EB /* RecordObject.m in Sources */,
+				2C1684A61CACA89D00BD434A /* CBWRequest+Transaction.m in Sources */,
 				2C9CAF6E1C868B61008194EB /* DashboardHeaderActionButton.m in Sources */,
 				2C9CAF661C868B61008194EB /* SessionManager.m in Sources */,
 				2C9CAF5C1C868B61008194EB /* NSString+Helper.m in Sources */,
@@ -1191,7 +1203,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/CBWallet/Vendors/CoreBitCoin/iOS",
-					"$(SDKROOT)/usr/lib/system",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.btc.wallet-development";
 				PRODUCT_NAME = CBWallet;
@@ -1215,7 +1226,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/CBWallet/Vendors/CoreBitCoin/iOS",
-					"$(SDKROOT)/usr/lib/system",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.btc.wallet-development";
 				PRODUCT_NAME = CBWallet;

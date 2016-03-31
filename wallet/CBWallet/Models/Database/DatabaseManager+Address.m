@@ -24,7 +24,7 @@
         FMResultSet *results = nil;
         if (accountIdx > -2) {// -1 for watched only
             [sql appendFormat:@" AND %@ = ?", DatabaseManagerColAccountIdx];
-            DLog(@"database manager fetch addresses of account: %ld", accountIdx);
+            DLog(@"database manager fetch addresses of account: %ld", (long)accountIdx);
             results = [db executeQuery:sql,
                        @(archived),
                        @(accountIdx)];

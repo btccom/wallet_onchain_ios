@@ -45,7 +45,22 @@ static const CGFloat CBWLayoutCommonHorizontalPaddingPlus = 20.f;
 static const CGFloat CBWLayoutCommonVerticalPadding = 16.f;
 static const CGFloat CBWLayoutInnerSpace = 8.f;
 
-#define CBWLayoutCommonHorizontalPadding (CGRectGetWidth([UIScreen mainScreen].bounds) < 414.f ? 16.f : 20.f)
+#define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+#define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+#define IS_RETINA ([[UIScreen mainScreen] scale] >= 2.0)
+
+#define SCREEN_WIDTH ([[UIScreen mainScreen] bounds].size.width)
+#define SCREEN_HEIGHT ([[UIScreen mainScreen] bounds].size.height)
+#define SCREEN_MAX_LENGTH (MAX(SCREEN_WIDTH, SCREEN_HEIGHT))
+#define SCREEN_MIN_LENGTH (MIN(SCREEN_WIDTH, SCREEN_HEIGHT))
+
+#define IS_IPHONE_4_OR_LESS (IS_IPHONE && SCREEN_MAX_LENGTH < 568.0)
+#define IS_IPHONE_5 (IS_IPHONE && SCREEN_MAX_LENGTH == 568.0)
+#define IS_IPHONE_6 (IS_IPHONE && SCREEN_MAX_LENGTH == 667.0)
+#define IS_IPHONE_6P (IS_IPHONE && SCREEN_MAX_LENGTH == 736.0)
+
+
+#define CBWLayoutCommonHorizontalPadding ((IS_IPHONE_6P) ? 20.f : 16.f)
 
 #ifdef DEBUG
 #define DLog(...) NSLog(__VA_ARGS__)

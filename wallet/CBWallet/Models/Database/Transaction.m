@@ -120,12 +120,19 @@
     } else if ([key isEqualToString:@"balance_diff"]) {
         _value = [value longLongValue];
         _type = (_value > 0) ? TransactionTypeReceive : TransactionTypeSend;
-    } else if ([key isEqualToString:@"created_at"]) {
+    } else if ([key isEqualToString:@"block_time"]) {
         NSTimeInterval timestamp = [value doubleValue];
-        self.creationDate = [NSDate dateWithTimeIntervalSince1970:timestamp];
+        if (timestamp > 0) {
+            self.creationDate = [NSDate dateWithTimeIntervalSince1970:timestamp];
+        }
     } else if ([key isEqualToString:@"block_height"]) {
         if (![value isKindOfClass:[NSNull class]]) {
             _blockHeight = [value integerValue];
+        }
+    } else if ([key isEqualToString:@"created_at"]) {
+        if (!self.creationDate) {
+            NSTimeInterval timestamp = [value doubleValue];
+            self.creationDate = [NSDate dateWithTimeIntervalSince1970:timestamp];
         }
     }
 }

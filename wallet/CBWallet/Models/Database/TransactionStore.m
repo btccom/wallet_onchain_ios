@@ -33,16 +33,28 @@
 }
 
 - (void)addTransactionsFromJsonObject:(id)jsonObject {
-    if (!self.isUpToDate) {
-        // 缓存
+    if (self.addressString) {
+        if (!self.isUpToDate) {
+            // 缓存
+        }
+        _upToDate = YES;
+    } else {
+        // 直接缓存
     }
-    _upToDate = YES;
     if ([jsonObject isKindOfClass:[NSArray class]]) {
         [jsonObject enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             Transaction *transaction = [[Transaction alloc] initWithDictionary:obj];
             [self addRecord:transaction ASC:YES];
         }];
     }
+}
+
+- (void)sort {
+    [records sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        Transaction *t1 = obj1;
+        Transaction *t2 = obj2;
+        return [t2.creationDate compare:t1.creationDate];// DESC
+    }];
 }
 
 @end

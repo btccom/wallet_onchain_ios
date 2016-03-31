@@ -96,25 +96,22 @@
         return;
     }
     
-    self.fetching = YES;
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    [self p_requestDidStart];
+    
     CBWRequest *request = [[CBWRequest alloc] init];
+    // FIXME: 地址信息放在列表中批量获取，不需要重复获取，可以由用户主动触发
     // 获取地址信息
     [request addressSummaryWithAddressString:self.address.address completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
         if (error) {
-            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-            self.fetching = NO;
+            [self p_requestDidStop];
         } else {
             // 保存地址信息
-            self.address.balance = [[response objectForKey:@"balance"] longLongValue];
-            self.address.txCount = [[[NSString stringWithFormat:@"%@", [response objectForKey:@"tx_count"]] numberValue] unsignedIntegerValue];
+            [self.address updateWithDictionary:response];
             [self.address saveWithError:nil];
-            
             if (self.address.txCount > 0) {
                 // 获取块高度
                 [request blockLatestWithCompletion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
-                    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-                    self.fetching = NO;
+                    [self p_requestDidStop];
                     if (!error) {
                         NSInteger blockHeight = [[response objectForKey:@"height"] integerValue];
                         DLog(@"max block height: %ld", (long)blockHeight);
@@ -127,6 +124,8 @@
                         }
                     }
                 }];
+            } else {
+                [self p_requestDidStop];
             }
         }
     }];
@@ -137,20 +136,21 @@
         return;
     }
     
-    self.fetching = YES;
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    [self p_requestDidStart];
+    
     CBWRequest *request = [[CBWRequest alloc] init];
     
     [request addressTransactionsWithAddressString:self.address.address page:(self.page + 1) pagesize:0 completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
         
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        self.fetching = NO;
+        [self p_requestDidStop];
         
         if (!error) {
             // transactions
             NSArray *list = [response objectForKey:@"list"];
+            NSUInteger page = [[response objectForKey:@"page"] unsignedIntegerValue];
             if (list.count > 0) {
-                if (self.page == 0) {
+                if (page == 1) {
+                    self.page = 0;
                     // 第一页，清空数据
                     [self.transactionStore flush];
                 }
@@ -169,6 +169,16 @@
             }
         }
     }];
+}
+
+- (void)p_requestDidStart {
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    self.fetching = YES;
+}
+
+- (void)p_requestDidStop {
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    self.fetching = NO;
 }
 
 #pragma mark Handlers

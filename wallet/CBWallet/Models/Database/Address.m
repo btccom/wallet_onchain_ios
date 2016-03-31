@@ -76,6 +76,43 @@
     [[DatabaseManager defaultManager] deleteAddress:self];
 }
 
+/*
+ {
+ address = 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa;
+ balance = 6618011597;
+ "first_tx" = 4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b;
+ "last_tx" = 29069fa3e5a70a9cc6a792c031a7b8fe0d4a5eab42d530cb3199c4a08b794dc4;
+ received = 6618011597;
+ sent = 0;
+ "tx_count" = 1034;
+ "unconfirmed_received" = 0;
+ "unconfirmed_sent" = 0;
+ "unconfirmed_tx_count" = 0;
+ "unspent_tx_count" = 1034;
+ }
+ */
+ - (void)updateWithDictionary:(id)dictionary {
+    if (![dictionary isKindOfClass:[NSDictionary class]]) {
+        return;
+    }
+    [self setValuesForKeysWithDictionary:dictionary];
+}
+
+#pragma mark - KVC
+- (void)setValue:(id)value forKey:(NSString *)key {
+    if ([key isEqualToString:@"balance"]) {
+        self.balance = [value isKindOfClass:[NSNull class]] ? 0 : [value longLongValue];
+    } else {
+        [super setValue:value forKey:key];
+    }
+}
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key {
+    if ([key isEqualToString:@"tx_count"]) {
+        self.txCount = [value isKindOfClass:[NSNull class]] ? 0 : [value unsignedIntegerValue];
+    }
+}
+
+
 - (NSString *)description {
     return [NSString stringWithFormat:@"address %@: %@, %lld satoshi", self.label, self.address, self.balance];
 }

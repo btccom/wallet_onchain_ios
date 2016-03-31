@@ -32,4 +32,45 @@
     return [[DatabaseManager defaultManager] countAllAddressesWithAccountIdx:self.accountIdx];
 }
 
+- (NSArray *)allAddressStrings {
+    __block NSMutableArray *strings = [NSMutableArray arrayWithCapacity:records.count];
+    [records enumerateObjectsUsingBlock:^(RecordObject * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [strings addObject:((Address *)obj).address];
+    }];
+    
+    return [strings copy];
+}
+
+- (Address *)addressWithAddressString:(NSString *)addressString {
+    if (!addressString) {
+        return nil;
+    }
+    __block Address *address = nil;
+    [records enumerateObjectsUsingBlock:^(RecordObject * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        Address *theAddress = (Address *)obj;
+        if ([theAddress.address isEqualToString:addressString]) {
+            address = theAddress;
+            *stop = YES;
+        }
+    }];
+    return address;
+}
+
+- (void)updateAddresses:(id)addresses {
+    if ([addresses isKindOfClass:[NSArray class]]) {
+        [addresses enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (![obj isKindOfClass:[NSNull class]]) {
+                
+                NSDictionary *dictionary = obj;
+                Address *address = [self addressWithAddressString:[dictionary objectForKey:@"address"]];
+                if (address) {
+                    [address updateWithDictionary:dictionary];
+                    [address saveWithError:nil];
+                }
+                
+            }
+        }];
+    }
+}
+
 @end

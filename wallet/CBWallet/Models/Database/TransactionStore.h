@@ -22,5 +22,7 @@
 - (void)loadCache;
 /// 用于通过 api 获取到数据后，加入到 store 中
 - (void)addTransactionsFromJsonObject:(id)jsonObject;
+/// 重新排序，适用于从不同地址获取交易列表
+- (void)sort;
 
 @end

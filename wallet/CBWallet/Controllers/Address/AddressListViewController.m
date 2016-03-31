@@ -6,6 +6,8 @@
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
+// TODO: 批量获取地址摘要信息
+
 #import "AddressListViewController.h"
 #import "ArchivedAdressListViewController.h"
 

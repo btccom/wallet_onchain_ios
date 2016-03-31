@@ -14,7 +14,7 @@
 
 typedef NS_ENUM(NSUInteger, kProfileSection) {
     kProfileSectionAccounts = 0,
-    kProfileSectionAllTransactions,
+//    kProfileSectionAllTransactions,
     kProfileSectionSettings,
     kProfileSectionBackup
 };
@@ -56,7 +56,7 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_close"] style:UIBarButtonItemStylePlain target:self action:@selector(dismiss:)];
     
     _tableStrings = @[@{NSLocalizedStringFromTable(@"Profile Section accounts", @"CBW", @"Accounts"): @[]},
-                      @[NSLocalizedStringFromTable(@"Profile Cell all_transactions", @"CBW", @"All Transactions")],
+//                      @[NSLocalizedStringFromTable(@"Profile Cell all_transactions", @"CBW", @"All Transactions")],
                       @[NSLocalizedStringFromTable(@"Profile Cell settings", @"CBW", @"Settings")],
                       @{NSLocalizedStringFromTable(@"Profile Section backup", @"CBW", @"Sync"):
                             @[
@@ -120,11 +120,11 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
             }
             break;
         }
-        case kProfileSectionAllTransactions: {
-            TransactionListViewController *transactionListViewController = [[TransactionListViewController alloc] init];
-            [self.navigationController pushViewController:transactionListViewController animated:YES];
-            break;
-        }
+//        case kProfileSectionAllTransactions: {
+//            TransactionListViewController *transactionListViewController = [[TransactionListViewController alloc] init];
+//            [self.navigationController pushViewController:transactionListViewController animated:YES];
+//            break;
+//        }
         case kProfileSectionSettings: {
             SettingsViewController *settingsViewController = [[SettingsViewController alloc] init];
             [self.navigationController pushViewController:settingsViewController animated:YES];
