@@ -32,8 +32,6 @@
 @property (nonatomic, strong) Account *account;
 @property (nonatomic, weak) DashboardHeaderView *headerView;
 
-@property (nonatomic, assign) BOOL fetching;
-
 @end
 
 @implementation DashboardViewController
@@ -106,86 +104,71 @@
         return;
     }
     
-    if (self.fetching) {
+    if (self.requesting) {
         return;
     }
     
     [self.transactionStore flush];
     [self.tableView reloadData];
     
-    [self p_requestDidStart];
+    [self requestDidStart];
     
     CBWRequest *request = [CBWRequest new];
-    // 获取块高度
-    [request blockLatestWithCompletion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
-        if (error) {
-            [self p_requestDidStop];
-        } else {
-            NSInteger blockHeight = [[response objectForKey:@"height"] integerValue];
-            DLog(@"max block height: %ld", (long)blockHeight);
-            
-            if (blockHeight > 0) {
-                self.transactionStore.blockHeight = blockHeight;
-                
-                
-                // 根据账号地址获取交易
-                AddressStore *addressStore = [[AddressStore alloc] initWithAccountIdx:self.account.idx];
-                [addressStore fetch];
-                [request addressSummariesWithAddressStrings:addressStore.allAddressStrings completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
-                    [self p_requestDidStop];
-                    if (!error) {
-                        // 找到交易变化的地址
-                        __block NSMutableArray *updatedAddresses = [NSMutableArray array];
-                        __block NSMutableArray *unupdatedAddresses = [NSMutableArray array];
-                        if ([response isKindOfClass:[NSArray class]]) {
-                            [response enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                                if (![obj isKindOfClass:[NSNull class]]) {
-                                    
-                                    NSDictionary *responsedAddress = obj;
-                                    NSString *addressString = [responsedAddress objectForKey:@"address"];
-                                    Address *address = [addressStore addressWithAddressString:addressString];
-                                    NSUInteger responsedTxCount = [[responsedAddress objectForKey:@"tx_count"] unsignedIntegerValue];
-                                    if (responsedTxCount > address.txCount) {
-                                        [updatedAddresses addObject:addressString];
-                                    } else {
-                                        [unupdatedAddresses addObject:addressString];
-                                    }
-                                    
-                                }
-                            }];
+    // 根据账号地址获取交易
+    AddressStore *addressStore = [[AddressStore alloc] initWithAccountIdx:self.account.idx];
+    [addressStore fetch];
+    [request addressSummariesWithAddressStrings:addressStore.allAddressStrings completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
+        [self requestDidStop];
+        if (!error) {
+            // 找到交易变化的地址
+            __block NSMutableArray *updatedAddresses = [NSMutableArray array];
+            __block NSMutableArray *unupdatedAddresses = [NSMutableArray array];
+            if ([response isKindOfClass:[NSArray class]]) {
+                [response enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if (![obj isKindOfClass:[NSNull class]]) {
+                        
+                        NSDictionary *responsedAddress = obj;
+                        NSString *addressString = [responsedAddress objectForKey:@"address"];
+                        Address *address = [addressStore addressWithAddressString:addressString];
+                        NSUInteger responsedTxCount = [[responsedAddress objectForKey:@"tx_count"] unsignedIntegerValue];
+                        if (responsedTxCount > address.txCount) {
+                            [updatedAddresses addObject:addressString];
+                        } else {
+                            [unupdatedAddresses addObject:addressString];
                         }
                         
-                        // 拉取交易列表
-                        //            NSArray *addresses = updatedAddresses.count > 0 ? updatedAddresses : unupdatedAddresses;
-                        [updatedAddresses addObjectsFromArray:unupdatedAddresses];// 暂时没有缓存逻辑，全部拉取
-                        NSArray *addresses = [updatedAddresses copy];
-                        if (addresses.count > 0) {
-                            DLog(@"try to load transactions with addresses: %@", addresses);
-                            
-                            // fetch
-                            [request addressTransactionsWithAddressStrings:addresses completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
-                                if (!error) {
-                                    DLog(@"fetched transactions count: %lu", [[response objectForKey:@"total_count"] unsignedIntegerValue]);
-                                    
-                                    // 解析交易
-                                    [self.transactionStore addTransactionsFromJsonObject:[response objectForKey:@"list"]];
-                                    [self.transactionStore sort];
-                                    
-                                    // 更新界面
-                                    if ([self.tableView numberOfSections] == 0) {
-                                        [self.tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationTop];
-                                    } else {
-                                        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
-                                    }
-                                }
-                            }];
-                        }
-                        
-                        // 更新地址
-                        [addressStore updateAddresses:response];
                     }
                 }];
             }
+            
+            // 拉取交易列表
+//            NSArray *addresses = updatedAddresses.count > 0 ? updatedAddresses : unupdatedAddresses;
+            [updatedAddresses addObjectsFromArray:unupdatedAddresses];// 暂时没有缓存逻辑，全部拉取
+            NSArray *addresses = [updatedAddresses copy];
+            if (addresses.count > 0) {
+                DLog(@"try to load transactions with addresses: %@", addresses);
+                
+                // fetch
+                [request addressTransactionsWithAddressStrings:addresses completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
+                    if (!error) {
+                        DLog(@"fetched transactions count: %lu", [[response objectForKey:@"total_count"] unsignedIntegerValue]);
+                        
+                        // 解析交易
+                        [self.transactionStore addTransactionsFromJsonObject:[response objectForKey:@"list"]];
+                        [self.transactionStore sort];
+                        
+                        // 更新界面
+                        if ([self.tableView numberOfSections] == 0) {
+                            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationTop];
+                        } else {
+                            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+                        }
+                    }
+                }];
+            }
+            
+            // 更新地址
+            [addressStore updateAddresses:response];
         }
     }];
 }
@@ -239,16 +222,7 @@
     [self.navigationController pushViewController:addressListViewController animated:YES];
 }
 
-#pragma mark - 
-- (void)p_requestDidStart {
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    self.fetching = YES;
-}
-
-- (void)p_requestDidStop {
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-    self.fetching = NO;
-}
+#pragma mark -
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

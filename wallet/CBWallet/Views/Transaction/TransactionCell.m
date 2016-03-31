@@ -27,14 +27,14 @@ static const CGFloat kTransactionCellVerticalPadding = CBWLayoutCommonVerticalPa
 
 @interface TransactionCell ()
 
-@property (nonatomic, weak, readwrite) UIImageView * _Nullable iconView;
-@property (nonatomic, weak, readwrite) UILabel * _Nullable dateLabel;
-@property (nonatomic, weak, readwrite) UILabel * _Nullable addressLabel;
-@property (nonatomic, weak, readwrite) UILabel * _Nullable confirmedLabel;
-@property (nonatomic, weak, readwrite) UILabel * _Nullable valueLabel;
+@property (nonatomic, weak, readwrite) UIImageView *iconView;
+@property (nonatomic, weak, readwrite) UILabel *dateLabel;
+@property (nonatomic, weak, readwrite) UILabel *addressLabel;
+@property (nonatomic, weak, readwrite) UILabel *confirmationLabel;
+@property (nonatomic, weak, readwrite) UILabel *valueLabel;
 
-@property (nonatomic, strong, readonly) UIColor * _Nonnull increasingColor;
-@property (nonatomic, strong, readonly) UIColor * _Nonnull decreasingColor;
+@property (nonatomic, strong, readonly) UIColor *increasingColor;
+@property (nonatomic, strong, readonly) UIColor *decreasingColor;
 
 @end
 
@@ -68,17 +68,17 @@ static const CGFloat kTransactionCellVerticalPadding = CBWLayoutCommonVerticalPa
     return _addressLabel;
 }
 
-- (UILabel *)confirmedLabel {
-    if (!_confirmedLabel) {
+- (UILabel *)confirmationLabel {
+    if (!_confirmationLabel) {
         UILabel *label = [[UILabel alloc] init];
         label.font = [UIFont systemFontOfSize:kTransactionCellConfirmedLabelFontSize];
         label.textAlignment = NSTextAlignmentCenter;
         label.layer.cornerRadius = CBWLayoutInnerSpace / 2.f;
         label.layer.masksToBounds = YES;
         [self.contentView addSubview:label];
-        _confirmedLabel = label;
+        _confirmationLabel = label;
     }
-    return _confirmedLabel;
+    return _confirmationLabel;
 }
 
 - (UILabel *)valueLabel {
@@ -118,18 +118,18 @@ static const CGFloat kTransactionCellVerticalPadding = CBWLayoutCommonVerticalPa
     self.dateLabel.text = [transaction.creationDate stringWithFormat:@"yyyy-MM-dd HH:mm:ss"];
     self.valueLabel.text = [NSString stringWithFormat:@"%.8lf", ABS(transaction.value) / 100000000.0];
     self.valueLabel.textColor = self.iconView.tintColor;
-    if (transaction.confirmedCount > 0) {
-        self.confirmedLabel.textColor = [UIColor CBWBlackColor];
-        self.confirmedLabel.backgroundColor = [UIColor CBWExtraLightGrayColor];
-        if (transaction.confirmedCount > CBWMaxConfirmedCount) {
-            self.confirmedLabel.text = NSLocalizedStringFromTable(@"Confirmed", @"CBW", nil);
+    if (transaction.confirmations > 0) {
+        self.confirmationLabel.textColor = [UIColor CBWBlackColor];
+        self.confirmationLabel.backgroundColor = [UIColor CBWExtraLightGrayColor];
+        if (transaction.confirmations > CBWMaxVisibleConfirmation) {
+            self.confirmationLabel.text = NSLocalizedStringFromTable(@"Confirmed", @"CBW", nil);
         } else {
-            self.confirmedLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTable(@"%d confirmed", @"CBW", @"Confirmed"), transaction.confirmedCount];
+            self.confirmationLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTable(@"%d confirmations", @"CBW", @"Confirmed"), transaction.confirmations];
         }
     } else {
-        self.confirmedLabel.text = NSLocalizedStringFromTable(@"Unconfirmed", @"CBW", @"Unconfirmed");
-        self.confirmedLabel.textColor = [UIColor CBWWhiteColor];
-        self.confirmedLabel.backgroundColor = [UIColor CBWGrayColor];
+        self.confirmationLabel.text = NSLocalizedStringFromTable(@"Unconfirmed", @"CBW", @"Unconfirmed");
+        self.confirmationLabel.textColor = [UIColor CBWWhiteColor];
+        self.confirmationLabel.backgroundColor = [UIColor CBWGrayColor];
     }
     NSString *relatedAddress = [transaction.relatedAddresses firstObject];
     if (!relatedAddress) {
@@ -172,9 +172,9 @@ static const CGFloat kTransactionCellVerticalPadding = CBWLayoutCommonVerticalPa
     
     // confirm
     CGFloat confirmedTop = CGRectGetHeight(self.contentView.frame) - kTransactionCellVerticalPadding - kTransactionCellConfirmedLabelHeight;
-    CGFloat confirmedWidth = [self.confirmedLabel.text sizeWithFont:self.confirmedLabel.font maxSize:CGSizeMake(labelAreaWidth / 2.f - horizontalPadding - subLabelLeftRightPadding, kTransactionCellConfirmedLabelHeight)].width + subLabelLeftRightPadding; // subLabelLeftRightPadding: 预留内部填充
+    CGFloat confirmedWidth = [self.confirmationLabel.text sizeWithFont:self.confirmationLabel.font maxSize:CGSizeMake(labelAreaWidth / 2.f - horizontalPadding - subLabelLeftRightPadding, kTransactionCellConfirmedLabelHeight)].width + subLabelLeftRightPadding; // subLabelLeftRightPadding: 预留内部填充
     CGRect confirmedFrame = CGRectMake(labelAreaLeft, confirmedTop, confirmedWidth, kTransactionCellConfirmedLabelHeight);
-    self.confirmedLabel.frame = confirmedFrame;
+    self.confirmationLabel.frame = confirmedFrame;
     
     // address
     CGFloat addressWidth = labelAreaWidth - confirmedWidth - horizontalPadding;
@@ -187,6 +187,12 @@ static const CGFloat kTransactionCellVerticalPadding = CBWLayoutCommonVerticalPa
     UIEdgeInsets inset = self.separatorInset;
     inset.left = CGRectGetMinX(self.valueLabel.frame);
     self.separatorInset = inset;
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+    
+    // Configure the view for the selected state
 }
 
 @end

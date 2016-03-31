@@ -19,6 +19,10 @@ const NSUInteger CBWRequestPageSizeMax = 50;
 
 @implementation CBWRequest
 
++ (instancetype)request {
+    return [[CBWRequest alloc] init];
+}
+
 + (NSString *)baseURLString {
     return [[CBWRequestAPIHost stringByAppendingPathComponent:CBWRequestAPIPath] stringByAppendingPathComponent:CBWRequestAPIVersion];
 }
@@ -28,6 +32,9 @@ const NSUInteger CBWRequestPageSizeMax = 50;
 }
 
 - (void)requestWithPath:(NSString *)path method:(NSString *)method parameters:(NSDictionary *)parameters completion:(CBWRequestCompletion)completion {
+    // network indicator
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
     // 1. config session
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     // 2. create manager with configuration
@@ -38,6 +45,8 @@ const NSUInteger CBWRequestPageSizeMax = 50;
     NSURLRequest *request = [[AFJSONRequestSerializer serializer] requestWithMethod:method URLString:urlString parameters:parameters error:nil];
     // 4. fetch
     NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        
         NSInteger statusCode = ((NSHTTPURLResponse *)response).statusCode;
         if (error) {
             NSLog(@"request error: %@", error);

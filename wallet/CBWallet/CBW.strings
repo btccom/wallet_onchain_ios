@@ -41,7 +41,7 @@
 "Label watched_account" = "Watched Account";
 "Label default_account" = "Default Account";
 
-"%d confirmed" = "%d confirmed";
+"%d confirmations" = "%d confirmations";
 "Unconfirmed" = "Unconfirmed";
 "Confirmed" = "Confirmed";
 "Watched Account" = "Watched Account";
@@ -64,3 +64,16 @@
 
 // Address
 "Address Section transactions" = "Transactions";
+
+// transaction
+"Transaction Section summary" = "Summary";
+"Transaction Section inputs" = "Inputs";
+"Transaction Section outputs" = "Outputs";
+"Transaction Section block" = "Block";
+"Transaction Cell hash" = "Hash";
+"Transaction Cell value" = "Value";
+"Transaction Cell fee" = "Fee";
+"Transaction Cell confirmations" = "Confirmations";
+"Transaction Cell height" = "Height";
+"Transaction Cell time" = "Time";
+"Transaction Cell size" = "Size";

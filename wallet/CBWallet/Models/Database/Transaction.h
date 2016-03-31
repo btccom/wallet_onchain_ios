@@ -14,14 +14,38 @@ typedef NS_ENUM(NSUInteger, TransactionType) {
 };
 
 @interface Transaction : RecordObject
-
+/// string 交易哈希
 @property (nonatomic, copy, readonly, nonnull) NSString *hashId;
-@property (nonatomic, assign) NSInteger blockHeight;
-@property (nonatomic, assign, readonly) TransactionType type;
+/// int 所在块高度
+@property (nonatomic, assign, readonly) NSUInteger blockHeight;
 /// 交易数量，正负值，单位 satoshi
 @property (nonatomic, assign, readonly) long long value;
 
+// 详情
+/// 所在块时间
+@property (nonatomic, strong, readonly, nonnull) NSDate *blockTime;
+/// long long 该交易的手续费
+@property (nonatomic, assign) long long fee;
+/// int 输入数量
+@property (nonatomic, assign, readonly) NSUInteger inputsCount;
+/// long long 输入金额
+@property (nonatomic, assign, readonly) long long inputsValue;
+/// int 输出数量
+@property (nonatomic, assign, readonly) NSUInteger outputsCount;
+/// long long 输出金额
+@property (nonatomic, assign, readonly) long long outputsValue;
+/// boolean 是否为 coinbase 交易
+@property (nonatomic, assign, readonly) BOOL isCoinbase;
+/// int 交易体积
+@property (nonatomic, assign, readonly) NSUInteger size;
+/// int 交易版本号
+@property (nonatomic, assign, readonly) NSUInteger version;
+/// int 确认数
+@property (nonatomic, assign, readonly) NSUInteger confirmations;
+
+
 // 需计算的属性
+@property (nonatomic, assign, readonly) TransactionType type;
 /// 相关地址
 @property (nonatomic, copy, readonly, nonnull) NSArray *relatedAddresses;
 
@@ -33,7 +57,7 @@ typedef NS_ENUM(NSUInteger, TransactionType) {
 
 - (nullable instancetype)initWithDictionary:(nullable NSDictionary *)dictionary;
 
-- (NSUInteger)confirmedCount;
+//- (NSUInteger)confirmedCount;
 
 @end
 

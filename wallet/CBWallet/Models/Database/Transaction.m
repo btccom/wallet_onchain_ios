@@ -47,12 +47,12 @@
     return _relatedAddresses;
 }
 
-- (NSUInteger)confirmedCount {
-    if (self.blockHeight > -1) {
-        return MAX(((TransactionStore *)self.store).blockHeight - self.blockHeight + 1, 0);
-    }
-    return 0;
-}
+//- (NSUInteger)confirmedCount {
+//    if (self.blockHeight > -1) {
+//        return MAX(((TransactionStore *)self.store).blockHeight - self.blockHeight + 1, 0);
+//    }
+//    return 0;
+//}
 #pragma mark - Initialization
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary {
     if (!dictionary || ![dictionary isKindOfClass:[NSDictionary class]]) {
@@ -81,7 +81,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"transaction, related addresses %@, %lld satoshi, %ld confirmed", self.relatedAddresses, self.value, (unsigned long)self.confirmedCount];
+    return [NSString stringWithFormat:@"transaction, related addresses %@..., %lld satoshi, %ld confirmations", [self.relatedAddresses firstObject], self.value, (unsigned long)self.confirmations];
 }
 
 #pragma mark - KVC
@@ -110,6 +110,14 @@
             }];
             _outputs = [outs copy];
         }
+    } else if ([key isEqualToString:@"fee"]) {
+        _fee = [value longLongValue];
+    } else if ([key isEqualToString:@"size"]) {
+        _size = [value unsignedIntegerValue];
+    } else if ([key isEqualToString:@"version"]) {
+        _version = [value unsignedIntegerValue];
+    } else if ([key isEqualToString:@"confirmations"]) {
+        _confirmations = [value unsignedIntegerValue];
     } else {
         [super setValue:value forKey:key];
     }
@@ -123,17 +131,27 @@
     } else if ([key isEqualToString:@"block_time"]) {
         NSTimeInterval timestamp = [value doubleValue];
         if (timestamp > 0) {
-            self.creationDate = [NSDate dateWithTimeIntervalSince1970:timestamp];
+            _blockTime = self.creationDate = [NSDate dateWithTimeIntervalSince1970:timestamp];
         }
     } else if ([key isEqualToString:@"block_height"]) {
-        if (![value isKindOfClass:[NSNull class]]) {
-            _blockHeight = [value integerValue];
-        }
+//        if (![value isKindOfClass:[NSNull class]]) {
+            _blockHeight = MAX([value integerValue], 0);
+//        }
     } else if ([key isEqualToString:@"created_at"]) {
         if (!self.creationDate) {
             NSTimeInterval timestamp = [value doubleValue];
             self.creationDate = [NSDate dateWithTimeIntervalSince1970:timestamp];
         }
+    } else if ([key isEqualToString:@"inputs_count"]) {
+        _inputsCount = [value unsignedIntegerValue];
+    } else if ([key isEqualToString:@"inputs_value"]) {
+        _inputsValue = [value longLongValue];
+    } else if ([key isEqualToString:@"outputs_count"]) {
+        _outputsCount = [value unsignedIntegerValue];
+    } else if ([key isEqualToString:@"outputs_value"]) {
+        _outputsValue = [value longLongValue];
+    } else if ([key isEqualToString:@"is_coinbase"]) {
+        _isCoinbase = [value boolValue];
     }
 }
 

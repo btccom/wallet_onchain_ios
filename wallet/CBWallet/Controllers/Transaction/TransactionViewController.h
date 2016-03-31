@@ -13,7 +13,9 @@
 @interface TransactionViewController : BaseListViewController
 
 @property (nonatomic, strong, nullable) Transaction *transaction;
+@property (nonatomic, copy, nullable) NSString *hashId;
 
-- (instancetype _Nonnull)initWithTransaction:(Transaction * _Nonnull)transaction;
+- (nonnull instancetype)initWithTransaction:(nonnull Transaction *)transaction;
+- (nonnull instancetype)initWithTransactionHashId:(nonnull NSString *)hashId;
 
 @end

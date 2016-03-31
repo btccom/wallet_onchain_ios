@@ -17,4 +17,9 @@ extern NSString * _Nonnull const BaseListViewCellAddressIdentifier;
 
 @interface BaseListViewController : BaseTableViewController
 
+@property (nonatomic, assign, getter=isRequesting) BOOL requesting;
+
+- (void)requestDidStart;
+- (void)requestDidStop;
+
 @end

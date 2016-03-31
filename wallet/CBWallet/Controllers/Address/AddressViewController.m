@@ -18,7 +18,6 @@
 
 @property (nonatomic, strong) TransactionStore *transactionStore;
 @property (nonatomic, assign) NSUInteger page;
-@property (nonatomic, assign) BOOL fetching;
 
 @end
 
@@ -91,58 +90,41 @@
 #pragma mark - Private Method
 #pragma mark Request Logic
 - (void)p_requestAddressSummary {
-    if (self.fetching) {
+    if (self.requesting) {
         DLog(@"fetching");
         return;
     }
     
-    [self p_requestDidStart];
+    [self requestDidStart];
     
     CBWRequest *request = [[CBWRequest alloc] init];
     // FIXME: 地址信息放在列表中批量获取，不需要重复获取，可以由用户主动触发
     // 获取地址信息
     [request addressSummaryWithAddressString:self.address.address completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
-        if (error) {
-            [self p_requestDidStop];
-        } else {
-            // 保存地址信息
-            [self.address updateWithDictionary:response];
-            [self.address saveWithError:nil];
-            if (self.address.txCount > 0) {
-                // 获取块高度
-                [request blockLatestWithCompletion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
-                    [self p_requestDidStop];
-                    if (!error) {
-                        NSInteger blockHeight = [[response objectForKey:@"height"] integerValue];
-                        DLog(@"max block height: %ld", (long)blockHeight);
-                        
-                        if (blockHeight > 0) {
-                            self.transactionStore.blockHeight = blockHeight;
-                            // 重置分页信息后获取交易
-                            self.page = 0;
-                            [self p_requestTransactions];
-                        }
-                    }
-                }];
-            } else {
-                [self p_requestDidStop];
-            }
+        [self requestDidStop];
+        // 保存地址信息
+        [self.address updateWithDictionary:response];
+        [self.address saveWithError:nil];
+        if (self.address.txCount > 0) {
+            // 重置分页信息后获取交易
+            self.page = 0;
+            [self p_requestTransactions];
         }
     }];
 }
 - (void)p_requestTransactions {
-    if (self.fetching) {
+    if (self.requesting) {
         DLog(@"fetching more? fetching");
         return;
     }
     
-    [self p_requestDidStart];
+    [self requestDidStart];
     
     CBWRequest *request = [[CBWRequest alloc] init];
     
     [request addressTransactionsWithAddressString:self.address.address page:(self.page + 1) pagesize:0 completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
         
-        [self p_requestDidStop];
+        [self requestDidStop];
         
         if (!error) {
             // transactions
@@ -169,16 +151,6 @@
             }
         }
     }];
-}
-
-- (void)p_requestDidStart {
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    self.fetching = YES;
-}
-
-- (void)p_requestDidStop {
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-    self.fetching = NO;
 }
 
 #pragma mark Handlers

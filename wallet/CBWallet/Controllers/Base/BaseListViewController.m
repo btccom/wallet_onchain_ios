@@ -26,9 +26,19 @@ NSString *const BaseListViewCellAddressIdentifier = @"list.cell.address";
     [self.tableView registerClass:[AddressCell class] forCellReuseIdentifier:BaseListViewCellAddressIdentifier];
 }
 
-#pragma mark - UITableViewDataSource
+#pragma mark - Public Method
+- (void)requestDidStart {
+    self.requesting = YES;
+//    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+}
+- (void)requestDidStop {
+    self.requesting = NO;
+//    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+}
 
-#pragma mark - UITableViewDelegate
+#pragma mark - <UITableViewDataSource>
+
+#pragma mark - <UITableViewDelegate>
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     return [tableView dequeueReusableHeaderFooterViewWithIdentifier:BaseListViewSectionHeaderIdentifier];
 }

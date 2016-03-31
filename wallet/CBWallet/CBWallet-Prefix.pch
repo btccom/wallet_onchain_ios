@@ -14,6 +14,7 @@
 #import "UIColor+CBW.h"
 #import "NSString+Helper.h"
 #import "UIFont+CBW.h"
+#import "NSNull+SafePatch.h"
 #import "Constants.h"
 
 #define ScreenWidth CGRectGetWidth([UIScreen mainScreen].bounds)
@@ -41,7 +42,7 @@ static const CGFloat CBWCellHeightAddressWithMetadata = 76.f;
 
 // TODO: depending on scrren width
 //static const CGFloat CBWLayoutCommonHorizontalPadding = 16.f;
-static const CGFloat CBWLayoutCommonHorizontalPaddingPlus = 20.f;
+//static const CGFloat CBWLayoutCommonHorizontalPaddingPlus = 20.f;
 static const CGFloat CBWLayoutCommonVerticalPadding = 16.f;
 static const CGFloat CBWLayoutInnerSpace = 8.f;
 

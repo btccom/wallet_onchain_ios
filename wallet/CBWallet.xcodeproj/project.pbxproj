@@ -11,6 +11,9 @@
 		2C1684A31CAB6B4B00BD434A /* CBWRequest+Block.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1684A21CAB6B4B00BD434A /* CBWRequest+Block.m */; };
 		2C1684A61CACA89D00BD434A /* CBWRequest+Transaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1684A51CACA89D00BD434A /* CBWRequest+Transaction.m */; };
 		2C1684A91CACAA2D00BD434A /* CBWRequest+Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1684A81CACAA2D00BD434A /* CBWRequest+Tools.m */; };
+		2C1684AC1CACEE4200BD434A /* NSNull+SafePatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1684AB1CACEE4200BD434A /* NSNull+SafePatch.m */; };
+		2C1684AF1CAD17C500BD434A /* TransactionDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1684AE1CAD17C500BD434A /* TransactionDataCell.m */; };
+		2C1684B21CAD1A6500BD434A /* TransactionIOCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1684B11CAD1A6500BD434A /* TransactionIOCell.m */; };
 		2C1E88F91CA3ADCB006F86E1 /* NSString+Password.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E88F81CA3ADCB006F86E1 /* NSString+Password.m */; };
 		2C1E8C4E1CA42A7D006F86E1 /* AESCrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E8C471CA42A7D006F86E1 /* AESCrypt.m */; };
 		2C1E8C4F1CA42A7D006F86E1 /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E8C491CA42A7D006F86E1 /* Base64.m */; };
@@ -113,6 +116,12 @@
 		2C1684A51CACA89D00BD434A /* CBWRequest+Transaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBWRequest+Transaction.m"; sourceTree = "<group>"; };
 		2C1684A71CACAA2D00BD434A /* CBWRequest+Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBWRequest+Tools.h"; sourceTree = "<group>"; };
 		2C1684A81CACAA2D00BD434A /* CBWRequest+Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBWRequest+Tools.m"; sourceTree = "<group>"; };
+		2C1684AA1CACEE4200BD434A /* NSNull+SafePatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNull+SafePatch.h"; sourceTree = "<group>"; };
+		2C1684AB1CACEE4200BD434A /* NSNull+SafePatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNull+SafePatch.m"; sourceTree = "<group>"; };
+		2C1684AD1CAD17C500BD434A /* TransactionDataCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionDataCell.h; sourceTree = "<group>"; };
+		2C1684AE1CAD17C500BD434A /* TransactionDataCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionDataCell.m; sourceTree = "<group>"; };
+		2C1684B01CAD1A6500BD434A /* TransactionIOCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionIOCell.h; sourceTree = "<group>"; };
+		2C1684B11CAD1A6500BD434A /* TransactionIOCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionIOCell.m; sourceTree = "<group>"; };
 		2C1E88F71CA3ADCB006F86E1 /* NSString+Password.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Password.h"; sourceTree = "<group>"; };
 		2C1E88F81CA3ADCB006F86E1 /* NSString+Password.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Password.m"; sourceTree = "<group>"; };
 		2C1E8C461CA42A7D006F86E1 /* AESCrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AESCrypt.h; sourceTree = "<group>"; };
@@ -639,6 +648,8 @@
 				2C77D2721CAA10EE001DDB1F /* UIFont+CBW.m */,
 				2C9CAF1A1C868B61008194EB /* UIViewController+Appearance.h */,
 				2C9CAF1B1C868B61008194EB /* UIViewController+Appearance.m */,
+				2C1684AA1CACEE4200BD434A /* NSNull+SafePatch.h */,
+				2C1684AB1CACEE4200BD434A /* NSNull+SafePatch.m */,
 			);
 			name = Helpers;
 			path = CBWallet/Helpers;
@@ -771,6 +782,10 @@
 			children = (
 				2C9CAF451C868B61008194EB /* TransactionCell.h */,
 				2C9CAF461C868B61008194EB /* TransactionCell.m */,
+				2C1684AD1CAD17C500BD434A /* TransactionDataCell.h */,
+				2C1684AE1CAD17C500BD434A /* TransactionDataCell.m */,
+				2C1684B01CAD1A6500BD434A /* TransactionIOCell.h */,
+				2C1684B11CAD1A6500BD434A /* TransactionIOCell.m */,
 			);
 			path = Transaction;
 			sourceTree = "<group>";
@@ -1011,7 +1026,9 @@
 				2C9CAF531C868B61008194EB /* LockScreenController.m in Sources */,
 				2C9CAF611C868B61008194EB /* Address.m in Sources */,
 				2C77D2661CA8C14E001DDB1F /* CBWRequest+Address.m in Sources */,
+				2C1684AF1CAD17C500BD434A /* TransactionDataCell.m in Sources */,
 				2C1684A31CAB6B4B00BD434A /* CBWRequest+Block.m in Sources */,
+				2C1684B21CAD1A6500BD434A /* TransactionIOCell.m in Sources */,
 				2CD0A9191CA02ACA006AF02F /* FMDatabaseAdditions.m in Sources */,
 				2C9CAF561C868B61008194EB /* SettingsViewController.m in Sources */,
 				2C9CAF691C868B61008194EB /* ActionButtonCell.m in Sources */,
@@ -1019,6 +1036,7 @@
 				2C9CAF871C868E17008194EB /* BaseFormControlCell.m in Sources */,
 				2CF24D5C1C965C7200C7EDB9 /* YYImageCoder.m in Sources */,
 				2CF3458B1C9F703800624C39 /* InputTableViewCell.m in Sources */,
+				2C1684AC1CACEE4200BD434A /* NSNull+SafePatch.m in Sources */,
 				2CF24D5A1C965C7200C7EDB9 /* YYFrameImage.m in Sources */,
 				2C9CAF7E1C868B98008194EB /* main.m in Sources */,
 				2CF24D771C97A53200C7EDB9 /* AFURLRequestSerialization.m in Sources */,

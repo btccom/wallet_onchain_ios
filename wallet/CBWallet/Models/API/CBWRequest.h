@@ -20,6 +20,8 @@ typedef void(^CBWRequestCompletion) (NSError * _Nullable error, NSInteger status
 /// based on AFNetworking 3.0
 @interface CBWRequest : NSObject
 
++ (nonnull instancetype)request;
+
 + (nonnull NSString *)baseURLString;
 - (nonnull NSString *)baseURLString;
 
