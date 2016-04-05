@@ -2,7 +2,7 @@
 //  TransactionViewController.m
 //  wallet
 //
-//  Created by Zin on 16/2/26.
+//  Created by Zin (noteon.com) on 16/2/26.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
@@ -74,7 +74,7 @@ static NSString *const kTransactionViewControllerCellIdentifierIO = @"transactio
     _summaryDatas = [NSMutableArray arrayWithObject:self.hashId];
     if (self.transaction) {
         [baseSummaryTitles insertObject:NSLocalizedStringFromTable(@"Transaction Cell value", @"CBW", nil) atIndex:1];
-        [_summaryDatas addObject:[NSString stringWithFormat:@"%.8lf", self.transaction.value / 100000000.0]];
+        [_summaryDatas addObject:[@(self.transaction.value) satoshiBTCString]];
     }
     _summaryTitles = [baseSummaryTitles copy];
     
@@ -92,15 +92,21 @@ static NSString *const kTransactionViewControllerCellIdentifierIO = @"transactio
             // 填充数据
             self.transactionDetail = [[Transaction alloc] initWithDictionary:response];
             
-            [self.summaryDatas addObject:[NSString stringWithFormat:@"%.8lf", self.transactionDetail.fee / 100000000.0]];
-            [self.summaryDatas addObject:[NSString stringWithFormat:@"%lu", self.transactionDetail.confirmations]];
-            
-            self.blockDatas = @[[self.transactionDetail.blockTime stringWithFormat:@"yyyy-MM-dd HH:mm:ss"],
-                                [NSString stringWithFormat:@"%lu", self.transactionDetail.blockHeight],
-                                [NSString stringWithFormat:@"%lu", self.transactionDetail.size]];
-            
-            // 刷新表格
-            [self.tableView reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, self.tableView.numberOfSections)] withRowAnimation:UITableViewRowAnimationAutomatic];
+            if (self.transactionDetail) {
+                [self.summaryDatas addObject:[@(self.transactionDetail.fee) satoshiBTCString]];
+                [self.summaryDatas addObject:[NSString stringWithFormat:@"%lu", self.transactionDetail.confirmations]];
+                
+                NSString *blockTime = [self.transactionDetail.blockTime stringWithFormat:@"yyyy-MM-dd HH:mm:ss"];
+                if (!blockTime) {
+                    blockTime = @"";
+                }
+                self.blockDatas = @[blockTime,
+                                    [NSString stringWithFormat:@"%lu", self.transactionDetail.blockHeight],
+                                    [NSString stringWithFormat:@"%lu", self.transactionDetail.size]];
+                
+                // 刷新表格
+                [self.tableView reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, self.tableView.numberOfSections)] withRowAnimation:UITableViewRowAnimationAutomatic];
+            }
         }
         
     }];
@@ -164,14 +170,14 @@ static NSString *const kTransactionViewControllerCellIdentifierIO = @"transactio
             } else {
                 InputItem *i = self.transactionDetail.inputs[indexPath.row];
                 cell.textLabel.text = [i.prevAddresses componentsJoinedByString:@","];
-                cell.detailTextLabel.text = [NSString stringWithFormat:@"%.8lf", [i.prevValue longLongValue] / 100000000.0];
+                cell.detailTextLabel.text = [i.prevValue satoshiBTCString];
             }
             break;
         }
         case kTransactionViewControllerSectionOutputs: {
             OutItem *o = self.transactionDetail.outputs[indexPath.row];
             cell.textLabel.text = [o.addresses componentsJoinedByString:@","];
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%.8lf", [o.value longLongValue] / 100000000.0];
+            cell.detailTextLabel.text = [o.value satoshiBTCString];
             break;
         }
         case kTransactionViewControllerSectionBlock: {
@@ -189,7 +195,7 @@ static NSString *const kTransactionViewControllerCellIdentifierIO = @"transactio
 
 #pragma mark - <UITableViewDelegate>
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    ListSectionHeaderView *headerView = (ListSectionHeaderView *)[super tableView:tableView viewForHeaderInSection:section];
+    DefaultSectionHeaderView *headerView = (DefaultSectionHeaderView *)[super tableView:tableView viewForHeaderInSection:section];
     headerView.topHairlineHidden = YES;
     headerView.detailTextLabel.text = nil;
     if (section == kTransactionViewControllerSectionInputs) {

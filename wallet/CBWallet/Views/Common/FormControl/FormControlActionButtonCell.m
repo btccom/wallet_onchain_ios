@@ -2,13 +2,13 @@
 //  ActionCell.m
 //  wallet
 //
-//  Created by Zin on 16/2/28.
+//  Created by Zin (noteon.com) on 16/2/28.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
-#import "ActionButtonCell.h"
+#import "FormControlActionButtonCell.h"
 
-@implementation ActionButtonCell
+@implementation FormControlActionButtonCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];

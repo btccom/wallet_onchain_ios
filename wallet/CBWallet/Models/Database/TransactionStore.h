@@ -2,9 +2,11 @@
 //  TransactionStore.h
 //  CBWallet
 //
-//  Created by Zin on 16/3/25.
+//  Created by Zin (noteon.com) on 16/3/25.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
+
+// TODO: 格式化数据，按月分组
 
 #import "RecordObjectStore.h"
 #import "Transaction.h"

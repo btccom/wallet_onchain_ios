@@ -2,7 +2,7 @@
 //  CBWRequest.m
 //  CBWallet
 //
-//  Created by Zin on 16/3/28.
+//  Created by Zin (noteon.com) on 16/3/28.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
@@ -39,6 +39,7 @@ const NSUInteger CBWRequestPageSizeMax = 50;
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     // 2. create manager with configuration
     AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+//    manager.securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModePublicKey];
     // 3. create request
     NSString *urlString = [[self baseURLString] stringByAppendingPathComponent:path];
     DLog(@"request: %@", urlString);

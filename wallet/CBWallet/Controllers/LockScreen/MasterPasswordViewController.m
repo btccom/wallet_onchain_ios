@@ -2,7 +2,7 @@
 //  SignInMasterPasswordViewController.m
 //  wallet
 //
-//  Created by Zin on 16/2/15.
+//  Created by Zin (noteon.com) on 16/2/15.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
@@ -10,15 +10,15 @@
 #import "LockScreenController.h"
 
 #import "PrimaryButton.h"
-#import "InputTableViewCell.h"
+#import "FormControlInputCell.h"
 
 #import "NSString+Password.h"
 
 @interface MasterPasswordViewController ()<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 
-@property (nonatomic, weak) InputTableViewCell *masterPasswordCell;
-@property (nonatomic, weak) InputTableViewCell *confirmMasterPasswordCell;
-@property (nonatomic, weak) InputTableViewCell *hintCell;
+@property (nonatomic, weak) FormControlInputCell *masterPasswordCell;
+@property (nonatomic, weak) FormControlInputCell *confirmMasterPasswordCell;
+@property (nonatomic, weak) FormControlInputCell *hintCell;
 @property (nonatomic, weak) UIButton *nextButton;
 
 @end
@@ -142,7 +142,7 @@
     NSString *reuseIdentifier = [NSString stringWithFormat:@"cell-%lu-%lu", (unsigned long)indexPath.section, (unsigned long)indexPath.row];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     if (!cell) {
-        InputTableViewCell *inputCell = [[InputTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
+        FormControlInputCell *inputCell = [[FormControlInputCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
         [inputCell.textField addTarget:self action:@selector(p_handleEditingChanged:) forControlEvents:UIControlEventEditingChanged];
         inputCell.textField.delegate = self;
         cell = inputCell;
@@ -154,7 +154,7 @@
             switch (indexPath.row) {
                 case 0: {
                     // master password
-                    self.masterPasswordCell = (InputTableViewCell *)cell;
+                    self.masterPasswordCell = (FormControlInputCell *)cell;
                     self.masterPasswordCell.textField.secureTextEntry = YES;
                     self.masterPasswordCell.textField.placeholder = NSLocalizedStringFromTable(@"Placeholder master_password", @"CBW", @"Master Password");
                     self.masterPasswordCell.textField.returnKeyType = (self.actionType == LockScreenActionTypeSignIn) ? UIReturnKeyDone : UIReturnKeyNext;
@@ -162,7 +162,7 @@
                 }
                 case 1: {
                     // confirm password
-                    self.confirmMasterPasswordCell = (InputTableViewCell *)cell;
+                    self.confirmMasterPasswordCell = (FormControlInputCell *)cell;
                     self.confirmMasterPasswordCell.textField.secureTextEntry = YES;
                     self.confirmMasterPasswordCell.textField.placeholder = NSLocalizedStringFromTable(@"Placeholder confirm_master_password", @"CBW", @"Confirm Master Password");
                     self.confirmMasterPasswordCell.textField.returnKeyType = UIReturnKeyNext;
@@ -173,7 +173,7 @@
         }
         case 1: {
             // hint
-            self.hintCell = (InputTableViewCell *)cell;
+            self.hintCell = (FormControlInputCell *)cell;
             self.hintCell.textField.placeholder = NSLocalizedStringFromTable(@"Placeholder hint", @"CBW", "Hint");
             self.hintCell.textField.returnKeyType = UIReturnKeyDone;
             self.hintCell.textField.text = self.hint;

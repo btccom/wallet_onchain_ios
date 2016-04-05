@@ -2,13 +2,13 @@
 //  ListSectionHeaderView.m
 //  wallet
 //
-//  Created by Zin on 16/2/27.
+//  Created by Zin (noteon.com) on 16/2/27.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
-#import "ListSectionHeaderView.h"
+#import "DefaultSectionHeaderView.h"
 
-@implementation ListSectionHeaderView
+@implementation DefaultSectionHeaderView
 @synthesize detailTextLabel = _detailTextLabel;
 
 //- (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier {

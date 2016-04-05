@@ -2,7 +2,7 @@
 //  wallet-Prefix.pch
 //  wallet
 //
-//  Created by Zin on 16/2/25.
+//  Created by Zin (noteon.com) on 16/2/25.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
@@ -13,6 +13,7 @@
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 #import "UIColor+CBW.h"
 #import "NSString+Helper.h"
+#import "NSNumber+Satoshi.h"
 #import "UIFont+CBW.h"
 #import "NSNull+SafePatch.h"
 #import "Constants.h"

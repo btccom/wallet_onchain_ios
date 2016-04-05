@@ -2,7 +2,7 @@
 //  CBWRequest.h
 //  CBWallet
 //
-//  Created by Zin on 16/3/28.
+//  Created by Zin (noteon.com) on 16/3/28.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
@@ -30,6 +30,7 @@ typedef void(^CBWRequestCompletion) (NSError * _Nullable error, NSInteger status
 
 @end
 
+#import "CBWRequest+Errors.h"
 #import "CBWRequest+Address.h"
 #import "CBWRequest+Block.h"
 #import "CBWRequest+Transaction.h"

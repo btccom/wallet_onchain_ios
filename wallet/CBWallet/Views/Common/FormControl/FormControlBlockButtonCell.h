@@ -2,7 +2,7 @@
 //  BlockButtonCell.h
 //  wallet
 //
-//  Created by Zin on 16/2/29.
+//  Created by Zin (noteon.com) on 16/2/29.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
@@ -20,7 +20,7 @@ typedef NS_ENUM(NSUInteger, BlockButtonCellStyle) {
 };
 
 /// align center, like sign up button
-@interface BlockButtonCell : BaseFormControlCell
+@interface FormControlBlockButtonCell : BaseFormControlCell
 
 @property (nonatomic, assign) BlockButtonCellStyle buttonCellStyle;
 

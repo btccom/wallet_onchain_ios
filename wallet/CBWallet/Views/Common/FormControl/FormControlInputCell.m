@@ -2,19 +2,19 @@
 //  InputTableViewCell.m
 //  CBWallet
 //
-//  Created by Zin on 16/3/21.
+//  Created by Zin (noteon.com) on 16/3/21.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
-#import "InputTableViewCell.h"
+#import "FormControlInputCell.h"
 
-@interface InputTableViewCell ()
+@interface FormControlInputCell ()
 
 @property (nonatomic, weak, readwrite) UITextField *textField;
 
 @end
 
-@implementation InputTableViewCell
+@implementation FormControlInputCell
 
 - (UITextField *)textField {
     if (_textField) {

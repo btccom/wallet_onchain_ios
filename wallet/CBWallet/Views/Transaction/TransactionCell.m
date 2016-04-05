@@ -2,7 +2,7 @@
 //  TransactionCell.m
 //  wallet
 //
-//  Created by Zin on 16/2/26.
+//  Created by Zin (noteon.com) on 16/2/26.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 // TODO: Automatic vertical middle layout
@@ -116,7 +116,7 @@ static const CGFloat kTransactionCellVerticalPadding = CBWLayoutCommonVerticalPa
     }
     // TODO: today....
     self.dateLabel.text = [transaction.creationDate stringWithFormat:@"yyyy-MM-dd HH:mm:ss"];
-    self.valueLabel.text = [NSString stringWithFormat:@"%.8lf", ABS(transaction.value) / 100000000.0];
+    self.valueLabel.text = [@(ABS(transaction.value)) satoshiBTCString];
     self.valueLabel.textColor = self.iconView.tintColor;
     if (transaction.confirmations > 0) {
         self.confirmationLabel.textColor = [UIColor CBWBlackColor];

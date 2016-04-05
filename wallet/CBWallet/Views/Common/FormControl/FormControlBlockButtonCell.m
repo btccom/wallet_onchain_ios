@@ -2,18 +2,19 @@
 //  BlockButtonCell.m
 //  wallet
 //
-//  Created by Zin on 16/2/29.
+//  Created by Zin (noteon.com) on 16/2/29.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
-#import "BlockButtonCell.h"
+#import "FormControlBlockButtonCell.h"
 
-@implementation BlockButtonCell
+@implementation FormControlBlockButtonCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
     if (self) {
         self.textLabel.textAlignment = NSTextAlignmentCenter;
+        self.separatorInset = UIEdgeInsetsZero;
     }
     return self;
 }

@@ -2,7 +2,7 @@
 //  Address.h
 //  wallet
 //
-//  Created by Zin on 16/2/24.
+//  Created by Zin (noteon.com) on 16/2/24.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
@@ -20,7 +20,9 @@
 /// 是否已经使用过
 @property (nonatomic, assign, getter=isDirty) BOOL dirty;
 @property (nonatomic, assign, getter=isInternal) BOOL internal;
+/// long long int
 @property (nonatomic, assign) long long balance;
+/// unsigned integer
 @property (nonatomic, assign) NSUInteger txCount;
 
 @property (nonatomic, assign) NSInteger accountRid;

@@ -14,6 +14,15 @@
 		2C1684AC1CACEE4200BD434A /* NSNull+SafePatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1684AB1CACEE4200BD434A /* NSNull+SafePatch.m */; };
 		2C1684AF1CAD17C500BD434A /* TransactionDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1684AE1CAD17C500BD434A /* TransactionDataCell.m */; };
 		2C1684B21CAD1A6500BD434A /* TransactionIOCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1684B11CAD1A6500BD434A /* TransactionIOCell.m */; };
+		2C18E2111CAE64E00080EF1E /* CBWRequest+Errors.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C18E2101CAE64E00080EF1E /* CBWRequest+Errors.m */; };
+		2C18E2301CAE672C0080EF1E /* BaseFormControlCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C18E2271CAE672C0080EF1E /* BaseFormControlCell.m */; };
+		2C18E2311CAE672C0080EF1E /* FormControlActionButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C18E2291CAE672C0080EF1E /* FormControlActionButtonCell.m */; };
+		2C18E2321CAE672C0080EF1E /* FormControlBlockButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C18E22B1CAE672C0080EF1E /* FormControlBlockButtonCell.m */; };
+		2C18E2331CAE672C0080EF1E /* FormControlInputCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C18E22D1CAE672C0080EF1E /* FormControlInputCell.m */; };
+		2C18E2341CAE672C0080EF1E /* FormControlStaticCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C18E22F1CAE672C0080EF1E /* FormControlStaticCell.m */; };
+		2C18E2371CAE69100080EF1E /* FormControlStaticAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C18E2361CAE69100080EF1E /* FormControlStaticAddressCell.m */; };
+		2C19FCFD1CB32C92009BC78C /* FormControlInputActionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C19FCFC1CB32C92009BC78C /* FormControlInputActionCell.m */; };
+		2C19FD0C1CB3FBC7009BC78C /* NSNumber+Satoshi.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C19FD0B1CB3FBC7009BC78C /* NSNumber+Satoshi.m */; };
 		2C1E88F91CA3ADCB006F86E1 /* NSString+Password.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E88F81CA3ADCB006F86E1 /* NSString+Password.m */; };
 		2C1E8C4E1CA42A7D006F86E1 /* AESCrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E8C471CA42A7D006F86E1 /* AESCrypt.m */; };
 		2C1E8C4F1CA42A7D006F86E1 /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E8C491CA42A7D006F86E1 /* Base64.m */; };
@@ -59,10 +68,8 @@
 		2C9CAF661C868B61008194EB /* SessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF2D1C868B61008194EB /* SessionManager.m */; };
 		2C9CAF671C868B61008194EB /* AddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF311C868B61008194EB /* AddressCell.m */; };
 		2C9CAF681C868B61008194EB /* AddressHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF331C868B61008194EB /* AddressHeaderView.m */; };
-		2C9CAF691C868B61008194EB /* ActionButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF361C868B61008194EB /* ActionButtonCell.m */; };
-		2C9CAF6B1C868B61008194EB /* BlockButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF3A1C868B61008194EB /* BlockButtonCell.m */; };
 		2C9CAF6C1C868B61008194EB /* DefaultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF3C1C868B61008194EB /* DefaultTableViewCell.m */; };
-		2C9CAF6D1C868B61008194EB /* ListSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF3E1C868B61008194EB /* ListSectionHeaderView.m */; };
+		2C9CAF6D1C868B61008194EB /* DefaultSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF3E1C868B61008194EB /* DefaultSectionHeaderView.m */; };
 		2C9CAF6E1C868B61008194EB /* DashboardHeaderActionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF411C868B61008194EB /* DashboardHeaderActionButton.m */; };
 		2C9CAF6F1C868B61008194EB /* DashboardHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF431C868B61008194EB /* DashboardHeaderView.m */; };
 		2C9CAF701C868B61008194EB /* TransactionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF461C868B61008194EB /* TransactionCell.m */; };
@@ -72,7 +79,6 @@
 		2C9CAF7D1C868B98008194EB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2C9CAF771C868B98008194EB /* InfoPlist.strings */; };
 		2C9CAF7E1C868B98008194EB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF781C868B98008194EB /* main.m */; };
 		2C9CAF811C868BCB008194EB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C9CAF7F1C868BCB008194EB /* LaunchScreen.storyboard */; };
-		2C9CAF871C868E17008194EB /* BaseFormControlCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF861C868E17008194EB /* BaseFormControlCell.m */; };
 		2CD0A9181CA02ACA006AF02F /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD0A90E1CA02ACA006AF02F /* FMDatabase.m */; };
 		2CD0A9191CA02ACA006AF02F /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD0A9101CA02ACA006AF02F /* FMDatabaseAdditions.m */; };
 		2CD0A91A1CA02ACA006AF02F /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD0A9121CA02ACA006AF02F /* FMDatabasePool.m */; };
@@ -104,7 +110,6 @@
 		2CF24D771C97A53200C7EDB9 /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF24D6F1C97A53200C7EDB9 /* AFURLRequestSerialization.m */; };
 		2CF24D781C97A53200C7EDB9 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF24D711C97A53200C7EDB9 /* AFURLResponseSerialization.m */; };
 		2CF24D791C97A53200C7EDB9 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF24D731C97A53200C7EDB9 /* AFURLSessionManager.m */; };
-		2CF3458B1C9F703800624C39 /* InputTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF3458A1C9F703800624C39 /* InputTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -122,6 +127,24 @@
 		2C1684AE1CAD17C500BD434A /* TransactionDataCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionDataCell.m; sourceTree = "<group>"; };
 		2C1684B01CAD1A6500BD434A /* TransactionIOCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionIOCell.h; sourceTree = "<group>"; };
 		2C1684B11CAD1A6500BD434A /* TransactionIOCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionIOCell.m; sourceTree = "<group>"; };
+		2C18E20F1CAE64E00080EF1E /* CBWRequest+Errors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBWRequest+Errors.h"; sourceTree = "<group>"; };
+		2C18E2101CAE64E00080EF1E /* CBWRequest+Errors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBWRequest+Errors.m"; sourceTree = "<group>"; };
+		2C18E2261CAE672C0080EF1E /* BaseFormControlCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseFormControlCell.h; sourceTree = "<group>"; };
+		2C18E2271CAE672C0080EF1E /* BaseFormControlCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseFormControlCell.m; sourceTree = "<group>"; };
+		2C18E2281CAE672C0080EF1E /* FormControlActionButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormControlActionButtonCell.h; sourceTree = "<group>"; };
+		2C18E2291CAE672C0080EF1E /* FormControlActionButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormControlActionButtonCell.m; sourceTree = "<group>"; };
+		2C18E22A1CAE672C0080EF1E /* FormControlBlockButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormControlBlockButtonCell.h; sourceTree = "<group>"; };
+		2C18E22B1CAE672C0080EF1E /* FormControlBlockButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormControlBlockButtonCell.m; sourceTree = "<group>"; };
+		2C18E22C1CAE672C0080EF1E /* FormControlInputCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormControlInputCell.h; sourceTree = "<group>"; };
+		2C18E22D1CAE672C0080EF1E /* FormControlInputCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormControlInputCell.m; sourceTree = "<group>"; };
+		2C18E22E1CAE672C0080EF1E /* FormControlStaticCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormControlStaticCell.h; sourceTree = "<group>"; };
+		2C18E22F1CAE672C0080EF1E /* FormControlStaticCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormControlStaticCell.m; sourceTree = "<group>"; };
+		2C18E2351CAE69100080EF1E /* FormControlStaticAddressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormControlStaticAddressCell.h; sourceTree = "<group>"; };
+		2C18E2361CAE69100080EF1E /* FormControlStaticAddressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormControlStaticAddressCell.m; sourceTree = "<group>"; };
+		2C19FCFB1CB32C92009BC78C /* FormControlInputActionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormControlInputActionCell.h; sourceTree = "<group>"; };
+		2C19FCFC1CB32C92009BC78C /* FormControlInputActionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormControlInputActionCell.m; sourceTree = "<group>"; };
+		2C19FD0A1CB3FBC7009BC78C /* NSNumber+Satoshi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+Satoshi.h"; sourceTree = "<group>"; };
+		2C19FD0B1CB3FBC7009BC78C /* NSNumber+Satoshi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+Satoshi.m"; sourceTree = "<group>"; };
 		2C1E88F71CA3ADCB006F86E1 /* NSString+Password.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Password.h"; sourceTree = "<group>"; };
 		2C1E88F81CA3ADCB006F86E1 /* NSString+Password.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Password.m"; sourceTree = "<group>"; };
 		2C1E8C461CA42A7D006F86E1 /* AESCrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AESCrypt.h; sourceTree = "<group>"; };
@@ -286,14 +309,10 @@
 		2C9CAF311C868B61008194EB /* AddressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressCell.m; sourceTree = "<group>"; };
 		2C9CAF321C868B61008194EB /* AddressHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressHeaderView.h; sourceTree = "<group>"; };
 		2C9CAF331C868B61008194EB /* AddressHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressHeaderView.m; sourceTree = "<group>"; };
-		2C9CAF351C868B61008194EB /* ActionButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionButtonCell.h; sourceTree = "<group>"; };
-		2C9CAF361C868B61008194EB /* ActionButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionButtonCell.m; sourceTree = "<group>"; };
-		2C9CAF391C868B61008194EB /* BlockButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockButtonCell.h; sourceTree = "<group>"; };
-		2C9CAF3A1C868B61008194EB /* BlockButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockButtonCell.m; sourceTree = "<group>"; };
 		2C9CAF3B1C868B61008194EB /* DefaultTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultTableViewCell.h; sourceTree = "<group>"; };
 		2C9CAF3C1C868B61008194EB /* DefaultTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultTableViewCell.m; sourceTree = "<group>"; };
-		2C9CAF3D1C868B61008194EB /* ListSectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListSectionHeaderView.h; sourceTree = "<group>"; };
-		2C9CAF3E1C868B61008194EB /* ListSectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListSectionHeaderView.m; sourceTree = "<group>"; };
+		2C9CAF3D1C868B61008194EB /* DefaultSectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultSectionHeaderView.h; sourceTree = "<group>"; };
+		2C9CAF3E1C868B61008194EB /* DefaultSectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultSectionHeaderView.m; sourceTree = "<group>"; };
 		2C9CAF401C868B61008194EB /* DashboardHeaderActionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardHeaderActionButton.h; sourceTree = "<group>"; };
 		2C9CAF411C868B61008194EB /* DashboardHeaderActionButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardHeaderActionButton.m; sourceTree = "<group>"; };
 		2C9CAF421C868B61008194EB /* DashboardHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardHeaderView.h; sourceTree = "<group>"; };
@@ -309,8 +328,6 @@
 		2C9CAF781C868B98008194EB /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = CBWallet/main.m; sourceTree = SOURCE_ROOT; };
 		2C9CAF801C868BCB008194EB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = CBWallet/Base.lproj/LaunchScreen.storyboard; sourceTree = SOURCE_ROOT; };
 		2C9CAF821C868CAE008194EB /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = CBWallet/Info.plist; sourceTree = SOURCE_ROOT; };
-		2C9CAF851C868E17008194EB /* BaseFormControlCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseFormControlCell.h; sourceTree = "<group>"; };
-		2C9CAF861C868E17008194EB /* BaseFormControlCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseFormControlCell.m; sourceTree = "<group>"; };
 		2CC4845A1C71A2EE0033D700 /* CBWallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CBWallet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CD0A9081CA016C7006AF02F /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = CBWallet/Constants.h; sourceTree = SOURCE_ROOT; };
 		2CD0A90D1CA02ACA006AF02F /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
@@ -374,8 +391,6 @@
 		2CF24D711C97A53200C7EDB9 /* AFURLResponseSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLResponseSerialization.m; sourceTree = "<group>"; };
 		2CF24D721C97A53200C7EDB9 /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
 		2CF24D731C97A53200C7EDB9 /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
-		2CF345891C9F703800624C39 /* InputTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputTableViewCell.h; sourceTree = "<group>"; };
-		2CF3458A1C9F703800624C39 /* InputTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -393,6 +408,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C18E2251CAE672C0080EF1E /* FormControl */ = {
+			isa = PBXGroup;
+			children = (
+				2C18E2261CAE672C0080EF1E /* BaseFormControlCell.h */,
+				2C18E2271CAE672C0080EF1E /* BaseFormControlCell.m */,
+				2C18E2281CAE672C0080EF1E /* FormControlActionButtonCell.h */,
+				2C18E2291CAE672C0080EF1E /* FormControlActionButtonCell.m */,
+				2C18E22A1CAE672C0080EF1E /* FormControlBlockButtonCell.h */,
+				2C18E22B1CAE672C0080EF1E /* FormControlBlockButtonCell.m */,
+				2C18E22C1CAE672C0080EF1E /* FormControlInputCell.h */,
+				2C18E22D1CAE672C0080EF1E /* FormControlInputCell.m */,
+				2C19FCFB1CB32C92009BC78C /* FormControlInputActionCell.h */,
+				2C19FCFC1CB32C92009BC78C /* FormControlInputActionCell.m */,
+				2C18E22E1CAE672C0080EF1E /* FormControlStaticCell.h */,
+				2C18E22F1CAE672C0080EF1E /* FormControlStaticCell.m */,
+				2C18E2351CAE69100080EF1E /* FormControlStaticAddressCell.h */,
+				2C18E2361CAE69100080EF1E /* FormControlStaticAddressCell.m */,
+			);
+			path = FormControl;
+			sourceTree = "<group>";
+		};
 		2C1E8C451CA42A7D006F86E1 /* aes-pbkdf2 */ = {
 			isa = PBXGroup;
 			children = (
@@ -413,6 +449,8 @@
 			children = (
 				2C77D2611CA8C095001DDB1F /* CBWRequest.h */,
 				2C77D2621CA8C095001DDB1F /* CBWRequest.m */,
+				2C18E20F1CAE64E00080EF1E /* CBWRequest+Errors.h */,
+				2C18E2101CAE64E00080EF1E /* CBWRequest+Errors.m */,
 				2C77D2641CA8C14E001DDB1F /* CBWRequest+Address.h */,
 				2C77D2651CA8C14E001DDB1F /* CBWRequest+Address.m */,
 				2C1684A11CAB6B4B00BD434A /* CBWRequest+Block.h */,
@@ -640,6 +678,8 @@
 				2C9CAF151C868B61008194EB /* NSString+Helper.m */,
 				2C1E88F71CA3ADCB006F86E1 /* NSString+Password.h */,
 				2C1E88F81CA3ADCB006F86E1 /* NSString+Password.m */,
+				2C19FD0A1CB3FBC7009BC78C /* NSNumber+Satoshi.h */,
+				2C19FD0B1CB3FBC7009BC78C /* NSNumber+Satoshi.m */,
 				2C9CAF161C868B61008194EB /* UIButton+VerticalLayout.h */,
 				2C9CAF171C868B61008194EB /* UIButton+VerticalLayout.m */,
 				2C9CAF181C868B61008194EB /* UIColor+CBW.h */,
@@ -730,7 +770,6 @@
 				2C9CAF2F1C868B61008194EB /* Address */,
 				2C9CAF441C868B61008194EB /* Transaction */,
 				2C9CAF341C868B61008194EB /* Common */,
-				2C9CAF841C868E17008194EB /* Base */,
 			);
 			name = Views;
 			path = CBWallet/Views;
@@ -750,18 +789,13 @@
 		2C9CAF341C868B61008194EB /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				2C9CAF351C868B61008194EB /* ActionButtonCell.h */,
-				2C9CAF361C868B61008194EB /* ActionButtonCell.m */,
-				2C9CAF391C868B61008194EB /* BlockButtonCell.h */,
-				2C9CAF3A1C868B61008194EB /* BlockButtonCell.m */,
+				2C18E2251CAE672C0080EF1E /* FormControl */,
 				2C9CAF3B1C868B61008194EB /* DefaultTableViewCell.h */,
 				2C9CAF3C1C868B61008194EB /* DefaultTableViewCell.m */,
-				2C9CAF3D1C868B61008194EB /* ListSectionHeaderView.h */,
-				2C9CAF3E1C868B61008194EB /* ListSectionHeaderView.m */,
+				2C9CAF3D1C868B61008194EB /* DefaultSectionHeaderView.h */,
+				2C9CAF3E1C868B61008194EB /* DefaultSectionHeaderView.m */,
 				2CF24D601C97880500C7EDB9 /* PrimaryButton.h */,
 				2CF24D611C97880500C7EDB9 /* PrimaryButton.m */,
-				2CF345891C9F703800624C39 /* InputTableViewCell.h */,
-				2CF3458A1C9F703800624C39 /* InputTableViewCell.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -788,15 +822,6 @@
 				2C1684B11CAD1A6500BD434A /* TransactionIOCell.m */,
 			);
 			path = Transaction;
-			sourceTree = "<group>";
-		};
-		2C9CAF841C868E17008194EB /* Base */ = {
-			isa = PBXGroup;
-			children = (
-				2C9CAF851C868E17008194EB /* BaseFormControlCell.h */,
-				2C9CAF861C868E17008194EB /* BaseFormControlCell.m */,
-			);
-			path = Base;
 			sourceTree = "<group>";
 		};
 		2CC484511C71A2EE0033D700 = {
@@ -1021,21 +1046,22 @@
 				2C1684A01CAB5F4800BD434A /* NSDate+Helper.m in Sources */,
 				2C9CAF5E1C868B61008194EB /* UIColor+CBW.m in Sources */,
 				2CEFC3531CA4CBAC00FECCA4 /* RecordObjectStore.m in Sources */,
+				2C19FCFD1CB32C92009BC78C /* FormControlInputActionCell.m in Sources */,
 				2C9CAF571C868B61008194EB /* RecipientViewController.m in Sources */,
 				2C9CAF4D1C868B61008194EB /* BaseViewController.m in Sources */,
 				2C9CAF531C868B61008194EB /* LockScreenController.m in Sources */,
+				2C18E2301CAE672C0080EF1E /* BaseFormControlCell.m in Sources */,
 				2C9CAF611C868B61008194EB /* Address.m in Sources */,
 				2C77D2661CA8C14E001DDB1F /* CBWRequest+Address.m in Sources */,
 				2C1684AF1CAD17C500BD434A /* TransactionDataCell.m in Sources */,
+				2C19FD0C1CB3FBC7009BC78C /* NSNumber+Satoshi.m in Sources */,
 				2C1684A31CAB6B4B00BD434A /* CBWRequest+Block.m in Sources */,
 				2C1684B21CAD1A6500BD434A /* TransactionIOCell.m in Sources */,
 				2CD0A9191CA02ACA006AF02F /* FMDatabaseAdditions.m in Sources */,
 				2C9CAF561C868B61008194EB /* SettingsViewController.m in Sources */,
-				2C9CAF691C868B61008194EB /* ActionButtonCell.m in Sources */,
 				2C9CAF591C868B61008194EB /* TransactionListViewController.m in Sources */,
-				2C9CAF871C868E17008194EB /* BaseFormControlCell.m in Sources */,
 				2CF24D5C1C965C7200C7EDB9 /* YYImageCoder.m in Sources */,
-				2CF3458B1C9F703800624C39 /* InputTableViewCell.m in Sources */,
+				2C18E2111CAE64E00080EF1E /* CBWRequest+Errors.m in Sources */,
 				2C1684AC1CACEE4200BD434A /* NSNull+SafePatch.m in Sources */,
 				2CF24D5A1C965C7200C7EDB9 /* YYFrameImage.m in Sources */,
 				2C9CAF7E1C868B98008194EB /* main.m in Sources */,
@@ -1047,9 +1073,12 @@
 				2C9CAF471C868B61008194EB /* AddressListViewController.m in Sources */,
 				2CF24D5B1C965C7200C7EDB9 /* YYImage.m in Sources */,
 				2C1E88F91CA3ADCB006F86E1 /* NSString+Password.m in Sources */,
+				2C18E2321CAE672C0080EF1E /* FormControlBlockButtonCell.m in Sources */,
 				2C9CAF6C1C868B61008194EB /* DefaultTableViewCell.m in Sources */,
 				2C1E8C511CA42A7D006F86E1 /* PBKDF2.m in Sources */,
 				2C77D25B1CA66207001DDB1F /* DatabaseManager+Address.m in Sources */,
+				2C18E2371CAE69100080EF1E /* FormControlStaticAddressCell.m in Sources */,
+				2C18E2331CAE672C0080EF1E /* FormControlInputCell.m in Sources */,
 				2C9CAF701C868B61008194EB /* TransactionCell.m in Sources */,
 				2C9CAF671C868B61008194EB /* AddressCell.m in Sources */,
 				2C1E8C4F1CA42A7D006F86E1 /* Base64.m in Sources */,
@@ -1059,13 +1088,12 @@
 				2C9CAF521C868B61008194EB /* InitialWalletSettingViewController.m in Sources */,
 				2C9CAF541C868B61008194EB /* MasterPasswordViewController.m in Sources */,
 				2C9CAF641C868B61008194EB /* Transaction.m in Sources */,
-				2C9CAF6B1C868B61008194EB /* BlockButtonCell.m in Sources */,
 				2CD0A91C1CA02ACA006AF02F /* FMResultSet.m in Sources */,
 				2CD0A91B1CA02ACA006AF02F /* FMDatabaseQueue.m in Sources */,
 				2C9CAF4E1C868B61008194EB /* ScanViewController.m in Sources */,
 				2CF24D581C965C7200C7EDB9 /* SSKeychain.m in Sources */,
 				2CF24D761C97A53200C7EDB9 /* AFSecurityPolicy.m in Sources */,
-				2C9CAF6D1C868B61008194EB /* ListSectionHeaderView.m in Sources */,
+				2C9CAF6D1C868B61008194EB /* DefaultSectionHeaderView.m in Sources */,
 				2C9CAF651C868B61008194EB /* SystemManager.m in Sources */,
 				2C9CAF551C868B61008194EB /* ProfileViewController.m in Sources */,
 				2C77D2631CA8C095001DDB1F /* CBWRequest.m in Sources */,
@@ -1107,6 +1135,8 @@
 				2C9CAF6E1C868B61008194EB /* DashboardHeaderActionButton.m in Sources */,
 				2C9CAF661C868B61008194EB /* SessionManager.m in Sources */,
 				2C9CAF5C1C868B61008194EB /* NSString+Helper.m in Sources */,
+				2C18E2311CAE672C0080EF1E /* FormControlActionButtonCell.m in Sources */,
+				2C18E2341CAE672C0080EF1E /* FormControlStaticCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

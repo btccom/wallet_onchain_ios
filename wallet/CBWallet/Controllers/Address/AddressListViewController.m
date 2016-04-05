@@ -2,7 +2,7 @@
 //  AddressListViewController.m
 //  wallet
 //
-//  Created by Zin on 16/2/25.
+//  Created by Zin (noteon.com) on 16/2/25.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
@@ -203,7 +203,7 @@
     if (indexPath.section == 0) {
         if (self.actionCells.count > 0) {
             // action section
-            ActionButtonCell *cell = [tableView dequeueReusableCellWithIdentifier:BaseTableViewCellActionButtonIdentifier forIndexPath:indexPath];
+            FormControlActionButtonCell *cell = [tableView dequeueReusableCellWithIdentifier:BaseTableViewCellActionButtonIdentifier forIndexPath:indexPath];
             cell.imageView.image = [UIImage imageNamed:@"icon_create_mini"];
             cell.textLabel.text = self.actionCells[indexPath.row];
             return cell;

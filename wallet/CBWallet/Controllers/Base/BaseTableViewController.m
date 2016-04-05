@@ -2,7 +2,7 @@
 //  BaseTableViewController.m
 //  wallet
 //
-//  Created by Zin on 16/2/25.
+//  Created by Zin (noteon.com) on 16/2/25.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
@@ -10,13 +10,14 @@
 
 #import "UIViewController+Appearance.h"
 
-@interface BaseTableViewController ()
-
-@end
-
+NSString *const BaseTableViewSectionHeaderIdentifier = @"list.section.header";
 NSString *const BaseTableViewCellDefaultIdentifier = @"cell.default";
 NSString *const BaseTableViewCellActionButtonIdentifier = @"cell.button.action";
 NSString *const BaseTableViewCellBlockButtonIdentifier = @"cell.button.block";
+
+@interface BaseTableViewController ()
+
+@end
 
 @implementation BaseTableViewController
 
@@ -25,8 +26,10 @@ NSString *const BaseTableViewCellBlockButtonIdentifier = @"cell.button.block";
     
     [self setupAppearance];
     
+    [self.tableView registerClass:[DefaultSectionHeaderView class] forHeaderFooterViewReuseIdentifier:BaseTableViewSectionHeaderIdentifier];
     [self.tableView registerClass:[DefaultTableViewCell class] forCellReuseIdentifier:BaseTableViewCellDefaultIdentifier];
-    [self.tableView registerClass:[ActionButtonCell class] forCellReuseIdentifier:BaseTableViewCellActionButtonIdentifier];
+    [self.tableView registerClass:[FormControlActionButtonCell class] forCellReuseIdentifier:BaseTableViewCellActionButtonIdentifier];
+    [self.tableView registerClass:[FormControlBlockButtonCell class] forCellReuseIdentifier:BaseTableViewCellBlockButtonIdentifier];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -51,6 +54,15 @@ NSString *const BaseTableViewCellBlockButtonIdentifier = @"cell.button.block";
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return CBWCellHeightDefault;
+}
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    return [tableView dequeueReusableHeaderFooterViewWithIdentifier:BaseTableViewSectionHeaderIdentifier];
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if ([self tableView:tableView titleForHeaderInSection:section].length > 0) {
+        return CBWListSectionHeaderHeight;
+    }
+    return 0;// auto
 }
 
 /*

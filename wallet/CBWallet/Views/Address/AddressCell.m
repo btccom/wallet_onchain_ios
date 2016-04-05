@@ -2,7 +2,7 @@
 //  AddressCell.m
 //  wallet
 //
-//  Created by Zin on 16/2/27.
+//  Created by Zin (noteon.com) on 16/2/27.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 // TODO: Automatic vertical middle layout
@@ -83,7 +83,7 @@ static const CGFloat kAddressCellBalanceLabelHeight = 16.f;
     self.addressLabel.text = address.address;
     if (!self.isMetadataHidden) {
         self.txsLabel.text = [NSString stringWithFormat:@"%lu Txs", (unsigned long)address.txCount];
-        self.balanceLabel.text = [NSString stringWithFormat:@"%.8lf", address.balance / 100000000.0];
+        self.balanceLabel.text = [@(address.balance) satoshiBTCString];
     }
 }
 

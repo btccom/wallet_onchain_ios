@@ -2,13 +2,13 @@
 //  ActionCell.h
 //  wallet
 //
-//  Created by Zin on 16/2/28.
+//  Created by Zin (noteon.com) on 16/2/28.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
 #import "BaseFormControlCell.h"
 
 /// with icon, text label and detail text label, align left
-@interface ActionButtonCell : BaseFormControlCell
+@interface FormControlActionButtonCell : BaseFormControlCell
 
 @end
