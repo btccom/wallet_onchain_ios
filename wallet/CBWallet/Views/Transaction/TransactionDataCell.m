@@ -19,10 +19,10 @@
     [super layoutSubviews];
     
     if (self.isHashEnabled) {
-        self.detailTextLabel.font = [UIFont monospacedFontOfSize:13.f];
+        self.detailTextLabel.font = [UIFont monospacedFontOfSize:UIFont.smallSystemFontSize];
         self.detailTextLabel.lineBreakMode = NSLineBreakByCharWrapping;
         self.detailTextLabel.numberOfLines = 2;
-        CGFloat width = 250.f;
+        CGFloat width = 232.f;
         CGRect frame = self.detailTextLabel.frame;
         frame.origin.x += CGRectGetWidth(frame) - width;
         frame.origin.y = 0;
@@ -30,7 +30,7 @@
         frame.size.height = CGRectGetHeight(self.contentView.frame);
         self.detailTextLabel.frame = frame;
     } else {
-        self.detailTextLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:15.f];
+        self.detailTextLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:UIFont.labelFontSize];
         self.detailTextLabel.lineBreakMode = NSLineBreakByClipping;
         self.detailTextLabel.numberOfLines = 1;
     }

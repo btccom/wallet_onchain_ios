@@ -30,6 +30,10 @@ NSString *const BaseTableViewCellBlockButtonIdentifier = @"cell.button.block";
     [self.tableView registerClass:[DefaultTableViewCell class] forCellReuseIdentifier:BaseTableViewCellDefaultIdentifier];
     [self.tableView registerClass:[FormControlActionButtonCell class] forCellReuseIdentifier:BaseTableViewCellActionButtonIdentifier];
     [self.tableView registerClass:[FormControlBlockButtonCell class] forCellReuseIdentifier:BaseTableViewCellBlockButtonIdentifier];
+    self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+//    UIControl *backgroundView = [[UIControl alloc] initWithFrame:self.view.bounds];
+//    [backgroundView addTarget:self action:@selector(p_dismissKeyboard) forControlEvents:UIControlEventTouchDown];
+//    self.tableView.backgroundView = backgroundView;
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -60,6 +64,9 @@ NSString *const BaseTableViewCellBlockButtonIdentifier = @"cell.button.block";
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if ([self tableView:tableView titleForHeaderInSection:section].length > 0) {
+        if (section == 0) {
+            return CBWCellHeightDefault;
+        }
         return CBWListSectionHeaderHeight;
     }
     return 0;// auto
@@ -108,5 +115,10 @@ NSString *const BaseTableViewCellBlockButtonIdentifier = @"cell.button.block";
     // Pass the selected object to the new view controller.
 }
 */
+
+#pragma mark - Private Method
+- (void)p_dismissKeyboard {
+    [self.view endEditing:YES];
+}
 
 @end

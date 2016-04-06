@@ -2,7 +2,7 @@
 //  DashboardViewController.m
 //  wallet
 //
-//  Created by Zin on 16/2/15.
+//  Created by Zin (noteon.com) on 16/2/15.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
@@ -212,6 +212,7 @@
 /// push send
 - (void)p_handleSend:(id)sender {
     SendViewController *sendViewController = [[SendViewController alloc] init];
+    sendViewController.mode = SendViewControllerModeQuickly;
     [self.navigationController pushViewController:sendViewController animated:YES];
 }
 

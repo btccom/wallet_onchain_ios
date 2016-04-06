@@ -24,4 +24,6 @@ typedef NS_ENUM(NSUInteger, BlockButtonCellStyle) {
 
 @property (nonatomic, assign) BlockButtonCellStyle buttonCellStyle;
 
+@property (nonatomic, assign) BOOL enabled;
+
 @end

@@ -16,6 +16,26 @@
 
 @implementation FormControlInputCell
 
+- (void)setInputType:(FormControlInputType)inputType {
+    _inputType = inputType;
+    
+    self.textField.font = [UIFont systemFontOfSize:UIFont.labelFontSize];
+    self.textField.keyboardType = UIKeyboardTypeDefault;
+    switch (inputType) {
+        case FormControlInputTypeBitcoinAddress: {
+            self.textField.font = [UIFont monospacedFontOfSize:UIFont.labelFontSize];
+            break;
+        }
+        case FormControlInputTypeBitcoinAmount: {
+            self.textField.keyboardType = UIKeyboardTypeDecimalPad;
+            break;
+        }
+            
+        default:
+            break;
+    }
+}
+
 - (UITextField *)textField {
     if (_textField) {
         return _textField;
@@ -47,7 +67,7 @@
     [super layoutSubviews];
     
     CGFloat left = CGRectGetMinX(self.textLabel.frame);
-    CGFloat width = CGRectGetWidth(self.contentView.frame) - left * 2.f;
+    CGFloat width = CGRectGetWidth(self.contentView.frame) - left - self.contentView.layoutMargins.left;
     CGRect textFieldFrame = CGRectMake(left, 0, width, CGRectGetHeight(self.contentView.frame));
     self.textField.frame = textFieldFrame;
     [self.contentView bringSubviewToFront:self.textField];

@@ -2,7 +2,7 @@
 //  ScanViewController.m
 //  wallet
 //
-//  Created by Zin on 16/2/26.
+//  Created by Zin (noteon.com) on 16/2/26.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
@@ -39,7 +39,7 @@
     _cameraView = cameraView;
     
     UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.frame) - 120.f, CGRectGetWidth(self.view.frame), 20.f)];
-    tipLabel.font = [UIFont systemFontOfSize:16.f];
+    tipLabel.font = [UIFont systemFontOfSize:UIFont.labelFontSize];
     tipLabel.textColor = [UIColor CBWMutedTextColor];
     tipLabel.textAlignment = NSTextAlignmentCenter;
     tipLabel.text = NSLocalizedStringFromTable(@"Tip scan_qr", @"CBW", nil);

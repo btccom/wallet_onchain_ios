@@ -23,7 +23,7 @@
     if (!_detailTextLabel) {
         UILabel *label = [[UILabel alloc] init];
         label.textAlignment = NSTextAlignmentRight;
-        label.font = [UIFont systemFontOfSize:12.f];
+        label.font = [UIFont systemFontOfSize:UIFont.smallSystemFontSize];
         label.textColor = [UIColor CBWSubTextColor];
         [self.contentView addSubview:label];
         _detailTextLabel = label;
@@ -32,7 +32,7 @@
 }
 
 - (void)willMoveToSuperview:(UIView *)newSuperview {
-    self.textLabel.font = [UIFont systemFontOfSize:CBWSectionHeaderFontSize weight:UIFontWeightBold];
+    self.textLabel.font = [UIFont systemFontOfSize:UIFont.smallSystemFontSize weight:UIFontWeightBold];
     self.textLabel.textColor = [UIColor CBWSubTextColor];
     self.contentView.backgroundColor = [UIColor CBWBackgroundColor];
     

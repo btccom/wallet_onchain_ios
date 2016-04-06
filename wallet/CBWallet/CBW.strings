@@ -2,7 +2,7 @@
   Localizable.strings
   wallet
 
-  Created by Zin on 16/2/26.
+  Created by Zin (noteon.com) on 16/2/26.
   Copyright © 2016年 Bitmain. All rights reserved.
 */
 
@@ -13,6 +13,7 @@
 "Navigation dashboard" = "Wallet";
 "Navigation profile" = "Profile";
 "Navigation send" = "Send";
+"Navigation quickly_send" = "Quickly";
 "Navigation advanced_send" = "Advanced";
 "Navigation all_transactions" = "All Transactions";
 "Navigation transaction_list" = "Transaction List";
@@ -37,6 +38,8 @@
 "Placeholder confirm_master_password" = "Confirm Master Password";
 "Placeholder hint" = "Hint";
 "Placeholder bitcoin_address" = "Bitcoin Address";
+"Placeholder new_address" = "New Address";
+"Placeholder value" = "Amount";
 
 "Label watched_account" = "Watched Account";
 "Label default_account" = "Default Account";
@@ -77,3 +80,12 @@
 "Transaction Cell height" = "Height";
 "Transaction Cell time" = "Time";
 "Transaction Cell size" = "Size";
+
+// send
+"Send Section from" = "From";
+"Send Section to" = "To";
+"Send Section change" = "Change";
+"Send Section fee" = "Fee";
+"Send Cell add_recipient" = "Add";
+
+"Send Fee minimum" = "Minimum";

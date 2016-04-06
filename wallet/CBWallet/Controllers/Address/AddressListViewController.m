@@ -10,7 +10,6 @@
 
 #import "AddressListViewController.h"
 #import "ArchivedAdressListViewController.h"
-
 #import "ScanViewController.h"
 
 #import "Database.h"
@@ -121,7 +120,7 @@
         
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Alert Title new_address", @"CBW", nil) message:NSLocalizedStringFromTable(@"Alert Message new_address", @"CBW", nil) preferredStyle:UIAlertControllerStyleAlert];
         [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-            textField.font = [UIFont monospacedFontOfSize:16.f];
+            textField.font = [UIFont monospacedFontOfSize:UIFont.labelFontSize];
             textField.placeholder = NSLocalizedStringFromTable(@"Placeholder bitcoin_address", @"CBW", nil);
         }];
         UIAlertAction *saveAction = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Alert Action save_address", @"CBW", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -244,7 +243,7 @@
     [self p_selectAddress:address];
 }
 
-#pragma mark <ScanViewControllerDelegate>
+#pragma mark - <ScanViewControllerDelegate>
 - (BOOL)scanViewControllerWillDismiss:(ScanViewController *)viewController {
     [self dismissViewControllerAnimated:YES completion:nil];
     return YES;

@@ -20,9 +20,11 @@
 		2C18E2321CAE672C0080EF1E /* FormControlBlockButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C18E22B1CAE672C0080EF1E /* FormControlBlockButtonCell.m */; };
 		2C18E2331CAE672C0080EF1E /* FormControlInputCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C18E22D1CAE672C0080EF1E /* FormControlInputCell.m */; };
 		2C18E2341CAE672C0080EF1E /* FormControlStaticCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C18E22F1CAE672C0080EF1E /* FormControlStaticCell.m */; };
-		2C18E2371CAE69100080EF1E /* FormControlStaticAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C18E2361CAE69100080EF1E /* FormControlStaticAddressCell.m */; };
 		2C19FCFD1CB32C92009BC78C /* FormControlInputActionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C19FCFC1CB32C92009BC78C /* FormControlInputActionCell.m */; };
 		2C19FD0C1CB3FBC7009BC78C /* NSNumber+Satoshi.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C19FD0B1CB3FBC7009BC78C /* NSNumber+Satoshi.m */; };
+		2C19FD0F1CB4A0DF009BC78C /* FormControlStaticArrowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C19FD0E1CB4A0DF009BC78C /* FormControlStaticArrowCell.m */; };
+		2C19FD131CB4AD58009BC78C /* SendFromAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C19FD121CB4AD58009BC78C /* SendFromAddressCell.m */; };
+		2C19FD161CB4F5EB009BC78C /* SendToAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C19FD151CB4F5EB009BC78C /* SendToAddressCell.m */; };
 		2C1E88F91CA3ADCB006F86E1 /* NSString+Password.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E88F81CA3ADCB006F86E1 /* NSString+Password.m */; };
 		2C1E8C4E1CA42A7D006F86E1 /* AESCrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E8C471CA42A7D006F86E1 /* AESCrypt.m */; };
 		2C1E8C4F1CA42A7D006F86E1 /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E8C491CA42A7D006F86E1 /* Base64.m */; };
@@ -139,12 +141,16 @@
 		2C18E22D1CAE672C0080EF1E /* FormControlInputCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormControlInputCell.m; sourceTree = "<group>"; };
 		2C18E22E1CAE672C0080EF1E /* FormControlStaticCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormControlStaticCell.h; sourceTree = "<group>"; };
 		2C18E22F1CAE672C0080EF1E /* FormControlStaticCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormControlStaticCell.m; sourceTree = "<group>"; };
-		2C18E2351CAE69100080EF1E /* FormControlStaticAddressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormControlStaticAddressCell.h; sourceTree = "<group>"; };
-		2C18E2361CAE69100080EF1E /* FormControlStaticAddressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormControlStaticAddressCell.m; sourceTree = "<group>"; };
 		2C19FCFB1CB32C92009BC78C /* FormControlInputActionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormControlInputActionCell.h; sourceTree = "<group>"; };
 		2C19FCFC1CB32C92009BC78C /* FormControlInputActionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormControlInputActionCell.m; sourceTree = "<group>"; };
 		2C19FD0A1CB3FBC7009BC78C /* NSNumber+Satoshi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+Satoshi.h"; sourceTree = "<group>"; };
 		2C19FD0B1CB3FBC7009BC78C /* NSNumber+Satoshi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+Satoshi.m"; sourceTree = "<group>"; };
+		2C19FD0D1CB4A0DF009BC78C /* FormControlStaticArrowCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormControlStaticArrowCell.h; sourceTree = "<group>"; };
+		2C19FD0E1CB4A0DF009BC78C /* FormControlStaticArrowCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormControlStaticArrowCell.m; sourceTree = "<group>"; };
+		2C19FD111CB4AD58009BC78C /* SendFromAddressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendFromAddressCell.h; sourceTree = "<group>"; };
+		2C19FD121CB4AD58009BC78C /* SendFromAddressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendFromAddressCell.m; sourceTree = "<group>"; };
+		2C19FD141CB4F5EB009BC78C /* SendToAddressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendToAddressCell.h; sourceTree = "<group>"; };
+		2C19FD151CB4F5EB009BC78C /* SendToAddressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendToAddressCell.m; sourceTree = "<group>"; };
 		2C1E88F71CA3ADCB006F86E1 /* NSString+Password.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Password.h"; sourceTree = "<group>"; };
 		2C1E88F81CA3ADCB006F86E1 /* NSString+Password.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Password.m"; sourceTree = "<group>"; };
 		2C1E8C461CA42A7D006F86E1 /* AESCrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AESCrypt.h; sourceTree = "<group>"; };
@@ -423,10 +429,21 @@
 				2C19FCFC1CB32C92009BC78C /* FormControlInputActionCell.m */,
 				2C18E22E1CAE672C0080EF1E /* FormControlStaticCell.h */,
 				2C18E22F1CAE672C0080EF1E /* FormControlStaticCell.m */,
-				2C18E2351CAE69100080EF1E /* FormControlStaticAddressCell.h */,
-				2C18E2361CAE69100080EF1E /* FormControlStaticAddressCell.m */,
+				2C19FD0D1CB4A0DF009BC78C /* FormControlStaticArrowCell.h */,
+				2C19FD0E1CB4A0DF009BC78C /* FormControlStaticArrowCell.m */,
 			);
 			path = FormControl;
+			sourceTree = "<group>";
+		};
+		2C19FD101CB4AD22009BC78C /* Send */ = {
+			isa = PBXGroup;
+			children = (
+				2C19FD111CB4AD58009BC78C /* SendFromAddressCell.h */,
+				2C19FD121CB4AD58009BC78C /* SendFromAddressCell.m */,
+				2C19FD141CB4F5EB009BC78C /* SendToAddressCell.h */,
+				2C19FD151CB4F5EB009BC78C /* SendToAddressCell.m */,
+			);
+			path = Send;
 			sourceTree = "<group>";
 		};
 		2C1E8C451CA42A7D006F86E1 /* aes-pbkdf2 */ = {
@@ -766,6 +783,7 @@
 		2C9CAF2E1C868B61008194EB /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2C19FD101CB4AD22009BC78C /* Send */,
 				2C9CAF3F1C868B61008194EB /* Dashboard */,
 				2C9CAF2F1C868B61008194EB /* Address */,
 				2C9CAF441C868B61008194EB /* Transaction */,
@@ -1071,13 +1089,13 @@
 				2C9CAF491C868B61008194EB /* ArchivedAdressListViewController.m in Sources */,
 				2C9CAF5D1C868B61008194EB /* UIButton+VerticalLayout.m in Sources */,
 				2C9CAF471C868B61008194EB /* AddressListViewController.m in Sources */,
+				2C19FD0F1CB4A0DF009BC78C /* FormControlStaticArrowCell.m in Sources */,
 				2CF24D5B1C965C7200C7EDB9 /* YYImage.m in Sources */,
 				2C1E88F91CA3ADCB006F86E1 /* NSString+Password.m in Sources */,
 				2C18E2321CAE672C0080EF1E /* FormControlBlockButtonCell.m in Sources */,
 				2C9CAF6C1C868B61008194EB /* DefaultTableViewCell.m in Sources */,
 				2C1E8C511CA42A7D006F86E1 /* PBKDF2.m in Sources */,
 				2C77D25B1CA66207001DDB1F /* DatabaseManager+Address.m in Sources */,
-				2C18E2371CAE69100080EF1E /* FormControlStaticAddressCell.m in Sources */,
 				2C18E2331CAE672C0080EF1E /* FormControlInputCell.m in Sources */,
 				2C9CAF701C868B61008194EB /* TransactionCell.m in Sources */,
 				2C9CAF671C868B61008194EB /* AddressCell.m in Sources */,
@@ -1102,11 +1120,13 @@
 				2C9CAF501C868B61008194EB /* DashboardViewController.m in Sources */,
 				2C9CAF5A1C868B61008194EB /* TransactionViewController.m in Sources */,
 				2C1E8C501CA42A7D006F86E1 /* NSData+CommonCrypto.m in Sources */,
+				2C19FD131CB4AD58009BC78C /* SendFromAddressCell.m in Sources */,
 				2CEFC3601CA501B200FECCA4 /* Installation.m in Sources */,
 				2C9CAF5B1C868B61008194EB /* NSString+CBWAddress.m in Sources */,
 				2CEFC3591CA4D25000FECCA4 /* AddressStore.m in Sources */,
 				2C9CAF5F1C868B61008194EB /* UIViewController+Appearance.m in Sources */,
 				2C9CAF791C868B98008194EB /* AppDelegate.m in Sources */,
+				2C19FD161CB4F5EB009BC78C /* SendToAddressCell.m in Sources */,
 				2CF24D101C96367900C7EDB9 /* Test.m in Sources */,
 				2C9CAF621C868B61008194EB /* Recipient.m in Sources */,
 				2CF24D621C97880500C7EDB9 /* PrimaryButton.m in Sources */,

@@ -20,8 +20,8 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    self.textLabel.font = [UIFont monospacedFontOfSize:16.f];
-    self.detailTextLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:15.f];
+    self.textLabel.font = [UIFont monospacedFontOfSize:UIFont.labelFontSize];
+    self.detailTextLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:UIFont.labelFontSize];
     
     CGRect addressFrame = self.textLabel.frame;
     

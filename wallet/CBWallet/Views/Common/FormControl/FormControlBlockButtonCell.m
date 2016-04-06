@@ -10,11 +10,18 @@
 
 @implementation FormControlBlockButtonCell
 
+- (void)setEnabled:(BOOL)enabled {
+    _enabled = enabled;
+    self.textLabel.alpha = enabled ? 1.f : CBWDisabledOpacity;
+    self.userInteractionEnabled = enabled;
+}
+
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
     if (self) {
         self.textLabel.textAlignment = NSTextAlignmentCenter;
-        self.separatorInset = UIEdgeInsetsZero;
+        self.textLabel.layer.cornerRadius = CBWCornerRadiusMini;
+        self.textLabel.clipsToBounds = YES;
     }
     return self;
 }

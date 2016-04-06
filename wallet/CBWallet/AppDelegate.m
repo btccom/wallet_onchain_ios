@@ -37,8 +37,9 @@
     self.window.rootViewController = navigationController;
     
     // ui color
-    [[UIButton appearance] setTitleColor:[UIColor CBWPrimaryColor] forState:UIControlStateNormal];
     [[UILabel appearance] setTextColor:[UIColor CBWTextColor]];
+    [[UIButton appearance] setTitleColor:[UIColor CBWPrimaryColor] forState:UIControlStateNormal];
+    [[UIButton appearance] setTitleColor:[[UIColor CBWPrimaryColor] colorWithAlphaComponent:CBWDisabledOpacity] forState:UIControlStateDisabled];
     [[UITextField appearance] setTextColor:[UIColor CBWTextColor]];
     [[UITableView appearance] setSeparatorColor:[UIColor CBWSeparatorColor]];
     self.window.tintColor = [UIColor CBWPrimaryColor];

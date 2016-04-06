@@ -13,13 +13,9 @@
 
 #import "NSString+CBWAddress.h"
 
-static const CGFloat kAddressCellLabelLabelFontSize = 16.f;
 static const CGFloat kAddressCellLabelLabelHeight = 20.f;
-static const CGFloat kAddressCellAddressLabelFontSize = 16.f;
 static const CGFloat kAddressCellAddressLabelHeight = 20.f;
-static const CGFloat kAddressCellTxsLabelFontSize = 12.f;
 static const CGFloat kAddressCellTxsLabelHeight = 16.f;
-static const CGFloat kAddressCellBalanceLabelFontSize = 12.f;
 static const CGFloat kAddressCellBalanceLabelHeight = 16.f;
 
 @interface AddressCell ()
@@ -37,7 +33,7 @@ static const CGFloat kAddressCellBalanceLabelHeight = 16.f;
 - (UILabel *)labelLabel {
     if (!_labelLabel) {
         UILabel *label = [[UILabel alloc] init];
-        label.font = [UIFont systemFontOfSize:kAddressCellLabelLabelFontSize weight:UIFontWeightMedium];
+        label.font = [UIFont systemFontOfSize:UIFont.labelFontSize weight:UIFontWeightMedium];
         [self.contentView addSubview:label];
         _labelLabel = label;
     }
@@ -46,7 +42,7 @@ static const CGFloat kAddressCellBalanceLabelHeight = 16.f;
 - (UILabel *)addressLabel {
     if (!_addressLabel) {
         UILabel *label = [[UILabel alloc] init];
-        label.font = [UIFont fontWithName:@"Courier" size:kAddressCellAddressLabelFontSize];
+        label.font = [UIFont monospacedFontOfSize:UIFont.labelFontSize];
         label.textColor = [UIColor CBWSubTextColor];
         [self.contentView addSubview:label];
         _addressLabel = label;
@@ -56,7 +52,7 @@ static const CGFloat kAddressCellBalanceLabelHeight = 16.f;
 - (UILabel *)txsLabel {
     if (!_txsLabel) {
         UILabel *label = [[UILabel alloc] init];
-        label.font = [UIFont systemFontOfSize:kAddressCellTxsLabelFontSize weight:UIFontWeightMedium];
+        label.font = [UIFont systemFontOfSize:UIFont.smallSystemFontSize weight:UIFontWeightMedium];
         label.textColor = [UIColor CBWSubTextColor];
         [self.contentView addSubview:label];
         _txsLabel = label;
@@ -66,7 +62,7 @@ static const CGFloat kAddressCellBalanceLabelHeight = 16.f;
 - (UILabel *)balanceLabel {
     if (!_balanceLabel) {
         UILabel *label = [[UILabel alloc] init];
-        label.font = [UIFont systemFontOfSize:kAddressCellBalanceLabelFontSize weight:UIFontWeightMedium];
+        label.font = [UIFont systemFontOfSize:UIFont.smallSystemFontSize weight:UIFontWeightMedium];
         label.textAlignment = NSTextAlignmentRight;
         label.textColor = [UIColor CBWSubTextColor];
         [self.contentView addSubview:label];
@@ -77,6 +73,9 @@ static const CGFloat kAddressCellBalanceLabelHeight = 16.f;
 
 #pragma mark - Public Method
 - (void)setAddress:(Address *)address {
+    if (!address) {
+        return;
+    }
     if (address.label) {
         self.labelLabel.text = address.label;
     }
@@ -98,7 +97,7 @@ static const CGFloat kAddressCellBalanceLabelHeight = 16.f;
     CGFloat labelWidth = [self.labelLabel.text sizeWithFont:self.labelLabel.font maxSize:CGSizeMake(labelAreaWidth, kAddressCellLabelLabelHeight)].width;
     CGRect labelFrame = CGRectMake(labelAreaLeft, CBWLayoutCommonVerticalPadding, labelWidth, kAddressCellLabelLabelHeight);
     self.labelLabel.frame = labelFrame;
-    self.labelLabel.center = CGPointMake(CGRectGetMidX(labelFrame), CGRectGetMidY(self.contentView.bounds));
+    self.labelLabel.center = CGPointMake(CGRectGetMidX(labelFrame), CGRectGetMidY(self.contentView.bounds));// certical center
     
     // address
     CGFloat addressLeft = labelAreaLeft;
@@ -111,7 +110,8 @@ static const CGFloat kAddressCellBalanceLabelHeight = 16.f;
     CGRect addressFrame = CGRectMake(addressLeft, CBWLayoutCommonVerticalPadding, addressWidth, kAddressCellAddressLabelHeight);
     self.addressLabel.frame = addressFrame;
     self.addressLabel.center = CGPointMake(CGRectGetMidX(addressFrame), CGRectGetMidY(self.contentView.bounds));
-    self.addressLabel.attributedText = [self.addressLabel.text attributedAddressWithAlignment:NSTextAlignmentRight];
+    self.addressLabel.attributedText = [self.addressLabel.text attributedAddressWithAlignment:(labelWidth > 0 ? NSTextAlignmentRight : NSTextAlignmentLeft)];
+    self.addressLabel.textColor = labelWidth > 0 ? [UIColor CBWSubTextColor] : [UIColor CBWTextColor];
     
     if (!self.isMetadataHidden) {
         // layout txs and balance labels

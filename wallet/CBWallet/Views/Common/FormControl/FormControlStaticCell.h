@@ -8,12 +8,9 @@
 
 #import "BaseFormControlCell.h"
 
-/// text label, detail text label on the right, badge, accesory arrow
+/// with detail text label
 @interface FormControlStaticCell : BaseFormControlCell
 
 @property (nonatomic, weak, nullable) UIImageView *iconView;
-
-@property (nonatomic, assign, getter=isBadgeEnabled) BOOL badgeEnabled;
-@property (nonatomic, assign) NSInteger badgeNumber;
 
 @end

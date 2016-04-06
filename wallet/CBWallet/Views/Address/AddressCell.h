@@ -2,15 +2,15 @@
 //  AddressCell.h
 //  wallet
 //
-//  Created by Zin on 16/2/27.
+//  Created by Zin (noteon.com) on 16/2/27.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "BaseFormControlCell.h"
 
 @class Address;
 
-@interface AddressCell : UITableViewCell
+@interface AddressCell : BaseFormControlCell
 
 @property (nonatomic, assign, getter=isMetadataHidden) BOOL metadataHidden;
 
@@ -20,6 +20,6 @@
 @property (nonatomic, weak, readonly) UILabel * _Nullable txsLabel;
 @property (nonatomic, weak, readonly) UILabel * _Nullable balanceLabel;
 
-- (void)setAddress:(nonnull Address *)address;
+- (void)setAddress:(nullable Address *)address;
 
 @end

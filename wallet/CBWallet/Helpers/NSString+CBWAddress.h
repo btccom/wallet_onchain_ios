@@ -10,6 +10,7 @@
 
 extern NSString *const _Nonnull NSStringAddressInfoAddressKey;
 extern NSString *const _Nonnull NSStringAddressInfoLabelKey;
+extern NSString *const _Nonnull NSStringAddressInfoAmountKey;
 
 @interface NSString (CBWAddress)
 

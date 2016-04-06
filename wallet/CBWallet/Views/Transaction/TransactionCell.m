@@ -16,7 +16,6 @@
 
 static const CGFloat kTransactionCellDateLabelFontSize = 10.f;
 static const CGFloat kTransactionCellDateLabelHeight = 16.f;
-static const CGFloat kTransactionCellValueLabelFontSize = 16.f;
 static const CGFloat kTransactionCellValueLabelHeight = 20.f;
 static const CGFloat kTransactionCellConfirmedLabelFontSize = 10.f;
 static const CGFloat kTransactionCellConfirmedLabelHeight = 16.f;
@@ -84,7 +83,7 @@ static const CGFloat kTransactionCellVerticalPadding = CBWLayoutCommonVerticalPa
 - (UILabel *)valueLabel {
     if (!_valueLabel) {
         UILabel *label = [[UILabel alloc] init];
-        label.font = [UIFont systemFontOfSize:kTransactionCellValueLabelFontSize weight:UIFontWeightMedium];
+        label.font = [UIFont systemFontOfSize:UIFont.labelFontSize weight:UIFontWeightMedium];
         [self.contentView addSubview:label];
         _valueLabel = label;
     }

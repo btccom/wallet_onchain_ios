@@ -12,9 +12,7 @@
 
 static const CGFloat kAddressHeaderViewVerticalPadding = 48.f;
 static const CGFloat kAddressHeaderViewSubviewMargin = 16.f;
-static const CGFloat kAddressHeaderViewAddressFontSize = 16.f;
 static const CGFloat kAddressHeaderViewAddressHeight = 20.f;
-static const CGFloat kAddressHeaderViewLabelFontSize = 16.f;
 static const CGFloat kAddressHeaderViewLabelHeight = 20.f;
 
 @interface AddressHeaderView()<UITextFieldDelegate>
@@ -50,7 +48,7 @@ static const CGFloat kAddressHeaderViewLabelHeight = 20.f;
 - (UILabel *)addressLabel {
     if (!_addressLabel) {
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(CBWLayoutCommonHorizontalPadding, kAddressHeaderViewVerticalPadding + HDImagePortraitHeight + kAddressHeaderViewSubviewMargin, ScreenWidth - CBWLayoutCommonHorizontalPadding * 2.f, kAddressHeaderViewAddressHeight)];
-        label.font = [UIFont fontWithName:@"Courier" size:kAddressHeaderViewAddressFontSize];
+        label.font = [UIFont fontWithName:@"Courier" size:UIFont.labelFontSize];
         label.textAlignment = NSTextAlignmentCenter;
         [self addSubview:label];
         _addressLabel = label;
@@ -64,7 +62,7 @@ static const CGFloat kAddressHeaderViewLabelHeight = 20.f;
         fieldFrame.size.height = kAddressHeaderViewLabelHeight;
         UITextField *field = [[UITextField alloc] initWithFrame:fieldFrame];
         field.textAlignment = NSTextAlignmentCenter;
-        field.font = [UIFont systemFontOfSize:kAddressHeaderViewLabelFontSize];
+        field.font = [UIFont systemFontOfSize:UIFont.labelFontSize];
         field.returnKeyType = UIReturnKeyDone;
         field.userInteractionEnabled = NO;
         field.delegate = self;

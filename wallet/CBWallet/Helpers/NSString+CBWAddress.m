@@ -12,6 +12,7 @@
 
 NSString *const NSStringAddressInfoAddressKey = @"address";
 NSString *const NSStringAddressInfoLabelKey = @"label";
+NSString *const NSStringAddressInfoAmountKey = @"amount";
 
 @implementation NSString (CBWAddress)
 
@@ -65,6 +66,8 @@ NSString *const NSStringAddressInfoLabelKey = @"label";
 
 - (NSDictionary *)addressInfo {
     NSString *address = [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    address = [address stringByRemovingPercentEncoding];
+    address = [address stringByReplacingOccurrencesOfString:@" " withString:@""];
     address = [address stringByReplacingOccurrencesOfString:@"bitcoin://" withString:@""];
     address = [address stringByReplacingOccurrencesOfString:@"bitcoin:" withString:@""];
     
@@ -88,18 +91,20 @@ NSString *const NSStringAddressInfoLabelKey = @"label";
     
     // get label
     __block NSString *label = @"";
+    __block NSString *amount = @"";
     NSArray *queries = [addressURL.query componentsSeparatedByString:@"&"];
     [queries enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         NSArray *kvPair = [obj componentsSeparatedByString:@"="];
         if (kvPair.count > 1) {
-            if ([kvPair[0] isEqualToString:@"label"]) {
-                label = [kvPair[1] stringByRemovingPercentEncoding];
-                *stop = YES;
+            if ([kvPair[0] isEqualToString:NSStringAddressInfoLabelKey]) {
+                label = kvPair[1];//[kvPair[1] stringByRemovingPercentEncoding];
+            } else if ([kvPair[0] isEqualToString:NSStringAddressInfoAmountKey]) {
+                amount = kvPair[1];
             }
         }
     }];
     
-    return @{NSStringAddressInfoAddressKey: addressString, NSStringAddressInfoLabelKey: label};
+    return @{NSStringAddressInfoAddressKey: addressString, NSStringAddressInfoLabelKey: label, NSStringAddressInfoAmountKey: amount};
 }
 
 @end
