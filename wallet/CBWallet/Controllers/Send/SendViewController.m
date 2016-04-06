@@ -198,6 +198,8 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
     [self p_editingChanged:self.advancedToAmountCell.textField];
 //    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:kSendViewControllerAdvancedSectionInput] withRowAnimation:UITableViewRowAnimationFade];
     [self.tableView endUpdates];
+    
+    [self p_checkIfSendButtonEnabled];
 }
 
 /// click scan
