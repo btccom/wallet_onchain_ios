@@ -2,7 +2,7 @@
 //  AddressViewController.h
 //  wallet
 //
-//  Created by Zin on 16/2/15.
+//  Created by Zin (noteon.com) on 16/2/15.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
@@ -12,7 +12,11 @@
 typedef NS_ENUM(NSUInteger, AddressActionType) {
     /// default, show summary
     AddressActionTypeDefault = 0,
-    /// Receive, just label + address
+    /// send, won't jump to address view from list
+    AddressActionTypeSend,
+    /// receive change, won't jump to address view from list
+    AddressActionTypeChange,
+    /// receive, just label + address
     AddressActionTypeReceive
 };
 

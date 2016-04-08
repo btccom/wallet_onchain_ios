@@ -39,6 +39,13 @@
     return _addressStore;
 }
 
+- (NSMutableArray *)selectedAddress {
+    if (!_selectedAddress) {
+        _selectedAddress = [[NSMutableArray alloc] init];
+    }
+    return _selectedAddress;
+}
+
 #pragma mark - Initializer
 
 - (instancetype)initWithAccount:(Account *)account {
@@ -77,9 +84,15 @@
             self.navigationItem.rightBarButtonItems = items;
             break;
         }
+            
+        case AddressActionTypeChange:
         case AddressActionTypeReceive: {
-            self.title = NSLocalizedStringFromTable(@"Navigation select_address", @"CBW", @"Select Address to Receive");
+            self.title = NSLocalizedStringFromTable(@"Navigation select_address", @"CBW", @"Select Address");
             _actionCells = @[NSLocalizedStringFromTable(@"Address Cell new_address", @"CBW", @"New Address")];
+            break;
+        }
+        case AddressActionTypeSend: {
+            self.title = NSLocalizedStringFromTable(@"Navigation select_address", @"CBW", @"Select Address");
             break;
         }
     }
@@ -107,8 +120,6 @@
 #pragma mark - Private Method
 #pragma mark Handlers
 - (void)p_handleCreateAddress:(id)sender {
-    
-    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
     
     if (!self.account) {
         DLog(@"can not create address without account");
@@ -143,6 +154,7 @@
         return;
     }
     
+    // create address
     NSUInteger idx = self.addressStore.countAllAddresses;
     NSString *addressString = [Address addressStringWithIdx:idx acountIdx:self.account.idx];
     [self p_saveAddressString:addressString withIdx:idx];
@@ -169,13 +181,24 @@
         return;
     }
     
+    // save address record
     Address *address = [Address newAdress:addressString withLabel:label idx:idx accountRid:self.account.rid accountIdx:self.account.idx inStore:self.addressStore];
     [address saveWithError:nil];
     
     [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:self.actionCells.count > 0 ? 1 : 0]] withRowAnimation:UITableViewRowAnimationAutomatic];
-    [self p_selectAddress:address];
+    if (self.actionType == AddressActionTypeChange) {
+        [self p_selectChangeAddress:address];
+        return;
+    }
+    [self p_pushToAddress:address];
 }
-- (void)p_selectAddress:(Address *)address {
+- (void)p_selectChangeAddress:(Address *)address {
+    if ([self.delegate respondsToSelector:@selector(addressListViewController:didSelectAddress:)]) {
+        [self.delegate addressListViewController:self didSelectAddress:address];
+    }
+    [self.navigationController popViewControllerAnimated:YES];
+}
+- (void)p_pushToAddress:(Address *)address {
     AddressViewController *addressViewController = [[AddressViewController alloc] initWithAddress:address actionType:self.actionType];
     if (addressViewController) {
         [self.navigationController pushViewController:addressViewController animated:YES];
@@ -210,9 +233,15 @@
     }
     // address section
     AddressCell *cell = [tableView dequeueReusableCellWithIdentifier:BaseListViewCellAddressIdentifier forIndexPath:indexPath];
-    [cell setMetadataHidden:(self.actionType != AddressActionTypeDefault)];
+    [cell setMetadataHidden:(self.actionType == AddressActionTypeReceive)];
     Address *address = [self.addressStore recordAtIndex:indexPath.row];
     [cell setAddress:address];
+    // if used to send, check mark
+    if (self.actionType == AddressActionTypeSend) {
+        if ([self.selectedAddress containsObject:address]) {
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        }
+    }
     return cell;
 }
 
@@ -225,22 +254,51 @@
 
 #pragma mark <UITableViewDelgate>
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.actionType == AddressActionTypeDefault) {
-        return CBWCellHeightAddressWithMetadata;
+    if (self.actionType == AddressActionTypeReceive) {
+        return CBWCellHeightAddress;
     }
-    return CBWCellHeightAddress;
+    return CBWCellHeightAddressWithMetadata;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         if (self.actionCells.count > 0) {
             // action section
-            // TODO: handle differenct action
+            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+            // TODO: handle different action
             [self p_handleCreateAddress:nil];
             return;
         }
     }
     Address *address = [self.addressStore recordAtIndex:indexPath.row];
-    [self p_selectAddress:address];
+    if (self.actionType == AddressActionTypeSend) {
+        // used to send
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        if ([self.selectedAddress containsObject:address]) {
+            // deselect
+            [self.selectedAddress removeObject:address];
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            if ([self.delegate respondsToSelector:@selector(addressListViewController:didDeselectAddress:)]) {
+                [self.delegate addressListViewController:self didDeselectAddress:address];
+            }
+        } else {
+            // check value
+//            if (address.balance > 0) {
+                [self.selectedAddress addObject:address];
+                cell.accessoryType = UITableViewCellAccessoryCheckmark;
+                if ([self.delegate respondsToSelector:@selector(addressListViewController:didSelectAddress:)]) {
+                    [self.delegate addressListViewController:self didSelectAddress:address];
+                }
+//            }
+        }
+        return;
+    } else if (self.actionType == AddressActionTypeChange) {
+        // used for change
+        [self p_selectChangeAddress:address];
+        return;
+    }
+    // just select one address
+    [self p_pushToAddress:address];
 }
 
 #pragma mark - <ScanViewControllerDelegate>

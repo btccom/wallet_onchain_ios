@@ -5,6 +5,7 @@
 //  Created by Zin (noteon.com) on 16/3/28.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
+// TODO: request operation queue, cancel request (remove a request queue)
 
 #import "CBWRequest.h"
 

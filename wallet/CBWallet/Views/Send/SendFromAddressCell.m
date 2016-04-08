@@ -39,6 +39,7 @@
     if (!addresses) {
         return;
     }
+    self.badgeLabel.hidden = addresses.count == 0;
     self.badgeLabel.text = [@(addresses.count) stringValue];
     self.detailTextLabel.text = [addresses componentsJoinedByString:@", "];
 }

@@ -2,7 +2,7 @@
 //  Address.m
 //  wallet
 //
-//  Created by Zin on 16/2/24.
+//  Created by Zin (noteon.com) on 16/2/24.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
@@ -26,6 +26,7 @@
     address.internal = internal;
     address.accountRid = accountRid;
     address.accountIdx = accountIdx;
+    address.balance = 0;
     DLog(@"new address: %@", address);
     return address;
 }
@@ -53,6 +54,17 @@
     }
     
     return nil;
+}
+
++ (BOOL)checkAddressString:(NSString *)addressString {
+    if (![addressString isKindOfClass:[NSString class]]) {
+        return NO;
+    }
+    BTCAddress *address = [BTCAddress addressWithString:addressString];
+    if (address) {
+        return YES;
+    }
+    return NO;
 }
 
 - (void)saveWithError:(NSError *__autoreleasing  _Nullable *)error {
@@ -96,6 +108,16 @@
         return;
     }
     [self setValuesForKeysWithDictionary:dictionary];
+}
+
+- (BOOL)isEqual:(id)object {
+    if (![object isKindOfClass:[Address class]]) {
+        return NO;
+    }
+    if ([self.address isEqual:((Address *)object).address]) {
+        return YES;
+    }
+    return NO;
 }
 
 #pragma mark - KVC

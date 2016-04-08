@@ -64,7 +64,6 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"navigation_drawer"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleProfile:)];
     self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_address"] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleAddressList:)], [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"navigation_scan"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleScan:)]];
     
-    
     [self p_registerNotifications];
     
     
@@ -211,7 +210,7 @@
 
 /// push send
 - (void)p_handleSend:(id)sender {
-    SendViewController *sendViewController = [[SendViewController alloc] init];
+    SendViewController *sendViewController = [[SendViewController alloc] initWithAccount:self.account];
     sendViewController.mode = SendViewControllerModeQuickly;
     [self.navigationController pushViewController:sendViewController animated:YES];
 }

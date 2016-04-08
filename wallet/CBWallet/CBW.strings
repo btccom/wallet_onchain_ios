@@ -41,6 +41,13 @@
 "Placeholder new_address" = "New Address";
 "Placeholder value" = "Amount";
 
+"Description Fee -1" = "Custom";
+"Description Fee 0" = "Low";
+"Description Fee 1" = "Medium";
+"Description Fee 2" = "High";
+
+"Alert Message invalid_address" = "Invalid bitcoin address.";
+
 "Label watched_account" = "Watched Account";
 "Label default_account" = "Default Account";
 
@@ -86,6 +93,7 @@
 "Send Section to" = "To";
 "Send Section change" = "Change";
 "Send Section fee" = "Fee";
+"Send Cell select_from_address" = "Select Address";
 "Send Cell add_recipient" = "Add";
 
 "Send Fee minimum" = "Minimum";

@@ -84,6 +84,11 @@
             self.title = NSLocalizedStringFromTable(@"Navigation receive", @"CBW", @"Receive");
             break;
         }
+            
+        case AddressActionTypeSend:
+        case AddressActionTypeChange:
+            // won't reach here
+            break;
     }
 }
 

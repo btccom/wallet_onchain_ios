@@ -18,6 +18,7 @@ extern NSString *const _Nonnull NSStringAddressInfoAmountKey;
 
 - (nullable UIImage *)qrcodeImageWithSize:(CGSize)size;
 
+/// 解析地址信息，简单校验地址合法性
 - (nullable NSDictionary *)addressInfo;
 
 @end
