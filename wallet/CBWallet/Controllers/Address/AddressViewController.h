@@ -7,7 +7,7 @@
 //
 
 #import "BaseListViewController.h"
-@class Address;
+@class CBWAddress;
 
 typedef NS_ENUM(NSUInteger, AddressActionType) {
     /// default, show summary
@@ -27,8 +27,8 @@ typedef NS_ENUM(NSUInteger, AddressActionType) {
 @interface AddressViewController : BaseListViewController
 
 @property (nonatomic, assign, readonly) AddressActionType actionType;
-@property (nonatomic, strong, readonly) Address * _Nonnull address;
+@property (nonatomic, strong, readonly) CBWAddress * _Nonnull address;
 
-- (nonnull instancetype)initWithAddress:(nonnull Address *)address actionType:(AddressActionType)actionType;
+- (nonnull instancetype)initWithAddress:(nonnull CBWAddress *)address actionType:(AddressActionType)actionType;
 
 @end

@@ -27,9 +27,9 @@
 
 @interface DashboardViewController ()<ProfileViewControllerDelegate>
 
-@property (nonatomic, strong) AccountStore *accountStore;
-@property (nonatomic, strong) TransactionStore *transactionStore;
-@property (nonatomic, strong) Account *account;
+@property (nonatomic, strong) CBWAccountStore *accountStore;
+@property (nonatomic, strong) CBWTransactionStore *transactionStore;
+@property (nonatomic, strong) CBWAccount *account;
 @property (nonatomic, weak) DashboardHeaderView *headerView;
 
 @end
@@ -38,18 +38,18 @@
 
 #pragma mark - Property
 
-- (AccountStore *)accountStore {
+- (CBWAccountStore *)accountStore {
     if (!_accountStore) {
-        _accountStore = [[AccountStore alloc] init];
+        _accountStore = [[CBWAccountStore alloc] init];
         [_accountStore fetch];
     }
     return _accountStore;
 }
 
-- (TransactionStore *)transactionStore {
+- (CBWTransactionStore *)transactionStore {
     if (!_transactionStore) {
         // TODO: transaction store 可以指定 account 而不是 address
-        _transactionStore = [TransactionStore new];
+        _transactionStore = [CBWTransactionStore new];
         [_transactionStore fetch];
     }
     return _transactionStore;
@@ -114,7 +114,7 @@
     
     CBWRequest *request = [CBWRequest new];
     // 根据账号地址获取交易
-    AddressStore *addressStore = [[AddressStore alloc] initWithAccountIdx:self.account.idx];
+    CBWAddressStore *addressStore = [[CBWAddressStore alloc] initWithAccountIdx:self.account.idx];
     [addressStore fetch];
     [request addressSummariesWithAddressStrings:addressStore.allAddressStrings completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
         [self requestDidStop];
@@ -128,7 +128,7 @@
                         
                         NSDictionary *responsedAddress = obj;
                         NSString *addressString = [responsedAddress objectForKey:@"address"];
-                        Address *address = [addressStore addressWithAddressString:addressString];
+                        CBWAddress *address = [addressStore addressWithAddressString:addressString];
                         NSUInteger responsedTxCount = [[responsedAddress objectForKey:@"tx_count"] unsignedIntegerValue];
                         if (responsedTxCount > address.txCount) {
                             [updatedAddresses addObject:addressString];
@@ -150,7 +150,7 @@
                 // fetch
                 [request addressTransactionsWithAddressStrings:addresses completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
                     if (!error) {
-                        DLog(@"fetched transactions count: %lu", [[response objectForKey:@"total_count"] unsignedIntegerValue]);
+                        DLog(@"fetched transactions count: %lu", (long)[[response objectForKey:@"total_count"] unsignedIntegerValue]);
                         
                         // 解析交易
                         [self.transactionStore addTransactionsFromJsonObject:[response objectForKey:@"list"]];
@@ -256,7 +256,7 @@
 }
 
 #pragma mark - ProfileViewControllerDelegate
-- (void)profileViewController:(ProfileViewController *)viewController didSelectAccount:(Account *)account {
+- (void)profileViewController:(ProfileViewController *)viewController didSelectAccount:(CBWAccount *)account {
     DLog(@"dashboard selected account: %@", account);
     
     [self dismissViewControllerAnimated:YES completion:nil];

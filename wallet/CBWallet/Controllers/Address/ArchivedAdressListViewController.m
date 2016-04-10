@@ -12,20 +12,20 @@
 
 @interface ArchivedAdressListViewController ()
 
-@property (nonatomic, strong) AddressStore *addressStore;
+@property (nonatomic, strong) CBWAddressStore *addressStore;
 
 @end
 
 @implementation ArchivedAdressListViewController
 
 #pragma mark - Property
-- (AddressStore *)addressStore {
+- (CBWAddressStore *)addressStore {
     if (!_addressStore) {
         NSInteger accountIdx = -2;
         if (self.account) {
             accountIdx = self.account.idx;
         }
-        _addressStore = [[AddressStore alloc] initWithAccountIdx:accountIdx];
+        _addressStore = [[CBWAddressStore alloc] initWithAccountIdx:accountIdx];
         _addressStore.archived = YES;
     }
     return _addressStore;
@@ -33,7 +33,7 @@
 
 #pragma mark - Initializer
 
-- (instancetype)initWithAccount:(Account *)account {
+- (instancetype)initWithAccount:(CBWAccount *)account {
     self = [super initWithStyle:UITableViewStylePlain];
     if (self) {
         _account = account;
@@ -66,7 +66,7 @@
 #pragma mark - Private Method
 
 #pragma mark -
-- (void)p_selectAddress:(Address *)address {
+- (void)p_selectAddress:(CBWAddress *)address {
     AddressViewController *addressViewController = [[AddressViewController alloc] initWithAddress:address actionType:self.actionType];
     if (addressViewController) {
         [self.navigationController pushViewController:addressViewController animated:YES];
@@ -81,7 +81,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     AddressCell *cell = [tableView dequeueReusableCellWithIdentifier:BaseListViewCellAddressIdentifier forIndexPath:indexPath];
     [cell setMetadataHidden:(self.actionType != AddressActionTypeDefault)];
-    Address *address = [self.addressStore recordAtIndex:indexPath.row];
+    CBWAddress *address = [self.addressStore recordAtIndex:indexPath.row];
     [cell setAddress:address];
     return cell;
 }
@@ -94,7 +94,7 @@
     return CBWCellHeightAddress;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    Address *address = [self.addressStore recordAtIndex:indexPath.row];
+    CBWAddress *address = [self.addressStore recordAtIndex:indexPath.row];
     [self p_selectAddress:address];
 }
 

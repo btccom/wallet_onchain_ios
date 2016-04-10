@@ -19,7 +19,7 @@
 @interface AddressListViewController ()<ScanViewControllerDelegate>
 
 @property (nonatomic, strong) NSArray *actionCells; // create address button...
-@property (nonatomic, strong) AddressStore *addressStore;
+@property (nonatomic, strong) CBWAddressStore *addressStore;
 
 @property (nonatomic, weak) UIBarButtonItem *archivedListButtonItem;
 
@@ -28,13 +28,13 @@
 @implementation AddressListViewController
 
 #pragma mark - Property
-- (AddressStore *)addressStore {
+- (CBWAddressStore *)addressStore {
     if (!_addressStore) {
         NSInteger accountIdx = -2;
         if (self.account) {
             accountIdx = self.account.idx;
         }
-        _addressStore = [[AddressStore alloc] initWithAccountIdx:accountIdx];
+        _addressStore = [[CBWAddressStore alloc] initWithAccountIdx:accountIdx];
     }
     return _addressStore;
 }
@@ -48,7 +48,7 @@
 
 #pragma mark - Initializer
 
-- (instancetype)initWithAccount:(Account *)account {
+- (instancetype)initWithAccount:(CBWAccount *)account {
     self = [super initWithStyle:UITableViewStylePlain];
     if (self) {
         _account = account;
@@ -156,7 +156,7 @@
     
     // create address
     NSUInteger idx = self.addressStore.countAllAddresses;
-    NSString *addressString = [Address addressStringWithIdx:idx acountIdx:self.account.idx];
+    NSString *addressString = [CBWAddress addressStringWithIdx:idx acountIdx:self.account.idx];
     [self p_saveAddressString:addressString withIdx:idx];
 }
 - (void)p_handleArchivedAddressList:(id)sender {
@@ -182,7 +182,7 @@
     }
     
     // save address record
-    Address *address = [Address newAdress:addressString withLabel:label idx:idx accountRid:self.account.rid accountIdx:self.account.idx inStore:self.addressStore];
+    CBWAddress *address = [CBWAddress newAdress:addressString withLabel:label idx:idx accountRid:self.account.rid accountIdx:self.account.idx inStore:self.addressStore];
     [address saveWithError:nil];
     
     [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:self.actionCells.count > 0 ? 1 : 0]] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -192,13 +192,13 @@
     }
     [self p_pushToAddress:address];
 }
-- (void)p_selectChangeAddress:(Address *)address {
+- (void)p_selectChangeAddress:(CBWAddress *)address {
     if ([self.delegate respondsToSelector:@selector(addressListViewController:didSelectAddress:)]) {
         [self.delegate addressListViewController:self didSelectAddress:address];
     }
     [self.navigationController popViewControllerAnimated:YES];
 }
-- (void)p_pushToAddress:(Address *)address {
+- (void)p_pushToAddress:(CBWAddress *)address {
     AddressViewController *addressViewController = [[AddressViewController alloc] initWithAddress:address actionType:self.actionType];
     if (addressViewController) {
         [self.navigationController pushViewController:addressViewController animated:YES];
@@ -234,7 +234,7 @@
     // address section
     AddressCell *cell = [tableView dequeueReusableCellWithIdentifier:BaseListViewCellAddressIdentifier forIndexPath:indexPath];
     [cell setMetadataHidden:(self.actionType == AddressActionTypeReceive)];
-    Address *address = [self.addressStore recordAtIndex:indexPath.row];
+    CBWAddress *address = [self.addressStore recordAtIndex:indexPath.row];
     [cell setAddress:address];
     // if used to send, check mark
     if (self.actionType == AddressActionTypeSend) {
@@ -269,7 +269,7 @@
             return;
         }
     }
-    Address *address = [self.addressStore recordAtIndex:indexPath.row];
+    CBWAddress *address = [self.addressStore recordAtIndex:indexPath.row];
     if (self.actionType == AddressActionTypeSend) {
         // used to send
         [tableView deselectRowAtIndexPath:indexPath animated:YES];

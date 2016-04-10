@@ -2,22 +2,22 @@
 //  DatabaseManager+Account.m
 //  CBWallet
 //
-//  Created by Zin on 16/3/21.
+//  Created by Zin (noteon.com) on 16/3/21.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
-#import "DatabaseManager+Account.h"
-#import "AccountStore.h"
+#import "CBWDatabaseManager+Account.h"
+#import "CBWAccountStore.h"
 
-@implementation DatabaseManager (Account)
+@implementation CBWDatabaseManager (Account)
 
-- (void)fetchAccountsToStore:(AccountStore *)store {
+- (void)fetchAccountsToStore:(CBWAccountStore *)store {
     FMDatabase *db = [self db];
     if ([db open]) {
         NSString *sql = [NSString stringWithFormat:@"SELECT * FROM %@", DatabaseManagerTableAccount];
         FMResultSet *results = [db executeQuery:sql];
         while ([results next]) {
-            Account *account = [[Account alloc] init];
+            CBWAccount *account = [[CBWAccount alloc] init];
             account.rid = [results intForColumn:DatabaseManagerColRid];
             account.creationDate = [results dateForColumn:DatabaseManagerColCreationDate];
             account.modificationDate = [results dateForColumn:DatabaseManagerColModificationDate];
@@ -29,7 +29,7 @@
     }
 }
 
-- (void)saveAccount:(Account *)account {
+- (void)saveAccount:(CBWAccount *)account {
     if (account.rid < 0) {
         // 新记录
         [self p_createAccount:account];
@@ -43,7 +43,7 @@
         }
     }
 }
-- (BOOL)p_createAccount:(Account *)account {
+- (BOOL)p_createAccount:(CBWAccount *)account {
     BOOL created = NO;
     DLog(@"create account: %@", account);
     
@@ -90,7 +90,7 @@
     
     return rid;
 }
-- (BOOL)p_updateAccount:(Account *)account {
+- (BOOL)p_updateAccount:(CBWAccount *)account {
     BOOL updated = NO;
     DLog(@"update account: %@", account);
     

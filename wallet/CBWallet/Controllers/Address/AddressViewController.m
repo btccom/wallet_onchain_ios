@@ -16,23 +16,23 @@
 
 @interface AddressViewController ()<AddressHeaderViewDelegate>
 
-@property (nonatomic, strong) TransactionStore *transactionStore;
+@property (nonatomic, strong) CBWTransactionStore *transactionStore;
 @property (nonatomic, assign) NSUInteger page;
 
 @end
 
 @implementation AddressViewController
 
-- (TransactionStore *)transactionStore {
+- (CBWTransactionStore *)transactionStore {
     if (!_transactionStore) {
-        _transactionStore = [[TransactionStore alloc] initWithAddressString:self.address.address];
+        _transactionStore = [[CBWTransactionStore alloc] initWithAddressString:self.address.address];
     }
     return _transactionStore;
 }
 
 #pragma mark - Initialization
 
-- (instancetype)initWithAddress:(Address *)address actionType:(AddressActionType)actionType {
+- (instancetype)initWithAddress:(CBWAddress *)address actionType:(AddressActionType)actionType {
     self = [super initWithStyle:(actionType == AddressActionTypeDefault) ? UITableViewStylePlain : UITableViewStyleGrouped];
     if (self) {
         _address = address;
@@ -176,7 +176,7 @@
     [self.address saveWithError:nil];
     
     // pop back
-    if (((AddressStore *)self.address.store).isArchived) {
+    if (((CBWAddressStore *)self.address.store).isArchived) {
         // 检查是否为空
         if (self.address.store.count == 0) {
             // TODO: improve

@@ -2,13 +2,13 @@
 //  TransactionStore.m
 //  CBWallet
 //
-//  Created by Zin on 16/3/25.
+//  Created by Zin (noteon.com) on 16/3/25.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
-#import "TransactionStore.h"
+#import "CBWTransactionStore.h"
 
-@implementation TransactionStore
+@implementation CBWTransactionStore
 
 - (instancetype)initWithAddressString:(NSString *)addressString {
     self = [super init];

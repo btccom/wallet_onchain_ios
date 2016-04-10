@@ -2,7 +2,7 @@
 //  DatabaseManager.h
 //  CBWallet
 //
-//  Created by Zin on 16/3/21.
+//  Created by Zin (noteon.com) on 16/3/21.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
@@ -51,7 +51,7 @@ extern NSString *const DatabaseManagerColAccountRid;
 /// integer
 extern NSString *const DatabaseManagerColAccountIdx;
 
-@interface DatabaseManager : NSObject
+@interface CBWDatabaseManager : NSObject
 
 + (instancetype)defaultManager;
 + (FMDatabase *)installDb;
@@ -60,5 +60,5 @@ extern NSString *const DatabaseManagerColAccountIdx;
 
 @end
 
-#import "DatabaseManager+Account.h"
-#import "DatabaseManager+Address.h"
+#import "CBWDatabaseManager+Account.h"
+#import "CBWDatabaseManager+Address.h"

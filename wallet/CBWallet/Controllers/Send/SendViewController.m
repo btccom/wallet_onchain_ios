@@ -17,8 +17,8 @@
 #import "FormControlInputCell.h"
 #import "FormControlInputActionCell.h"
 
-#import "Account.h"
-#import "Address.h"
+#import "CBWAccount.h"
+#import "CBWAddress.h"
 #import "Fee.h"
 
 #import "NSString+CBWAddress.h"
@@ -58,19 +58,19 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
 
 @interface SendViewController ()<UITextFieldDelegate, ScanViewControllerDelegate, AddressListViewControllerDelegate>
 
-@property (nonatomic, strong) AddressStore *addressStore;
+@property (nonatomic, strong) CBWAddressStore *addressStore;
 
 @property (nonatomic, weak) FormControlInputActionCell *quicklyAddressCell;
 @property (nonatomic, weak) FormControlInputCell *quicklyAmountCell;
 @property (nonatomic, weak) FormControlBlockButtonCell *quicklySendButtonCell;
 
 @property (nonatomic, strong) NSArray *advancedSectionTitles;
-@property (nonatomic, strong) NSMutableArray<Address *> *advancedFromAddresses;
-@property (nonatomic, strong) NSMutableArray<Address *> *advancedToDatas;
+@property (nonatomic, strong) NSMutableArray<CBWAddress *> *advancedFromAddresses;
+@property (nonatomic, strong) NSMutableArray<CBWAddress *> *advancedToDatas;
 @property (nonatomic, weak) FormControlInputActionCell *advancedToAddressCell;
 @property (nonatomic, weak) FormControlInputActionCell *advancedToAmountCell;
 @property (nonatomic, weak) FormControlBlockButtonCell *advancedSendButtonCell;
-@property (nonatomic, strong) Address *advancedChangeAddress;// new address as default
+@property (nonatomic, strong) CBWAddress *advancedChangeAddress;// new address as default
 @property (nonatomic, strong) Fee *fee;// medium as default
 
 
@@ -92,7 +92,7 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
     return _advancedToDatas;
 }
 
-- (instancetype)initWithAccount:(Account *)account {
+- (instancetype)initWithAccount:(CBWAccount *)account {
     self = [super init];
     if (self) {
         _account = account;
@@ -202,7 +202,7 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
     // quickly
     // check address
     NSString *addressString = self.quicklyAddressCell.textField.text;
-    if (![Address checkAddressString:addressString]) {
+    if (![CBWAddress checkAddressString:addressString]) {
         [self p_alertInvalidAddress];
         return;
     }
@@ -268,14 +268,14 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
     NSString *addressString = self.advancedToAddressCell.textField.text;
     
     // check address
-    if (![Address checkAddressString:addressString]) {
+    if (![CBWAddress checkAddressString:addressString]) {
         [self p_alertInvalidAddress];
         return;
     }
     
     // check duplicated address
     __block BOOL duplicated = NO;
-    [self.advancedToDatas enumerateObjectsUsingBlock:^(Address * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [self.advancedToDatas enumerateObjectsUsingBlock:^(CBWAddress * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([self.advancedToAddressCell.textField.text isEqualToString:obj.address]) {
             duplicated = YES;
             *stop = YES;
@@ -286,7 +286,7 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
         return;
     }
     
-    Address *address = [Address new];
+    CBWAddress *address = [CBWAddress new];
     address.address = addressString;
     address.balance = [@(self.advancedToAmountCell.textField.text.doubleValue * 100000000.0) longLongValue];
     [self.advancedToDatas addObject:address];
@@ -335,7 +335,7 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
         [actionSheet addAction:feeAction];
     }
     
-    NSString *customFeeString = [NSString stringWithFormat:@"Description Fee %ld", FeeLevelCustom];
+    NSString *customFeeString = [NSString stringWithFormat:@"Description Fee %ld", (long)FeeLevelCustom];
     UIAlertAction *customFeeAction = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(customFeeString, @"CBW", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self p_handleAdvancedCustomFee];
     }];
@@ -348,7 +348,7 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
 }
 
 - (void)p_handleAdvancedCustomFee {
-    NSString *customFeeString = [NSString stringWithFormat:@"Description Fee %ld", FeeLevelCustom];
+    NSString *customFeeString = [NSString stringWithFormat:@"Description Fee %ld", (long)FeeLevelCustom];
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(customFeeString, @"CBW", nil) message:nil preferredStyle:UIAlertControllerStyleAlert];
     [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.keyboardType = UIKeyboardTypeDecimalPad;
@@ -504,7 +504,7 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
                     // advanced from
                     SendFromAddressCell *advancedFromAddressCell = [tableView dequeueReusableCellWithIdentifier:kSendViewControllerCellAdvancedFromAddressIdentifier];
                     __block NSMutableArray *addresses = [NSMutableArray array];
-                    [self.advancedFromAddresses enumerateObjectsUsingBlock:^(Address * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    [self.advancedFromAddresses enumerateObjectsUsingBlock:^(CBWAddress * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                         [addresses addObject:obj.address];
                     }];
                     advancedFromAddressCell.textLabel.text = nil;
@@ -520,7 +520,7 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
                     SendToAddressCell *advancedToAddressCell = [tableView dequeueReusableCellWithIdentifier:kSendViewControllerCellAdvancedToAddressIdentifier];
                     advancedToAddressCell.imageView.image = [UIImage imageNamed:@"icon_delete_mini"];
                     [advancedToAddressCell.deleteButton addTarget:self action:@selector(p_handleAdvancedDeleteToData:) forControlEvents:UIControlEventTouchUpInside];
-                    Address *address = self.advancedToDatas[indexPath.row];
+                    CBWAddress *address = self.advancedToDatas[indexPath.row];
                     [advancedToAddressCell setAddress:address];
                     cell = advancedToAddressCell;
                     break;
@@ -722,7 +722,7 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
 }
 
 #pragma mark - <AddressListViewControllerDelegate>
-- (void)addressListViewController:(AddressListViewController *)controller didSelectAddress:(Address *)address {
+- (void)addressListViewController:(AddressListViewController *)controller didSelectAddress:(CBWAddress *)address {
     if (controller.actionType == AddressActionTypeSend) {
         if (![self.advancedFromAddresses containsObject:address]) {
             [self.advancedFromAddresses addObject:address];
@@ -734,7 +734,7 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
     }
     [self p_checkIfSendButtonEnabled];
 }
-- (void)addressListViewController:(AddressListViewController *)controller didDeselectAddress:(Address *)address {
+- (void)addressListViewController:(AddressListViewController *)controller didDeselectAddress:(CBWAddress *)address {
     if ([self.advancedFromAddresses containsObject:address]) {
         [self.advancedFromAddresses removeObject:address];
         [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:kSendViewControllerAdvancedSectionFrom] withRowAnimation:UITableViewRowAnimationNone];

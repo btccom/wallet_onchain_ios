@@ -6,18 +6,18 @@
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
-#import "Address.h"
-#import "AddressStore.h"
+#import "CBWAddress.h"
+#import "CBWAddressStore.h"
 #import "Guard.h"
 
 #import "SSKeychain.h"
 #import <CoreBitcoin/CoreBitcoin.h>
 #import "AESCrypt.h"
 
-@implementation Address
+@implementation CBWAddress
 
-+ (instancetype)newAdress:(NSString *)aAddress withLabel:(NSString *)label idx:(NSInteger)idx archived:(BOOL)archived dirty:(BOOL)dirty internal:(BOOL)internal accountRid:(NSInteger)accountRid accountIdx:(NSInteger)accountIdx inStore:(nonnull AddressStore *)store {
-    Address *address = [Address newRecordInStore:store];
++ (instancetype)newAdress:(NSString *)aAddress withLabel:(NSString *)label idx:(NSInteger)idx archived:(BOOL)archived dirty:(BOOL)dirty internal:(BOOL)internal accountRid:(long long)accountRid accountIdx:(NSInteger)accountIdx inStore:(nonnull CBWAddressStore *)store {
+    CBWAddress *address = [CBWAddress newRecordInStore:store];
     address.address = aAddress;
     address.label = label;
     address.idx = idx;
@@ -31,7 +31,7 @@
     return address;
 }
 
-+ (instancetype)newAdress:(NSString *)aAddress withLabel:(NSString *)label idx:(NSInteger)idx accountRid:(NSInteger)accountRid accountIdx:(NSInteger)accountIdx inStore:(AddressStore *)store {
++ (instancetype)newAdress:(NSString *)aAddress withLabel:(NSString *)label idx:(NSInteger)idx accountRid:(long long)accountRid accountIdx:(NSInteger)accountIdx inStore:(CBWAddressStore *)store {
     return [self newAdress:aAddress withLabel:label idx:idx archived:NO dirty:NO internal:NO accountRid:accountRid accountIdx:accountIdx inStore:store];
 }
 
@@ -68,10 +68,10 @@
 }
 
 - (void)saveWithError:(NSError *__autoreleasing  _Nullable *)error {
-    if (self.isArchived != ((AddressStore *)self.store).isArchived) {
+    if (self.isArchived != ((CBWAddressStore *)self.store).isArchived) {
         [self.store deleteRecord:self];
     }
-    [[DatabaseManager defaultManager] saveAddress:self];
+    [[CBWDatabaseManager defaultManager] saveAddress:self];
 }
 
 //- (void)deleteFromStore:(RecordObjectStore *)store {
@@ -79,13 +79,13 @@
 //    return;
 //}
 
-- (void)deleteWatchedAddressFromStore:(RecordObjectStore *)store {
+- (void)deleteWatchedAddressFromStore:(CBWRecordObjectStore *)store {
     if (self.accountIdx != CBWRecordWatchedIdx) {
         return;
     }
     
     [store deleteRecord:self];
-    [[DatabaseManager defaultManager] deleteAddress:self];
+    [[CBWDatabaseManager defaultManager] deleteAddress:self];
 }
 
 /*
@@ -111,10 +111,10 @@
 }
 
 - (BOOL)isEqual:(id)object {
-    if (![object isKindOfClass:[Address class]]) {
+    if (![object isKindOfClass:[CBWAddress class]]) {
         return NO;
     }
-    if ([self.address isEqual:((Address *)object).address]) {
+    if ([self.address isEqual:((CBWAddress *)object).address]) {
         return YES;
     }
     return NO;

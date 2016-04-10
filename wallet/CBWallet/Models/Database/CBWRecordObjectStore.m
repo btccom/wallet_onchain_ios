@@ -2,13 +2,13 @@
 //  RecordObjectStore.m
 //  CBWallet
 //
-//  Created by Zin on 16/3/25.
+//  Created by Zin (noteon.com) on 16/3/25.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
-#import "RecordObjectStore.h"
+#import "CBWRecordObjectStore.h"
 
-@implementation RecordObjectStore
+@implementation CBWRecordObjectStore
 
 - (instancetype)init {
     self = [super init];
@@ -37,11 +37,11 @@
     return nil;
 }
 
-- (void)addRecord:(RecordObject *)record {
+- (void)addRecord:(CBWRecordObject *)record {
     [self addRecord:record ASC:NO];
 }
 
-- (void)addRecord:(RecordObject *)record ASC:(BOOL)ASC {
+- (void)addRecord:(CBWRecordObject *)record ASC:(BOOL)ASC {
     if (!record) {
         return;
     }
@@ -57,7 +57,7 @@
     }
 }
 
-- (void)deleteRecord:(RecordObject *)record {
+- (void)deleteRecord:(CBWRecordObject *)record {
     if ([records containsObject:record]) {
         [records removeObject:record];
     }

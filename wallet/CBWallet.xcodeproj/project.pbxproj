@@ -31,10 +31,14 @@
 		2C1E8C4F1CA42A7D006F86E1 /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E8C491CA42A7D006F86E1 /* Base64.m */; };
 		2C1E8C501CA42A7D006F86E1 /* NSData+CommonCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E8C4B1CA42A7D006F86E1 /* NSData+CommonCrypto.m */; };
 		2C1E8C511CA42A7D006F86E1 /* PBKDF2.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E8C4D1CA42A7D006F86E1 /* PBKDF2.m */; };
-		2C77D25B1CA66207001DDB1F /* DatabaseManager+Address.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D25A1CA66207001DDB1F /* DatabaseManager+Address.m */; };
+		2C77D25B1CA66207001DDB1F /* CBWDatabaseManager+Address.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D25A1CA66207001DDB1F /* CBWDatabaseManager+Address.m */; };
 		2C77D2631CA8C095001DDB1F /* CBWRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D2621CA8C095001DDB1F /* CBWRequest.m */; };
 		2C77D2661CA8C14E001DDB1F /* CBWRequest+Address.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D2651CA8C14E001DDB1F /* CBWRequest+Address.m */; };
 		2C77D2731CAA10EE001DDB1F /* UIFont+CBW.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D2721CAA10EE001DDB1F /* UIFont+CBW.m */; };
+		2C9829031CBA49C2004CB2D3 /* CBWBackup.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9829021CBA49C2004CB2D3 /* CBWBackup.m */; };
+		2C9829061CBA49CC004CB2D3 /* CBWRecovery.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9829051CBA49CC004CB2D3 /* CBWRecovery.m */; };
+		2C98290A1CBA49FE004CB2D3 /* CBWiCloud.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9829091CBA49FE004CB2D3 /* CBWiCloud.m */; };
+		2C98290D1CBA4D98004CB2D3 /* CBWiCloudDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C98290C1CBA4D98004CB2D3 /* CBWiCloudDocument.m */; };
 		2C99A17C1CA0E434007D7AC3 /* Guard.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C99A17B1CA0E434007D7AC3 /* Guard.m */; };
 		2C99A1801CA1029C007D7AC3 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C99A17F1CA1029C007D7AC3 /* libsqlite3.tbd */; };
 		2C9CAF471C868B61008194EB /* AddressListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAEE31C868B61008194EB /* AddressListViewController.m */; };
@@ -62,10 +66,10 @@
 		2C9CAF5D1C868B61008194EB /* UIButton+VerticalLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF171C868B61008194EB /* UIButton+VerticalLayout.m */; };
 		2C9CAF5E1C868B61008194EB /* UIColor+CBW.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF191C868B61008194EB /* UIColor+CBW.m */; };
 		2C9CAF5F1C868B61008194EB /* UIViewController+Appearance.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF1B1C868B61008194EB /* UIViewController+Appearance.m */; };
-		2C9CAF601C868B61008194EB /* Account.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF1F1C868B61008194EB /* Account.m */; };
-		2C9CAF611C868B61008194EB /* Address.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF211C868B61008194EB /* Address.m */; };
-		2C9CAF621C868B61008194EB /* Recipient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF231C868B61008194EB /* Recipient.m */; };
-		2C9CAF631C868B61008194EB /* RecordObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF251C868B61008194EB /* RecordObject.m */; };
+		2C9CAF601C868B61008194EB /* CBWAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF1F1C868B61008194EB /* CBWAccount.m */; };
+		2C9CAF611C868B61008194EB /* CBWAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF211C868B61008194EB /* CBWAddress.m */; };
+		2C9CAF621C868B61008194EB /* CBWRecipient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF231C868B61008194EB /* CBWRecipient.m */; };
+		2C9CAF631C868B61008194EB /* CBWRecordObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF251C868B61008194EB /* CBWRecordObject.m */; };
 		2C9CAF641C868B61008194EB /* Transaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF271C868B61008194EB /* Transaction.m */; };
 		2C9CAF651C868B61008194EB /* SystemManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF2A1C868B61008194EB /* SystemManager.m */; };
 		2C9CAF661C868B61008194EB /* SessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF2D1C868B61008194EB /* SessionManager.m */; };
@@ -87,12 +91,12 @@
 		2CD0A91A1CA02ACA006AF02F /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD0A9121CA02ACA006AF02F /* FMDatabasePool.m */; };
 		2CD0A91B1CA02ACA006AF02F /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD0A9141CA02ACA006AF02F /* FMDatabaseQueue.m */; };
 		2CD0A91C1CA02ACA006AF02F /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD0A9171CA02ACA006AF02F /* FMResultSet.m */; };
-		2CD0A91F1CA02B45006AF02F /* DatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD0A91E1CA02B45006AF02F /* DatabaseManager.m */; };
-		2CD0A9221CA02CF5006AF02F /* DatabaseManager+Account.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD0A9211CA02CF5006AF02F /* DatabaseManager+Account.m */; };
-		2CEFC3531CA4CBAC00FECCA4 /* RecordObjectStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEFC3521CA4CBAC00FECCA4 /* RecordObjectStore.m */; };
-		2CEFC3561CA4CBD600FECCA4 /* AccountStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEFC3551CA4CBD600FECCA4 /* AccountStore.m */; };
-		2CEFC3591CA4D25000FECCA4 /* AddressStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEFC3581CA4D25000FECCA4 /* AddressStore.m */; };
-		2CEFC35C1CA4D65C00FECCA4 /* TransactionStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEFC35B1CA4D65C00FECCA4 /* TransactionStore.m */; };
+		2CD0A91F1CA02B45006AF02F /* CBWDatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD0A91E1CA02B45006AF02F /* CBWDatabaseManager.m */; };
+		2CD0A9221CA02CF5006AF02F /* CBWDatabaseManager+Account.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD0A9211CA02CF5006AF02F /* CBWDatabaseManager+Account.m */; };
+		2CEFC3531CA4CBAC00FECCA4 /* CBWRecordObjectStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEFC3521CA4CBAC00FECCA4 /* CBWRecordObjectStore.m */; };
+		2CEFC3561CA4CBD600FECCA4 /* CBWAccountStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEFC3551CA4CBD600FECCA4 /* CBWAccountStore.m */; };
+		2CEFC3591CA4D25000FECCA4 /* CBWAddressStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEFC3581CA4D25000FECCA4 /* CBWAddressStore.m */; };
+		2CEFC35C1CA4D65C00FECCA4 /* CBWTransactionStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEFC35B1CA4D65C00FECCA4 /* CBWTransactionStore.m */; };
 		2CEFC3601CA501B200FECCA4 /* Installation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEFC35F1CA501B200FECCA4 /* Installation.m */; };
 		2CEFC3661CA50EF900FECCA4 /* Schema in Resources */ = {isa = PBXBuildFile; fileRef = 2CEFC3651CA50EF900FECCA4 /* Schema */; };
 		2CF24D0C1C9635AE00C7EDB9 /* CoreBitcoin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CF24D0A1C9635AE00C7EDB9 /* CoreBitcoin.framework */; };
@@ -164,14 +168,22 @@
 		2C1E8C4B1CA42A7D006F86E1 /* NSData+CommonCrypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+CommonCrypto.m"; sourceTree = "<group>"; };
 		2C1E8C4C1CA42A7D006F86E1 /* PBKDF2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBKDF2.h; sourceTree = "<group>"; };
 		2C1E8C4D1CA42A7D006F86E1 /* PBKDF2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBKDF2.m; sourceTree = "<group>"; };
-		2C77D2591CA66207001DDB1F /* DatabaseManager+Address.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DatabaseManager+Address.h"; sourceTree = "<group>"; };
-		2C77D25A1CA66207001DDB1F /* DatabaseManager+Address.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DatabaseManager+Address.m"; sourceTree = "<group>"; };
+		2C77D2591CA66207001DDB1F /* CBWDatabaseManager+Address.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBWDatabaseManager+Address.h"; sourceTree = "<group>"; };
+		2C77D25A1CA66207001DDB1F /* CBWDatabaseManager+Address.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBWDatabaseManager+Address.m"; sourceTree = "<group>"; };
 		2C77D2611CA8C095001DDB1F /* CBWRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBWRequest.h; sourceTree = "<group>"; };
 		2C77D2621CA8C095001DDB1F /* CBWRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBWRequest.m; sourceTree = "<group>"; };
 		2C77D2641CA8C14E001DDB1F /* CBWRequest+Address.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBWRequest+Address.h"; sourceTree = "<group>"; };
 		2C77D2651CA8C14E001DDB1F /* CBWRequest+Address.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBWRequest+Address.m"; sourceTree = "<group>"; };
 		2C77D2711CAA10EE001DDB1F /* UIFont+CBW.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+CBW.h"; sourceTree = "<group>"; };
 		2C77D2721CAA10EE001DDB1F /* UIFont+CBW.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+CBW.m"; sourceTree = "<group>"; };
+		2C9829011CBA49C2004CB2D3 /* CBWBackup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBWBackup.h; sourceTree = "<group>"; };
+		2C9829021CBA49C2004CB2D3 /* CBWBackup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBWBackup.m; sourceTree = "<group>"; };
+		2C9829041CBA49CC004CB2D3 /* CBWRecovery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBWRecovery.h; sourceTree = "<group>"; };
+		2C9829051CBA49CC004CB2D3 /* CBWRecovery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBWRecovery.m; sourceTree = "<group>"; };
+		2C9829081CBA49FE004CB2D3 /* CBWiCloud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBWiCloud.h; sourceTree = "<group>"; };
+		2C9829091CBA49FE004CB2D3 /* CBWiCloud.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBWiCloud.m; sourceTree = "<group>"; };
+		2C98290B1CBA4D98004CB2D3 /* CBWiCloudDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBWiCloudDocument.h; sourceTree = "<group>"; };
+		2C98290C1CBA4D98004CB2D3 /* CBWiCloudDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBWiCloudDocument.m; sourceTree = "<group>"; };
 		2C99A17A1CA0E434007D7AC3 /* Guard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Guard.h; sourceTree = "<group>"; };
 		2C99A17B1CA0E434007D7AC3 /* Guard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Guard.m; sourceTree = "<group>"; };
 		2C99A17F1CA1029C007D7AC3 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
@@ -300,14 +312,14 @@
 		2C9CAF191C868B61008194EB /* UIColor+CBW.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CBW.m"; sourceTree = "<group>"; };
 		2C9CAF1A1C868B61008194EB /* UIViewController+Appearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Appearance.h"; sourceTree = "<group>"; };
 		2C9CAF1B1C868B61008194EB /* UIViewController+Appearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Appearance.m"; sourceTree = "<group>"; };
-		2C9CAF1E1C868B61008194EB /* Account.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Account.h; sourceTree = "<group>"; };
-		2C9CAF1F1C868B61008194EB /* Account.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Account.m; sourceTree = "<group>"; };
-		2C9CAF201C868B61008194EB /* Address.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Address.h; sourceTree = "<group>"; };
-		2C9CAF211C868B61008194EB /* Address.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Address.m; sourceTree = "<group>"; };
-		2C9CAF221C868B61008194EB /* Recipient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Recipient.h; sourceTree = "<group>"; };
-		2C9CAF231C868B61008194EB /* Recipient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Recipient.m; sourceTree = "<group>"; };
-		2C9CAF241C868B61008194EB /* RecordObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordObject.h; sourceTree = "<group>"; };
-		2C9CAF251C868B61008194EB /* RecordObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordObject.m; sourceTree = "<group>"; };
+		2C9CAF1E1C868B61008194EB /* CBWAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBWAccount.h; sourceTree = "<group>"; };
+		2C9CAF1F1C868B61008194EB /* CBWAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBWAccount.m; sourceTree = "<group>"; };
+		2C9CAF201C868B61008194EB /* CBWAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBWAddress.h; sourceTree = "<group>"; };
+		2C9CAF211C868B61008194EB /* CBWAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBWAddress.m; sourceTree = "<group>"; };
+		2C9CAF221C868B61008194EB /* CBWRecipient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBWRecipient.h; sourceTree = "<group>"; };
+		2C9CAF231C868B61008194EB /* CBWRecipient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBWRecipient.m; sourceTree = "<group>"; };
+		2C9CAF241C868B61008194EB /* CBWRecordObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBWRecordObject.h; sourceTree = "<group>"; };
+		2C9CAF251C868B61008194EB /* CBWRecordObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBWRecordObject.m; sourceTree = "<group>"; };
 		2C9CAF261C868B61008194EB /* Transaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Transaction.h; sourceTree = "<group>"; };
 		2C9CAF271C868B61008194EB /* Transaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Transaction.m; sourceTree = "<group>"; };
 		2C9CAF291C868B61008194EB /* SystemManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemManager.h; sourceTree = "<group>"; };
@@ -350,18 +362,18 @@
 		2CD0A9151CA02ACA006AF02F /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
 		2CD0A9161CA02ACA006AF02F /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
 		2CD0A9171CA02ACA006AF02F /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
-		2CD0A91D1CA02B45006AF02F /* DatabaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatabaseManager.h; sourceTree = "<group>"; };
-		2CD0A91E1CA02B45006AF02F /* DatabaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatabaseManager.m; sourceTree = "<group>"; };
-		2CD0A9201CA02CF5006AF02F /* DatabaseManager+Account.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DatabaseManager+Account.h"; sourceTree = "<group>"; };
-		2CD0A9211CA02CF5006AF02F /* DatabaseManager+Account.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DatabaseManager+Account.m"; sourceTree = "<group>"; };
-		2CEFC3511CA4CBAC00FECCA4 /* RecordObjectStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordObjectStore.h; sourceTree = "<group>"; };
-		2CEFC3521CA4CBAC00FECCA4 /* RecordObjectStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordObjectStore.m; sourceTree = "<group>"; };
-		2CEFC3541CA4CBD600FECCA4 /* AccountStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountStore.h; sourceTree = "<group>"; };
-		2CEFC3551CA4CBD600FECCA4 /* AccountStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountStore.m; sourceTree = "<group>"; };
-		2CEFC3571CA4D25000FECCA4 /* AddressStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressStore.h; sourceTree = "<group>"; };
-		2CEFC3581CA4D25000FECCA4 /* AddressStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressStore.m; sourceTree = "<group>"; };
-		2CEFC35A1CA4D65C00FECCA4 /* TransactionStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionStore.h; sourceTree = "<group>"; };
-		2CEFC35B1CA4D65C00FECCA4 /* TransactionStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionStore.m; sourceTree = "<group>"; };
+		2CD0A91D1CA02B45006AF02F /* CBWDatabaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBWDatabaseManager.h; sourceTree = "<group>"; };
+		2CD0A91E1CA02B45006AF02F /* CBWDatabaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBWDatabaseManager.m; sourceTree = "<group>"; };
+		2CD0A9201CA02CF5006AF02F /* CBWDatabaseManager+Account.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBWDatabaseManager+Account.h"; sourceTree = "<group>"; };
+		2CD0A9211CA02CF5006AF02F /* CBWDatabaseManager+Account.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBWDatabaseManager+Account.m"; sourceTree = "<group>"; };
+		2CEFC3511CA4CBAC00FECCA4 /* CBWRecordObjectStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBWRecordObjectStore.h; sourceTree = "<group>"; };
+		2CEFC3521CA4CBAC00FECCA4 /* CBWRecordObjectStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBWRecordObjectStore.m; sourceTree = "<group>"; };
+		2CEFC3541CA4CBD600FECCA4 /* CBWAccountStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBWAccountStore.h; sourceTree = "<group>"; };
+		2CEFC3551CA4CBD600FECCA4 /* CBWAccountStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBWAccountStore.m; sourceTree = "<group>"; };
+		2CEFC3571CA4D25000FECCA4 /* CBWAddressStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBWAddressStore.h; sourceTree = "<group>"; };
+		2CEFC3581CA4D25000FECCA4 /* CBWAddressStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBWAddressStore.m; sourceTree = "<group>"; };
+		2CEFC35A1CA4D65C00FECCA4 /* CBWTransactionStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBWTransactionStore.h; sourceTree = "<group>"; };
+		2CEFC35B1CA4D65C00FECCA4 /* CBWTransactionStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBWTransactionStore.m; sourceTree = "<group>"; };
 		2CEFC35D1CA4D67D00FECCA4 /* Database.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Database.h; sourceTree = "<group>"; };
 		2CEFC35E1CA501B200FECCA4 /* Installation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Installation.h; sourceTree = "<group>"; };
 		2CEFC35F1CA501B200FECCA4 /* Installation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Installation.m; sourceTree = "<group>"; };
@@ -481,6 +493,29 @@
 				2C1684A81CACAA2D00BD434A /* CBWRequest+Tools.m */,
 			);
 			path = API;
+			sourceTree = "<group>";
+		};
+		2C9829001CBA49B6004CB2D3 /* Backup */ = {
+			isa = PBXGroup;
+			children = (
+				2C9829071CBA49E6004CB2D3 /* iCloud */,
+				2C9829011CBA49C2004CB2D3 /* CBWBackup.h */,
+				2C9829021CBA49C2004CB2D3 /* CBWBackup.m */,
+				2C9829041CBA49CC004CB2D3 /* CBWRecovery.h */,
+				2C9829051CBA49CC004CB2D3 /* CBWRecovery.m */,
+			);
+			path = Backup;
+			sourceTree = "<group>";
+		};
+		2C9829071CBA49E6004CB2D3 /* iCloud */ = {
+			isa = PBXGroup;
+			children = (
+				2C9829081CBA49FE004CB2D3 /* CBWiCloud.h */,
+				2C9829091CBA49FE004CB2D3 /* CBWiCloud.m */,
+				2C98290B1CBA4D98004CB2D3 /* CBWiCloudDocument.h */,
+				2C98290C1CBA4D98004CB2D3 /* CBWiCloudDocument.m */,
+			);
+			path = iCloud;
 			sourceTree = "<group>";
 		};
 		2C99A1DB1CA116D5007D7AC3 /* include */ = {
@@ -718,6 +753,7 @@
 		2C9CAF1C1C868B61008194EB /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				2C9829001CBA49B6004CB2D3 /* Backup */,
 				2C77D2601CA8C05F001DDB1F /* API */,
 				2C9CAF1D1C868B61008194EB /* Database */,
 				2C9CAF281C868B61008194EB /* System */,
@@ -730,30 +766,30 @@
 		2C9CAF1D1C868B61008194EB /* Database */ = {
 			isa = PBXGroup;
 			children = (
-				2C9CAF1E1C868B61008194EB /* Account.h */,
-				2C9CAF1F1C868B61008194EB /* Account.m */,
-				2C9CAF201C868B61008194EB /* Address.h */,
-				2C9CAF211C868B61008194EB /* Address.m */,
-				2C9CAF221C868B61008194EB /* Recipient.h */,
-				2C9CAF231C868B61008194EB /* Recipient.m */,
+				2C9CAF1E1C868B61008194EB /* CBWAccount.h */,
+				2C9CAF1F1C868B61008194EB /* CBWAccount.m */,
+				2C9CAF201C868B61008194EB /* CBWAddress.h */,
+				2C9CAF211C868B61008194EB /* CBWAddress.m */,
+				2C9CAF221C868B61008194EB /* CBWRecipient.h */,
+				2C9CAF231C868B61008194EB /* CBWRecipient.m */,
 				2C9CAF261C868B61008194EB /* Transaction.h */,
 				2C9CAF271C868B61008194EB /* Transaction.m */,
-				2C9CAF241C868B61008194EB /* RecordObject.h */,
-				2C9CAF251C868B61008194EB /* RecordObject.m */,
-				2CEFC3511CA4CBAC00FECCA4 /* RecordObjectStore.h */,
-				2CEFC3521CA4CBAC00FECCA4 /* RecordObjectStore.m */,
-				2CEFC3541CA4CBD600FECCA4 /* AccountStore.h */,
-				2CEFC3551CA4CBD600FECCA4 /* AccountStore.m */,
-				2CEFC3571CA4D25000FECCA4 /* AddressStore.h */,
-				2CEFC3581CA4D25000FECCA4 /* AddressStore.m */,
-				2CEFC35A1CA4D65C00FECCA4 /* TransactionStore.h */,
-				2CEFC35B1CA4D65C00FECCA4 /* TransactionStore.m */,
-				2CD0A91D1CA02B45006AF02F /* DatabaseManager.h */,
-				2CD0A91E1CA02B45006AF02F /* DatabaseManager.m */,
-				2CD0A9201CA02CF5006AF02F /* DatabaseManager+Account.h */,
-				2CD0A9211CA02CF5006AF02F /* DatabaseManager+Account.m */,
-				2C77D2591CA66207001DDB1F /* DatabaseManager+Address.h */,
-				2C77D25A1CA66207001DDB1F /* DatabaseManager+Address.m */,
+				2C9CAF241C868B61008194EB /* CBWRecordObject.h */,
+				2C9CAF251C868B61008194EB /* CBWRecordObject.m */,
+				2CEFC3511CA4CBAC00FECCA4 /* CBWRecordObjectStore.h */,
+				2CEFC3521CA4CBAC00FECCA4 /* CBWRecordObjectStore.m */,
+				2CEFC3541CA4CBD600FECCA4 /* CBWAccountStore.h */,
+				2CEFC3551CA4CBD600FECCA4 /* CBWAccountStore.m */,
+				2CEFC3571CA4D25000FECCA4 /* CBWAddressStore.h */,
+				2CEFC3581CA4D25000FECCA4 /* CBWAddressStore.m */,
+				2CEFC35A1CA4D65C00FECCA4 /* CBWTransactionStore.h */,
+				2CEFC35B1CA4D65C00FECCA4 /* CBWTransactionStore.m */,
+				2CD0A91D1CA02B45006AF02F /* CBWDatabaseManager.h */,
+				2CD0A91E1CA02B45006AF02F /* CBWDatabaseManager.m */,
+				2CD0A9201CA02CF5006AF02F /* CBWDatabaseManager+Account.h */,
+				2CD0A9211CA02CF5006AF02F /* CBWDatabaseManager+Account.m */,
+				2C77D2591CA66207001DDB1F /* CBWDatabaseManager+Address.h */,
+				2C77D25A1CA66207001DDB1F /* CBWDatabaseManager+Address.m */,
 				2CEFC35D1CA4D67D00FECCA4 /* Database.h */,
 			);
 			path = Database;
@@ -1019,7 +1055,7 @@
 		2CC484521C71A2EE0033D700 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				CLASSPREFIX = "";
+				CLASSPREFIX = CBW;
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = Bitmain;
 				TargetAttributes = {
@@ -1068,19 +1104,21 @@
 			files = (
 				2C1684A01CAB5F4800BD434A /* NSDate+Helper.m in Sources */,
 				2C9CAF5E1C868B61008194EB /* UIColor+CBW.m in Sources */,
-				2CEFC3531CA4CBAC00FECCA4 /* RecordObjectStore.m in Sources */,
+				2CEFC3531CA4CBAC00FECCA4 /* CBWRecordObjectStore.m in Sources */,
 				2C19FCFD1CB32C92009BC78C /* FormControlInputActionCell.m in Sources */,
 				2C9CAF571C868B61008194EB /* RecipientViewController.m in Sources */,
 				2C9CAF4D1C868B61008194EB /* BaseViewController.m in Sources */,
 				2C9CAF531C868B61008194EB /* LockScreenController.m in Sources */,
 				2C18E2301CAE672C0080EF1E /* BaseFormControlCell.m in Sources */,
-				2C9CAF611C868B61008194EB /* Address.m in Sources */,
+				2C9CAF611C868B61008194EB /* CBWAddress.m in Sources */,
 				2C77D2661CA8C14E001DDB1F /* CBWRequest+Address.m in Sources */,
 				2C1684AF1CAD17C500BD434A /* TransactionDataCell.m in Sources */,
 				2C19FD0C1CB3FBC7009BC78C /* NSNumber+Satoshi.m in Sources */,
+				2C98290D1CBA4D98004CB2D3 /* CBWiCloudDocument.m in Sources */,
 				2C1684A31CAB6B4B00BD434A /* CBWRequest+Block.m in Sources */,
 				2C1684B21CAD1A6500BD434A /* TransactionIOCell.m in Sources */,
 				2CD0A9191CA02ACA006AF02F /* FMDatabaseAdditions.m in Sources */,
+				2C9829031CBA49C2004CB2D3 /* CBWBackup.m in Sources */,
 				2C9CAF561C868B61008194EB /* SettingsViewController.m in Sources */,
 				2C19FD191CB5E4A2009BC78C /* Fee.m in Sources */,
 				2C9CAF591C868B61008194EB /* TransactionListViewController.m in Sources */,
@@ -1092,6 +1130,7 @@
 				2CF24D771C97A53200C7EDB9 /* AFURLRequestSerialization.m in Sources */,
 				2CF24D791C97A53200C7EDB9 /* AFURLSessionManager.m in Sources */,
 				2CF24D5D1C965C7200C7EDB9 /* YYSpriteSheetImage.m in Sources */,
+				2C98290A1CBA49FE004CB2D3 /* CBWiCloud.m in Sources */,
 				2C9CAF491C868B61008194EB /* ArchivedAdressListViewController.m in Sources */,
 				2C9CAF5D1C868B61008194EB /* UIButton+VerticalLayout.m in Sources */,
 				2C9CAF471C868B61008194EB /* AddressListViewController.m in Sources */,
@@ -1101,7 +1140,7 @@
 				2C18E2321CAE672C0080EF1E /* FormControlBlockButtonCell.m in Sources */,
 				2C9CAF6C1C868B61008194EB /* DefaultTableViewCell.m in Sources */,
 				2C1E8C511CA42A7D006F86E1 /* PBKDF2.m in Sources */,
-				2C77D25B1CA66207001DDB1F /* DatabaseManager+Address.m in Sources */,
+				2C77D25B1CA66207001DDB1F /* CBWDatabaseManager+Address.m in Sources */,
 				2C18E2331CAE672C0080EF1E /* FormControlInputCell.m in Sources */,
 				2C9CAF701C868B61008194EB /* TransactionCell.m in Sources */,
 				2C9CAF671C868B61008194EB /* AddressCell.m in Sources */,
@@ -1129,12 +1168,12 @@
 				2C19FD131CB4AD58009BC78C /* SendFromAddressCell.m in Sources */,
 				2CEFC3601CA501B200FECCA4 /* Installation.m in Sources */,
 				2C9CAF5B1C868B61008194EB /* NSString+CBWAddress.m in Sources */,
-				2CEFC3591CA4D25000FECCA4 /* AddressStore.m in Sources */,
+				2CEFC3591CA4D25000FECCA4 /* CBWAddressStore.m in Sources */,
 				2C9CAF5F1C868B61008194EB /* UIViewController+Appearance.m in Sources */,
 				2C9CAF791C868B98008194EB /* AppDelegate.m in Sources */,
 				2C19FD161CB4F5EB009BC78C /* SendToAddressCell.m in Sources */,
 				2CF24D101C96367900C7EDB9 /* Test.m in Sources */,
-				2C9CAF621C868B61008194EB /* Recipient.m in Sources */,
+				2C9CAF621C868B61008194EB /* CBWRecipient.m in Sources */,
 				2CF24D621C97880500C7EDB9 /* PrimaryButton.m in Sources */,
 				2CD0A91A1CA02ACA006AF02F /* FMDatabasePool.m in Sources */,
 				2C9CAF4A1C868B61008194EB /* BaseFormViewController.m in Sources */,
@@ -1142,21 +1181,22 @@
 				2C77D2731CAA10EE001DDB1F /* UIFont+CBW.m in Sources */,
 				2CF24D751C97A53200C7EDB9 /* AFNetworkReachabilityManager.m in Sources */,
 				2C9CAF4F1C868B61008194EB /* ImagePickerController.m in Sources */,
-				2CD0A9221CA02CF5006AF02F /* DatabaseManager+Account.m in Sources */,
-				2CD0A91F1CA02B45006AF02F /* DatabaseManager.m in Sources */,
+				2CD0A9221CA02CF5006AF02F /* CBWDatabaseManager+Account.m in Sources */,
+				2CD0A91F1CA02B45006AF02F /* CBWDatabaseManager.m in Sources */,
 				2C9CAF581C868B61008194EB /* SendViewController.m in Sources */,
 				2C9CAF681C868B61008194EB /* AddressHeaderView.m in Sources */,
-				2CEFC3561CA4CBD600FECCA4 /* AccountStore.m in Sources */,
+				2CEFC3561CA4CBD600FECCA4 /* CBWAccountStore.m in Sources */,
 				2CF24D781C97A53200C7EDB9 /* AFURLResponseSerialization.m in Sources */,
+				2C9829061CBA49CC004CB2D3 /* CBWRecovery.m in Sources */,
 				2C99A17C1CA0E434007D7AC3 /* Guard.m in Sources */,
 				2CD0A9181CA02ACA006AF02F /* FMDatabase.m in Sources */,
 				2C9CAF4C1C868B61008194EB /* BaseTableViewController.m in Sources */,
 				2C9CAF511C868B61008194EB /* CreateOrRecoverViewController.m in Sources */,
 				2C9CAF6F1C868B61008194EB /* DashboardHeaderView.m in Sources */,
-				2C9CAF601C868B61008194EB /* Account.m in Sources */,
+				2C9CAF601C868B61008194EB /* CBWAccount.m in Sources */,
 				2C9CAF4B1C868B61008194EB /* BaseListViewController.m in Sources */,
-				2CEFC35C1CA4D65C00FECCA4 /* TransactionStore.m in Sources */,
-				2C9CAF631C868B61008194EB /* RecordObject.m in Sources */,
+				2CEFC35C1CA4D65C00FECCA4 /* CBWTransactionStore.m in Sources */,
+				2C9CAF631C868B61008194EB /* CBWRecordObject.m in Sources */,
 				2C1684A61CACA89D00BD434A /* CBWRequest+Transaction.m in Sources */,
 				2C9CAF6E1C868B61008194EB /* DashboardHeaderActionButton.m in Sources */,
 				2C9CAF661C868B61008194EB /* SessionManager.m in Sources */,
@@ -1264,6 +1304,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1280,6 +1322,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.btc.wallet-development";
 				PRODUCT_NAME = CBWallet;
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -1287,6 +1330,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1303,6 +1348,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.btc.wallet-development";
 				PRODUCT_NAME = CBWallet;
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

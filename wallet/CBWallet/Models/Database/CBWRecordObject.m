@@ -2,14 +2,14 @@
 //  RecordObject.m
 //  wallet
 //
-//  Created by Zin on 16/2/24.
+//  Created by Zin (noteon.com) on 16/2/24.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
-#import "RecordObject.h"
-#import "RecordObjectStore.h"
+#import "CBWRecordObject.h"
+#import "CBWRecordObjectStore.h"
 
-@implementation RecordObject
+@implementation CBWRecordObject
 
 - (void)setModificationDate:(NSDate *)modificationDate {
     if (![_modificationDate isEqualToDate:modificationDate]) {
@@ -23,8 +23,8 @@
     }
 }
 
-+ (instancetype)newRecordInStore:(RecordObjectStore *)store {
-    RecordObject *record = [self new];
++ (instancetype)newRecordInStore:(CBWRecordObjectStore *)store {
+    CBWRecordObject *record = [self new];
     [store addRecord:record];
     return record;
 }

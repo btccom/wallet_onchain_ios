@@ -2,14 +2,14 @@
 //  Account.m
 //  wallet
 //
-//  Created by Zin on 16/2/24.
+//  Created by Zin (noteon.com) on 16/2/24.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
-#import "Account.h"
-#import "AccountStore.h"
+#import "CBWAccount.h"
+#import "CBWAccountStore.h"
 
-@implementation Account
+@implementation CBWAccount
 
 - (void)setIdx:(NSInteger)idx {
     if (_idx != idx) {
@@ -17,8 +17,8 @@
     }
 }
 
-+ (instancetype)newAccountWithIdx:(NSInteger)idx label:(NSString *)label inStore:(AccountStore *)store {
-    Account *account = [self newRecordInStore:store];
++ (instancetype)newAccountWithIdx:(NSInteger)idx label:(NSString *)label inStore:(CBWAccountStore *)store {
+    CBWAccount *account = [self newRecordInStore:store];
     account.idx = idx;
     account.label = label;
     return account;
@@ -30,7 +30,7 @@
 //}
 
 - (void)saveWithError:(NSError *__autoreleasing  _Nullable *)error {
-    [[DatabaseManager defaultManager] saveAccount:self];
+    [[CBWDatabaseManager defaultManager] saveAccount:self];
 }
 
 - (NSString *)description {

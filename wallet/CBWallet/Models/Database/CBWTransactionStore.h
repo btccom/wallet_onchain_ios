@@ -8,11 +8,11 @@
 
 // TODO: 格式化数据，按月分组
 
-#import "RecordObjectStore.h"
+#import "CBWRecordObjectStore.h"
 #import "Transaction.h"
 
 /// 使用 plist 文件缓存，暂时不存入数据库
-@interface TransactionStore : RecordObjectStore
+@interface CBWTransactionStore : CBWRecordObjectStore
 
 @property (nonatomic, copy) NSString *addressString;
 @property (nonatomic, assign, readonly, getter=isUpToDate) BOOL upToDate;

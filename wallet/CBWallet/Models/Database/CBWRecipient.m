@@ -2,13 +2,13 @@
 //  Recipient.m
 //  wallet
 //
-//  Created by Zin on 16/2/24.
+//  Created by Zin (noteon.com) on 16/2/24.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
-#import "Recipient.h"
+#import "CBWRecipient.h"
 
-@implementation Recipient
+@implementation CBWRecipient
 
 /// init fake data
 - (instancetype)init {

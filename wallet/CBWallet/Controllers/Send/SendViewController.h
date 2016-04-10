@@ -8,7 +8,7 @@
 
 #import "BaseFormViewController.h"
 
-@class Account;
+@class CBWAccount;
 
 typedef NS_ENUM(NSInteger, SendViewControllerMode) {
     SendViewControllerModeQuickly = 0,
@@ -19,8 +19,8 @@ typedef NS_ENUM(NSInteger, SendViewControllerMode) {
 @interface SendViewController : BaseFormViewController
 
 @property (nonatomic, assign) SendViewControllerMode mode;
-@property (nonatomic, strong) Account *account;
+@property (nonatomic, strong) CBWAccount *account;
 
-- (instancetype)initWithAccount:(Account *)account;
+- (instancetype)initWithAccount:(CBWAccount *)account;
 
 @end

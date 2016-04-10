@@ -8,21 +8,21 @@
 
 #import "BaseListViewController.h"
 
-@class ProfileViewController, Account, AccountStore;
+@class ProfileViewController, CBWAccount, CBWAccountStore;
 
 @protocol ProfileViewControllerDelegate <NSObject>
 
 @optional
-- (void)profileViewController:(nonnull ProfileViewController *)viewController didSelectAccount:(nonnull Account *)account;
+- (void)profileViewController:(nonnull ProfileViewController *)viewController didSelectAccount:(nonnull CBWAccount *)account;
 
 @end
 
 /// Switch wallet, manage recipient contacts, settings
 @interface ProfileViewController : BaseListViewController
 
-@property (nonatomic, strong, nonnull) AccountStore *accountStore;
+@property (nonatomic, strong, nonnull) CBWAccountStore *accountStore;
 @property (nonatomic, weak, nullable) id<ProfileViewControllerDelegate> delegate;
 
-- (nonnull instancetype)initWithAccountStore:(nonnull AccountStore *)store;
+- (nonnull instancetype)initWithAccountStore:(nonnull CBWAccountStore *)store;
 
 @end

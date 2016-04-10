@@ -7,7 +7,7 @@
 //
 
 #import "Installation.h"
-#import "DatabaseManager.h"
+#import "CBWDatabaseManager.h"
 
 @implementation Installation
 + (NSString *)shortVersion {
@@ -47,7 +47,7 @@
     
     NSLog(@"update database");
     // 升级数据库
-    FMDatabase *db = [DatabaseManager installDb];
+    FMDatabase *db = [CBWDatabaseManager installDb];
     if ([db open]) {
         // 读取sql schema目录
         NSString *bundlePath = [[NSBundle mainBundle] bundlePath];

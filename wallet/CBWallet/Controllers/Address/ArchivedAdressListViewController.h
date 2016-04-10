@@ -9,14 +9,14 @@
 #import "BaseListViewController.h"
 #import "AddressViewController.h"
 
-@class Account;
+@class CBWAccount;
 
 @interface ArchivedAdressListViewController : BaseListViewController
 
 @property (nonatomic, assign) AddressActionType actionType;
 /// 显示该账户地址
-@property (nonatomic, strong, nullable) Account *account;
+@property (nonatomic, strong, nullable) CBWAccount *account;
 
-- (nonnull instancetype)initWithAccount:(nonnull Account *)account;
+- (nonnull instancetype)initWithAccount:(nonnull CBWAccount *)account;
 
 @end

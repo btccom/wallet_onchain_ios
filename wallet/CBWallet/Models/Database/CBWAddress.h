@@ -6,11 +6,11 @@
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
-#import "RecordObject.h"
+#import "CBWRecordObject.h"
 
-@class AddressStore;
+@class CBWAddressStore;
 
-@interface Address : RecordObject
+@interface CBWAddress : CBWRecordObject
 
 /// idx < 0 means watched address
 @property (nonatomic, assign) NSInteger idx;
@@ -25,14 +25,14 @@
 /// unsigned integer
 @property (nonatomic, assign) NSUInteger txCount;
 
-@property (nonatomic, assign) NSInteger accountRid;
+@property (nonatomic, assign) long long accountRid;
 @property (nonatomic, assign) NSInteger accountIdx;
 
 /// create or import
-+ (nonnull instancetype)newAdress:(nonnull NSString *)aAddress withLabel:(nullable NSString *)label idx:(NSInteger)idx archived:(BOOL)archived dirty:(BOOL)dirty internal:(BOOL)internal accountRid:(NSInteger)accountRid accountIdx:(NSInteger)accountIdx inStore:(nonnull AddressStore *)store;
++ (nonnull instancetype)newAdress:(nonnull NSString *)aAddress withLabel:(nullable NSString *)label idx:(NSInteger)idx archived:(BOOL)archived dirty:(BOOL)dirty internal:(BOOL)internal accountRid:(long long)accountRid accountIdx:(NSInteger)accountIdx inStore:(nonnull CBWAddressStore *)store;
 
 /// create
-+ (nonnull instancetype)newAdress:(nonnull NSString *)aAddress withLabel:(nullable NSString *)label idx:(NSInteger)idx accountRid:(NSInteger)accountRid accountIdx:(NSInteger)accountIdx inStore:(nonnull AddressStore *)store;
++ (nonnull instancetype)newAdress:(nonnull NSString *)aAddress withLabel:(nullable NSString *)label idx:(NSInteger)idx accountRid:(long long)accountRid accountIdx:(NSInteger)accountIdx inStore:(nonnull CBWAddressStore *)store;
 
 /// generate address with m/account idx/address idx
 + (nullable NSString *)addressStringWithIdx:(NSUInteger)idx acountIdx:(NSUInteger)accoundIdx;
@@ -40,7 +40,7 @@
 + (BOOL)checkAddressString:(nullable NSString *)addressString;
 
 /// 仅 watched address 支持删除方法
-- (void)deleteWatchedAddressFromStore:(nonnull RecordObjectStore *)store;
+- (void)deleteWatchedAddressFromStore:(nonnull CBWRecordObjectStore *)store;
 
 - (void)updateWithDictionary:(nullable id)dictionary;
 

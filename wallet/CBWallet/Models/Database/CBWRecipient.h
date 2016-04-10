@@ -2,13 +2,13 @@
 //  Recipient.h
 //  wallet
 //
-//  Created by Zin on 16/2/24.
+//  Created by Zin (noteon.com) on 16/2/24.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
-#import "RecordObject.h"
+#import "CBWRecordObject.h"
 
-@interface Recipient : RecordObject
+@interface CBWRecipient : CBWRecordObject
 
 @property (nonatomic, copy) NSString * _Nonnull address;
 @property (nonatomic, copy) NSString * _Nullable label;

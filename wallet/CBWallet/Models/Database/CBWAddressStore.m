@@ -2,14 +2,14 @@
 //  AddressStore.m
 //  CBWallet
 //
-//  Created by Zin on 16/3/25.
+//  Created by Zin (noteon.com) on 16/3/25.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
-#import "AddressStore.h"
-#import "DatabaseManager.h"
+#import "CBWAddressStore.h"
+#import "CBWDatabaseManager.h"
 
-@implementation AddressStore
+@implementation CBWAddressStore
 
 - (instancetype)initWithAccountIdx:(NSInteger)accountIdx {
     self = [super init];
@@ -22,32 +22,32 @@
 - (void)fetch {
     [super fetch];
     if (self.isArchived) {
-        [[DatabaseManager defaultManager] fetchAddressWithAccountIdx:self.accountIdx archived:YES toStore:self];
+        [[CBWDatabaseManager defaultManager] fetchAddressWithAccountIdx:self.accountIdx archived:YES toStore:self];
         return;
     }
-    [[DatabaseManager defaultManager] fetchAddressWithAccountIdx:self.accountIdx toStore:self];
+    [[CBWDatabaseManager defaultManager] fetchAddressWithAccountIdx:self.accountIdx toStore:self];
 }
 
 - (NSUInteger)countAllAddresses {
-    return [[DatabaseManager defaultManager] countAllAddressesWithAccountIdx:self.accountIdx];
+    return [[CBWDatabaseManager defaultManager] countAllAddressesWithAccountIdx:self.accountIdx];
 }
 
 - (NSArray *)allAddressStrings {
     __block NSMutableArray *strings = [NSMutableArray arrayWithCapacity:records.count];
-    [records enumerateObjectsUsingBlock:^(RecordObject * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        [strings addObject:((Address *)obj).address];
+    [records enumerateObjectsUsingBlock:^(CBWRecordObject * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [strings addObject:((CBWAddress *)obj).address];
     }];
     
     return [strings copy];
 }
 
-- (Address *)addressWithAddressString:(NSString *)addressString {
+- (CBWAddress *)addressWithAddressString:(NSString *)addressString {
     if (!addressString) {
         return nil;
     }
-    __block Address *address = nil;
-    [records enumerateObjectsUsingBlock:^(RecordObject * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        Address *theAddress = (Address *)obj;
+    __block CBWAddress *address = nil;
+    [records enumerateObjectsUsingBlock:^(CBWRecordObject * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        CBWAddress *theAddress = (CBWAddress *)obj;
         if ([theAddress.address isEqualToString:addressString]) {
             address = theAddress;
             *stop = YES;
@@ -62,7 +62,7 @@
             if (![obj isKindOfClass:[NSNull class]]) {
                 
                 NSDictionary *dictionary = obj;
-                Address *address = [self addressWithAddressString:[dictionary objectForKey:@"address"]];
+                CBWAddress *address = [self addressWithAddressString:[dictionary objectForKey:@"address"]];
                 if (address) {
                     [address updateWithDictionary:dictionary];
                     [address saveWithError:nil];

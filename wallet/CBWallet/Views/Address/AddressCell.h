@@ -8,7 +8,7 @@
 
 #import "BaseFormControlCell.h"
 
-@class Address;
+@class CBWAddress;
 
 @interface AddressCell : BaseFormControlCell
 
@@ -20,6 +20,6 @@
 @property (nonatomic, weak, readonly) UILabel * _Nullable txsLabel;
 @property (nonatomic, weak, readonly) UILabel * _Nullable balanceLabel;
 
-- (void)setAddress:(nullable Address *)address;
+- (void)setAddress:(nullable CBWAddress *)address;
 
 @end

@@ -94,15 +94,15 @@ static NSString *const kTransactionViewControllerCellIdentifierIO = @"transactio
             
             if (self.transactionDetail) {
                 [self.summaryDatas addObject:[@(self.transactionDetail.fee) satoshiBTCString]];
-                [self.summaryDatas addObject:[NSString stringWithFormat:@"%lu", self.transactionDetail.confirmations]];
+                [self.summaryDatas addObject:[NSString stringWithFormat:@"%lu", (unsigned long)self.transactionDetail.confirmations]];
                 
                 NSString *blockTime = [self.transactionDetail.blockTime stringWithFormat:@"yyyy-MM-dd HH:mm:ss"];
                 if (!blockTime) {
                     blockTime = @"";
                 }
                 self.blockDatas = @[blockTime,
-                                    [NSString stringWithFormat:@"%lu", self.transactionDetail.blockHeight],
-                                    [NSString stringWithFormat:@"%lu", self.transactionDetail.size]];
+                                    [NSString stringWithFormat:@"%lu", (unsigned long)self.transactionDetail.blockHeight],
+                                    [NSString stringWithFormat:@"%lu", (unsigned long)self.transactionDetail.size]];
                 
                 // 刷新表格
                 [self.tableView reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, self.tableView.numberOfSections)] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -199,9 +199,9 @@ static NSString *const kTransactionViewControllerCellIdentifierIO = @"transactio
     headerView.topHairlineHidden = YES;
     headerView.detailTextLabel.text = nil;
     if (section == kTransactionViewControllerSectionInputs) {
-        headerView.detailTextLabel.text = [NSString stringWithFormat:@"%lu", self.transactionDetail.inputsCount];
+        headerView.detailTextLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)self.transactionDetail.inputsCount];
     } else if (section == kTransactionViewControllerSectionOutputs) {
-        headerView.detailTextLabel.text = [NSString stringWithFormat:@"%lu", self.transactionDetail.outputsCount];
+        headerView.detailTextLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)self.transactionDetail.outputsCount];
     }
     return headerView;
 }

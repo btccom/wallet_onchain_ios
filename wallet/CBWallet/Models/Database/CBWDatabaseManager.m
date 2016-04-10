@@ -2,11 +2,11 @@
 //  DatabaseManager.m
 //  CBWallet
 //
-//  Created by Zin on 16/3/21.
+//  Created by Zin (noteon.com) on 16/3/21.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
-#import "DatabaseManager.h"
+#import "CBWDatabaseManager.h"
 #import "Guard.h"
 
 NSString *const DatabaseManagerDBPath = @"cbwdb.ss";// sqlite storage
@@ -37,7 +37,7 @@ NSString *const DatabaseManagerColTxCount = @"txCount";
 NSString *const DatabaseManagerColAccountRid = @"accountRid";
 NSString *const DatabaseManagerColAccountIdx = @"accountIdx";
 
-@implementation DatabaseManager
+@implementation CBWDatabaseManager
 
 + (instancetype)defaultManager {
     static id staticInstance = nil;

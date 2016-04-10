@@ -2,21 +2,21 @@
 //  DatabaseManager+Address.m
 //  CBWallet
 //
-//  Created by Zin on 16/3/26.
+//  Created by Zin (noteon.com) on 16/3/26.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
-#import "DatabaseManager+Address.h"
-#import "AddressStore.h"
+#import "CBWDatabaseManager+Address.h"
+#import "CBWAddressStore.h"
 
-@implementation DatabaseManager (Address)
+@implementation CBWDatabaseManager (Address)
 
 
-- (void)fetchAddressWithAccountIdx:(NSInteger)accountIdx toStore:(AddressStore *)store {
+- (void)fetchAddressWithAccountIdx:(NSInteger)accountIdx toStore:(CBWAddressStore *)store {
     [self fetchAddressWithAccountIdx:accountIdx archived:NO toStore:store];
 }
 
-- (void)fetchAddressWithAccountIdx:(NSInteger)accountIdx archived:(BOOL)archived toStore:(AddressStore *)store {
+- (void)fetchAddressWithAccountIdx:(NSInteger)accountIdx archived:(BOOL)archived toStore:(CBWAddressStore *)store {
     FMDatabase *db = [self db];
     if ([db open]) {
         NSMutableString *sql = [NSMutableString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ?", DatabaseManagerTableAddress,
@@ -37,9 +37,9 @@
     }
 }
 
-- (void)p_transformResultSet:(FMResultSet *)results toStore:(AddressStore *)store {
+- (void)p_transformResultSet:(FMResultSet *)results toStore:(CBWAddressStore *)store {
     while ([results next]) {
-        Address *address = [[Address alloc] init];
+        CBWAddress *address = [[CBWAddress alloc] init];
         address.rid = [results intForColumn:DatabaseManagerColRid];
         address.idx = [results intForColumn:DatabaseManagerColRid];
         address.address = [results stringForColumn:DatabaseManagerColAddress];
@@ -55,7 +55,7 @@
     }
 }
 
-- (void)saveAddress:(Address *)address {
+- (void)saveAddress:(CBWAddress *)address {
     if (address.rid < 0) {
         // 新记录
         [self p_createAddress:address];
@@ -69,7 +69,7 @@
         }
     }
 }
-- (BOOL)p_createAddress:(Address *)address {
+- (BOOL)p_createAddress:(CBWAddress *)address {
     BOOL created = NO;
     DLog(@"database manager create address: %@, idx: %ld", address, (long)address.idx);
     
@@ -132,7 +132,7 @@
     
     return rid;
 }
-- (BOOL)p_updateAddress:(Address *)address {
+- (BOOL)p_updateAddress:(CBWAddress *)address {
     BOOL updated = NO;
     DLog(@"update address: %@", address);
     
@@ -176,7 +176,7 @@
     return updated;
 }
 
-- (void)deleteAddress:(Address *)address {
+- (void)deleteAddress:(CBWAddress *)address {
     if (address.accountIdx != CBWRecordWatchedIdx) {
         return;
     }

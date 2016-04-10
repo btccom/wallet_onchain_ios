@@ -10,7 +10,7 @@
 #import "TransactionListViewController.h"
 #import "SettingsViewController.h"
 
-#import "AccountStore.h"
+#import "CBWAccountStore.h"
 
 typedef NS_ENUM(NSUInteger, kProfileSection) {
     kProfileSectionAccounts = 0,
@@ -29,7 +29,7 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
 
 #pragma mark - Initialization
 
-- (instancetype)initWithAccountStore:(AccountStore *)store {
+- (instancetype)initWithAccountStore:(CBWAccountStore *)store {
     self = [super initWithStyle:UITableViewStyleGrouped];
     if (self) {
         _accountStore = store;
@@ -97,7 +97,7 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     DefaultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:BaseTableViewCellDefaultIdentifier forIndexPath:indexPath];
     if (indexPath.section == kProfileSectionAccounts) {
-        Account *account = [self.accountStore recordAtIndex:indexPath.row];
+        CBWAccount *account = [self.accountStore recordAtIndex:indexPath.row];
         cell.textLabel.text = account.label;
         return cell;
     }

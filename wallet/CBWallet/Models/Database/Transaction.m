@@ -2,12 +2,12 @@
 //  Transaction.m
 //  wallet
 //
-//  Created by Zin on 16/2/24.
+//  Created by Zin (noteon.com) on 16/2/24.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
 #import "Transaction.h"
-#import "TransactionStore.h"
+#import "CBWTransactionStore.h"
 
 @implementation Transaction
 @synthesize relatedAddresses = _relatedAddresses;
@@ -15,7 +15,7 @@
 - (NSArray *)relatedAddresses {
     if (!_relatedAddresses) {
         //TODO: 优化判断
-        NSString *selfAddress = ((TransactionStore *)self.store).addressString;
+        NSString *selfAddress = ((CBWTransactionStore *)self.store).addressString;
         __block NSMutableArray *addresses = [NSMutableArray array];
         if (self.type == TransactionTypeSend) {
             [self.outputs enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -69,13 +69,13 @@
     return nil;
 }
 
-+ (instancetype)newRecordInStore:(RecordObjectStore *)store {
++ (instancetype)newRecordInStore:(CBWRecordObjectStore *)store {
     return nil;
 }
 
 #pragma mark - Public Method
 
-- (void)deleteFromStore:(RecordObjectStore *)store {
+- (void)deleteFromStore:(CBWRecordObjectStore *)store {
     DLog(@"will never delete a transaction");
     return;
 }

@@ -9,7 +9,7 @@
 
 #import "AddressCell.h"
 
-#import "Address.h"
+#import "CBWAddress.h"
 
 #import "NSString+CBWAddress.h"
 
@@ -72,7 +72,7 @@ static const CGFloat kAddressCellBalanceLabelHeight = 16.f;
 }
 
 #pragma mark - Public Method
-- (void)setAddress:(Address *)address {
+- (void)setAddress:(CBWAddress *)address {
     if (!address) {
         return;
     }
