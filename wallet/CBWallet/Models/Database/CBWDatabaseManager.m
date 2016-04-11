@@ -50,9 +50,13 @@ NSString *const DatabaseManagerColAccountIdx = @"accountIdx";
 }
 
 + (FMDatabase *)installDb {
+    return [FMDatabase databaseWithPath:[self dbPath]];
+}
+
++ (NSString *)dbPath {
     NSString *documentDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
     NSString *dbPath = [documentDirectory stringByAppendingPathComponent:DatabaseManagerDBPath];
-    return [FMDatabase databaseWithPath:dbPath];
+    return dbPath;
 }
 
 - (FMDatabase *)db {
@@ -60,9 +64,7 @@ NSString *const DatabaseManagerColAccountIdx = @"accountIdx";
         NSLog(@"need check in to access database");
         return nil;
     }
-    NSString *documentDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
-    NSString *dbPath = [documentDirectory stringByAppendingPathComponent:DatabaseManagerDBPath];
-    return [FMDatabase databaseWithPath:dbPath];
+    return [FMDatabase databaseWithPath:[CBWDatabaseManager dbPath]];
 }
 
 @end

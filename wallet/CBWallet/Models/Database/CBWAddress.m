@@ -48,7 +48,7 @@
             BTCKeychain *masterChain = [[BTCKeychain alloc] initWithSeed:btcSeedData];
             NSString *path = [NSString stringWithFormat:@"%lu/0/%lu", (unsigned long)accoundIdx, (unsigned long)idx];
             NSString *address = [masterChain derivedKeychainWithPath:path].key.compressedPublicKeyAddress.string;
-            DLog(@"generated address string: %@", address);
+            DLog(@"generated address string: %@, path: %@", address, path);
             return address;
         }
     }
@@ -136,7 +136,7 @@
 
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"address %@: %@, %lld satoshi", self.label, self.address, self.balance];
+    return [NSString stringWithFormat:@"address [%ld] %@ - %@, %lld satoshi", self.idx, self.label, self.address, self.balance];
 }
 
 @end

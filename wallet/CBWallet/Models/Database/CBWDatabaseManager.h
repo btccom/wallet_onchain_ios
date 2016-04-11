@@ -56,6 +56,8 @@ extern NSString *const DatabaseManagerColAccountIdx;
 + (instancetype)defaultManager;
 + (FMDatabase *)installDb;
 
++ (NSString *)dbPath;
+
 - (FMDatabase *)db;
 
 @end

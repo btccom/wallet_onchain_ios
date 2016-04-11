@@ -10,8 +10,10 @@
 
 @interface CBWBackup : NSObject
 
+/// <code>[seed,
+///        {account idx: [label, address count, {address idx: [label, dirty]}]
 - (NSArray *)getDatas;
 - (UIImage *)exportImage;
-- (BOOL)saveToLocalPhotoLibrary;
+- (void)saveToLocalPhotoLibraryWithCompleiton:(void(^)(NSURL *assetURL, NSError *error))completion;
 
 @end

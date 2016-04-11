@@ -41,7 +41,7 @@
     while ([results next]) {
         CBWAddress *address = [[CBWAddress alloc] init];
         address.rid = [results intForColumn:DatabaseManagerColRid];
-        address.idx = [results intForColumn:DatabaseManagerColRid];
+        address.idx = [results intForColumn:DatabaseManagerColIdx];
         address.address = [results stringForColumn:DatabaseManagerColAddress];
         address.label = [results stringForColumn:DatabaseManagerColLabel];
         address.archived = [results boolForColumn:DatabaseManagerColArchived];

@@ -130,14 +130,24 @@
                         NSString *addressString = [responsedAddress objectForKey:@"address"];
                         CBWAddress *address = [addressStore addressWithAddressString:addressString];
                         NSUInteger responsedTxCount = [[responsedAddress objectForKey:@"tx_count"] unsignedIntegerValue];
-                        if (responsedTxCount > address.txCount) {
-                            [updatedAddresses addObject:addressString];
-                        } else {
+                        if (responsedTxCount == address.txCount) {
                             [unupdatedAddresses addObject:addressString];
+                        } else {
+                            [updatedAddresses addObject:addressString];
                         }
                         
                     }
                 }];
+            } else if ([response isKindOfClass:[NSDictionary class]]) {
+                // 只有一个结果
+                NSString *addressString = [response objectForKey:@"address"];
+                CBWAddress *address = [addressStore addressWithAddressString:addressString];
+                NSUInteger responsedTxCount = [[response objectForKey:@"tx_count"] unsignedIntegerValue];
+                if (responsedTxCount == address.txCount) {
+                    [unupdatedAddresses addObject:addressString];
+                } else {
+                    [updatedAddresses addObject:addressString];
+                }
             }
             
             // 拉取交易列表

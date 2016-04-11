@@ -14,7 +14,7 @@
 - (void)fetchAccountsToStore:(CBWAccountStore *)store {
     FMDatabase *db = [self db];
     if ([db open]) {
-        NSString *sql = [NSString stringWithFormat:@"SELECT * FROM %@", DatabaseManagerTableAccount];
+        NSString *sql = [NSString stringWithFormat:@"SELECT * FROM %@ ORDER BY %@", DatabaseManagerTableAccount, DatabaseManagerColIdx];
         FMResultSet *results = [db executeQuery:sql];
         while ([results next]) {
             CBWAccount *account = [[CBWAccount alloc] init];
@@ -116,6 +116,23 @@
     }
     
     return updated;
+}
+
++ (BOOL)checkAccountInstalled {
+    BOOL installed = NO;
+    FMDatabase *db = [self installDb];
+    if ([db open]) {
+        
+        NSString *sql = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ?", DatabaseManagerTableAccount,
+                         DatabaseManagerColIdx];
+        FMResultSet *results = [db executeQuery:sql,
+                                @(0)];
+        if ([results next]) {
+            installed = YES;
+        }
+        [db close];
+    }
+    return installed;
 }
 
 @end

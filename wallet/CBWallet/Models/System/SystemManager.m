@@ -7,7 +7,8 @@
 //
 
 #import "SystemManager.h"
-#import "SSKeychain.h"
+//#import "SSKeychain.h"
+#import "Database.h"
 
 @implementation SystemManager
 
@@ -24,11 +25,15 @@
 - (BOOL)isWalletInstalled {
 //#warning clearing seed every launch for development.
 //    [SSKeychain deletePasswordForService:CBWKeyChainSeedService account:CBWKeyChainAccountDefault];
-    NSData *seed = [SSKeychain passwordDataForService:CBWKeyChainSeedService account:CBWKeyChainAccountDefault];
-    if (seed) {
-        return YES;
-    }
-    return NO;
+    // FIXME: 检查数据库而不是 sskeychain
+    
+    return [CBWDatabaseManager checkAccountInstalled];
+    
+//    NSData *seed = [SSKeychain passwordDataForService:CBWKeyChainSeedService account:CBWKeyChainAccountDefault];
+//    if (seed) {
+//        return YES;
+//    }
+//    return NO;
 }
 
 - (BOOL)isiCloudAccountSignedIn {

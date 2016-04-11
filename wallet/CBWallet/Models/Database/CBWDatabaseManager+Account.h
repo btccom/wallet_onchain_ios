@@ -14,5 +14,6 @@
 
 - (void)fetchAccountsToStore:(CBWAccountStore *)store;
 - (void)saveAccount:(CBWAccount *)account;
++ (BOOL)checkAccountInstalled;
 
 @end

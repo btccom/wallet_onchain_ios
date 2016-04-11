@@ -1061,6 +1061,7 @@
 				TargetAttributes = {
 					2CC484591C71A2EE0033D700 = {
 						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = 76D572M8T4;
 					};
 				};
 			};
@@ -1320,7 +1321,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/CBWallet/Vendors/CoreBitCoin/iOS",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.btc.wallet-development";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.btc.wallet-dev";
 				PRODUCT_NAME = CBWallet;
 				PROVISIONING_PROFILE = "";
 			};
@@ -1346,7 +1347,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/CBWallet/Vendors/CoreBitCoin/iOS",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.btc.wallet-development";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.btc.wallet-dev";
 				PRODUCT_NAME = CBWallet;
 				PROVISIONING_PROFILE = "";
 			};

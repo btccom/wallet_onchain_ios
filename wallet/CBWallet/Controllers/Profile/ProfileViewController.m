@@ -11,6 +11,7 @@
 #import "SettingsViewController.h"
 
 #import "CBWAccountStore.h"
+#import "CBWBackup.h"
 
 typedef NS_ENUM(NSUInteger, kProfileSection) {
     kProfileSectionAccounts = 0,
@@ -128,6 +129,31 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
         case kProfileSectionSettings: {
             SettingsViewController *settingsViewController = [[SettingsViewController alloc] init];
             [self.navigationController pushViewController:settingsViewController animated:YES];
+            break;
+        }
+            
+        case kProfileSectionBackup: {
+            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+            if (indexPath.row == 0) {
+                // export
+                CBWBackup *backup = [CBWBackup new];
+//                UIImage *image = [backup exportImage];
+                [backup saveToLocalPhotoLibraryWithCompleiton:^(NSURL *assetURL, NSError *error) {
+                    if (error) {
+                        NSLog(@"export to photo library error: \n%@", error);
+                        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil) message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
+                        UIAlertAction *okay = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Okay", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
+                        [alert addAction:okay];
+                        [self presentViewController:alert animated:YES completion:nil];
+                    } else {
+                        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Success", @"CBW", nil) message:NSLocalizedStringFromTable(@"Alert Message saved_to_photo_library", @"CBW", nil) preferredStyle:UIAlertControllerStyleAlert];
+                        UIAlertAction *okay = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Okay", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
+                        [alert addAction:okay];
+                        [self presentViewController:alert animated:YES completion:nil];
+                        
+                    }
+                }];
+            }
             break;
         }
     }
