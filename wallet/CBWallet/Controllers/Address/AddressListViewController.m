@@ -141,7 +141,7 @@
                 [self p_saveAddressString:addressString withIdx:CBWRecordWatchedIdx];
             }
         }];
-        UIAlertAction *scanAction = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Alert Action scan_qr_code", @"CBS", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertAction *scanAction = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Alert Action scan_qr_code", @"CBW", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             DLog(@"to scan qrcode");
             [self p_handleScan:nil];
         }];

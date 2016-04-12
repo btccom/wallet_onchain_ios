@@ -473,7 +473,7 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
                             // amount
                             FormControlInputCell *quicklyAmountCell = [tableView dequeueReusableCellWithIdentifier:kSendViewControllerCellQuicklyAmountIdentifier];
                             quicklyAmountCell.imageView.image = [UIImage imageNamed:@"icon_coin_mini"];
-                            quicklyAmountCell.textField.placeholder = NSLocalizedStringFromTable(@"Placeholder value", @"CBW", @"Value or Amount?");
+                            quicklyAmountCell.textField.placeholder = NSLocalizedStringFromTable(@"Placeholder amount", @"CBW", @"Value or Amount?");
                             [quicklyAmountCell.textField addTarget:self action:@selector(p_editingChanged:) forControlEvents:UIControlEventEditingChanged];
                             quicklyAmountCell.textField.delegate = self;
 //                            quicklyValueCell.textField.returnKeyType = UIReturnKeyDone;
@@ -546,7 +546,7 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
                             // advanced input amount
                             inputCell = [tableView dequeueReusableCellWithIdentifier:kSendViewControllerCellAdvancedToAmountInputIdentifier];
                             inputCell.imageView.image = [UIImage imageNamed:@"icon_coin_mini"];
-                            inputCell.textField.placeholder = NSLocalizedStringFromTable(@"Placeholder value", @"CBW", @"Value or Amount?");
+                            inputCell.textField.placeholder = NSLocalizedStringFromTable(@"Placeholder amount", @"CBW", @"Value or Amount?");
 //                            inputCell.textField.returnKeyType = UIReturnKeyDone;
                             inputCell.inputType = FormControlInputTypeBitcoinAmount;
                             [inputCell.actionButton setTitle:NSLocalizedStringFromTable(@"Send Cell add_recipient", @"CBW", @"Add Recipient") forState:UIControlStateNormal];

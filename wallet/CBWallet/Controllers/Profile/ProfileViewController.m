@@ -18,7 +18,7 @@
 typedef NS_ENUM(NSUInteger, kProfileSection) {
     kProfileSectionAccounts = 0,
 //    kProfileSectionAllTransactions,
-    kProfileSectionSettings,
+//    kProfileSectionSettings,
     kProfileSectionBackup
 };
 
@@ -61,7 +61,7 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
     
     _tableStrings = @[@{NSLocalizedStringFromTable(@"Profile Section accounts", @"CBW", @"Accounts"): @[]},
 //                      @[NSLocalizedStringFromTable(@"Profile Cell all_transactions", @"CBW", @"All Transactions")],
-                      @[NSLocalizedStringFromTable(@"Profile Cell settings", @"CBW", @"Settings")],
+//                      @[NSLocalizedStringFromTable(@"Profile Cell settings", @"CBW", @"Settings")],
                       @{NSLocalizedStringFromTable(@"Profile Section backup", @"CBW", nil):
                             @[
                                 NSLocalizedStringFromTable(@"Profile Cell export", @"CBW", @"Export"),
@@ -174,11 +174,11 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
 //            [self.navigationController pushViewController:transactionListViewController animated:YES];
 //            break;
 //        }
-        case kProfileSectionSettings: {
-            SettingsViewController *settingsViewController = [[SettingsViewController alloc] init];
-            [self.navigationController pushViewController:settingsViewController animated:YES];
-            break;
-        }
+//        case kProfileSectionSettings: {
+//            SettingsViewController *settingsViewController = [[SettingsViewController alloc] init];
+//            [self.navigationController pushViewController:settingsViewController animated:YES];
+//            break;
+//        }
             
         case kProfileSectionBackup: {
             [tableView deselectRowAtIndexPath:indexPath animated:YES];
