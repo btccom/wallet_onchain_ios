@@ -12,6 +12,8 @@
 
 #import "CBWAccountStore.h"
 #import "CBWBackup.h"
+#import "CBWiCloud.h"
+#import "NSDate+Helper.h"
 
 typedef NS_ENUM(NSUInteger, kProfileSection) {
     kProfileSectionAccounts = 0,
@@ -22,7 +24,8 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
 
 @interface ProfileViewController ()
 
-@property (nonatomic, strong) NSArray * _Nonnull tableStrings;
+@property (nonatomic, strong) NSArray *tableStrings;
+@property (nonatomic, weak) UISwitch *iCloudSwitch;
 
 @end
 
@@ -59,16 +62,39 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
     _tableStrings = @[@{NSLocalizedStringFromTable(@"Profile Section accounts", @"CBW", @"Accounts"): @[]},
 //                      @[NSLocalizedStringFromTable(@"Profile Cell all_transactions", @"CBW", @"All Transactions")],
                       @[NSLocalizedStringFromTable(@"Profile Cell settings", @"CBW", @"Settings")],
-                      @{NSLocalizedStringFromTable(@"Profile Section backup", @"CBW", @"Sync"):
+                      @{NSLocalizedStringFromTable(@"Profile Section backup", @"CBW", nil):
                             @[
                                 NSLocalizedStringFromTable(@"Profile Cell export", @"CBW", @"Export"),
-                                NSLocalizedStringFromTable(@"Profile Cell sync", @"CBW", @"Sync")
+                                NSLocalizedStringFromTable(@"Profile Cell iCloud", @"CBW", @"iCloud")
                                 ]
                         }
                       ];
 }
 
 #pragma mark - Private Method
+- (void)p_exportBackupImageToPhotoLibrary {
+    CBWBackup *backup = [CBWBackup new];
+    [backup saveToLocalPhotoLibraryWithCompleiton:^(NSURL *assetURL, NSError *error) {
+        if (error) {
+            NSLog(@"export to photo library error: \n%@", error);
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil) message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *okay = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Okay", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
+            [alert addAction:okay];
+            [self presentViewController:alert animated:YES completion:nil];
+        } else {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Success", @"CBW", nil) message:NSLocalizedStringFromTable(@"Alert Message saved_to_photo_library", @"CBW", nil) preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *okay = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Okay", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
+            [alert addAction:okay];
+            [self presentViewController:alert animated:YES completion:nil];
+            
+        }
+    }];
+}
+- (void)p_handleToggleiCloudEnabled:(id)sender {
+    DLog(@"toggle icloud");
+    [CBWiCloud toggleiCloudBySwith:self.iCloudSwitch inViewController:self];
+}
+
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.tableStrings.count;
@@ -96,20 +122,42 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
     return view;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    DefaultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:BaseTableViewCellDefaultIdentifier forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:BaseTableViewCellDefaultIdentifier forIndexPath:indexPath];
+    cell.detailTextLabel.text = nil;
+    cell.accessoryView = nil;
+    
     if (indexPath.section == kProfileSectionAccounts) {
+    
         CBWAccount *account = [self.accountStore recordAtIndex:indexPath.row];
         cell.textLabel.text = account.label;
-        return cell;
+
+    } else {
+
+        // set text label
+        id sectionStrings = self.tableStrings[indexPath.section];
+        if ([sectionStrings isKindOfClass:[NSDictionary class]]) {
+            id object = [[[sectionStrings allObjects] firstObject] objectAtIndex:indexPath.row];
+            cell.textLabel.text = object;
+        } else {
+            cell.textLabel.text = [sectionStrings objectAtIndex:indexPath.row];
+        }
+        
+        // set backup cells stuff
+        if (indexPath.section == kProfileSectionBackup) {
+            if (indexPath.row == 1) {
+                // iCloud
+                cell.detailTextLabel.text = [[[NSUserDefaults standardUserDefaults] objectForKey:CBWUserDefaultsiCloudSyncDateKey] stringWithFormat:@"yyyy-MM-dd HH:mm:ss"];
+                if (!self.iCloudSwitch) {
+                    UISwitch *aSwitch = [[UISwitch alloc] init];
+                    [aSwitch addTarget:self action:@selector(p_handleToggleiCloudEnabled:) forControlEvents:UIControlEventValueChanged];
+                    cell.accessoryView = aSwitch;
+                    self.iCloudSwitch = aSwitch;
+                }
+                self.iCloudSwitch.on = [[NSUserDefaults standardUserDefaults] boolForKey:CBWUserDefaultsiCloudEnabledKey];
+            }
+        }
     }
     
-    id sectionStrings = self.tableStrings[indexPath.section];
-    if ([sectionStrings isKindOfClass:[NSDictionary class]]) {
-        id object = [[[sectionStrings allObjects] firstObject] objectAtIndex:indexPath.row];
-        cell.textLabel.text = object;
-    } else {
-        cell.textLabel.text = [sectionStrings objectAtIndex:indexPath.row];
-    }
     return cell;
 }
 #pragma mark UITableViewDelegate
@@ -136,23 +184,10 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
             [tableView deselectRowAtIndexPath:indexPath animated:YES];
             if (indexPath.row == 0) {
                 // export
-                CBWBackup *backup = [CBWBackup new];
-//                UIImage *image = [backup exportImage];
-                [backup saveToLocalPhotoLibraryWithCompleiton:^(NSURL *assetURL, NSError *error) {
-                    if (error) {
-                        NSLog(@"export to photo library error: \n%@", error);
-                        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil) message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
-                        UIAlertAction *okay = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Okay", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
-                        [alert addAction:okay];
-                        [self presentViewController:alert animated:YES completion:nil];
-                    } else {
-                        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Success", @"CBW", nil) message:NSLocalizedStringFromTable(@"Alert Message saved_to_photo_library", @"CBW", nil) preferredStyle:UIAlertControllerStyleAlert];
-                        UIAlertAction *okay = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Okay", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
-                        [alert addAction:okay];
-                        [self presentViewController:alert animated:YES completion:nil];
-                        
-                    }
-                }];
+                [self p_exportBackupImageToPhotoLibrary];
+            } else if (indexPath.row == 1) {
+                // icloud
+                [self p_handleToggleiCloudEnabled:nil];
             }
             break;
         }

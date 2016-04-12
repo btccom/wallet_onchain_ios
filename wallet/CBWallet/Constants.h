@@ -23,6 +23,9 @@ static NSString *const CBWUserDefaultsTouchIdEnabledKey = @"cbw.user.defaults.to
 /// intenger value
 static NSString *const CBWUserDefaultsLocalVersion = @"cbw.user.defaults.localVersion";
 
+/// date value
+static NSString *const  CBWUserDefaultsiCloudSyncDateKey = @"cbw.user.defaults.icloud.sync.date";
+
 // Key Chain
 static NSString *const CBWKeyChainSeedService = @"com.btc.wallet.seed";
 //static NSString *const CBWKeyChainMasterPasswordService = @"com.btc.wallet.masterPassword";

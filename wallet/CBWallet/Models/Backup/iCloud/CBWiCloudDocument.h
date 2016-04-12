@@ -10,4 +10,6 @@
 
 @interface CBWiCloudDocument : UIDocument
 
+@property (nonatomic, copy) NSString *contents;
+
 @end

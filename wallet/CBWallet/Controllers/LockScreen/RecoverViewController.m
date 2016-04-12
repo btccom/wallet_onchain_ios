@@ -60,47 +60,6 @@
     [self presentViewController:imagePicker animated:YES completion:nil];
 }
 
-- (void)p_decode {
-    
-    // test
-//    DLog(@"asset url: %@", assetURL.absoluteString);
-//    
-//    // 解码
-//    ALAssetsLibraryAssetForURLResultBlock resultblock = ^(ALAsset *myasset) {
-//        ALAssetRepresentation *representation = myasset.defaultRepresentation;
-//        long long size = representation.size;
-//        NSMutableData *rawData = [[NSMutableData alloc] initWithCapacity:size];
-//        void *buffer = [rawData mutableBytes];
-//        [representation getBytes:buffer fromOffset:0 length:size error:nil];
-//        NSData *apngData = [[NSData alloc] initWithBytes:buffer length:size];
-//        YYImageDecoder *decoder = [YYImageDecoder decoderWithData:apngData scale:2.f];
-//        UIImage *seedImage = [decoder frameAtIndex:0 decodeForDisplay:NO].image;
-//        
-//        // 获取二维码
-//        CIDetector* detector = [CIDetector detectorOfType:CIDetectorTypeQRCode context:[CIContext contextWithOptions:nil] options:@{CIDetectorAccuracy:CIDetectorAccuracyHigh}];
-//        if (detector) {
-//            DLog(@"detector ready");
-//            CIImage *ciimg = [CIImage imageWithCGImage:seedImage.CGImage];
-//            NSArray *featuresR = [detector featuresInImage:ciimg];
-//            
-//            for (CIQRCodeFeature* featureR in featuresR) {
-//                DLog(@"decode: %@ ", featureR.messageString);
-//            }
-//        }
-//    };
-//    
-//    ALAssetsLibraryAccessFailureBlock failureblock  = ^(NSError *myerror) {
-//        DLog(@"booya, cant get image - %@",[myerror localizedDescription]);
-//    };
-//    
-//    ALAssetsLibrary *assetLibrary = [[ALAssetsLibrary alloc] init];
-//    [assetLibrary assetForURL:assetURL
-//                  resultBlock:resultblock
-//                 failureBlock:failureblock];
-    
-    
-}
-
 #pragma mark - <MasterPasswordViewControllerDelegate>
 - (void)masterPasswordViewController:(MasterPasswordViewController *)controller didInputPassword:(NSString *)password {
     DLog(@"try to recover with code with code");

@@ -1315,7 +1315,7 @@
 				GCC_PREFIX_HEADER = "CBWallet/CBWallet-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/CBWallet/Vendors/CoreBitCoin/include";
 				INFOPLIST_FILE = "$(SRCROOT)/CBWallet/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1341,7 +1341,7 @@
 				GCC_PREFIX_HEADER = "CBWallet/CBWallet-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/CBWallet/Vendors/CoreBitCoin/include";
 				INFOPLIST_FILE = "$(SRCROOT)/CBWallet/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
