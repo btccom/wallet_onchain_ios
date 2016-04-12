@@ -53,7 +53,7 @@ static NSString *const kCBWiCloudBackupFileExtension = @"cbb";
 }
 
 + (void)saveWithData:(id)data {
-    if (![data isKindOfClass:[NSNull class]]) {
+    if (![data isKindOfClass:[NSNull class]] && data) {
         NSDate *date = [NSDate date];
         NSNumber *version = @1;
         NSDictionary *wrappedData = @{kCBWiCloudVersionKey: version, kCBWiCloudCreationDateKey: date, kCBWiCloudDataWrapperKey: data};
