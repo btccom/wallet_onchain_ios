@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void(^CBWiCloudFetchCompletion) (NSError *error, id data);
+
 @interface CBWiCloud : NSObject
 
 + (void)toggleiCloudBySwith:(UISwitch *)aSwitch inViewController:(UIViewController *)viewController;
@@ -16,8 +18,10 @@
 /// 直接存储备份数据
 + (void)saveBackupData;
 /// 存储数据到 container
-+ (void)saveWithData:(id)data;
++ (void)saveData:(id)data withFileName:(NSString *)fileName completion:(void(^)(BOOL success))completion;
+/// 获取备份数据
+- (void)fetchBackupDataWithCompletion:(CBWiCloudFetchCompletion)completion;
 /// 从 iCloud 获取数据
-+ (void)fetchWithCompletion:(void(^)(NSError *error, id data))completion;
+- (void)fetchWithFileName:(NSString *)fileName withCompletion:(CBWiCloudFetchCompletion)completion;
 
 @end

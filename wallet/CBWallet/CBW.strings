@@ -29,6 +29,7 @@
 "Button recover_wallet" = "Recover Wallet";
 "Button master_password" = "Master Password";
 "Button scan_qrcode" = "Scan QRCode";
+"Button recover_from_icloud" = "Recover From iCloud";
 "Button photo_library" = "Photo Library";
 "Button send" = "Send";
 "Button receive" = "Receive";
@@ -53,6 +54,7 @@
 "Alert Action save_address" = "Save";
 "Alert Action scan_qr_code" = "Scan QR Code";
 "Alert Message need_icloud_account_signed_in" = "Please sign in iCloud and enable it for me.";
+"Alert Message saved_to_photo_library" = "The backup data has been export as image to photo library.";
 
 "Label watched_account" = "Watched Account";
 "Label default_account" = "Default Account";

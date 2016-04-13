@@ -60,10 +60,11 @@ NSString *const DatabaseManagerColAccountIdx = @"accountIdx";
 }
 
 - (FMDatabase *)db {
-    if ([Guard globalGuard].code.length == 0) {
-        NSLog(@"need check in to access database");
-        return nil;
-    }
+    // FIXME: 该逻辑不实用，有待改进
+//    if ([Guard globalGuard].code.length == 0) {
+//        NSLog(@"need check in to access database");
+//        return nil;
+//    }
     return [FMDatabase databaseWithPath:[CBWDatabaseManager dbPath]];
 }
 

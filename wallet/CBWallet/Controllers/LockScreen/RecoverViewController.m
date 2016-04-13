@@ -14,6 +14,7 @@
 #import "PrimaryButton.h"
 
 #import "CBWRecovery.h"
+#import "CBWiCloud.h"
 
 @interface RecoverViewController ()<MasterPasswordViewControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @property (nonatomic, strong) CBWRecovery *recovery;
@@ -28,10 +29,14 @@
     
     CGFloat stageWidth = CGRectGetWidth(self.view.frame);
     CGFloat stageHeight = CGRectGetHeight(self.view.frame);
-//    PrimaryButton *iCloudButton = [[PrimaryButton alloc] initWithFrame:CGRectMake(20.f, stageHeight * 0.6f, stageWidth - 40.f, CBWCellHeightDefault)];
-//    [iCloudButton addTarget:self action:@selector(p_handleNext:) forControlEvents:UIControlEventTouchUpInside];
-//    [iCloudButton setTitle:NSLocalizedStringFromTable(@"Button iCloud", @"CBW", nil) forState:UIControlStateNormal];
-//    [self.view addSubview:iCloudButton];
+    
+    if ([CBWiCloud isiCloudAccountSignedIn]) {
+        PrimaryButton *iCloudButton = [[PrimaryButton alloc] initWithFrame:CGRectMake(20.f, stageHeight * 0.6f, stageWidth - 40.f, CBWCellHeightDefault)];
+        [iCloudButton addTarget:self action:@selector(p_handleFetchiCloudData:) forControlEvents:UIControlEventTouchUpInside];
+        [iCloudButton setTitle:NSLocalizedStringFromTable(@"Button recover_from_icloud", @"CBW", nil) forState:UIControlStateNormal];
+        [self.view addSubview:iCloudButton];
+    }
+    
     PrimaryButton *photoLibraryButton = [[PrimaryButton alloc] initWithFrame:CGRectMake(20.f, stageHeight * 0.6f + CBWCellHeightDefault + 16.f, stageWidth - 40.f, CBWCellHeightDefault)];
     [photoLibraryButton addTarget:self action:@selector(p_handleOpenPhotoLibrary:) forControlEvents:UIControlEventTouchUpInside];
     [photoLibraryButton setTitle:NSLocalizedStringFromTable(@"Button photo_library", @"CBW", "Photo Library") forState:UIControlStateNormal];
@@ -50,6 +55,24 @@
     masterPasswordViewController.hint = @"Hint From Backup";
     masterPasswordViewController.delegate = self;
     [self.navigationController pushViewController:masterPasswordViewController animated:YES];
+}
+
+- (void)p_handleFetchiCloudData:(id)sender {
+    UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    indicator.center = self.view.center;
+    [self.view addSubview:indicator];
+    [indicator startAnimating];
+    
+    CBWiCloud *iCloud = [[CBWiCloud alloc] init];
+    [iCloud fetchBackupDataWithCompletion:^(NSError *error, id data) {
+        [indicator stopAnimating];
+        if (data) {
+            self.recovery = [[CBWRecovery alloc] initWithDatas:data];
+            if (self.recovery) {
+                [self p_handleNext:nil];
+            }
+        }
+    }];
 }
 
 - (void)p_handleOpenPhotoLibrary:(id)sender {
