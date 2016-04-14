@@ -99,6 +99,7 @@
     
     DLog(@"address list of account: %ld", (long)self.account.idx);
     [self.addressStore fetch];
+    [self.addressStore addObserver:self forKeyPath:CBWRecordObjectStoreCountKey options:NSKeyValueObservingOptionNew context:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -111,10 +112,25 @@
     [self.tableView reloadData];
 }
 
+- (void)dealloc {
+    [self.addressStore removeObserver:self forKeyPath:CBWRecordObjectStoreCountKey];
+    DLog(@"address list controller dealloc");
+}
+
 #pragma mark - Public Method
 - (void)reload {
     [self.addressStore fetch];
     [self.tableView reloadData];
+}
+
+#pragma mark - KVO
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
+    NSLog(@"change: %@", change);
+    if ([keyPath isEqualToString:CBWRecordObjectStoreCountKey]) {
+        if ([self.delegate respondsToSelector:@selector(addressListViewControllerDidUpdate:)]) {
+            [self.delegate addressListViewControllerDidUpdate:self];
+        }
+    }
 }
 
 #pragma mark - Private Method

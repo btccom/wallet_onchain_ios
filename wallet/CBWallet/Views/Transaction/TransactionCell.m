@@ -9,7 +9,7 @@
 
 #import "TransactionCell.h"
 
-#import "Transaction.h"
+#import "CBWTransaction.h"
 
 #import "NSString+CBWAddress.h"
 #import "NSDate+Helper.h"
@@ -105,7 +105,7 @@ static const CGFloat kTransactionCellVerticalPadding = CBWLayoutCommonVerticalPa
 
 #pragma mark - Public Method
 
-- (void)setTransaction:(Transaction *)transaction {
+- (void)setTransaction:(CBWTransaction *)transaction {
     if (transaction.type == TransactionTypeSend) {
         self.iconView.tintColor = self.decreasingColor;
         [self.iconView setImage:[[UIImage imageNamed:@"icon_send_mini"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];

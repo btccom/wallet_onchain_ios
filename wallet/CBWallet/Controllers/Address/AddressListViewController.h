@@ -16,6 +16,7 @@
 @optional
 - (void)addressListViewController:(nonnull AddressListViewController *)controller didSelectAddress:(nonnull CBWAddress *)address;
 - (void)addressListViewController:(nonnull AddressListViewController *)controller didDeselectAddress:(nonnull CBWAddress *)address;
+- (void)addressListViewControllerDidUpdate:(nonnull AddressListViewController *)controller;
 
 @end
 

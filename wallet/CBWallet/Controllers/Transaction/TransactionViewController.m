@@ -34,13 +34,13 @@ static NSString *const kTransactionViewControllerCellIdentifierIO = @"transactio
 @property (nonatomic, strong) NSArray *blockTitles;
 @property (nonatomic, strong) NSArray *blockDatas;
 
-@property (nonatomic, strong) Transaction *transactionDetail;
+@property (nonatomic, strong) CBWTransaction *transactionDetail;
 
 @end
 
 @implementation TransactionViewController
 
-- (instancetype)initWithTransaction:(Transaction *)transaction {
+- (instancetype)initWithTransaction:(CBWTransaction *)transaction {
     self = [self initWithTransactionHashId:transaction.hashId];
     if (self) {
         _transaction = transaction;
@@ -90,7 +90,7 @@ static NSString *const kTransactionViewControllerCellIdentifierIO = @"transactio
         NSLog(@"transaction response: %@", response);
         if (!error) {
             // 填充数据
-            self.transactionDetail = [[Transaction alloc] initWithDictionary:response];
+            self.transactionDetail = [[CBWTransaction alloc] initWithDictionary:response];
             
             if (self.transactionDetail) {
                 [self.summaryDatas addObject:[@(self.transactionDetail.fee) satoshiBTCString]];

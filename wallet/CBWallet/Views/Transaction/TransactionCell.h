@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class Transaction;
+@class CBWTransaction;
 
 @interface TransactionCell : UITableViewCell
 
@@ -18,6 +18,6 @@
 @property (nonatomic, weak, readonly, nullable) UILabel *confirmationLabel;
 @property (nonatomic, weak, readonly, nullable) UILabel *valueLabel;
 
-- (void)setTransaction:(nonnull Transaction *)trasaction;
+- (void)setTransaction:(nonnull CBWTransaction *)trasaction;
 
 @end

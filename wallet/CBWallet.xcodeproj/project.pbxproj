@@ -70,7 +70,7 @@
 		2C9CAF611C868B61008194EB /* CBWAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF211C868B61008194EB /* CBWAddress.m */; };
 		2C9CAF621C868B61008194EB /* CBWRecipient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF231C868B61008194EB /* CBWRecipient.m */; };
 		2C9CAF631C868B61008194EB /* CBWRecordObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF251C868B61008194EB /* CBWRecordObject.m */; };
-		2C9CAF641C868B61008194EB /* Transaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF271C868B61008194EB /* Transaction.m */; };
+		2C9CAF641C868B61008194EB /* CBWTransaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF271C868B61008194EB /* CBWTransaction.m */; };
 		2C9CAF651C868B61008194EB /* SystemManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF2A1C868B61008194EB /* SystemManager.m */; };
 		2C9CAF661C868B61008194EB /* SessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF2D1C868B61008194EB /* SessionManager.m */; };
 		2C9CAF671C868B61008194EB /* AddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF311C868B61008194EB /* AddressCell.m */; };
@@ -246,8 +246,8 @@
 		2C9CAF231C868B61008194EB /* CBWRecipient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBWRecipient.m; sourceTree = "<group>"; };
 		2C9CAF241C868B61008194EB /* CBWRecordObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBWRecordObject.h; sourceTree = "<group>"; };
 		2C9CAF251C868B61008194EB /* CBWRecordObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBWRecordObject.m; sourceTree = "<group>"; };
-		2C9CAF261C868B61008194EB /* Transaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Transaction.h; sourceTree = "<group>"; };
-		2C9CAF271C868B61008194EB /* Transaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Transaction.m; sourceTree = "<group>"; };
+		2C9CAF261C868B61008194EB /* CBWTransaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBWTransaction.h; sourceTree = "<group>"; };
+		2C9CAF271C868B61008194EB /* CBWTransaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBWTransaction.m; sourceTree = "<group>"; };
 		2C9CAF291C868B61008194EB /* SystemManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemManager.h; sourceTree = "<group>"; };
 		2C9CAF2A1C868B61008194EB /* SystemManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SystemManager.m; sourceTree = "<group>"; };
 		2C9CAF2C1C868B61008194EB /* SessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionManager.h; sourceTree = "<group>"; };
@@ -610,8 +610,8 @@
 				2C9CAF211C868B61008194EB /* CBWAddress.m */,
 				2C9CAF221C868B61008194EB /* CBWRecipient.h */,
 				2C9CAF231C868B61008194EB /* CBWRecipient.m */,
-				2C9CAF261C868B61008194EB /* Transaction.h */,
-				2C9CAF271C868B61008194EB /* Transaction.m */,
+				2C9CAF261C868B61008194EB /* CBWTransaction.h */,
+				2C9CAF271C868B61008194EB /* CBWTransaction.m */,
 				2C9CAF241C868B61008194EB /* CBWRecordObject.h */,
 				2C9CAF251C868B61008194EB /* CBWRecordObject.m */,
 				2CEFC3511CA4CBAC00FECCA4 /* CBWRecordObjectStore.h */,
@@ -1047,7 +1047,7 @@
 				2CF24D741C97A53200C7EDB9 /* AFHTTPSessionManager.m in Sources */,
 				2C9CAF521C868B61008194EB /* InitialWalletSettingViewController.m in Sources */,
 				2C9CAF541C868B61008194EB /* MasterPasswordViewController.m in Sources */,
-				2C9CAF641C868B61008194EB /* Transaction.m in Sources */,
+				2C9CAF641C868B61008194EB /* CBWTransaction.m in Sources */,
 				2CD0A91C1CA02ACA006AF02F /* FMResultSet.m in Sources */,
 				2CD0A91B1CA02ACA006AF02F /* FMDatabaseQueue.m in Sources */,
 				2C9CAF4E1C868B61008194EB /* ScanViewController.m in Sources */,

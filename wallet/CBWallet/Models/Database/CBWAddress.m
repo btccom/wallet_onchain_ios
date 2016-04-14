@@ -68,10 +68,12 @@
 }
 
 - (void)saveWithError:(NSError *__autoreleasing  _Nullable *)error {
+    [self.store willChangeValueForKey:CBWRecordObjectStoreCountKey];
     if (self.isArchived != ((CBWAddressStore *)self.store).isArchived) {
         [self.store deleteRecord:self];
     }
     [[CBWDatabaseManager defaultManager] saveAddress:self];
+    [self.store didChangeValueForKey:CBWRecordObjectStoreCountKey];
 }
 
 //- (void)deleteFromStore:(RecordObjectStore *)store {
@@ -84,8 +86,8 @@
         return;
     }
     
-    [store deleteRecord:self];
     [[CBWDatabaseManager defaultManager] deleteAddress:self];
+    [store deleteRecord:self];
 }
 
 /*

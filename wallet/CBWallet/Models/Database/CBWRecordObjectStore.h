@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "CBWRecordObject.h"
 
+extern NSString *const CBWRecordObjectStoreCountKey;
+
 @interface CBWRecordObjectStore : NSObject {
     NSMutableArray<CBWRecordObject *> *records;
 }
@@ -18,7 +20,7 @@
 /// 清空内存数据
 - (void)flush;
 
-- (NSUInteger)count;
+@property (nonatomic, assign, readonly) NSUInteger count;
 - (nullable id)recordAtIndex:(NSUInteger)idx;
 /// 加入内存, DESC, insert at index:0
 - (void)addRecord:(nullable CBWRecordObject *)record;

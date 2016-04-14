@@ -8,6 +8,8 @@
 
 #import "CBWRecordObjectStore.h"
 
+NSString *const CBWRecordObjectStoreCountKey = @"count";
+
 @implementation CBWRecordObjectStore
 
 - (instancetype)init {
@@ -50,16 +52,20 @@
     }
     record.store = self;
     DLog(@"store add record: %@", record);
+//    [self willChangeValueForKey:CBWRecordObjectStoreCountKey];// 无效果，在 object 里实现
     if (ASC) {
         [records addObject:record];
     } else {
         [records insertObject:record atIndex:0]; /// DESC
     }
+//    [self didChangeValueForKey:CBWRecordObjectStoreCountKey];
 }
 
 - (void)deleteRecord:(CBWRecordObject *)record {
     if ([records containsObject:record]) {
+        [self willChangeValueForKey:CBWRecordObjectStoreCountKey];
         [records removeObject:record];
+        [self didChangeValueForKey:CBWRecordObjectStoreCountKey];
     }
 }
 

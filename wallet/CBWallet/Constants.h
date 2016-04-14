@@ -37,5 +37,16 @@ static NSString *const CBWNotificationCheckedOut = @"cbw.notification.checked.ou
 static NSString *const CBWNotificationWalletCreated = @"cbw.notification.wallet.created";
 static NSString *const CBWNotificationWalletRecovered = @"cbw.notification.wallet.recovered";
 
+// Cache
+static NSString *const CBWCacheSubfix = @".cache";
+static NSString *const CBWCacheTransactionPrefix = @"cbw-transaction-";
+static NSString * CBWCachePath() {
+    NSString *path = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"com.btc.wallet"];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
+        [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    return path;
+}
+
 
 #endif /* Constants_h */

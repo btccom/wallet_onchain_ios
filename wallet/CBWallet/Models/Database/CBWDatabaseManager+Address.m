@@ -177,6 +177,7 @@
 }
 
 - (void)deleteAddress:(CBWAddress *)address {
+    DLog(@"delete address from database: %@", address);
     if (address.accountIdx != CBWRecordWatchedIdx) {
         return;
     }
@@ -186,9 +187,11 @@
         NSString *sql = [NSString stringWithFormat:@"DELETE FROM %@ WHERE %@ = ? AND %@ = ?", DatabaseManagerTableAddress,
                          DatabaseManagerColRid,
                          DatabaseManagerColAddress];
-        [db executeUpdate:sql,
-         @(address.rid),
-         address.address];
+        if (![db executeUpdate:sql,
+              @(address.rid),
+              address.address]) {
+            NSLog(@"can not delete address from database.");
+        }
         
         [db close];
     }

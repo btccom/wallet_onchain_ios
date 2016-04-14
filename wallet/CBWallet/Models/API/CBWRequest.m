@@ -15,8 +15,13 @@ NSString *const CBWRequestAPIHost = @"http://123.56.188.103:8079";
 NSString *const CBWRequestAPIPath = @"";
 NSString *const CBWRequestAPIVersion = @"";
 
-const NSUInteger CBWRequestPageSizeDefault = 20;
-const NSUInteger CBWRequestPageSizeMax = 50;
+NSString *const CBWRequestResponseErrorNumberKey = @"err_no";
+NSString *const CBWRequestResponseErrorMessageKey = @"message";
+NSString *const CBWRequestResponseDataKey = @"data";
+NSString *const CBWRequestResponseDataTotalCountKey = @"total_count";
+NSString *const CBWRequestResponseDataPageKey = @"page";
+NSString *const CBWRequestResponseDataPageSizeKey = @"pagesize";
+NSString *const CBWRequestResponseDataListKey = @"list";
 
 @implementation CBWRequest
 
@@ -57,7 +62,7 @@ const NSUInteger CBWRequestPageSizeMax = 50;
         } else {
 //            DLog(@"request response [%ld]: %@", (long)statusCode, responseObject);
             DLog(@"request response [%ld]", (long)statusCode);
-            completion(nil, statusCode, [responseObject objectForKey:@"data"]);
+            completion(nil, statusCode, [responseObject objectForKey:CBWRequestResponseDataKey]);
         }
     }];
     [dataTask resume];

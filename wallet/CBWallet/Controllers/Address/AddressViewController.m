@@ -17,6 +17,7 @@
 @interface AddressViewController ()<AddressHeaderViewDelegate>
 
 @property (nonatomic, strong) CBWTransactionStore *transactionStore;
+@property (nonatomic, assign) BOOL isThereMoreDatas;
 @property (nonatomic, assign) NSUInteger page;
 
 @end
@@ -37,6 +38,7 @@
     if (self) {
         _address = address;
         _actionType = actionType;
+        _page = 0;
     }
     return self;
 }
@@ -113,6 +115,7 @@
         if (self.address.txCount > 0) {
             // 重置分页信息后获取交易
             self.page = 0;
+            [self.transactionStore flush];
             [self p_requestTransactions];
         }
     }];
@@ -132,27 +135,23 @@
         [self requestDidStop];
         
         if (!error) {
-            // transactions
-            NSArray *list = [response objectForKey:@"list"];
-            NSUInteger page = [[response objectForKey:@"page"] unsignedIntegerValue];
-            if (list.count > 0) {
-                if (page == 1) {
-                    self.page = 0;
-                    // 第一页，清空数据
-                    [self.transactionStore flush];
-                }
-                // 记录当前页
-                self.page ++;
-                
-                // 解析交易
-                [self.transactionStore addTransactionsFromJsonObject:list];
-                
-                // 更新界面
-                if ([self.tableView numberOfSections] == 0) {
-                    [self.tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationTop];
-                } else {
-                    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
-                }
+            // 分页
+            NSUInteger totalCount = [[response objectForKey:CBWRequestResponseDataTotalCountKey] unsignedIntegerValue];
+            NSUInteger pageSize = [[response objectForKey:CBWRequestResponseDataPageSizeKey] unsignedIntegerValue];
+            self.page = [[response objectForKey:CBWRequestResponseDataPageKey] unsignedIntegerValue];
+            self.isThereMoreDatas = totalCount > pageSize * self.page;
+            
+            DLog(@"fetched transactions page: %lu, page size: %lu, total: %lu", self.page, pageSize, totalCount);
+            
+            // 解析交易
+            [self.transactionStore addTransactionsFromJsonObject:[response objectForKey:CBWRequestResponseDataListKey] isCacheNeeded:(self.page == 1)];
+            [self.transactionStore sort];
+            
+            // 更新界面
+            if ([self.tableView numberOfSections] == 0) {
+                [self.tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationTop];
+            } else {
+                [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
             }
         }
     }];
@@ -203,7 +202,7 @@
     return self.transactionStore.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    Transaction *transaction = [self.transactionStore recordAtIndex:indexPath.row];
+    CBWTransaction *transaction = [self.transactionStore recordAtIndex:indexPath.row];
     if (!transaction) {
         DefaultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:BaseTableViewCellDefaultIdentifier forIndexPath:indexPath];
         cell.textLabel.text = @"NaN";
@@ -227,7 +226,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.actionType == AddressActionTypeDefault) {
         // goto transaction
-        Transaction *transaction = [self.transactionStore recordAtIndex:indexPath.row];
+        CBWTransaction *transaction = [self.transactionStore recordAtIndex:indexPath.row];
         if (transaction) {
             TransactionViewController *transactionViewController = [[TransactionViewController alloc] initWithTransaction:transaction];
             [self.navigationController pushViewController:transactionViewController animated:YES];

@@ -8,6 +8,7 @@
 
 // TODO: 获取批量获取地址摘要信息，对比 tx count，如果发生变化（变多），则获取最新交易信息，page size = MIN(delta, maxSize)
 // TODO: 将新交易重新排序后缓存，刷新UI
+// TODO: 使用唯一的 address store，address store 使用单例模式，通过设置 account 改变数据
 
 #import "DashboardViewController.h"
 #import "ProfileViewController.h"
@@ -25,12 +26,13 @@
 
 #import "NSString+CBWAddress.h"
 
-@interface DashboardViewController ()<ProfileViewControllerDelegate>
+@interface DashboardViewController ()<ProfileViewControllerDelegate, AddressListViewControllerDelegate>
 
 @property (nonatomic, strong) CBWAccountStore *accountStore;
 @property (nonatomic, strong) CBWTransactionStore *transactionStore;
 @property (nonatomic, strong) CBWAccount *account;
 @property (nonatomic, weak) DashboardHeaderView *headerView;
+@property (nonatomic, assign) BOOL isThereMoreDatas;
 
 @end
 
@@ -103,19 +105,25 @@
         return;
     }
     
+    self.transactionStore.account = self.account;
+    
     if (self.requesting) {
         return;
     }
     
-    [self.transactionStore flush];
+    // reset
+//    [self.transactionStore flush];
+    self.isThereMoreDatas = NO;
     [self.tableView reloadData];
     
+    // start request
     [self requestDidStart];
     
     CBWRequest *request = [CBWRequest new];
     // 根据账号地址获取交易
     CBWAddressStore *addressStore = [[CBWAddressStore alloc] initWithAccountIdx:self.account.idx];
     [addressStore fetch];
+    DLog(@"dashboard all addresses: %@", addressStore.allAddressStrings);
     [request addressSummariesWithAddressStrings:addressStore.allAddressStrings completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
         [self requestDidStop];
         if (!error) {
@@ -160,10 +168,16 @@
                 // fetch
                 [request addressTransactionsWithAddressStrings:addresses completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
                     if (!error) {
-                        DLog(@"fetched transactions count: %lu", (long)[[response objectForKey:@"total_count"] unsignedIntegerValue]);
+                        // 分页
+                        NSUInteger totalCount = [[response objectForKey:CBWRequestResponseDataTotalCountKey] unsignedIntegerValue];
+                        NSUInteger pageSize = [[response objectForKey:CBWRequestResponseDataPageSizeKey] unsignedIntegerValue];
+                        NSUInteger page = [[response objectForKey:CBWRequestResponseDataPageKey] unsignedIntegerValue];
+                        self.isThereMoreDatas = totalCount > pageSize * page;
+                        
+                        DLog(@"fetched transactions page: %lu, page size: %lu, total: %lu", page, pageSize, totalCount);
                         
                         // 解析交易
-                        [self.transactionStore addTransactionsFromJsonObject:[response objectForKey:@"list"]];
+                        [self.transactionStore addTransactionsFromJsonObject:[response objectForKey:CBWRequestResponseDataListKey] isCacheNeeded:(page == 1)];
                         [self.transactionStore sort];
                         
                         // 更新界面
@@ -203,6 +217,7 @@
 /// push address list
 - (void)p_handleAddressList:(id)sender {
     AddressListViewController *addressListViewController = [[AddressListViewController alloc] initWithAccount:self.account];
+    addressListViewController.delegate = self;
     [self.navigationController pushViewController:addressListViewController animated:YES];
 }
 
@@ -234,7 +249,7 @@
 
 #pragma mark -
 
-#pragma mark - UITableViewDataSource
+#pragma mark - <UITableViewDataSource>
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.transactionStore.count;
 }
@@ -245,37 +260,44 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TransactionCell *cell = [tableView dequeueReusableCellWithIdentifier:BaseListViewCellTransactionIdentifier forIndexPath:indexPath];
-    Transaction *transaction = [self.transactionStore recordAtIndex:indexPath.row];
+    CBWTransaction *transaction = [self.transactionStore recordAtIndex:indexPath.row];
     if (transaction) {
         [cell setTransaction:transaction];
     }
     return cell;
 }
 
-#pragma mark UITableViewDelegate
+#pragma mark <UITableViewDelegate>
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return CBWCellHeightTransaction;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    Transaction *transaction = [self.transactionStore recordAtIndex:indexPath.row];
+    CBWTransaction *transaction = [self.transactionStore recordAtIndex:indexPath.row];
     if (transaction) {
         TransactionViewController *transactionViewController = [[TransactionViewController alloc] initWithTransaction:transaction];
         [self.navigationController pushViewController:transactionViewController animated:YES];
     }
 }
 
-#pragma mark - ProfileViewControllerDelegate
+#pragma mark - <ProfileViewControllerDelegate>
 - (void)profileViewController:(ProfileViewController *)viewController didSelectAccount:(CBWAccount *)account {
     DLog(@"dashboard selected account: %@", account);
     
-    [self dismissViewControllerAnimated:YES completion:nil];
-    
-    if ([account isEqual:self.account]) {
-        return;
+    if (![account isEqual:self.account]) {
+        self.account = account;
+        [self.transactionStore flush];
+        [self reloadTransactions];
+        self.headerView.sendButton.enabled = self.account.idx >= 0;
     }
-    self.account = account;
-    self.headerView.sendButton.enabled = self.account.idx >= 0;
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - <AddressListViewControllerDelegate>
+- (void)addressListViewControllerDidUpdate:(AddressListViewController *)controller {
+    NSLog(@"address list did update");
+    [self.transactionStore flush];
     [self reloadTransactions];
 }
 

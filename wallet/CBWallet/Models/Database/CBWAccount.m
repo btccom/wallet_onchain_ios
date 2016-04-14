@@ -30,7 +30,9 @@
 //}
 
 - (void)saveWithError:(NSError *__autoreleasing  _Nullable *)error {
+    [self.store willChangeValueForKey:CBWRecordObjectStoreCountKey];
     [[CBWDatabaseManager defaultManager] saveAccount:self];
+    [self.store didChangeValueForKey:CBWRecordObjectStoreCountKey];
 }
 
 - (NSString *)description {

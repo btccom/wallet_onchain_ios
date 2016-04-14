@@ -6,10 +6,10 @@
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
-#import "Transaction.h"
+#import "CBWTransaction.h"
 #import "CBWTransactionStore.h"
 
-@implementation Transaction
+@implementation CBWTransaction
 @synthesize relatedAddresses = _relatedAddresses;
 
 - (NSArray *)relatedAddresses {
@@ -82,6 +82,15 @@
 
 - (NSString *)description {
     return [NSString stringWithFormat:@"transaction, related addresses %@..., %lld satoshi, %ld confirmations", [self.relatedAddresses firstObject], self.value, (unsigned long)self.confirmations];
+}
+
+- (BOOL)isEqual:(id)object {
+    if ([object isKindOfClass:[CBWTransaction class]]) {
+        if ([self.hashId isEqualToString:((CBWTransaction *)object).hashId]) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 #pragma mark - KVC

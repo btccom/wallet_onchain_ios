@@ -13,7 +13,7 @@ typedef NS_ENUM(NSUInteger, TransactionType) {
     TransactionTypeReceive
 };
 
-@interface Transaction : CBWRecordObject
+@interface CBWTransaction : CBWRecordObject
 /// string 交易哈希
 @property (nonatomic, copy, readonly, nonnull) NSString *hashId;
 /// int 所在块高度

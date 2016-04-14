@@ -8,14 +8,14 @@
 
 #import "BaseListViewController.h"
 
-@class Transaction;
+@class CBWTransaction;
 
 @interface TransactionViewController : BaseListViewController
 
-@property (nonatomic, strong, nullable) Transaction *transaction;
+@property (nonatomic, strong, nullable) CBWTransaction *transaction;
 @property (nonatomic, copy, nullable) NSString *hashId;
 
-- (nonnull instancetype)initWithTransaction:(nonnull Transaction *)transaction;
+- (nonnull instancetype)initWithTransaction:(nonnull CBWTransaction *)transaction;
 - (nonnull instancetype)initWithTransactionHashId:(nonnull NSString *)hashId;
 
 @end

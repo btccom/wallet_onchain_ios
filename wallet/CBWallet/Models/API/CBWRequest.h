@@ -12,8 +12,13 @@ extern NSString *const _Nonnull CBWRequestAPIHost;
 extern NSString *const _Nonnull CBWRequestAPIPath;
 extern NSString *const _Nonnull CBWRequestAPIVersion;
 
-extern const NSUInteger CBWRequestPageSizeDefault;
-extern const NSUInteger CBWRequestPageSizeMax;
+extern NSString *const _Nonnull CBWRequestResponseErrorNumberKey;
+extern NSString *const _Nonnull CBWRequestResponseErrorMessageKey;
+extern NSString *const _Nonnull CBWRequestResponseDataKey;
+extern NSString *const _Nonnull CBWRequestResponseDataTotalCountKey;
+extern NSString *const _Nonnull CBWRequestResponseDataPageKey;
+extern NSString *const _Nonnull CBWRequestResponseDataPageSizeKey;
+extern NSString *const _Nonnull CBWRequestResponseDataListKey;
 
 typedef void(^CBWRequestCompletion) (NSError * _Nullable error, NSInteger statusCode, id _Nullable response);
 

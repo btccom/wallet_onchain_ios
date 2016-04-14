@@ -43,12 +43,6 @@ static const CGFloat CBWCellHeightTransaction = 76.f;
 static const CGFloat CBWCellHeightAddress = 48.f;
 static const CGFloat CBWCellHeightAddressWithMetadata = 76.f;
 
-// TODO: depending on scrren width
-//static const CGFloat CBWLayoutCommonHorizontalPadding = 16.f;
-//static const CGFloat CBWLayoutCommonHorizontalPaddingPlus = 20.f;
-static const CGFloat CBWLayoutCommonVerticalPadding = 16.f;
-static const CGFloat CBWLayoutInnerSpace = 8.f;
-
 #define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 #define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 #define IS_RETINA ([[UIScreen mainScreen] scale] >= 2.0)
@@ -63,8 +57,10 @@ static const CGFloat CBWLayoutInnerSpace = 8.f;
 #define IS_IPHONE_6 (IS_IPHONE && SCREEN_MAX_LENGTH == 667.0)
 #define IS_IPHONE_6P (IS_IPHONE && SCREEN_MAX_LENGTH == 736.0)
 
-
 #define CBWLayoutCommonHorizontalPadding ((IS_IPHONE_6P) ? 20.f : 16.f)
+
+static const CGFloat CBWLayoutCommonVerticalPadding = 16.f;
+static const CGFloat CBWLayoutInnerSpace = 8.f;
 
 #ifdef DEBUG
 #define DLog(...) NSLog(__VA_ARGS__)
