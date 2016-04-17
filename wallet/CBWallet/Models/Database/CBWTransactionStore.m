@@ -9,7 +9,30 @@
 #import "CBWTransactionStore.h"
 #import "CBWAccount.h"
 
+#import "NSDate+Helper.h"
+
+@interface CBWTransactionStore ()
+
+@property (nonatomic, strong) NSMutableArray *sections;
+@property (nonatomic, strong) NSMutableDictionary *rows;
+
+@end
+
 @implementation CBWTransactionStore
+
+- (NSMutableArray *)sections {
+    if (!_sections) {
+        _sections = [[NSMutableArray alloc] init];
+    }
+    return _sections;
+}
+
+- (NSMutableDictionary *)rows {
+    if (!_rows) {
+        _rows = [[NSMutableDictionary alloc] init];
+    }
+    return _rows;
+}
 
 - (instancetype)initWithAddressString:(NSString *)addressString {
     self = [super init];
@@ -51,6 +74,22 @@
     }
     
     [self p_parseTransactionsWithArray:jsonObject];
+    
+    [self sort];
+    
+    [records enumerateObjectsUsingBlock:^(CBWRecordObject * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        CBWTransaction *transaction = (CBWTransaction *)obj;
+        NSString *day = [transaction.creationDate stringWithFormat:@"yyyy-MM-dd"];
+        NSMutableArray *section = [self p_dequeueReusableSectionAtDay:day];
+        if (![section containsObject:transaction]) {
+            [section addObject:transaction];
+            [section sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                CBWTransaction *t1 = obj1;
+                CBWTransaction *t2 = obj2;
+                return [t2.creationDate compare:t1.creationDate];// DESC
+            }];
+        }
+    }];
 }
 
 - (void)sort {
@@ -59,6 +98,37 @@
         CBWTransaction *t2 = obj2;
         return [t2.creationDate compare:t1.creationDate];// DESC
     }];
+}
+
+- (NSUInteger)numberOfSections {
+    return self.sections.count;
+}
+
+- (NSUInteger)numberOfRowsInSection:(NSUInteger)section {
+    if (section < self.numberOfSections) {
+        return [[self.rows objectForKey:[self.sections objectAtIndex:section]] count];
+    }
+    return 0;
+}
+
+- (NSString *)dayInSection:(NSUInteger)section {
+    if (section < self.numberOfSections) {
+        return [self.sections objectAtIndex:section];
+    }
+    return nil;
+}
+
+- (CBWTransaction *)transactionAtIndexPath:(NSIndexPath *)indexPath {
+    NSUInteger section = indexPath.section;
+    NSString *day = [self dayInSection:section];
+    if (day) {
+        NSArray *sectionDatas = [self.rows objectForKey:day];
+        NSUInteger row = indexPath.row;
+        if (row < sectionDatas.count) {
+            return [sectionDatas objectAtIndex:row];
+        }
+    }
+    return nil;
 }
 
 #pragma - Private Method
@@ -93,6 +163,20 @@
         CBWTransaction *transaction = [[CBWTransaction alloc] initWithDictionary:obj];
         [self addRecord:transaction ASC:YES];
     }];
+}
+
+- (NSMutableArray *)p_dequeueReusableSectionAtDay:(NSString *)day {
+    if (![self.sections containsObject:day]) {
+        [self.sections addObject:day];
+        [self.sections sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            NSDate *d1 = [NSDate dateFromString:obj1 withFormat:@"yyyy-MM-dd"];
+            NSDate *d2 = [NSDate dateFromString:obj2 withFormat:@"yyyy-MM-dd"];
+            return [d2 compare:d1];// DESC
+        }];
+        NSMutableArray *array = [[NSMutableArray alloc] init];
+        [self.rows setObject:array forKey:day];
+    }
+    return [self.rows objectForKey:day];
 }
 
 @end

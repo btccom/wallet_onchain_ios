@@ -145,7 +145,7 @@
             
             // 解析交易
             [self.transactionStore addTransactionsFromJsonObject:[response objectForKey:CBWRequestResponseDataListKey] isCacheNeeded:(self.page == 1)];
-            [self.transactionStore sort];
+//            [self.transactionStore sort];
             
             // 更新界面
             if ([self.tableView numberOfSections] == 0) {
@@ -226,7 +226,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.actionType == AddressActionTypeDefault) {
         // goto transaction
-        CBWTransaction *transaction = [self.transactionStore recordAtIndex:indexPath.row];
+//        CBWTransaction *transaction = [self.transactionStore recordAtIndex:indexPath.row];
+        CBWTransaction *transaction = [self.transactionStore transactionAtIndexPath:indexPath];
         if (transaction) {
             TransactionViewController *transactionViewController = [[TransactionViewController alloc] initWithTransaction:transaction];
             [self.navigationController pushViewController:transactionViewController animated:YES];

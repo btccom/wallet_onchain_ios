@@ -27,5 +27,10 @@
 - (void)addTransactionsFromJsonObject:(nonnull id)jsonObject isCacheNeeded:(BOOL)isCacheNeeded;
 /// 重新排序，适用于从不同地址获取交易列表
 - (void)sort;
+/// 按日排序后
+- (NSUInteger)numberOfSections;
+- (NSUInteger)numberOfRowsInSection:(NSUInteger)section;
+- (nullable NSString *)dayInSection:(NSUInteger)section;
+- (nullable CBWTransaction *)transactionAtIndexPath:(nonnull NSIndexPath *)indexPath;
 
 @end

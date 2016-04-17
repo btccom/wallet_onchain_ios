@@ -25,6 +25,7 @@
 #import "CBWRequest.h"
 
 #import "NSString+CBWAddress.h"
+#import "NSDate+Helper.h"
 
 @interface DashboardViewController ()<ProfileViewControllerDelegate, AddressListViewControllerDelegate, ScanViewControllerDelegate>
 
@@ -178,13 +179,15 @@
                         
                         // 解析交易
                         [self.transactionStore addTransactionsFromJsonObject:[response objectForKey:CBWRequestResponseDataListKey] isCacheNeeded:(page == 1)];
-                        [self.transactionStore sort];
+//                        [self.transactionStore sort];
                         
                         // 更新界面
                         if ([self.tableView numberOfSections] == 0) {
-                            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationTop];
+//                            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationTop];
+                            [self.tableView insertSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, self.transactionStore.numberOfSections)] withRowAnimation:UITableViewRowAnimationTop];
                         } else {
-                            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+//                            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+                            [self.tableView reloadData];
                         }
                     }
                 }];
@@ -258,17 +261,28 @@
 #pragma mark -
 
 #pragma mark - <UITableViewDataSource>
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return [self.transactionStore numberOfSections];
+}
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.transactionStore.count;
+//    return self.transactionStore.count;
+    return [self.transactionStore numberOfRowsInSection:section];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return NSLocalizedStringFromTable(@"Today", @"CBW", nil);
+//    return NSLocalizedStringFromTable(@"Today", @"CBW", nil);
+    NSDate *today = [NSDate date];
+    NSString *day = [self.transactionStore dayInSection:section];
+    if ([today isInSameDayWithDate:[NSDate dateFromString:day withFormat:@"yyyy-MM-dd"]]) {
+        return NSLocalizedStringFromTable(@"Today", @"CBW", nil);
+    }
+    return day;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TransactionCell *cell = [tableView dequeueReusableCellWithIdentifier:BaseListViewCellTransactionIdentifier forIndexPath:indexPath];
-    CBWTransaction *transaction = [self.transactionStore recordAtIndex:indexPath.row];
+//    CBWTransaction *transaction = [self.transactionStore recordAtIndex:indexPath.row];
+    CBWTransaction *transaction = [self.transactionStore transactionAtIndexPath:indexPath];
     if (transaction) {
         [cell setTransaction:transaction];
     }
