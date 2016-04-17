@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "CBWRecordObject.h"
 
-extern NSString *const CBWRecordObjectStoreCountKey;
+extern NSString *const _Nonnull CBWRecordObjectStoreCountKey;
 
 @interface CBWRecordObjectStore : NSObject {
     NSMutableArray<CBWRecordObject *> *records;

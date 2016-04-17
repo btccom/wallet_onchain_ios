@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSString *const _Nonnull NSStringAddressInfoAddressKey;
-extern NSString *const _Nonnull NSStringAddressInfoLabelKey;
-extern NSString *const _Nonnull NSStringAddressInfoAmountKey;
+extern NSString *const _Nonnull CBWAddressInfoAddressKey;
+extern NSString *const _Nonnull CBWAddressInfoLabelKey;
+extern NSString *const _Nonnull CBWAddressInfoAmountKey;
 
 @interface NSString (CBWAddress)
 

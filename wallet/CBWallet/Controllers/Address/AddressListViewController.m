@@ -221,7 +221,12 @@
         [self.navigationController pushViewController:addressViewController animated:YES];
     }
 }
-
+-(void)p_alertInvalidAddress {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil) message:NSLocalizedStringFromTable(@"Alert Message invalid_address", @"CBW", nil) preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okay = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Okay", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
+    [alert addAction:okay];
+    [self presentViewController:alert animated:YES completion:nil];
+}
 #pragma mark - <UITableViewDataSource>
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.actionCells.count > 0 ? 2 : 1;
@@ -326,16 +331,18 @@
 
 - (void)scanViewController:(ScanViewController *)viewController didScanString:(NSString *)string {
     [self dismissViewControllerAnimated:YES completion:nil];
-    
+    // decode qr code string
     NSDictionary *addressInfo = [string addressInfo];
     if (!addressInfo) {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil) message:NSLocalizedStringFromTable(@"Alert Message invalid_address", @"CBW", nil) preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Okay", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
-        [alertController addAction:okAction];
-        [self presentViewController:alertController animated:YES completion:nil];
+        [self p_alertInvalidAddress];
         return;
     }
-    [self p_saveAddressString:[addressInfo objectForKey:NSStringAddressInfoAddressKey] withIdx:CBWRecordWatchedIdx label:[addressInfo objectForKey:NSStringAddressInfoLabelKey]];
+    // check address
+    if (![CBWAddress validateAddressString:[addressInfo objectForKey:CBWAddressInfoAddressKey]]) {
+        [self p_alertInvalidAddress];
+    }
+    // save
+    [self p_saveAddressString:[addressInfo objectForKey:CBWAddressInfoAddressKey] withIdx:CBWRecordWatchedIdx label:[addressInfo objectForKey:CBWAddressInfoLabelKey]];
 }
 
 @end

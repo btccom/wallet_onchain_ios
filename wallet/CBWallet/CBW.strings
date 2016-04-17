@@ -59,6 +59,8 @@
 "Label watched_account" = "Watched Account";
 "Label default_account" = "Default Account";
 
+"Tip scan_qrcode" = "Scan a QRCode please.";
+
 "%d confirmations" = "%d confirmations";
 "Unconfirmed" = "Unconfirmed";
 "Confirmed" = "Confirmed";

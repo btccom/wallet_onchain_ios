@@ -8,21 +8,21 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSInteger, FeeLevel) {
-    FeeLevelCustom = -1,
-    FeeLevelLow,
-    FeeLevelMedium,
-    FeeLevelHigh
+typedef NS_ENUM(NSInteger, CBWFeeLevel) {
+    CBWFeeLevelCustom = -1,
+    CBWFeeLevelLow,
+    CBWFeeLevelMedium,
+    CBWFeeLevelHigh
 };
 
-@interface Fee : NSObject
+@interface CBWFee : NSObject
 
-@property (nonatomic, assign, readonly) FeeLevel level;
+@property (nonatomic, assign, readonly) CBWFeeLevel level;
 /// long long value in satoshi
 @property (nonatomic, strong, readonly) NSNumber *value;
 
 + (instancetype)defaultFee;
-+ (instancetype)feeWithLevel:(FeeLevel)level;
++ (instancetype)feeWithLevel:(CBWFeeLevel)level;
 /// value in satoshi
 + (instancetype)feeWithValue:(NSNumber *)value;
 + (NSArray *)values;

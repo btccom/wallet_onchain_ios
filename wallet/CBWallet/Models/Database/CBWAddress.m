@@ -56,7 +56,7 @@
     return nil;
 }
 
-+ (BOOL)checkAddressString:(NSString *)addressString {
++ (BOOL)validateAddressString:(NSString *)addressString {
     if (![addressString isKindOfClass:[NSString class]]) {
         return NO;
     }

@@ -25,7 +25,7 @@
 		2C19FD0F1CB4A0DF009BC78C /* FormControlStaticArrowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C19FD0E1CB4A0DF009BC78C /* FormControlStaticArrowCell.m */; };
 		2C19FD131CB4AD58009BC78C /* SendFromAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C19FD121CB4AD58009BC78C /* SendFromAddressCell.m */; };
 		2C19FD161CB4F5EB009BC78C /* SendToAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C19FD151CB4F5EB009BC78C /* SendToAddressCell.m */; };
-		2C19FD191CB5E4A2009BC78C /* Fee.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C19FD181CB5E4A2009BC78C /* Fee.m */; };
+		2C19FD191CB5E4A2009BC78C /* CBWFee.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C19FD181CB5E4A2009BC78C /* CBWFee.m */; };
 		2C1E88F91CA3ADCB006F86E1 /* NSString+Password.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E88F81CA3ADCB006F86E1 /* NSString+Password.m */; };
 		2C1E8C4E1CA42A7D006F86E1 /* AESCrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E8C471CA42A7D006F86E1 /* AESCrypt.m */; };
 		2C1E8C4F1CA42A7D006F86E1 /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E8C491CA42A7D006F86E1 /* Base64.m */; };
@@ -99,7 +99,6 @@
 		2CEFC35C1CA4D65C00FECCA4 /* CBWTransactionStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEFC35B1CA4D65C00FECCA4 /* CBWTransactionStore.m */; };
 		2CEFC3601CA501B200FECCA4 /* Installation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEFC35F1CA501B200FECCA4 /* Installation.m */; };
 		2CEFC3661CA50EF900FECCA4 /* Schema in Resources */ = {isa = PBXBuildFile; fileRef = 2CEFC3651CA50EF900FECCA4 /* Schema */; };
-		2CF24D101C96367900C7EDB9 /* Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF24D0F1C96367900C7EDB9 /* Test.m */; };
 		2CF24D121C96377600C7EDB9 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CF24D111C96377600C7EDB9 /* AVFoundation.framework */; };
 		2CF24D581C965C7200C7EDB9 /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF24D4C1C965C7200C7EDB9 /* SSKeychain.m */; };
 		2CF24D591C965C7200C7EDB9 /* YYAnimatedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF24D4F1C965C7200C7EDB9 /* YYAnimatedImageView.m */; };
@@ -156,8 +155,8 @@
 		2C19FD121CB4AD58009BC78C /* SendFromAddressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendFromAddressCell.m; sourceTree = "<group>"; };
 		2C19FD141CB4F5EB009BC78C /* SendToAddressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendToAddressCell.h; sourceTree = "<group>"; };
 		2C19FD151CB4F5EB009BC78C /* SendToAddressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendToAddressCell.m; sourceTree = "<group>"; };
-		2C19FD171CB5E4A2009BC78C /* Fee.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Fee.h; sourceTree = "<group>"; };
-		2C19FD181CB5E4A2009BC78C /* Fee.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Fee.m; sourceTree = "<group>"; };
+		2C19FD171CB5E4A2009BC78C /* CBWFee.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBWFee.h; sourceTree = "<group>"; };
+		2C19FD181CB5E4A2009BC78C /* CBWFee.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBWFee.m; sourceTree = "<group>"; };
 		2C1E88F71CA3ADCB006F86E1 /* NSString+Password.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Password.h"; sourceTree = "<group>"; };
 		2C1E88F81CA3ADCB006F86E1 /* NSString+Password.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Password.m"; sourceTree = "<group>"; };
 		2C1E8C461CA42A7D006F86E1 /* AESCrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AESCrypt.h; sourceTree = "<group>"; };
@@ -304,8 +303,6 @@
 		2CEFC35E1CA501B200FECCA4 /* Installation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Installation.h; sourceTree = "<group>"; };
 		2CEFC35F1CA501B200FECCA4 /* Installation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Installation.m; sourceTree = "<group>"; };
 		2CEFC3651CA50EF900FECCA4 /* Schema */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Schema; path = CBWallet/Schema; sourceTree = SOURCE_ROOT; };
-		2CF24D0E1C96367900C7EDB9 /* Test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Test.h; sourceTree = "<group>"; };
-		2CF24D0F1C96367900C7EDB9 /* Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Test.m; sourceTree = "<group>"; };
 		2CF24D111C96377600C7EDB9 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		2CF24D4B1C965C7200C7EDB9 /* SSKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKeychain.h; sourceTree = "<group>"; };
 		2CF24D4C1C965C7200C7EDB9 /* SSKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKeychain.m; sourceTree = "<group>"; };
@@ -642,10 +639,8 @@
 				2C99A17B1CA0E434007D7AC3 /* Guard.m */,
 				2CEFC35E1CA501B200FECCA4 /* Installation.h */,
 				2CEFC35F1CA501B200FECCA4 /* Installation.m */,
-				2CF24D0E1C96367900C7EDB9 /* Test.h */,
-				2CF24D0F1C96367900C7EDB9 /* Test.m */,
-				2C19FD171CB5E4A2009BC78C /* Fee.h */,
-				2C19FD181CB5E4A2009BC78C /* Fee.m */,
+				2C19FD171CB5E4A2009BC78C /* CBWFee.h */,
+				2C19FD181CB5E4A2009BC78C /* CBWFee.m */,
 			);
 			path = System;
 			sourceTree = "<group>";
@@ -1017,7 +1012,7 @@
 				2CD0A9191CA02ACA006AF02F /* FMDatabaseAdditions.m in Sources */,
 				2C9829031CBA49C2004CB2D3 /* CBWBackup.m in Sources */,
 				2C9CAF561C868B61008194EB /* SettingsViewController.m in Sources */,
-				2C19FD191CB5E4A2009BC78C /* Fee.m in Sources */,
+				2C19FD191CB5E4A2009BC78C /* CBWFee.m in Sources */,
 				2C9CAF591C868B61008194EB /* TransactionListViewController.m in Sources */,
 				2CF24D5C1C965C7200C7EDB9 /* YYImageCoder.m in Sources */,
 				2C18E2111CAE64E00080EF1E /* CBWRequest+Errors.m in Sources */,
@@ -1069,7 +1064,6 @@
 				2C9CAF5F1C868B61008194EB /* UIViewController+Appearance.m in Sources */,
 				2C9CAF791C868B98008194EB /* AppDelegate.m in Sources */,
 				2C19FD161CB4F5EB009BC78C /* SendToAddressCell.m in Sources */,
-				2CF24D101C96367900C7EDB9 /* Test.m in Sources */,
 				2C9CAF621C868B61008194EB /* CBWRecipient.m in Sources */,
 				2CF24D621C97880500C7EDB9 /* PrimaryButton.m in Sources */,
 				2CD0A91A1CA02ACA006AF02F /* FMDatabasePool.m in Sources */,

@@ -13,7 +13,7 @@
 #import "DashboardViewController.h"
 #import "ProfileViewController.h"
 #import "AddressListViewController.h"// explorer or receive
-#import "ImagePickerController.h"// scan to explorer or send
+#import "ScanViewController.h"// scan to explorer or send
 #import "TransactionListViewController.h"// list all transactions
 #import "TransactionViewController.h" // transaction detail
 #import "SendViewController.h"// send
@@ -26,7 +26,7 @@
 
 #import "NSString+CBWAddress.h"
 
-@interface DashboardViewController ()<ProfileViewControllerDelegate, AddressListViewControllerDelegate>
+@interface DashboardViewController ()<ProfileViewControllerDelegate, AddressListViewControllerDelegate, ScanViewControllerDelegate>
 
 @property (nonatomic, strong) CBWAccountStore *accountStore;
 @property (nonatomic, strong) CBWTransactionStore *transactionStore;
@@ -63,8 +63,8 @@
     // Do any additional setup after loading the view, typically from a nib.
     self.title = NSLocalizedStringFromTable(@"Navigation dashboard", @"CBW", @"Dashboard");
     // set navigation buttons
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"navigation_drawer"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleProfile:)];
-    self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_address"] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleAddressList:)], [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"navigation_scan"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleScan:)]];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"navigation_wallet"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleProfile:)];
+    self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_list"] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleAddressList:)], [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"navigation_scan"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleScan:)]];
     
     [self p_registerNotifications];
     
@@ -204,6 +204,13 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reload) name:CBWNotificationWalletCreated object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reload) name:CBWNotificationWalletRecovered object:nil];
 }
+-(void)p_alertInvalidAddress {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil) message:NSLocalizedStringFromTable(@"Alert Message invalid_address", @"CBW", nil) preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okay = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Okay", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
+    [alert addAction:okay];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
 #pragma mark Navigation
 
 /// present profile
@@ -223,7 +230,8 @@
 
 /// present scan
 - (void)p_handleScan:(id)sender {
-    ImagePickerController *imagePickerViewController = [[ImagePickerController alloc] init];
+    ScanViewController *imagePickerViewController = [[ScanViewController alloc] init];
+    imagePickerViewController.delegate = self;
     [self presentViewController:imagePickerViewController animated:YES completion:nil];
 }
 
@@ -299,6 +307,40 @@
     NSLog(@"address list did update");
     [self.transactionStore flush];
     [self reloadTransactions];
+}
+
+#pragma mark - <ScanViewControllerDelegate>
+- (BOOL)scanViewControllerWillDismiss:(ScanViewController *)viewController {
+    [self dismissViewControllerAnimated:YES completion:nil];
+    return YES;
+}
+
+- (void)scanViewController:(ScanViewController *)viewController didScanString:(NSString *)string {
+    [self dismissViewControllerAnimated:YES completion:nil];
+    // decode qr code string
+    NSDictionary *addressInfo = [string addressInfo];
+    if (!addressInfo) {
+        [self p_alertInvalidAddress];
+        return;
+    }
+    // check address
+    NSString *addressString = [addressInfo objectForKey:CBWAddressInfoAddressKey];
+    if (![CBWAddress validateAddressString:addressString]) {
+        [self p_alertInvalidAddress];
+    }
+    // handle
+    if (self.account.idx == CBWRecordWatchedIdx) {
+        // create watched address
+        NSString *label = [addressInfo objectForKey:CBWAddressInfoLabelKey];
+        DLog(@"To create address: %@ labeled: %@", addressString, label);
+    } else {
+        // send to address
+        NSString *amountString = [addressInfo objectForKey:CBWAddressInfoAmountKey];
+        SendViewController *sendViewController = [[SendViewController alloc] initWithAccount:self.account];
+        sendViewController.quicklyToAddress = addressString;
+        sendViewController.quicklyToAmountInBTC = amountString;
+        [self.navigationController pushViewController:sendViewController animated:YES];
+    }
 }
 
 @end

@@ -19,7 +19,7 @@
 
 #import "CBWAccount.h"
 #import "CBWAddress.h"
-#import "Fee.h"
+#import "CBWFee.h"
 
 #import "NSString+CBWAddress.h"
 
@@ -71,7 +71,7 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
 @property (nonatomic, weak) FormControlInputActionCell *advancedToAmountCell;
 @property (nonatomic, weak) FormControlBlockButtonCell *advancedSendButtonCell;
 @property (nonatomic, strong) CBWAddress *advancedChangeAddress;// new address as default
-@property (nonatomic, strong) Fee *fee;// medium as default
+@property (nonatomic, strong) CBWFee *fee;// medium as default
 
 
 @end
@@ -96,7 +96,7 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
     self = [super init];
     if (self) {
         _account = account;
-        _fee = [Fee defaultFee];
+        _fee = [CBWFee defaultFee];
     }
     return self;
 }
@@ -106,8 +106,8 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
     [super viewDidLoad];
     
     self.title = NSLocalizedStringFromTable(@"Navigation send", @"CBW", @"Quickly Send");
-    
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedStringFromTable(@"Navigation advanced_send", @"CBW", @"Advanced Send") style:UIBarButtonItemStylePlain target:self action:@selector(p_handleSwitchMode:)];
+//    暂时关闭高级发款
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedStringFromTable(@"Navigation advanced_send", @"CBW", @"Advanced Send") style:UIBarButtonItemStylePlain target:self action:@selector(p_handleSwitchMode:)];
     
     _advancedSectionTitles = @[NSLocalizedStringFromTable(@"Send Section from", @"CBW", nil),
                                NSLocalizedStringFromTable(@"Send Section to", @"CBW", nil),
@@ -130,6 +130,8 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
         [alert addAction:okay];
         [self presentViewController:alert animated:YES completion:nil];
     }
+    
+    [self p_checkIfSendButtonEnabled];
     
     // quickly form
     [self.tableView registerClass:[FormControlInputActionCell class] forCellReuseIdentifier:kSendViewControllerCellQuicklyAddressIdentifier];
@@ -199,26 +201,36 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
 - (void)p_handleSend {
     NSLog(@"handle send");
     [self.view endEditing:YES];
-    // quickly
+    // TODO: quickly
     // check address
     NSString *addressString = self.quicklyAddressCell.textField.text;
-    if (![CBWAddress checkAddressString:addressString]) {
+    if (![CBWAddress validateAddressString:addressString]) {
         [self p_alertInvalidAddress];
         return;
     }
-    // advanced
+    
+    [self p_sendToAddress:self.quicklyToAddress withAmount:[@([self.quicklyToAmountInBTC doubleValue]) longLongValue]];
+    
+    // TODO: advanced
     // check from address balance
     // check to address
     // check change address
     // check fee
     // sign inputs
     // post
-    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)p_sendToAddress:(NSString *)address withAmount:(long long)amount {
+    
 }
 
 - (BOOL)p_editingChanged:(id)sender {
     BOOL valid = YES;
-    if ([sender isEqual:self.quicklyAddressCell.textField] || [sender isEqual:self.quicklyAmountCell.textField]) {
+    if ([sender isEqual:self.quicklyAddressCell.textField]) {
+        self.quicklyToAddress = [self.quicklyAddressCell.textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        valid = [self p_checkIfSendButtonEnabled];
+    } else if ([sender isEqual:self.quicklyAmountCell.textField]) {
+        self.quicklyToAmountInBTC = [self.quicklyAmountCell.textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         valid = [self p_checkIfSendButtonEnabled];
     } else if ([sender isEqual:self.advancedToAddressCell.textField] || [sender isEqual:self.advancedToAmountCell.textField]) {
         NSString *address = [self.advancedToAddressCell.textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -268,7 +280,7 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
     NSString *addressString = self.advancedToAddressCell.textField.text;
     
     // check address
-    if (![CBWAddress checkAddressString:addressString]) {
+    if (![CBWAddress validateAddressString:addressString]) {
         [self p_alertInvalidAddress];
         return;
     }
@@ -325,9 +337,9 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
 - (void)p_handleAdvancedSelectFee {
     DLog(@"to select fee");
     UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Send Section fee", @"CBW", nil) message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    NSUInteger count = Fee.values.count;
+    NSUInteger count = CBWFee.values.count;
     for (NSUInteger i = 0; i < count; i ++) {
-        Fee *fee = [Fee feeWithLevel:i];
+        CBWFee *fee = [CBWFee feeWithLevel:i];
         UIAlertAction *feeAction = [UIAlertAction actionWithTitle:[NSString stringWithFormat:@"%@ (%@)", [fee.value satoshiBTCString], fee.description] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             self.fee = fee;
             [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:kSendViewControllerAdvancedSectionFee] withRowAnimation:UITableViewRowAnimationFade];
@@ -335,7 +347,7 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
         [actionSheet addAction:feeAction];
     }
     
-    NSString *customFeeString = [NSString stringWithFormat:@"Description Fee %ld", (long)FeeLevelCustom];
+    NSString *customFeeString = [NSString stringWithFormat:@"Description Fee %ld", (long)CBWFeeLevelCustom];
     UIAlertAction *customFeeAction = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(customFeeString, @"CBW", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self p_handleAdvancedCustomFee];
     }];
@@ -348,7 +360,7 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
 }
 
 - (void)p_handleAdvancedCustomFee {
-    NSString *customFeeString = [NSString stringWithFormat:@"Description Fee %ld", (long)FeeLevelCustom];
+    NSString *customFeeString = [NSString stringWithFormat:@"Description Fee %ld", (long)CBWFeeLevelCustom];
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(customFeeString, @"CBW", nil) message:nil preferredStyle:UIAlertControllerStyleAlert];
     [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.keyboardType = UIKeyboardTypeDecimalPad;
@@ -358,7 +370,7 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
         NSString *valueString = textField.text;
         DLog(@"custom value string: %@", valueString);
         long long value = valueString.doubleValue * 100000000;
-        Fee *fee = [Fee feeWithValue:@(value)];
+        CBWFee *fee = [CBWFee feeWithValue:@(value)];
         self.fee = fee;
         [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:kSendViewControllerAdvancedSectionFee] withRowAnimation:UITableViewRowAnimationFade];
     }];
@@ -459,6 +471,7 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
                             FormControlInputActionCell *quicklyAddressCell = [tableView dequeueReusableCellWithIdentifier:kSendViewControllerCellQuicklyAddressIdentifier];
                             quicklyAddressCell.imageView.image = [UIImage imageNamed:@"icon_label_mini"];
                             quicklyAddressCell.textField.placeholder = NSLocalizedStringFromTable(@"Placeholder bitcoin_address", @"CBW", nil);
+                            quicklyAddressCell.textField.text = self.quicklyToAddress;
                             [quicklyAddressCell.textField addTarget:self action:@selector(p_editingChanged:) forControlEvents:UIControlEventEditingChanged];
                             quicklyAddressCell.textField.delegate = self;
                             quicklyAddressCell.textField.returnKeyType = UIReturnKeyNext;
@@ -474,6 +487,7 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
                             FormControlInputCell *quicklyAmountCell = [tableView dequeueReusableCellWithIdentifier:kSendViewControllerCellQuicklyAmountIdentifier];
                             quicklyAmountCell.imageView.image = [UIImage imageNamed:@"icon_coin_mini"];
                             quicklyAmountCell.textField.placeholder = NSLocalizedStringFromTable(@"Placeholder amount", @"CBW", @"Value or Amount?");
+                            quicklyAmountCell.textField.text = self.quicklyToAmountInBTC;
                             [quicklyAmountCell.textField addTarget:self action:@selector(p_editingChanged:) forControlEvents:UIControlEventEditingChanged];
                             quicklyAmountCell.textField.delegate = self;
 //                            quicklyValueCell.textField.returnKeyType = UIReturnKeyDone;
@@ -701,8 +715,8 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
         return;
     }
     DLog(@"send scan address info: %@", addressInfo);
-    NSString *address = [addressInfo objectForKey:NSStringAddressInfoAddressKey];
-    NSString *amount = [addressInfo objectForKey:NSStringAddressInfoAmountKey];
+    NSString *address = [addressInfo objectForKey:CBWAddressInfoAddressKey];
+    NSString *amount = [addressInfo objectForKey:CBWAddressInfoAmountKey];
     
     switch (self.mode) {
         case SendViewControllerModeQuickly: {

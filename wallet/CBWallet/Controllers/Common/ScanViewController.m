@@ -42,7 +42,7 @@
     tipLabel.font = [UIFont systemFontOfSize:UIFont.labelFontSize];
     tipLabel.textColor = [UIColor CBWMutedTextColor];
     tipLabel.textAlignment = NSTextAlignmentCenter;
-    tipLabel.text = NSLocalizedStringFromTable(@"Tip scan_qr", @"CBW", nil);
+    tipLabel.text = NSLocalizedStringFromTable(@"Tip scan_qrcode", @"CBW", nil);
     [self.view insertSubview:tipLabel aboveSubview:cameraView];
 }
 

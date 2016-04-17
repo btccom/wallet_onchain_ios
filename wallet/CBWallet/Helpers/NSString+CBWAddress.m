@@ -10,9 +10,9 @@
 //#import <CoreImage/CoreImage.h>
 //#import <AVFoundation/AVFoundation.h>
 
-NSString *const NSStringAddressInfoAddressKey = @"address";
-NSString *const NSStringAddressInfoLabelKey = @"label";
-NSString *const NSStringAddressInfoAmountKey = @"amount";
+NSString *const CBWAddressInfoAddressKey = @"address";
+NSString *const CBWAddressInfoLabelKey = @"label";
+NSString *const CBWAddressInfoAmountKey = @"amount";
 
 @implementation NSString (CBWAddress)
 
@@ -96,15 +96,15 @@ NSString *const NSStringAddressInfoAmountKey = @"amount";
     [queries enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         NSArray *kvPair = [obj componentsSeparatedByString:@"="];
         if (kvPair.count > 1) {
-            if ([kvPair[0] isEqualToString:NSStringAddressInfoLabelKey]) {
+            if ([kvPair[0] isEqualToString:CBWAddressInfoLabelKey]) {
                 label = kvPair[1];//[kvPair[1] stringByRemovingPercentEncoding];
-            } else if ([kvPair[0] isEqualToString:NSStringAddressInfoAmountKey]) {
+            } else if ([kvPair[0] isEqualToString:CBWAddressInfoAmountKey]) {
                 amount = kvPair[1];
             }
         }
     }];
     
-    return @{NSStringAddressInfoAddressKey: addressString, NSStringAddressInfoLabelKey: label, NSStringAddressInfoAmountKey: amount};
+    return @{CBWAddressInfoAddressKey: addressString, CBWAddressInfoLabelKey: label, CBWAddressInfoAmountKey: amount};
 }
 
 @end

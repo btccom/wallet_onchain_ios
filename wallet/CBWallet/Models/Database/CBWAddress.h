@@ -37,7 +37,7 @@
 /// generate address with m/account idx/address idx
 + (nullable NSString *)addressStringWithIdx:(NSUInteger)idx acountIdx:(NSUInteger)accoundIdx;
 
-+ (BOOL)checkAddressString:(nullable NSString *)addressString;
++ (BOOL)validateAddressString:(nullable NSString *)addressString;
 
 /// 仅 watched address 支持删除方法
 - (void)deleteWatchedAddressFromStore:(nonnull CBWRecordObjectStore *)store;

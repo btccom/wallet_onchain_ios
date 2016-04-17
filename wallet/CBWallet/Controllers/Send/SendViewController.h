@@ -21,6 +21,9 @@ typedef NS_ENUM(NSInteger, SendViewControllerMode) {
 @property (nonatomic, assign) SendViewControllerMode mode;
 @property (nonatomic, strong) CBWAccount *account;
 
+@property (nonatomic, copy) NSString *quicklyToAddress;
+@property (nonatomic, copy) NSString *quicklyToAmountInBTC;
+
 - (instancetype)initWithAccount:(CBWAccount *)account;
 
 @end
