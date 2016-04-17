@@ -18,5 +18,6 @@
 - (void)addressTransactionsWithAddressString:(nonnull NSString *)addressString page:(NSUInteger)page pagesize:(NSUInteger)pagesize completion:(nullable CBWRequestCompletion)completion;
 - (void)addressTransactionsWithAddressStrings:(nonnull NSArray *)addressStrings completion:(nullable CBWRequestCompletion)completion;
 /// 获取地址未花费列表
+/// 如果一个地址的未花费交易很多，会触发轮询
 - (void)addressUnspentWithAddressString:(nonnull NSString *)addressString completion:(nullable CBWRequestCompletion)completion;
 @end

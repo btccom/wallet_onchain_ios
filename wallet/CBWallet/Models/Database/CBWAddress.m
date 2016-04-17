@@ -15,6 +15,33 @@
 #import "AESCrypt.h"
 
 @implementation CBWAddress
+@synthesize privateKey = _privateKey;
+
+- (BTCKey *)privateKey {
+    if (self.accountIdx < 0) {
+        // not work for watched account
+        return nil;
+    }
+    
+    if ([Guard globalGuard].code.length > 0) {
+        // checked in
+        if (!_privateKey) {
+            NSString *encryptedSeed = [SSKeychain passwordForService:CBWKeyChainSeedService account:CBWKeyChainAccountDefault];
+            NSString *seed = [AESCrypt decrypt:encryptedSeed password:[Guard globalGuard].code];
+            
+            if (seed) {
+                NSData *btcSeedData = BTCDataWithUTF8CString(seed.UTF8String);
+                BTCKeychain *masterChain = [[BTCKeychain alloc] initWithSeed:btcSeedData];
+                NSString *path = [NSString stringWithFormat:@"%lu/0/%lu", (unsigned long)self.accountIdx, (unsigned long)self.idx];
+                _privateKey = [masterChain derivedKeychainWithPath:path].key;
+            }
+        }
+        
+        return _privateKey;
+    }
+    
+    return nil;
+}
 
 + (instancetype)newAdress:(NSString *)aAddress withLabel:(NSString *)label idx:(NSInteger)idx archived:(BOOL)archived dirty:(BOOL)dirty internal:(BOOL)internal accountRid:(long long)accountRid accountIdx:(NSInteger)accountIdx inStore:(nonnull CBWAddressStore *)store {
     CBWAddress *address = [CBWAddress newRecordInStore:store];

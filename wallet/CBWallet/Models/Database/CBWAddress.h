@@ -8,14 +8,14 @@
 
 #import "CBWRecordObject.h"
 
-@class CBWAddressStore;
+@class CBWAddressStore, BTCKey;
 
 @interface CBWAddress : CBWRecordObject
 
 /// idx < 0 means watched address
 @property (nonatomic, assign) NSInteger idx;
-@property (nonatomic, copy) NSString * _Nonnull address;
-@property (nonatomic, copy) NSString * _Nullable label;
+@property (nonatomic, copy, nonnull) NSString *address;
+@property (nonatomic, copy, nullable) NSString *label;
 @property (nonatomic, assign, getter=isArchived) BOOL archived;
 /// 是否已经使用过
 @property (nonatomic, assign, getter=isDirty) BOOL dirty;
@@ -27,6 +27,9 @@
 
 @property (nonatomic, assign) long long accountRid;
 @property (nonatomic, assign) NSInteger accountIdx;
+
+/// only for account idx > 0
+@property (nonatomic, strong, readonly, nullable) BTCKey *privateKey;
 
 /// create or import
 + (nonnull instancetype)newAdress:(nonnull NSString *)aAddress withLabel:(nullable NSString *)label idx:(NSInteger)idx archived:(BOOL)archived dirty:(BOOL)dirty internal:(BOOL)internal accountRid:(long long)accountRid accountIdx:(NSInteger)accountIdx inStore:(nonnull CBWAddressStore *)store;

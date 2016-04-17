@@ -18,8 +18,12 @@
 #import "FormControlInputActionCell.h"
 
 #import "CBWAccount.h"
-#import "CBWAddress.h"
+#import "CBWAddressStore.h"
 #import "CBWFee.h"
+
+#import <CoreBitcoin/CoreBitcoin.h>
+
+#import "CBWRequest.h"
 
 #import "NSString+CBWAddress.h"
 
@@ -209,7 +213,7 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
         return;
     }
     
-    [self p_sendToAddress:self.quicklyToAddress withAmount:[@([self.quicklyToAmountInBTC doubleValue]) longLongValue]];
+    [self p_sendToAddressString:self.quicklyToAddress withAmount:[@([self.quicklyToAmountInBTC doubleValue]) longLongValue]];
     
     // TODO: advanced
     // check from address balance
@@ -220,8 +224,150 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
     // post
 }
 
-- (void)p_sendToAddress:(NSString *)address withAmount:(long long)amount {
+- (void)p_sendToAddressString:(NSString *)addressString withAmount:(long long)amount {
     
+    // 1. Get a private key, destination address, change address and amount
+    // 用当前账户的第一个地址测试，应该轮询余额大于零的全部地址
+    CBWAddressStore *store = [[CBWAddressStore alloc] initWithAccountIdx:self.account.idx];
+    [store fetch];
+    CBWAddress *address = [store recordAtIndex:0];
+    BTCKey *key = address.privateKey;
+    CBWAddress *newAddress = [store recordAtIndex:(store.count - 1)];//
+    BTCPublicKeyAddress *changeAddress = newAddress.privateKey.compressedPublicKeyAddress;
+    DLog(@"got key for address: %@", key.compressedPublicKeyAddress);
+    
+    // 2. Get unspent outputs for that key (using both compressed and non-compressed pubkey)
+    CBWRequest *request = [[CBWRequest alloc] init];
+    [request addressUnspentWithAddressString:address.address completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
+        DLog(@"unspent response: %@", response);
+
+        NSArray *list = [response objectForKey:CBWRequestResponseDataListKey];
+        if (list.count == 0) {
+            return;
+        }
+        
+        
+        __block NSMutableArray *utxos = [[NSMutableArray alloc] init];
+        [list enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            BTCTransactionOutput *txout = [[BTCTransactionOutput alloc] init];
+            
+            txout.value = [obj[@"value"] longLongValue];
+//            txout.script = [[BTCScript alloc] initWithString:obj[@"script"]];
+            txout.index = [obj[@"tx_output_n"] intValue];
+            txout.transactionHash = (BTCReversedData(BTCDataFromHex(obj[@"tx_hash"])));
+            txout.confirmations = [obj[@"confirmations"] unsignedIntegerValue];
+            [utxos addObject:txout];
+        }];
+        
+        DLog(@"UTXOs for %@: %@ %@", key.compressedPublicKeyAddress, utxos, error);
+        
+        if (!utxos) {
+            return;
+        }
+        
+        // 3. Take the smallest available outputs to combine into the inputs of new transaction
+        CBWFee *fee = [CBWFee defaultFee];
+        BTCAmount totalAmount = amount + [fee.value longLongValue];
+        BTCAmount dustThreshold = 100000;
+        
+        utxos = [[utxos sortedArrayUsingComparator:^(BTCTransactionOutput* obj1, BTCTransactionOutput* obj2) {
+            if ((obj1.value - obj2.value) < 0) return NSOrderedAscending;
+            else return NSOrderedDescending;
+        }] mutableCopy];
+        DLog(@"sorted UTXOs: %@", utxos);
+        
+        NSArray *txouts = nil;
+        
+        for (BTCTransactionOutput *txout in utxos) {
+            if (txout.value > (totalAmount + dustThreshold) && txout.script.isPayToPublicKeyHashScript) {
+                txouts = @[ txout ];
+                break;// only one out
+            }
+        }
+        
+        if (!txouts) return;
+        
+        // 4. Prepare the scripts with proper signatures for the inputs
+        
+        // Create a new transaction
+        BTCTransaction *tx = [[BTCTransaction alloc] init];
+        
+        BTCAmount spentCoins = 0;
+        
+        // Add all outputs as inputs
+        for (BTCTransactionOutput *txout in txouts) {
+            BTCTransactionInput *txin = [[BTCTransactionInput alloc] init];
+            txin.previousHash = txout.transactionHash;
+            txin.previousIndex = txout.index;
+            [tx addInput:txin];
+            
+            DLog(@"txhash: http://blockchain.info/rawtx/%@", BTCHexFromData(txout.transactionHash));
+            DLog(@"txhash: http://blockchain.info/rawtx/%@ (reversed)", BTCHexFromData(BTCReversedData(txout.transactionHash)));
+            
+            spentCoins += txout.value;
+        }
+        
+        NSLog(@"Total satoshis to spend:       %lld", spentCoins);
+        NSLog(@"Total satoshis to destination: %lld", amount);
+        NSLog(@"Total satoshis to fee:         %lld", [fee.value longLongValue]);
+        NSLog(@"Total satoshis to change:      %lld", (spentCoins - (amount + [fee.value longLongValue])));
+        
+        // Add required outputs - payment and change
+        BTCTransactionOutput *paymentOutput = [[BTCTransactionOutput alloc] initWithValue:amount address:[BTCPublicKeyAddress addressWithString:addressString]];
+        BTCTransactionOutput *changeOutput = [[BTCTransactionOutput alloc] initWithValue:(spentCoins - totalAmount) address:changeAddress];
+        
+        // Idea: deterministically-randomly choose which output goes first to improve privacy.
+        [tx addOutput:paymentOutput];
+        [tx addOutput:changeOutput];
+        
+        
+        // Sign all inputs.
+        for (int i = 0; i < txouts.count; i++) {
+            
+            BTCTransactionOutput* txout = txouts[i]; // output from a previous tx which is referenced by this txin.
+            BTCTransactionInput* txin = tx.inputs[i];
+            
+            BTCScript* sigScript = [[BTCScript alloc] init];
+            
+            NSData* d1 = tx.data;
+            
+            BTCSignatureHashType hashtype = BTCSignatureHashTypeAll;
+            
+            NSData *hash = [tx signatureHashForScript:txout.script inputIndex:i hashType:hashtype error:nil];
+            
+            NSData *d2 = tx.data;
+            
+            NSAssert([d1 isEqual:d2], @"Transaction must not change within signatureHashForScript!");
+            
+            DLog(@"Hash for input %d: %@", i, BTCHexFromData(hash));
+            if (!hash) {
+                return;
+            }
+            
+            NSData* signatureForScript = [key signatureForHash:hash hashType:hashtype];
+            [sigScript appendData:signatureForScript];
+            [sigScript appendData:key.publicKey];
+            
+            NSData* sig = [signatureForScript subdataWithRange:NSMakeRange(0, signatureForScript.length - 1)]; // trim hashtype byte to check the signature.
+            NSAssert([key isValidSignature:sig hash:hash], @"Signature must be valid");
+            
+            txin.signatureScript = sigScript;
+        }
+        
+        // Validate the signatures before returning for extra measure.
+        
+        {
+            BTCScriptMachine* sm = [[BTCScriptMachine alloc] initWithTransaction:tx inputIndex:0];
+            NSError* error = nil;
+            BOOL r = [sm verifyWithOutputScript:[[(BTCTransactionOutput*)txouts[0] script] copy] error:&error];
+            NSLog(@"Error: %@", error);
+            NSAssert(r, @"should verify first output");
+        }
+        
+        // 5. Broadcast the transaction
+        
+        
+    }];
 }
 
 - (BOOL)p_editingChanged:(id)sender {
@@ -721,13 +867,17 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
     switch (self.mode) {
         case SendViewControllerModeQuickly: {
             self.quicklyAddressCell.textField.text = address;
-            self.quicklyAmountCell.textField.text = amount;
+            if (amount.doubleValue > 0) {
+                self.quicklyAmountCell.textField.text = amount;
+            }
             [self p_checkIfSendButtonEnabled];
             break;
         }
         case SendViewControllerModeAdvanced: {
             self.advancedToAddressCell.textField.text = address;
-            self.advancedToAmountCell.textField.text = amount;
+            if (amount.doubleValue > 0) {
+                self.advancedToAmountCell.textField.text = amount;
+            }
             [self p_editingChanged:self.advancedToAmountCell.textField];
             break;
         }

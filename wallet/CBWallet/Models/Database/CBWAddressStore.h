@@ -16,6 +16,7 @@
 
 - (nonnull instancetype)initWithAccountIdx:(NSInteger)accountIdx;
 
+/// 包含已存档地址
 - (NSUInteger)countAllAddresses;
 
 - (nonnull NSArray *)allAddressStrings;
