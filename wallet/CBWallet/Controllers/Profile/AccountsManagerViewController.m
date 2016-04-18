@@ -97,6 +97,8 @@
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Alert Title change_account_label", @"CBW", nil) message:NSLocalizedStringFromTable(@"Alert Message change_account_label", @"CBW", nil) preferredStyle:UIAlertControllerStyleAlert];
     [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.placeholder = NSLocalizedStringFromTable(@"Placeholder account_label", @"CBW", nil);
+        textField.text = account.label;
+        textField.clearButtonMode = UITextFieldViewModeWhileEditing;
     }];
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Cancel", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
     [alert addAction:cancel];
