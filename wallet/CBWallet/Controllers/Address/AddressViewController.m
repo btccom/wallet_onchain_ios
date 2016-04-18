@@ -69,9 +69,10 @@
             }
             UIImage *archiveItemImage = [UIImage imageNamed:archiveItemImageName];
             UIBarButtonItem *archiveItem = [[UIBarButtonItem alloc] initWithImage:archiveItemImage style:UIBarButtonItemStylePlain target:self action:@selector(p_handleArchive:)];
-            UIBarButtonItem *shareItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_share"] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleShare:)];
-            self.navigationItem.rightBarButtonItems = @[archiveItem,
-                                                        shareItem];
+//            UIBarButtonItem *shareItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_share"] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleShare:)];
+            self.navigationItem.rightBarButtonItems = @[archiveItem
+                                                        //,shareItem];
+                                                        ];
             addressHeaderView.labelEditable = YES;
             [self.transactionStore fetch];
             [self.tableView reloadData];
