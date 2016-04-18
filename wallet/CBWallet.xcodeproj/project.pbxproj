@@ -94,6 +94,7 @@
 		2CD0A91C1CA02ACA006AF02F /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD0A9171CA02ACA006AF02F /* FMResultSet.m */; };
 		2CD0A91F1CA02B45006AF02F /* CBWDatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD0A91E1CA02B45006AF02F /* CBWDatabaseManager.m */; };
 		2CD0A9221CA02CF5006AF02F /* CBWDatabaseManager+Account.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD0A9211CA02CF5006AF02F /* CBWDatabaseManager+Account.m */; };
+		2CDCB16F1CC47A8E00722BCF /* AccountsManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDCB16E1CC47A8E00722BCF /* AccountsManagerViewController.m */; };
 		2CEFC3531CA4CBAC00FECCA4 /* CBWRecordObjectStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEFC3521CA4CBAC00FECCA4 /* CBWRecordObjectStore.m */; };
 		2CEFC3561CA4CBD600FECCA4 /* CBWAccountStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEFC3551CA4CBD600FECCA4 /* CBWAccountStore.m */; };
 		2CEFC3591CA4D25000FECCA4 /* CBWAddressStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEFC3581CA4D25000FECCA4 /* CBWAddressStore.m */; };
@@ -294,6 +295,8 @@
 		2CD0A91E1CA02B45006AF02F /* CBWDatabaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBWDatabaseManager.m; sourceTree = "<group>"; };
 		2CD0A9201CA02CF5006AF02F /* CBWDatabaseManager+Account.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBWDatabaseManager+Account.h"; sourceTree = "<group>"; };
 		2CD0A9211CA02CF5006AF02F /* CBWDatabaseManager+Account.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBWDatabaseManager+Account.m"; sourceTree = "<group>"; };
+		2CDCB16D1CC47A8E00722BCF /* AccountsManagerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountsManagerViewController.h; sourceTree = "<group>"; };
+		2CDCB16E1CC47A8E00722BCF /* AccountsManagerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountsManagerViewController.m; sourceTree = "<group>"; };
 		2CEFC3511CA4CBAC00FECCA4 /* CBWRecordObjectStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBWRecordObjectStore.h; sourceTree = "<group>"; };
 		2CEFC3521CA4CBAC00FECCA4 /* CBWRecordObjectStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBWRecordObjectStore.m; sourceTree = "<group>"; };
 		2CEFC3541CA4CBD600FECCA4 /* CBWAccountStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBWAccountStore.h; sourceTree = "<group>"; };
@@ -532,6 +535,8 @@
 			children = (
 				2C9CAF031C868B61008194EB /* ProfileViewController.h */,
 				2C9CAF041C868B61008194EB /* ProfileViewController.m */,
+				2CDCB16D1CC47A8E00722BCF /* AccountsManagerViewController.h */,
+				2CDCB16E1CC47A8E00722BCF /* AccountsManagerViewController.m */,
 				2C9CAF051C868B61008194EB /* SettingsViewController.h */,
 				2C9CAF061C868B61008194EB /* SettingsViewController.m */,
 				2CA16DAA1CC451A5004E68ED /* PasswordViewController.h */,
@@ -1084,6 +1089,7 @@
 				2C9CAF681C868B61008194EB /* AddressHeaderView.m in Sources */,
 				2CEFC3561CA4CBD600FECCA4 /* CBWAccountStore.m in Sources */,
 				2CF24D781C97A53200C7EDB9 /* AFURLResponseSerialization.m in Sources */,
+				2CDCB16F1CC47A8E00722BCF /* AccountsManagerViewController.m in Sources */,
 				2C9829061CBA49CC004CB2D3 /* CBWRecovery.m in Sources */,
 				2C99A17C1CA0E434007D7AC3 /* Guard.m in Sources */,
 				2CD0A9181CA02ACA006AF02F /* FMDatabase.m in Sources */,

@@ -8,6 +8,7 @@
 
 #import "ProfileViewController.h"
 #import "TransactionListViewController.h"
+#import "AccountsManagerViewController.h"
 #import "SettingsViewController.h"
 #import "PasswordViewController.h"
 
@@ -59,6 +60,7 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
     self.title = NSLocalizedStringFromTable(@"Navigation profile", @"CBW", @"Profile");
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_close"] style:UIBarButtonItemStylePlain target:self action:@selector(dismiss:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedStringFromTable(@"Navigation manage_accounts", @"CBW", nil) style:UIBarButtonItemStylePlain target:self action:@selector(p_handleManageAccounts:)];
     
     _tableStrings = @[@{NSLocalizedStringFromTable(@"Profile Section accounts", @"CBW", @"Accounts"): @[]},
 //                      @[NSLocalizedStringFromTable(@"Profile Cell all_transactions", @"CBW", @"All Transactions")],
@@ -71,6 +73,13 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
                                 ]
                         }
                       ];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    // account store could be updated
+    [self.tableView reloadData];
 }
 
 #pragma mark - Private Method
@@ -91,6 +100,11 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
             
         }
     }];
+}
+#pragma mark Handlers
+- (void)p_handleManageAccounts:(id)sender {
+    AccountsManagerViewController *managerViewController = [[AccountsManagerViewController alloc] initWithAccountStore:self.accountStore];
+    [self.navigationController pushViewController:managerViewController animated:YES];
 }
 - (void)p_handleToggleiCloudEnabled:(id)sender {
     DLog(@"toggle icloud");

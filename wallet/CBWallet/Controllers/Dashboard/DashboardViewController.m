@@ -106,6 +106,7 @@
         return;
     }
     
+    self.title = self.account.label;
     self.transactionStore.account = self.account;
     
     if (self.requesting) {

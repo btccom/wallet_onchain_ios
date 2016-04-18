@@ -24,6 +24,7 @@
 "Navigation address" = "Address";
 "Navigation select_address" = "Select Address";
 "Navigation settings" = "Settings";
+"Navigation manage_accounts" = "Manage Accounts";
 
 "Button create_wallet" = "Create Wallet";
 "Button recover_wallet" = "Recover Wallet";
@@ -46,6 +47,7 @@
 "Placeholder current_password" = "Current Password";
 "Placeholder new_password" = "New Password";
 "Placeholder confirm_password" = "Confirm Password";
+"Placeholder account_label" = "Account Label";
 
 "Description Fee -1" = "Custom";
 "Description Fee 0" = "Low";
@@ -62,6 +64,11 @@
 "Alert Message need_current_password" = "Please enter your current password.";
 "Alert Message need_new_password" = "Please enter your new password.";
 "Alert Message new_password_not_match" = "Please confirm your new password.";
+"Alert Title new_account" = "New Account";
+"Alert Message new_account" = "Please enter a label to specify the account.";
+"Alert Message need_account_label" = "Label is empty.";
+"Alert Title change_account_label" = "Change Account Label";
+"Alert Message change_account_label" = "";
 
 "Label watched_account" = "Watched Account";
 "Label default_account" = "Default Account";

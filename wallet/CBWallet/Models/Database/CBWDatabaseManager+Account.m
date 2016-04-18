@@ -102,15 +102,15 @@
                          DatabaseManagerColModificationDate,
                          DatabaseManagerColIdx,
                          DatabaseManagerColLabel,
-                         DatabaseManagerColRid,
-                         DatabaseManagerColCustomDefaultEnabled];
+                         DatabaseManagerColCustomDefaultEnabled,
+                         DatabaseManagerColRid];
         updated = [db executeUpdate:sql,
                    account.creationDate,
                    account.modificationDate,
                    @(account.idx),
                    account.label,
-                   @(account.rid),
-                   @(account.isCustomDefaultEnabled)];
+                   @(account.isCustomDefaultEnabled),
+                   @(account.rid)];
         
         [db close];
     }
