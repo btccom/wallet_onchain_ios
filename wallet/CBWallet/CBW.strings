@@ -20,7 +20,7 @@
 "Navigation transaction" = "Transaction";
 "Navigation receive" = "Receive";
 "Navigation address_list" = "Address List";
-"Navigation archived_address_list" = "Archived Address List";
+"Navigation archived_address_list" = "Archived";
 "Navigation address" = "Address";
 "Navigation select_address" = "Select Address";
 "Navigation settings" = "Settings";
@@ -58,7 +58,7 @@
 "Alert Action save_address" = "Save";
 "Alert Action scan_qr_code" = "Scan QR Code";
 "Alert Message need_icloud_account_signed_in" = "Please sign in iCloud and enable it for me.";
-"Alert Message saved_to_photo_library" = "The backup data has been export as image to photo library.";
+"Alert Message saved_to_photo_library" = "The backup data has been exported as an image to photo library.";
 "Alert Message need_current_password" = "Please enter your current password.";
 "Alert Message need_new_password" = "Please enter your new password.";
 "Alert Message new_password_not_match" = "Please confirm your new password.";
