@@ -60,7 +60,9 @@ NSString *const BaseTableViewCellBlockButtonIdentifier = @"cell.button.block";
     return CBWCellHeightDefault;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    return [tableView dequeueReusableHeaderFooterViewWithIdentifier:BaseTableViewSectionHeaderIdentifier];
+    DefaultSectionHeaderView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:BaseTableViewSectionHeaderIdentifier];
+    headerView.topHairlineHidden = YES;
+    return headerView;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if ([self tableView:tableView titleForHeaderInSection:section].length > 0) {

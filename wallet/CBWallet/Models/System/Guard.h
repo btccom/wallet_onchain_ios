@@ -20,4 +20,7 @@
 //- (void)checkInWithCode:(NSString *)code completion:(void(^)(BOOL success))completion;
 - (void)checkOut;
 
+/// change password
+- (BOOL)changeCode:(NSString *)code toNewCode:(NSString *)aNewCode;
+
 @end

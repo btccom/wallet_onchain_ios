@@ -648,7 +648,7 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
                 case kSendViewControllerQuicklySectionButton: {
                     // quickly button
                     FormControlBlockButtonCell *buttonCell = [tableView dequeueReusableCellWithIdentifier:BaseTableViewCellBlockButtonIdentifier];
-                    buttonCell.textLabel.text = NSLocalizedStringFromTable(@"Button send", @"CBW", nil);;
+                    buttonCell.textLabel.text = NSLocalizedStringFromTable(@"Button send", @"CBW", nil);
                     self.quicklySendButtonCell = buttonCell;
                     [self p_checkIfSendButtonEnabled];
                     cell = buttonCell;
@@ -781,11 +781,6 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
         }
     }
     return [super tableView:tableView heightForRowAtIndexPath:indexPath];
-}
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    DefaultSectionHeaderView *headerView = (DefaultSectionHeaderView *)[super tableView:tableView viewForHeaderInSection:section];
-    headerView.topHairlineHidden = YES;
-    return headerView;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (self.mode) {

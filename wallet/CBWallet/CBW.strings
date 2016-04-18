@@ -34,6 +34,7 @@
 "Button send" = "Send";
 "Button receive" = "Receive";
 "Button complete" = "Complete";
+"Button save" = "Save";
 
 "Placeholder master_password" = "Master Password";
 "Placeholder confirm_master_password" = "Confirm Master Password";
@@ -42,6 +43,9 @@
 "Placeholder new_address" = "New Address";
 "Placeholder amount" = "Amount";
 "Placeholder add_label_for_address" = "Add A Label";
+"Placeholder current_password" = "Current Password";
+"Placeholder new_password" = "New Password";
+"Placeholder confirm_password" = "Confirm Password";
 
 "Description Fee -1" = "Custom";
 "Description Fee 0" = "Low";
@@ -55,6 +59,9 @@
 "Alert Action scan_qr_code" = "Scan QR Code";
 "Alert Message need_icloud_account_signed_in" = "Please sign in iCloud and enable it for me.";
 "Alert Message saved_to_photo_library" = "The backup data has been export as image to photo library.";
+"Alert Message need_current_password" = "Please enter your current password.";
+"Alert Message need_new_password" = "Please enter your new password.";
+"Alert Message new_password_not_match" = "Please confirm your new password.";
 
 "Label watched_account" = "Watched Account";
 "Label default_account" = "Default Account";
@@ -77,6 +84,7 @@
 "Profile Section backup" = "Backup";
 "Profile Cell export" = "Export";
 "Profile Cell iCloud" = "iCloud";
+"Profile Cell change_password" = "Change Password";
 
 // Address List
 "Address Section receive_address" = "Address";
