@@ -2,7 +2,7 @@
 //  ArchivedAdressListViewController.m
 //  wallet
 //
-//  Created by Zin on 16/2/25.
+//  Created by Zin (noteon.com) on 16/2/25.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
@@ -86,16 +86,40 @@
     return cell;
 }
 
-#pragma mark UITableViewDelgate
+#pragma mark <UITableViewDelgate>
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.actionType == AddressActionTypeDefault) {
         return CBWCellHeightAddressWithMetadata;
     }
     return CBWCellHeightAddress;
 }
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     CBWAddress *address = [self.addressStore recordAtIndex:indexPath.row];
     [self p_selectAddress:address];
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        CBWAddress *address = [self.addressStore recordAtIndex:indexPath.row];
+        address.archived = NO;
+        [address saveWithError:nil];
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        if (self.addressStore.count == 0) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.account.idx != CBWRecordWatchedIdx) {
+        return NSLocalizedStringFromTable(@"Button archive", @"CBW", nil);
+    }
+    return NSLocalizedStringFromTable(@"Button delete", @"CBW", nil);
 }
 
 @end

@@ -183,7 +183,7 @@
             NSArray *viewControllers = self.navigationController.viewControllers;
             UIViewController *vc = [viewControllers objectAtIndex:(viewControllers.count - 3)];
             if ([vc isKindOfClass:[AddressListViewController class]]) {
-                [((AddressListViewController *)vc) reload];
+//                [((AddressListViewController *)vc) reload];
                 [self.navigationController popToViewController:vc animated:YES];
                 return;
             }

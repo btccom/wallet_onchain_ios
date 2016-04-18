@@ -104,6 +104,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self reload];
     if (self.addressStore.count < self.addressStore.countAllAddresses) {
         self.archivedListButtonItem.image = [UIImage imageNamed:@"navigation_archived"];
     } else {
@@ -326,6 +327,33 @@
     }
     // just select one address
     [self p_pushToAddress:address];
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        CBWAddress *address = [self.addressStore recordAtIndex:indexPath.row];
+        if (self.account.idx == CBWRecordWatchedIdx) {
+            // delete
+            [address deleteWatchedAddressFromStore:self.addressStore];
+        } else {
+            address.archived = YES;
+            [address saveWithError:nil];
+            self.archivedListButtonItem.image = [UIImage imageNamed:@"navigation_archived"];
+        }
+        // TODO: handle errors
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    }
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.account.idx != CBWRecordWatchedIdx) {
+        return NSLocalizedStringFromTable(@"Button archive", @"CBW", nil);
+    }
+    return NSLocalizedStringFromTable(@"Button delete", @"CBW", nil);
 }
 
 #pragma mark - <ScanViewControllerDelegate>

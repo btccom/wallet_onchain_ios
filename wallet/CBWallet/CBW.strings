@@ -36,6 +36,9 @@
 "Button receive" = "Receive";
 "Button complete" = "Complete";
 "Button save" = "Save";
+"Button archive" = "Archive";
+"Button unarchive" = "Unarchive";
+"Button delete" = "Delete";
 
 "Placeholder master_password" = "Master Password";
 "Placeholder confirm_master_password" = "Confirm Master Password";
