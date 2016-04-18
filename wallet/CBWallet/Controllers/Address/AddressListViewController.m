@@ -152,9 +152,14 @@
         }];
         UIAlertAction *saveAction = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Alert Action save_address", @"CBW", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             NSString *addressString = [alertController.textFields firstObject].text;
-            // TODO: 验证地址有效性
             if (addressString.length > 0) {
-                [self p_saveAddressString:addressString withIdx:CBWRecordWatchedIdx];
+                if ([CBWAddress validateAddressString:addressString]) {
+                    [self p_saveAddressString:addressString withIdx:CBWRecordWatchedIdx];
+                } else {
+                    [self p_alertInvalidAddress];
+                }
+            } else {
+                [self p_alertInvalidAddress];
             }
         }];
         UIAlertAction *scanAction = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Alert Action scan_qr_code", @"CBW", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
