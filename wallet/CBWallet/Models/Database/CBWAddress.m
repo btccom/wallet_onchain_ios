@@ -44,7 +44,7 @@
 }
 
 + (instancetype)newAdress:(NSString *)aAddress withLabel:(NSString *)label idx:(NSInteger)idx archived:(BOOL)archived dirty:(BOOL)dirty internal:(BOOL)internal accountRid:(long long)accountRid accountIdx:(NSInteger)accountIdx inStore:(nonnull CBWAddressStore *)store {
-    CBWAddress *address = [CBWAddress newRecordInStore:store];
+    CBWAddress *address = [CBWAddress new];
     address.address = aAddress;
     address.label = label;
     address.idx = idx;
@@ -54,6 +54,13 @@
     address.accountRid = accountRid;
     address.accountIdx = accountIdx;
     address.balance = 0;
+    if ([store containsRecord:address]) {
+        DLog(@"duplicated address: %@", aAddress);
+        return nil;
+    } else {
+        [store addRecord:address];
+    }
+    
     DLog(@"new address: %@", address);
     return address;
 }

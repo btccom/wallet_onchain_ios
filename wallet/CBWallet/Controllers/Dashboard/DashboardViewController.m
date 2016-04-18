@@ -348,6 +348,19 @@
         // create watched address
         NSString *label = [addressInfo objectForKey:CBWAddressInfoLabelKey];
         DLog(@"To create address: %@ labeled: %@", addressString, label);
+        
+        CBWAddressStore *store = [[CBWAddressStore alloc] initWithAccountIdx:self.account.idx];
+        [store fetch];
+        CBWAddress *address = [CBWAddress newAdress:addressString withLabel:label idx:CBWRecordWatchedIdx accountRid:self.account.rid accountIdx:self.account.idx inStore:store];
+        NSError *error = nil;
+        [address saveWithError:&error];
+        if (!error) {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Success", @"CBW", nil) message:NSLocalizedStringFromTable(@"Alert Message create_watched_address_success", @"CBW", nil) preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *okay = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Okay", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
+            [alert addAction:okay];
+            [self presentViewController:alert animated:YES completion:nil];
+            [self reloadTransactions];
+        }
     } else {
         // send to address
         NSString *amountString = [addressInfo objectForKey:CBWAddressInfoAmountKey];

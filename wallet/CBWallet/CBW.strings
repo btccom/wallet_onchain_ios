@@ -69,6 +69,7 @@
 "Alert Message need_account_label" = "Label is empty.";
 "Alert Title change_account_label" = "Change Account Label";
 "Alert Message change_account_label" = "";
+"Alert Message create_watched_address_success" = "Created a watched address.";
 
 "Label watched_account" = "Watched Account";
 "Label default_account" = "Default Account";

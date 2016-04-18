@@ -69,4 +69,8 @@ NSString *const CBWRecordObjectStoreCountKey = @"count";
     }
 }
 
+- (BOOL)containsRecord:(CBWRecordObject *)record {
+    return [records containsObject:record];
+}
+
 @end

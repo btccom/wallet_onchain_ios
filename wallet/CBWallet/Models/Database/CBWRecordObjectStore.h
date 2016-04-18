@@ -29,4 +29,6 @@ extern NSString *const _Nonnull CBWRecordObjectStoreCountKey;
 /// 移出内存
 - (void)deleteRecord:(nullable CBWRecordObject *)record;
 
+- (BOOL)containsRecord:(nullable CBWRecordObject *)record;
+
 @end

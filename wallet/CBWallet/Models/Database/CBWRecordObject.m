@@ -24,8 +24,13 @@
 }
 
 + (instancetype)newRecordInStore:(CBWRecordObjectStore *)store {
-    CBWRecordObject *record = [self new];
+    id record = [self newRecord];
     [store addRecord:record];
+    return record;
+}
+
++ (instancetype)newRecord {
+    id record = [[CBWRecordObject alloc] init];
     return record;
 }
 
