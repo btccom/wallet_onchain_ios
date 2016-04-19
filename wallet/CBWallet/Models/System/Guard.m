@@ -49,8 +49,8 @@ static const NSTimeInterval kGuardAvaibleTimeDefault = 10 * 60; // 默认十分�
             // cache code
             _code = code;
             // add timer into run loop
-            NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
-            [runLoop addTimer:self.timer forMode:NSDefaultRunLoopMode];
+//            NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
+//            [runLoop addTimer:self.timer forMode:NSDefaultRunLoopMode];
             // notification
             [[NSNotificationCenter defaultCenter] postNotificationName:CBWNotificationCheckedIn object:nil];
             // return
