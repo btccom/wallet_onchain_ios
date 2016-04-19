@@ -66,7 +66,7 @@
     // encrypt seed with key
     NSString *encryptedSeed = [AESCrypt encrypt:seed password:password];
     // save encrypted seed hex to keychain
-    [SSKeychain setPassword:encryptedSeed forService:CBWKeyChainSeedService account:CBWKeyChainAccountDefault];
+    [SSKeychain setPassword:encryptedSeed forService:CBWKeychainSeedService account:CBWKeychainAccountDefault];
     // call guard to check and cache password
     if ([[Guard globalGuard] checkInWithCode:password]) {
         // create first account

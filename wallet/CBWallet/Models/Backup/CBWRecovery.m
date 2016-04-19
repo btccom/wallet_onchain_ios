@@ -117,7 +117,7 @@
 //    }
     
     // save encrypted seed
-    [SSKeychain setPassword:encryptedSeed forService:CBWKeyChainSeedService account:CBWKeyChainAccountDefault];
+    [SSKeychain setPassword:encryptedSeed forService:CBWKeychainSeedService account:CBWKeychainAccountDefault];
     
     // guard
     if (![[Guard globalGuard] checkInWithCode:code]) {

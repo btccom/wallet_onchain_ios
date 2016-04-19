@@ -29,4 +29,6 @@
 
 @property (nonatomic, weak, nullable) id<MasterPasswordViewControllerDelegate> delegate;
 
+- (void)showKeyboard;
+
 @end

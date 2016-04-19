@@ -15,19 +15,27 @@
 #import "CBWAccountStore.h"
 #import "CBWBackup.h"
 #import "CBWiCloud.h"
+#import "Guard.h"
+
+#import "SSKeychain.h"
+
 #import "NSDate+Helper.h"
+
+@import LocalAuthentication;
 
 typedef NS_ENUM(NSUInteger, kProfileSection) {
     kProfileSectionAccounts = 0,
 //    kProfileSectionAllTransactions,
-    kProfileSectionSettings,
+//    kProfileSectionSettings,
+    kProfileSectionSecurity,
     kProfileSectionBackup
 };
 
 @interface ProfileViewController ()
 
 @property (nonatomic, strong) NSArray *tableStrings;
-@property (nonatomic, weak) UISwitch *iCloudSwitch;
+@property (nonatomic, strong) UISwitch *iCloudSwitch;
+@property (nonatomic, strong) UISwitch *touchIDSwitch;
 
 @end
 
@@ -62,10 +70,17 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_close"] style:UIBarButtonItemStylePlain target:self action:@selector(dismiss:)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedStringFromTable(@"Navigation manage_accounts", @"CBW", nil) style:UIBarButtonItemStylePlain target:self action:@selector(p_handleManageAccounts:)];
     
+    NSMutableArray *securityCells = [NSMutableArray arrayWithObject:NSLocalizedStringFromTable(@"Profile Cell change_password", @"CBW", @"Settings")];
+    NSError *error = nil;
+    LAContext *laContext = [[LAContext alloc] init];
+    if ([laContext canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error]) {
+        [securityCells addObject:NSLocalizedStringFromTable(@"Profile Cell touchid", @"CBW", nil)];
+    }
+    
     _tableStrings = @[@{NSLocalizedStringFromTable(@"Profile Section accounts", @"CBW", @"Accounts"): @[]},
 //                      @[NSLocalizedStringFromTable(@"Profile Cell all_transactions", @"CBW", @"All Transactions")],
 //                      @[NSLocalizedStringFromTable(@"Profile Cell settings", @"CBW", @"Settings")],
-                      @[NSLocalizedStringFromTable(@"Profile Cell change_password", @"CBW", @"Settings")],
+                      @{NSLocalizedStringFromTable(@"Profile Section security", @"CBW", nil): securityCells},
                       @{NSLocalizedStringFromTable(@"Profile Section backup", @"CBW", nil):
                             @[
                                 NSLocalizedStringFromTable(@"Profile Cell export", @"CBW", @"Export"),
@@ -109,6 +124,70 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
 - (void)p_handleToggleiCloudEnabled:(id)sender {
     DLog(@"toggle icloud");
     [CBWiCloud toggleiCloudBySwith:self.iCloudSwitch inViewController:self];
+}
+- (void)p_handleToggleTouchIdEnabled:(id)sender {
+    DLog(@"toggle touch id");
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:CBWUserDefaultsTouchIdEnabledKey]) {
+        // turn off
+        if ([SSKeychain deletePasswordForService:CBWKeychainMasterPasswordService account:CBWKeychainAccountDefault]) {
+            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:CBWUserDefaultsTouchIdEnabledKey];
+            if ([[NSUserDefaults standardUserDefaults] synchronize]) {
+                [self.touchIDSwitch setOn:NO animated:YES];
+            }
+        }
+        return;
+    }
+    
+    // TODO: validate domain status
+    // turn on
+    LAContext *context = [LAContext new];
+    NSError *error = nil;
+    if ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error]) {
+        [context evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics localizedReason:NSLocalizedString(@"Alert Message enable_touchid", nil) reply:^(BOOL success, NSError * _Nullable error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (success) {
+                    // authorized
+                    if ([SSKeychain setPassword:[Guard globalGuard].code forService:CBWKeychainMasterPasswordService account:CBWKeychainAccountDefault]) {
+                        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:CBWUserDefaultsTouchIdEnabledKey];
+                        if ([[NSUserDefaults standardUserDefaults] synchronize]) {
+                            [self.touchIDSwitch setOn:YES animated:YES];
+                        } else {
+                            [self.touchIDSwitch setOn:NO animated:YES];
+                        }
+                    }
+                } else if (error) {
+                    [self.touchIDSwitch setOn:NO animated:YES];
+                    NSString *message = nil;
+                    switch (error.code) {
+                        case LAErrorAuthenticationFailed: {
+                            message = NSLocalizedString(@"There was a problem verifying your identity.", nil);
+                            break;
+                        }
+                            
+                        case LAErrorUserCancel: {
+//                            message = NSLocalizedString(@"You canceled.", nil);
+                            break;
+                        }
+                            
+                        case LAErrorUserFallback: {
+//                            message = NSLocalizedString(@"You pressed password.", nil);
+                            break;
+                        }
+                            
+                        default:
+                            message = NSLocalizedString(@"Touch ID may not be configured.", nil);
+                            break;
+                    }
+                    if (message) {
+                        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Error", nil) message:message preferredStyle:UIAlertControllerStyleAlert];
+                        UIAlertAction *okay = [UIAlertAction actionWithTitle:NSLocalizedString(@"Okay", nil) style:UIAlertActionStyleDefault handler:nil];
+                        [alertController addAction:okay];
+                        [self presentViewController:alertController animated:YES completion:nil];
+                    }
+                }
+            });
+        }];
+    }
 }
 
 #pragma mark - UITableViewDataSource
@@ -158,7 +237,21 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
             cell.textLabel.text = [sectionStrings objectAtIndex:indexPath.row];
         }
         
-        // set backup cells stuff
+        // set touch id cell stuff
+        if (indexPath.section == kProfileSectionSecurity) {
+            if (indexPath.row == 1) {
+                // touch id
+                if (!self.touchIDSwitch) {
+                    UISwitch *aSwitch = [[UISwitch alloc] init];
+                    [aSwitch addTarget:self action:@selector(p_handleToggleTouchIdEnabled:) forControlEvents:UIControlEventValueChanged];
+                    self.touchIDSwitch = aSwitch;
+                }
+                cell.accessoryView = self.touchIDSwitch;
+                self.touchIDSwitch.on = [[NSUserDefaults standardUserDefaults] boolForKey:CBWUserDefaultsTouchIdEnabledKey];
+            }
+        }
+        
+        // set icloud cell stuff
         if (indexPath.section == kProfileSectionBackup) {
             if (indexPath.row == 1) {
                 // iCloud
@@ -166,9 +259,9 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
                 if (!self.iCloudSwitch) {
                     UISwitch *aSwitch = [[UISwitch alloc] init];
                     [aSwitch addTarget:self action:@selector(p_handleToggleiCloudEnabled:) forControlEvents:UIControlEventValueChanged];
-                    cell.accessoryView = aSwitch;
                     self.iCloudSwitch = aSwitch;
                 }
+                cell.accessoryView = self.iCloudSwitch;
                 self.iCloudSwitch.on = [[NSUserDefaults standardUserDefaults] boolForKey:CBWUserDefaultsiCloudEnabledKey];
             }
         }
@@ -190,10 +283,25 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
 //            [self.navigationController pushViewController:transactionListViewController animated:YES];
 //            break;
 //        }
-        case kProfileSectionSettings: {
+//        case kProfileSectionSettings: {
 //            SettingsViewController *settingsViewController = [[SettingsViewController alloc] init];
-            PasswordViewController *settingsViewController = [[PasswordViewController alloc] init];
-            [self.navigationController pushViewController:settingsViewController animated:YES];
+//            [self.navigationController pushViewController:settingsViewController animated:YES];
+//            break;
+//        }
+        case kProfileSectionSecurity: {
+            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+            switch (indexPath.row) {
+                case 0: {
+                    PasswordViewController *settingsViewController = [[PasswordViewController alloc] init];
+                    [self.navigationController pushViewController:settingsViewController animated:YES];
+                    break;
+                }
+                    
+                case 1: {
+                    [self p_handleToggleTouchIdEnabled:nil];
+                    break;
+                }
+            }
             break;
         }
             

@@ -73,6 +73,8 @@
 "Alert Title change_account_label" = "Change Account Label";
 "Alert Message change_account_label" = "";
 "Alert Message create_watched_address_success" = "Created a watched address.";
+"Alert Message enable_touchid" = "Enable touchID.";
+"Alert Message verify_touchid" = "Please verify your touchID.";
 
 "Label watched_account" = "Watched Account";
 "Label default_account" = "Default Account";
@@ -95,7 +97,9 @@
 "Profile Section backup" = "Backup";
 "Profile Cell export" = "Export";
 "Profile Cell iCloud" = "iCloud";
+"Profile Section security" = "Security";
 "Profile Cell change_password" = "Change Password";
+"Profile Cell touchid" = "Touch ID";
 
 // Address List
 "Address Section receive_address" = "Address";

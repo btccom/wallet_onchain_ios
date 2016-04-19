@@ -40,7 +40,7 @@ static const NSTimeInterval kGuardAvaibleTimeDefault = 10 * 60; // 默认十分�
 }
 
 - (BOOL)checkInWithCode:(NSString *)code {
-    NSString *encryptedSeed = [SSKeychain passwordForService:CBWKeyChainSeedService account:CBWKeyChainAccountDefault];
+    NSString *encryptedSeed = [SSKeychain passwordForService:CBWKeychainSeedService account:CBWKeychainAccountDefault];
     
     if (encryptedSeed.length > 0) {
         NSString *decryptedSeed = [AESCrypt decrypt:encryptedSeed password:code];
@@ -70,14 +70,14 @@ static const NSTimeInterval kGuardAvaibleTimeDefault = 10 * 60; // 默认十分�
 }
 
 - (BOOL)changeCode:(NSString *)code toNewCode:(NSString *)aNewCode {
-    NSString *encryptedSeed = [SSKeychain passwordForService:CBWKeyChainSeedService account:CBWKeyChainAccountDefault];
+    NSString *encryptedSeed = [SSKeychain passwordForService:CBWKeychainSeedService account:CBWKeychainAccountDefault];
     
     if (encryptedSeed.length > 0) {
         NSString *decryptedSeed = [AESCrypt decrypt:encryptedSeed password:code];
         if (decryptedSeed) {// success
             encryptedSeed = [AESCrypt encrypt:decryptedSeed password:aNewCode];
             if (encryptedSeed) {
-                [SSKeychain setPassword:encryptedSeed forService:CBWKeyChainSeedService account:CBWKeyChainAccountDefault];
+                [SSKeychain setPassword:encryptedSeed forService:CBWKeychainSeedService account:CBWKeychainAccountDefault];
                 return YES;
             }
         }

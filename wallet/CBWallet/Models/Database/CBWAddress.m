@@ -26,7 +26,7 @@
     if ([Guard globalGuard].code.length > 0) {
         // checked in
         if (!_privateKey) {
-            NSString *encryptedSeed = [SSKeychain passwordForService:CBWKeyChainSeedService account:CBWKeyChainAccountDefault];
+            NSString *encryptedSeed = [SSKeychain passwordForService:CBWKeychainSeedService account:CBWKeychainAccountDefault];
             NSString *seed = [AESCrypt decrypt:encryptedSeed password:[Guard globalGuard].code];
             
             if (seed) {
@@ -74,7 +74,7 @@
         
         DLog(@"address, try to get seed");
         
-        NSString *encryptedSeed = [SSKeychain passwordForService:CBWKeyChainSeedService account:CBWKeyChainAccountDefault];
+        NSString *encryptedSeed = [SSKeychain passwordForService:CBWKeychainSeedService account:CBWKeychainAccountDefault];
         NSString *seed = [AESCrypt decrypt:encryptedSeed password:[Guard globalGuard].code];
         
         if (seed) {

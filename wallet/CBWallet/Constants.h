@@ -2,7 +2,7 @@
 //  Constants.h
 //  CBWallet
 //
-//  Created by Zin on 16/3/21.
+//  Created by Zin (noteon.com) on 16/3/21.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
@@ -26,10 +26,10 @@ static NSString *const CBWUserDefaultsLocalVersion = @"cbw.user.defaults.localVe
 /// date value
 static NSString *const  CBWUserDefaultsiCloudSyncDateKey = @"cbw.user.defaults.icloud.sync.date";
 
-// Key Chain
-static NSString *const CBWKeyChainSeedService = @"com.btc.wallet.seed";
-//static NSString *const CBWKeyChainMasterPasswordService = @"com.btc.wallet.masterPassword";
-static NSString *const CBWKeyChainAccountDefault = @"com.btc.wallet";
+// Keychain
+static NSString *const CBWKeychainSeedService = @"com.btc.wallet.seed";
+static NSString *const CBWKeychainMasterPasswordService = @"com.btc.wallet.masterPassword";
+static NSString *const CBWKeychainAccountDefault = @"com.btc.wallet";
 
 // Notification
 static NSString *const CBWNotificationCheckedIn = @"cbw.notification.checked.in";

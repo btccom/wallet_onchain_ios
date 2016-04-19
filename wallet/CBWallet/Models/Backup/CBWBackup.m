@@ -16,7 +16,7 @@
 
 - (NSArray *)getDatas {
     // add seed
-    NSMutableArray *datas = [NSMutableArray arrayWithObject:[SSKeychain passwordForService:CBWKeyChainSeedService account:CBWKeyChainAccountDefault]];
+    NSMutableArray *datas = [NSMutableArray arrayWithObject:[SSKeychain passwordForService:CBWKeychainSeedService account:CBWKeychainAccountDefault]];
     
     NSMutableDictionary *accountsDictionary = [NSMutableDictionary dictionary];//{idx:[accountDataArray]}
     

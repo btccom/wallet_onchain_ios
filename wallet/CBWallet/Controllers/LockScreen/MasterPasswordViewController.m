@@ -12,7 +12,11 @@
 #import "PrimaryButton.h"
 #import "FormControlInputCell.h"
 
+#import "SSKeychain.h"
+
 #import "NSString+Password.h"
+
+@import LocalAuthentication;
 
 @interface MasterPasswordViewController ()<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 
@@ -20,6 +24,8 @@
 @property (nonatomic, weak) FormControlInputCell *confirmMasterPasswordCell;
 @property (nonatomic, weak) FormControlInputCell *hintCell;
 @property (nonatomic, weak) UIButton *nextButton;
+
+@property (nonatomic, assign) BOOL isShown;
 
 @end
 
@@ -38,6 +44,64 @@
     [self.view addSubview:tableView];
 }
 
+- (void)showKeyboard {
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:CBWUserDefaultsTouchIdEnabledKey]) {
+        [self.masterPasswordCell.textField becomeFirstResponder];
+        return;
+    }
+    
+    if (self.isShown) {
+        return;
+    }
+    self.isShown = YES;
+    LAContext *context = [LAContext new];
+    NSError *error = nil;
+    if ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error]) {
+        [context evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics localizedReason:NSLocalizedString(@"Alert Message verify_touchid", nil) reply:^(BOOL success, NSError * _Nullable error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (success) {
+                    // TODO: check domain status
+                    [self.delegate masterPasswordViewController:self didInputPassword:[SSKeychain passwordForService:CBWKeychainMasterPasswordService account:CBWKeychainAccountDefault]];
+                } else if (error) {
+                    NSString *message = nil;
+                    BOOL showAlert = NO;
+                    switch (error.code) {
+                        case LAErrorAuthenticationFailed: {
+                            showAlert = YES;
+                            message = NSLocalizedString(@"There was a problem verifying your identity.", nil);
+                            break;
+                        }
+                            
+                        case LAErrorUserCancel: {
+                            message = NSLocalizedString(@"You canceled to enter password.", nil);
+                            break;
+                        }
+                            
+                        case LAErrorUserFallback: {
+                            message = NSLocalizedString(@"You pressed password.", nil);
+                            break;
+                        }
+                            
+                        default:
+                            message = NSLocalizedString(@"Touch ID may not be configured.", nil);
+                            break;
+                    }
+                    if (showAlert) {
+                        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Error", nil) message:message preferredStyle:UIAlertControllerStyleAlert];
+                        UIAlertAction *okay = [UIAlertAction actionWithTitle:NSLocalizedString(@"Okay", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                            [self.masterPasswordCell.textField becomeFirstResponder];
+                        }];
+                        [alertController addAction:okay];
+                        [self presentViewController:alertController animated:YES completion:nil];
+                    } else {
+                        NSLog(@"message: %@, error: %@", message, error);
+                        [self.masterPasswordCell.textField becomeFirstResponder];
+                    }
+                }
+            });
+        }];
+    }
+}
 
 #pragma mark - Private Method
 
