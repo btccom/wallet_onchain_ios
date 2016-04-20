@@ -116,10 +116,7 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.account.idx != CBWRecordWatchedIdx) {
-        return NSLocalizedStringFromTable(@"Button archive", @"CBW", nil);
-    }
-    return NSLocalizedStringFromTable(@"Button delete", @"CBW", nil);
+    return NSLocalizedStringFromTable(@"Button unarchive", @"CBW", nil);
 }
 
 @end
