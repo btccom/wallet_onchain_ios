@@ -70,10 +70,7 @@ static NSString *const kPasswordViewControllerSaveButtonCellIdentifier = @"cell.
         }
     }
     if (message.length > 0) {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil) message:message preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *okay = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Okay", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
-        [alert addAction:okay];
-        [self presentViewController:alert animated:YES completion:nil];
+        [self alertMessage:message withTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil)];
         
         return;
     }
@@ -91,10 +88,7 @@ static NSString *const kPasswordViewControllerSaveButtonCellIdentifier = @"cell.
         [alert addAction:okay];
         [self presentViewController:alert animated:YES completion:nil];
     } else {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"" message:NSLocalizedStringFromTable(@"Failed", @"CBW", nil) preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *okay = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Okay", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
-        [alert addAction:okay];
-        [self presentViewController:alert animated:YES completion:nil];
+        [self alertMessage:NSLocalizedStringFromTable(@"Failed", @"CBW", nil) withTitle:@""];
     }
     
 }

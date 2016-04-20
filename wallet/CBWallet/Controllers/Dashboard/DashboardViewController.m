@@ -230,12 +230,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reload) name:CBWNotificationWalletCreated object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reload) name:CBWNotificationWalletRecovered object:nil];
 }
--(void)p_alertInvalidAddress {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil) message:NSLocalizedStringFromTable(@"Alert Message invalid_address", @"CBW", nil) preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *okay = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Okay", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
-    [alert addAction:okay];
-    [self presentViewController:alert animated:YES completion:nil];
-}
 
 #pragma mark Navigation
 
@@ -359,13 +353,13 @@
     // decode qr code string
     NSDictionary *addressInfo = [string addressInfo];
     if (!addressInfo) {
-        [self p_alertInvalidAddress];
+        [self alertMessageWithInvalidAddress:nil];
         return;
     }
     // check address
     NSString *addressString = [addressInfo objectForKey:CBWAddressInfoAddressKey];
     if (![CBWAddress validateAddressString:addressString]) {
-        [self p_alertInvalidAddress];
+        [self alertMessageWithInvalidAddress:addressString];
     }
     // handle
     if (self.account.idx == CBWRecordWatchedIdx) {
@@ -379,10 +373,7 @@
         NSError *error = nil;
         [address saveWithError:&error];
         if (!error) {
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Success", @"CBW", nil) message:NSLocalizedStringFromTable(@"Alert Message create_watched_address_success", @"CBW", nil) preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *okay = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Okay", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
-            [alert addAction:okay];
-            [self presentViewController:alert animated:YES completion:nil];
+            [self alertMessage:NSLocalizedStringFromTable(@"Alert Message create_watched_address_success", @"CBW", nil) withTitle:NSLocalizedStringFromTable(@"Success", @"CBW", nil)];
             [self reloadTransactions];
         }
     } else {

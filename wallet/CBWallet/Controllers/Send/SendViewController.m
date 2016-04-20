@@ -209,7 +209,7 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
     // check address
     NSString *addressString = self.quicklyAddressCell.textField.text;
     if (![CBWAddress validateAddressString:addressString]) {
-        [self p_alertInvalidAddress];
+        [self alertMessageWithInvalidAddress:addressString];
         return;
     }
     
@@ -410,13 +410,6 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
     return valid;
 }
 
--(void)p_alertInvalidAddress {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil) message:NSLocalizedStringFromTable(@"Alert Message invalid_address", @"CBW", nil) preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *okay = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Okay", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
-    [alert addAction:okay];
-    [self presentViewController:alert animated:YES completion:nil];
-}
-
 #pragma mark Advanced Actions
 ///
 - (void)p_handleAdvancedAddToData:(id)sender {
@@ -427,7 +420,7 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
     
     // check address
     if (![CBWAddress validateAddressString:addressString]) {
-        [self p_alertInvalidAddress];
+        [self alertMessageWithInvalidAddress:addressString];
         return;
     }
     
@@ -849,10 +842,7 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
     
     NSDictionary *addressInfo = [string addressInfo];
     if (!addressInfo) {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil) message:NSLocalizedStringFromTable(@"Alert Message invalid_address", @"CBW", nil) preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Okay", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
-        [alertController addAction:okAction];
-        [self presentViewController:alertController animated:YES completion:nil];
+        [self alertMessageWithInvalidAddress:nil];
         return;
     }
     DLog(@"send scan address info: %@", addressInfo);

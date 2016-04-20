@@ -64,32 +64,6 @@
 
 - (void)p_toggleiCloudEnabled:(id)sender {
     [CBWiCloud toggleiCloudBySwith:sender inViewController:self];
-//    if ([[NSUserDefaults standardUserDefaults] boolForKey:CBWUserDefaultsiCloudEnabledKey]) {
-//        // turn off
-//        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:CBWUserDefaultsiCloudEnabledKey];
-//        if ([[NSUserDefaults standardUserDefaults] synchronize]) {
-//            [self.iCloudSwitch setOn:NO animated:YES];
-//        } else {
-//            [self.iCloudSwitch setOn:YES animated:YES];
-//        }
-//    } else {
-//        // turn on
-//        if ([[SystemManager defaultManager] isiCloudAccountSignedIn]) {
-//            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:CBWUserDefaultsiCloudEnabledKey];
-//            if ([[NSUserDefaults standardUserDefaults] synchronize]) {
-//                [self.iCloudSwitch setOn:YES animated:YES];
-//            } else {
-//                [self.iCloudSwitch setOn:NO animated:YES];
-//            }
-//        } else {
-//            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil) message:NSLocalizedStringFromTable(@"Alert Message need_icloud_signed_in", @"CBW", @"Please enable iCloud for me.") preferredStyle:UIAlertControllerStyleAlert];
-//            UIAlertAction *alertAction = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Okay", @"CBW", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-//                [self.iCloudSwitch setOn:NO animated:YES];
-//            }];
-//            [alertController addAction:alertAction];
-//            [self presentViewController:alertController animated:YES completion:nil];
-//        }
-//    }
 }
 
 - (void)p_toggleTouchIDEnabled:(id)sender {

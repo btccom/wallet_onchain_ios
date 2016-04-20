@@ -9,6 +9,8 @@
 // TODO: progress hud
 
 #import <UIKit/UIKit.h>
+#import "UIViewController+AlertMessage.h"
+
 #import "DefaultSectionHeaderView.h"
 #import "DefaultTableViewCell.h"
 #import "FormControlActionButtonCell.h"

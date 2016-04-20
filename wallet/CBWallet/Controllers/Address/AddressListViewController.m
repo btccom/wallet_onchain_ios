@@ -157,10 +157,10 @@
                 if ([CBWAddress validateAddressString:addressString]) {
                     [self p_saveAddressString:addressString withIdx:CBWRecordWatchedIdx];
                 } else {
-                    [self p_alertInvalidAddress];
+                    [self alertMessageWithInvalidAddress:addressString];
                 }
             } else {
-                [self p_alertInvalidAddress];
+                [self alertMessageWithInvalidAddress:nil];
             }
         }];
         UIAlertAction *scanAction = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Alert Action scan_qr_code", @"CBW", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -197,10 +197,7 @@
 }
 - (void)p_saveAddressString:(NSString *)addressString withIdx:(NSInteger)idx label:(NSString *)label {
     if (!addressString) {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil) message:NSLocalizedStringFromTable(@"Alert Message failed_to_generate_address", @"CBW", nil) preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *okayAction = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Okay", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
-        [alertController addAction:okayAction];
-        [self presentViewController:alertController animated:YES completion:nil];
+        [self alertMessage:NSLocalizedStringFromTable(@"Alert Message failed_to_generate_address", @"CBW", nil) withTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil)];
         return;
     }
     
@@ -226,12 +223,6 @@
     if (addressViewController) {
         [self.navigationController pushViewController:addressViewController animated:YES];
     }
-}
--(void)p_alertInvalidAddress {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil) message:NSLocalizedStringFromTable(@"Alert Message invalid_address", @"CBW", nil) preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *okay = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Okay", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
-    [alert addAction:okay];
-    [self presentViewController:alert animated:YES completion:nil];
 }
 #pragma mark - <UITableViewDataSource>
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -367,15 +358,16 @@
     // decode qr code string
     NSDictionary *addressInfo = [string addressInfo];
     if (!addressInfo) {
-        [self p_alertInvalidAddress];
+        [self alertMessageWithInvalidAddress:nil];
         return;
     }
     // check address
-    if (![CBWAddress validateAddressString:[addressInfo objectForKey:CBWAddressInfoAddressKey]]) {
-        [self p_alertInvalidAddress];
+    NSString *addressString = [addressInfo objectForKey:CBWAddressInfoAddressKey];
+    if (![CBWAddress validateAddressString:addressString]) {
+        [self alertMessageWithInvalidAddress:addressString];
     }
     // save
-    [self p_saveAddressString:[addressInfo objectForKey:CBWAddressInfoAddressKey] withIdx:CBWRecordWatchedIdx label:[addressInfo objectForKey:CBWAddressInfoLabelKey]];
+    [self p_saveAddressString:addressString withIdx:CBWRecordWatchedIdx label:[addressInfo objectForKey:CBWAddressInfoLabelKey]];
 }
 
 @end

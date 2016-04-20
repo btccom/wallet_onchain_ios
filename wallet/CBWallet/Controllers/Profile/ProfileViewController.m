@@ -103,16 +103,9 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
     [backup saveToLocalPhotoLibraryWithCompleiton:^(NSURL *assetURL, NSError *error) {
         if (error) {
             NSLog(@"export to photo library error: \n%@", error);
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil) message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *okay = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Okay", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
-            [alert addAction:okay];
-            [self presentViewController:alert animated:YES completion:nil];
+            [self alertMessage:error.localizedDescription withTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil)];
         } else {
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Success", @"CBW", nil) message:NSLocalizedStringFromTable(@"Alert Message saved_to_photo_library", @"CBW", nil) preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *okay = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Okay", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
-            [alert addAction:okay];
-            [self presentViewController:alert animated:YES completion:nil];
-            
+            [self alertMessage:NSLocalizedStringFromTable(@"Alert Message saved_to_photo_library", @"CBW", nil) withTitle:NSLocalizedStringFromTable(@"Success", @"CBW", nil)];
         }
     }];
 }
@@ -179,10 +172,7 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
                             break;
                     }
                     if (message) {
-                        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Error", nil) message:message preferredStyle:UIAlertControllerStyleAlert];
-                        UIAlertAction *okay = [UIAlertAction actionWithTitle:NSLocalizedString(@"Okay", nil) style:UIAlertActionStyleDefault handler:nil];
-                        [alertController addAction:okay];
-                        [self presentViewController:alertController animated:YES completion:nil];
+                        [self alertMessage:message withTitle:NSLocalizedString(@"Error", nil)];
                     }
                 }
             });

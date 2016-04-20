@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C069C411CC72D4F0054791C /* UIViewController+AlertMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C069C401CC72D4F0054791C /* UIViewController+AlertMessage.m */; };
 		2C1684A01CAB5F4800BD434A /* NSDate+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C16849F1CAB5F4800BD434A /* NSDate+Helper.m */; };
 		2C1684A31CAB6B4B00BD434A /* CBWRequest+Block.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1684A21CAB6B4B00BD434A /* CBWRequest+Block.m */; };
 		2C1684A61CACA89D00BD434A /* CBWRequest+Transaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1684A51CACA89D00BD434A /* CBWRequest+Transaction.m */; };
@@ -122,6 +123,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2C069C3F1CC72D4F0054791C /* UIViewController+AlertMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+AlertMessage.h"; sourceTree = "<group>"; };
+		2C069C401CC72D4F0054791C /* UIViewController+AlertMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+AlertMessage.m"; sourceTree = "<group>"; };
 		2C16849E1CAB5F4800BD434A /* NSDate+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Helper.h"; sourceTree = "<group>"; };
 		2C16849F1CAB5F4800BD434A /* NSDate+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Helper.m"; sourceTree = "<group>"; };
 		2C1684A11CAB6B4B00BD434A /* CBWRequest+Block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBWRequest+Block.h"; sourceTree = "<group>"; };
@@ -492,6 +495,8 @@
 				2C9CAEEE1C868B61008194EB /* BaseTableViewController.m */,
 				2C9CAEEF1C868B61008194EB /* BaseViewController.h */,
 				2C9CAEF01C868B61008194EB /* BaseViewController.m */,
+				2C069C3F1CC72D4F0054791C /* UIViewController+AlertMessage.h */,
+				2C069C401CC72D4F0054791C /* UIViewController+AlertMessage.m */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -1080,6 +1085,7 @@
 				2C9CAF5F1C868B61008194EB /* UIViewController+Appearance.m in Sources */,
 				2C9CAF791C868B98008194EB /* AppDelegate.m in Sources */,
 				2C19FD161CB4F5EB009BC78C /* SendToAddressCell.m in Sources */,
+				2C069C411CC72D4F0054791C /* UIViewController+AlertMessage.m in Sources */,
 				2C9CAF621C868B61008194EB /* CBWRecipient.m in Sources */,
 				2CF24D621C97880500C7EDB9 /* PrimaryButton.m in Sources */,
 				2CD0A91A1CA02ACA006AF02F /* FMDatabasePool.m in Sources */,

@@ -55,10 +55,7 @@
         if (label.length > 0) {
             [self p_createAccountWithLabel:label];
         } else {
-            UIAlertController *error = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil) message:NSLocalizedStringFromTable(@"Alert Message need_account_label", @"CBW", nil) preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *okay = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Okay", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
-            [error addAction:okay];
-            [self presentViewController:error animated:YES completion:nil];
+            [self alertMessage:NSLocalizedStringFromTable(@"Alert Message need_account_label", @"CBW", nil) withTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil)];
         }
     }];
     [alert addAction:save];
@@ -115,10 +112,7 @@
                 [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
             }
         } else {
-            UIAlertController *error = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil) message:NSLocalizedStringFromTable(@"Alert Message need_account_label", @"CBW", nil) preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *okay = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Okay", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
-            [error addAction:okay];
-            [self presentViewController:error animated:YES completion:nil];
+            [self alertMessage:NSLocalizedStringFromTable(@"Alert Message need_account_label", @"CBW", nil) withTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil)];
         }
     }];
     [alert addAction:save];
