@@ -45,6 +45,7 @@
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Alert Title new_account", @"CBW", nil) message:NSLocalizedStringFromTable(@"Alert Message new_account", @"CBW", nil) preferredStyle:UIAlertControllerStyleAlert];
     [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.placeholder = NSLocalizedStringFromTable(@"Placeholder account_label", @"CBW", nil);
+        textField.returnKeyType = UIReturnKeyDone;
     }];
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Cancel", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
     [alert addAction:cancel];
@@ -98,6 +99,7 @@
     [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.placeholder = NSLocalizedStringFromTable(@"Placeholder account_label", @"CBW", nil);
         textField.text = account.label;
+        textField.returnKeyType = UIReturnKeyDone;
         textField.clearButtonMode = UITextFieldViewModeWhileEditing;
     }];
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Cancel", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
