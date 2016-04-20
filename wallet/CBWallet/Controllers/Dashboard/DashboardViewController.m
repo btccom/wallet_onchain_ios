@@ -58,6 +58,16 @@
     return _transactionStore;
 }
 
+- (void)setAccount:(CBWAccount *)account {
+    if (![_account isEqual:account]) {
+        if (_account) {
+            [_account removeObserver:self forKeyPath:@"label"];
+        }
+        _account = account;
+        [_account addObserver:self forKeyPath:@"label" options: NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:nil];
+    }
+}
+
 #pragma mark - View Life Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -106,7 +116,6 @@
         return;
     }
     
-    self.title = self.account.label;
     self.transactionStore.account = self.account;
     
     if (self.requesting) {
@@ -259,7 +268,13 @@
     [self.navigationController pushViewController:addressListViewController animated:YES];
 }
 
-#pragma mark -
+#pragma mark - KVO
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
+    if ([keyPath isEqualToString:@"label"]) {
+        DLog(@"label changed: %@", change);
+        self.title = [change objectForKey:NSKeyValueChangeNewKey];
+    }
+}
 
 #pragma mark - <UITableViewDataSource>
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
