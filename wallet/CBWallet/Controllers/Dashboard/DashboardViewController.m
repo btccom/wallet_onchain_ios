@@ -90,7 +90,10 @@
     self.tableView.tableHeaderView = dashboardHeaderView;
     _headerView = dashboardHeaderView;
     
-    
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:NSLocalizedStringFromTable(@"Tip loading", @"CBW", nil) attributes:@{NSForegroundColorAttributeName: [UIColor CBWSubTextColor]}];
+    self.refreshControl.tintColor = [UIColor CBWSubTextColor];
+    [self.refreshControl addTarget:self action:@selector(reloadTransactions) forControlEvents:UIControlEventValueChanged];
     
     [self reload];
 }
@@ -119,11 +122,12 @@
     self.transactionStore.account = self.account;
     
     if (self.requesting) {
-        return;
+        // TODO: 停止之前的请求
+        [self requestDidStop];
     }
     
     // reset
-//    [self.transactionStore flush];
+    [self.transactionStore flush];
     self.isThereMoreDatas = NO;
     [self.tableView reloadData];
     
@@ -136,8 +140,9 @@
     [addressStore fetch];
     DLog(@"dashboard all addresses: %@", addressStore.allAddressStrings);
     [request addressSummariesWithAddressStrings:addressStore.allAddressStrings completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
-        [self requestDidStop];
-        if (!error) {
+        if (error) {
+            [self requestDidStop];
+        } else {
             // 找到交易变化的地址
             __block NSMutableArray *updatedAddresses = [NSMutableArray array];
             __block NSMutableArray *unupdatedAddresses = [NSMutableArray array];
@@ -178,6 +183,7 @@
                 
                 // fetch
                 [request addressTransactionsWithAddressStrings:addresses completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
+                    [self requestDidStop];
                     if (!error) {
                         // 分页
                         NSUInteger totalCount = [[response objectForKey:CBWRequestResponseDataTotalCountKey] unsignedIntegerValue];
@@ -199,12 +205,19 @@
 //                            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
                             [self.tableView reloadData];
                         }
+                        
+                        [self.refreshControl endRefreshing];
                     }
                 }];
+                
+                // 更新地址
+                [addressStore updateAddresses:response];
+                
+            } else {
+                [self requestDidStop];
             }
             
-            // 更新地址
-            [addressStore updateAddresses:response];
+            
         }
     }];
 }
@@ -322,12 +335,9 @@
 - (void)profileViewController:(ProfileViewController *)viewController didSelectAccount:(CBWAccount *)account {
     DLog(@"dashboard selected account: %@", account);
     
-    if (![account isEqual:self.account]) {
-        self.account = account;
-        [self.transactionStore flush];
-        [self reloadTransactions];
-        self.headerView.sendButton.enabled = self.account.idx >= 0;
-    }
+    self.account = account;
+    [self reloadTransactions];
+    self.headerView.sendButton.enabled = self.account.idx >= 0;
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -335,7 +345,6 @@
 #pragma mark - <AddressListViewControllerDelegate>
 - (void)addressListViewControllerDidUpdate:(AddressListViewController *)controller {
     NSLog(@"address list did update");
-    [self.transactionStore flush];
     [self reloadTransactions];
 }
 

@@ -27,10 +27,12 @@ NSString *const BaseListViewCellAddressIdentifier = @"list.cell.address";
 #pragma mark - Public Method
 - (void)requestDidStart {
     self.requesting = YES;
+    [self.refreshControl beginRefreshing];
 //    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 }
 - (void)requestDidStop {
     self.requesting = NO;
+    [self.refreshControl endRefreshing];
 //    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
 

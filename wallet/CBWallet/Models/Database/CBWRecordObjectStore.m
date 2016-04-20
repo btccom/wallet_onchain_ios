@@ -25,6 +25,7 @@ NSString *const CBWRecordObjectStoreCountKey = @"count";
 }
 
 - (void)flush {
+    DLog(@"%p remove all records", self);
     [records removeAllObjects];
 }
 

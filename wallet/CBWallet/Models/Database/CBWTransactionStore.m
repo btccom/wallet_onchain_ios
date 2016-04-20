@@ -20,6 +20,13 @@
 
 @implementation CBWTransactionStore
 
+- (void)setAccount:(CBWAccount *)account {
+    if (![_account isEqual:account]) {
+        _account = account;
+        [self flush];
+    }
+}
+
 - (NSMutableArray *)sections {
     if (!_sections) {
         _sections = [[NSMutableArray alloc] init];
@@ -64,6 +71,8 @@
 }
 
 - (void)flush {
+    [self.sections removeAllObjects];
+    [self.rows removeAllObjects];
     [super flush];
 }
 
