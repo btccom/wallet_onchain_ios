@@ -98,6 +98,11 @@
     [self reload];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self.view bringSubviewToFront:self.refreshControl];
+}
+
 #pragma mark - Public Method
 - (void)reload {
     [self.accountStore fetch];

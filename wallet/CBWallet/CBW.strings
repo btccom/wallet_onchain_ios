@@ -80,6 +80,7 @@
 "Label default_account" = "Default Account";
 
 "Tip scan_qrcode" = "Scan a QRCode please.";
+"Tip loading" = "Loading data...";
 
 "%d confirmations" = "%d confirmations";
 "Unconfirmed" = "Unconfirmed";
