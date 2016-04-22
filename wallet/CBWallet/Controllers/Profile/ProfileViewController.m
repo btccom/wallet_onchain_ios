@@ -14,7 +14,6 @@
 
 #import "CBWAccountStore.h"
 #import "CBWBackup.h"
-#import "CBWiCloud.h"
 #import "Guard.h"
 
 #import "SSKeychain.h"
@@ -99,8 +98,7 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
 
 #pragma mark - Private Method
 - (void)p_exportBackupImageToPhotoLibrary {
-    CBWBackup *backup = [CBWBackup new];
-    [backup saveToLocalPhotoLibraryWithCompleiton:^(NSURL *assetURL, NSError *error) {
+    [CBWBackup saveToLocalPhotoLibraryWithCompleiton:^(NSURL *assetURL, NSError *error) {
         if (error) {
             NSLog(@"export to photo library error: \n%@", error);
             [self alertMessage:error.localizedDescription withTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil)];
@@ -116,7 +114,7 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
 }
 - (void)p_handleToggleiCloudEnabled:(id)sender {
     DLog(@"toggle icloud");
-    [CBWiCloud toggleiCloudBySwith:self.iCloudSwitch inViewController:self];
+    [CBWBackup toggleiCloudBySwith:self.iCloudSwitch inViewController:self];
 }
 - (void)p_handleToggleTouchIdEnabled:(id)sender {
     DLog(@"toggle touch id");

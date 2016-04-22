@@ -14,6 +14,8 @@
 #import "Database.h"
 #import "Guard.h"
 
+#import <CloudKit/CloudKit.h>
+
 @interface CBWRecovery ()
 
 @property (nonatomic, strong) NSArray *datas;
@@ -100,6 +102,35 @@
         DLog(@"recovery datas: %@", datas);
     }
     return self;
+}
+
+- (void)fetchCloudKitDataWithCompletion:(void (^)(NSError *))completion {
+    CKContainer *container = [CKContainer defaultContainer];
+    [container accountStatusWithCompletionHandler:^(CKAccountStatus accountStatus, NSError * _Nullable error) {
+        if (accountStatus == CKAccountStatusAvailable) {
+            // get private database
+            CKDatabase *database = container.privateCloudDatabase;
+            // the record
+            CKRecordID *backupRecordID = [[CKRecordID alloc] initWithRecordName:@"1"];
+            [database fetchRecordWithID:backupRecordID completionHandler:^(CKRecord * _Nullable record, NSError * _Nullable error) {
+                if (error) {
+                    completion(error);
+                } else {
+                    completion(nil);
+                    // set data
+                    NSString *dataString = record[@"dataString"];
+                    NSError *error = nil;
+                    _datas = [NSJSONSerialization JSONObjectWithData:[dataString dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingAllowFragments error:&error];
+                    if (error) {
+                        completion(error);
+                    }
+                }
+            }];
+        } else {
+            NSLog(@"CloudKit not available");
+            completion([NSError errorWithDomain:@"CBWBackup" code:404 userInfo:@{@"message":@"CloudKit not available!"}]);
+        }
+    }];
 }
 
 - (BOOL)recoverWithCode:(NSString *)code {

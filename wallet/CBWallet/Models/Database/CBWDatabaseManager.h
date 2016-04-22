@@ -5,6 +5,8 @@
 //  Created by Zin (noteon.com) on 16/3/21.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
+// TODO: 区分恢复备份及用户行为产生的数据改动，避免重复备份到 iCloud 操作
+// TODO: 保存时需要检查变更状态，如果有变化再提交到 iCloud
 
 #import <Foundation/Foundation.h>
 #import "FMDB.h"

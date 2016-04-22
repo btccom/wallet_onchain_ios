@@ -11,10 +11,12 @@
 #import "MasterPasswordViewController.h"
 #import "InitialWalletSettingViewController.h"
 
+#import "UIViewController+AlertMessage.h"
+
 #import "PrimaryButton.h"
 
+#import "CBWBackup.h"
 #import "CBWRecovery.h"
-#import "CBWiCloud.h"
 
 @interface RecoverViewController ()<MasterPasswordViewControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @property (nonatomic, strong) CBWRecovery *recovery;
@@ -30,7 +32,7 @@
     CGFloat stageWidth = CGRectGetWidth(self.view.frame);
     CGFloat stageHeight = CGRectGetHeight(self.view.frame);
     
-    if ([CBWiCloud isiCloudAccountSignedIn]) {
+    if ([CBWBackup isiCloudAccountSignedIn]) {
         PrimaryButton *iCloudButton = [[PrimaryButton alloc] initWithFrame:CGRectMake(20.f, stageHeight * 0.6f, stageWidth - 40.f, CBWCellHeightDefault)];
         [iCloudButton addTarget:self action:@selector(p_handleFetchiCloudData:) forControlEvents:UIControlEventTouchUpInside];
         [iCloudButton setTitle:NSLocalizedStringFromTable(@"Button recover_from_icloud", @"CBW", nil) forState:UIControlStateNormal];
@@ -63,14 +65,13 @@
     [self.view addSubview:indicator];
     [indicator startAnimating];
     
-    CBWiCloud *iCloud = [[CBWiCloud alloc] init];
-    [iCloud fetchBackupDataWithCompletion:^(NSError *error, id data) {
+    self.recovery = [[CBWRecovery alloc] init];
+    [self.recovery fetchCloudKitDataWithCompletion:^(NSError *error) {
         [indicator stopAnimating];
-        if (data) {
-            self.recovery = [[CBWRecovery alloc] initWithDatas:data];
-            if (self.recovery) {
-                [self p_handleNext:nil];
-            }
+        if (error) {
+            [self alertMessage:error.localizedDescription withTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil)];
+        } else {
+            [self p_handleNext:nil];
         }
     }];
 }

@@ -9,6 +9,8 @@
 #import "CBWDatabaseManager+Account.h"
 #import "CBWAccountStore.h"
 
+#import "CBWBackup.h"
+
 @implementation CBWDatabaseManager (Account)
 
 - (void)fetchAccountsToStore:(CBWAccountStore *)store {
@@ -42,6 +44,9 @@
             [self p_createAccount:account];
         }
     }
+    [CBWBackup saveToCloudKitWithCompletion:^(NSError *error) {
+        DLog(@"account database push to icloud error: %@", error);
+    }];
 }
 - (BOOL)p_createAccount:(CBWAccount *)account {
     BOOL created = NO;

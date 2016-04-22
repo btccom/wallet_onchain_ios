@@ -12,8 +12,10 @@
 
 /// <code>[seed,
 ///        {account idx: [label, address count, {address idx: [label, dirty]}]
-- (NSArray *)getDatas;
-- (UIImage *)exportImage;
-- (void)saveToLocalPhotoLibraryWithCompleiton:(void(^)(NSURL *assetURL, NSError *error))completion;
-
++ (NSArray *)getDatas;
++ (UIImage *)exportImage;
++ (void)saveToLocalPhotoLibraryWithCompleiton:(void(^)(NSURL *assetURL, NSError *error))completion;
++ (void)saveToCloudKitWithCompletion:(void(^)(NSError *error))completion;
++ (void)toggleiCloudBySwith:(UISwitch *)aSwitch inViewController:(UIViewController *)viewController;
++ (BOOL)isiCloudAccountSignedIn;
 @end

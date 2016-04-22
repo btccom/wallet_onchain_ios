@@ -18,6 +18,8 @@
 /// 传入数据，例如从 iCloud 中恢复
 - (instancetype)initWithDatas:(NSArray *)datas;
 
+- (void)fetchCloudKitDataWithCompletion:(void(^)(NSError *error))completion;
+
 /// 使用密码进行恢复，解密成功，将加密数据保存在 keychain，使用数据保存在数据库
 - (BOOL)recoverWithCode:(NSString *)code;
 

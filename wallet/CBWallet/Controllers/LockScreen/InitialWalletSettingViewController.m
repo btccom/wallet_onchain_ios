@@ -11,7 +11,7 @@
 #import "PrimaryButton.h"
 
 //#import "SystemManager.h"
-#import "CBWiCloud.h"
+#import "CBWBackup.h"
 
 @import LocalAuthentication;
 
@@ -37,7 +37,7 @@
     // default
     if ([[NSUserDefaults standardUserDefaults] objectForKey:CBWUserDefaultsiCloudEnabledKey] == nil) {
 //        if ([[SystemManager defaultManager] isiCloudAccountSignedIn]) {
-        if ([CBWiCloud isiCloudAccountSignedIn]) {
+        if ([CBWBackup isiCloudAccountSignedIn]) {
             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:CBWUserDefaultsiCloudEnabledKey];
         } else {
             [[NSUserDefaults standardUserDefaults] setBool:NO forKey:CBWUserDefaultsiCloudEnabledKey];
@@ -63,7 +63,7 @@
 }
 
 - (void)p_toggleiCloudEnabled:(id)sender {
-    [CBWiCloud toggleiCloudBySwith:sender inViewController:self];
+    [CBWBackup toggleiCloudBySwith:sender inViewController:self];
 }
 
 - (void)p_toggleTouchIDEnabled:(id)sender {

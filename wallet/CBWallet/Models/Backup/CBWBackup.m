@@ -11,10 +11,11 @@
 #import "Database.h"
 #import "YYImage.h"
 #import <CoreBitcoin/CoreBitcoin.h>
+#import <CloudKit/CloudKit.h>
 
 @implementation CBWBackup
 
-- (NSArray *)getDatas {
++ (NSArray *)getDatas {
     // add seed
     NSMutableArray *datas = [NSMutableArray arrayWithObject:[SSKeychain passwordForService:CBWKeychainSeedService account:CBWKeychainAccountDefault]];
     
@@ -76,7 +77,7 @@
     return [datas copy];
 }
 
-- (UIImage *)exportImage {
++ (UIImage *)exportImage {
     NSMutableArray *datas = [self.getDatas mutableCopy];
     if (datas.count > 0) {
         NSString *seed = [datas firstObject];
@@ -112,10 +113,108 @@
     return nil;
 }
 
-- (void)saveToLocalPhotoLibraryWithCompleiton:(void (^)(NSURL *, NSError *))completion {
++ (void)saveToLocalPhotoLibraryWithCompleiton:(void (^)(NSURL *, NSError *))completion {
     [[self exportImage] yy_saveToAlbumWithCompletionBlock:^(NSURL * _Nullable assetURL, NSError * _Nullable error) {
         completion(assetURL, error);
     }];
+}
+
+// TODO: handle NSUbiquityIdentityDidChangeNotification, if another account logged in. alert user to switch account.
++ (void)saveToCloudKitWithCompletion:(void (^)(NSError *))completion {
+    // check available
+    CKContainer *container = [CKContainer defaultContainer];
+    [container accountStatusWithCompletionHandler:^(CKAccountStatus accountStatus, NSError * _Nullable error) {
+        if (accountStatus == CKAccountStatusAvailable) {
+            // get private database
+            CKDatabase *database = container.privateCloudDatabase;
+            // the record
+            CKRecordID *backupRecordID = [[CKRecordID alloc] initWithRecordName:@"1"];
+            [database fetchRecordWithID:backupRecordID completionHandler:^(CKRecord * _Nullable record, NSError * _Nullable error) {
+                if (error) {
+                    completion(error);
+                } else {
+                    CKRecord *backupRecord = record;
+                    if (!backupRecord) {
+                        backupRecord = [[CKRecord alloc] initWithRecordType:@"Backup" recordID:backupRecordID];
+                    }
+                    
+                    if (backupRecord) {
+                        // save backup
+                        NSError *error = nil;
+                        NSData *data = [NSJSONSerialization dataWithJSONObject:[self getDatas] options:0 error:&error];
+                        NSString *dataString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                        backupRecord[@"dataString"] = dataString;
+                        [database saveRecord:backupRecord completionHandler:^(CKRecord * _Nullable record, NSError * _Nullable error) {
+                            if (error) {
+                                completion(error);
+                            } else {
+                                DLog(@"saved record: %@", record);
+                                completion(nil);
+                            }
+                        }];
+                    } else {
+                        completion([NSError errorWithDomain:@"CBWBackup" code:500 userInfo:@{@"message":@"Create record failed!"}]);
+                    }
+                }
+            }];
+            
+        } else {
+            NSLog(@"CloudKit not available");
+            completion([NSError errorWithDomain:@"CBWBackup" code:404 userInfo:@{@"message":@"CloudKit not available!"}]);
+        }
+    }];
+}
+
++ (void)toggleiCloudBySwith:(UISwitch *)aSwitch inViewController:(UIViewController *)viewController {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:CBWUserDefaultsiCloudEnabledKey]) {
+        // toggle off
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:CBWUserDefaultsiCloudEnabledKey];
+        if ([[NSUserDefaults standardUserDefaults] synchronize]) {
+            [aSwitch setOn:NO animated:YES];
+        }
+    } else {
+        // toggle on
+        CKContainer *container = [CKContainer defaultContainer];
+        [container accountStatusWithCompletionHandler:^(CKAccountStatus accountStatus, NSError * _Nullable error) {
+            if (accountStatus == CKAccountStatusAvailable) {
+                [self saveToCloudKitWithCompletion:^(NSError *error) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        if (error) {
+                            
+                            UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil) message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
+                            UIAlertAction *okay = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Okay", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
+                            [alert addAction:okay];
+                            [viewController presentViewController:alert animated:YES completion:^{
+                                [aSwitch setOn:NO animated:YES];
+                            }];
+                            
+                        } else {
+                            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:CBWUserDefaultsiCloudEnabledKey];
+                            if ([[NSUserDefaults standardUserDefaults] synchronize]) {
+                                [aSwitch setOn:YES animated:YES];
+                            }
+                        }
+                    });
+                }];
+            } else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil) message:NSLocalizedStringFromTable(@"Alert Message need_icloud_account_signed_in", @"CBW", nil) preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction *okay = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Okay", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
+                    [alert addAction:okay];
+                    [viewController presentViewController:alert animated:YES completion:^{
+                        [aSwitch setOn:NO animated:YES];
+                    }];
+                });
+            }
+        }];
+    }
+}
+
++ (BOOL)isiCloudAccountSignedIn {
+    if ([NSFileManager defaultManager].ubiquityIdentityToken) {
+        return YES;
+    }
+    return NO;
 }
 
 @end

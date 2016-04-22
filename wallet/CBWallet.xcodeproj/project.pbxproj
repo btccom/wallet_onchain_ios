@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2C069C411CC72D4F0054791C /* UIViewController+AlertMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C069C401CC72D4F0054791C /* UIViewController+AlertMessage.m */; };
+		2C069C4A1CC9C8250054791C /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C069C491CC9C8250054791C /* CloudKit.framework */; };
 		2C1684A01CAB5F4800BD434A /* NSDate+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C16849F1CAB5F4800BD434A /* NSDate+Helper.m */; };
 		2C1684A31CAB6B4B00BD434A /* CBWRequest+Block.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1684A21CAB6B4B00BD434A /* CBWRequest+Block.m */; };
 		2C1684A61CACA89D00BD434A /* CBWRequest+Transaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1684A51CACA89D00BD434A /* CBWRequest+Transaction.m */; };
@@ -38,8 +39,6 @@
 		2C77D2731CAA10EE001DDB1F /* UIFont+CBW.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D2721CAA10EE001DDB1F /* UIFont+CBW.m */; };
 		2C9829031CBA49C2004CB2D3 /* CBWBackup.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9829021CBA49C2004CB2D3 /* CBWBackup.m */; };
 		2C9829061CBA49CC004CB2D3 /* CBWRecovery.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9829051CBA49CC004CB2D3 /* CBWRecovery.m */; };
-		2C98290A1CBA49FE004CB2D3 /* CBWiCloud.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9829091CBA49FE004CB2D3 /* CBWiCloud.m */; };
-		2C98290D1CBA4D98004CB2D3 /* CBWiCloudDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C98290C1CBA4D98004CB2D3 /* CBWiCloudDocument.m */; };
 		2C99A17C1CA0E434007D7AC3 /* Guard.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C99A17B1CA0E434007D7AC3 /* Guard.m */; };
 		2C99A1801CA1029C007D7AC3 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C99A17F1CA1029C007D7AC3 /* libsqlite3.tbd */; };
 		2C9CAF471C868B61008194EB /* AddressListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAEE31C868B61008194EB /* AddressListViewController.m */; };
@@ -125,6 +124,7 @@
 /* Begin PBXFileReference section */
 		2C069C3F1CC72D4F0054791C /* UIViewController+AlertMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+AlertMessage.h"; sourceTree = "<group>"; };
 		2C069C401CC72D4F0054791C /* UIViewController+AlertMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+AlertMessage.m"; sourceTree = "<group>"; };
+		2C069C491CC9C8250054791C /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		2C16849E1CAB5F4800BD434A /* NSDate+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Helper.h"; sourceTree = "<group>"; };
 		2C16849F1CAB5F4800BD434A /* NSDate+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Helper.m"; sourceTree = "<group>"; };
 		2C1684A11CAB6B4B00BD434A /* CBWRequest+Block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBWRequest+Block.h"; sourceTree = "<group>"; };
@@ -186,10 +186,6 @@
 		2C9829021CBA49C2004CB2D3 /* CBWBackup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBWBackup.m; sourceTree = "<group>"; };
 		2C9829041CBA49CC004CB2D3 /* CBWRecovery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBWRecovery.h; sourceTree = "<group>"; };
 		2C9829051CBA49CC004CB2D3 /* CBWRecovery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBWRecovery.m; sourceTree = "<group>"; };
-		2C9829081CBA49FE004CB2D3 /* CBWiCloud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBWiCloud.h; sourceTree = "<group>"; };
-		2C9829091CBA49FE004CB2D3 /* CBWiCloud.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBWiCloud.m; sourceTree = "<group>"; };
-		2C98290B1CBA4D98004CB2D3 /* CBWiCloudDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBWiCloudDocument.h; sourceTree = "<group>"; };
-		2C98290C1CBA4D98004CB2D3 /* CBWiCloudDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBWiCloudDocument.m; sourceTree = "<group>"; };
 		2C99A17A1CA0E434007D7AC3 /* Guard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Guard.h; sourceTree = "<group>"; };
 		2C99A17B1CA0E434007D7AC3 /* Guard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Guard.m; sourceTree = "<group>"; };
 		2C99A17F1CA1029C007D7AC3 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
@@ -356,6 +352,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C069C4A1CC9C8250054791C /* CloudKit.framework in Frameworks */,
 				2C99A1801CA1029C007D7AC3 /* libsqlite3.tbd in Frameworks */,
 				2CF24D5F1C965F6500C7EDB9 /* libz.tbd in Frameworks */,
 				2CF24D121C96377600C7EDB9 /* AVFoundation.framework in Frameworks */,
@@ -435,24 +432,12 @@
 		2C9829001CBA49B6004CB2D3 /* Backup */ = {
 			isa = PBXGroup;
 			children = (
-				2C9829071CBA49E6004CB2D3 /* iCloud */,
 				2C9829011CBA49C2004CB2D3 /* CBWBackup.h */,
 				2C9829021CBA49C2004CB2D3 /* CBWBackup.m */,
 				2C9829041CBA49CC004CB2D3 /* CBWRecovery.h */,
 				2C9829051CBA49CC004CB2D3 /* CBWRecovery.m */,
 			);
 			path = Backup;
-			sourceTree = "<group>";
-		};
-		2C9829071CBA49E6004CB2D3 /* iCloud */ = {
-			isa = PBXGroup;
-			children = (
-				2C9829081CBA49FE004CB2D3 /* CBWiCloud.h */,
-				2C9829091CBA49FE004CB2D3 /* CBWiCloud.m */,
-				2C98290B1CBA4D98004CB2D3 /* CBWiCloudDocument.h */,
-				2C98290C1CBA4D98004CB2D3 /* CBWiCloudDocument.m */,
-			);
-			path = iCloud;
 			sourceTree = "<group>";
 		};
 		2C9CAEE01C868B61008194EB /* Controllers */ = {
@@ -870,6 +855,7 @@
 		A3DE19FDBECA89D27AA75E54 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2C069C491CC9C8250054791C /* CloudKit.framework */,
 				7181822D043721CB668D9C00 /* libPods.a */,
 			);
 			name = Frameworks;
@@ -1027,7 +1013,6 @@
 				2C77D2661CA8C14E001DDB1F /* CBWRequest+Address.m in Sources */,
 				2C1684AF1CAD17C500BD434A /* TransactionDataCell.m in Sources */,
 				2C19FD0C1CB3FBC7009BC78C /* NSNumber+Satoshi.m in Sources */,
-				2C98290D1CBA4D98004CB2D3 /* CBWiCloudDocument.m in Sources */,
 				2C1684A31CAB6B4B00BD434A /* CBWRequest+Block.m in Sources */,
 				2C1684B21CAD1A6500BD434A /* TransactionIOCell.m in Sources */,
 				2CD0A9191CA02ACA006AF02F /* FMDatabaseAdditions.m in Sources */,
@@ -1043,7 +1028,6 @@
 				2CF24D771C97A53200C7EDB9 /* AFURLRequestSerialization.m in Sources */,
 				2CF24D791C97A53200C7EDB9 /* AFURLSessionManager.m in Sources */,
 				2CF24D5D1C965C7200C7EDB9 /* YYSpriteSheetImage.m in Sources */,
-				2C98290A1CBA49FE004CB2D3 /* CBWiCloud.m in Sources */,
 				2C9CAF491C868B61008194EB /* ArchivedAdressListViewController.m in Sources */,
 				2C9CAF5D1C868B61008194EB /* UIButton+VerticalLayout.m in Sources */,
 				2C9CAF471C868B61008194EB /* AddressListViewController.m in Sources */,

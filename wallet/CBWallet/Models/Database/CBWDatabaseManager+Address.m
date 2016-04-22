@@ -8,6 +8,7 @@
 
 #import "CBWDatabaseManager+Address.h"
 #import "CBWAddressStore.h"
+#import "CBWBackup.h"
 
 @implementation CBWDatabaseManager (Address)
 
@@ -68,6 +69,10 @@
             [self p_createAddress:address];
         }
     }
+    
+    [CBWBackup saveToCloudKitWithCompletion:^(NSError *error) {
+        DLog(@"address database push to icloud error: %@", error);
+    }];
 }
 - (BOOL)p_createAddress:(CBWAddress *)address {
     BOOL created = NO;
@@ -195,6 +200,11 @@
         
         [db close];
     }
+    
+    
+    [CBWBackup saveToCloudKitWithCompletion:^(NSError *error) {
+        DLog(@"address database push 'delete' to icloud error: %@", error);
+    }];
 }
 
 - (NSUInteger)countAllAddressesWithAccountIdx:(NSInteger)accountIdx {
