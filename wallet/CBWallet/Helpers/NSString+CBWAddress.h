@@ -21,4 +21,6 @@ extern NSString *const _Nonnull CBWAddressInfoAmountKey;
 /// 解析地址信息，简单校验地址合法性
 - (nullable NSDictionary *)addressInfo;
 
+- (long long)BTC2SatoshiValue;
+
 @end

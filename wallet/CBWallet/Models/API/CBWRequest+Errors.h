@@ -9,9 +9,11 @@
 #import "CBWRequest.h"
 
 extern NSString *const _Nonnull CBWRequestDomain;
+extern NSString *const _Nonnull CBWRequestErrorMessageKey;
 
 typedef NS_ENUM(NSInteger, CBWRequestErrorCode) {
-    CBWRequestErrorCodeUnknown = -1
+    CBWRequestErrorCodeNotEnoughBalance = -1,
+    CBWRequestErrorCodeUnknown = 0
 };
 
 @interface CBWRequest (Errors)

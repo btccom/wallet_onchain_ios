@@ -94,6 +94,7 @@
 		2CD0A91C1CA02ACA006AF02F /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD0A9171CA02ACA006AF02F /* FMResultSet.m */; };
 		2CD0A91F1CA02B45006AF02F /* CBWDatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD0A91E1CA02B45006AF02F /* CBWDatabaseManager.m */; };
 		2CD0A9221CA02CF5006AF02F /* CBWDatabaseManager+Account.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD0A9211CA02CF5006AF02F /* CBWDatabaseManager+Account.m */; };
+		2CD7EEBA1CD2F38100B5B884 /* SendViewController+Send.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD7EEB91CD2F38100B5B884 /* SendViewController+Send.m */; };
 		2CDCB16F1CC47A8E00722BCF /* AccountsManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDCB16E1CC47A8E00722BCF /* AccountsManagerViewController.m */; };
 		2CDCB1721CC5DCF200722BCF /* SSKeychainQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDCB1711CC5DCF200722BCF /* SSKeychainQuery.m */; };
 		2CEFC3531CA4CBAC00FECCA4 /* CBWRecordObjectStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEFC3521CA4CBAC00FECCA4 /* CBWRecordObjectStore.m */; };
@@ -295,6 +296,8 @@
 		2CD0A91E1CA02B45006AF02F /* CBWDatabaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBWDatabaseManager.m; sourceTree = "<group>"; };
 		2CD0A9201CA02CF5006AF02F /* CBWDatabaseManager+Account.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBWDatabaseManager+Account.h"; sourceTree = "<group>"; };
 		2CD0A9211CA02CF5006AF02F /* CBWDatabaseManager+Account.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBWDatabaseManager+Account.m"; sourceTree = "<group>"; };
+		2CD7EEB81CD2F38100B5B884 /* SendViewController+Send.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SendViewController+Send.h"; sourceTree = "<group>"; };
+		2CD7EEB91CD2F38100B5B884 /* SendViewController+Send.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SendViewController+Send.m"; sourceTree = "<group>"; };
 		2CDCB16D1CC47A8E00722BCF /* AccountsManagerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountsManagerViewController.h; sourceTree = "<group>"; };
 		2CDCB16E1CC47A8E00722BCF /* AccountsManagerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountsManagerViewController.m; sourceTree = "<group>"; };
 		2CDCB1701CC5DCF200722BCF /* SSKeychainQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKeychainQuery.h; sourceTree = "<group>"; };
@@ -545,6 +548,8 @@
 				2C9CAF091C868B61008194EB /* RecipientViewController.m */,
 				2C9CAF0A1C868B61008194EB /* SendViewController.h */,
 				2C9CAF0B1C868B61008194EB /* SendViewController.m */,
+				2CD7EEB81CD2F38100B5B884 /* SendViewController+Send.h */,
+				2CD7EEB91CD2F38100B5B884 /* SendViewController+Send.m */,
 			);
 			path = Send;
 			sourceTree = "<group>";
@@ -1052,6 +1057,7 @@
 				2CD0A91B1CA02ACA006AF02F /* FMDatabaseQueue.m in Sources */,
 				2C9CAF4E1C868B61008194EB /* ScanViewController.m in Sources */,
 				2CF24D581C965C7200C7EDB9 /* SSKeychain.m in Sources */,
+				2CD7EEBA1CD2F38100B5B884 /* SendViewController+Send.m in Sources */,
 				2CF24D761C97A53200C7EDB9 /* AFSecurityPolicy.m in Sources */,
 				2C9CAF6D1C868B61008194EB /* DefaultSectionHeaderView.m in Sources */,
 				2C9CAF651C868B61008194EB /* SystemManager.m in Sources */,
@@ -1211,7 +1217,7 @@
 				GCC_PREFIX_HEADER = "CBWallet/CBWallet-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "$(SRCROOT)/CBWallet/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.btc.WalletDevelop;
@@ -1231,7 +1237,7 @@
 				GCC_PREFIX_HEADER = "CBWallet/CBWallet-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "$(SRCROOT)/CBWallet/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.btc.WalletDevelop;

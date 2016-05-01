@@ -73,4 +73,8 @@
     }
 }
 
+- (NSArray *)availableAddresses {
+    return [records copy];
+}
+
 @end

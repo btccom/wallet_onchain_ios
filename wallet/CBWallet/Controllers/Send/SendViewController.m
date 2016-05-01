@@ -8,6 +8,7 @@
 // TODO: cache the recipient
 
 #import "SendViewController.h"
+#import "SendViewController+Send.h"
 #import "ScanViewController.h"
 #import "AddressListViewController.h"
 
@@ -62,20 +63,16 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
 
 @interface SendViewController ()<UITextFieldDelegate, ScanViewControllerDelegate, AddressListViewControllerDelegate>
 
-@property (nonatomic, strong) CBWAddressStore *addressStore;
+//@property (nonatomic, strong) CBWAddressStore *addressStore;
 
 @property (nonatomic, weak) FormControlInputActionCell *quicklyAddressCell;
 @property (nonatomic, weak) FormControlInputCell *quicklyAmountCell;
 @property (nonatomic, weak) FormControlBlockButtonCell *quicklySendButtonCell;
 
 @property (nonatomic, strong) NSArray *advancedSectionTitles;
-@property (nonatomic, strong) NSMutableArray<CBWAddress *> *advancedFromAddresses;
-@property (nonatomic, strong) NSMutableArray<CBWAddress *> *advancedToDatas;
 @property (nonatomic, weak) FormControlInputActionCell *advancedToAddressCell;
 @property (nonatomic, weak) FormControlInputActionCell *advancedToAmountCell;
 @property (nonatomic, weak) FormControlBlockButtonCell *advancedSendButtonCell;
-@property (nonatomic, strong) CBWAddress *advancedChangeAddress;// new address as default
-@property (nonatomic, strong) CBWFee *fee;// medium as default
 
 
 @end
@@ -110,8 +107,7 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
     [super viewDidLoad];
     
     self.title = NSLocalizedStringFromTable(@"Navigation send", @"CBW", @"Quickly Send");
-//    暂时关闭高级发款
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedStringFromTable(@"Navigation advanced_send", @"CBW", @"Advanced Send") style:UIBarButtonItemStylePlain target:self action:@selector(p_handleSwitchMode:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedStringFromTable(@"Navigation advanced_send", @"CBW", @"Advanced Send") style:UIBarButtonItemStylePlain target:self action:@selector(p_handleSwitchMode:)];
     
     _advancedSectionTitles = @[NSLocalizedStringFromTable(@"Send Section from", @"CBW", nil),
                                NSLocalizedStringFromTable(@"Send Section to", @"CBW", nil),
@@ -205,15 +201,34 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
 - (void)p_handleSend {
     NSLog(@"handle send");
     [self.view endEditing:YES];
-    // TODO: quickly
-    // check address
-    NSString *addressString = self.quicklyAddressCell.textField.text;
-    if (![CBWAddress validateAddressString:addressString]) {
-        [self alertMessageWithInvalidAddress:addressString];
-        return;
+    switch (self.mode) {
+        case SendViewControllerModeQuickly: {
+
+            // check address
+            NSString *addressString = self.quicklyAddressCell.textField.text;
+            if (![CBWAddress validateAddressString:addressString]) {
+                [self alertMessageWithInvalidAddress:addressString];
+                return;
+            }
+            
+            [self sendToAddresses:@{self.quicklyToAddress: @([self.quicklyToAmountInBTC BTC2SatoshiValue])}];
+            
+            break;
+        }
+            
+        case SendViewControllerModeAdvanced: {
+            NSMutableDictionary *toAddresses = [NSMutableDictionary dictionary];
+            [self.advancedToDatas enumerateObjectsUsingBlock:^(CBWAddress * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                [toAddresses setObject:@(obj.balance) forKey:obj.address];
+            }];
+            [self sendToAddresses:[toAddresses copy]];
+            
+            break;
+        }
+            
+        default:
+            break;
     }
-    
-    [self p_sendToAddressString:self.quicklyToAddress withAmount:[@([self.quicklyToAmountInBTC doubleValue]) longLongValue]];
     
     // TODO: advanced
     // check from address balance
@@ -223,153 +238,6 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
     // sign inputs
     // post
 }
-
-- (void)p_sendToAddressString:(NSString *)addressString withAmount:(long long)amount {
-    
-    // 1. Get a private key, destination address, change address and amount
-    // 用当前账户的第一个地址测试，应该轮询余额大于零的全部地址
-    CBWAddressStore *store = [[CBWAddressStore alloc] initWithAccountIdx:self.account.idx];
-    [store fetch];
-    CBWAddress *address = [store recordAtIndex:0];
-    BTCKey *key = address.privateKey;
-    CBWAddress *newAddress = [store recordAtIndex:(store.count - 1)];//
-    BTCPublicKeyAddress *changeAddress = newAddress.privateKey.compressedPublicKeyAddress;
-    DLog(@"got key for address: %@", key.compressedPublicKeyAddress);
-    
-    // 2. Get unspent outputs for that key (using both compressed and non-compressed pubkey)
-    CBWRequest *request = [[CBWRequest alloc] init];
-    [request addressUnspentWithAddressString:address.address completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
-        DLog(@"unspent response: %@", response);
-
-        NSArray *list = [response objectForKey:CBWRequestResponseDataListKey];
-        if (list.count == 0) {
-            return;
-        }
-        
-        
-        __block NSMutableArray *utxos = [[NSMutableArray alloc] init];
-        [list enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            BTCTransactionOutput *txout = [[BTCTransactionOutput alloc] init];
-            
-            txout.value = [obj[@"value"] longLongValue];
-//            txout.script = [[BTCScript alloc] initWithString:obj[@"script"]];
-            txout.index = [obj[@"tx_output_n"] intValue];
-            txout.transactionHash = (BTCReversedData(BTCDataFromHex(obj[@"tx_hash"])));
-            txout.confirmations = [obj[@"confirmations"] unsignedIntegerValue];
-            [utxos addObject:txout];
-        }];
-        
-        DLog(@"UTXOs for %@: %@ %@", key.compressedPublicKeyAddress, utxos, error);
-        
-        if (!utxos) {
-            return;
-        }
-        
-        // 3. Take the smallest available outputs to combine into the inputs of new transaction
-        CBWFee *fee = [CBWFee defaultFee];
-        BTCAmount totalAmount = amount + [fee.value longLongValue];
-        BTCAmount dustThreshold = 100000;
-        
-        utxos = [[utxos sortedArrayUsingComparator:^(BTCTransactionOutput* obj1, BTCTransactionOutput* obj2) {
-            if ((obj1.value - obj2.value) < 0) return NSOrderedAscending;
-            else return NSOrderedDescending;
-        }] mutableCopy];
-        DLog(@"sorted UTXOs: %@", utxos);
-        
-        NSArray *txouts = nil;
-        
-        for (BTCTransactionOutput *txout in utxos) {
-            if (txout.value > (totalAmount + dustThreshold) && txout.script.isPayToPublicKeyHashScript) {
-                txouts = @[ txout ];
-                break;// only one out
-            }
-        }
-        
-        if (!txouts) return;
-        
-        // 4. Prepare the scripts with proper signatures for the inputs
-        
-        // Create a new transaction
-        BTCTransaction *tx = [[BTCTransaction alloc] init];
-        
-        BTCAmount spentCoins = 0;
-        
-        // Add all outputs as inputs
-        for (BTCTransactionOutput *txout in txouts) {
-            BTCTransactionInput *txin = [[BTCTransactionInput alloc] init];
-            txin.previousHash = txout.transactionHash;
-            txin.previousIndex = txout.index;
-            [tx addInput:txin];
-            
-            DLog(@"txhash: http://blockchain.info/rawtx/%@", BTCHexFromData(txout.transactionHash));
-            DLog(@"txhash: http://blockchain.info/rawtx/%@ (reversed)", BTCHexFromData(BTCReversedData(txout.transactionHash)));
-            
-            spentCoins += txout.value;
-        }
-        
-        NSLog(@"Total satoshis to spend:       %lld", spentCoins);
-        NSLog(@"Total satoshis to destination: %lld", amount);
-        NSLog(@"Total satoshis to fee:         %lld", [fee.value longLongValue]);
-        NSLog(@"Total satoshis to change:      %lld", (spentCoins - (amount + [fee.value longLongValue])));
-        
-        // Add required outputs - payment and change
-        BTCTransactionOutput *paymentOutput = [[BTCTransactionOutput alloc] initWithValue:amount address:[BTCPublicKeyAddress addressWithString:addressString]];
-        BTCTransactionOutput *changeOutput = [[BTCTransactionOutput alloc] initWithValue:(spentCoins - totalAmount) address:changeAddress];
-        
-        // Idea: deterministically-randomly choose which output goes first to improve privacy.
-        [tx addOutput:paymentOutput];
-        [tx addOutput:changeOutput];
-        
-        
-        // Sign all inputs.
-        for (int i = 0; i < txouts.count; i++) {
-            
-            BTCTransactionOutput* txout = txouts[i]; // output from a previous tx which is referenced by this txin.
-            BTCTransactionInput* txin = tx.inputs[i];
-            
-            BTCScript* sigScript = [[BTCScript alloc] init];
-            
-            NSData* d1 = tx.data;
-            
-            BTCSignatureHashType hashtype = BTCSignatureHashTypeAll;
-            
-            NSData *hash = [tx signatureHashForScript:txout.script inputIndex:i hashType:hashtype error:nil];
-            
-            NSData *d2 = tx.data;
-            
-            NSAssert([d1 isEqual:d2], @"Transaction must not change within signatureHashForScript!");
-            
-            DLog(@"Hash for input %d: %@", i, BTCHexFromData(hash));
-            if (!hash) {
-                return;
-            }
-            
-            NSData* signatureForScript = [key signatureForHash:hash hashType:hashtype];
-            [sigScript appendData:signatureForScript];
-            [sigScript appendData:key.publicKey];
-            
-            NSData* sig = [signatureForScript subdataWithRange:NSMakeRange(0, signatureForScript.length - 1)]; // trim hashtype byte to check the signature.
-            NSAssert([key isValidSignature:sig hash:hash], @"Signature must be valid");
-            
-            txin.signatureScript = sigScript;
-        }
-        
-        // Validate the signatures before returning for extra measure.
-        
-        {
-            BTCScriptMachine* sm = [[BTCScriptMachine alloc] initWithTransaction:tx inputIndex:0];
-            NSError* error = nil;
-            BOOL r = [sm verifyWithOutputScript:[[(BTCTransactionOutput*)txouts[0] script] copy] error:&error];
-            NSLog(@"Error: %@", error);
-            NSAssert(r, @"should verify first output");
-        }
-        
-        // 5. Broadcast the transaction
-        
-        
-    }];
-}
-
 - (BOOL)p_editingChanged:(id)sender {
     BOOL valid = YES;
     if ([sender isEqual:self.quicklyAddressCell.textField]) {
@@ -434,6 +302,7 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
     }];
     if (duplicated) {
         // TODO: 错误提示，重复地址不同金额可以相加或替换
+        [self alertMessage:NSLocalizedStringFromTable(@"Alert Message duplicated_send_to_address", @"CBW", nil) withTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil)];
         return;
     }
     

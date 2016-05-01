@@ -28,11 +28,13 @@ NSString *const BaseListViewCellAddressIdentifier = @"list.cell.address";
 - (void)requestDidStart {
     self.requesting = YES;
     [self.refreshControl beginRefreshing];
+    DLog(@"request did start");
 //    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 }
 - (void)requestDidStop {
     self.requesting = NO;
     [self.refreshControl endRefreshing];
+    DLog(@"request did stop");
 //    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
 

@@ -107,4 +107,8 @@ NSString *const CBWAddressInfoAmountKey = @"amount";
     return @{CBWAddressInfoAddressKey: addressString, CBWAddressInfoLabelKey: label, CBWAddressInfoAmountKey: amount};
 }
 
+- (long long)BTC2SatoshiValue {
+    return [@([self doubleValue] * 100000000.0) longLongValue];
+}
+
 @end
