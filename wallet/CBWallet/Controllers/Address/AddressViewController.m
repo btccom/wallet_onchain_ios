@@ -149,11 +149,12 @@
 //            [self.transactionStore sort];
             
             // 更新界面
-            if ([self.tableView numberOfSections] == 0) {
-                [self.tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationTop];
-            } else {
-                [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
-            }
+            [self.tableView reloadData];
+//            if ([self.tableView numberOfSections] == 0) {
+//                [self.tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationTop];
+//            } else {
+//                [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+//            }
         }
     }];
 }
@@ -245,7 +246,16 @@
 
 #pragma mark <UIScrollViewDelegate>
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    DLog(@"scroll offset top: %f", scrollView.contentOffset.y);
+    if (!self.requesting) {
+        if (self.isThereMoreDatas) {
+            CGFloat contentHeight = scrollView.contentSize.height;
+            CGFloat offsetTop = scrollView.contentOffset.y;
+            CGFloat height = CGRectGetHeight(scrollView.frame);
+            if (contentHeight - (offsetTop + height) < 200.f) {
+                [self p_requestTransactions];
+            }
+        }
+    }
 }
 
 @end
