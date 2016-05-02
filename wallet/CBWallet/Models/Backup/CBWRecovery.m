@@ -163,6 +163,7 @@
             
             // save account
             CBWAccount *account = [CBWAccount newAccountWithIdx:[key integerValue] label:accountDataArray[0] inStore:accountStore];
+            account.ignoringSync = YES;
             [account saveWithError:nil];
             
             // address
@@ -181,6 +182,7 @@
                     
                     // save address
                     CBWAddress *address = [CBWAddress newAdress:addressString withLabel:label idx:CBWRecordWatchedIdx archived:NO dirty:NO internal:NO accountRid:account.rid accountIdx:account.idx inStore:adderssStore];
+                    address.ignoringSync = YES;
                     [address saveWithError:nil];
                 }];
             } else {
@@ -205,6 +207,7 @@
                     
                     // save address
                     CBWAddress *address = [CBWAddress newAdress:addressString withLabel:label idx:addressIdx archived:archived dirty:dirty internal:NO accountRid:account.rid accountIdx:account.idx inStore:adderssStore];
+                    address.ignoringSync = YES;
                     [address saveWithError:nil];
                 }
             }

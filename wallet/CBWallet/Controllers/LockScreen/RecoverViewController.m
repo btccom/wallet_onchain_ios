@@ -59,7 +59,8 @@
     [self.navigationController pushViewController:masterPasswordViewController animated:YES];
 }
 
-- (void)p_handleFetchiCloudData:(id)sender {
+- (void)p_handleFetchiCloudData:(UIButton *)button {
+    button.enabled = NO;
     UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     indicator.center = self.view.center;
     [self.view addSubview:indicator];
@@ -67,6 +68,7 @@
     
     self.recovery = [[CBWRecovery alloc] init];
     [self.recovery fetchCloudKitDataWithCompletion:^(NSError *error) {
+        button.enabled = YES;
         [indicator stopAnimating];
         if (error) {
             [self alertMessage:error.localizedDescription withTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil)];

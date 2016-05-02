@@ -70,9 +70,11 @@
         }
     }
     
-    [CBWBackup saveToCloudKitWithCompletion:^(NSError *error) {
-        DLog(@"address database push to icloud error: %@", error);
-    }];
+    if (!address.isIgnoringSync) {
+        [CBWBackup saveToCloudKitWithCompletion:^(NSError *error) {
+            DLog(@"address database push to icloud error: %@", error);
+        }];
+    }
 }
 - (BOOL)p_createAddress:(CBWAddress *)address {
     BOOL created = NO;
@@ -202,9 +204,11 @@
     }
     
     
-    [CBWBackup saveToCloudKitWithCompletion:^(NSError *error) {
-        DLog(@"address database push 'delete' to icloud error: %@", error);
-    }];
+    if (!address.isIgnoringSync) {
+        [CBWBackup saveToCloudKitWithCompletion:^(NSError *error) {
+            DLog(@"address database push 'delete' to icloud error: %@", error);
+        }];
+    }
 }
 
 - (NSUInteger)countAllAddressesWithAccountIdx:(NSInteger)accountIdx {

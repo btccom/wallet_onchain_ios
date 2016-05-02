@@ -97,8 +97,12 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
 }
 
 #pragma mark - Private Method
-- (void)p_exportBackupImageToPhotoLibrary {
+- (void)p_exportBackupImageToPhotoLibraryWithCell:(UITableViewCell *)cell {
     [CBWBackup saveToLocalPhotoLibraryWithCompleiton:^(NSURL *assetURL, NSError *error) {
+        id indicator = cell.accessoryView;
+        if ([indicator isKindOfClass:[UIActivityIndicatorView class]]) {
+            [indicator stopAnimating];
+        }
         if (error) {
             NSLog(@"export to photo library error: \n%@", error);
             [self alertMessage:error.localizedDescription withTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil)];
@@ -297,7 +301,11 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
             [tableView deselectRowAtIndexPath:indexPath animated:YES];
             if (indexPath.row == 0) {
                 // export
-                [self p_exportBackupImageToPhotoLibrary];
+                UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+                UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+                cell.accessoryView = indicator;
+                [indicator startAnimating];
+                [self p_exportBackupImageToPhotoLibraryWithCell:cell];
             } else if (indexPath.row == 1) {
                 // icloud
                 [self p_handleToggleiCloudEnabled:nil];

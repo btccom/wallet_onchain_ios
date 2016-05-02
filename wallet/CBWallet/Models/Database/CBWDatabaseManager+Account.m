@@ -44,9 +44,11 @@
             [self p_createAccount:account];
         }
     }
-    [CBWBackup saveToCloudKitWithCompletion:^(NSError *error) {
-        DLog(@"account database push to icloud error: %@", error);
-    }];
+    if (!account.isIgnoringSync) {
+        [CBWBackup saveToCloudKitWithCompletion:^(NSError *error) {
+            DLog(@"account database push to icloud error: %@", error);
+        }];
+    }
 }
 - (BOOL)p_createAccount:(CBWAccount *)account {
     BOOL created = NO;

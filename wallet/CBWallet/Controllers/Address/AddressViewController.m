@@ -14,7 +14,7 @@
 #import "Database.h"
 #import "CBWRequest.h"
 
-@interface AddressViewController ()<AddressHeaderViewDelegate>
+@interface AddressViewController ()<AddressHeaderViewDelegate, UIScrollViewDelegate>
 
 @property (nonatomic, strong) CBWTransactionStore *transactionStore;
 @property (nonatomic, assign) BOOL isThereMoreDatas;
@@ -215,7 +215,7 @@
     return cell;
 }
 
-#pragma mark UITableViewDelegate
+#pragma mark <UITableViewDelegate>
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     DefaultSectionHeaderView *headerView = (DefaultSectionHeaderView *)[super tableView:tableView viewForHeaderInSection:section];
     headerView.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTable(@"%d txs", @"CBW", nil), self.address.txCount];
@@ -227,8 +227,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.actionType == AddressActionTypeDefault) {
         // goto transaction
-//        CBWTransaction *transaction = [self.transactionStore recordAtIndex:indexPath.row];
-        CBWTransaction *transaction = [self.transactionStore transactionAtIndexPath:indexPath];
+        CBWTransaction *transaction = [self.transactionStore recordAtIndex:indexPath.row];
+//        CBWTransaction *transaction = [self.transactionStore transactionAtIndexPath:indexPath];
         if (transaction) {
             TransactionViewController *transactionViewController = [[TransactionViewController alloc] initWithTransaction:transaction];
             [self.navigationController pushViewController:transactionViewController animated:YES];
@@ -236,11 +236,16 @@
     }
 }
 
-#pragma mark AddressHeaderViewDelegate
+#pragma mark <AddressHeaderViewDelegate>
 - (void)addressHeaderViewDidEndEditing:(AddressHeaderView *)view {
     DLog(@"address's label changed: %@", view.label);
     self.address.label = view.label;
     [self.address saveWithError:nil];
+}
+
+#pragma mark <UIScrollViewDelegate>
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    DLog(@"scroll offset top: %f", scrollView.contentOffset.y);
 }
 
 @end
