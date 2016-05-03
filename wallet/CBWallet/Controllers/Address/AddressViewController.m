@@ -131,7 +131,7 @@
     
     CBWRequest *request = [[CBWRequest alloc] init];
     
-    [request addressTransactionsWithAddressString:self.address.address page:(self.page + 1) pagesize:0 completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
+    [request addressTransactionsWithAddressString:self.address.address page:(self.page + 1) pagesize:10 completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
         
         [self requestDidStop];
         
@@ -245,11 +245,11 @@
 }
 
 #pragma mark <UIScrollViewDelegate>
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
     if (!self.requesting) {
         if (self.isThereMoreDatas) {
             CGFloat contentHeight = scrollView.contentSize.height;
-            CGFloat offsetTop = scrollView.contentOffset.y;
+            CGFloat offsetTop = targetContentOffset->y;
             CGFloat height = CGRectGetHeight(scrollView.frame);
             if (contentHeight - (offsetTop + height) < 200.f) {
                 [self p_requestTransactions];

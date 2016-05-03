@@ -30,9 +30,14 @@
 //}
 
 - (void)saveWithError:(NSError *__autoreleasing  _Nullable *)error {
-    [self.store willChangeValueForKey:CBWRecordObjectStoreCountKey];
+    BOOL initial = self.rid < 0;
+    if (initial) {
+        [self.store willChangeValueForKey:CBWRecordObjectStoreCountKey];
+    }
     [[CBWDatabaseManager defaultManager] saveAccount:self];
-    [self.store didChangeValueForKey:CBWRecordObjectStoreCountKey];
+    if (initial) {
+        [self.store didChangeValueForKey:CBWRecordObjectStoreCountKey];
+    }
 }
 
 - (NSString *)description {

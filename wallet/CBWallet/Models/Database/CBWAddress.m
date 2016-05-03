@@ -102,12 +102,17 @@
 }
 
 - (void)saveWithError:(NSError *__autoreleasing  _Nullable *)error {
-    [self.store willChangeValueForKey:CBWRecordObjectStoreCountKey];
+    BOOL initial = self.rid < 0;
+    if (initial) {
+        [self.store willChangeValueForKey:CBWRecordObjectStoreCountKey];
+    }
     if (self.isArchived != ((CBWAddressStore *)self.store).isArchived) {
         [self.store deleteRecord:self];
     }
     [[CBWDatabaseManager defaultManager] saveAddress:self];
-    [self.store didChangeValueForKey:CBWRecordObjectStoreCountKey];
+    if (initial) {
+        [self.store didChangeValueForKey:CBWRecordObjectStoreCountKey];
+    }
 }
 
 //- (void)deleteFromStore:(RecordObjectStore *)store {
