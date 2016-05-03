@@ -27,7 +27,7 @@ NSString *const BaseListViewCellAddressIdentifier = @"list.cell.address";
 #pragma mark - Public Method
 - (void)requestDidStart {
     self.requesting = YES;
-    [self.refreshControl beginRefreshing];
+//    [self.refreshControl beginRefreshing];
     DLog(@"request did start");
 //    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 }

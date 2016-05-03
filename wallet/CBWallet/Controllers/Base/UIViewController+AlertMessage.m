@@ -15,7 +15,7 @@
     if (addressString.length > 0) {
         message = [message stringByAppendingFormat:@"\n%@", addressString];
     }
-    [self alertMessage:message withTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil)];
+    [self alertErrorMessage:message];
 }
 
 - (void)alertMessage:(NSString *)message withTitle:(NSString *)title {
@@ -23,6 +23,10 @@
     UIAlertAction *okay = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Okay", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
     [alert addAction:okay];
     [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)alertErrorMessage:(NSString *)message {
+    [self alertMessage:message withTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil)];
 }
 
 @end

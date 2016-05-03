@@ -129,20 +129,16 @@
         [self requestDidStop];
     }
     
-    // reset
-    [self.transactionStore flush];
-    self.isThereMoreDatas = NO;
-    [self.tableView reloadData];
-    
     // start request
     [self requestDidStart];
-    
     CBWRequest *request = [CBWRequest new];
     // 根据账号地址获取交易
     CBWAddressStore *addressStore = [[CBWAddressStore alloc] initWithAccountIdx:self.account.idx];
     [addressStore fetch];
     DLog(@"dashboard all addresses: %@", addressStore.allAddressStrings);
+    // TODO: 目前该摘要请求没用，需要配合本地缓存处理
     [request addressSummariesWithAddressStrings:addressStore.allAddressStrings completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
+        
         if (error) {
             [self requestDidStop];
         } else {
@@ -184,9 +180,13 @@
             if (addresses.count > 0) {
                 DLog(@"try to load transactions with addresses: %@", addresses);
                 
+                // 清理缓存，如果是多个地址，completion 会被执行多次，所以需要在外面 flush
+                [self.transactionStore flush];
                 // fetch
                 [request addressTransactionsWithAddressStrings:addresses completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
+                    
                     [self requestDidStop];
+                    
                     if (!error) {
                         // 分页
                         NSUInteger totalCount = [[response objectForKey:CBWRequestResponseDataTotalCountKey] unsignedIntegerValue];
@@ -195,21 +195,20 @@
                         self.isThereMoreDatas = totalCount > pageSize * page;
                         
                         DLog(@"fetched transactions page: %lu, page size: %lu, total: %lu", page, pageSize, totalCount);
-                        
-                        // 解析交易
-                        [self.transactionStore addTransactionsFromJsonObject:[response objectForKey:CBWRequestResponseDataListKey] isCacheNeeded:(page == 1)];
-//                        [self.transactionStore sort];
-                        
-                        // 更新界面
-                        if ([self.tableView numberOfSections] == 0) {
-//                            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationTop];
-                            [self.tableView insertSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, self.transactionStore.numberOfSections)] withRowAnimation:UITableViewRowAnimationTop];
-                        } else {
-//                            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+                        // 根据最新一条日期及 confirmation 处理数据
+                        NSArray *list = [response objectForKey:CBWRequestResponseDataListKey];
+                        CBWTransaction *latestTransaction = [self.transactionStore recordAtIndex:0];
+                        CBWTransaction *responsedLatestTransaction = [[CBWTransaction alloc] initWithDictionary:[list firstObject]];
+                        if (![latestTransaction isEqual:responsedLatestTransaction] || latestTransaction.confirmations != responsedLatestTransaction.confirmations) {
+                            // 解析交易
+                            [self.transactionStore addTransactionsFromJsonObject:list isCacheNeeded:(page == 1)];
+                            // 更新界面
                             [self.tableView reloadData];
                         }
                         
-                        [self.refreshControl endRefreshing];
+                    } else {
+                        // 错误处理
+                        [self alertErrorMessage:error.localizedDescription];
                     }
                 }];
                 
@@ -331,17 +330,21 @@
 #pragma mark - <ProfileViewControllerDelegate>
 - (void)profileViewController:(ProfileViewController *)viewController didSelectAccount:(CBWAccount *)account {
     DLog(@"dashboard selected account: %@", account);
+    if (![self.account isEqual:account]) {
+        [self.transactionStore flush];
+        [self.tableView reloadData];
+    }
     
     self.account = account;
-    [self reloadTransactions];
     self.headerView.sendButton.enabled = self.account.idx >= 0;
+    [self reloadTransactions];
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - <AddressListViewControllerDelegate>
 - (void)addressListViewControllerDidUpdate:(AddressListViewController *)controller {
-    NSLog(@"address list did update");
+    DLog(@"address list did update");
     [self reloadTransactions];
 }
 

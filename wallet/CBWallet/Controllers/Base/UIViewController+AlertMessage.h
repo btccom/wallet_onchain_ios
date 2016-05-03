@@ -12,6 +12,8 @@
 
 - (void)alertMessageWithInvalidAddress:(NSString *)addressString;
 
+- (void)alertErrorMessage:(NSString *)message;
+
 - (void)alertMessage:(NSString *)message withTitle:(NSString *)title;
 
 @end

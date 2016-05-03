@@ -33,6 +33,7 @@
     [self requestWithPath:path parameters:parameters completion:completion];
 }
 
+// TODO: 改用 delegate 方式，可以增量的更新数据
 - (void)addressTransactionsWithAddressStrings:(NSArray *)addressStrings completion:(CBWRequestCompletion)completion {
     if ([addressStrings isKindOfClass:[NSArray class]]) {
         if (addressStrings.count > 0) {
