@@ -93,12 +93,23 @@
     if (!self.refreshControl) {
         self.refreshControl = [[UIRefreshControl alloc] init];
         self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:NSLocalizedStringFromTable(@"Tip loading", @"CBW", nil) attributes:@{NSForegroundColorAttributeName: [UIColor CBWSubTextColor]}];
-        self.refreshControl.tintColor = [UIColor CBWSubTextColor];
         [self.refreshControl addTarget:self action:@selector(reloadTransactions) forControlEvents:UIControlEventValueChanged];
         [self.tableView addSubview:self.refreshControl];
     }
     
     [self reload];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if (!self.requesting) {
+        [UIView animateWithDuration:CGFLOAT_MIN animations:^{
+            self.refreshControl.frame = CGRectOffset(self.refreshControl.frame, 0, -CGRectGetHeight(self.refreshControl.frame));
+        } completion:^(BOOL finished) {
+            self.refreshControl.hidden = YES;
+        }];
+    }
+    NSLog(@"refresh control: %@", self.refreshControl);
 }
 
 #pragma mark - Public Method
