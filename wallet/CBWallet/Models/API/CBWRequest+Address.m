@@ -49,11 +49,6 @@
     }
 }
 
-- (void)addressUnspentWithAddressString:(NSString *)addressString completion:(CBWRequestCompletion)completion {
-    NSString *path = [NSString stringWithFormat:@"address/%@/unspent", addressString];
-    [self requestWithPath:path parameters:nil completion:completion];
-}
-
 - (void)addressUnspentWithAddressString:(NSString *)addressString unspentHolder:(nonnull NSArray *)unspentHolder page:(NSUInteger)page completion:(nullable CBWRequestCompletion)completion {
     NSString *path = [NSString stringWithFormat:@"address/%@/unspent", addressString];
     NSDictionary *parameters = @{CBWRequestResponseDataPageKey: @(page)};
