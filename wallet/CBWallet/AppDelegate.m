@@ -52,7 +52,7 @@
     // and lock
     [self lockScreen];
     
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(lockScreen) name:CBWNotificationCheckedOut object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(lockScreen) name:CBWNotificationCheckedOut object:nil];
     
     return YES;
 }
@@ -65,8 +65,7 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    
-    [self lockScreen];
+    [[Guard globalGuard] checkOut];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
@@ -104,8 +103,6 @@
     }
     
     [self.lockScreenWindow makeKeyAndVisible];
-    
-    [[Guard globalGuard] checkOut];
 }
 /// unlock
 - (void)unlockScreen {
