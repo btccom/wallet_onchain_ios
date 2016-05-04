@@ -91,6 +91,9 @@
         // sorry, handle error
         NSLog(@"create then check in failed");
         // restart
+        [SSKeychain deletePasswordForService:CBWKeychainSeedService account:CBWKeychainAccountDefault];
+        [SSKeychain deletePasswordForService:CBWKeychainHintService account:CBWKeychainAccountDefault];
+        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 

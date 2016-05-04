@@ -69,7 +69,10 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_close"] style:UIBarButtonItemStylePlain target:self action:@selector(dismiss:)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedStringFromTable(@"Navigation manage_accounts", @"CBW", nil) style:UIBarButtonItemStylePlain target:self action:@selector(p_handleManageAccounts:)];
     
-    NSMutableArray *securityCells = [NSMutableArray arrayWithObject:NSLocalizedStringFromTable(@"Profile Cell change_password", @"CBW", @"Settings")];
+    NSMutableArray *securityCells = [NSMutableArray arrayWithObjects:
+                                     NSLocalizedStringFromTable(@"Profile Cell change_password", @"CBW", @"Settings"),
+                                     NSLocalizedStringFromTable(@"Profile Cell change_hint", @"CBW", @"Chnage Hint"),
+                                     nil];
     NSError *error = nil;
     LAContext *laContext = [[LAContext alloc] init];
     if ([laContext canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error]) {
@@ -231,7 +234,7 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
         
         // set touch id cell stuff
         if (indexPath.section == kProfileSectionSecurity) {
-            if (indexPath.row == 1) {
+            if (indexPath.row == 2) {
                 // touch id
                 if (!self.touchIDSwitch) {
                     UISwitch *aSwitch = [[UISwitch alloc] init];
@@ -290,6 +293,43 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
                 }
                     
                 case 1: {
+                    UIAlertController *hintController = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Profile Cell change_hint", @"CBW", nil) message:nil preferredStyle:UIAlertControllerStyleAlert];
+                    [hintController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+                        textField.placeholder = NSLocalizedStringFromTable(@"Placeholder enter_new_hint", @"CBW", nil);
+                        textField.text = [SSKeychain passwordForService:CBWKeychainHintService account:CBWKeychainAccountDefault];
+                    }];
+                    
+                    UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Cancel", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
+                    [hintController addAction:cancel];
+                    
+                    UIAlertAction *save = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Save", @"CBW", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        UITextField *hintField = [[hintController textFields] firstObject];
+                        NSString *hint = hintField.text;
+                        if (hint.length > 0) {
+                            if ([SSKeychain setPassword:hint forService:CBWKeychainHintService account:CBWKeychainAccountDefault]) {
+                                [self alertMessage:NSLocalizedStringFromTable(@"Success", @"CBW", nil) withTitle:@""];
+                                // 重新备份到 iCloud
+                                [CBWBackup saveToCloudKitWithCompletion:^(NSError *error) {
+                                    // TODO: handle error
+                                    if (error) {
+                                        DLog(@"changed hint, update iCloud backup failed. \n%@", error);
+                                    }
+                                }];
+                            } else {
+                                [self alertMessage:NSLocalizedStringFromTable(@"Alert Message update_hint_error", @"CBW", nil) withTitle:@""];
+                            }
+                        } else {
+                            [self alertErrorMessage:NSLocalizedStringFromTable(@"Alert Message empty_hint", @"CBW", nil)];
+                        }
+                    }];
+                    [hintController addAction:save];
+                    
+                    [self presentViewController:hintController animated:YES completion:nil];
+                    
+                    break;
+                }
+                    
+                case 2: {
                     [self p_handleToggleTouchIdEnabled:nil];
                     break;
                 }

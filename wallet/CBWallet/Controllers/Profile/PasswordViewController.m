@@ -10,6 +10,7 @@
 #import "FormControlInputCell.h"
 
 #import "Guard.h"
+#import "CBWBackup.h"
 
 static NSString *const kPasswordViewControllerCurrentPasswordCellIdentifier = @"cell.current.password";
 static NSString *const kPasswordViewControllerNewPasswordCellIdentifier = @"cell.new.password";
@@ -87,6 +88,13 @@ static NSString *const kPasswordViewControllerSaveButtonCellIdentifier = @"cell.
         }];
         [alert addAction:okay];
         [self presentViewController:alert animated:YES completion:nil];
+        // 重新备份到 iCloud
+        [CBWBackup saveToCloudKitWithCompletion:^(NSError *error) {
+            // TODO: handle error
+            if (error) {
+                DLog(@"changed password, update iCloud backup failed. \n%@", error);
+            }
+        }];
     } else {
         [self alertMessage:NSLocalizedStringFromTable(@"Failed", @"CBW", nil) withTitle:@""];
     }

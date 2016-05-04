@@ -17,7 +17,11 @@
 
 + (NSArray *)getDatas {
     // add seed
-    NSMutableArray *datas = [NSMutableArray arrayWithObject:[SSKeychain passwordForService:CBWKeychainSeedService account:CBWKeychainAccountDefault]];
+    NSString *hint = [SSKeychain passwordForService:CBWKeychainHintService account:CBWKeychainAccountDefault];
+    if (!hint) {
+        hint = @"";
+    }
+    NSMutableArray *datas = [NSMutableArray arrayWithObject:@[[SSKeychain passwordForService:CBWKeychainSeedService account:CBWKeychainAccountDefault], hint]];
     
     NSMutableDictionary *accountsDictionary = [NSMutableDictionary dictionary];//{idx:[accountDataArray]}
     
@@ -80,14 +84,14 @@
 + (UIImage *)exportImage {
     NSMutableArray *datas = [self.getDatas mutableCopy];
     if (datas.count > 0) {
-        NSString *seed = [datas firstObject];
-        UIImage *seedQRCodeImage = [BTCQRCode imageForString:seed size:CGSizeMake(800.f, 800.f) scale:2.f];
+        NSString *seedAndHint = [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:[datas firstObject] options:0 error:nil] encoding:NSUTF8StringEncoding];
+        UIImage *seedQRCodeImage = [BTCQRCode imageForString:seedAndHint size:CGSizeMake(800.f, 800.f) scale:2.f];
         
         YYImageEncoder *encoder = [[YYImageEncoder alloc] initWithType:YYImageTypePNG];
         encoder.loopCount = 0;
         [encoder addImage:seedQRCodeImage duration:0];
         
-        [datas removeObject:seed];
+        [datas removeObject:seedAndHint];
         NSError *error = nil;
         NSData *accountData = [NSJSONSerialization dataWithJSONObject:datas options:0 error:&error];
         NSString *accountString = [[NSString alloc] initWithData:accountData encoding:NSUTF8StringEncoding];

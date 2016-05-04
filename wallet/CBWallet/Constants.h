@@ -28,6 +28,7 @@ static NSString *const  CBWUserDefaultsiCloudSyncDateKey = @"cbw.user.defaults.i
 
 // Keychain
 static NSString *const CBWKeychainSeedService = @"com.btc.wallet.seed";
+static NSString *const CBWKeychainHintService = @"com.btc.wallet.hint";
 static NSString *const CBWKeychainMasterPasswordService = @"com.btc.wallet.masterPassword";
 static NSString *const CBWKeychainAccountDefault = @"com.btc.wallet";
 

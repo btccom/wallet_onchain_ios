@@ -138,6 +138,10 @@
         return;
     }
     
+    if (self.actionType == LockScreenActionTypeSignUp) {
+        // 保存 hint
+        [SSKeychain setPassword:self.hint forService:CBWKeychainHintService account:CBWKeychainAccountDefault];
+    }
     [self.delegate masterPasswordViewController:self didInputPassword:password];
 }
 
@@ -275,6 +279,13 @@
         return CBWCellHeightDefault + CBWLayoutCommonVerticalPadding * 3.f;
     }
     return 0;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if (section == 0 && self.actionType == LockScreenActionTypeSignIn) {
+        return self.hint;
+    }
+    return nil;
 }
 
 #pragma mark - <UITextFieldDelegate>

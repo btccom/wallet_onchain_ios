@@ -51,6 +51,7 @@
 "Placeholder new_password" = "New Password";
 "Placeholder confirm_password" = "Confirm Password";
 "Placeholder account_label" = "Account Label";
+"Placeholder enter_new_hint" = "Please Enter Hint";
 
 "Description Fee -1" = "Custom";
 "Description Fee 0" = "Low";
@@ -75,6 +76,8 @@
 "Alert Message create_watched_address_success" = "Created a watched address.";
 "Alert Message enable_touchid" = "Enable touchID.";
 "Alert Message verify_touchid" = "Please verify your touchID.";
+"Alert Message update_hint_error" = "Set hint failed.";
+"Alert Message empty_hint" = "Set the hint please.";
 
 "Label watched_account" = "Watched Account";
 "Label default_account" = "Default Account";
@@ -100,6 +103,7 @@
 "Profile Cell iCloud" = "iCloud";
 "Profile Section security" = "Security";
 "Profile Cell change_password" = "Change Password";
+"Profile Cell change_hint" = "Change Hint";
 "Profile Cell touchid" = "Touch ID";
 
 // Address List

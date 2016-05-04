@@ -55,8 +55,8 @@
                 NSArray *featuresR = [detector featuresInImage:ciimg];
                 
                 for (CIQRCodeFeature* featureR in featuresR) {
-                    DLog(@"seed: %@ ", featureR.messageString);
-                    [datas addObject:featureR.messageString];
+                    DLog(@"seed and hint: %@ ", featureR.messageString);
+                    [datas addObject:[NSJSONSerialization JSONObjectWithData:[featureR.messageString dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingAllowFragments error:nil]];
                 }
             }
             
@@ -139,7 +139,7 @@
     if (self.datas.count == 0) {
         return NO;
     }
-    NSString *encryptedSeed = [self.datas firstObject];
+    NSString *encryptedSeed = [[self.datas firstObject] firstObject];
 //    NSString *seed = [AESCrypt decrypt:encryptedSeed password:code];
 //    DLog(@"decrypted seed: %@", seed);
 //    
@@ -149,6 +149,9 @@
     
     // save encrypted seed
     [SSKeychain setPassword:encryptedSeed forService:CBWKeychainSeedService account:CBWKeychainAccountDefault];
+    // save hint
+    NSString *hint = [[self.datas firstObject] lastObject];
+    [SSKeychain setPassword:hint forService:CBWKeychainHintService account:CBWKeychainAccountDefault];
     
     // guard
     if (![[Guard globalGuard] checkInWithCode:code]) {

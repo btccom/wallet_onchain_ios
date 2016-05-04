@@ -26,6 +26,6 @@
 /// 批量更新地址到数据库
 - (void)updateAddresses:(nullable id)addresses;
 
-- (NSArray *)availableAddresses;
+- (nullable NSArray *)availableAddresses;
 
 @end
