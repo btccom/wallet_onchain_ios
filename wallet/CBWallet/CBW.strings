@@ -93,6 +93,7 @@
 // Initial Wallet Setting
 "Initial Cell icloud" = "iCloud";
 "Initial Cell touch_id" = "Touch ID";
+"MasterPassword Section hint_%@" = "Hint: %@";
 
 // Profile
 "Profile Section accounts" = "Accounts";

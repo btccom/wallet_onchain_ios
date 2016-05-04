@@ -21,7 +21,7 @@
 /// 恢复：使用主密码，从备份文件中恢复根私钥及使用数据，恢复账号成功
 ///
 /// 启动: 输入主密码或指纹登录
-@interface MasterPasswordViewController : UIViewController
+@interface MasterPasswordViewController : UITableViewController
 
 @property (nonatomic, assign) LockScreenActionType actionType;
 

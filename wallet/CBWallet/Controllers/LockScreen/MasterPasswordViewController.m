@@ -18,7 +18,7 @@
 
 @import LocalAuthentication;
 
-@interface MasterPasswordViewController ()<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
+@interface MasterPasswordViewController ()<UITextFieldDelegate>
 
 @property (nonatomic, weak) FormControlInputCell *masterPasswordCell;
 @property (nonatomic, weak) FormControlInputCell *confirmMasterPasswordCell;
@@ -31,17 +31,16 @@
 
 @implementation MasterPasswordViewController
 
+- (instancetype)initWithStyle:(UITableViewStyle)style {
+    self = [super initWithStyle:UITableViewStyleGrouped];
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = NSLocalizedStringFromTable(@"Navigation master_password", @"CBW", @"Master Password");
     self.view.backgroundColor = [UIColor CBWWhiteColor];
-    
-    UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
-    tableView.backgroundColor = [UIColor CBWWhiteColor];
-    tableView.delegate = self;
-    tableView.dataSource = self;
-    [self.view addSubview:tableView];
 }
 
 - (void)showKeyboard {
@@ -283,7 +282,7 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if (section == 0 && self.actionType == LockScreenActionTypeSignIn) {
-        return self.hint;
+        return [NSString stringWithFormat:NSLocalizedStringFromTable(@"MasterPassword Section hint_%@", @"CBW", nil), self.hint ? self.hint : [SSKeychain passwordForService:CBWKeychainHintService account:CBWKeychainAccountDefault]];
     }
     return nil;
 }
