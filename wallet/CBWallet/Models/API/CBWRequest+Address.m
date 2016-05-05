@@ -40,7 +40,7 @@
             NSString *addressString = [addressStrings firstObject];
             NSMutableArray *lastAddressStrings = [addressStrings mutableCopy];
             [lastAddressStrings removeObject:addressString];
-            [self addressTransactionsWithAddressString:addressString page:0 pagesize:0 completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
+            [self addressTransactionsWithAddressString:addressString page:0 pagesize:10 completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
                 // callback
                 completion(error, statusCode, response);
                 // next round
