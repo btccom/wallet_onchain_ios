@@ -90,8 +90,8 @@
         YYImageEncoder *encoder = [[YYImageEncoder alloc] initWithType:YYImageTypePNG];
         encoder.loopCount = 0;
         [encoder addImage:seedQRCodeImage duration:0];
-        
-        [datas removeObject:seedAndHint];
+        // 移除 seed and hint，生成其他信息二维码
+        [datas removeObjectAtIndex:0];
         NSError *error = nil;
         NSData *accountData = [NSJSONSerialization dataWithJSONObject:datas options:0 error:&error];
         NSString *accountString = [[NSString alloc] initWithData:accountData encoding:NSUTF8StringEncoding];
