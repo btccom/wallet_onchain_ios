@@ -74,6 +74,7 @@
                                                         //,shareItem];
                                                         ];
             addressHeaderView.labelEditable = YES;
+            
             [self.transactionStore fetch];
             [self.tableView reloadData];
             
@@ -92,6 +93,18 @@
         case AddressActionTypeChange:
             // won't reach here
             break;
+            
+        case AddressActionTypeExplore: {
+            self.title = NSLocalizedStringFromTable(@"Navigation address", @"CBW", @"Address");
+            addressHeaderView.labelEditable = NO;
+            
+            [self.transactionStore fetch];
+            [self.tableView reloadData];
+            
+            // 请求摘要及交易信息
+            [self p_requestAddressSummary];
+            break;
+        }
     }
 }
 
@@ -112,7 +125,9 @@
         [self requestDidStop];
         // 保存地址信息
         [self.address updateWithDictionary:response];
-        [self.address saveWithError:nil];
+        if (self.address.rid >= 0) {
+            [self.address saveWithError:nil];
+        }
         if (self.address.txCount > 0) {
             // 重置分页信息后获取交易
             self.page = 0;
@@ -226,9 +241,10 @@
     return CBWCellHeightTransaction;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.actionType == AddressActionTypeDefault) {
+    if (self.actionType == AddressActionTypeDefault || self.actionType == AddressActionTypeExplore) {
         // goto transaction
         CBWTransaction *transaction = [self.transactionStore recordAtIndex:indexPath.row];
+        transaction.queryAddress = self.address.address;
 //        CBWTransaction *transaction = [self.transactionStore transactionAtIndexPath:indexPath];
         if (transaction) {
             TransactionViewController *transactionViewController = [[TransactionViewController alloc] initWithTransaction:transaction];

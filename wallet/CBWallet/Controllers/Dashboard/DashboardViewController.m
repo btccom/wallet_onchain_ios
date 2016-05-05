@@ -9,6 +9,7 @@
 // TODO: 获取批量获取地址摘要信息，对比 tx count，如果发生变化（变多），则获取最新交易信息，page size = MIN(delta, maxSize)
 // TODO: 将新交易重新排序后缓存，刷新UI
 // TODO: 使用唯一的 address store，address store 使用单例模式，通过设置 account 改变数据
+// FIXME: 更新地址余额不需要触发 iCloud 同步
 
 #import "DashboardViewController.h"
 #import "ProfileViewController.h"
@@ -194,28 +195,17 @@
                 // 清理缓存，如果是多个地址，completion 会被执行多次，所以需要在外面 flush
                 [self.transactionStore flush];
                 // fetch
-                [request addressTransactionsWithAddressStrings:addresses completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
+                [request addressTransactionsWithAddressStrings:addresses completion:^(NSError * _Nullable error, NSInteger status, id  _Nullable response, NSString * _Nonnull queryAddress) {
                     
                     [self requestDidStop];
                     
                     if (!error) {
-                        // 分页
-                        NSUInteger totalCount = [[response objectForKey:CBWRequestResponseDataTotalCountKey] unsignedIntegerValue];
-                        NSUInteger pageSize = [[response objectForKey:CBWRequestResponseDataPageSizeKey] unsignedIntegerValue];
-                        NSUInteger page = [[response objectForKey:CBWRequestResponseDataPageKey] unsignedIntegerValue];
-                        self.isThereMoreDatas = totalCount > pageSize * page;
-                        
-                        DLog(@"fetched transactions page: %lu, page size: %lu, total: %lu", page, pageSize, totalCount);
-                        // 根据最新一条日期及 confirmation 处理数据
+                        DLog(@"transactions received. query address: %@", queryAddress);
                         NSArray *list = [response objectForKey:CBWRequestResponseDataListKey];
-                        CBWTransaction *latestTransaction = [self.transactionStore recordAtIndex:0];
-                        CBWTransaction *responsedLatestTransaction = [[CBWTransaction alloc] initWithDictionary:[list firstObject]];
-                        if (![latestTransaction isEqual:responsedLatestTransaction] || latestTransaction.confirmations != responsedLatestTransaction.confirmations) {
-                            // 解析交易
-                            [self.transactionStore addTransactionsFromJsonObject:list isCacheNeeded:(page == 1)];
-                            // 更新界面
-                            [self.tableView reloadData];
-                        }
+                        // 解析交易
+                        [self.transactionStore addTransactionsFromJsonObject:list isCacheNeeded:YES queryAddress:queryAddress];
+                        // 更新界面
+                        [self.tableView reloadData];
                         
                     } else {
                         // 错误处理
@@ -331,7 +321,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    CBWTransaction *transaction = [self.transactionStore recordAtIndex:indexPath.row];
+    CBWTransaction *transaction = [self.transactionStore transactionAtIndexPath:indexPath];
     if (transaction) {
         TransactionViewController *transactionViewController = [[TransactionViewController alloc] initWithTransaction:transaction];
         [self.navigationController pushViewController:transactionViewController animated:YES];

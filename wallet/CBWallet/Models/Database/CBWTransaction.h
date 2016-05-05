@@ -48,6 +48,8 @@ typedef NS_ENUM(NSUInteger, TransactionType) {
 @property (nonatomic, assign, readonly) TransactionType type;
 /// 相关地址
 @property (nonatomic, copy, readonly, nonnull) NSArray *relatedAddresses;
+/// 查询地址，交易查询路径通常为 地址 -> 交易 -> 详情
+@property (nonatomic, copy, nullable) NSString *queryAddress;
 
 // relation
 /// array of InputItem

@@ -17,7 +17,9 @@ typedef NS_ENUM(NSUInteger, AddressActionType) {
     /// receive change, won't jump to address view from list
     AddressActionTypeChange,
     /// receive, just label + address
-    AddressActionTypeReceive
+    AddressActionTypeReceive,
+    /// explore, no label, show summary
+    AddressActionTypeExplore
 };
 
 /// 地址视图

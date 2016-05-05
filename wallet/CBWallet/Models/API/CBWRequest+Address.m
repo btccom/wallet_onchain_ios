@@ -34,7 +34,7 @@
 }
 
 // TODO: 改用 delegate 方式，可以增量的更新数据
-- (void)addressTransactionsWithAddressStrings:(NSArray *)addressStrings completion:(CBWRequestCompletion)completion {
+- (void)addressTransactionsWithAddressStrings:(NSArray *)addressStrings completion:(void (^ _Nullable)(NSError * _Nullable, NSInteger, id _Nullable, NSString * _Nonnull))completion {
     if ([addressStrings isKindOfClass:[NSArray class]]) {
         if (addressStrings.count > 0) {
             NSString *addressString = [addressStrings firstObject];
@@ -42,9 +42,11 @@
             [lastAddressStrings removeObject:addressString];
             [self addressTransactionsWithAddressString:addressString page:0 pagesize:10 completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
                 // callback
-                completion(error, statusCode, response);
-                // next round
-                [self addressTransactionsWithAddressStrings:[lastAddressStrings copy] completion:completion];
+                completion(error, statusCode, response, addressString);
+                if (!error && lastAddressStrings.count > 0) {
+                    // next round
+                    [self addressTransactionsWithAddressStrings:[lastAddressStrings copy] completion:completion];
+                }
             }];
         }
     }

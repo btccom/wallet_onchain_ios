@@ -7,6 +7,7 @@
 //
 
 #import "TransactionViewController.h"
+#import "AddressViewController.h"
 
 #import "TransactionDataCell.h"
 #import "TransactionIOCell.h"
@@ -111,6 +112,7 @@ static NSString *const kTransactionViewControllerCellIdentifierIO = @"transactio
         
     }];
     
+    DLog(@"transaction view for address: %@", self.transaction.queryAddress);
 }
 
 #pragma mark - <UITableViewDataSource>
@@ -146,9 +148,10 @@ static NSString *const kTransactionViewControllerCellIdentifierIO = @"transactio
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = nil;
-    if (indexPath.section == 1 || indexPath.section == 2) {
+    if (indexPath.section == kTransactionViewControllerSectionInputs || indexPath.section == kTransactionViewControllerSectionOutputs) {
         // io
         cell = [tableView dequeueReusableCellWithIdentifier:kTransactionViewControllerCellIdentifierIO];
+        cell.textLabel.textColor = [UIColor CBWPrimaryColor];
     } else {
         cell = [tableView dequeueReusableCellWithIdentifier:kTransactionViewControllerCellIdentifierData];
         ((TransactionDataCell *)cell).hashEnabled = NO;
@@ -166,11 +169,16 @@ static NSString *const kTransactionViewControllerCellIdentifierIO = @"transactio
         case kTransactionViewControllerSectionInputs: {
             if (self.transactionDetail.isCoinbase && indexPath.row == 0) {
                 cell.textLabel.text = @"Coinbase";
+                cell.textLabel.textColor = [UIColor CBWTextColor];
                 cell.detailTextLabel.text = @"";
             } else {
                 InputItem *i = self.transactionDetail.inputs[indexPath.row];
                 cell.textLabel.text = [i.prevAddresses componentsJoinedByString:@","];
                 cell.detailTextLabel.text = [i.prevValue satoshiBTCString];
+            }
+            // 处理查询地址的显示
+            if ([cell.textLabel.text isEqualToString:self.transaction.queryAddress]) {
+                cell.textLabel.textColor = [UIColor CBWSubTextColor];
             }
             break;
         }
@@ -178,6 +186,10 @@ static NSString *const kTransactionViewControllerCellIdentifierIO = @"transactio
             OutItem *o = self.transactionDetail.outputs[indexPath.row];
             cell.textLabel.text = [o.addresses componentsJoinedByString:@","];
             cell.detailTextLabel.text = [o.value satoshiBTCString];
+            // 处理查询地址的显示
+            if ([cell.textLabel.text isEqualToString:self.transaction.queryAddress]) {
+                cell.textLabel.textColor = [UIColor CBWSubTextColor];
+            }
             break;
         }
         case kTransactionViewControllerSectionBlock: {
@@ -204,6 +216,42 @@ static NSString *const kTransactionViewControllerCellIdentifierIO = @"transactio
         headerView.detailTextLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)self.transactionDetail.outputsCount];
     }
     return headerView;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSString *selecteAddress = nil;
+    switch (indexPath.section) {
+        case kTransactionViewControllerSectionInputs: {
+            if (self.transaction.isCoinbase) {
+                return;
+            }
+            InputItem *i = self.transactionDetail.inputs[indexPath.row];
+            if (i.prevAddresses.count != 1) {
+                return;
+            }
+            if ([[i.prevAddresses firstObject] isEqualToString:self.transaction.queryAddress]) {
+                return;
+            }
+            selecteAddress = [i.prevAddresses firstObject];
+            break;
+        }
+        case kTransactionViewControllerSectionOutputs: {
+            OutItem *o = self.transactionDetail.outputs[indexPath.row];
+            if (o.addresses.count != 1) {
+                return;
+            }
+            if ([[o.addresses firstObject] isEqualToString:self.transaction.queryAddress]) {
+                return;
+            }
+            selecteAddress = [o.addresses firstObject];
+            break;
+        }
+    }
+    if (selecteAddress) {
+        CBWAddress *address = [[CBWAddress alloc] init];
+        address.address = selecteAddress;
+        AddressViewController *addressViewController = [[AddressViewController alloc] initWithAddress:address actionType:AddressActionTypeExplore];
+        [self.navigationController pushViewController:addressViewController animated:YES];
+    }
 }
 
 @end

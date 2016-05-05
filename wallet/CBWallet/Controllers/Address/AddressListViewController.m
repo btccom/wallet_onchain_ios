@@ -205,6 +205,10 @@
     CBWAddress *address = [CBWAddress newAdress:addressString withLabel:label idx:idx accountRid:self.account.rid accountIdx:self.account.idx inStore:self.addressStore];
     [address saveWithError:nil];
     
+    if (!address) {
+        return;
+    }
+    
     [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:self.actionCells.count > 0 ? 1 : 0]] withRowAnimation:UITableViewRowAnimationAutomatic];
     if (self.actionType == AddressActionTypeChange) {
         [self p_selectChangeAddress:address];

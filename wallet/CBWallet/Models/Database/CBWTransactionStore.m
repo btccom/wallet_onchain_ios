@@ -65,7 +65,7 @@
             return;
         }
         if (array.count > 0) {
-            [self p_parseTransactionsWithArray:array];
+            [self p_parseTransactionsWithArray:array queryAddress:nil];
         }
     }
 }
@@ -77,15 +77,19 @@
 }
 
 - (void)addTransactionsFromJsonObject:(id)jsonObject isCacheNeeded:(BOOL)isCacheNeeded {
+    [self addTransactionsFromJsonObject:jsonObject isCacheNeeded:isCacheNeeded queryAddress:nil];
+}
+- (void)addTransactionsFromJsonObject:(id)jsonObject isCacheNeeded:(BOOL)isCacheNeeded queryAddress:(NSString *)queryAddress {
+    
     if (isCacheNeeded) {
-//        [self flush];
         [self p_cacheJsonObject:jsonObject];
     }
     
-    [self p_parseTransactionsWithArray:jsonObject];
+    [self p_parseTransactionsWithArray:jsonObject queryAddress:queryAddress];
     
     [self sort];
     
+    // 整理数据
     [records enumerateObjectsUsingBlock:^(CBWRecordObject * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         CBWTransaction *transaction = (CBWTransaction *)obj;
         NSString *day = [transaction.creationDate stringWithFormat:@"yyyy-MM-dd"];
@@ -164,12 +168,13 @@
     }
 }
 
-- (void)p_parseTransactionsWithArray:(id)array {
+- (void)p_parseTransactionsWithArray:(id)array queryAddress:(NSString *)queryAddress {
     if (![array isKindOfClass:[NSArray class]]) {
         return;
     }
     [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         CBWTransaction *transaction = [[CBWTransaction alloc] initWithDictionary:obj];
+        transaction.queryAddress = queryAddress;
         [self addRecord:transaction ASC:YES];
     }];
 }

@@ -17,7 +17,8 @@
 /// 获取地址交易列表
 - (void)addressTransactionsWithAddressString:(nonnull NSString *)addressString page:(NSUInteger)page pagesize:(NSUInteger)pagesize completion:(nullable CBWRequestCompletion)completion;
 /// API不支持多个地址查询，这里通过递归的方式拉取全部地址交易，默认每个地址只拉取10个交易
-- (void)addressTransactionsWithAddressStrings:(nonnull NSArray *)addressStrings completion:(nullable CBWRequestCompletion)completion;
+//- (void)addressTransactionsWithAddressStrings:(nonnull NSArray *)addressStrings completion:(nullable CBWRequestCompletion)completion;
+- (void)addressTransactionsWithAddressStrings:(nonnull NSArray *)addressStrings completion:(void(^ _Nullable)(NSError * _Nullable error, NSInteger status, id _Nullable response, NSString * _Nonnull queryAddress))completion;
 
 /// 分页获取未花列表
 ///@param unspentHolder 用于递归传递数据
