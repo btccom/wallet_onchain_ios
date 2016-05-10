@@ -149,7 +149,7 @@
 - (NSString *)p_cachedPath {
     NSString *fileName = self.addressString;
     if (!fileName) {
-        fileName = [NSString stringWithFormat:@"account-%ld", self.account.idx];
+        fileName = [NSString stringWithFormat:@"account-%ld", (long)self.account.idx];
     }
     NSString *cacheFileName = [NSString stringWithFormat:@"%@%@%@", CBWCacheTransactionPrefix, fileName, CBWCacheSubfix];
     NSString *path = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"com.btc.wallet"];

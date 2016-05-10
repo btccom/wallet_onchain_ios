@@ -177,7 +177,7 @@
 
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"address [%ld] %@ - %@, %lld satoshi", self.idx, self.label, self.address, self.balance];
+    return [NSString stringWithFormat:@"address [%ld] %@ - %@, %lld satoshi", (long)self.idx, self.label, self.address, self.balance];
 }
 
 @end

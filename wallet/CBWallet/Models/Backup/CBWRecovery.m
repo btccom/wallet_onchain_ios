@@ -33,7 +33,8 @@
         [assetslibrary assetForURL:assetURL resultBlock:^(ALAsset *asset) {
             
             ALAssetRepresentation *representation = asset.defaultRepresentation;
-            long long size = representation.size;
+//            long long size = representation.size;
+            NSUInteger size = (NSUInteger)representation.size;
             NSMutableData *rawData = [[NSMutableData alloc] initWithCapacity:size];
             void *buffer = [rawData mutableBytes];
             [representation getBytes:buffer fromOffset:0 length:size error:nil];

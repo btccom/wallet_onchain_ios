@@ -108,9 +108,6 @@
         
         NSData *apngData = [encoder encode];
         
-        YYImageDecoder *decoder = [YYImageDecoder decoderWithData:apngData scale:2.f];
-        DLog(@"decoder frames count: %ld", decoder.frameCount);
-        
         YYImage *image = [YYImage imageWithData:apngData scale:2.f];
         return image;
     }
