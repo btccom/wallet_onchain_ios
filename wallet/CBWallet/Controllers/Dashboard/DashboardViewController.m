@@ -339,6 +339,7 @@
     
     self.account = account;
     self.headerView.sendButton.enabled = self.account.idx >= 0;
+    self.headerView.receiveButton.enabled = self.account.idx >= 0;
     [self reloadTransactions];
     
     [self dismissViewControllerAnimated:YES completion:nil];

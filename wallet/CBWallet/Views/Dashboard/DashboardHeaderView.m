@@ -38,6 +38,7 @@
     if (!_receiveButton) {
         UIButton *button = [[DashboardHeaderActionButton alloc] initWithImage:[UIImage imageNamed:@"icon_receive"] title:NSLocalizedStringFromTable(@"Button receive", @"CBW", @"Receive")];
         [button setTitleColor:[UIColor CBWGreenColor] forState:UIControlStateNormal];
+        [button setTitleColor:[[UIColor CBWGreenColor] colorWithAlphaComponent:.5]  forState:UIControlStateDisabled];
         [self addSubview:button];
         _receiveButton = button;
     }

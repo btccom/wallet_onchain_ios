@@ -88,7 +88,7 @@
         case AddressActionTypeChange:
         case AddressActionTypeReceive: {
             self.title = NSLocalizedStringFromTable(@"Navigation select_address", @"CBW", @"Select Address");
-            _actionCells = @[NSLocalizedStringFromTable(@"Address Cell new_address", @"CBW", @"New Address")];
+//            _actionCells = @[NSLocalizedStringFromTable(@"Address Cell new_address", @"CBW", @"New Address")];
             break;
         }
         case AddressActionTypeSend: {
@@ -150,7 +150,7 @@
         DLog(@"can not create address with account idx < 0 (watched only)");
         DLog(@"create manualy");
         
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Alert Title new_address", @"CBW", nil) message:NSLocalizedStringFromTable(@"Alert Message new_address", @"CBW", nil) preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Alert Title new_watched_address", @"CBW", nil) message:NSLocalizedStringFromTable(@"Alert Message new_address", @"CBW", nil) preferredStyle:UIAlertControllerStyleAlert];
         [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
             textField.font = [UIFont monospacedFontOfSize:UIFont.labelFontSize];
             textField.placeholder = NSLocalizedStringFromTable(@"Placeholder bitcoin_address", @"CBW", nil);
@@ -272,12 +272,12 @@
     return cell;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (self.actionType == AddressActionTypeReceive && section == 1) {
-        return NSLocalizedStringFromTable(@"Address Section receive_address", @"CBW", @"Address");
-    }
-    return nil;
-}
+//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+//    if (self.actionType == AddressActionTypeReceive && section == 1) {
+//        return NSLocalizedStringFromTable(@"Address Section receive_address", @"CBW", @"Address");
+//    }
+//    return nil;
+//}
 
 #pragma mark <UITableViewDelgate>
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

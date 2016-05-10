@@ -63,16 +63,16 @@
     switch (self.actionType) {
         case AddressActionTypeDefault: {
             self.title = NSLocalizedStringFromTable(@"Navigation address", @"CBW", @"Address");
-            NSString *archiveItemImageName = @"navigation_trash";
-            if (self.address.accountIdx != CBWRecordWatchedIdx) {
-                archiveItemImageName = self.address.archived ? @"navigation_unarchive" : @"navigation_archive";
-            }
-            UIImage *archiveItemImage = [UIImage imageNamed:archiveItemImageName];
-            UIBarButtonItem *archiveItem = [[UIBarButtonItem alloc] initWithImage:archiveItemImage style:UIBarButtonItemStylePlain target:self action:@selector(p_handleArchive:)];
+//            NSString *archiveItemImageName = @"navigation_trash";
+//            if (self.address.accountIdx != CBWRecordWatchedIdx) {
+//                archiveItemImageName = self.address.archived ? @"navigation_unarchive" : @"navigation_archive";
+//            }
+//            UIImage *archiveItemImage = [UIImage imageNamed:archiveItemImageName];
+//            UIBarButtonItem *archiveItem = [[UIBarButtonItem alloc] initWithImage:archiveItemImage style:UIBarButtonItemStylePlain target:self action:@selector(p_handleArchive:)];
 //            UIBarButtonItem *shareItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_share"] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleShare:)];
-            self.navigationItem.rightBarButtonItems = @[archiveItem
+//            self.navigationItem.rightBarButtonItems = @[archiveItem
                                                         //,shareItem];
-                                                        ];
+//                                                        ];
             addressHeaderView.labelEditable = YES;
             
             [self.transactionStore fetch];

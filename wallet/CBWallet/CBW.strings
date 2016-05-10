@@ -60,6 +60,7 @@
 
 "Alert Message invalid_address" = "Invalid bitcoin address.";
 "Alert Title new_address" = "New Address";
+"Alert Title new_watched_address" = "Add Address";
 "Alert Message new_address" = "";
 "Alert Action save_address" = "Save";
 "Alert Action scan_qr_code" = "Scan QR Code";
