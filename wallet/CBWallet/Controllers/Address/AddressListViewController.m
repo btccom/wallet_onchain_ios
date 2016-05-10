@@ -95,6 +95,10 @@
             self.title = NSLocalizedStringFromTable(@"Navigation select_address", @"CBW", @"Select Address");
             break;
         }
+        case AddressActionTypeExplore: {
+            self.title = NSLocalizedStringFromTable(@"Navigation address_list", @"CBW", @"Address List");
+            break;
+        }
     }
     
     DLog(@"address list of account: %ld", (long)self.account.idx);

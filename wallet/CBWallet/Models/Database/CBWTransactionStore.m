@@ -152,7 +152,11 @@
         fileName = [NSString stringWithFormat:@"account-%ld", self.account.idx];
     }
     NSString *cacheFileName = [NSString stringWithFormat:@"%@%@%@", CBWCacheTransactionPrefix, fileName, CBWCacheSubfix];
-    return [CBWCachePath() stringByAppendingPathComponent:cacheFileName];
+    NSString *path = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"com.btc.wallet"];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
+        [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    return [path stringByAppendingPathComponent:cacheFileName];
 }
 
 - (void)p_cacheJsonObject:(id)jsonObject {
