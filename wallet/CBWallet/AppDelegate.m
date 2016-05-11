@@ -39,9 +39,9 @@
     
     // ui color
     [[UILabel appearance] setTextColor:[UIColor CBWTextColor]];
-    [[UIButton appearance] setTitleColor:[UIColor CBWPrimaryColor] forState:UIControlStateNormal];
-    [[UIButton appearanceWhenContainedInInstancesOfClasses:@[[UITableViewCell class]]] setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [[UIButton appearance] setTitleColor:[[UIColor CBWPrimaryColor] colorWithAlphaComponent:CBWDisabledOpacity] forState:UIControlStateDisabled];
+//    [[UIButton appearance] setTitleColor:[UIColor CBWPrimaryColor] forState:UIControlStateNormal];
+//    [[UIButton appearanceWhenContainedInInstancesOfClasses:@[[UITableViewCell class]]] setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//    [[UIButton appearance] setTitleColor:[[UIColor CBWPrimaryColor] colorWithAlphaComponent:CBWDisabledOpacity] forState:UIControlStateDisabled];
     [[UITextField appearance] setTextColor:[UIColor CBWTextColor]];
     [[UITableView appearance] setSeparatorColor:[UIColor CBWSeparatorColor]];
     self.window.tintColor = [UIColor CBWPrimaryColor];

@@ -8,6 +8,7 @@
 // TODO: Automatic vertical middle layout
 
 #import "AddressCell.h"
+#import "ResponderLabel.h"
 
 #import "CBWAddress.h"
 
@@ -41,7 +42,7 @@ static const CGFloat kAddressCellBalanceLabelHeight = 16.f;
 }
 - (UILabel *)addressLabel {
     if (!_addressLabel) {
-        UILabel *label = [[UILabel alloc] init];
+        ResponderLabel *label = [[ResponderLabel alloc] init];
         label.font = [UIFont monospacedFontOfSize:UIFont.labelFontSize];
         label.textColor = [UIColor CBWSubTextColor];
         [self.contentView addSubview:label];

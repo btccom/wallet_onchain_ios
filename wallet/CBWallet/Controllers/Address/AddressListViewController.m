@@ -182,7 +182,7 @@
     
     // create address
     NSUInteger idx = self.addressStore.countAllAddresses;
-    DLog(@"all addresses count: %lu", idx);
+    DLog(@"all addresses count: %lu", (unsigned long)idx);
     NSString *addressString = [CBWAddress addressStringWithIdx:idx acountIdx:self.account.idx];
     [self p_saveAddressString:addressString withIdx:idx];
 }

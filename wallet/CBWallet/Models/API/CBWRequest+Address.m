@@ -92,7 +92,7 @@
                 } else {
                     progress(NSLocalizedStringFromTable(@"Message unspent_fetch_successful", @"CBW", nil));
                     NSArray *unspentTxs = response;
-                    DLog(@"unspent tx total: %ld", unspentTxs.count);
+                    DLog(@"unspent tx total: %ld", (unsigned long)unspentTxs.count);
                     // 设置记录
                     NSMutableArray *newAddresses = [addresses mutableCopy];
                     [newAddresses setObject:@{addressString: unspentTxs} atIndexedSubscript:idx];// unspentTxs = response = new unspentHolder

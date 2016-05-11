@@ -157,7 +157,7 @@
             self.page = [[response objectForKey:CBWRequestResponseDataPageKey] unsignedIntegerValue];
             self.isThereMoreDatas = totalCount > pageSize * self.page;
             
-            DLog(@"fetched transactions page: %lu, page size: %lu, total: %lu", self.page, pageSize, totalCount);
+            DLog(@"fetched transactions page: %lu, page size: %lu, total: %lu", (unsigned long)self.page, (unsigned long)pageSize, (unsigned long)totalCount);
             
             // 解析交易
             [self.transactionStore addTransactionsFromJsonObject:[response objectForKey:CBWRequestResponseDataListKey] isCacheNeeded:(self.page == 1)];

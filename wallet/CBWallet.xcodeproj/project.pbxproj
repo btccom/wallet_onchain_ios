@@ -16,6 +16,7 @@
 		2C1684AC1CACEE4200BD434A /* NSNull+SafePatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1684AB1CACEE4200BD434A /* NSNull+SafePatch.m */; };
 		2C1684AF1CAD17C500BD434A /* TransactionDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1684AE1CAD17C500BD434A /* TransactionDataCell.m */; };
 		2C1684B21CAD1A6500BD434A /* TransactionIOCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1684B11CAD1A6500BD434A /* TransactionIOCell.m */; };
+		2C175E961CE2C03700DF5698 /* ResponderLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C175E951CE2C03700DF5698 /* ResponderLabel.m */; };
 		2C18E2111CAE64E00080EF1E /* CBWRequest+Errors.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C18E2101CAE64E00080EF1E /* CBWRequest+Errors.m */; };
 		2C18E2301CAE672C0080EF1E /* BaseFormControlCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C18E2271CAE672C0080EF1E /* BaseFormControlCell.m */; };
 		2C18E2311CAE672C0080EF1E /* FormControlActionButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C18E2291CAE672C0080EF1E /* FormControlActionButtonCell.m */; };
@@ -140,6 +141,8 @@
 		2C1684AE1CAD17C500BD434A /* TransactionDataCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionDataCell.m; sourceTree = "<group>"; };
 		2C1684B01CAD1A6500BD434A /* TransactionIOCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionIOCell.h; sourceTree = "<group>"; };
 		2C1684B11CAD1A6500BD434A /* TransactionIOCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionIOCell.m; sourceTree = "<group>"; };
+		2C175E941CE2C03700DF5698 /* ResponderLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResponderLabel.h; sourceTree = "<group>"; };
+		2C175E951CE2C03700DF5698 /* ResponderLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResponderLabel.m; sourceTree = "<group>"; };
 		2C18E20F1CAE64E00080EF1E /* CBWRequest+Errors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBWRequest+Errors.h"; sourceTree = "<group>"; };
 		2C18E2101CAE64E00080EF1E /* CBWRequest+Errors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBWRequest+Errors.m"; sourceTree = "<group>"; };
 		2C18E2261CAE672C0080EF1E /* BaseFormControlCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseFormControlCell.h; sourceTree = "<group>"; };
@@ -696,6 +699,8 @@
 				2C9CAF3E1C868B61008194EB /* DefaultSectionHeaderView.m */,
 				2CF24D601C97880500C7EDB9 /* PrimaryButton.h */,
 				2CF24D611C97880500C7EDB9 /* PrimaryButton.m */,
+				2C175E941CE2C03700DF5698 /* ResponderLabel.h */,
+				2C175E951CE2C03700DF5698 /* ResponderLabel.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1074,6 +1079,7 @@
 				2CEFC3591CA4D25000FECCA4 /* CBWAddressStore.m in Sources */,
 				2C9CAF5F1C868B61008194EB /* UIViewController+Appearance.m in Sources */,
 				2C9CAF791C868B98008194EB /* AppDelegate.m in Sources */,
+				2C175E961CE2C03700DF5698 /* ResponderLabel.m in Sources */,
 				2C19FD161CB4F5EB009BC78C /* SendToAddressCell.m in Sources */,
 				2C069C411CC72D4F0054791C /* UIViewController+AlertMessage.m in Sources */,
 				2C9CAF621C868B61008194EB /* CBWRecipient.m in Sources */,

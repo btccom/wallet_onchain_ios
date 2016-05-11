@@ -40,7 +40,7 @@
             [representation getBytes:buffer fromOffset:0 length:size error:nil];
             NSData *apngData = [[NSData alloc] initWithBytes:buffer length:size];
             YYImageDecoder *decoder = [YYImageDecoder decoderWithData:apngData scale:2.f];
-            DLog(@"found frames: %ld", decoder.frameCount);
+            DLog(@"found frames: %ld", (unsigned long)decoder.frameCount);
             
             UIImage *seedImage = [decoder frameAtIndex:0 decodeForDisplay:NO].image;
             
@@ -190,10 +190,10 @@
                     [address saveWithError:nil];
                 }];
             } else {
-                DLog(@"recover user account: %ld", account.idx);
+                DLog(@"recover user account: %ld", (long)account.idx);
                 
                 NSUInteger addressCount = [accountDataArray[1] unsignedIntegerValue];
-                DLog(@"address count: %ld", addressCount);
+                DLog(@"address count: %ld", (unsigned long)addressCount);
                 for (NSUInteger addressIdx = 0; addressIdx < addressCount; addressIdx ++) {
                     
                     NSString *addressString = [CBWAddress addressStringWithIdx:addressIdx acountIdx:account.idx];
