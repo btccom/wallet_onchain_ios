@@ -84,6 +84,8 @@
 "Alert Message sign_out" = "Sign-out will clear your data from local database, keychain and iCloud.";
 "Alert Action backup_delete" = "Backup and Delete";
 
+"Error not_enough_balance" = "Balance is not enough.";
+
 "Label watched_account" = "Watched Account";
 "Label default_account" = "Default Account";
 

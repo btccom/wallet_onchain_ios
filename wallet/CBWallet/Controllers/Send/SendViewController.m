@@ -721,8 +721,10 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
     switch (self.mode) {
         case SendViewControllerModeQuickly: {
             self.quicklyAddressCell.textField.text = address;
+            self.quicklyToAddress = address;
             if (amount.doubleValue > 0) {
                 self.quicklyAmountCell.textField.text = amount;
+                self.quicklyToAmountInBTC = amount;
             }
             [self p_checkIfSendButtonEnabled];
             break;
