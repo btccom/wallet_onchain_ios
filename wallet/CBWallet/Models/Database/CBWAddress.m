@@ -115,7 +115,7 @@
     }
 }
 
-//- (void)deleteFromStore:(RecordObjectStore *)store {
+//- (void)deleteFromStore {
 //    DLog(@"will never delete an address");
 //    return;
 //}

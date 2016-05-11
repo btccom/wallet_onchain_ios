@@ -27,7 +27,7 @@
 
 // 所有记录均无法删除，watched address 例外
 /// 从内存中删除记录，并删除数据库记录
-//- (void)deleteFromStore:(nonnull RecordObjectStore *)store;
+- (void)deleteFromStore;
 
 - (void)saveWithError:(NSError * _Nullable * _Nullable)error;
 @end

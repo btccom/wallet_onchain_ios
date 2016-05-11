@@ -75,7 +75,7 @@
 
 #pragma mark - Public Method
 
-- (void)deleteFromStore:(CBWRecordObjectStore *)store {
+- (void)deleteFromStore {
     DLog(@"will never delete a transaction");
     return;
 }

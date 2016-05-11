@@ -85,7 +85,11 @@
             break;
         }
             
-        case AddressActionTypeChange:
+        case AddressActionTypeChange: {
+            self.title = NSLocalizedStringFromTable(@"Navigation select_address", @"CBW", @"Select Address");
+            _actionCells = @[NSLocalizedStringFromTable(@"Address Cell new_address", @"CBW", @"New Address")];
+            break;
+        }
         case AddressActionTypeReceive: {
             self.title = NSLocalizedStringFromTable(@"Navigation select_address", @"CBW", @"Select Address");
 //            _actionCells = @[NSLocalizedStringFromTable(@"Address Cell new_address", @"CBW", @"New Address")];
@@ -95,7 +99,7 @@
             self.title = NSLocalizedStringFromTable(@"Navigation select_address", @"CBW", @"Select Address");
             break;
         }
-        case AddressActionTypeExplore: {
+        default: {
             self.title = NSLocalizedStringFromTable(@"Navigation address_list", @"CBW", @"Address List");
             break;
         }
@@ -146,6 +150,7 @@
         DLog(@"can not create address without account");
         return;
     }
+    // add watched address
     if (self.account.idx < 0) {
         DLog(@"can not create address with account idx < 0 (watched only)");
         DLog(@"create manualy");
@@ -180,7 +185,7 @@
         return;
     }
     
-    // create address
+    // create account address
     NSUInteger idx = self.addressStore.countAllAddresses;
     DLog(@"all addresses count: %lu", (unsigned long)idx);
     NSString *addressString = [CBWAddress addressStringWithIdx:idx acountIdx:self.account.idx];
@@ -207,18 +212,33 @@
     
     // save address record
     CBWAddress *address = [CBWAddress newAdress:addressString withLabel:label idx:idx accountRid:self.account.rid accountIdx:self.account.idx inStore:self.addressStore];
-    [address saveWithError:nil];
+    if (self.account.idx == CBWRecordWatchedIdx) {
+        // 直接保存 watched address
+        [address saveWithError:nil];
+    }
     
     if (!address) {
         return;
     }
     
+    // 更新视图
     [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:self.actionCells.count > 0 ? 1 : 0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+    
+    // 回调
     if (self.actionType == AddressActionTypeChange) {
         [self p_selectChangeAddress:address];
         return;
     }
-    [self p_pushToAddress:address];
+    // 或展示 watched 地址
+    if (self.account.idx == CBWRecordWatchedIdx) {
+        [self p_pushToAddress:address];
+        return;
+    }
+    // 或展示新建地址
+    AddressViewController *addressViewController = [[AddressViewController alloc] initWithAddress:address actionType:AddressActionTypeCreate];
+    if (addressViewController) {
+        [self.navigationController pushViewController:addressViewController animated:YES];
+    }
 }
 - (void)p_selectChangeAddress:(CBWAddress *)address {
     if ([self.delegate respondsToSelector:@selector(addressListViewController:didSelectAddress:)]) {
@@ -272,12 +292,12 @@
     return cell;
 }
 
-//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-//    if (self.actionType == AddressActionTypeReceive && section == 1) {
-//        return NSLocalizedStringFromTable(@"Address Section receive_address", @"CBW", @"Address");
-//    }
-//    return nil;
-//}
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if (self.actionType == AddressActionTypeChange && section == 1) {
+        return NSLocalizedStringFromTable(@"Address Section change_address", @"CBW", @"Address");
+    }
+    return nil;
+}
 
 #pragma mark <UITableViewDelgate>
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -291,8 +311,10 @@
         if (self.actionCells.count > 0) {
             // action section
             [tableView deselectRowAtIndexPath:indexPath animated:YES];
-            // TODO: handle different action
-            [self p_handleCreateAddress:nil];
+//            [self p_handleCreateAddress:nil];
+            if (self.actionType == AddressActionTypeChange) {
+                // TODO: mark using new change address
+            }
             return;
         }
     }

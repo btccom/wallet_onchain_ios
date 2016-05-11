@@ -40,8 +40,8 @@
 
 - (void)saveWithError:(NSError *__autoreleasing  _Nullable *)error {};
 
-//- (void)deleteFromStore:(RecordObjectStore *)store {
-//    [store deleteRecord:self];
-//}
+- (void)deleteFromStore {
+    [self.store deleteRecord:self];
+}
 
 @end

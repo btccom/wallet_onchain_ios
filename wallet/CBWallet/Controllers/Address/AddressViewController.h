@@ -18,8 +18,10 @@ typedef NS_ENUM(NSUInteger, AddressActionType) {
     AddressActionTypeChange,
     /// receive, just label + address
     AddressActionTypeReceive,
-    /// explore, no label, show summary
-    AddressActionTypeExplore
+    /// explore a address not stored, no label, show summary
+    AddressActionTypeExplore,
+    /// preview to create
+    AddressActionTypeCreate
 };
 
 /// 地址视图
@@ -28,7 +30,7 @@ typedef NS_ENUM(NSUInteger, AddressActionType) {
 /// - 标签
 @interface AddressViewController : BaseListViewController
 
-@property (nonatomic, assign, readonly) AddressActionType actionType;
+@property (nonatomic, assign) AddressActionType actionType;
 @property (nonatomic, strong, readonly) CBWAddress * _Nonnull address;
 
 - (nonnull instancetype)initWithAddress:(nonnull CBWAddress *)address actionType:(AddressActionType)actionType;

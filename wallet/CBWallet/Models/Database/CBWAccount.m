@@ -24,10 +24,10 @@
     return account;
 }
 
-//- (void)deleteFromStore:(RecordObjectStore *)store {
-//    DLog(@"will never delete an account");
-//    return;
-//}
+- (void)deleteFromStore {
+    DLog(@"will never delete an account");
+    return;
+}
 
 - (void)saveWithError:(NSError *__autoreleasing  _Nullable *)error {
     BOOL initial = self.rid < 0;

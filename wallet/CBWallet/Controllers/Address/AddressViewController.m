@@ -96,7 +96,7 @@
             
         case AddressActionTypeExplore: {
             self.title = NSLocalizedStringFromTable(@"Navigation address", @"CBW", @"Address");
-            addressHeaderView.labelEditable = NO;
+//            addressHeaderView.labelEditable = NO;
             
             [self.transactionStore fetch];
             [self.tableView reloadData];
@@ -105,6 +105,20 @@
             [self p_requestAddressSummary];
             break;
         }
+        case AddressActionTypeCreate: {
+            self.title = NSLocalizedStringFromTable(@"Navigation create_address", @"CBW", nil);
+            addressHeaderView.labelEditable = YES;
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(p_handleSaveNewAddress:)];
+            break;
+        }
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    if (self.actionType == AddressActionTypeCreate) {
+        // 删除
+        [self.address deleteFromStore];
     }
 }
 
@@ -175,6 +189,18 @@
 }
 
 #pragma mark Handlers
+- (void)p_handleSaveNewAddress:(id)sender {
+    [self.address saveWithError:nil];
+    // 设置
+    self.actionType = AddressActionTypeDefault;
+    // 移除按钮
+    self.navigationItem.rightBarButtonItem = nil;
+    // 加载交易
+    [self.transactionStore fetch];
+    [self.tableView reloadData];
+    [self p_requestAddressSummary];
+}
+
 - (void)p_handleShare:(id)sender {
     DLog(@"clicked share");
 }
@@ -257,7 +283,9 @@
 - (void)addressHeaderViewDidEndEditing:(AddressHeaderView *)view {
     DLog(@"address's label changed: %@", view.label);
     self.address.label = view.label;
-    [self.address saveWithError:nil];
+    if (self.actionType != AddressActionTypeCreate) {// 新建地址不会自动保存
+        [self.address saveWithError:nil];
+    }
 }
 
 #pragma mark <UIScrollViewDelegate>
