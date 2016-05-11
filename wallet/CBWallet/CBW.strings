@@ -69,6 +69,7 @@
 "Alert Message need_current_password" = "Please enter your current password.";
 "Alert Message need_new_password" = "Please enter your new password.";
 "Alert Message new_password_not_match" = "Please confirm your new password.";
+"Alert Message invalid_master_password" = "Invalid master password.";
 "Alert Title new_account" = "New Account";
 "Alert Message new_account" = "Please enter a label to specify the account.";
 "Alert Message need_account_label" = "Label is empty.";
@@ -79,6 +80,9 @@
 "Alert Message verify_touchid" = "Please verify your touchID.";
 "Alert Message update_hint_error" = "Set hint failed.";
 "Alert Message empty_hint" = "Set the hint please.";
+"Alert Title sign_out" = "Sign Out";
+"Alert Message sign_out" = "Sign-out will clear your data from local database, keychain and iCloud.";
+"Alert Action backup_delete" = "Backup and Delete";
 
 "Label watched_account" = "Watched Account";
 "Label default_account" = "Default Account";
@@ -107,6 +111,7 @@
 "Profile Cell change_password" = "Change Password";
 "Profile Cell change_hint" = "Change Hint";
 "Profile Cell touchid" = "Touch ID";
+"Profile Cell sign_out" = "Sign Out";
 
 // Address List
 "Address Section receive_address" = "Address";

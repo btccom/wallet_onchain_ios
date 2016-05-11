@@ -53,6 +53,19 @@ NSString *const DatabaseManagerColAccountIdx = @"accountIdx";
     return [FMDatabase databaseWithPath:[self dbPath]];
 }
 
++ (BOOL)deleteAllDatas {
+    FMDatabase *db = [self installDb];
+    BOOL deleted = NO;
+    if ([db open]) {
+        NSString *deleteAccountSQL = [NSString stringWithFormat:@"DELETE FROM %@", DatabaseManagerTableAccount];
+        deleted = [db executeUpdate:deleteAccountSQL];
+        NSString *deleteAddressSQL = [NSString stringWithFormat:@"DELETE FROM %@", DatabaseManagerTableAddress];
+        [db executeUpdate:deleteAddressSQL];
+        [db close];
+    }
+    return deleted;
+}
+
 + (NSString *)dbPath {
     NSString *documentDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
     NSString *dbPath = [documentDirectory stringByAppendingPathComponent:DatabaseManagerDBPath];

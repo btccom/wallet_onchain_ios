@@ -27,7 +27,8 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
 //    kProfileSectionAllTransactions,
 //    kProfileSectionSettings,
     kProfileSectionSecurity,
-    kProfileSectionBackup
+    kProfileSectionBackup,
+    kProfileSectionSignOut
 };
 
 @interface ProfileViewController ()
@@ -80,15 +81,11 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
     }
     
     _tableStrings = @[@{NSLocalizedStringFromTable(@"Profile Section accounts", @"CBW", @"Accounts"): @[]},
-//                      @[NSLocalizedStringFromTable(@"Profile Cell all_transactions", @"CBW", @"All Transactions")],
-//                      @[NSLocalizedStringFromTable(@"Profile Cell settings", @"CBW", @"Settings")],
                       @{NSLocalizedStringFromTable(@"Profile Section security", @"CBW", nil): securityCells},
-                      @{NSLocalizedStringFromTable(@"Profile Section backup", @"CBW", nil):
-                            @[
-                                NSLocalizedStringFromTable(@"Profile Cell export", @"CBW", @"Export"),
-                                NSLocalizedStringFromTable(@"Profile Cell iCloud", @"CBW", @"iCloud")
-                                ]
-                        }
+                      @{NSLocalizedStringFromTable(@"Profile Section backup", @"CBW", nil): @[
+                            NSLocalizedStringFromTable(@"Profile Cell export", @"CBW", @"Export"),
+                            NSLocalizedStringFromTable(@"Profile Cell iCloud", @"CBW", @"iCloud")]},
+                      @[NSLocalizedStringFromTable(@"Profile Cell sign_out", @"CBW", nil)]
                       ];
 }
 
@@ -215,6 +212,7 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:BaseTableViewCellDefaultIdentifier forIndexPath:indexPath];
     cell.detailTextLabel.text = nil;
     cell.accessoryView = nil;
+    cell.textLabel.textColor = [UIColor CBWTextColor];
     
     if (indexPath.section == kProfileSectionAccounts) {
     
@@ -259,6 +257,10 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
                 cell.accessoryView = self.iCloudSwitch;
                 self.iCloudSwitch.on = [[NSUserDefaults standardUserDefaults] boolForKey:CBWUserDefaultsiCloudEnabledKey];
             }
+        }
+        // set sign out with danger color
+        if (indexPath.section == kProfileSectionSignOut) {
+            cell.textLabel.textColor = [UIColor CBWDangerColor];
         }
     }
     
@@ -350,6 +352,55 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
                 // icloud
                 [self p_handleToggleiCloudEnabled:nil];
             }
+            break;
+        }
+        case kProfileSectionSignOut: {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Alert Title sign_out", @"CBW", nil) message:NSLocalizedStringFromTable(@"Alert Message sign_out", @"CBW", nil) preferredStyle:UIAlertControllerStyleAlert];
+            [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+                textField.secureTextEntry = YES;
+                textField.placeholder = NSLocalizedStringFromTable(@"Placeholder master_password", @"CBW", nil);
+            }];
+            UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Cancel", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
+            [alert addAction:cancel];
+            
+            UIAlertAction *backupAndDelete = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Alert Action backup_delete", @"CBW", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                NSString *code = [alert.textFields firstObject].text;
+                if (code.length == 0) {
+                    [self alertErrorMessage:NSLocalizedStringFromTable(@"Alert Message need_current_password", @"CBW", nil)];
+                } else {
+                    if (![[Guard globalGuard] checkInWithCode:code]) {
+                        [self alertErrorMessage:NSLocalizedStringFromTable(@"Alert Message invalid_master_password", @"CBW", nil)];
+                    } else {
+                        [CBWBackup saveToLocalPhotoLibraryWithCompleiton:^(NSURL *assetURL, NSError *error) {
+                            if (error) {
+                                NSLog(@"export to photo library error: \n%@", error);
+                                [self alertMessage:error.localizedDescription withTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil)];
+                            } else {
+                                [[Guard globalGuard] signOut];
+                            }
+                        }];
+                    }
+                    
+                }
+            }];
+            [alert addAction:backupAndDelete];
+            
+            UIAlertAction *delete = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Delete", @"CBW", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                NSString *code = [alert.textFields firstObject].text;
+                if (code.length == 0) {
+                    [self alertErrorMessage:NSLocalizedStringFromTable(@"Alert Message need_current_password", @"CBW", nil)];
+                } else {
+                    if (![[Guard globalGuard] checkInWithCode:code]) {
+                        [self alertErrorMessage:NSLocalizedStringFromTable(@"Alert Message invalid_master_password", @"CBW", nil)];
+                    } else {
+                        [[Guard globalGuard] signOut];
+                    }
+                }
+            }];
+            [alert addAction:delete];
+            [self presentViewController:alert animated:YES completion:^{
+                [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+            }];
             break;
         }
     }

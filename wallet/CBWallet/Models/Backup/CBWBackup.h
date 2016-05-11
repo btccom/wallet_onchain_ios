@@ -15,6 +15,7 @@
 + (NSArray *)getDatas;
 + (UIImage *)exportImage;
 + (void)saveToLocalPhotoLibraryWithCompleiton:(void(^)(NSURL *assetURL, NSError *error))completion;
++ (void)deleteCloudKitRecord;
 + (void)saveToCloudKitWithCompletion:(void(^)(NSError *error))completion;
 + (void)toggleiCloudBySwith:(UISwitch *)aSwitch inViewController:(UIViewController *)viewController;
 + (BOOL)isiCloudAccountSignedIn;

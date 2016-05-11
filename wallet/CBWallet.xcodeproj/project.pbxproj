@@ -764,14 +764,14 @@
 		2CC4845D1C71A2EE0033D700 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				2C9CAF711C868B98008194EB /* AppDelegate.h */,
+				2C9CAF721C868B98008194EB /* AppDelegate.m */,
 				2C6790F01CBCD3A5005568AD /* CBWallet.entitlements */,
 				2CEFC3651CA50EF900FECCA4 /* Schema */,
 				2C99A17F1CA1029C007D7AC3 /* libsqlite3.tbd */,
 				2CF24D5E1C965F6500C7EDB9 /* libz.tbd */,
 				2CF24D111C96377600C7EDB9 /* AVFoundation.framework */,
 				2C9CAF821C868CAE008194EB /* Info.plist */,
-				2C9CAF711C868B98008194EB /* AppDelegate.h */,
-				2C9CAF721C868B98008194EB /* AppDelegate.m */,
 				2C9CAF731C868B98008194EB /* Assets.xcassets */,
 				2C9CAF741C868B98008194EB /* CBW.strings */,
 				2C9CAF751C868B98008194EB /* CBWallet-Prefix.pch */,

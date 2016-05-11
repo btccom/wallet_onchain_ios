@@ -35,6 +35,7 @@ static NSString *const CBWKeychainAccountDefault = @"com.btc.wallet";
 // Notification
 static NSString *const CBWNotificationCheckedIn = @"cbw.notification.checked.in";
 static NSString *const CBWNotificationCheckedOut = @"cbw.notification.checked.out";
+static NSString *const CBWNotificationSignedOut = @"cbw.notification.signed.out";
 static NSString *const CBWNotificationWalletCreated = @"cbw.notification.wallet.created";
 static NSString *const CBWNotificationWalletRecovered = @"cbw.notification.wallet.recovered";
 

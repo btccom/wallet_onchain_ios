@@ -233,6 +233,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reload) name:CBWNotificationCheckedOut object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reload) name:CBWNotificationWalletCreated object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reload) name:CBWNotificationWalletRecovered object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(p_handleSignOut) name:CBWNotificationSignedOut object:nil];
 }
 
 #pragma mark Navigation
@@ -277,6 +278,14 @@
     AddressListViewController *addressListViewController = [[AddressListViewController alloc] initWithAccount:self.account];
     addressListViewController.actionType = AddressActionTypeReceive;
     [self.navigationController pushViewController:addressListViewController animated:YES];
+}
+
+/// signed out
+- (void)p_handleSignOut {
+    [self dismissViewControllerAnimated:YES completion:nil];
+    self.account = nil;
+    [self.accountStore flush];
+    [self.transactionStore flush];
 }
 
 #pragma mark - KVO

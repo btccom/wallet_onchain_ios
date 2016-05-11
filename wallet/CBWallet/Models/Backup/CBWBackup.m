@@ -120,6 +120,21 @@
     }];
 }
 
++ (void)deleteCloudKitRecord {
+    CKContainer *container = [CKContainer defaultContainer];
+    [container accountStatusWithCompletionHandler:^(CKAccountStatus accountStatus, NSError * _Nullable error) {
+        if (accountStatus == CKAccountStatusAvailable) {
+            // get private database
+            CKDatabase *database = container.privateCloudDatabase;
+            // the record
+            CKRecordID *backupRecordID = [[CKRecordID alloc] initWithRecordName:@"1"];
+            [database deleteRecordWithID:backupRecordID completionHandler:^(CKRecordID * _Nullable recordID, NSError * _Nullable error) {
+                
+            }];
+        }
+    }];
+}
+
 // TODO: handle NSUbiquityIdentityDidChangeNotification, if another account logged in. alert user to switch account.
 + (void)saveToCloudKitWithCompletion:(void (^)(NSError *))completion {
     // check available
