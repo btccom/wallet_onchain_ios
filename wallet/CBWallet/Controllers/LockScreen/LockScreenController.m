@@ -11,6 +11,7 @@
 #import "MasterPasswordViewController.h"
 
 #import "Guard.h"
+#import "UIViewController+AlertMessage.h"
 
 @interface LockScreenController ()
 
@@ -58,7 +59,7 @@
         // call delegate to unlock
         [self.delegate lockScreenController:self didUnlockWithActionType:self.actionType];
     } else {
-        
+        [self alertErrorMessage:NSLocalizedStringFromTable(@"Alert Message invalid_master_password", @"CBW", nil)];
     };
 }
 
