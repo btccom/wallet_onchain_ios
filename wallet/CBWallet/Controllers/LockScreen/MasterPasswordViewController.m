@@ -154,7 +154,10 @@
         case LockScreenActionTypeSignUp: {
             valid = valid && self.masterPasswordCell.textField.text.length > 0;
             valid = valid && self.confirmMasterPasswordCell.textField.text.length > 0;
-            valid = valid && self.hintCell.textField.text.length > 0;
+            if ([textField isEqual:self.hintCell.textField]) {
+                self.hint = self.hintCell.textField.text;
+            }
+            valid = valid && self.hint.length > 0;
             break;
         }
     }
@@ -261,7 +264,7 @@
         UITableViewHeaderFooterView *view = [[UITableViewHeaderFooterView alloc] initWithFrame:CGRectMake(0, 0, stageWidth, CBWCellHeightDefault + CBWLayoutCommonVerticalPadding * 3.f)];
         
         PrimaryButton *button = [[PrimaryButton alloc] initWithFrame:CGRectMake(16.f, CBWLayoutCommonVerticalPadding * 2.f, stageWidth - 40.f, CBWCellHeightDefault)];
-        [button setTitle:(self.actionType == LockScreenActionTypeSignIn ? NSLocalizedStringFromTable(@"Button master_password", @"CBW", @"Master Password") : NSLocalizedStringFromTable(@"Button create_wallet", @"CBW", @"Create Wallet")) forState:UIControlStateNormal];
+        [button setTitle:(self.actionType == LockScreenActionTypeSignIn ? NSLocalizedStringFromTable(@"Button unlock", @"CBW", nil) : NSLocalizedStringFromTable(@"Button create_wallet", @"CBW", @"Create Wallet")) forState:UIControlStateNormal];
         [button addTarget:self action:@selector(p_handleNext:) forControlEvents:UIControlEventTouchUpInside];
         button.enabled = NO;
         [view.contentView addSubview:button];

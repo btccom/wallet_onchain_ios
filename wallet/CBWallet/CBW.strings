@@ -29,6 +29,7 @@
 "Button create_wallet" = "Create Wallet";
 "Button recover_wallet" = "Recover Wallet";
 "Button master_password" = "Master Password";
+"Button unlock" = "Unlock";
 "Button scan_qrcode" = "Scan QRCode";
 "Button recover_from_icloud" = "Recover From iCloud";
 "Button photo_library" = "Photo Library";
