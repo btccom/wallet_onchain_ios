@@ -23,4 +23,6 @@
 /// 使用密码进行恢复，解密成功，将加密数据保存在 keychain，使用数据保存在数据库
 - (BOOL)recoverWithCode:(NSString *)code;
 
+- (NSString *)hint;
+
 @end

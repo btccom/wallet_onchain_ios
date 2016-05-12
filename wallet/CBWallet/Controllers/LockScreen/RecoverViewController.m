@@ -54,7 +54,7 @@
 - (void)p_handleNext:(id)sender {
     MasterPasswordViewController *masterPasswordViewController = [[MasterPasswordViewController alloc] init];
     masterPasswordViewController.actionType = LockScreenActionTypeSignIn;
-    masterPasswordViewController.hint = @"Hint From Backup";
+    masterPasswordViewController.hint = self.recovery.hint;
     masterPasswordViewController.delegate = self;
     [self.navigationController pushViewController:masterPasswordViewController animated:YES];
 }

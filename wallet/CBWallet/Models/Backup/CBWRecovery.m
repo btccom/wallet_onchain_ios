@@ -24,6 +24,10 @@
 
 @implementation CBWRecovery
 
+- (NSString *)hint {
+    return [self.datas.firstObject count] > 1 ? [[self.datas firstObject] lastObject] : nil;
+}
+
 - (instancetype)initWithAssetURL:(NSURL *)assetURL {
     self = [super init];
     if (self) {
@@ -151,8 +155,10 @@
     // save encrypted seed
     [SSKeychain setPassword:encryptedSeed forService:CBWKeychainSeedService account:CBWKeychainAccountDefault];
     // save hint
-    NSString *hint = [[self.datas firstObject] lastObject];
-    [SSKeychain setPassword:hint forService:CBWKeychainHintService account:CBWKeychainAccountDefault];
+    NSString *hint = self.hint;//[[self.datas firstObject] lastObject];
+    if (hint) {
+        [SSKeychain setPassword:hint forService:CBWKeychainHintService account:CBWKeychainAccountDefault];
+    }
     
     // guard
     if (![[Guard globalGuard] checkInWithCode:code]) {
