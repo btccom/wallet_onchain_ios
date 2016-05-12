@@ -114,7 +114,7 @@
 "Profile Cell change_password" = "Change Password";
 "Profile Cell change_hint" = "Change Hint";
 "Profile Cell touchid" = "Touch ID";
-"Profile Cell sign_out" = "Sign Out";
+"Profile Cell sign_out" = "Delete All Datas";
 
 // Address List
 "Address Section receive_address" = "Address";
