@@ -22,6 +22,8 @@
 
 - (void)signOut;
 
+- (void)refreshTimer;
+
 /// change password
 - (BOOL)changeCode:(NSString *)code toNewCode:(NSString *)aNewCode;
 

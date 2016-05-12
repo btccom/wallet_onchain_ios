@@ -268,6 +268,8 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
 }
 #pragma mark UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self reportActivity:@"selectCell"];
+    
     switch (indexPath.section) {
         case kProfileSectionAccounts: {
             if ([self.delegate respondsToSelector:@selector(profileViewController:didSelectAccount:)]) {

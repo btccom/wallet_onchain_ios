@@ -15,7 +15,7 @@ NSString *const BaseTableViewCellDefaultIdentifier = @"cell.default";
 NSString *const BaseTableViewCellActionButtonIdentifier = @"cell.button.action";
 NSString *const BaseTableViewCellBlockButtonIdentifier = @"cell.button.block";
 
-@interface BaseTableViewController ()
+@interface BaseTableViewController ()<UIScrollViewDelegate>
 
 @end
 
@@ -40,6 +40,11 @@ NSString *const BaseTableViewCellBlockButtonIdentifier = @"cell.button.block";
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self reportActivity:ActivityMonitorActViewDidAppear];
 }
 
 #pragma mark - Public Method
@@ -121,6 +126,11 @@ NSString *const BaseTableViewCellBlockButtonIdentifier = @"cell.button.block";
 #pragma mark - Private Method
 - (void)p_dismissKeyboard {
     [self.view endEditing:YES];
+}
+
+#pragma mark <UIScrollViewDelegate>
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [self reportActivity:@"scroll"];
 }
 
 @end

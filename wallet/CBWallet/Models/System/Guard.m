@@ -14,7 +14,7 @@
 
 #import "AESCrypt.h"
 
-static const NSTimeInterval kGuardAvaibleTimeDefault = 10 * 60; // 默认十分钟
+static const NSTimeInterval kGuardAvaibleTimeDefault = 3 * 60; // 默认3分钟
 
 @interface Guard ()
 
@@ -51,8 +51,7 @@ static const NSTimeInterval kGuardAvaibleTimeDefault = 10 * 60; // 默认十分�
             // cache code
             _code = code;
             // add timer into run loop
-            NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
-            [runLoop addTimer:self.timer forMode:NSDefaultRunLoopMode];
+            [self p_addTimer];
             // notification
             [[NSNotificationCenter defaultCenter] postNotificationName:CBWNotificationCheckedIn object:nil];
             // return
@@ -65,10 +64,11 @@ static const NSTimeInterval kGuardAvaibleTimeDefault = 10 * 60; // 默认十分�
 
 - (void)checkOut {
     _code = @"";
-    [self.timer invalidate];
+    [self p_invalidateTimer];
+//    [self.timer invalidate];
     // notification
     [[NSNotificationCenter defaultCenter] postNotificationName:CBWNotificationCheckedOut object:nil];
-    self.timer = nil;
+//    _timer = nil;
 }
 
 - (void)signOut {
@@ -81,6 +81,13 @@ static const NSTimeInterval kGuardAvaibleTimeDefault = 10 * 60; // 默认十分�
         [[NSNotificationCenter defaultCenter] postNotificationName:CBWNotificationSignedOut object:nil];
         
         [self checkOut];
+    }
+}
+
+- (void)refreshTimer {
+    if ([self.timer isValid]) {
+        [self p_invalidateTimer];
+        [self p_addTimer];
     }
 }
 
@@ -98,6 +105,16 @@ static const NSTimeInterval kGuardAvaibleTimeDefault = 10 * 60; // 默认十分�
         }
     }
     return NO;
+}
+
+- (void)p_invalidateTimer {
+    [self.timer invalidate];
+    _timer = nil;
+}
+
+- (void)p_addTimer {
+    NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
+    [runLoop addTimer:self.timer forMode:NSDefaultRunLoopMode];
 }
 
 @end

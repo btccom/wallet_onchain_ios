@@ -356,6 +356,8 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [self reportActivity:@"cellEditingDelete"];
+        
         CBWAddress *address = [self.addressStore recordAtIndex:indexPath.row];
         if (self.account.idx == CBWRecordWatchedIdx) {
             // delete

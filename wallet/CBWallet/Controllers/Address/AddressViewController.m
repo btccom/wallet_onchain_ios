@@ -190,6 +190,8 @@
 
 #pragma mark Handlers
 - (void)p_handleSaveNewAddress:(id)sender {
+    [self reportActivity:@"saveNewAddress"];
+    
     [self.address saveWithError:nil];
     // 设置
     self.actionType = AddressActionTypeDefault;
@@ -281,7 +283,10 @@
 
 #pragma mark <AddressHeaderViewDelegate>
 - (void)addressHeaderViewDidEndEditing:(AddressHeaderView *)view {
+    [self reportActivity:@"addressLabelChanged"];
+    
     DLog(@"address's label changed: %@", view.label);
+    
     self.address.label = view.label;
     if (self.actionType != AddressActionTypeCreate) {// 新建地址不会自动保存
         [self.address saveWithError:nil];

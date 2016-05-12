@@ -22,4 +22,9 @@
     [self setupAppearance];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self reportActivity:ActivityMonitorActViewDidAppear];
+}
+
 @end

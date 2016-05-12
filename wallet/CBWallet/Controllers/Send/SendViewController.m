@@ -157,6 +157,8 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
 
 /// clicked navigation right button to switch mode
 - (void)p_handleSwitchMode:(id)sender {
+    [self reportActivity:@"switchMode"];
+    
     [self.tableView beginUpdates];
     switch (self.mode) {
         case SendViewControllerModeQuickly: {
@@ -199,7 +201,7 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
 
 /// clicked send button
 - (void)p_handleSend {
-    NSLog(@"handle send");
+    [self reportActivity:@"sendButton"];
     [self.view endEditing:YES];
     switch (self.mode) {
         case SendViewControllerModeQuickly: {
@@ -279,6 +281,7 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
     }
 }
 - (BOOL)p_editingChanged:(id)sender {
+    [self reportActivity:@"textFieldEditing"];
     BOOL valid = YES;
     if ([sender isEqual:self.quicklyAddressCell.textField]) {
         self.quicklyToAddress = [self.quicklyAddressCell.textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -321,6 +324,8 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
 #pragma mark Advanced Actions
 ///
 - (void)p_handleAdvancedAddToData:(id)sender {
+    [self reportActivity:@"advancedAddToData"];
+    
     DLog(@"handle add advanced to data");
     [self.view endEditing:YES];
     
@@ -361,6 +366,8 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
     [self p_checkIfSendButtonEnabled];
 }
 - (void)p_handleAdvancedDeleteToData:(id)sender {
+    [self reportActivity:@"advancedDeleteToData"];
+    
     SendToAddressCellDeleteButton *button = sender;
     NSIndexPath *indexPath = [self.tableView indexPathForCell:button.cell];
     [self.advancedToDatas removeObjectAtIndex:indexPath.row];
@@ -383,6 +390,8 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
     [self.navigationController pushViewController:addressListViewController animated:YES];
 }
 - (void)p_handleAdvancedSelectFee {
+    [self reportActivity:@"advancedSelectFee"];
+    
     DLog(@"to select fee");
     UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Send Section fee", @"CBW", nil) message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     NSUInteger count = CBWFee.values.count;
@@ -408,6 +417,8 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
 }
 
 - (void)p_handleAdvancedCustomFee {
+    [self reportActivity:@"advancedCustomFee"];
+    
     NSString *customFeeString = [NSString stringWithFormat:@"Description Fee %ld", (long)CBWFeeLevelCustom];
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(customFeeString, @"CBW", nil) message:nil preferredStyle:UIAlertControllerStyleAlert];
     [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
@@ -722,6 +733,8 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
 
 #pragma mark - <UITextFieldDelegate>
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self reportActivity:@"textFieldReturn"];
+    
     if ([textField isEqual:self.quicklyAddressCell.textField]) {
         [self.quicklyAmountCell.textField becomeFirstResponder];
     } else if ([textField isEqual:self.quicklyAmountCell.textField]) {
@@ -783,6 +796,8 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
 
 #pragma mark - <AddressListViewControllerDelegate>
 - (void)addressListViewController:(AddressListViewController *)controller didSelectAddress:(CBWAddress *)address {
+    [self reportActivity:@"selectAddress"];
+    
     if (controller.actionType == AddressActionTypeSend) {
         if (!address) {
             return;
@@ -798,6 +813,8 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
     [self p_checkIfSendButtonEnabled];
 }
 - (void)addressListViewController:(AddressListViewController *)controller didDeselectAddress:(CBWAddress *)address {
+    [self reportActivity:@"deselectAddress"];
+    
     if (!address) {
         return;
     }
