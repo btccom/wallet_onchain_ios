@@ -211,7 +211,15 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
                 return;
             }
             
-            [self sendToAddresses:@{self.quicklyToAddress: @([self.quicklyToAmountInBTC BTC2SatoshiValue])}];
+            [self sendToAddresses:@{self.quicklyToAddress: @([self.quicklyToAmountInBTC BTC2SatoshiValue])} withCompletion:^(NSError *error) {
+                if (error) {
+                    [self alertErrorMessage:error.localizedDescription];
+                    return;
+                }
+                
+                // back
+                [self p_popBack];
+            }];
             
             break;
         }
@@ -221,7 +229,31 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
             [self.advancedToDatas enumerateObjectsUsingBlock:^(CBWAddress * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 [toAddresses setObject:@(obj.balance) forKey:obj.address];
             }];
-            [self sendToAddresses:[toAddresses copy]];
+            
+            __block CBWAddress *changeAddress = self.advancedChangeAddress;
+            if (!changeAddress) {
+                // new address
+                CBWAddressStore *addressStore = [[CBWAddressStore alloc] initWithAccountIdx:self.account.idx];
+                [addressStore fetch];
+                NSUInteger idx = addressStore.countAllAddresses;
+                NSString *addressString = [CBWAddress addressStringWithIdx:idx acountIdx:self.account.idx];
+                changeAddress = [CBWAddress newAdress:addressString withLabel:@"" idx:idx accountRid:self.account.rid accountIdx:self.account.idx inStore:addressStore];
+            }
+            [self sendToAddresses:[toAddresses copy] withChangeAddress:changeAddress completion:^(NSError *error) {
+                if (error) {
+                    [self alertErrorMessage:error.localizedDescription];
+                    if (!self.advancedChangeAddress) {
+                        // 新建地址作为找零地址，在发款失败时移除内存
+                        [changeAddress deleteFromStore];
+                    }
+                    return;
+                }
+                
+                // save change address
+                [changeAddress saveWithError:nil];
+                // then back
+                [self p_popBack];
+            }];
             
             break;
         }
@@ -237,6 +269,14 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
     // check fee
     // sign inputs
     // post
+}
+
+- (void)p_popBack {
+    if (self.navigationController) {
+        [self.navigationController popViewControllerAnimated:YES];
+    } else if (self.presentingViewController) {
+        [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 - (BOOL)p_editingChanged:(id)sender {
     BOOL valid = YES;
@@ -744,6 +784,9 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
 #pragma mark - <AddressListViewControllerDelegate>
 - (void)addressListViewController:(AddressListViewController *)controller didSelectAddress:(CBWAddress *)address {
     if (controller.actionType == AddressActionTypeSend) {
+        if (!address) {
+            return;
+        }
         if (![self.advancedFromAddresses containsObject:address]) {
             [self.advancedFromAddresses addObject:address];
             [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:kSendViewControllerAdvancedSectionFrom] withRowAnimation:UITableViewRowAnimationNone];
@@ -755,9 +798,14 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
     [self p_checkIfSendButtonEnabled];
 }
 - (void)addressListViewController:(AddressListViewController *)controller didDeselectAddress:(CBWAddress *)address {
-    if ([self.advancedFromAddresses containsObject:address]) {
-        [self.advancedFromAddresses removeObject:address];
-        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:kSendViewControllerAdvancedSectionFrom] withRowAnimation:UITableViewRowAnimationNone];
+    if (!address) {
+        return;
+    }
+    if (controller.actionType == AddressActionTypeSend) {
+        if ([self.advancedFromAddresses containsObject:address]) {
+            [self.advancedFromAddresses removeObject:address];
+            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:kSendViewControllerAdvancedSectionFrom] withRowAnimation:UITableViewRowAnimationNone];
+        }
     }
     [self p_checkIfSendButtonEnabled];
 }

@@ -39,6 +39,9 @@ static NSString *const CBWNotificationSignedOut = @"cbw.notification.signed.out"
 static NSString *const CBWNotificationWalletCreated = @"cbw.notification.wallet.created";
 static NSString *const CBWNotificationWalletRecovered = @"cbw.notification.wallet.recovered";
 
+// common error
+static NSString *const CBWErrorDomain = @"cbw.error";
+
 // Cache
 static NSString *const CBWCacheSubfix = @".cache";
 static NSString *const CBWCacheTransactionPrefix = @"cbw-transaction-";

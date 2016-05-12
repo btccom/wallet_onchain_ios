@@ -113,7 +113,7 @@
                             [self addressesUnspentForAddresses:newAddresses withAmount:lastAmount progress:progress completion:completion];
                         } else {
                             // 否则，返回额度不足的错误
-                            NSError *notEnoughError = [[NSError alloc] initWithDomain:CBWRequestDomain code:CBWRequestErrorCodeNotEnoughBalance userInfo:@{NSLocalizedDescriptionKey: NSLocalizedStringFromTable(@"Error not_enough_balance", @"CBW", nil)}];
+                            NSError *notEnoughError = [[NSError alloc] initWithDomain:CBWRequestErrorDomain code:CBWRequestErrorCodeNotEnoughBalance userInfo:@{NSLocalizedDescriptionKey: NSLocalizedStringFromTable(@"Error not_enough_balance", @"CBW", nil)}];
                             completion(notEnoughError, nil);
                         }
                     } else {

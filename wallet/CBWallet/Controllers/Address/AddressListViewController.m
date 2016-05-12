@@ -210,7 +210,7 @@
         return;
     }
     
-    // save address record
+    // to save address record
     CBWAddress *address = [CBWAddress newAdress:addressString withLabel:label idx:idx accountRid:self.account.rid accountIdx:self.account.idx inStore:self.addressStore];
     if (self.account.idx == CBWRecordWatchedIdx) {
         // 直接保存 watched address
@@ -313,7 +313,7 @@
             [tableView deselectRowAtIndexPath:indexPath animated:YES];
 //            [self p_handleCreateAddress:nil];
             if (self.actionType == AddressActionTypeChange) {
-                // TODO: mark using new change address
+                [self p_selectChangeAddress:nil];
             }
             return;
         }
