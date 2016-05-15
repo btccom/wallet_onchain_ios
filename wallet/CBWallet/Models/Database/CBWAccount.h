@@ -23,4 +23,6 @@
 /// create account, import account.
 + (nonnull instancetype)newAccountWithIdx:(NSInteger)idx label:(nullable NSString *)label inStore:(nonnull CBWAccountStore *)store;
 
++ (BOOL)checkLabel:(nonnull NSString *)label;
+
 @end

@@ -125,6 +125,20 @@
     return updated;
 }
 
+- (BOOL)checkAccountLabel:(NSString *)label {
+    BOOL checked = NO;
+    FMDatabase *db = [self db];
+    if ([db open]) {
+        NSString *sql = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ?", DatabaseManagerTableAccount,
+                         DatabaseManagerColLabel];
+        FMResultSet *result = [db executeQuery:sql,
+                               label];
+        checked = [result next];
+        [db close];
+    }
+    return checked;
+}
+
 + (BOOL)checkAccountInstalled {
     BOOL installed = NO;
     FMDatabase *db = [self installDb];

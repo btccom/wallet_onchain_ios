@@ -24,6 +24,10 @@
     return account;
 }
 
++ (BOOL)checkLabel:(NSString *)label {
+    return [[CBWDatabaseManager defaultManager] checkAccountLabel:label];
+}
+
 - (void)deleteFromStore {
     DLog(@"will never delete an account");
     return;

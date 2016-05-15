@@ -14,6 +14,7 @@
 
 - (void)fetchAccountsToStore:(CBWAccountStore *)store;
 - (void)saveAccount:(CBWAccount *)account;
+- (BOOL)checkAccountLabel:(NSString *)label;
 + (BOOL)checkAccountInstalled;
 
 @end

@@ -55,7 +55,7 @@
         if (label.length > 0) {
             [self p_createAccountWithLabel:label];
         } else {
-            [self alertMessage:NSLocalizedStringFromTable(@"Alert Message need_account_label", @"CBW", nil) withTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil)];
+            [self alertErrorMessage:NSLocalizedStringFromTable(@"Alert Message need_account_label", @"CBW", nil)];
         }
     }];
     [alert addAction:save];
@@ -63,6 +63,10 @@
 }
 
 - (void)p_createAccountWithLabel:(NSString *)label {
+    if ([CBWAccount checkLabel:label]) {
+        [self alertErrorMessage:[NSString stringWithFormat:NSLocalizedStringFromTable(@"Alert Message duplicated_account_label", @"CBW", nil), label]];
+        return;
+    }
     NSUInteger idx = self.accountStore.count - 1;// remove watched account
     CBWAccount *account = [CBWAccount newAccountWithIdx:idx label:label inStore:self.accountStore];
     DLog(@"create account: %@", account.label);
@@ -105,6 +109,16 @@
         UITextField *textField = [alert.textFields firstObject];
         NSString *label = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         if (label.length > 0) {
+            
+            if ([account.label isEqualToString:label]) {
+                return;
+            } else {
+                if (![CBWAccount checkLabel:label]) {
+                    [self alertErrorMessage:[NSString stringWithFormat:NSLocalizedStringFromTable(@"Alert Message duplicated_account_label", @"CBW", nil), label]];
+                    return;
+                }
+            }
+            
             account.label = label;
             NSError *error = nil;
             [account saveWithError:&error];
@@ -112,7 +126,7 @@
                 [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
             }
         } else {
-            [self alertMessage:NSLocalizedStringFromTable(@"Alert Message need_account_label", @"CBW", nil) withTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil)];
+            [self alertErrorMessage:NSLocalizedStringFromTable(@"Alert Message need_account_label", @"CBW", nil)];
         }
     }];
     [alert addAction:save];
