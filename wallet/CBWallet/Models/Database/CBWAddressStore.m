@@ -23,9 +23,28 @@
     [super fetch];
     if (self.isArchived) {
         [[CBWDatabaseManager defaultManager] fetchAddressWithAccountIdx:self.accountIdx archived:YES toStore:self];
+        [self p_sort];
         return;
     }
     [[CBWDatabaseManager defaultManager] fetchAddressWithAccountIdx:self.accountIdx toStore:self];
+    [self p_sort];
+}
+
+- (void)p_sort {
+    [records sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        CBWAddress *address1 = obj1;
+        CBWAddress *address2 = obj2;
+        if (address1.label.length > 0 && address2.label.length == 0) {
+            return NSOrderedAscending;
+        } else if (address2.label.length > 0 && address1.label.length == 0) {
+            return NSOrderedDescending;
+        } else if (address1.label.length > 0 && address2.label.length > 0) {
+            return [address1.label compare:address2.label];
+        } else {
+            return [address1.address compare:address2.address];
+        }
+        
+    }];
 }
 
 - (NSUInteger)countAllAddresses {
