@@ -35,6 +35,7 @@ static NSString *const kPasswordViewControllerSaveButtonCellIdentifier = @"cell.
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.title = NSLocalizedStringFromTable(@"Navigation change_password", @"CBW", nil);
     
     [self.tableView registerClass:[FormControlInputCell class] forCellReuseIdentifier:kPasswordViewControllerCurrentPasswordCellIdentifier];
     [self.tableView registerClass:[FormControlInputCell class] forCellReuseIdentifier:kPasswordViewControllerNewPasswordCellIdentifier];
@@ -96,7 +97,7 @@ static NSString *const kPasswordViewControllerSaveButtonCellIdentifier = @"cell.
             }
         }];
     } else {
-        [self alertMessage:NSLocalizedStringFromTable(@"Failed", @"CBW", nil) withTitle:@""];
+        [self alertErrorMessage:NSLocalizedStringFromTable(@"Alert Message invalid_master_password", @"CBW", nil)];
     }
     
 }

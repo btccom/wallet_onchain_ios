@@ -25,6 +25,7 @@
 "Navigation select_address" = "Select Address";
 "Navigation settings" = "Settings";
 "Navigation manage_accounts" = "Manage Accounts";
+"Navigation change_password" = "Change Password";
 
 "Button create_wallet" = "Create Wallet";
 "Button recover_wallet" = "Recover Wallet";
