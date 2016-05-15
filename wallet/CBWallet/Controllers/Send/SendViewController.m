@@ -355,6 +355,12 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
         return;
     }
     
+    // check amount
+    if (self.advancedToAmountCell.textField.text.doubleValue > 21000000.0) {
+        [self alertErrorMessage:NSLocalizedStringFromTable(@"Alert Message too_big_amount", @"CBW", nil)];
+        return;
+    }
+    
     CBWAddress *address = [CBWAddress new];
     address.address = addressString;
     address.balance = [@(self.advancedToAmountCell.textField.text.doubleValue * 100000000.0) longLongValue];

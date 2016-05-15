@@ -55,6 +55,11 @@
         amount += [obj longLongValue];
     }];
     
+    if (amount > BTC_MAX_MONEY) {
+        completion([NSError errorWithDomain:CBWErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedStringFromTable(@"Error too_big_amount", @"CBW", nil)}]);
+        return;
+    }
+    
     // 3. 获取未花交易
     __block NSMutableArray *addresses = [NSMutableArray array];
     [fromAddresses enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {

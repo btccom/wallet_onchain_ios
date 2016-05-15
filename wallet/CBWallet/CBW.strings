@@ -89,6 +89,7 @@
 "Alert Message duplicated_account_label" = "Label (%@) is duplicated.";
 
 "Error not_enough_balance" = "Balance is not enough.";
+"Error too_big_amount" = "Amount should be less than 21,000,000 BTC.";
 
 "Label watched_account" = "Watched Account";
 "Label default_account" = "Default Account";
