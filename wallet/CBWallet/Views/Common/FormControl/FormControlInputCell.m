@@ -42,6 +42,7 @@
     }
     
     UITextField *textField = [[UITextField alloc] initWithFrame:self.contentView.bounds];
+    textField.clearButtonMode = UITextFieldViewModeWhileEditing;
     [self.contentView addSubview:textField];
     _textField = textField;
     return _textField;
