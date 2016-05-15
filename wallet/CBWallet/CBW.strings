@@ -47,7 +47,7 @@
 "Placeholder hint" = "Hint";
 "Placeholder bitcoin_address" = "Bitcoin Address";
 "Placeholder new_address" = "New Address";
-"Placeholder amount" = "Amount";
+"Placeholder amount" = "Amount in BTC";
 "Placeholder add_label_for_address" = "Add A Label";
 "Placeholder current_password" = "Current Password";
 "Placeholder new_password" = "New Password";
