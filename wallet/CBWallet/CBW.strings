@@ -85,6 +85,7 @@
 "Alert Title sign_out" = "Attention!";
 "Alert Message sign_out" = "This action will clear all your data from local database, keychain and iCloud.";
 "Alert Action backup_delete" = "Backup and Delete";
+"Alert Message too_big_amount" = "Amount should be less than 21,000,000 BTC."
 
 "Error not_enough_balance" = "Balance is not enough.";
 

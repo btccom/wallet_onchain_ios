@@ -18,10 +18,10 @@
 
 
 - (void)sendToAddresses:(NSDictionary *)toAddresses withCompletion:(void (^)(NSError *error))completion {
-    [self sendToAddresses:toAddresses withChangeAddress:nil completion:completion];
+    [self sendToAddresses:toAddresses withChangeAddress:nil fee:[[CBWFee defaultFee].value longLongValue] completion:completion];
 }
 
-- (void)sendToAddresses:(NSDictionary *)toAddresses withChangeAddress:(CBWAddress *)changeAddress completion:(void (^)(NSError *))completion {
+- (void)sendToAddresses:(NSDictionary *)toAddresses withChangeAddress:(CBWAddress *)changeAddress fee:(long long)fee completion:(void (^)(NSError *))completion{
     
     // 1. 准备发款地址
     NSMutableArray <CBWAddress *> *fromAddresses = [self.advancedFromAddresses mutableCopy];
@@ -50,15 +50,10 @@
     }
     
     // 2. 计算交易额
-    CBWFee *fee = self.fee;
-    if (!fee) {
-        fee = [CBWFee defaultFee];
-    }
-    __block BTCAmount amount = 0;
+    __block long long amount = fee;
     [toAddresses enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
         amount += [obj longLongValue];
     }];
-    BTCAmount totalAmount = [fee.value longLongValue] + amount;
     
     // 3. 获取未花交易
     __block NSMutableArray *addresses = [NSMutableArray array];
@@ -68,7 +63,7 @@
     }];
     CBWRequest *request = [[CBWRequest alloc] init];
     // @[@"1FjEHuM8YHZcM4tCj9YYA7TdAyeJ1e61x7", @"1CZvwQmyurcw2oYQoMrX6UJ3FCYVnFbUwW"]
-    [request addressesUnspentForAddresses:addresses withAmount:totalAmount progress:^(NSString * _Nonnull message) {
+    [request addressesUnspentForAddresses:addresses withAmount:amount progress:^(NSString * _Nonnull message) {
         DLog(@"send progress: %@", message);
     } completion:^(NSError * _Nullable error, NSArray * _Nullable newAddresses) {
         
@@ -97,7 +92,7 @@
         DLog(@"sorted: %@", sortedAddresses);
             
         // 4. 根据金额取得需要的未花交易
-        [self p_fetchUnspentScriptWithAddresses:sortedAddresses totalAmount:totalAmount completion:^(NSError *error, NSArray *usedAddresses) {
+        [self p_fetchUnspentScriptWithAddresses:sortedAddresses totalAmount:amount completion:^(NSError *error, NSArray *usedAddresses) {
             DLog(@"scripted addresses: %@", usedAddresses);
             
             if (error) {
@@ -170,9 +165,9 @@
             }];
             
             NSLog(@"Total satoshis to spend:       %lld", spentCoins);
-            NSLog(@"Total satoshis to destination: %lld", amount);
-            NSLog(@"Total satoshis to fee:         %lld", [fee.value longLongValue]);
-            NSLog(@"Total satoshis to change:      %lld", (spentCoins - totalAmount));
+            NSLog(@"Total satoshis to destination: %lld", amount - fee);
+            NSLog(@"Total satoshis to fee:         %lld", fee);
+            NSLog(@"Total satoshis to change:      %lld", (spentCoins - amount));
             
             
             // 7. 交易输出，支付及找零
@@ -182,7 +177,7 @@
                 BTCTransactionOutput *paymentOutput = [[BTCTransactionOutput alloc] initWithValue:value address:[BTCPublicKeyAddress addressWithString:key]];
                 [tx addOutput:paymentOutput];
             }];
-            BTCTransactionOutput *changeOutput = [[BTCTransactionOutput alloc] initWithValue:(spentCoins - totalAmount) address:[BTCPublicKeyAddress addressWithString:changeAddress.address]];
+            BTCTransactionOutput *changeOutput = [[BTCTransactionOutput alloc] initWithValue:(spentCoins - amount) address:[BTCPublicKeyAddress addressWithString:changeAddress.address]];
             [tx addOutput:changeOutput];
             
             
