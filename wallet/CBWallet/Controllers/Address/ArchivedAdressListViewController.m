@@ -95,8 +95,9 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    CBWAddress *address = [self.addressStore recordAtIndex:indexPath.row];
-    [self p_selectAddress:address];
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+//    CBWAddress *address = [self.addressStore recordAtIndex:indexPath.row];
+//    [self p_selectAddress:address];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
