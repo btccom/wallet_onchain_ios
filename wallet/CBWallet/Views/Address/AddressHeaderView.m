@@ -88,6 +88,11 @@ static const CGFloat kAddressHeaderViewLabelHeight = 20.f;
 }
 
 #pragma mark - UITextFieldDelegate
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    if ([self.delegate respondsToSelector:@selector(addressHeaderViewDidEndEditing:)]) {
+        [self.delegate addressHeaderViewDidEndEditing:self];
+    }
+}
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     if ([self.delegate respondsToSelector:@selector(addressHeaderViewDidEndEditing:)]) {
