@@ -75,7 +75,7 @@
             UIBarButtonItem *createButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_create"] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleCreateAddress:)];
             NSMutableArray *items = [NSMutableArray arrayWithObject:createButtonItem];
             
-            if (self.account.idx != CBWRecordWatchedIdx) {
+            if (self.account.idx != CBWRecordWatchedIDX) {
                 UIBarButtonItem *archivedListButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_archived_empty"] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleArchivedAddressList:)];
                 [items insertObject:archivedListButtonItem atIndex:0];
                 self.archivedListButtonItem = archivedListButtonItem;
@@ -164,7 +164,7 @@
             NSString *addressString = [alertController.textFields firstObject].text;
             if (addressString.length > 0) {
                 if ([CBWAddress validateAddressString:addressString]) {
-                    [self p_saveAddressString:addressString withIdx:CBWRecordWatchedIdx];
+                    [self p_saveAddressString:addressString withIdx:CBWRecordWatchedIDX];
                 } else {
                     [self alertMessageWithInvalidAddress:addressString];
                 }
@@ -212,7 +212,7 @@
     
     // to save address record
     CBWAddress *address = [CBWAddress newAdress:addressString withLabel:label idx:idx accountRid:self.account.rid accountIdx:self.account.idx inStore:self.addressStore];
-    if (self.account.idx == CBWRecordWatchedIdx) {
+    if (self.account.idx == CBWRecordWatchedIDX) {
         // 直接保存 watched address
         [address saveWithError:nil];
     }
@@ -230,7 +230,7 @@
         return;
     }
     // 或展示 watched 地址
-    if (self.account.idx == CBWRecordWatchedIdx) {
+    if (self.account.idx == CBWRecordWatchedIDX) {
         [self p_pushToAddress:address];
         return;
     }
@@ -359,7 +359,7 @@
         [self reportActivity:@"cellEditingDelete"];
         
         CBWAddress *address = [self.addressStore recordAtIndex:indexPath.row];
-        if (self.account.idx == CBWRecordWatchedIdx) {
+        if (self.account.idx == CBWRecordWatchedIDX) {
             // delete
             [address deleteWatchedAddressFromStore:self.addressStore];
         } else {
@@ -373,7 +373,7 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.account.idx != CBWRecordWatchedIdx) {
+    if (self.account.idx != CBWRecordWatchedIDX) {
         return NSLocalizedStringFromTable(@"Button archive", @"CBW", nil);
     }
     return NSLocalizedStringFromTable(@"Button delete", @"CBW", nil);
@@ -399,7 +399,7 @@
         [self alertMessageWithInvalidAddress:addressString];
     }
     // save
-    [self p_saveAddressString:addressString withIdx:CBWRecordWatchedIdx label:[addressInfo objectForKey:CBWAddressInfoLabelKey]];
+    [self p_saveAddressString:addressString withIdx:CBWRecordWatchedIDX label:[addressInfo objectForKey:CBWAddressInfoLabelKey]];
 }
 
 @end

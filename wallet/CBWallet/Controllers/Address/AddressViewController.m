@@ -208,8 +208,8 @@
 }
 
 - (void)p_handleArchive:(id)sender {
-    DLog(@"clicked archive, %ld, %ld", (long)self.address.accountIdx, (long)self.address.idx);
-    if (self.address.accountIdx == CBWRecordWatchedIdx) {
+    DLog(@"clicked archive, %ld, %ld", (long)self.address.accountIDX, (long)self.address.idx);
+    if (self.address.accountIDX == CBWRecordWatchedIDX) {
         DLog(@"to delete watched address");
         [self.address deleteWatchedAddressFromStore:self.address.store];
         [self.navigationController popViewControllerAnimated:YES];

@@ -50,8 +50,8 @@
         address.internal = [results boolForColumn:DatabaseManagerColInternal];
         address.balance = [results longLongIntForColumn:DatabaseManagerColBalance];
         address.txCount = [results intForColumn:DatabaseManagerColTxCount];
-        address.accountIdx = [results intForColumn:DatabaseManagerColAccountIdx];
-        address.accountRid = [results intForColumn:DatabaseManagerColAccountRid];
+        address.accountIDX = [results intForColumn:DatabaseManagerColAccountIdx];
+        address.accountRID = [results intForColumn:DatabaseManagerColAccountRid];
         [store addRecord:address];
     }
 }
@@ -108,8 +108,8 @@
                    @(address.internal),
                    @(address.balance),
                    @(address.txCount),
-                   @(address.accountRid),
-                   @(address.accountIdx)];
+                   @(address.accountRID),
+                   @(address.accountIDX)];
         if (created) {
             address.rid = [db lastInsertRowId];
         }
@@ -171,8 +171,8 @@
                    @(address.internal),
                    @(address.balance),
                    @(address.txCount),
-                   @(address.accountRid),
-                   @(address.accountIdx),
+                   @(address.accountRID),
+                   @(address.accountIDX),
                    @(address.rid)];
         
         [db close];
@@ -185,7 +185,7 @@
 
 - (void)deleteAddress:(CBWAddress *)address {
     DLog(@"delete address from database: %@", address);
-    if (address.accountIdx != CBWRecordWatchedIdx) {
+    if (address.accountIDX != CBWRecordWatchedIDX) {
         return;
     }
     FMDatabase *db = [self db];

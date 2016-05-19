@@ -18,7 +18,7 @@
 @synthesize privateKey = _privateKey;
 
 - (BTCKey *)privateKey {
-    if (self.accountIdx < 0) {
+    if (self.accountIDX < 0) {
         // not work for watched account
         return nil;
     }
@@ -32,7 +32,7 @@
             if (seed) {
                 NSData *btcSeedData = BTCDataWithUTF8CString(seed.UTF8String);
                 BTCKeychain *masterChain = [[BTCKeychain alloc] initWithSeed:btcSeedData];
-                NSString *path = [NSString stringWithFormat:@"%lu/0/%lu", (unsigned long)self.accountIdx, (unsigned long)self.idx];
+                NSString *path = [NSString stringWithFormat:@"%lu/0/%lu", (unsigned long)self.accountIDX, (unsigned long)self.idx];
                 _privateKey = [masterChain derivedKeychainWithPath:path].key;
             }
         }
@@ -51,8 +51,8 @@
     address.archived = archived;
     address.dirty = dirty;
     address.internal = internal;
-    address.accountRid = accountRid;
-    address.accountIdx = accountIdx;
+    address.accountRID = accountRid;
+    address.accountIDX = accountIdx;
     address.balance = 0;
     if ([store containsRecord:address]) {
         DLog(@"duplicated address: %@", aAddress);
@@ -121,7 +121,7 @@
 //}
 
 - (void)deleteWatchedAddressFromStore:(CBWRecordObjectStore *)store {
-    if (self.accountIdx != CBWRecordWatchedIdx) {
+    if (self.accountIDX != CBWRecordWatchedIDX) {
         return;
     }
     

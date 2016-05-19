@@ -72,7 +72,7 @@
         // create first account
         CBWAccountStore *store = [[CBWAccountStore alloc] init];
         NSError *error = nil;
-        CBWAccount *watchedAccount = [CBWAccount newAccountWithIdx:CBWRecordWatchedIdx label:NSLocalizedStringFromTable(AccountStoreWatchedAccountLabel, @"CBW", nil) inStore:store];
+        CBWAccount *watchedAccount = [CBWAccount newAccountWithIdx:CBWRecordWatchedIDX label:NSLocalizedStringFromTable(AccountStoreWatchedAccountLabel, @"CBW", nil) inStore:store];
         DLog(@"create watched account: %@", watchedAccount.label);
         [watchedAccount saveWithError:&error];
         CBWAccount *account = [CBWAccount newAccountWithIdx:0 label:NSLocalizedStringFromTable(@"Label default_account", @"CBW", nil) inStore:store];

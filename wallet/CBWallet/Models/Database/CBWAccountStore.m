@@ -31,10 +31,10 @@ NSString *const AccountStoreWatchedAccountLabel = @"Label watched_account";
 
 - (CBWAccount *)watchedAccount {
     __block CBWAccount *account = [[CBWAccount alloc] init];
-    account.idx = CBWRecordWatchedIdx;
+    account.idx = CBWRecordWatchedIDX;
     account.label = AccountStoreWatchedAccountLabel;
     [records enumerateObjectsUsingBlock:^(CBWRecordObject * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (((CBWAccount *)obj).idx == CBWRecordWatchedIdx) {
+        if (((CBWAccount *)obj).idx == CBWRecordWatchedIDX) {
             account = (CBWAccount *)obj;
             *stop = YES;
         }

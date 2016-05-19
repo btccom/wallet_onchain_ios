@@ -183,7 +183,7 @@
                 addressesDictionary = accountDataArray[2];
             }
             
-            if (account.idx == CBWRecordWatchedIdx) {
+            if (account.idx == CBWRecordWatchedIDX) {
                 DLog(@"recover watched account");
                 // watched account
                 [addressesDictionary enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
@@ -191,7 +191,7 @@
                     NSString *label = obj;
                     
                     // save address
-                    CBWAddress *address = [CBWAddress newAdress:addressString withLabel:label idx:CBWRecordWatchedIdx archived:NO dirty:NO internal:NO accountRid:account.rid accountIdx:account.idx inStore:adderssStore];
+                    CBWAddress *address = [CBWAddress newAdress:addressString withLabel:label idx:CBWRecordWatchedIDX archived:NO dirty:NO internal:NO accountRid:account.rid accountIdx:account.idx inStore:adderssStore];
                     address.ignoringSync = YES;
                     [address saveWithError:nil];
                 }];

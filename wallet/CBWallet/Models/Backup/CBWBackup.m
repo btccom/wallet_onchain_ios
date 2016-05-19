@@ -49,7 +49,7 @@
                 NSMutableDictionary *addressesDictionary = [NSMutableDictionary dictionary];//{idx:[addressDataArray]}
                 for (NSUInteger j = 0; j < addressStore.count; j++) {
                     CBWAddress *address = [addressStore recordAtIndex:j];
-                    if (account.idx == CBWRecordWatchedIdx) {
+                    if (account.idx == CBWRecordWatchedIDX) {
                         // watched account
                         NSString *label = address.label;
                         if (!label) {

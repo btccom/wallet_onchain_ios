@@ -25,8 +25,8 @@
 /// unsigned integer
 @property (nonatomic, assign) NSUInteger txCount;
 
-@property (nonatomic, assign) long long accountRid;
-@property (nonatomic, assign) NSInteger accountIdx;
+@property (nonatomic, assign) long long accountRID;
+@property (nonatomic, assign) NSInteger accountIDX;
 
 /// only for account idx > 0
 @property (nonatomic, strong, readonly, nullable) BTCKey *privateKey;

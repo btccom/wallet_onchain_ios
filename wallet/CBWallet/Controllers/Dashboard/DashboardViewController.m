@@ -380,14 +380,14 @@
         [self alertMessageWithInvalidAddress:addressString];
     }
     // handle
-    if (self.account.idx == CBWRecordWatchedIdx) {
+    if (self.account.idx == CBWRecordWatchedIDX) {
         // create watched address
         NSString *label = [addressInfo objectForKey:CBWAddressInfoLabelKey];
         DLog(@"To create address: %@ labeled: %@", addressString, label);
         
         CBWAddressStore *store = [[CBWAddressStore alloc] initWithAccountIdx:self.account.idx];
         [store fetch];
-        CBWAddress *address = [CBWAddress newAdress:addressString withLabel:label idx:CBWRecordWatchedIdx accountRid:self.account.rid accountIdx:self.account.idx inStore:store];
+        CBWAddress *address = [CBWAddress newAdress:addressString withLabel:label idx:CBWRecordWatchedIDX accountRid:self.account.rid accountIdx:self.account.idx inStore:store];
         NSError *error = nil;
         [address saveWithError:&error];
         if (!error) {

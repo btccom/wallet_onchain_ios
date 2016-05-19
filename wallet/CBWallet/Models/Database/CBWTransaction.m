@@ -86,7 +86,7 @@
 
 - (BOOL)isEqual:(id)object {
     if ([object isKindOfClass:[CBWTransaction class]]) {
-        if ([self.hashId isEqualToString:((CBWTransaction *)object).hashId]) {
+        if ([self.hashID isEqualToString:((CBWTransaction *)object).hashID]) {
             return YES;
         }
     }
@@ -133,7 +133,7 @@
 }
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key {
     if ([key isEqualToString:@"hash"]) {
-        _hashId = value;
+        _hashID = value;
     } else if ([key isEqualToString:@"balance_diff"]) {
         _value = [value longLongValue];
         _type = (_value > 0) ? TransactionTypeReceive : TransactionTypeSend;

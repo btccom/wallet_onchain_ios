@@ -10,7 +10,7 @@
 #define Constants_h
 
 
-static const NSInteger CBWRecordWatchedIdx = -1;
+static const NSInteger CBWRecordWatchedIDX = -1;
 static const NSInteger CBWMaxVisibleConfirmation = 100;
 
 // User Defaults

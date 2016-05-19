@@ -42,7 +42,7 @@ static NSString *const kTransactionViewControllerCellIdentifierIO = @"transactio
 @implementation TransactionViewController
 
 - (instancetype)initWithTransaction:(CBWTransaction *)transaction {
-    self = [self initWithTransactionHashId:transaction.hashId];
+    self = [self initWithTransactionHashId:transaction.hashID];
     if (self) {
         _transaction = transaction;
     }
