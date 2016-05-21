@@ -19,6 +19,15 @@
     return self;
 }
 
+- (long long)totalBalance {
+    __block long long balance = 0;
+    [records enumerateObjectsUsingBlock:^(CBWRecordObject * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        CBWAddress *address = (CBWAddress *)obj;
+        balance += address.balance;
+    }];
+    return balance;
+}
+
 - (void)fetch {
     [super fetch];
     if (self.isArchived) {

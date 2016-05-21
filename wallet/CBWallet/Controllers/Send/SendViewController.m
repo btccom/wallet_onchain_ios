@@ -448,6 +448,9 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
     [alert addAction:cancel];
     [self presentViewController:alert animated:YES completion:nil];
 }
+- (void)p_reloadAdvancedSectionFrom {
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:kSendViewControllerAdvancedSectionFrom] withRowAnimation:UITableViewRowAnimationNone];
+}
 
 #pragma mark - TableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -525,6 +528,16 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
     
     // advanced
     return self.advancedSectionTitles[section];
+}
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+    if (self.mode == SendViewControllerModeQuickly) {
+        if (section == 1) {
+            CBWAddressStore *addressStore = [[CBWAddressStore alloc] initWithAccountIdx:self.account.idx];
+            [addressStore fetch];
+            return [NSString stringWithFormat:NSLocalizedStringFromTable(@"Send Footer available_balance_%@", @"CBW", nil), [@([addressStore totalBalance]) satoshiBTCString]];
+        }
+    }
+    return nil;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = nil;
@@ -683,19 +696,29 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
 }
 
 #pragma mark <UITableViewDelegate>
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    DefaultSectionHeaderView *headerView = (DefaultSectionHeaderView *)[super tableView:tableView viewForHeaderInSection:section];
+    if (self.mode == SendViewControllerModeAdvanced) {
+        if (section == kSendViewControllerAdvancedSectionFrom) {
+            __block long long balance = 0;
+            [self.advancedToDatas enumerateObjectsUsingBlock:^(CBWAddress * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                balance += obj.balance;
+            }];
+            headerView.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTable(@"Send Section from_balance_%@", @"CBW", nil), [@(balance) satoshiBTCString]].uppercaseString;
+        }
+    }
+    return headerView;
+}
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    UITableViewHeaderFooterView *view = (UITableViewHeaderFooterView *)[super tableView:tableView viewForFooterInSection:section];
+    view.textLabel.textAlignment = NSTextAlignmentCenter;
+    return view;
+}
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if (section == kSendViewControllerAdvancedSectionInput) {
         return CGFLOAT_MIN;
     }
     return [super tableView:tableView heightForHeaderInSection:section];
-}
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    if (self.mode == SendViewControllerModeAdvanced) {
-        if (section == kSendViewControllerAdvancedSectionTo) {
-            return CGFLOAT_MIN;
-        }
-    }
-    return 0;// default
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.mode == SendViewControllerModeAdvanced) {
@@ -814,7 +837,7 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
         }
         if (![self.advancedFromAddresses containsObject:address]) {
             [self.advancedFromAddresses addObject:address];
-            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:kSendViewControllerAdvancedSectionFrom] withRowAnimation:UITableViewRowAnimationNone];
+            [self p_reloadAdvancedSectionFrom];
         }
     } else if (controller.actionType == AddressActionTypeChange) {
         self.advancedChangeAddress = address;
@@ -831,7 +854,7 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
     if (controller.actionType == AddressActionTypeSend) {
         if ([self.advancedFromAddresses containsObject:address]) {
             [self.advancedFromAddresses removeObject:address];
-            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:kSendViewControllerAdvancedSectionFrom] withRowAnimation:UITableViewRowAnimationNone];
+            [self p_reloadAdvancedSectionFrom];
         }
     }
     [self p_checkIfSendButtonEnabled];

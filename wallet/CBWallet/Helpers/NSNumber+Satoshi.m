@@ -12,17 +12,17 @@
 
 - (NSString *)satoshiBTCString {
     long long value = self.longLongValue;
-    return [NSString stringWithFormat:@"%.8lf", value / 100000000.0];
+    return [NSString stringWithFormat:@"%.8lf BTC", value / 100000000.0];
 }
 
 - (NSString *)satoshimBTCString {
     long long value = self.longLongValue;
-    return [NSString stringWithFormat:@"%.5lf", value / 100000.0];
+    return [NSString stringWithFormat:@"%.5lf mBTC", value / 100000.0];
 }
 
 - (NSString *)satoshimmBTCString {
     long long value = self.longLongValue;
-    return [NSString stringWithFormat:@"%.2lf", value / 100.0];
+    return [NSString stringWithFormat:@"%.2lf μMTC", value / 100.0];
 }
 
 @end

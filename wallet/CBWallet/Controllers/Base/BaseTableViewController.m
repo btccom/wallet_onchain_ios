@@ -10,7 +10,8 @@
 
 #import "UIViewController+Appearance.h"
 
-NSString *const BaseTableViewSectionHeaderIdentifier = @"list.section.header";
+NSString *const BaseTableViewSectionHeaderIdentifier = @"section.header";
+NSString *const BaseTableViewSectionFooterIdentifier = @"section.footer";
 NSString *const BaseTableViewCellDefaultIdentifier = @"cell.default";
 NSString *const BaseTableViewCellActionButtonIdentifier = @"cell.button.action";
 NSString *const BaseTableViewCellBlockButtonIdentifier = @"cell.button.block";
@@ -27,6 +28,7 @@ NSString *const BaseTableViewCellBlockButtonIdentifier = @"cell.button.block";
     [self setupAppearance];
     
     [self.tableView registerClass:[DefaultSectionHeaderView class] forHeaderFooterViewReuseIdentifier:BaseTableViewSectionHeaderIdentifier];
+    [self.tableView registerClass:[DefaultSectionFooterView class] forHeaderFooterViewReuseIdentifier:BaseTableViewSectionFooterIdentifier];
     [self.tableView registerClass:[DefaultTableViewCell class] forCellReuseIdentifier:BaseTableViewCellDefaultIdentifier];
     [self.tableView registerClass:[FormControlActionButtonCell class] forCellReuseIdentifier:BaseTableViewCellActionButtonIdentifier];
     [self.tableView registerClass:[FormControlBlockButtonCell class] forCellReuseIdentifier:BaseTableViewCellBlockButtonIdentifier];
@@ -69,6 +71,16 @@ NSString *const BaseTableViewCellBlockButtonIdentifier = @"cell.button.block";
     headerView.topHairlineHidden = YES;
     return headerView;
 }
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    return [tableView dequeueReusableHeaderFooterViewWithIdentifier:BaseTableViewSectionFooterIdentifier];
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    NSString *title = [self tableView:tableView titleForFooterInSection:section];
+    if (!title) {
+        return 0;// auto
+    }
+    return [((DefaultSectionFooterView *)[self tableView:tableView viewForFooterInSection:section]) preferredHeightForText:title];
+}
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if ([self tableView:tableView titleForHeaderInSection:section].length > 0) {
         if (section == 0) {
@@ -78,6 +90,7 @@ NSString *const BaseTableViewCellBlockButtonIdentifier = @"cell.button.block";
     }
     return 0;// auto
 }
+
 
 /*
 // Override to support conditional editing of the table view.

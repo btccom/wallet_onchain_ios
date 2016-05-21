@@ -16,6 +16,9 @@
 
 - (nonnull instancetype)initWithAccountIdx:(NSInteger)accountIdx;
 
+/// 查询余额，默认非存档地址
+- (long long)totalBalance;
+
 /// 包含已存档地址
 - (NSUInteger)countAllAddresses;
 

@@ -13,11 +13,13 @@
 #import "UIViewController+AcitivityMonitor.h"
 
 #import "DefaultSectionHeaderView.h"
+#import "DefaultSectionFooterView.h"
 #import "DefaultTableViewCell.h"
 #import "FormControlActionButtonCell.h"
 #import "FormControlBlockButtonCell.h"
 
 extern NSString * _Nonnull const BaseTableViewSectionHeaderIdentifier;
+extern NSString * _Nonnull const BaseTableViewSectionFooterIdentifier;
 extern NSString * _Nonnull const BaseTableViewCellDefaultIdentifier;
 extern NSString * _Nonnull const BaseTableViewCellActionButtonIdentifier;
 extern NSString * _Nonnull const BaseTableViewCellBlockButtonIdentifier;

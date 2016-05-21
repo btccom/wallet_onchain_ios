@@ -18,9 +18,6 @@
 #import "NSNull+SafePatch.h"
 #import "Constants.h"
 
-#define ScreenWidth CGRectGetWidth([UIScreen mainScreen].bounds)
-#define HDImagePortraitHeight ceilf(ScreenWidth / 16.f * 9.f)
-
 typedef NS_ENUM(NSUInteger, LockScreenActionType) {
     /// 注册，初始化钱包，create or recover
     LockScreenActionTypeSignUp,
@@ -51,6 +48,8 @@ static const CGFloat CBWCellHeightAddressWithMetadata = 76.f;
 #define SCREEN_HEIGHT ([[UIScreen mainScreen] bounds].size.height)
 #define SCREEN_MAX_LENGTH (MAX(SCREEN_WIDTH, SCREEN_HEIGHT))
 #define SCREEN_MIN_LENGTH (MIN(SCREEN_WIDTH, SCREEN_HEIGHT))
+
+#define HD_IMAGE_PORTRAIT_HEIGHT ceilf(SCREEN_WIDTH / 16.f * 9.f)
 
 #define IS_IPHONE_4_OR_LESS (IS_IPHONE && SCREEN_MAX_LENGTH < 568.0)
 #define IS_IPHONE_5 (IS_IPHONE && SCREEN_MAX_LENGTH == 568.0)

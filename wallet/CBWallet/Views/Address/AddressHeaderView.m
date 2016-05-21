@@ -39,7 +39,7 @@ static const CGFloat kAddressHeaderViewLabelHeight = 20.f;
 
 - (UIImageView *)qrcodeImageView {
     if (!_qrcodeImageView) {
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake((ScreenWidth - HDImagePortraitHeight) / 2.f, kAddressHeaderViewVerticalPadding, HDImagePortraitHeight, HDImagePortraitHeight)];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - HD_IMAGE_PORTRAIT_HEIGHT) / 2.f, kAddressHeaderViewVerticalPadding, HD_IMAGE_PORTRAIT_HEIGHT, HD_IMAGE_PORTRAIT_HEIGHT)];
         [self addSubview:imageView];
         _qrcodeImageView = imageView;
     }
@@ -48,7 +48,7 @@ static const CGFloat kAddressHeaderViewLabelHeight = 20.f;
 
 - (UILabel *)addressLabel {
     if (!_addressLabel) {
-        ResponderLabel *label = [[ResponderLabel alloc] initWithFrame:CGRectMake(CBWLayoutCommonHorizontalPadding, kAddressHeaderViewVerticalPadding + HDImagePortraitHeight + kAddressHeaderViewSubviewMargin, ScreenWidth - CBWLayoutCommonHorizontalPadding * 2.f, kAddressHeaderViewAddressHeight)];
+        ResponderLabel *label = [[ResponderLabel alloc] initWithFrame:CGRectMake(CBWLayoutCommonHorizontalPadding, kAddressHeaderViewVerticalPadding + HD_IMAGE_PORTRAIT_HEIGHT + kAddressHeaderViewSubviewMargin, SCREEN_WIDTH - CBWLayoutCommonHorizontalPadding * 2.f, kAddressHeaderViewAddressHeight)];
         label.font = [UIFont fontWithName:@"Courier" size:UIFont.labelFontSize];
         label.textAlignment = NSTextAlignmentCenter;
         [self addSubview:label];
@@ -76,8 +76,8 @@ static const CGFloat kAddressHeaderViewLabelHeight = 20.f;
 #pragma mark - Initialization
 
 - (instancetype)initWithFrame:(CGRect)frame {
-    CGFloat height = kAddressHeaderViewVerticalPadding + HDImagePortraitHeight + kAddressHeaderViewSubviewMargin + kAddressHeaderViewAddressHeight + kAddressHeaderViewSubviewMargin + kAddressHeaderViewLabelHeight + kAddressHeaderViewVerticalPadding;
-    self = [super initWithFrame:CGRectMake(0, 0, ScreenWidth, height)];
+    CGFloat height = kAddressHeaderViewVerticalPadding + HD_IMAGE_PORTRAIT_HEIGHT + kAddressHeaderViewSubviewMargin + kAddressHeaderViewAddressHeight + kAddressHeaderViewSubviewMargin + kAddressHeaderViewLabelHeight + kAddressHeaderViewVerticalPadding;
+    self = [super initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, height)];
     return self;
 }
 

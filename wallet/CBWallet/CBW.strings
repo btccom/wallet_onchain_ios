@@ -143,10 +143,12 @@
 
 // send
 "Send Section from" = "From";
+"Send Section from_balance_%@" = "Balance: %@";
 "Send Section to" = "To";
 "Send Section change" = "Change";
 "Send Section fee" = "Fee";
 "Send Cell select_from_address" = "Select Address";
 "Send Cell add_recipient" = "Add";
+"Send Footer available_balance_%@" = "Available Balance: %@";
 
 "Send Fee minimum" = "Minimum";
