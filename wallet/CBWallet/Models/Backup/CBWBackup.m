@@ -197,7 +197,7 @@
                     dispatch_async(dispatch_get_main_queue(), ^{
                         if (error) {
                             
-                            UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil) message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
+                            UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Failed", @"CBW", nil) message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
                             UIAlertAction *okay = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Okay", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
                             [alert addAction:okay];
                             [viewController presentViewController:alert animated:YES completion:^{
