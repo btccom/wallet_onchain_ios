@@ -6,6 +6,12 @@
   Copyright © 2016年 Bitmain. All rights reserved.
 */
 
+"%d Confirmation" = "%d Confirmation";
+"%d Confirmations" = "%d Confirmations";
+"Unconfirmed Transaction!" = "Unconfirmed Transaction!";
+"Confirmed" = "Confirmed";
+"Watched Account" = "Watched Account";
+
 "Navigation create_or_recover" = "Welcome";
 "Navigation master_password" = "Master Password";
 "Navigation initial_wallet_setting" = "Setting";
@@ -97,11 +103,6 @@
 
 "Tip scan_qrcode" = "Scan a QRCode please.";
 "Tip loading" = "Loading data...";
-
-"%d confirmations" = "%d confirmations";
-"Unconfirmed" = "Unconfirmed";
-"Confirmed" = "Confirmed";
-"Watched Account" = "Watched Account";
 
 // Initial Wallet Setting
 "Initial Cell icloud" = "iCloud";

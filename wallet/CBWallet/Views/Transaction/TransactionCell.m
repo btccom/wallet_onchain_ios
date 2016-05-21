@@ -120,15 +120,20 @@ static const CGFloat kTransactionCellVerticalPadding = CBWLayoutCommonVerticalPa
     if (transaction.confirmations > 0) {
         self.confirmationLabel.textColor = [UIColor CBWBlackColor];
         self.confirmationLabel.backgroundColor = [UIColor CBWExtraLightGrayColor];
-        if (transaction.confirmations > CBWMaxVisibleConfirmation) {
-            self.confirmationLabel.text = NSLocalizedStringFromTable(@"Confirmed", @"CBW", nil);
+        if (transaction.confirmations == 1) {
+            self.confirmationLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTable(@"%d Confirmation", @"CBW", @"Confirmed"), transaction.confirmations];
         } else {
-            self.confirmationLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTable(@"%d confirmations", @"CBW", @"Confirmed"), transaction.confirmations];
+            self.confirmationLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTable(@"%d Confirmations", @"CBW", @"Confirmed"), transaction.confirmations];
         }
+//        if (transaction.confirmations > CBWMaxVisibleConfirmation) {
+//            self.confirmationLabel.text = NSLocalizedStringFromTable(@"Confirmed", @"CBW", nil);
+//        } else {
+//            self.confirmationLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTable(@"%d confirmations", @"CBW", @"Confirmed"), transaction.confirmations];
+//        }
     } else {
-        self.confirmationLabel.text = NSLocalizedStringFromTable(@"Unconfirmed", @"CBW", @"Unconfirmed");
+        self.confirmationLabel.text = NSLocalizedStringFromTable(@"Unconfirmed Transaction!", @"CBW", @"Unconfirmed");
         self.confirmationLabel.textColor = [UIColor CBWWhiteColor];
-        self.confirmationLabel.backgroundColor = [UIColor CBWGrayColor];
+        self.confirmationLabel.backgroundColor = [UIColor CBWDangerColor];
     }
     NSString *relatedAddress = [transaction.relatedAddresses firstObject];
     if (!relatedAddress) {
