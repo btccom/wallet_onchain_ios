@@ -84,15 +84,17 @@
         // 对 unspent tx 进行排序
         NSMutableArray *sortedAddresses = [newAddresses mutableCopy];
         [sortedAddresses enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            NSDictionary *address = obj;
-            NSString *addressString = [[address allKeys] firstObject];
-            NSMutableArray *utxouts = [[address objectForKey:addressString] mutableCopy];
-            // 排序
-            [utxouts sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-                return [obj2[@"value"] compare:obj1[@"value"]];// DESC
-            }];
-            // 替换
-            [sortedAddresses replaceObjectAtIndex:idx withObject:@{addressString: [utxouts copy]}];
+            if ([obj isKindOfClass:[NSDictionary class]]) {
+                NSDictionary *address = obj;
+                NSString *addressString = [[address allKeys] firstObject];
+                NSMutableArray *utxouts = [[address objectForKey:addressString] mutableCopy];
+                // 排序
+                [utxouts sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                    return [obj2[@"value"] compare:obj1[@"value"]];// DESC
+                }];
+                // 替换
+                [sortedAddresses replaceObjectAtIndex:idx withObject:@{addressString: [utxouts copy]}];
+            }
         }];
         DLog(@"sorted: %@", sortedAddresses);
             
@@ -109,6 +111,9 @@
             
             NSMutableArray *unspentAddresses = [NSMutableArray array];
             [usedAddresses enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if (![obj isKindOfClass:[NSDictionary class]]) {
+                    return;
+                }
                 NSMutableDictionary *unspentAddress = [obj mutableCopy];
                 
                 NSString *addressString = [[unspentAddress allKeys] firstObject];
@@ -202,7 +207,6 @@
                 }];
                 
                 if (!key) {
-//                    [self alertErrorMessage:NSLocalizedStringFromTable(@"Alert Message invalid_key_to_sign_trasaction", @"CBW", nil)];
                     completion([NSError errorWithDomain:CBWErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedStringFromTable(@"Alert Message invalid_key_to_sign_trasaction", @"CBW", nil)}]);
                     return;
                 }
@@ -222,7 +226,6 @@
                     
                     DLog(@"Hash for input %lu: %@", (unsigned long)idx, BTCHexFromData(hash));
                     if (!hash) {
-//                        [self alertErrorMessage:NSLocalizedStringFromTable(@"Alert Message invalid_hash_to_sign_transaction", @"CBW", nil)];
                         completion([NSError errorWithDomain:CBWErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedStringFromTable(@"Alert Message invalid_hash_to_sign_transaction", @"CBW", nil)}]);
                         return;
                     }
@@ -234,7 +237,6 @@
                     
                     NSData *sig = [signatureForScript subdataWithRange:NSMakeRange(0, signatureForScript.length - 1)]; // trim hashtype byte to check the signature.
                     if (![key isValidSignature:sig hash:hash]) {
-//                        [self alertErrorMessage:NSLocalizedStringFromTable(@"Alert Message invalid_signature_for_transaction", @"CBW", nil)];
                         completion([NSError errorWithDomain:CBWErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedStringFromTable(@"Alert Message invalid_signature_for_transaction", @"CBW", nil)}]);
                         return;
                     }
@@ -252,7 +254,6 @@
                 BOOL r = [sm verifyWithOutputScript:[[(BTCTransactionOutput*)[[[[unspentAddresses firstObject] allValues] firstObject] firstObject] script] copy] error:&error];
                 if (!r) {
                     // callback
-//                    [self alertErrorMessage:error.localizedDescription];
                     completion(error);
                     return;
                 }
@@ -267,13 +268,11 @@
                 [request toolsPublishTxHex:BTCHexFromData(tx.data) withCompletion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
                     
                     if (error) {
-//                        [self alertErrorMessage:NSLocalizedStringFromTable(@"Alert Message publish_transaction_failed", @"CBW", nil)];
                         completion(error);
                         return;
                     }
                     
                     // success
-//                    [self alertMessage:NSLocalizedStringFromTable(@"Success", @"CBW", nil) withTitle:@""];
                     completion(nil);
                     
                 }];
@@ -324,7 +323,8 @@
                             [outpus enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                                 NSArray *addresses = [obj objectForKey:@"addresses"];
                                 if ([addresses containsObject:[[address allKeys] firstObject]]) {
-                                    [tx setObject:[obj objectForKey:@"script_hex"] forKey:@"script"];
+//                                    [tx setObject:[obj objectForKey:@"script_hex"] forKey:@"script"];
+                                    [tx setObject:[obj objectForKey:@"script_asm"] forKey:@"script"];
                                 }
                             }];
                             
