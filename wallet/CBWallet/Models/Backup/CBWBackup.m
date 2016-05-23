@@ -146,7 +146,7 @@
             // the record
             CKRecordID *backupRecordID = [[CKRecordID alloc] initWithRecordName:@"1"];
             [database fetchRecordWithID:backupRecordID completionHandler:^(CKRecord * _Nullable record, NSError * _Nullable error) {
-                if (error) {
+                if (error && error.code != 11) {// 11: not found
                     completion(error);
                 } else {
                     CKRecord *backupRecord = record;
@@ -162,6 +162,7 @@
                         backupRecord[@"dataString"] = dataString;
                         [database saveRecord:backupRecord completionHandler:^(CKRecord * _Nullable record, NSError * _Nullable error) {
                             if (error) {
+                                NSLog(@"save error: %@", error);
                                 completion(error);
                             } else {
                                 DLog(@"saved record: %@", record);

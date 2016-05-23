@@ -68,13 +68,15 @@
     
     self.recovery = [[CBWRecovery alloc] init];
     [self.recovery fetchCloudKitDataWithCompletion:^(NSError *error) {
-        button.enabled = YES;
-        [indicator stopAnimating];
-        if (error) {
-            [self alertMessage:error.localizedDescription withTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil)];
-        } else {
-            [self p_handleNext:nil];
-        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            button.enabled = YES;
+            [indicator stopAnimating];
+            if (error) {
+                [self alertMessage:error.localizedDescription withTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil)];
+            } else {
+                [self p_handleNext:nil];
+            }
+        });
     }];
 }
 
