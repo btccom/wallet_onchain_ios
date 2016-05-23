@@ -16,6 +16,7 @@
 
 /// end editing address's label
 - (void)addressHeaderViewDidEndEditing:(nonnull AddressHeaderView *)view;
+- (void)addressHeaderViewDidEditingChanged:(nonnull AddressHeaderView *)view;
 
 @end
 

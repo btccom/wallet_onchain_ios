@@ -67,6 +67,7 @@ static const CGFloat kAddressHeaderViewLabelHeight = 20.f;
         field.returnKeyType = UIReturnKeyDone;
         field.userInteractionEnabled = NO;
         field.delegate = self;
+        [field addTarget:self action:@selector(p_editingChanged:) forControlEvents:UIControlEventEditingChanged];
         [self addSubview:field];
         _labelField = field;
     }
@@ -95,10 +96,15 @@ static const CGFloat kAddressHeaderViewLabelHeight = 20.f;
 }
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
-    if ([self.delegate respondsToSelector:@selector(addressHeaderViewDidEndEditing:)]) {
-        [self.delegate addressHeaderViewDidEndEditing:self];
-    }
+//    if ([self.delegate respondsToSelector:@selector(addressHeaderViewDidEndEditing:)]) {
+//        [self.delegate addressHeaderViewDidEndEditing:self];
+//    }
     return YES;
+}
+- (void)p_editingChanged:(UITextField *)textField {
+    if ([self.delegate respondsToSelector:@selector(addressHeaderViewDidEditingChanged:)]) {
+        [self.delegate addressHeaderViewDidEditingChanged:self];
+    }
 }
 
 @end
