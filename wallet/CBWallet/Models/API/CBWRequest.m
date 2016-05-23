@@ -10,11 +10,9 @@
 #import "CBWRequest.h"
 
 #import "AFNetworking.h"
-// http://123.56.179.165:8079/block/latest 北京节点
-// http://47.89.54.17:8080/block/latest 香港节点
-NSString *const CBWRequestAPIHost = @"http://123.56.188.103:8079";
+NSString *const CBWRequestAPIHost = @"https://chain.api.btc.com";
 NSString *const CBWRequestAPIPath = @"";
-NSString *const CBWRequestAPIVersion = @"";
+NSString *const CBWRequestAPIVersion = @"v3";
 
 NSString *const CBWRequestResponseErrorNumberKey = @"err_no";
 NSString *const CBWRequestResponseErrorMessageKey = @"message";
