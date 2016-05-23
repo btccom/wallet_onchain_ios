@@ -701,9 +701,10 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
     if (self.mode == SendViewControllerModeAdvanced) {
         if (section == kSendViewControllerAdvancedSectionFrom) {
             __block long long balance = 0;
-            [self.advancedToDatas enumerateObjectsUsingBlock:^(CBWAddress * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [self.advancedFromAddresses enumerateObjectsUsingBlock:^(CBWAddress * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 balance += obj.balance;
             }];
+            DLog(@"count balance: %lld", balance);
             headerView.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTable(@"Send Section from_balance_%@", @"CBW", nil), [@(balance) satoshiBTCString]].uppercaseString;
         }
     }
