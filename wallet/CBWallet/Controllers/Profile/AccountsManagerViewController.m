@@ -113,7 +113,7 @@
             if ([account.label isEqualToString:label]) {
                 return;
             } else {
-                if (![CBWAccount checkLabel:label]) {
+                if ([CBWAccount checkLabel:label]) {
                     [self alertErrorMessage:[NSString stringWithFormat:NSLocalizedStringFromTable(@"Alert Message duplicated_account_label", @"CBW", nil), label]];
                     return;
                 }
