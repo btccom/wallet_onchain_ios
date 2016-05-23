@@ -668,6 +668,7 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
                         [advancedChangeCell setAddress:self.advancedChangeAddress];
                     } else {
                         advancedChangeCell.labelLabel.text = NSLocalizedStringFromTable(@"Placeholder new_address", @"CBW", nil);
+                        advancedChangeCell.detailTextLabel.text = nil;
                     }
                     cell = advancedChangeCell;
                     break;
