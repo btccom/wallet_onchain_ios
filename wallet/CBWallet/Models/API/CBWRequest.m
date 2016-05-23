@@ -56,15 +56,37 @@ NSString *const CBWRequestResponseDataListKey = @"list";
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         
         NSInteger statusCode = ((NSHTTPURLResponse *)response).statusCode;
+        
+        if (statusCode == 404) {
+            completion([NSError errorWithDomain:CBWRequestErrorDomain code:statusCode userInfo:@{NSLocalizedDescriptionKey: @"404: endpoint is not found."}], statusCode, nil);
+            NSLog(@"request error, 404");
+            return;
+        }
+        
+        if (statusCode / 100 == 5) {
+            completion([NSError errorWithDomain:CBWRequestErrorDomain code:500 userInfo:@{NSLocalizedDescriptionKey: @"Server is down."}], statusCode, nil);
+            NSLog(@"request error, 5**");
+            return;
+        }
+        
         if (error) {
             NSLog(@"request error: %@", error);
-            // TODO: handle error
             completion(error, statusCode, nil);
-        } else {
-//            DLog(@"request response [%ld]: %@", (long)statusCode, responseObject);
-            DLog(@"request response [%ld]", (long)statusCode);
-            completion(nil, statusCode, [responseObject objectForKey:CBWRequestResponseDataKey]);
+            return;
         }
+        
+        NSInteger errorNumber = [[responseObject objectForKey:CBWRequestResponseErrorNumberKey] integerValue];
+        if (errorNumber > 0) {
+            NSString *errorMessage = [responseObject objectForKey:CBWRequestErrorMessageKey];
+            if (!errorMessage) {
+                errorMessage = [self errorMessageWithCode:errorNumber];
+            }
+            completion([NSError errorWithDomain:CBWRequestErrorDomain code:errorNumber userInfo:@{NSLocalizedDescriptionKey: [errorMessage stringByAppendingFormat:@"\n(%ld)", errorNumber]}], errorNumber, nil);
+            return;
+        }
+        
+        DLog(@"request response [%ld]", (long)statusCode);
+        completion(nil, statusCode, [responseObject objectForKey:CBWRequestResponseDataKey]);
     }];
     [dataTask resume];
 }

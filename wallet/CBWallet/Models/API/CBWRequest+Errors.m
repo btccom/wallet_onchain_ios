@@ -14,7 +14,26 @@ NSString *const CBWRequestErrorMessageKey = @"message";
 @implementation CBWRequest (Errors)
 
 - (NSString *)errorMessageWithCode:(CBWRequestErrorCode)code {
-    return nil;
+    switch (code) {
+        case CBWRequestErrorCodeNotEnoughBalance: {
+            return @"Not enough balance.";
+            break;
+        }
+            
+        case CBWRequestErrorCodeUnknown: {
+            return @"Unknown error.";
+            break;
+        }
+        case CBWRequestErrorCodeNotFound: {
+            return @"Not found endpoint.";
+            break;
+        }
+        case CBWRequestErrorCodeParameterError: {
+            return @"Parameter error.";
+            break;
+        }
+    }
+    return @"Undefined error.";
 }
 
 @end

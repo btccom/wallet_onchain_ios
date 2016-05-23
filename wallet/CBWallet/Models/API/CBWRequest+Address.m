@@ -80,7 +80,7 @@
     [addresses enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         // 依次获取地址未花
         if ([obj isKindOfClass:[NSString class]]) {
-            // 仍未地址文本，未赋值
+            // 仍为地址文本，未赋值
             NSString *addressString = obj;
             // 获取改地址未花交易记录
             progress([NSString stringWithFormat:NSLocalizedStringFromTable(@"Message unspent_fetch %@", @"CBW", nil), addressString]);
@@ -88,9 +88,25 @@
                 if (error) {
                     progress(NSLocalizedStringFromTable(@"Message unspent_fetch_failed", @"CBW", nil));
                     // 出现失败即退出
-                    completion(error, nil);
+                    if (statusCode != CBWRequestErrorCodeNotFound) {
+                        completion(error, nil);
+                        return;
+                    }
+                    // 设置空记录
+                    NSMutableArray *newAddresses = [addresses mutableCopy];
+                    [newAddresses setObject:@{addressString: [NSArray array]} atIndexedSubscript:idx];
+                    if (idx < addresses.count - 1) {
+                        // 不是最后一个地址，继续
+                        progress(NSLocalizedStringFromTable(@"Message unspent_fetch_next", @"CBW", nil));
+                        [self addressesUnspentForAddresses:newAddresses withAmount:amount progress:progress completion:completion];
+                    } else {
+                        // 否则，返回额度不足的错误
+                        NSError *notEnoughError = [[NSError alloc] initWithDomain:CBWRequestErrorDomain code:CBWRequestErrorCodeNotEnoughBalance userInfo:@{NSLocalizedDescriptionKey: NSLocalizedStringFromTable(@"Error not_enough_balance", @"CBW", nil)}];
+                        completion(notEnoughError, nil);
+                    }
                 } else {
                     progress(NSLocalizedStringFromTable(@"Message unspent_fetch_successful", @"CBW", nil));
+                    // FIXME: response to txs
                     NSArray *unspentTxs = response;
                     DLog(@"unspent tx total: %ld", (unsigned long)unspentTxs.count);
                     // 设置记录

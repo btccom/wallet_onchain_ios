@@ -262,11 +262,16 @@
             
             // confirm to send
             UIAlertController *confirm = [UIAlertController alertControllerWithTitle:self.title message:[NSString stringWithFormat:NSLocalizedStringFromTable(@"Alert Message sure_to_send_coins %d satoshi", @"CBW", nil), amount] preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Cancel", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
+            // cancel
+            UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Cancel", @"CBW", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                completion([NSError errorWithDomain:CBWErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedStringFromTable(@"Alert Message user_canceled_transaction", @"CBW", nil)}]);
+            }];
             [confirm addAction:cancel];
+            // send
             UIAlertAction *send = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Send", @"CBW", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 [request toolsPublishTxHex:BTCHexFromData(tx.data) withCompletion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
                     
+                    // failed
                     if (error) {
                         completion(error);
                         return;

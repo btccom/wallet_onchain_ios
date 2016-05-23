@@ -13,7 +13,9 @@ extern NSString *const _Nonnull CBWRequestErrorMessageKey;
 
 typedef NS_ENUM(NSInteger, CBWRequestErrorCode) {
     CBWRequestErrorCodeNotEnoughBalance = -1,
-    CBWRequestErrorCodeUnknown = 0
+    CBWRequestErrorCodeUnknown = 0,
+    CBWRequestErrorCodeNotFound = 1,
+    CBWRequestErrorCodeParameterError = 2
 };
 
 @interface CBWRequest (Errors)

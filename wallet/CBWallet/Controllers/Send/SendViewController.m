@@ -212,11 +212,12 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
                 [self alertMessageWithInvalidAddress:addressString];
                 return;
             }
+            // check amount
             if (self.quicklyToAmountInBTC.doubleValue > 21000000.0) {
                 [self alertErrorMessage:NSLocalizedStringFromTable(@"Alert Message too_big_amount", @"CBW", nil)];
                 return;
             }
-            
+            // send
             [self sendToAddresses:@{self.quicklyToAddress: @([self.quicklyToAmountInBTC BTC2SatoshiValue])} withCompletion:^(NSError *error) {
                 if (error) {
                     [self alertErrorMessage:error.localizedDescription];
@@ -231,11 +232,13 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
         }
             
         case SendViewControllerModeAdvanced: {
+            // wrap to addresses
             NSMutableDictionary *toAddresses = [NSMutableDictionary dictionary];
             [self.advancedToDatas enumerateObjectsUsingBlock:^(CBWAddress * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 [toAddresses setObject:@(obj.balance) forKey:obj.address];
             }];
             
+            // the change address
             __block CBWAddress *changeAddress = self.advancedChangeAddress;
             if (!changeAddress) {
                 // new address
