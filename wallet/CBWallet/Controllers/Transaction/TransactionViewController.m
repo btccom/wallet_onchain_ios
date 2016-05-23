@@ -218,6 +218,7 @@ static NSString *const kTransactionViewControllerCellIdentifierIO = @"transactio
     return headerView;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSString *selecteAddress = nil;
     switch (indexPath.section) {
         case kTransactionViewControllerSectionInputs: {
