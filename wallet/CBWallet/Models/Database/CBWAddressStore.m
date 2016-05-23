@@ -85,10 +85,10 @@
 }
 
 - (void)updateAddresses:(id)addresses {
+    DLog(@"update addresses: %@", addresses);
     if ([addresses isKindOfClass:[NSArray class]]) {
         [addresses enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            if (![obj isKindOfClass:[NSNull class]]) {
-                
+            if ([obj isKindOfClass:[NSDictionary class]]) {
                 NSDictionary *dictionary = obj;
                 CBWAddress *address = [self addressWithAddressString:[dictionary objectForKey:@"address"]];
                 if (address) {
@@ -98,6 +98,13 @@
                 
             }
         }];
+    } else if ([addresses isKindOfClass:[NSDictionary class]]) {
+        // 只有一条记录
+        CBWAddress *address = [self addressWithAddressString:[addresses objectForKey:@"address"]];
+        if (address) {
+            [address updateWithDictionary:addresses];
+            [address saveWithError:nil];
+        }
     }
 }
 

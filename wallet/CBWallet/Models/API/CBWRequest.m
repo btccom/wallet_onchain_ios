@@ -81,7 +81,7 @@ NSString *const CBWRequestResponseDataListKey = @"list";
             if (!errorMessage) {
                 errorMessage = [self errorMessageWithCode:errorNumber];
             }
-            completion([NSError errorWithDomain:CBWRequestErrorDomain code:errorNumber userInfo:@{NSLocalizedDescriptionKey: [errorMessage stringByAppendingFormat:@"\n(%ld)", errorNumber]}], errorNumber, nil);
+            completion([NSError errorWithDomain:CBWRequestErrorDomain code:errorNumber userInfo:@{NSLocalizedDescriptionKey: [errorMessage stringByAppendingFormat:@"\n(%ld)", (long)errorNumber]}], errorNumber, nil);
             return;
         }
         
