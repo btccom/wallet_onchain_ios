@@ -66,6 +66,9 @@
         }
         _account = account;
         [_account addObserver:self forKeyPath:@"label" options: NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:nil];
+        
+        self.headerView.sendButton.enabled = _account.idx >= 0;
+        self.headerView.receiveButton.enabled = _account.idx >= 0;
     }
 }
 
@@ -99,7 +102,7 @@
         [self.tableView addSubview:self.refreshControl];
     }
     
-    [self reload];
+//    [self reload];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -111,7 +114,6 @@
             self.refreshControl.hidden = YES;
         }];
     }
-    NSLog(@"refresh control: %@", self.refreshControl);
 }
 
 #pragma mark - Public Method
@@ -229,11 +231,24 @@
 #pragma mark - Private Method
 
 - (void)p_registerNotifications {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reload) name:CBWNotificationCheckedIn object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reload) name:CBWNotificationCheckedOut object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reload) name:CBWNotificationWalletCreated object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reload) name:CBWNotificationWalletRecovered object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(p_handleSignOut) name:CBWNotificationSignedOut object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(p_handleNotification:) name:CBWNotificationCheckedIn object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(p_handleNotification:) name:CBWNotificationCheckedOut object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(p_handleNotification:) name:CBWNotificationWalletCreated object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(p_handleNotification:) name:CBWNotificationWalletRecovered object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(p_handleNotification:) name:CBWNotificationSignedOut object:nil];
+}
+
+- (void)p_handleNotification:(NSNotification *)notification {
+    DLog(@"notification: %@", notification);
+    if ([notification.name isEqualToString:CBWNotificationCheckedIn]) {
+        [self reload];
+    } else if ([notification.name isEqualToString:CBWNotificationWalletCreated]) {
+        [self reload];
+    } else if ([notification.name isEqualToString:CBWNotificationWalletRecovered]) {
+        [self reload];
+    } else if ([notification.name isEqualToString:CBWNotificationSignedOut]) {
+        [self p_handleSignOut];
+    }
 }
 
 #pragma mark Navigation
@@ -282,6 +297,7 @@
 
 /// signed out
 - (void)p_handleSignOut {
+    DLog(@"sign out \n-------");
     [self dismissViewControllerAnimated:YES completion:nil];
     self.account = nil;
     [self.accountStore flush];
@@ -347,8 +363,6 @@
     }
     
     self.account = account;
-    self.headerView.sendButton.enabled = self.account.idx >= 0;
-    self.headerView.receiveButton.enabled = self.account.idx >= 0;
     [self reloadTransactions];
     
     [self dismissViewControllerAnimated:YES completion:nil];

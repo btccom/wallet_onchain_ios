@@ -41,22 +41,33 @@ static const NSTimeInterval kGuardAvaibleTimeDefault = 3 * 60; // 默认3分钟
     return staticInstance;
 }
 
-- (BOOL)checkInWithCode:(NSString *)code {
+- (BOOL)checkCode:(NSString *)code {
+    if (!code) {
+        return NO;
+    }
+    
     NSString *encryptedSeed = [SSKeychain passwordForService:CBWKeychainSeedService account:CBWKeychainAccountDefault];
     
     if (encryptedSeed.length > 0) {
         NSString *decryptedSeed = [AESCrypt decrypt:encryptedSeed password:code];
         if (decryptedSeed) {// success
-            NSLog(@"welcome");
-            // cache code
-            _code = code;
-            // add timer into run loop
-            [self p_addTimer];
-            // notification
-            [[NSNotificationCenter defaultCenter] postNotificationName:CBWNotificationCheckedIn object:nil];
-            // return
             return YES;
         }
+    }
+    return NO;
+}
+
+- (BOOL)checkInWithCode:(NSString *)code {
+    if ([self checkCode:code]) {// success
+        NSLog(@"welcome");
+        // cache code
+        _code = code;
+        // add timer into run loop
+        [self p_addTimer];
+        // notification
+        [[NSNotificationCenter defaultCenter] postNotificationName:CBWNotificationCheckedIn object:nil];
+        // return
+        return YES;
     }
     
     return NO;

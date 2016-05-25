@@ -370,7 +370,7 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
                 if (code.length == 0) {
                     [self alertErrorMessage:NSLocalizedStringFromTable(@"Alert Message need_current_password", @"CBW", nil)];
                 } else {
-                    if (![[Guard globalGuard] checkInWithCode:code]) {
+                    if (![[Guard globalGuard] checkCode:code]) {
                         [self alertErrorMessage:NSLocalizedStringFromTable(@"Alert Message invalid_master_password", @"CBW", nil)];
                     } else {
                         [CBWBackup saveToLocalPhotoLibraryWithCompleiton:^(NSURL *assetURL, NSError *error) {
@@ -392,7 +392,7 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
                 if (code.length == 0) {
                     [self alertErrorMessage:NSLocalizedStringFromTable(@"Alert Message need_current_password", @"CBW", nil)];
                 } else {
-                    if (![[Guard globalGuard] checkInWithCode:code]) {
+                    if (![[Guard globalGuard] checkCode:code]) {
                         [self alertErrorMessage:NSLocalizedStringFromTable(@"Alert Message invalid_master_password", @"CBW", nil)];
                     } else {
                         [[Guard globalGuard] signOut];

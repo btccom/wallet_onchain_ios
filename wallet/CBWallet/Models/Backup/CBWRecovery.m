@@ -19,85 +19,101 @@
 @interface CBWRecovery ()
 
 @property (nonatomic, strong) NSArray *datas;
+@property (nonatomic, strong) NSURL *assetURL;
 
 @end
 
 @implementation CBWRecovery
 
 - (NSString *)hint {
+    DLog(@"get hint from datas: %@", self.datas);
     return [self.datas.firstObject count] > 1 ? [[self.datas firstObject] lastObject] : nil;
 }
 
 - (instancetype)initWithAssetURL:(NSURL *)assetURL {
     self = [super init];
     if (self) {
-        // TODO: 图片校验及容错
-        
-        ALAssetsLibrary *assetslibrary = [[ALAssetsLibrary alloc] init];
-        [assetslibrary assetForURL:assetURL resultBlock:^(ALAsset *asset) {
-            
-            ALAssetRepresentation *representation = asset.defaultRepresentation;
-//            long long size = representation.size;
-            NSUInteger size = (NSUInteger)representation.size;
-            NSMutableData *rawData = [[NSMutableData alloc] initWithCapacity:size];
-            void *buffer = [rawData mutableBytes];
-            [representation getBytes:buffer fromOffset:0 length:size error:nil];
-            NSData *apngData = [[NSData alloc] initWithBytes:buffer length:size];
-            YYImageDecoder *decoder = [YYImageDecoder decoderWithData:apngData scale:2.f];
-            DLog(@"found frames: %ld", (unsigned long)decoder.frameCount);
-            
-            UIImage *seedImage = [decoder frameAtIndex:0 decodeForDisplay:NO].image;
-            
-            NSMutableArray *datas = [[NSMutableArray alloc] init];
-            
-            // 获取二维码
-            CIDetector* detector = [CIDetector detectorOfType:CIDetectorTypeQRCode context:[CIContext contextWithOptions:nil] options:@{CIDetectorAccuracy:CIDetectorAccuracyHigh}];
-            
-            // seed data
-            if (detector) {
-                DLog(@"detector ready");
-                CIImage *ciimg = [CIImage imageWithCGImage:seedImage.CGImage];
-                NSArray *featuresR = [detector featuresInImage:ciimg];
-                
-                for (CIQRCodeFeature* featureR in featuresR) {
-                    DLog(@"seed and hint: %@ ", featureR.messageString);
-                    [datas addObject:[NSJSONSerialization JSONObjectWithData:[featureR.messageString dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingAllowFragments error:nil]];
-                }
-            }
-            
-            // account datas
-            NSMutableString *string = [NSMutableString string];
-            for (NSInteger i = 1; i < decoder.frameCount; i++) {
-                UIImage *image = [decoder frameAtIndex:i decodeForDisplay:NO].image;
-                if (detector) {
-                    CIImage *ciimg = [CIImage imageWithCGImage:image.CGImage];
-                    NSArray *featuresR = [detector featuresInImage:ciimg];
-                    
-                    for (CIQRCodeFeature *featureR in featuresR) {
-                        [string appendString:featureR.messageString];
-                    }
-                }
-            }
-            DLog(@"account datas string: %@", string);
-            NSError *error = nil;
-            id accountsData = [NSJSONSerialization JSONObjectWithData:[string dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingAllowFragments error:&error];
-            if (error) {
-                NSLog(@"JSON Error: %@", error);
-            } else {
-                DLog(@"account datas: %@", accountsData);
-                if ([accountsData isKindOfClass:[NSArray class]]) {
-                    [datas addObjectsFromArray:accountsData];
-                }
-            }
-            
-            _datas = [datas copy];
-            
-        } failureBlock:^(NSError *error) {
-            NSLog(@"Asset error: %@", error);
-        }];
+        if (!assetURL) {
+            return nil;
+        }
+        _assetURL = assetURL;
     }
     
     return self;
+}
+
+- (void)fetchAssetDatasWithCompletion:(void (^)(NSError *))completion {
+    
+    // TODO: 图片校验及容错
+    
+    ALAssetsLibrary *assetslibrary = [[ALAssetsLibrary alloc] init];
+    [assetslibrary assetForURL:self.assetURL resultBlock:^(ALAsset *asset) {
+        
+        ALAssetRepresentation *representation = asset.defaultRepresentation;
+        //            long long size = representation.size;
+        NSUInteger size = (NSUInteger)representation.size;
+        NSMutableData *rawData = [[NSMutableData alloc] initWithCapacity:size];
+        void *buffer = [rawData mutableBytes];
+        [representation getBytes:buffer fromOffset:0 length:size error:nil];
+        NSData *apngData = [[NSData alloc] initWithBytes:buffer length:size];
+        YYImageDecoder *decoder = [YYImageDecoder decoderWithData:apngData scale:2.f];
+        DLog(@"found frames: %ld", (unsigned long)decoder.frameCount);
+        
+        UIImage *seedImage = [decoder frameAtIndex:0 decodeForDisplay:NO].image;
+        
+        NSMutableArray *datas = [[NSMutableArray alloc] init];
+        
+        // 获取二维码
+        CIDetector* detector = [CIDetector detectorOfType:CIDetectorTypeQRCode context:[CIContext contextWithOptions:nil] options:@{CIDetectorAccuracy:CIDetectorAccuracyHigh}];
+        
+        // seed data
+        if (detector) {
+            DLog(@"detector ready");
+            CIImage *ciimg = [CIImage imageWithCGImage:seedImage.CGImage];
+            NSArray *featuresR = [detector featuresInImage:ciimg];
+            
+            for (CIQRCodeFeature* featureR in featuresR) {
+                DLog(@"seed and hint: %@ ", featureR.messageString);
+                [datas addObject:[NSJSONSerialization JSONObjectWithData:[featureR.messageString dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingAllowFragments error:nil]];
+            }
+        }
+        
+        // account datas
+        NSMutableString *string = [NSMutableString string];
+        for (NSInteger i = 1; i < decoder.frameCount; i++) {
+            UIImage *image = [decoder frameAtIndex:i decodeForDisplay:NO].image;
+            if (detector) {
+                CIImage *ciimg = [CIImage imageWithCGImage:image.CGImage];
+                NSArray *featuresR = [detector featuresInImage:ciimg];
+                
+                for (CIQRCodeFeature *featureR in featuresR) {
+                    [string appendString:featureR.messageString];
+                }
+            }
+        }
+        DLog(@"account datas string: %@", string);
+        NSError *error = nil;
+        id accountsData = [NSJSONSerialization JSONObjectWithData:[string dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingAllowFragments error:&error];
+        if (error) {
+            NSLog(@"JSON Error: %@", error);
+        } else {
+            DLog(@"account datas: %@", accountsData);
+            if ([accountsData isKindOfClass:[NSArray class]]) {
+                [datas addObjectsFromArray:accountsData];
+            }
+        }
+        
+        _datas = [datas copy];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completion(nil);
+        });
+    } failureBlock:^(NSError *error) {
+        NSLog(@"Asset error: %@", error);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completion(error);
+        });
+    }];
 }
 
 - (instancetype)initWithDatas:(NSArray *)datas {

@@ -15,6 +15,8 @@
 // singleton factory method
 + (instancetype)globalGuard;
 
+- (BOOL)checkCode:(NSString *)code;
+
 /// check in
 - (BOOL)checkInWithCode:(NSString *)code;
 //- (void)checkInWithCode:(NSString *)code completion:(void(^)(BOOL success))completion;

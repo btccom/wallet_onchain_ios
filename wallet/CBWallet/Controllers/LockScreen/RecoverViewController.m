@@ -20,6 +20,10 @@
 
 @interface RecoverViewController ()<MasterPasswordViewControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @property (nonatomic, strong) CBWRecovery *recovery;
+
+@property (nonatomic, weak) UIButton *iCloudButton;
+@property (nonatomic, weak) UIButton *photoLibraryButton;
+
 @end
 
 @implementation RecoverViewController
@@ -37,12 +41,14 @@
         [iCloudButton addTarget:self action:@selector(p_handleFetchiCloudData:) forControlEvents:UIControlEventTouchUpInside];
         [iCloudButton setTitle:NSLocalizedStringFromTable(@"Button recover_from_icloud", @"CBW", nil) forState:UIControlStateNormal];
         [self.view addSubview:iCloudButton];
+        _iCloudButton = iCloudButton;
     }
     
     PrimaryButton *photoLibraryButton = [[PrimaryButton alloc] initWithFrame:CGRectMake(20.f, stageHeight * 0.6f + CBWCellHeightDefault + 16.f, stageWidth - 40.f, CBWCellHeightDefault)];
     [photoLibraryButton addTarget:self action:@selector(p_handleOpenPhotoLibrary:) forControlEvents:UIControlEventTouchUpInside];
     [photoLibraryButton setTitle:NSLocalizedStringFromTable(@"Button photo_library", @"CBW", "Photo Library") forState:UIControlStateNormal];
     [self.view addSubview:photoLibraryButton];
+    _photoLibraryButton = photoLibraryButton;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -60,7 +66,9 @@
 }
 
 - (void)p_handleFetchiCloudData:(UIButton *)button {
-    button.enabled = NO;
+    self.iCloudButton.enabled = NO;
+    self.photoLibraryButton.enabled = NO;
+    
     UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     indicator.center = self.view.center;
     [self.view addSubview:indicator];
@@ -69,8 +77,11 @@
     self.recovery = [[CBWRecovery alloc] init];
     [self.recovery fetchCloudKitDataWithCompletion:^(NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            button.enabled = YES;
+            
+            self.iCloudButton.enabled = YES;
+            self.photoLibraryButton.enabled = YES;
             [indicator stopAnimating];
+            
             if (error) {
                 [self alertMessage:error.localizedDescription withTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil)];
             } else {
@@ -94,7 +105,7 @@
     
     if ([self.recovery recoverWithCode:password]) {
         // notification
-        [[NSNotificationCenter defaultCenter] postNotificationName:CBWNotificationWalletCreated object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:CBWNotificationWalletRecovered object:nil];
         // thank you, go
         InitialWalletSettingViewController *initialWalletSettingViewController = [[InitialWalletSettingViewController alloc] init];
         initialWalletSettingViewController.delegate = (LockScreenController *)self.navigationController;
@@ -110,7 +121,28 @@
     
     self.recovery = [[CBWRecovery alloc] initWithAssetURL:url];
     if (self.recovery) {
-        [self p_handleNext:nil];
+        
+        self.iCloudButton.enabled = NO;
+        self.photoLibraryButton.enabled = NO;
+        
+        UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        indicator.center = self.view.center;
+        [self.view addSubview:indicator];
+        [indicator startAnimating];
+        
+        [self.recovery fetchAssetDatasWithCompletion:^(NSError *error) {
+            
+            self.iCloudButton.enabled = YES;
+            self.photoLibraryButton.enabled = YES;
+            [indicator stopAnimating];
+            
+            if (error) {
+                [self alertErrorMessage:error.localizedDescription];
+                return;
+            }
+            
+            [self p_handleNext:nil];
+        }];
     }
 }
 

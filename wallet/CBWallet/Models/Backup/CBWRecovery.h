@@ -15,6 +15,7 @@
 
 /// 从相册中恢复
 - (instancetype)initWithAssetURL:(NSURL *)assetURL;
+- (void)fetchAssetDatasWithCompletion:(void(^)(NSError *error))completion;
 /// 传入数据，例如从 iCloud 中恢复
 - (instancetype)initWithDatas:(NSArray *)datas;
 
