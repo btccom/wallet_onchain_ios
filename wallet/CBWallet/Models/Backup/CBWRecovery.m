@@ -96,12 +96,17 @@
         id accountsData = [NSJSONSerialization JSONObjectWithData:[string dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingAllowFragments error:&error];
         if (error) {
             NSLog(@"JSON Error: %@", error);
-        } else {
-            DLog(@"account datas: %@", accountsData);
-            if ([accountsData isKindOfClass:[NSArray class]]) {
-                [datas addObjectsFromArray:accountsData];
-            }
         }
+        DLog(@"account datas: %@", accountsData);
+        if (![accountsData isKindOfClass:[NSArray class]]) {
+            accountsData = @[@{@"0":@[
+                                       NSLocalizedStringFromTable(@"Label default_account", @"CBW", nil),
+                                       @(1)],
+                               [NSString stringWithFormat:@"%ld", (long)CBWRecordWatchedIDX]:@[
+                                       NSLocalizedStringFromTable(@"Label watched_account", @"CBW", nil),
+                                       @0]}];
+        }
+        [datas addObjectsFromArray:accountsData];
         
         _datas = [datas copy];
         
@@ -160,6 +165,7 @@
     if (self.datas.count == 0) {
         return NO;
     }
+    
     NSString *encryptedSeed = [[self.datas firstObject] firstObject];
 //    NSString *seed = [AESCrypt decrypt:encryptedSeed password:code];
 //    DLog(@"decrypted seed: %@", seed);
@@ -181,64 +187,62 @@
         return NO;
     }
     
-    if (self.datas.count > 1) {
-        CBWAccountStore *accountStore = [[CBWAccountStore alloc] init];
-        NSDictionary *accountsDictionary = self.datas[1];
-        [accountsDictionary enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-            NSArray *accountDataArray = obj;
-            
-            // save account
-            CBWAccount *account = [CBWAccount newAccountWithIdx:[key integerValue] label:accountDataArray[0] inStore:accountStore];
-            account.ignoringSync = YES;
-            [account saveWithError:nil];
-            
-            // address
-            CBWAddressStore *adderssStore = [[CBWAddressStore alloc] initWithAccountIdx:account.idx];
-            NSDictionary *addressesDictionary = nil;
-            if (accountDataArray.count > 2) {
-                addressesDictionary = accountDataArray[2];
-            }
-            
-            if (account.idx == CBWRecordWatchedIDX) {
-                DLog(@"recover watched account");
-                // watched account
-                [addressesDictionary enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-                    NSString *addressString = key;
-                    NSString *label = obj;
-                    
-                    // save address
-                    CBWAddress *address = [CBWAddress newAdress:addressString withLabel:label idx:CBWRecordWatchedIDX archived:NO dirty:NO internal:NO accountRid:account.rid accountIdx:account.idx inStore:adderssStore];
-                    address.ignoringSync = YES;
-                    [address saveWithError:nil];
-                }];
-            } else {
-                DLog(@"recover user account: %ld", (long)account.idx);
+    CBWAccountStore *accountStore = [[CBWAccountStore alloc] init];
+    NSDictionary *accountsDictionary = self.datas[1];
+    [accountsDictionary enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        NSArray *accountDataArray = obj;
+        
+        // save account
+        CBWAccount *account = [CBWAccount newAccountWithIdx:[key integerValue] label:accountDataArray[0] inStore:accountStore];
+        account.ignoringSync = YES;
+        [account saveWithError:nil];
+        
+        // address
+        CBWAddressStore *adderssStore = [[CBWAddressStore alloc] initWithAccountIdx:account.idx];
+        NSDictionary *addressesDictionary = nil;
+        if (accountDataArray.count > 2) {
+            addressesDictionary = accountDataArray[2];
+        }
+        
+        if (account.idx == CBWRecordWatchedIDX) {
+            DLog(@"recover watched account");
+            // watched account
+            [addressesDictionary enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+                NSString *addressString = key;
+                NSString *label = obj;
                 
-                NSUInteger addressCount = [accountDataArray[1] unsignedIntegerValue];
-                DLog(@"address count: %ld", (unsigned long)addressCount);
-                for (NSUInteger addressIdx = 0; addressIdx < addressCount; addressIdx ++) {
-                    
-                    NSString *addressString = [CBWAddress addressStringWithIdx:addressIdx acountIdx:account.idx];
-                    NSString *label = @"";
-                    BOOL dirty = NO;
-                    BOOL archived = NO;
-                    
-                    NSString *addressIdxKey = [@(addressIdx) stringValue];
-                    NSArray *addressDataArray = [addressesDictionary objectForKey:addressIdxKey];//[label, dirty, archived]
-                    if (addressDataArray.count >= 2) {
-                        label = addressDataArray[0];
-                        dirty = [addressDataArray[1] boolValue];
-                        archived = [addressDataArray[2] boolValue];
-                    }
-                    
-                    // save address
-                    CBWAddress *address = [CBWAddress newAdress:addressString withLabel:label idx:addressIdx archived:archived dirty:dirty internal:NO accountRid:account.rid accountIdx:account.idx inStore:adderssStore];
-                    address.ignoringSync = YES;
-                    [address saveWithError:nil];
+                // save address
+                CBWAddress *address = [CBWAddress newAdress:addressString withLabel:label idx:CBWRecordWatchedIDX archived:NO dirty:NO internal:NO accountRid:account.rid accountIdx:account.idx inStore:adderssStore];
+                address.ignoringSync = YES;
+                [address saveWithError:nil];
+            }];
+        } else {
+            DLog(@"recover user account: %ld", (long)account.idx);
+            
+            NSUInteger addressCount = [accountDataArray[1] unsignedIntegerValue];
+            DLog(@"address count: %ld", (unsigned long)addressCount);
+            for (NSUInteger addressIdx = 0; addressIdx < addressCount; addressIdx ++) {
+                
+                NSString *addressString = [CBWAddress addressStringWithIdx:addressIdx acountIdx:account.idx];
+                NSString *label = @"";
+                BOOL dirty = NO;
+                BOOL archived = NO;
+                
+                NSString *addressIdxKey = [@(addressIdx) stringValue];
+                NSArray *addressDataArray = [addressesDictionary objectForKey:addressIdxKey];//[label, dirty, archived]
+                if (addressDataArray.count >= 2) {
+                    label = addressDataArray[0];
+                    dirty = [addressDataArray[1] boolValue];
+                    archived = [addressDataArray[2] boolValue];
                 }
+                
+                // save address
+                CBWAddress *address = [CBWAddress newAdress:addressString withLabel:label idx:addressIdx archived:archived dirty:dirty internal:NO accountRid:account.rid accountIdx:account.idx inStore:adderssStore];
+                address.ignoringSync = YES;
+                [address saveWithError:nil];
             }
-        }];
-    }
+        }
+    }];
     
     return YES;
 }

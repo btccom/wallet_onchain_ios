@@ -110,6 +110,8 @@
         InitialWalletSettingViewController *initialWalletSettingViewController = [[InitialWalletSettingViewController alloc] init];
         initialWalletSettingViewController.delegate = (LockScreenController *)self.navigationController;
         [self.navigationController pushViewController:initialWalletSettingViewController animated:YES];
+    } else {
+        [self alertErrorMessage:NSLocalizedStringFromTable(@"Alert Message invalid_master_password", @"CBW", nil)];
     };
 }
 
