@@ -79,6 +79,7 @@
 "Alert Message need_new_password" = "Please enter your new password.";
 "Alert Message new_password_not_match" = "Please confirm your new password.";
 "Alert Message invalid_master_password" = "Invalid master password.";
+"Alert Message invalid_current_password" = "Current password is fault.";
 "Alert Title new_account" = "New Account";
 "Alert Message new_account" = "Please enter a label to specify the account.";
 "Alert Message need_account_label" = "Label is empty.";

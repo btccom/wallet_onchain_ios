@@ -97,7 +97,7 @@ static NSString *const kPasswordViewControllerSaveButtonCellIdentifier = @"cell.
             }
         }];
     } else {
-        [self alertErrorMessage:NSLocalizedStringFromTable(@"Alert Message invalid_master_password", @"CBW", nil)];
+        [self alertErrorMessage:NSLocalizedStringFromTable(@"Alert Message invalid_current_password", @"CBW", nil)];
     }
     
 }
