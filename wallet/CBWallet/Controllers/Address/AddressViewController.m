@@ -242,7 +242,7 @@
 
 #pragma mark - UITableDataSource
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (self.actionType == AddressActionTypeDefault) {
+    if (self.actionType == AddressActionTypeDefault || self.actionType == AddressActionTypeExplore) {
         return NSLocalizedStringFromTable(@"Address Section transactions", @"CBW", @"Transactions");
     }
     return nil;
