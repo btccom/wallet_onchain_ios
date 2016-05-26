@@ -287,6 +287,8 @@
     if (self.actionType == AddressActionTypeSend) {
         if ([self.selectedAddress containsObject:address]) {
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        } else {
+            cell.accessoryType = UITableViewCellAccessoryNone;
         }
     }
     return cell;
