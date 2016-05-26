@@ -16,65 +16,105 @@
 @implementation CBWBackup
 
 + (NSArray *)getDatas {
-    // add seed
+    // 检查 seed
+    NSString *encryptedSeed = [SSKeychain passwordForService:CBWKeychainSeedService account:CBWKeychainAccountDefault];
+    if (!encryptedSeed) {
+        NSLog(@"No seed datas");
+        return nil;
+    }
+    
+    // 检查 hint
     NSString *hint = [SSKeychain passwordForService:CBWKeychainHintService account:CBWKeychainAccountDefault];
     if (!hint) {
         hint = @"";
     }
-    NSMutableArray *datas = [NSMutableArray arrayWithObject:@[[SSKeychain passwordForService:CBWKeychainSeedService account:CBWKeychainAccountDefault], hint]];
     
-    NSMutableDictionary *accountsDictionary = [NSMutableDictionary dictionary];//{idx:[accountDataArray]}
+    // 种子数据: [seed, hint]
+    NSArray *seedAndHint = @[encryptedSeed, hint];
     
+    // 1. 待返回数据: [seed data, {dictionary of account item}]
+    NSMutableArray *datas = [NSMutableArray arrayWithObject:seedAndHint];
+    
+    
+    // 2. 准备组装 account item 字典: {idx: account properties, ...account item}
+    NSMutableDictionary *accountItemsDictionary = [NSMutableDictionary dictionary];
+    
+    // 处理 account 数据
     CBWAccountStore *accountStore = [[CBWAccountStore alloc] init];
     [accountStore fetch];
     
-    if (accountStore.count > 0) {
-        for (NSUInteger i = 0; i < accountStore.count; i ++) {
-            
-            CBWAccount *account = [accountStore recordAtIndex:i];
-            
-            NSString *label = account.label;
-            if (!label) {
-                label = @"";
-            }
-            NSMutableArray *accountDataArray = [NSMutableArray arrayWithObject:label];// account data [label]
-            [accountsDictionary setObject:accountDataArray forKey:[@(account.idx) stringValue]];// idx: account data
-            
-            // 处理 address 数据
-            CBWAddressStore *addressStore = [[CBWAddressStore alloc] initWithAccountIdx:account.idx];
-            [addressStore fetch];
-            [accountDataArray addObject:@(addressStore.count)];// account data [label, address count]
-            
-            if (addressStore.count > 0) {
-                NSMutableDictionary *addressesDictionary = [NSMutableDictionary dictionary];//{idx:[addressDataArray]}
-                for (NSUInteger j = 0; j < addressStore.count; j++) {
-                    CBWAddress *address = [addressStore recordAtIndex:j];
-                    if (account.idx == CBWRecordWatchedIDX) {
-                        // watched account
-                        NSString *label = address.label;
-                        if (!label) {
-                            label = @"";
-                        }
-                        [addressesDictionary setObject:label forKey:address.address];// address: label
-                    } else if (address.isDirty || address.isArchived || address.label.length > 0) {// 属性不是初始值或设置了标签
-                        NSString *label = address.label;
-                        if (!label) {
-                            label = @"";
-                        }
-                        NSArray *addressDataArray = @[label, @(address.isDirty), @(address.isArchived)];
-                        [addressesDictionary setObject:addressDataArray forKey:[@(address.idx) stringValue]];// address: [label, dirty]
-                    }
-                }
-                if (addressesDictionary.count > 0) {
-                    [accountDataArray addObject:addressesDictionary];// account data [label, address count, {addresses}]
-                }
-            }
-            
+    // 处理 account item
+    for (NSUInteger i = 0; i < accountStore.count; i++) {
+        
+        // 当前 account
+        CBWAccount *account = [accountStore recordAtIndex:i];
+        
+        // 检查 account label
+        NSString *acountLabel = account.label;
+        if (!acountLabel) {
+            acountLabel = @"";
         }
         
-        if (accountsDictionary.count > 0) {
-            [datas addObject:accountsDictionary];
+        // 2-1. account properties: [account label]
+        NSMutableArray *accountProperties = [NSMutableArray arrayWithObject:acountLabel];
+        
+        // 获取 address 数据
+        CBWAddressStore *addressStore = [[CBWAddressStore alloc] initWithAccountIdx:account.idx];
+        [addressStore fetchAllAddresses];
+        
+        // 2-2. account properties: [account label, address count]
+        [accountProperties addObject:@(addressStore.count)];
+        
+        // 准备组装 address item 字典: {idx: address properties, ...address item}
+        NSMutableDictionary *addressItemsDictionary = [NSMutableDictionary dictionary];
+        for (NSUInteger j = 0; j < addressStore.count; j++) {
+            
+            // 当前 address
+            CBWAddress *address = [addressStore recordAtIndex:j];
+            
+            if (account.idx == CBWRecordWatchedIDX) {
+                // watched account
+                
+                // 检查 address label
+                NSString *addressLabel = address.label;
+                if (!addressLabel) {
+                    addressLabel = @"";
+                }
+                
+                // 设置 watched address item: {address: label}
+                [addressItemsDictionary setObject:addressLabel forKey:address.address];
+                
+            } else if (address.isDirty || address.isArchived || address.label.length > 0) {
+                // 用户账户，且属性不是初始值或设置了标签
+                
+                // 检查 address label
+                NSString *addressLabel = address.label;
+                if (!addressLabel) {
+                    addressLabel = @"";
+                }
+                
+                // address properties: [address label, dirty, archived]
+                NSArray *addressProperties = @[addressLabel, @(address.isDirty), @(address.isArchived)];
+                
+                // 设置一个 address item: {address idx: address properties}
+                [addressItemsDictionary setObject:addressProperties forKey:[@(address.idx) stringValue]];
+                
+            }
+        }// 完成 address items dicrionary
+        
+        if (addressItemsDictionary.count > 0) {
+            // 2-3. account properties: [account label, address count, {dictionary of address item}]
+            [accountProperties addObject:[addressItemsDictionary copy]];
         }
+        
+        // 3. 设置一个 account item: {account idx: account properties}
+        [accountItemsDictionary setObject:[accountProperties copy] forKey:[@(account.idx) stringValue]];
+        
+    }
+    
+    if (accountItemsDictionary.count > 0) {
+        // 4. 存入 datas
+        [datas addObject:[accountItemsDictionary copy]];
     }
     
     DLog(@"formated datas: %@", datas);
@@ -82,40 +122,62 @@
 }
 
 + (UIImage *)exportImage {
-    NSMutableArray *datas = [self.getDatas mutableCopy];
-    if (datas.count > 0) {
-        NSString *seedAndHint = [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:[datas firstObject] options:0 error:nil] encoding:NSUTF8StringEncoding];
-        UIImage *seedQRCodeImage = [BTCQRCode imageForString:seedAndHint size:CGSizeMake(800.f, 800.f) scale:2.f];
-        
-        YYImageEncoder *encoder = [[YYImageEncoder alloc] initWithType:YYImageTypePNG];
-        encoder.loopCount = 0;
-        [encoder addImage:seedQRCodeImage duration:0];
-        // 移除 seed and hint，生成其他信息二维码
-        [datas removeObjectAtIndex:0];
-        NSError *error = nil;
-        NSData *accountData = [NSJSONSerialization dataWithJSONObject:datas options:0 error:&error];
-        NSString *accountString = [[NSString alloc] initWithData:accountData encoding:NSUTF8StringEncoding];
-        DLog(@"account string: %@", accountString);
-        // 切分字符
-        float maxCharacterCount = 200.f;
-        int groups = (int)ceil(accountString.length / maxCharacterCount);
-        DLog(@"groups: %d", groups);
-        for (int i = 0; i < groups; i++) {
-            NSString *slicedString = [accountString substringWithRange:NSMakeRange(i * maxCharacterCount, MIN(accountString.length - i *maxCharacterCount, maxCharacterCount))];
-            UIImage *qrCodeImage = [BTCQRCode imageForString:slicedString size:CGSizeMake(800.f, 800.f) scale:2.f];
-            [encoder addImage:qrCodeImage duration:0];
-        }
-        
-        NSData *apngData = [encoder encode];
-        
-        YYImage *image = [YYImage imageWithData:apngData scale:2.f];
-        return image;
+    NSArray *datas = [self getDatas];
+    if (!datas) {
+        NSLog(@"No datas to be saved as image");
+        return nil;
     }
-    return nil;
+    
+    NSMutableArray *mutableDatas = [datas mutableCopy];
+    
+    if (datas.count == 0) {
+        NSLog(@"Datas is empty, can't be saved as image");
+        return nil;
+    }
+    
+    // 种子数据二维码
+    NSString *seedAndHint = [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:[mutableDatas firstObject] options:0 error:nil] encoding:NSUTF8StringEncoding];
+    UIImage *seedAndHintImage = [BTCQRCode imageForString:seedAndHint size:CGSizeMake(800.f, 800.f) scale:2.f];
+    
+    // 种子数据二维码压入第一帧
+    YYImageEncoder *encoder = [[YYImageEncoder alloc] initWithType:YYImageTypePNG];
+    encoder.loopCount = 0;
+    [encoder addImage:seedAndHintImage duration:0];
+    
+    // 移除 seed and hint，生成其他信息二维码
+    [mutableDatas removeObjectAtIndex:0];
+    
+    // 账户数据转字符串
+    NSError *error = nil;
+    NSData *accountData = [NSJSONSerialization dataWithJSONObject:mutableDatas options:0 error:&error];
+    NSString *accountString = [[NSString alloc] initWithData:accountData encoding:NSUTF8StringEncoding];
+    DLog(@"account string: %@", accountString);
+    
+    // 切分字符
+    float maxCharacterCount = 200.f;
+    int groups = (int)ceil(accountString.length / maxCharacterCount);
+    DLog(@"account string groups: %d", groups);
+    for (int i = 0; i < groups; i++) {
+        NSString *slicedString = [accountString substringWithRange:NSMakeRange(i * maxCharacterCount, MIN(accountString.length - i *maxCharacterCount, maxCharacterCount))];
+        UIImage *qrCodeImage = [BTCQRCode imageForString:slicedString size:CGSizeMake(800.f, 800.f) scale:2.f];
+        // 逐帧压入
+        [encoder addImage:qrCodeImage duration:0];
+    }
+    
+    // 编码生成图片
+    NSData *apngData = [encoder encode];
+    YYImage *image = [YYImage imageWithData:apngData scale:2.f];
+    
+    return image;
 }
 
 + (void)saveToLocalPhotoLibraryWithCompleiton:(void (^)(NSURL *, NSError *))completion {
-    [[self exportImage] yy_saveToAlbumWithCompletionBlock:^(NSURL * _Nullable assetURL, NSError * _Nullable error) {
+    UIImage *exportedImage = [self exportImage];
+    if (!exportedImage) {
+        completion(nil, [NSError errorWithDomain:CBWErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedStringFromTable(@"Error no_image_to_be_exported", @"CBW", nil)}]);
+    }
+    
+    [exportedImage yy_saveToAlbumWithCompletionBlock:^(NSURL * _Nullable assetURL, NSError * _Nullable error) {
         completion(assetURL, error);
     }];
 }
@@ -137,6 +199,10 @@
 
 // TODO: handle NSUbiquityIdentityDidChangeNotification, if another account logged in. alert user to switch account.
 + (void)saveToCloudKitWithCompletion:(void (^)(NSError *))completion {
+    NSArray *datas = [self getDatas];
+    if (!datas) {
+        completion([NSError errorWithDomain:CBWErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedStringFromTable(@"Error no_image_to_be_exported", @"CBW", nil)}]);
+    }
     // check available
     CKContainer *container = [CKContainer defaultContainer];
     [container accountStatusWithCompletionHandler:^(CKAccountStatus accountStatus, NSError * _Nullable error) {
@@ -157,7 +223,7 @@
                     if (backupRecord) {
                         // save backup
                         NSError *error = nil;
-                        NSData *data = [NSJSONSerialization dataWithJSONObject:[self getDatas] options:0 error:&error];
+                        NSData *data = [NSJSONSerialization dataWithJSONObject:datas options:0 error:&error];
                         NSString *dataString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                         backupRecord[@"dataString"] = dataString;
                         [database saveRecord:backupRecord completionHandler:^(CKRecord * _Nullable record, NSError * _Nullable error) {

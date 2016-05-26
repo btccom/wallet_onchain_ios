@@ -13,26 +13,39 @@
 @implementation CBWDatabaseManager (Address)
 
 
-- (void)fetchAddressWithAccountIdx:(NSInteger)accountIdx toStore:(CBWAddressStore *)store {
-    [self fetchAddressWithAccountIdx:accountIdx archived:NO toStore:store];
-}
-
-- (void)fetchAddressWithAccountIdx:(NSInteger)accountIdx archived:(BOOL)archived toStore:(CBWAddressStore *)store {
+- (void)fetchAddressesWithAccountIdx:(NSInteger)accountIdx toStore:(CBWAddressStore *)store {
+    if (accountIdx < CBWRecordWatchedIDX) {
+        // 需要 account idx
+        return;
+    }
     FMDatabase *db = [self db];
     if ([db open]) {
         NSMutableString *sql = [NSMutableString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ?", DatabaseManagerTableAddress,
+                                DatabaseManagerColAccountIdx];
+        FMResultSet *results = nil;
+        DLog(@"database manager fetch all addresses of account: %ld", (long)accountIdx);
+        results = [db executeQuery:sql,
+                   @(accountIdx)];
+        [self p_transformResultSet:results toStore:store];
+        [db close];
+    }
+}
+
+- (void)fetchAddressesWithAccountIdx:(NSInteger)accountIdx archived:(BOOL)archived toStore:(CBWAddressStore *)store {
+    if (accountIdx < CBWRecordWatchedIDX) {
+        // 需要 account idx
+        return;
+    }
+    FMDatabase *db = [self db];
+    if ([db open]) {
+        NSMutableString *sql = [NSMutableString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ? AND %@ = ?", DatabaseManagerTableAddress,
+                                DatabaseManagerColAccountIdx,
                                 DatabaseManagerColArchived];
         FMResultSet *results = nil;
-        if (accountIdx > -2) {// -1 for watched only
-            [sql appendFormat:@" AND %@ = ?", DatabaseManagerColAccountIdx];
-            DLog(@"database manager fetch addresses of account: %ld", (long)accountIdx);
-            results = [db executeQuery:sql,
-                       @(archived),
-                       @(accountIdx)];
-        } else {
-            results = [db executeQuery:sql,
-                       @(archived)];
-        }
+        DLog(@"database manager fetch %@ addresses of account: %ld", (archived ? @"archived" : @"unarchived"), (long)accountIdx);
+        results = [db executeQuery:sql,
+                   @(accountIdx),
+                   @(archived)];
         [self p_transformResultSet:results toStore:store];
         [db close];
     }

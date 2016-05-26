@@ -12,8 +12,10 @@
 
 @interface CBWDatabaseManager (Address)
 
-- (void)fetchAddressWithAccountIdx:(NSInteger)accountIdx toStore:(CBWAddressStore *)store;
-- (void)fetchAddressWithAccountIdx:(NSInteger)accountIdx archived:(BOOL)archived toStore:(CBWAddressStore *)store;
+/// 读取全部地址
+- (void)fetchAddressesWithAccountIdx:(NSInteger)accountIdx toStore:(CBWAddressStore *)store;
+/// 读取地址，指定是否存档
+- (void)fetchAddressesWithAccountIdx:(NSInteger)accountIdx archived:(BOOL)archived toStore:(CBWAddressStore *)store;
 - (void)saveAddress:(CBWAddress *)address;
 - (void)deleteAddress:(CBWAddress *)address;
 - (NSUInteger)countAllAddressesWithAccountIdx:(NSInteger)accountIdx;

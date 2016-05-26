@@ -25,6 +25,12 @@
 
 @implementation CBWRecovery
 
++ (NSDictionary *)defaultAccountItemsDictionary {
+    return @{[@(CBWRecordWatchedIDX) stringValue]: @[NSLocalizedStringFromTable(@"Label watched_account", @"CBW", nil), @1],
+             [@0 stringValue]: @[NSLocalizedStringFromTable(@"Label default_account", @"CBW", nil), @0]
+             };
+}
+
 - (NSString *)hint {
     DLog(@"get hint from datas: %@", self.datas);
     return [self.datas.firstObject count] > 1 ? [[self.datas firstObject] lastObject] : nil;
@@ -96,15 +102,12 @@
         id accountsData = [NSJSONSerialization JSONObjectWithData:[string dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingAllowFragments error:&error];
         if (error) {
             NSLog(@"JSON Error: %@", error);
+            completion(error);
+            return;
         }
         DLog(@"account datas: %@", accountsData);
         if (![accountsData isKindOfClass:[NSArray class]]) {
-            accountsData = @[@{@"0":@[
-                                       NSLocalizedStringFromTable(@"Label default_account", @"CBW", nil),
-                                       @(1)],
-                               [NSString stringWithFormat:@"%ld", (long)CBWRecordWatchedIDX]:@[
-                                       NSLocalizedStringFromTable(@"Label watched_account", @"CBW", nil),
-                                       @0]}];
+            accountsData = @[[CBWRecovery defaultAccountItemsDictionary]];
         }
         [datas addObjectsFromArray:accountsData];
         

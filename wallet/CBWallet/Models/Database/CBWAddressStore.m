@@ -30,12 +30,13 @@
 
 - (void)fetch {
     [super fetch];
-    if (self.isArchived) {
-        [[CBWDatabaseManager defaultManager] fetchAddressWithAccountIdx:self.accountIdx archived:YES toStore:self];
-        [self p_sort];
-        return;
-    }
-    [[CBWDatabaseManager defaultManager] fetchAddressWithAccountIdx:self.accountIdx toStore:self];
+    [[CBWDatabaseManager defaultManager] fetchAddressesWithAccountIdx:self.accountIdx archived:self.isArchived toStore:self];
+    [self p_sort];
+}
+
+- (void)fetchAllAddresses {
+    [super fetch];
+    [[CBWDatabaseManager defaultManager] fetchAddressesWithAccountIdx:self.accountIdx toStore:self];
     [self p_sort];
 }
 

@@ -144,13 +144,18 @@
         [self requestDidStop];
     }
     
-    // start request
-    [self requestDidStart];
-    CBWRequest *request = [CBWRequest new];
-    // 根据账号地址获取交易
+    // 获取地址列表
     CBWAddressStore *addressStore = [[CBWAddressStore alloc] initWithAccountIdx:self.account.idx];
     [addressStore fetch];
     DLog(@"dashboard all addresses: %@", addressStore.allAddressStrings);
+    if (addressStore.allAddressStrings.count == 0) {
+        DLog(@"no address to fetch");
+        return;
+    }
+    
+    // start request
+    [self requestDidStart];
+    CBWRequest *request = [CBWRequest new];
     // TODO: 目前该摘要请求没用，需要配合本地缓存处理
     [request addressSummariesWithAddressStrings:addressStore.allAddressStrings completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
         

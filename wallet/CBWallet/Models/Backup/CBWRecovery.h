@@ -26,4 +26,6 @@
 
 - (NSString *)hint;
 
++ (NSDictionary *)defaultAccountItemsDictionary;
+
 @end

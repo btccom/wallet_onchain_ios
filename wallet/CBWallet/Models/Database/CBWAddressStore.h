@@ -20,6 +20,9 @@
 - (long long)totalBalance;
 
 /// 包含已存档地址
+- (void)fetchAllAddresses;
+
+/// 包含已存档地址
 - (NSUInteger)countAllAddresses;
 
 - (nonnull NSArray *)allAddressStrings;
