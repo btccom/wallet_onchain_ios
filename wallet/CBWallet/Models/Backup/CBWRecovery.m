@@ -228,7 +228,7 @@
         
         // save account
         NSInteger accountIdx = [key integerValue];
-        NSString *accountLabel = [accountProperties firstObject];
+        NSString *accountLabel = [[accountProperties firstObject] stringByRemovingPercentEncoding];
         if (!accountLabel) {
             accountLabel = @"";
         }
@@ -251,10 +251,10 @@
             // watched account
             [addresseItemsDictionary enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
                 NSString *addressString = key;
-                NSString *label = obj;
+                NSString *addressLabel = [obj stringByRemovingPercentEncoding];
                 
                 // save address
-                CBWAddress *address = [CBWAddress newAdress:addressString withLabel:label idx:CBWRecordWatchedIDX archived:NO dirty:NO internal:NO accountRid:account.rid accountIdx:account.idx inStore:adderssStore];
+                CBWAddress *address = [CBWAddress newAdress:addressString withLabel:addressLabel idx:CBWRecordWatchedIDX archived:NO dirty:NO internal:NO accountRid:account.rid accountIdx:account.idx inStore:adderssStore];
                 address.ignoringSync = YES;
                 [address saveWithError:nil];
             }];
@@ -273,7 +273,7 @@
                 NSString *addressIdxKey = [@(addressIdx) stringValue];
                 NSArray *addressProperties = [addresseItemsDictionary objectForKey:addressIdxKey];//[label, dirty, archived]
                 if (addressProperties.count >= 2) {
-                    label = addressProperties[0];
+                    label = [addressProperties[0] stringByRemovingPercentEncoding];
                     dirty = [addressProperties[1] boolValue];
                     archived = [addressProperties[2] boolValue];
                 }

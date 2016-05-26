@@ -50,13 +50,13 @@
         CBWAccount *account = [accountStore recordAtIndex:i];
         
         // 检查 account label
-        NSString *acountLabel = account.label;
-        if (!acountLabel) {
-            acountLabel = @"";
+        NSString *accountLabel = [account.label stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        if (!accountLabel) {
+            accountLabel = @"";
         }
         
         // 2-1. account properties: [account label]
-        NSMutableArray *accountProperties = [NSMutableArray arrayWithObject:acountLabel];
+        NSMutableArray *accountProperties = [NSMutableArray arrayWithObject:accountLabel];
         
         // 获取 address 数据
         CBWAddressStore *addressStore = [[CBWAddressStore alloc] initWithAccountIdx:account.idx];
@@ -76,7 +76,7 @@
                 // watched account
                 
                 // 检查 address label
-                NSString *addressLabel = address.label;
+                NSString *addressLabel = [address.label stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
                 if (!addressLabel) {
                     addressLabel = @"";
                 }
@@ -88,7 +88,7 @@
                 // 用户账户，且属性不是初始值或设置了标签
                 
                 // 检查 address label
-                NSString *addressLabel = address.label;
+                NSString *addressLabel = [address.label stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
                 if (!addressLabel) {
                     addressLabel = @"";
                 }
