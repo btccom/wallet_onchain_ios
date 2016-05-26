@@ -68,6 +68,8 @@
 "Description Fee 1" = "Medium";
 "Description Fee 2" = "High";
 
+"Alert Title confirm_to_create_wallet" = "Good";
+"Alert Message confirm_to_create_wallet" = "Everything is ready.\nCreate a whole new wallet now?";
 "Alert Message invalid_address" = "Invalid bitcoin address.";
 "Alert Title new_address" = "New Address";
 "Alert Title new_watched_address" = "Add Address";
