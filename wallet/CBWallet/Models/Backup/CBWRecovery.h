@@ -25,6 +25,7 @@
 - (BOOL)recoverWithCode:(NSString *)code;
 
 - (NSString *)hint;
+- (BOOL)hasSeed;
 
 + (NSDictionary *)defaultAccountItemsDictionary;
 

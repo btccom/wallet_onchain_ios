@@ -32,7 +32,17 @@
 }
 
 - (NSString *)hint {
-    return [self.datas.firstObject count] > 1 ? [[self.datas firstObject] lastObject] : nil;
+    if (!self.datas) {
+        return nil;
+    }
+    return [self.datas.firstObject count] > 1 ? [[self.datas firstObject] lastObject] : @"";
+}
+
+- (BOOL)hasSeed {
+    if ([self.datas.firstObject count] > 0) {
+        return YES;
+    }
+    return NO;
 }
 
 - (instancetype)initWithAssetURL:(NSURL *)assetURL {
@@ -69,19 +79,36 @@
         NSMutableArray *datas = [[NSMutableArray alloc] init];
         
         // 获取二维码
-        CIDetector* detector = [CIDetector detectorOfType:CIDetectorTypeQRCode context:[CIContext contextWithOptions:nil] options:@{CIDetectorAccuracy:CIDetectorAccuracyHigh}];
+        CIDetector *detector = [CIDetector detectorOfType:CIDetectorTypeQRCode context:[CIContext contextWithOptions:nil] options:@{CIDetectorAccuracy:CIDetectorAccuracyHigh}];
+        
+        if (!detector) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completion([NSError errorWithDomain:CBWErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedStringFromTable(@"Error detect_image_failed", @"CBW", nil)}]);
+            });
+            return;
+        }
+        
+        DLog(@"detector ready");
         
         // seed data
-        if (detector) {
-            DLog(@"detector ready");
-            CIImage *ciimg = [CIImage imageWithCGImage:seedImage.CGImage];
-            NSArray *featuresR = [detector featuresInImage:ciimg];
+        CIImage *ciimg = [CIImage imageWithCGImage:seedImage.CGImage];
+        NSArray *featuresR = [detector featuresInImage:ciimg];
+        for (CIQRCodeFeature *featureR in featuresR) {
+            DLog(@"seed and hint: %@ ", featureR.messageString);
+            NSError *error = nil;
+            [datas addObject:[NSJSONSerialization JSONObjectWithData:[featureR.messageString dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingAllowFragments error:&error]];
             
-            for (CIQRCodeFeature* featureR in featuresR) {
-                DLog(@"seed and hint: %@ ", featureR.messageString);
-                [datas addObject:[NSJSONSerialization JSONObjectWithData:[featureR.messageString dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingAllowFragments error:nil]];
+            if (error) {
+                NSLog(@"Seed JSON error: %@", error);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    completion(error);
+                });
+                return;
             }
+            
         }
+        _datas = [datas copy];
+        
         
         // account datas
         NSMutableString *string = [NSMutableString string];
@@ -100,10 +127,13 @@
         NSError *error = nil;
         id accountsData = [NSJSONSerialization JSONObjectWithData:[string dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingAllowFragments error:&error];
         if (error) {
-            NSLog(@"JSON Error: %@", error);
-//            completion(error);// 只有 seed 时候应该仍然可以返回数据
-//            return;
+            NSLog(@"Account JSON error: %@", error);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completion(error);
+            });
+            return;
         }
+        
         DLog(@"account datas: %@", accountsData);
         if (![accountsData isKindOfClass:[NSArray class]]) {
             accountsData = @[[CBWRecovery defaultAccountItemsDictionary]];

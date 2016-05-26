@@ -140,7 +140,14 @@
             [indicator stopAnimating];
             
             if (error) {
-                [self alertErrorMessage:error.localizedDescription];
+                
+                if ([self.recovery hasSeed]) {
+                    // 有 seed 数据
+                    [self p_handleNext:nil];
+                } else {
+                    [self alertErrorMessage:error.localizedDescription];
+                }
+                
                 return;
             }
             
