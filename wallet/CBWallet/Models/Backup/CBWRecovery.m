@@ -26,13 +26,12 @@
 @implementation CBWRecovery
 
 + (NSDictionary *)defaultAccountItemsDictionary {
-    return @{[@(CBWRecordWatchedIDX) stringValue]: @[NSLocalizedStringFromTable(@"Label watched_account", @"CBW", nil), @1],
-             [@0 stringValue]: @[NSLocalizedStringFromTable(@"Label default_account", @"CBW", nil), @0]
+    return @{[@(CBWRecordWatchedIDX) stringValue]: @[NSLocalizedStringFromTable(@"Label watched_account", @"CBW", nil), @0],
+             [@0 stringValue]: @[NSLocalizedStringFromTable(@"Label default_account", @"CBW", nil), @1]
              };
 }
 
 - (NSString *)hint {
-    DLog(@"get hint from datas: %@", self.datas);
     return [self.datas.firstObject count] > 1 ? [[self.datas firstObject] lastObject] : nil;
 }
 
@@ -128,7 +127,6 @@
     self = [super init];
     if (self) {
         _datas = datas;
-        DLog(@"recovery datas: %@", datas);
     }
     return self;
 }
@@ -166,16 +164,16 @@
     DLog(@"recover with datas: %@", self.datas);
     
     if (self.datas.count == 0) {
+        NSLog(@"no datas to be recovered.");
         return NO;
     }
     
     NSString *encryptedSeed = [[self.datas firstObject] firstObject];
-//    NSString *seed = [AESCrypt decrypt:encryptedSeed password:code];
-//    DLog(@"decrypted seed: %@", seed);
-//    
-//    if (!seed) {
-//        return NO;
-//    }
+    
+    if (!encryptedSeed) {
+        NSLog(@"Not found encrypted seed data");
+        return NO;
+    }
     
     // save encrypted seed
     [SSKeychain setPassword:encryptedSeed forService:CBWKeychainSeedService account:CBWKeychainAccountDefault];
@@ -187,6 +185,7 @@
     
     // guard
     if (![[Guard globalGuard] checkInWithCode:code]) {
+        NSLog(@"recover failed");
         return NO;
     }
     

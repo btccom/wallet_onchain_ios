@@ -137,10 +137,10 @@
         return;
     }
     
-    if (self.actionType == LockScreenActionTypeSignUp) {
-        // 保存 hint
-        [SSKeychain setPassword:self.hint forService:CBWKeychainHintService account:CBWKeychainAccountDefault];
-    }
+//    if (self.actionType == LockScreenActionTypeSignUp) {
+//        // 保存 hint
+//        [SSKeychain setPassword:self.hint forService:CBWKeychainHintService account:CBWKeychainAccountDefault];
+//    }
     [self.delegate masterPasswordViewController:self didInputPassword:password];
 }
 

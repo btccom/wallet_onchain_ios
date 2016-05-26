@@ -113,6 +113,7 @@
     } else {
         [self alertErrorMessage:NSLocalizedStringFromTable(@"Alert Message invalid_master_password", @"CBW", nil)];
     };
+    
 }
 
 #pragma mark <UIImagePickerDelegate>

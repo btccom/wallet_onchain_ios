@@ -16,6 +16,7 @@
 
 #import "PrimaryButton.h"
 
+#import "CBWRecovery.h"
 #import "Guard.h"
 #import "Database.h"
 
@@ -65,22 +66,26 @@
     NSString *seed = [NSString randomStringWithLength:64];
     // encrypt seed with key
     NSString *encryptedSeed = [AESCrypt encrypt:seed password:password];
-    // save encrypted seed hex to keychain
-    [SSKeychain setPassword:encryptedSeed forService:CBWKeychainSeedService account:CBWKeychainAccountDefault];
-    // call guard to check and cache password
-    if ([[Guard globalGuard] checkInWithCode:password]) {
-        // create first account
-        CBWAccountStore *store = [[CBWAccountStore alloc] init];
-        NSError *error = nil;
-        CBWAccount *watchedAccount = [CBWAccount newAccountWithIdx:CBWRecordWatchedIDX label:NSLocalizedStringFromTable(AccountStoreWatchedAccountLabel, @"CBW", nil) inStore:store];
-        DLog(@"create watched account: %@", watchedAccount.label);
-        [watchedAccount saveWithError:&error];
-        CBWAccount *account = [CBWAccount newAccountWithIdx:0 label:NSLocalizedStringFromTable(@"Label default_account", @"CBW", nil) inStore:store];
-        DLog(@"create first account: %@", account.label);
-        [account saveWithError:&error];
-        if (error) {
-            NSLog(@"create first account error: %@", error);
-        }
+    
+    if (!encryptedSeed) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Failed", @"CBW", nil) message:NSLocalizedStringFromTable(@"Alert Message create_wallet_failed", @"CBW", nil) preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okay = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Okay", @"CBW", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }];
+        [alert addAction:okay];
+        [self presentViewController:alert animated:YES completion:nil];
+        return;
+    }
+    
+    NSString *hint = controller.hint;
+    if (!hint) {
+        NSLog(@"create wallet without hint");
+        hint = @"";
+    }
+    
+    NSArray *seedAndHint = @[encryptedSeed, hint];
+    CBWRecovery *recovery = [[CBWRecovery alloc] initWithDatas:@[seedAndHint, [CBWRecovery defaultAccountItemsDictionary]]];
+    if ([recovery recoverWithCode:password]) {
         // notification
         [[NSNotificationCenter defaultCenter] postNotificationName:CBWNotificationWalletCreated object:nil];
         // thank you, go
@@ -88,13 +93,44 @@
         initialWalletSettingViewController.delegate = (LockScreenController *)self.navigationController;
         [self.navigationController pushViewController:initialWalletSettingViewController animated:YES];
     } else {
-        // sorry, handle error
-        NSLog(@"create then check in failed");
-        // restart
-        [SSKeychain deletePasswordForService:CBWKeychainSeedService account:CBWKeychainAccountDefault];
-        [SSKeychain deletePasswordForService:CBWKeychainHintService account:CBWKeychainAccountDefault];
-        [self.navigationController popViewControllerAnimated:YES];
-    }
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Failed", @"CBW", nil) message:NSLocalizedStringFromTable(@"Alert Message invalid_master_password", @"CBW", nil) preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okay = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Okay", @"CBW", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }];
+        [alert addAction:okay];
+        [self presentViewController:alert animated:YES completion:nil];
+    };
+    
+//    // save encrypted seed hex to keychain
+//    [SSKeychain setPassword:encryptedSeed forService:CBWKeychainSeedService account:CBWKeychainAccountDefault];
+//    // call guard to check and cache password
+//    if ([[Guard globalGuard] checkInWithCode:password]) {
+//        // create first account
+//        CBWAccountStore *store = [[CBWAccountStore alloc] init];
+//        NSError *error = nil;
+//        CBWAccount *watchedAccount = [CBWAccount newAccountWithIdx:CBWRecordWatchedIDX label:NSLocalizedStringFromTable(AccountStoreWatchedAccountLabel, @"CBW", nil) inStore:store];
+//        DLog(@"create watched account: %@", watchedAccount.label);
+//        [watchedAccount saveWithError:&error];
+//        CBWAccount *account = [CBWAccount newAccountWithIdx:0 label:NSLocalizedStringFromTable(@"Label default_account", @"CBW", nil) inStore:store];
+//        DLog(@"create first account: %@", account.label);
+//        [account saveWithError:&error];
+//        if (error) {
+//            NSLog(@"create first account error: %@", error);
+//        }
+//        // notification
+//        [[NSNotificationCenter defaultCenter] postNotificationName:CBWNotificationWalletCreated object:nil];
+//        // thank you, go
+//        InitialWalletSettingViewController *initialWalletSettingViewController = [[InitialWalletSettingViewController alloc] init];
+//        initialWalletSettingViewController.delegate = (LockScreenController *)self.navigationController;
+//        [self.navigationController pushViewController:initialWalletSettingViewController animated:YES];
+//    } else {
+//        // sorry, handle error
+//        NSLog(@"create then check in failed");
+//        // restart
+//        [SSKeychain deletePasswordForService:CBWKeychainSeedService account:CBWKeychainAccountDefault];
+//        [SSKeychain deletePasswordForService:CBWKeychainHintService account:CBWKeychainAccountDefault];
+//        [self.navigationController popViewControllerAnimated:YES];
+//    }
 }
 
 @end
