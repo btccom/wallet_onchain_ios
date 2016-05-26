@@ -39,6 +39,7 @@
 		2C77D2631CA8C095001DDB1F /* CBWRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D2621CA8C095001DDB1F /* CBWRequest.m */; };
 		2C77D2661CA8C14E001DDB1F /* CBWRequest+Address.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D2651CA8C14E001DDB1F /* CBWRequest+Address.m */; };
 		2C77D2731CAA10EE001DDB1F /* UIFont+CBW.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D2721CAA10EE001DDB1F /* UIFont+CBW.m */; };
+		2C91B57E1CF7102E001037E6 /* DashboardBalanceTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C91B57D1CF7102E001037E6 /* DashboardBalanceTitleView.m */; };
 		2C9829031CBA49C2004CB2D3 /* CBWBackup.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9829021CBA49C2004CB2D3 /* CBWBackup.m */; };
 		2C9829061CBA49CC004CB2D3 /* CBWRecovery.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9829051CBA49CC004CB2D3 /* CBWRecovery.m */; };
 		2C99A17C1CA0E434007D7AC3 /* Guard.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C99A17B1CA0E434007D7AC3 /* Guard.m */; };
@@ -190,6 +191,8 @@
 		2C77D2651CA8C14E001DDB1F /* CBWRequest+Address.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBWRequest+Address.m"; sourceTree = "<group>"; };
 		2C77D2711CAA10EE001DDB1F /* UIFont+CBW.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+CBW.h"; sourceTree = "<group>"; };
 		2C77D2721CAA10EE001DDB1F /* UIFont+CBW.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+CBW.m"; sourceTree = "<group>"; };
+		2C91B57C1CF7102E001037E6 /* DashboardBalanceTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardBalanceTitleView.h; sourceTree = "<group>"; };
+		2C91B57D1CF7102E001037E6 /* DashboardBalanceTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardBalanceTitleView.m; sourceTree = "<group>"; };
 		2C9829011CBA49C2004CB2D3 /* CBWBackup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBWBackup.h; sourceTree = "<group>"; };
 		2C9829021CBA49C2004CB2D3 /* CBWBackup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBWBackup.m; sourceTree = "<group>"; };
 		2C9829041CBA49CC004CB2D3 /* CBWRecovery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBWRecovery.h; sourceTree = "<group>"; };
@@ -722,6 +725,8 @@
 				2C9CAF411C868B61008194EB /* DashboardHeaderActionButton.m */,
 				2C9CAF421C868B61008194EB /* DashboardHeaderView.h */,
 				2C9CAF431C868B61008194EB /* DashboardHeaderView.m */,
+				2C91B57C1CF7102E001037E6 /* DashboardBalanceTitleView.h */,
+				2C91B57D1CF7102E001037E6 /* DashboardBalanceTitleView.m */,
 			);
 			path = Dashboard;
 			sourceTree = "<group>";
@@ -1120,6 +1125,7 @@
 				2CEFC35C1CA4D65C00FECCA4 /* CBWTransactionStore.m in Sources */,
 				2C9CAF631C868B61008194EB /* CBWRecordObject.m in Sources */,
 				2C1684A61CACA89D00BD434A /* CBWRequest+Transaction.m in Sources */,
+				2C91B57E1CF7102E001037E6 /* DashboardBalanceTitleView.m in Sources */,
 				2C9CAF6E1C868B61008194EB /* DashboardHeaderActionButton.m in Sources */,
 				2C9CAF661C868B61008194EB /* SessionManager.m in Sources */,
 				2C9CAF5C1C868B61008194EB /* NSString+Helper.m in Sources */,

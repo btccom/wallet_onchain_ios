@@ -20,6 +20,7 @@
 #import "SendViewController.h"// send
 
 #import "DashboardHeaderView.h"
+#import "DashboardBalanceTitleView.h"
 
 #import "Guard.h"
 #import "Database.h"
@@ -36,11 +37,28 @@
 @property (nonatomic, weak) DashboardHeaderView *headerView;
 @property (nonatomic, assign) BOOL isThereMoreDatas;
 
+@property (nonatomic, weak) DashboardBalanceTitleView *balanceTitleView;
+
 @end
 
 @implementation DashboardViewController
+@synthesize title = _title;
 
 #pragma mark - Property
+
+- (DashboardBalanceTitleView *)balanceTitleView {
+    if (!_balanceTitleView) {
+        DashboardBalanceTitleView *view = [[DashboardBalanceTitleView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 44)];
+        self.navigationItem.titleView = view;
+        _balanceTitleView = view;
+    }
+    return _balanceTitleView;
+}
+
+- (void)setTitle:(NSString *)title {
+    _title = [title copy];
+    self.balanceTitleView.title = title;
+}
 
 - (CBWAccountStore *)accountStore {
     if (!_accountStore) {
@@ -149,9 +167,12 @@
     // 获取地址列表
     CBWAddressStore *addressStore = [[CBWAddressStore alloc] initWithAccountIdx:self.account.idx];
     [addressStore fetch];
+    self.balanceTitleView.balance = [@(addressStore.totalBalance) satoshiBTCString];
     DLog(@"dashboard all addresses: %@", addressStore.allAddressStrings);
+    
     if (addressStore.allAddressStrings.count == 0) {
         DLog(@"no address to fetch");
+        [self.refreshControl endRefreshing];
         return;
     }
     
@@ -225,6 +246,9 @@
                 
                 // 更新地址
                 [addressStore updateAddresses:response];
+                
+                // 更新余额
+                self.balanceTitleView.balance = [@(addressStore.totalBalance) satoshiBTCString];
                 
             } else {
                 [self requestDidStop];
