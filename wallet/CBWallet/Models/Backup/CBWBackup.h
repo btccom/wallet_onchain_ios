@@ -10,8 +10,14 @@
 
 @interface CBWBackup : NSObject
 
-/// <code>[seed,
-///        {account idx: [label, address count, {address idx: [label, dirty]}]
+/// <pre>[[seed, hint],<br>
+/// {account idx:<br>
+///   [account label,<br>
+///    address count,<br>
+///    {address idx: [address label, dirty, archived],<br>
+///     address idx: address properties, ...address item}],<br>
+///  account idx: account properties, ...account item}]</pre>
+/// for watched account <code><b>address item</b></code> will be <code><b>address:label</b></code>
 + (NSArray *)getDatas;
 + (UIImage *)exportImage;
 + (void)saveToLocalPhotoLibraryWithCompleiton:(void(^)(NSURL *assetURL, NSError *error))completion;
