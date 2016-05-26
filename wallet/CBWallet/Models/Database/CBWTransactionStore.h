@@ -36,4 +36,6 @@
 - (nullable NSString *)dayInSection:(NSUInteger)section;
 - (nullable CBWTransaction *)transactionAtIndexPath:(nonnull NSIndexPath *)indexPath;
 
++ (void)deleteAllCaches;
+
 @end

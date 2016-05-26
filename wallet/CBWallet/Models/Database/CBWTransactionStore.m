@@ -144,6 +144,13 @@
     return nil;
 }
 
++ (void)deleteAllCaches {
+    NSString *path = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"com.btc.wallet"];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
+        [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
+    }
+}
+
 #pragma - Private Method
 
 - (NSString *)p_cachedPath {

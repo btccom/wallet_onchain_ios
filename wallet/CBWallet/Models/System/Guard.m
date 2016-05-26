@@ -9,6 +9,7 @@
 #import "Guard.h"
 #import "Database.h"
 #import "CBWBackup.h"
+#import "CBWTransactionStore.h"
 
 #import "SSKeychain.h"
 
@@ -88,6 +89,7 @@ static const NSTimeInterval kGuardAvaibleTimeDefault = 3 * 60; // 默认3分钟
         [SSKeychain deletePasswordForService:CBWKeychainHintService account:CBWKeychainAccountDefault];
         [SSKeychain deletePasswordForService:CBWKeychainMasterPasswordService account:CBWKeychainAccountDefault];
         [CBWBackup deleteCloudKitRecord];
+        [CBWTransactionStore deleteAllCaches];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:CBWNotificationSignedOut object:nil];
         
