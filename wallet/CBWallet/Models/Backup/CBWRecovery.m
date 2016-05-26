@@ -101,8 +101,8 @@
         id accountsData = [NSJSONSerialization JSONObjectWithData:[string dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingAllowFragments error:&error];
         if (error) {
             NSLog(@"JSON Error: %@", error);
-            completion(error);
-            return;
+//            completion(error);// 只有 seed 时候应该仍然可以返回数据
+//            return;
         }
         DLog(@"account datas: %@", accountsData);
         if (![accountsData isKindOfClass:[NSArray class]]) {
@@ -190,26 +190,36 @@
     }
     
     CBWAccountStore *accountStore = [[CBWAccountStore alloc] init];
-    NSDictionary *accountsDictionary = self.datas[1];
-    [accountsDictionary enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-        NSArray *accountDataArray = obj;
+    NSDictionary *accountItemsDictionary = self.datas[1];
+    [accountItemsDictionary enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        NSArray *accountProperties = obj;
+        
+        DLog(@"recover account with data: %@", accountProperties);
         
         // save account
-        CBWAccount *account = [CBWAccount newAccountWithIdx:[key integerValue] label:accountDataArray[0] inStore:accountStore];
+        NSInteger accountIdx = [key integerValue];
+        NSString *accountLabel = [accountProperties firstObject];
+        if (!accountLabel) {
+            accountLabel = @"";
+        }
+        CBWAccount *account = [CBWAccount newAccountWithIdx:accountIdx label:accountLabel inStore:accountStore];
         account.ignoringSync = YES;
         [account saveWithError:nil];
         
+        DLog(@"account saved");
+        
         // address
         CBWAddressStore *adderssStore = [[CBWAddressStore alloc] initWithAccountIdx:account.idx];
-        NSDictionary *addressesDictionary = nil;
-        if (accountDataArray.count > 2) {
-            addressesDictionary = accountDataArray[2];
+        NSDictionary *addresseItemsDictionary = nil;
+        if (accountProperties.count > 2) {
+            addresseItemsDictionary = accountProperties[2];
         }
         
+        DLog(@"recover addresses with data: %@", addresseItemsDictionary);
+        
         if (account.idx == CBWRecordWatchedIDX) {
-            DLog(@"recover watched account");
             // watched account
-            [addressesDictionary enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+            [addresseItemsDictionary enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
                 NSString *addressString = key;
                 NSString *label = obj;
                 
@@ -218,10 +228,10 @@
                 address.ignoringSync = YES;
                 [address saveWithError:nil];
             }];
-        } else {
-            DLog(@"recover user account: %ld", (long)account.idx);
             
-            NSUInteger addressCount = [accountDataArray[1] unsignedIntegerValue];
+            DLog(@"recovered watched addresses (%ld)", adderssStore.count);
+        } else {
+            NSUInteger addressCount = [accountProperties[1] unsignedIntegerValue];
             DLog(@"address count: %ld", (unsigned long)addressCount);
             for (NSUInteger addressIdx = 0; addressIdx < addressCount; addressIdx ++) {
                 
@@ -231,11 +241,11 @@
                 BOOL archived = NO;
                 
                 NSString *addressIdxKey = [@(addressIdx) stringValue];
-                NSArray *addressDataArray = [addressesDictionary objectForKey:addressIdxKey];//[label, dirty, archived]
-                if (addressDataArray.count >= 2) {
-                    label = addressDataArray[0];
-                    dirty = [addressDataArray[1] boolValue];
-                    archived = [addressDataArray[2] boolValue];
+                NSArray *addressProperties = [addresseItemsDictionary objectForKey:addressIdxKey];//[label, dirty, archived]
+                if (addressProperties.count >= 2) {
+                    label = addressProperties[0];
+                    dirty = [addressProperties[1] boolValue];
+                    archived = [addressProperties[2] boolValue];
                 }
                 
                 // save address
@@ -243,6 +253,8 @@
                 address.ignoringSync = YES;
                 [address saveWithError:nil];
             }
+            
+            DLog(@"recovered user addresses (%ld)", adderssStore.count);
         }
     }];
     

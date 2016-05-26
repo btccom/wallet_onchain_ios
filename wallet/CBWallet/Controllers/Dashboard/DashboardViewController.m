@@ -119,14 +119,16 @@
 #pragma mark - Public Method
 - (void)reload {
     [self.accountStore fetch];
+    if (self.accountStore.count == 0) {
+        NSLog(@"try to load with out any account");
+        return;
+    }
     // set default account
     // TODO: save to get last selected account
     if (!self.account) {
         self.account = [self.accountStore customDefaultAccount];
         DLog(@"dashboard reloaded account: %@", self.account);
     }
-    
-//    [self.tableView reloadData];
     
     [self reloadTransactions];
 }
