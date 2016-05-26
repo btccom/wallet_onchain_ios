@@ -101,7 +101,7 @@
     return NO;
 }
 
-- (void)saveWithError:(NSError *__autoreleasing  _Nullable *)error {
+- (BOOL)saveWithError:(NSError *__autoreleasing  _Nullable *)error {
     BOOL initial = self.rid < 0;
     if (initial) {
         [self.store willChangeValueForKey:CBWRecordObjectStoreCountKey];
@@ -113,6 +113,7 @@
     if (initial) {
         [self.store didChangeValueForKey:CBWRecordObjectStoreCountKey];
     }
+    return NO;
 }
 
 //- (void)deleteFromStore {

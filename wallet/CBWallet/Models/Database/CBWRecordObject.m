@@ -38,7 +38,7 @@
     return self;
 }
 
-- (void)saveWithError:(NSError *__autoreleasing  _Nullable *)error {};
+- (BOOL)saveWithError:(NSError *__autoreleasing  _Nullable *)error {return NO;};
 
 - (void)deleteFromStore {
     [self.store deleteRecord:self];

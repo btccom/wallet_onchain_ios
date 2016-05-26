@@ -126,13 +126,13 @@
         DLog(@"account datas string: %@", string);
         NSError *error = nil;
         id accountsData = [NSJSONSerialization JSONObjectWithData:[string dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingAllowFragments error:&error];
-        if (error) {
-            NSLog(@"Account JSON error: %@", error);
-            dispatch_async(dispatch_get_main_queue(), ^{
-                completion(error);
-            });
-            return;
-        }
+//        if (error) {
+//            NSLog(@"Account JSON error: %@", error);
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                completion(error);
+//            });
+//            return;
+//        }
         
         DLog(@"account datas: %@", accountsData);
         if (![accountsData isKindOfClass:[NSArray class]]) {
@@ -259,7 +259,7 @@
                 [address saveWithError:nil];
             }];
             
-            DLog(@"recovered watched addresses (%ld)", adderssStore.count);
+            DLog(@"recovered watched addresses (%ld)", (unsigned long)adderssStore.count);
         } else {
             NSUInteger addressCount = [accountProperties[1] unsignedIntegerValue];
             DLog(@"address count: %ld", (unsigned long)addressCount);

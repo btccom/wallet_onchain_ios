@@ -29,5 +29,5 @@
 /// 从内存中删除记录，并删除数据库记录
 - (void)deleteFromStore;
 
-- (void)saveWithError:(NSError * _Nullable * _Nullable)error;
+- (BOOL)saveWithError:(NSError * _Nullable * _Nullable)error;
 @end
