@@ -82,7 +82,7 @@ static const CGFloat kAddressCellBalanceLabelHeight = 16.f;
     }
     self.addressLabel.text = address.address;
     if (!self.isMetadataHidden) {
-        self.txsLabel.text = [NSString stringWithFormat:@"%lu Txs", (unsigned long)address.txCount];
+        self.txsLabel.text = [NSString stringWithFormat:@"%@ Txs", [@(address.txCount) groupingString]];
         self.balanceLabel.text = [@(address.balance) satoshiBTCString];
     }
 }

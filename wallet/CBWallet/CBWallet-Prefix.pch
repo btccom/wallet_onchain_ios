@@ -14,6 +14,7 @@
 #import "UIColor+CBW.h"
 #import "NSString+Helper.h"
 #import "NSNumber+Satoshi.h"
+#import "NSNumber+Helper.h"
 #import "UIFont+CBW.h"
 #import "NSNull+SafePatch.h"
 #import "Constants.h"

@@ -95,15 +95,15 @@ static NSString *const kTransactionViewControllerCellIdentifierIO = @"transactio
             
             if (self.transactionDetail) {
                 [self.summaryDatas addObject:[@(self.transactionDetail.fee) satoshiBTCString]];
-                [self.summaryDatas addObject:[NSString stringWithFormat:@"%lu", (unsigned long)self.transactionDetail.confirmations]];
+                [self.summaryDatas addObject:[@(self.transactionDetail.confirmations) groupingString]];
                 
                 NSString *blockTime = [self.transactionDetail.blockTime stringWithFormat:@"yyyy-MM-dd HH:mm:ss"];
                 if (!blockTime) {
                     blockTime = @"";
                 }
                 self.blockDatas = @[blockTime,
-                                    [NSString stringWithFormat:@"%lu", (unsigned long)self.transactionDetail.blockHeight],
-                                    [NSString stringWithFormat:@"%lu", (unsigned long)self.transactionDetail.size]];
+                                    [@(self.transactionDetail.blockHeight) groupingString],
+                                    [NSString stringWithFormat:@"%@ Bytes", [@(self.transactionDetail.size) groupingString]]];
                 
                 // 刷新表格
                 [self.tableView reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, self.tableView.numberOfSections)] withRowAnimation:UITableViewRowAnimationAutomatic];

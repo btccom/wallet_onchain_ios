@@ -7,7 +7,7 @@
 */
 
 "%d Confirmation" = "%d Confirmation";
-"%d Confirmations" = "%d Confirmations";
+"%@ Confirmations" = "%@ Confirmations";
 "Unconfirmed Transaction!" = "Unconfirmed Transaction!";
 "Confirmed" = "Confirmed";
 "Watched Account" = "Watched Account";
@@ -135,8 +135,8 @@
 
 // transaction
 "Transaction Section summary" = "Summary";
-"Transaction Section inputs" = "Inputs";
-"Transaction Section outputs" = "Outputs";
+"Transaction Section inputs" = "Input";
+"Transaction Section outputs" = "Output";
 "Transaction Section block" = "Block";
 "Transaction Cell hash" = "Hash";
 "Transaction Cell value" = "Value";

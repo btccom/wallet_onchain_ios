@@ -266,7 +266,7 @@
 #pragma mark <UITableViewDelegate>
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     DefaultSectionHeaderView *headerView = (DefaultSectionHeaderView *)[super tableView:tableView viewForHeaderInSection:section];
-    headerView.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTable(@"%d txs", @"CBW", nil), self.address.txCount];
+    headerView.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTable(@"%@ Txs", @"CBW", nil), [@(self.address.txCount) groupingString]];
     return headerView;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

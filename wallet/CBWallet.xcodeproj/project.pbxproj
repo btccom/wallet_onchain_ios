@@ -40,6 +40,7 @@
 		2C77D2661CA8C14E001DDB1F /* CBWRequest+Address.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D2651CA8C14E001DDB1F /* CBWRequest+Address.m */; };
 		2C77D2731CAA10EE001DDB1F /* UIFont+CBW.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D2721CAA10EE001DDB1F /* UIFont+CBW.m */; };
 		2C91B57E1CF7102E001037E6 /* DashboardBalanceTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C91B57D1CF7102E001037E6 /* DashboardBalanceTitleView.m */; };
+		2C91B5811CF71F14001037E6 /* NSNumber+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C91B5801CF71F14001037E6 /* NSNumber+Helper.m */; };
 		2C9829031CBA49C2004CB2D3 /* CBWBackup.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9829021CBA49C2004CB2D3 /* CBWBackup.m */; };
 		2C9829061CBA49CC004CB2D3 /* CBWRecovery.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9829051CBA49CC004CB2D3 /* CBWRecovery.m */; };
 		2C99A17C1CA0E434007D7AC3 /* Guard.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C99A17B1CA0E434007D7AC3 /* Guard.m */; };
@@ -193,6 +194,8 @@
 		2C77D2721CAA10EE001DDB1F /* UIFont+CBW.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+CBW.m"; sourceTree = "<group>"; };
 		2C91B57C1CF7102E001037E6 /* DashboardBalanceTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardBalanceTitleView.h; sourceTree = "<group>"; };
 		2C91B57D1CF7102E001037E6 /* DashboardBalanceTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardBalanceTitleView.m; sourceTree = "<group>"; };
+		2C91B57F1CF71F14001037E6 /* NSNumber+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+Helper.h"; sourceTree = "<group>"; };
+		2C91B5801CF71F14001037E6 /* NSNumber+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+Helper.m"; sourceTree = "<group>"; };
 		2C9829011CBA49C2004CB2D3 /* CBWBackup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBWBackup.h; sourceTree = "<group>"; };
 		2C9829021CBA49C2004CB2D3 /* CBWBackup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBWBackup.m; sourceTree = "<group>"; };
 		2C9829041CBA49CC004CB2D3 /* CBWRecovery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBWRecovery.h; sourceTree = "<group>"; };
@@ -592,6 +595,8 @@
 				2C1E88F81CA3ADCB006F86E1 /* NSString+Password.m */,
 				2C19FD0A1CB3FBC7009BC78C /* NSNumber+Satoshi.h */,
 				2C19FD0B1CB3FBC7009BC78C /* NSNumber+Satoshi.m */,
+				2C91B57F1CF71F14001037E6 /* NSNumber+Helper.h */,
+				2C91B5801CF71F14001037E6 /* NSNumber+Helper.m */,
 				2C9CAF161C868B61008194EB /* UIButton+VerticalLayout.h */,
 				2C9CAF171C868B61008194EB /* UIButton+VerticalLayout.m */,
 				2C9CAF181C868B61008194EB /* UIColor+CBW.h */,
@@ -1086,6 +1091,7 @@
 				2C1684A91CACAA2D00BD434A /* CBWRequest+Tools.m in Sources */,
 				2C9CAF481C868B61008194EB /* AddressViewController.m in Sources */,
 				2C175E991CE4484F00DF5698 /* UIViewController+AcitivityMonitor.m in Sources */,
+				2C91B5811CF71F14001037E6 /* NSNumber+Helper.m in Sources */,
 				2C9CAF501C868B61008194EB /* DashboardViewController.m in Sources */,
 				2C9CAF5A1C868B61008194EB /* TransactionViewController.m in Sources */,
 				2C1E8C501CA42A7D006F86E1 /* NSData+CommonCrypto.m in Sources */,

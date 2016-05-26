@@ -12,7 +12,14 @@
 
 - (NSString *)satoshiBTCString {
     long long value = self.longLongValue;
-    return [NSString stringWithFormat:@"%.8lf BTC", value / 100000000.0];
+    
+    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+    [numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    numberFormatter.usesGroupingSeparator = YES;
+    [numberFormatter setMaximumFractionDigits:8];
+    [numberFormatter setMinimumFractionDigits:8];
+    
+    return [NSString stringWithFormat:@"%@ BTC", [numberFormatter stringFromNumber:@(value / 100000000.0)]];//[NSString stringWithFormat:@"%.8lf BTC", value / 100000000.0];
 }
 
 - (NSString *)satoshimBTCString {

@@ -123,7 +123,7 @@ static const CGFloat kTransactionCellVerticalPadding = CBWLayoutCommonVerticalPa
         if (transaction.confirmations == 1) {
             self.confirmationLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTable(@"%d Confirmation", @"CBW", @"Confirmed"), transaction.confirmations];
         } else {
-            self.confirmationLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTable(@"%d Confirmations", @"CBW", @"Confirmed"), transaction.confirmations];
+            self.confirmationLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTable(@"%@ Confirmations", @"CBW", @"Confirmed"), [@(transaction.confirmations) groupingString]];
         }
 //        if (transaction.confirmations > CBWMaxVisibleConfirmation) {
 //            self.confirmationLabel.text = NSLocalizedStringFromTable(@"Confirmed", @"CBW", nil);
