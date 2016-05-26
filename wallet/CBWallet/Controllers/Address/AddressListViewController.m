@@ -332,13 +332,22 @@
             }
         } else {
             // check value
-//            if (address.balance > 0) {
+            if (address.balance > 0) {
                 [self.selectedAddress addObject:address];
                 cell.accessoryType = UITableViewCellAccessoryCheckmark;
                 if ([self.delegate respondsToSelector:@selector(addressListViewController:didSelectAddress:)]) {
                     [self.delegate addressListViewController:self didSelectAddress:address];
                 }
-//            }
+            }
+        }
+        if (self.selectedAddress.count == 0) {
+            self.title = NSLocalizedStringFromTable(@"Navigation select_address", @"CBW", @"Select Address");
+        } else {
+            __block long long balance = 0;
+            [self.selectedAddress enumerateObjectsUsingBlock:^(CBWAddress * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                balance += obj.balance;
+            }];
+            self.title = [NSString stringWithFormat:NSLocalizedStringFromTable(@"Navigation select_balance_%@", @"CBW", nil), [@(balance) satoshiBTCString]];
         }
         return;
     } else if (self.actionType == AddressActionTypeChange) {

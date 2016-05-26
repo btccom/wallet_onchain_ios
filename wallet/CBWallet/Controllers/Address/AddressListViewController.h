@@ -23,7 +23,7 @@
 @interface AddressListViewController : BaseListViewController
 
 @property (nonatomic, assign) AddressActionType actionType;
-@property (nonatomic, strong, nullable) NSMutableArray *selectedAddress;
+@property (nonatomic, strong, nullable) NSMutableArray<CBWAddress *> *selectedAddress;
 
 /// 显示该账户地址
 @property (nonatomic, strong, nullable) CBWAccount *account;
