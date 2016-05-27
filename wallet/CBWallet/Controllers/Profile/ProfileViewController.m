@@ -28,6 +28,7 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
 //    kProfileSectionSettings,
     kProfileSectionSecurity,
     kProfileSectionBackup,
+    kProfileSectionNetwork,
     kProfileSectionSignOut
 };
 
@@ -36,6 +37,7 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
 @property (nonatomic, strong) NSArray *tableStrings;
 @property (nonatomic, strong) UISwitch *iCloudSwitch;
 @property (nonatomic, strong) UISwitch *touchIDSwitch;
+@property (nonatomic, strong) UISwitch *testnetSwitch;
 
 @end
 
@@ -85,6 +87,8 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
                       @{NSLocalizedStringFromTable(@"Profile Section backup", @"CBW", nil): @[
                             NSLocalizedStringFromTable(@"Profile Cell export", @"CBW", @"Export"),
                             NSLocalizedStringFromTable(@"Profile Cell iCloud", @"CBW", @"iCloud")]},
+                      @{NSLocalizedStringFromTable(@"Profile Section network", @"CBW", nil): @[
+                                NSLocalizedStringFromTable(@"Profile Cell testnet", @"CBW", @"Testnet")]},
                       @[NSLocalizedStringFromTable(@"Profile Cell sign_out", @"CBW", nil)]
                       ];
 }
@@ -182,6 +186,21 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
     }
 }
 
+- (void)p_handleToggleTestnetEnabled:(id)sender {
+    DLog(@"toggle testnet");
+    BOOL enabled = [[NSUserDefaults standardUserDefaults] boolForKey:CBWUserDefaultsTestnetEnabled];
+    [[NSUserDefaults standardUserDefaults] setBool:!enabled forKey:CBWUserDefaultsTestnetEnabled];
+    if ([[NSUserDefaults standardUserDefaults] synchronize]) {
+        if (self.testnetSwitch.on == enabled) {
+            [self.testnetSwitch setOn:!enabled animated:YES];
+        }
+    } else {
+        if (self.testnetSwitch.on != enabled) {
+            [self.testnetSwitch setOn:enabled animated:YES];
+        }
+    }
+}
+
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.tableStrings.count;
@@ -258,6 +277,19 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
                 self.iCloudSwitch.on = [[NSUserDefaults standardUserDefaults] boolForKey:CBWUserDefaultsiCloudEnabledKey];
             }
         }
+        
+        // set testnet cell stuff
+        if (indexPath.section == kProfileSectionNetwork) {
+            // testnet
+            if (!self.testnetSwitch) {
+                UISwitch *aSwitch = [[UISwitch alloc] init];
+                [aSwitch addTarget:self action:@selector(p_handleToggleTestnetEnabled:) forControlEvents:UIControlEventValueChanged];
+                self.testnetSwitch = aSwitch;
+            }
+            cell.accessoryView = self.testnetSwitch;
+            self.testnetSwitch.on = [[NSUserDefaults standardUserDefaults] boolForKey:CBWUserDefaultsTestnetEnabled];
+        }
+        
         // set sign out with danger color
         if (indexPath.section == kProfileSectionSignOut) {
             cell.textLabel.textColor = [UIColor CBWDangerColor];
@@ -356,6 +388,13 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
             }
             break;
         }
+            
+        case kProfileSectionNetwork: {
+            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+            [self p_handleToggleTestnetEnabled:nil];
+            break;
+        }
+            
         case kProfileSectionSignOut: {
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Alert Title sign_out", @"CBW", nil) message:NSLocalizedStringFromTable(@"Alert Message sign_out", @"CBW", nil) preferredStyle:UIAlertControllerStyleAlert];
             [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {

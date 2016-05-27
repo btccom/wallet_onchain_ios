@@ -20,13 +20,15 @@
 @property (nonatomic, assign) BOOL isThereMoreDatas;
 @property (nonatomic, assign) NSUInteger page;
 
+@property (nonatomic, strong) NSString *addressString;
+
 @end
 
 @implementation AddressViewController
 
 - (CBWTransactionStore *)transactionStore {
     if (!_transactionStore) {
-        _transactionStore = [[CBWTransactionStore alloc] initWithAddressString:self.address.address];
+        _transactionStore = [[CBWTransactionStore alloc] initWithAddressString:self.addressString];
     }
     return _transactionStore;
 }
@@ -37,6 +39,7 @@
     self = [super initWithStyle:(actionType == AddressActionTypeDefault) ? UITableViewStylePlain : UITableViewStyleGrouped];
     if (self) {
         _address = address;
+        _addressString = [[NSUserDefaults standardUserDefaults] boolForKey:CBWUserDefaultsTestnetEnabled] ? address.testAddress : address.address;
         _actionType = actionType;
         _page = 0;
     }
@@ -57,7 +60,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     AddressHeaderView *addressHeaderView = [[AddressHeaderView alloc] init];
-    [addressHeaderView setAddress:self.address.address withLabel:self.address.label];
+    [addressHeaderView setAddress:self.addressString withLabel:self.address.label];
     addressHeaderView.delegate = self;
     [self.tableView setTableHeaderView:addressHeaderView];
     switch (self.actionType) {
@@ -135,7 +138,7 @@
     CBWRequest *request = [[CBWRequest alloc] init];
     // FIXME: 地址信息放在列表中批量获取，不需要重复获取，可以由用户主动触发
     // 获取地址信息
-    [request addressSummaryWithAddressString:self.address.address completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
+    [request addressSummaryWithAddressString:self.addressString completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
         [self requestDidStop];
         // 保存地址信息
         [self.address updateWithDictionary:response];
@@ -160,7 +163,7 @@
     
     CBWRequest *request = [[CBWRequest alloc] init];
     
-    [request addressTransactionsWithAddressString:self.address.address page:(self.page + 1) pagesize:10 completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
+    [request addressTransactionsWithAddressString:self.addressString page:(self.page + 1) pagesize:10 completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
         
         [self requestDidStop];
         
@@ -276,7 +279,7 @@
     if (self.actionType == AddressActionTypeDefault || self.actionType == AddressActionTypeExplore) {
         // goto transaction
         CBWTransaction *transaction = [self.transactionStore recordAtIndex:indexPath.row];
-        transaction.queryAddress = self.address.address;
+        transaction.queryAddress = self.addressString;
 //        CBWTransaction *transaction = [self.transactionStore transactionAtIndexPath:indexPath];
         if (transaction) {
             TransactionViewController *transactionViewController = [[TransactionViewController alloc] initWithTransaction:transaction];

@@ -124,6 +124,8 @@
 "Profile Cell change_password" = "Change Password";
 "Profile Cell change_hint" = "Change Hint";
 "Profile Cell touchid" = "Touch ID";
+"Profile Section network" = "Network";
+"Profile Cell testnet" = "Testnet";
 "Profile Cell sign_out" = "Delete All Datas";
 
 // Address List

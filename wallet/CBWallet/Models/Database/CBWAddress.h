@@ -31,6 +31,8 @@
 /// only for account idx > 0
 @property (nonatomic, strong, readonly, nullable) BTCKey *privateKey;
 
+@property (nonatomic, strong, readonly, nullable) NSString *testAddress;
+
 /// create or import
 + (nonnull instancetype)newAdress:(nonnull NSString *)aAddress withLabel:(nullable NSString *)label idx:(NSInteger)idx archived:(BOOL)archived dirty:(BOOL)dirty internal:(BOOL)internal accountRid:(long long)accountRid accountIdx:(NSInteger)accountIdx inStore:(nonnull CBWAddressStore *)store;
 

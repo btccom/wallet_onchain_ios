@@ -23,6 +23,8 @@
 
 - (void)sendToAddresses:(NSDictionary *)toAddresses withChangeAddress:(CBWAddress *)changeAddress fee:(long long)fee completion:(void (^)(NSError *))completion{
     
+    BOOL isTestnet = [[NSUserDefaults standardUserDefaults] boolForKey:CBWUserDefaultsTestnetEnabled];
+    
     // 1. 准备发款地址
     NSMutableArray <CBWAddress *> *fromAddresses = [self.advancedFromAddresses mutableCopy];
     if (fromAddresses.count == 0) {
@@ -48,6 +50,7 @@
     if (!changeAddress) {
         changeAddress = [fromAddresses firstObject];
     }
+    NSString *changeAddressString = isTestnet ? changeAddress.testAddress : changeAddress.address;
     
     // 2. 计算交易额
     __block long long amount = fee;
@@ -62,18 +65,15 @@
     
     // 3. 获取未花交易
     __block NSMutableArray *addresses = [NSMutableArray array];
-    [fromAddresses enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        CBWAddress *address = obj;
-        [addresses addObject:address.address];
+    [fromAddresses enumerateObjectsUsingBlock:^(CBWAddress * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [addresses addObject: isTestnet ? obj.testAddress : obj.address];
     }];
     CBWRequest *request = [[CBWRequest alloc] init];
-    // @[@"1FjEHuM8YHZcM4tCj9YYA7TdAyeJ1e61x7", @"1CZvwQmyurcw2oYQoMrX6UJ3FCYVnFbUwW"]
     [request addressesUnspentForAddresses:addresses withAmount:amount progress:^(NSString * _Nonnull message) {
         DLog(@"send progress: %@", message);
     } completion:^(NSError * _Nullable error, NSArray * _Nullable newAddresses) {
         
         if (error) {
-//            [self alertErrorMessage:error.localizedDescription];
             completion(error);
             return;
         }
@@ -103,7 +103,6 @@
             DLog(@"scripted addresses: %@", usedAddresses);
             
             if (error) {
-//                [self alertMessage:error.localizedDescription withTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil)];
                 completion(error);
                 return;
             }
@@ -187,7 +186,7 @@
                 BTCTransactionOutput *paymentOutput = [[BTCTransactionOutput alloc] initWithValue:value address:[BTCPublicKeyAddress addressWithString:key]];
                 [tx addOutput:paymentOutput];
             }];
-            BTCTransactionOutput *changeOutput = [[BTCTransactionOutput alloc] initWithValue:(spentCoins - amount) address:[BTCPublicKeyAddress addressWithString:changeAddress.address]];
+            BTCTransactionOutput *changeOutput = [[BTCTransactionOutput alloc] initWithValue:(spentCoins - amount) address:[BTCPublicKeyAddress addressWithString:changeAddressString]];
             [tx addOutput:changeOutput];
             
             
@@ -200,7 +199,8 @@
                 // 找到对应的 key
                 __block BTCKey *key = nil;
                 [fromAddresses enumerateObjectsUsingBlock:^(CBWAddress * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    if ([obj.address isEqualToString:addressString]) {
+                    NSString *enumeratedAddressString = isTestnet ? obj.testAddress : obj.address;
+                    if ([enumeratedAddressString isEqualToString:addressString]) {
                         key = obj.privateKey;
                         *stop = YES;
                     }

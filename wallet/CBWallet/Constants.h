@@ -16,6 +16,9 @@ static const NSInteger CBWMaxVisibleConfirmation = 100;
 // User Defaults
 
 /// bool value
+static NSString *const CBWUserDefaultsTestnetEnabled = @"cbw.user.defaults.testnet.enabled";
+
+/// bool value
 static NSString *const CBWUserDefaultsiCloudEnabledKey = @"cbw.user.defaults.icloud.enabled";
 /// bool value
 static NSString *const CBWUserDefaultsTouchIdEnabledKey = @"cbw.user.defaults.touchid.enabled";
