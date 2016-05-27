@@ -12,6 +12,13 @@
 @implementation CBWTransaction
 @synthesize relatedAddresses = _relatedAddresses;
 
+- (NSDate *)transactionTime {
+    if (self.blockHeight < 0) {
+        return self.creationDate;
+    }
+    return self.blockTime;
+}
+
 - (NSArray *)relatedAddresses {
     if (!_relatedAddresses) {
         //TODO: 优化判断

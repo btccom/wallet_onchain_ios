@@ -114,7 +114,7 @@ static const CGFloat kTransactionCellVerticalPadding = CBWLayoutCommonVerticalPa
         [self.iconView setImage:[[UIImage imageNamed:@"icon_receive_mini"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
     }
     // TODO: today....
-    self.dateLabel.text = [transaction.creationDate stringWithFormat:@"yyyy-MM-dd HH:mm:ss"];
+    self.dateLabel.text = [transaction.transactionTime stringWithFormat:@"yyyy-MM-dd HH:mm:ss"];
     self.valueLabel.text = [@(ABS(transaction.value)) satoshiBTCString];
     self.valueLabel.textColor = self.iconView.tintColor;
     if (transaction.confirmations > 0) {

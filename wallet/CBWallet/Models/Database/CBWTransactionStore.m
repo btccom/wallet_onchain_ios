@@ -92,14 +92,14 @@
     // 整理数据
     [records enumerateObjectsUsingBlock:^(CBWRecordObject * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         CBWTransaction *transaction = (CBWTransaction *)obj;
-        NSString *day = [transaction.creationDate stringWithFormat:@"yyyy-MM-dd"];
+        NSString *day = [transaction.transactionTime stringWithFormat:@"yyyy-MM-dd"];
         NSMutableArray *section = [self p_dequeueReusableSectionAtDay:day];
         if (![section containsObject:transaction]) {
             [section addObject:transaction];
             [section sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
                 CBWTransaction *t1 = obj1;
                 CBWTransaction *t2 = obj2;
-                return [t2.creationDate compare:t1.creationDate];// DESC
+                return [t2.transactionTime compare:t1.transactionTime];// DESC
             }];
         }
     }];
@@ -109,7 +109,7 @@
     [records sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         CBWTransaction *t1 = obj1;
         CBWTransaction *t2 = obj2;
-        return [t2.creationDate compare:t1.creationDate];// DESC
+        return [t2.transactionTime compare:t1.transactionTime];// DESC
     }];
 }
 

@@ -21,9 +21,11 @@ typedef NS_ENUM(NSUInteger, TransactionType) {
 /// 交易数量，正负值，单位 satoshi
 @property (nonatomic, assign, readonly) long long value;
 
+@property (nonatomic, strong, readonly, nonnull) NSDate *transactionTime;
+
 // 详情
 /// 所在块时间
-@property (nonatomic, strong, readonly, nonnull) NSDate *blockTime;
+@property (nonatomic, strong, readonly, nullable) NSDate *blockTime;
 /// long long 该交易的手续费
 @property (nonatomic, assign) long long fee;
 /// int 输入数量

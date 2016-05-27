@@ -100,10 +100,14 @@ static NSString *const kTransactionViewControllerCellIdentifierIO = @"transactio
                 NSString *dateFormat = @"yyyy-MM-dd HH:mm:ss";
                 NSString *blockTime = [self.transactionDetail.blockTime stringWithFormat:dateFormat];
                 if (!blockTime) {
-                    blockTime = self.transaction.creationDate ? [self.transaction.creationDate stringWithFormat:dateFormat] : @"";
+                    blockTime = @"N/A";
+                }
+                NSString *blockHeight = @"N/A";
+                if (self.transactionDetail.blockHeight >= 0) {
+                    blockHeight = [@(self.transactionDetail.blockHeight) groupingString];
                 }
                 self.blockDatas = @[blockTime,
-                                    [@(MAX(self.transactionDetail.blockHeight, 0)) groupingString],
+                                    blockHeight,
                                     [NSString stringWithFormat:@"%@ Bytes", [@(self.transactionDetail.size) groupingString]]];
                 
                 // 刷新表格
