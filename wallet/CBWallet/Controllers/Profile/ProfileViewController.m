@@ -70,7 +70,7 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
     self.title = NSLocalizedStringFromTable(@"Navigation profile", @"CBW", @"Profile");
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedStringFromTable(@"Navigation manage_accounts", @"CBW", nil) style:UIBarButtonItemStylePlain target:self action:@selector(p_handleManageAccounts:)];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(dismiss:)];//[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_close"] style:UIBarButtonItemStylePlain target:self action:@selector(dismiss:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismiss:)];//[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_close"] style:UIBarButtonItemStylePlain target:self action:@selector(dismiss:)];
     
     NSMutableArray *securityCells = [NSMutableArray arrayWithObjects:
                                      NSLocalizedStringFromTable(@"Profile Cell change_password", @"CBW", @"Settings"),
