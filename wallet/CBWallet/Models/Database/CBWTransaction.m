@@ -139,18 +139,17 @@
         _type = (_value > 0) ? TransactionTypeReceive : TransactionTypeSend;
     } else if ([key isEqualToString:@"block_time"]) {
         NSTimeInterval timestamp = [value doubleValue];
+        DLog(@"timestamp: %f", timestamp);
         if (timestamp > 0) {
-            _blockTime = self.creationDate = [NSDate dateWithTimeIntervalSince1970:timestamp];
+            _blockTime = [NSDate dateWithTimeIntervalSince1970:timestamp];
         }
     } else if ([key isEqualToString:@"block_height"]) {
 //        if (![value isKindOfClass:[NSNull class]]) {
-            _blockHeight = MAX([value integerValue], 0);
+            _blockHeight = [value integerValue];
 //        }
     } else if ([key isEqualToString:@"created_at"]) {
-        if (!self.creationDate) {
-            NSTimeInterval timestamp = [value doubleValue];
-            self.creationDate = [NSDate dateWithTimeIntervalSince1970:timestamp];
-        }
+        NSTimeInterval timestamp = [value doubleValue];
+        self.creationDate = [NSDate dateWithTimeIntervalSince1970:timestamp];
     } else if ([key isEqualToString:@"inputs_count"]) {
         _inputsCount = [value unsignedIntegerValue];
     } else if ([key isEqualToString:@"inputs_value"]) {

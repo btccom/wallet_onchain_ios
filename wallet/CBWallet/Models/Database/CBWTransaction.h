@@ -17,7 +17,7 @@ typedef NS_ENUM(NSUInteger, TransactionType) {
 /// string 交易哈希
 @property (nonatomic, copy, readonly, nonnull) NSString *hashID;
 /// int 所在块高度
-@property (nonatomic, assign, readonly) NSUInteger blockHeight;
+@property (nonatomic, assign, readonly) NSInteger blockHeight;
 /// 交易数量，正负值，单位 satoshi
 @property (nonatomic, assign, readonly) long long value;
 

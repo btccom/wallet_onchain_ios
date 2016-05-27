@@ -103,7 +103,7 @@ static NSString *const kTransactionViewControllerCellIdentifierIO = @"transactio
                     blockTime = self.transaction.creationDate ? [self.transaction.creationDate stringWithFormat:dateFormat] : @"";
                 }
                 self.blockDatas = @[blockTime,
-                                    [@(self.transactionDetail.blockHeight) groupingString],
+                                    [@(MAX(self.transactionDetail.blockHeight, 0)) groupingString],
                                     [NSString stringWithFormat:@"%@ Bytes", [@(self.transactionDetail.size) groupingString]]];
                 
                 // 刷新表格
