@@ -107,11 +107,10 @@
             }
             
         }
-        _datas = [datas copy];
         
         
         // account datas
-        NSMutableString *string = [NSMutableString string];
+        NSMutableString *accountsBase64String = [NSMutableString string];
         for (NSInteger i = 1; i < decoder.frameCount; i++) {
             UIImage *image = [decoder frameAtIndex:i decodeForDisplay:NO].image;
             if (detector) {
@@ -119,13 +118,16 @@
                 NSArray *featuresR = [detector featuresInImage:ciimg];
                 
                 for (CIQRCodeFeature *featureR in featuresR) {
-                    [string appendString:featureR.messageString];
+                    [accountsBase64String appendString:featureR.messageString];
                 }
             }
         }
-        DLog(@"account datas string: %@", string);
+        NSString *accountItemsString = [[NSString alloc] initWithData:[[NSData alloc] initWithBase64EncodedString:accountsBase64String options:0] encoding:NSUTF8StringEncoding];
+        DLog(@"image account items string: %@", accountItemsString);
+        
         NSError *error = nil;
-        id accountsData = [NSJSONSerialization JSONObjectWithData:[string dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingAllowFragments error:&error];
+        id accountItemsDictionary = [NSJSONSerialization JSONObjectWithData:[accountItemsString dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingAllowFragments error:&error];
+        DLog(@"image account items: %@", accountItemsDictionary);
 //        if (error) {
 //            NSLog(@"Account JSON error: %@", error);
 //            dispatch_async(dispatch_get_main_queue(), ^{
@@ -133,12 +135,11 @@
 //            });
 //            return;
 //        }
-        
-        DLog(@"account datas: %@", accountsData);
-        if (![accountsData isKindOfClass:[NSArray class]]) {
-            accountsData = @[[CBWRecovery defaultAccountItemsDictionary]];
+        if (![accountItemsDictionary isKindOfClass:[NSDictionary class]]) {
+            // 转换出错，使用默认数据
+            accountItemsDictionary = [CBWRecovery defaultAccountItemsDictionary];
         }
-        [datas addObjectsFromArray:accountsData];
+        [datas addObject:accountItemsDictionary];
         
         _datas = [datas copy];
         
@@ -228,7 +229,7 @@
         
         // save account
         NSInteger accountIdx = [key integerValue];
-        NSString *accountLabel = [[accountProperties firstObject] stringByRemovingPercentEncoding];
+        NSString *accountLabel = [accountProperties firstObject]; //[[accountProperties firstObject] stringByRemovingPercentEncoding];
         if (!accountLabel) {
             accountLabel = @"";
         }
@@ -251,7 +252,7 @@
             // watched account
             [addresseItemsDictionary enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
                 NSString *addressString = key;
-                NSString *addressLabel = [obj stringByRemovingPercentEncoding];
+                NSString *addressLabel = obj; //[obj stringByRemovingPercentEncoding];
                 
                 // save address
                 CBWAddress *address = [CBWAddress newAdress:addressString withLabel:addressLabel idx:CBWRecordWatchedIDX archived:NO dirty:NO internal:NO accountRid:account.rid accountIdx:account.idx inStore:adderssStore];
@@ -273,7 +274,7 @@
                 NSString *addressIdxKey = [@(addressIdx) stringValue];
                 NSArray *addressProperties = [addresseItemsDictionary objectForKey:addressIdxKey];//[label, dirty, archived]
                 if (addressProperties.count >= 2) {
-                    label = [addressProperties[0] stringByRemovingPercentEncoding];
+                    label = addressProperties[0]; //[addressProperties[0] stringByRemovingPercentEncoding];
                     dirty = [addressProperties[1] boolValue];
                     archived = [addressProperties[2] boolValue];
                 }

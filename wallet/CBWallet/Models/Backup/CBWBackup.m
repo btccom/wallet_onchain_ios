@@ -50,7 +50,7 @@
         CBWAccount *account = [accountStore recordAtIndex:i];
         
         // 检查 account label
-        NSString *accountLabel = [account.label stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSString *accountLabel = account.label; //[account.label stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         if (!accountLabel) {
             accountLabel = @"";
         }
@@ -76,7 +76,7 @@
                 // watched account
                 
                 // 检查 address label
-                NSString *addressLabel = [address.label stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                NSString *addressLabel = address.label; //[address.label stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
                 if (!addressLabel) {
                     addressLabel = @"";
                 }
@@ -88,7 +88,7 @@
                 // 用户账户，且属性不是初始值或设置了标签
                 
                 // 检查 address label
-                NSString *addressLabel = [address.label stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                NSString *addressLabel = address.label; //[address.label stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
                 if (!addressLabel) {
                     addressLabel = @"";
                 }
@@ -128,15 +128,18 @@
         return nil;
     }
     
-    NSMutableArray *mutableDatas = [datas mutableCopy];
-    
     if (datas.count == 0) {
         NSLog(@"Datas is empty, can't be saved as image");
         return nil;
     }
     
+    if (datas.count == 1) {
+        NSLog(@"Accounts data is empty, can't be saved as image");
+        return nil;
+    }
+    
     // 种子数据二维码
-    NSString *seedAndHint = [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:[mutableDatas firstObject] options:0 error:nil] encoding:NSUTF8StringEncoding];
+    NSString *seedAndHint = [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:[datas firstObject] options:0 error:nil] encoding:NSUTF8StringEncoding];
     UIImage *seedAndHintImage = [BTCQRCode imageForString:seedAndHint size:CGSizeMake(800.f, 800.f) scale:2.f];
     
     // 种子数据二维码压入第一帧
@@ -144,21 +147,24 @@
     encoder.loopCount = 0;
     [encoder addImage:seedAndHintImage duration:0];
     
-    // 移除 seed and hint，生成其他信息二维码
-    [mutableDatas removeObjectAtIndex:0];
+    // 账户数据，用来生成二维码
+    NSDictionary *accountItemsDictionary = datas[1];
     
     // 账户数据转字符串
     NSError *error = nil;
-    NSData *accountData = [NSJSONSerialization dataWithJSONObject:mutableDatas options:0 error:&error];
-    NSString *accountString = [[NSString alloc] initWithData:accountData encoding:NSUTF8StringEncoding];
-    DLog(@"account string: %@", accountString);
+    NSData *accountsData = [NSJSONSerialization dataWithJSONObject:accountItemsDictionary options:0 error:&error];
+//    NSString *accountsString = [[NSString alloc] initWithData:accountsData encoding:NSUTF8StringEncoding];
+//    DLog(@"account string: %@", accountsString);
+    NSString *accountsBase64String = [accountsData base64EncodedStringWithOptions:0];
+    DLog(@"accounts base64 string: %@", accountsBase64String);
+    DLog(@"accounts string from base64: %@", [[NSString alloc] initWithData:[[NSData alloc] initWithBase64EncodedString:accountsBase64String options:0] encoding:NSUTF8StringEncoding]);
     
     // 切分字符
-    float maxCharacterCount = 200.f;
-    int groups = (int)ceil(accountString.length / maxCharacterCount);
+    float maxCharacterCount = 512.f;
+    int groups = (int)ceil(accountsBase64String.length / maxCharacterCount);
     DLog(@"account string groups: %d", groups);
     for (int i = 0; i < groups; i++) {
-        NSString *slicedString = [accountString substringWithRange:NSMakeRange(i * maxCharacterCount, MIN(accountString.length - i *maxCharacterCount, maxCharacterCount))];
+        NSString *slicedString = [accountsBase64String substringWithRange:NSMakeRange(i * maxCharacterCount, MIN(accountsBase64String.length - i *maxCharacterCount, maxCharacterCount))];
         UIImage *qrCodeImage = [BTCQRCode imageForString:slicedString size:CGSizeMake(800.f, 800.f) scale:2.f];
         // 逐帧压入
         [encoder addImage:qrCodeImage duration:0];
