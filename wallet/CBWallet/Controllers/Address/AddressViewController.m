@@ -33,13 +33,23 @@
     return _transactionStore;
 }
 
+- (NSString *)addressString {
+    if (!_addressString) {
+        if (self.actionType == AddressActionTypeExplore) {
+            _addressString = self.address.address;
+        } else {
+            _addressString = [[NSUserDefaults standardUserDefaults] boolForKey:CBWUserDefaultsTestnetEnabled] ? self.address.testAddress : self.address.address;
+        }
+    }
+    return _addressString;
+}
+
 #pragma mark - Initialization
 
 - (instancetype)initWithAddress:(CBWAddress *)address actionType:(AddressActionType)actionType {
     self = [super initWithStyle:(actionType == AddressActionTypeDefault) ? UITableViewStylePlain : UITableViewStyleGrouped];
     if (self) {
         _address = address;
-        _addressString = [[NSUserDefaults standardUserDefaults] boolForKey:CBWUserDefaultsTestnetEnabled] ? address.testAddress : address.address;
         _actionType = actionType;
         _page = 0;
     }
