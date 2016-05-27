@@ -35,7 +35,14 @@
     if (!self.datas) {
         return nil;
     }
-    return [self.datas.firstObject count] > 1 ? [[self.datas firstObject] lastObject] : @"";
+    NSString *hint = [self.datas.firstObject count] > 1 ? [[self.datas firstObject] lastObject] : @"";
+    
+    NSString *hintFromBase64 = [[NSString alloc] initWithData:[[NSData alloc] initWithBase64EncodedString:hint options:0] encoding:NSUTF8StringEncoding];
+    if (hintFromBase64) {
+        return hintFromBase64;
+    }
+    
+    return hint;
 }
 
 - (BOOL)hasSeed {

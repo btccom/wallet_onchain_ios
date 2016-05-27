@@ -28,6 +28,17 @@
     if (!hint) {
         hint = @"";
     }
+    if (hint.length > 0) {
+        // 转 bas64
+        NSData *hintData = [hint dataUsingEncoding:NSUTF8StringEncoding];
+        NSString *hintBase64String = [hintData base64EncodedStringWithOptions:0];
+        // 转回字符验证
+        NSString *hintFromBase64 = [[NSString alloc] initWithData:[[NSData alloc] initWithBase64EncodedString:hintBase64String options:0] encoding:NSUTF8StringEncoding];
+        DLog(@"hint base64 string: %@, back: %@", hintBase64String, hintFromBase64);
+        if ([hintFromBase64 isEqualToString:hint]) {
+            hint = hintBase64String;
+        }
+    }
     
     // 种子数据: [seed, hint]
     NSArray *seedAndHint = @[encryptedSeed, hint];
