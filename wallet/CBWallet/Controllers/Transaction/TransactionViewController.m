@@ -97,9 +97,10 @@ static NSString *const kTransactionViewControllerCellIdentifierIO = @"transactio
                 [self.summaryDatas addObject:[@(self.transactionDetail.fee) satoshiBTCString]];
                 [self.summaryDatas addObject:[@(self.transactionDetail.confirmations) groupingString]];
                 
-                NSString *blockTime = [self.transactionDetail.blockTime stringWithFormat:@"yyyy-MM-dd HH:mm:ss"];
+                NSString *dateFormat = @"yyyy-MM-dd HH:mm:ss";
+                NSString *blockTime = [self.transactionDetail.blockTime stringWithFormat:dateFormat];
                 if (!blockTime) {
-                    blockTime = @"";
+                    blockTime = self.transaction.creationDate ? [self.transaction.creationDate stringWithFormat:dateFormat] : @"";
                 }
                 self.blockDatas = @[blockTime,
                                     [@(self.transactionDetail.blockHeight) groupingString],
