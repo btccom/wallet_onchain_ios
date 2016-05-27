@@ -329,10 +329,12 @@
 /// signed out
 - (void)p_handleSignOut {
     DLog(@"sign out \n-------");
-    [self dismissViewControllerAnimated:YES completion:nil];
     self.account = nil;
     [self.accountStore flush];
     [self.transactionStore flush];
+    // 更新界面
+    [self.tableView reloadData];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - KVO
