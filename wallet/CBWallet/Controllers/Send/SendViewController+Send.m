@@ -261,7 +261,7 @@
             DLog(@"to publish transaction: %@", BTCHexFromData(tx.data));
             
             // confirm to send
-            UIAlertController *confirm = [UIAlertController alertControllerWithTitle:self.title message:[NSString stringWithFormat:NSLocalizedStringFromTable(@"Alert Message sure_to_send_coins %d satoshi", @"CBW", nil), amount] preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertController *confirm = [UIAlertController alertControllerWithTitle:self.title message:[NSString stringWithFormat:NSLocalizedStringFromTable(@"Alert Message sure_to_send_coins_%@_fee_%@", @"CBW", nil), [@(amount) satoshiBTCString], [@(fee) satoshiBTCString]] preferredStyle:UIAlertControllerStyleAlert];
             // cancel
             UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Cancel", @"CBW", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
                 completion([NSError errorWithDomain:CBWErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedStringFromTable(@"Alert Message user_canceled_transaction", @"CBW", nil)}]);
