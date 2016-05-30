@@ -11,25 +11,33 @@
 @implementation NSNumber (Satoshi)
 
 - (NSString *)satoshiBTCString {
+    return [self p_formatWithDigitsNumber:8 unit:@"BTC"];
+    
+    //[NSString stringWithFormat:@"%.8lf BTC", value / 100000000.0];
+}
+
+- (NSString *)satoshimBTCString {
+    return [self p_formatWithDigitsNumber:5 unit:@"mBTC"];
+}
+
+- (NSString *)satoshimmBTCString {
+    return [self p_formatWithDigitsNumber:2 unit:@"μBTC"];
+}
+
+- (NSString *)p_formatWithDigitsNumber:(NSUInteger)number unit:(NSString *)unit {
     long long value = self.longLongValue;
+    
+    if (value == 0) {
+        return [NSString stringWithFormat:@"0 %@", unit];
+    }
     
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
     [numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
     numberFormatter.usesGroupingSeparator = YES;
-    [numberFormatter setMaximumFractionDigits:8];
-    [numberFormatter setMinimumFractionDigits:8];
+    [numberFormatter setMaximumFractionDigits:number];
+    [numberFormatter setMinimumFractionDigits:number];
     
-    return [NSString stringWithFormat:@"%@ BTC", [numberFormatter stringFromNumber:@(value / 100000000.0)]];//[NSString stringWithFormat:@"%.8lf BTC", value / 100000000.0];
-}
-
-- (NSString *)satoshimBTCString {
-    long long value = self.longLongValue;
-    return [NSString stringWithFormat:@"%.5lf mBTC", value / 100000.0];
-}
-
-- (NSString *)satoshimmBTCString {
-    long long value = self.longLongValue;
-    return [NSString stringWithFormat:@"%.2lf μMTC", value / 100.0];
+    return [NSString stringWithFormat:@"%@ %@", [numberFormatter stringFromNumber:@(value / pow(10, number))], unit];
 }
 
 @end
