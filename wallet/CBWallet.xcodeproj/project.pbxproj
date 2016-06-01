@@ -35,6 +35,12 @@
 		2C1E8C4F1CA42A7D006F86E1 /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E8C491CA42A7D006F86E1 /* Base64.m */; };
 		2C1E8C501CA42A7D006F86E1 /* NSData+CommonCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E8C4B1CA42A7D006F86E1 /* NSData+CommonCrypto.m */; };
 		2C1E8C511CA42A7D006F86E1 /* PBKDF2.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E8C4D1CA42A7D006F86E1 /* PBKDF2.m */; };
+		2C58865D1CFD8903004BBD6C /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C58865C1CFD8903004BBD6C /* SignInViewController.m */; };
+		2C5886601CFD8912004BBD6C /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C58865F1CFD8912004BBD6C /* SignUpViewController.m */; };
+		2C5886631CFDB5F4004BBD6C /* SignUpMasterPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5886621CFDB5F4004BBD6C /* SignUpMasterPasswordViewController.m */; };
+		2C5886661CFDB622004BBD6C /* SignUpSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5886651CFDB622004BBD6C /* SignUpSettingsViewController.m */; };
+		2C5886691CFDC96E004BBD6C /* InversedSolidButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5886681CFDC96E004BBD6C /* InversedSolidButton.m */; };
+		2C58866C1CFE7BD1004BBD6C /* UIView+Yoyo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C58866B1CFE7BD1004BBD6C /* UIView+Yoyo.m */; };
 		2C77D25B1CA66207001DDB1F /* CBWDatabaseManager+Address.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D25A1CA66207001DDB1F /* CBWDatabaseManager+Address.m */; };
 		2C77D2631CA8C095001DDB1F /* CBWRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D2621CA8C095001DDB1F /* CBWRequest.m */; };
 		2C77D2661CA8C14E001DDB1F /* CBWRequest+Address.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D2651CA8C14E001DDB1F /* CBWRequest+Address.m */; };
@@ -116,7 +122,7 @@
 		2CF24D5C1C965C7200C7EDB9 /* YYImageCoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF24D551C965C7200C7EDB9 /* YYImageCoder.m */; };
 		2CF24D5D1C965C7200C7EDB9 /* YYSpriteSheetImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF24D571C965C7200C7EDB9 /* YYSpriteSheetImage.m */; };
 		2CF24D5F1C965F6500C7EDB9 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CF24D5E1C965F6500C7EDB9 /* libz.tbd */; };
-		2CF24D621C97880500C7EDB9 /* PrimaryButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF24D611C97880500C7EDB9 /* PrimaryButton.m */; };
+		2CF24D621C97880500C7EDB9 /* PrimarySolidButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF24D611C97880500C7EDB9 /* PrimarySolidButton.m */; };
 		2CF24D651C97890400C7EDB9 /* RecoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF24D641C97890400C7EDB9 /* RecoverViewController.m */; };
 		2CF24D741C97A53200C7EDB9 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF24D681C97A53200C7EDB9 /* AFHTTPSessionManager.m */; };
 		2CF24D751C97A53200C7EDB9 /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF24D6B1C97A53200C7EDB9 /* AFNetworkReachabilityManager.m */; };
@@ -183,6 +189,18 @@
 		2C1E8C4B1CA42A7D006F86E1 /* NSData+CommonCrypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+CommonCrypto.m"; sourceTree = "<group>"; };
 		2C1E8C4C1CA42A7D006F86E1 /* PBKDF2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBKDF2.h; sourceTree = "<group>"; };
 		2C1E8C4D1CA42A7D006F86E1 /* PBKDF2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBKDF2.m; sourceTree = "<group>"; };
+		2C58865B1CFD8903004BBD6C /* SignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInViewController.h; sourceTree = "<group>"; };
+		2C58865C1CFD8903004BBD6C /* SignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInViewController.m; sourceTree = "<group>"; };
+		2C58865E1CFD8912004BBD6C /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
+		2C58865F1CFD8912004BBD6C /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
+		2C5886611CFDB5F4004BBD6C /* SignUpMasterPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpMasterPasswordViewController.h; sourceTree = "<group>"; };
+		2C5886621CFDB5F4004BBD6C /* SignUpMasterPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpMasterPasswordViewController.m; sourceTree = "<group>"; };
+		2C5886641CFDB622004BBD6C /* SignUpSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpSettingsViewController.h; sourceTree = "<group>"; };
+		2C5886651CFDB622004BBD6C /* SignUpSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpSettingsViewController.m; sourceTree = "<group>"; };
+		2C5886671CFDC96E004BBD6C /* InversedSolidButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InversedSolidButton.h; sourceTree = "<group>"; };
+		2C5886681CFDC96E004BBD6C /* InversedSolidButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InversedSolidButton.m; sourceTree = "<group>"; };
+		2C58866A1CFE7BD1004BBD6C /* UIView+Yoyo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Yoyo.h"; sourceTree = "<group>"; };
+		2C58866B1CFE7BD1004BBD6C /* UIView+Yoyo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Yoyo.m"; sourceTree = "<group>"; };
 		2C6790F01CBCD3A5005568AD /* CBWallet.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = CBWallet.entitlements; path = CBWallet/CBWallet.entitlements; sourceTree = SOURCE_ROOT; };
 		2C77D2591CA66207001DDB1F /* CBWDatabaseManager+Address.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBWDatabaseManager+Address.h"; sourceTree = "<group>"; };
 		2C77D25A1CA66207001DDB1F /* CBWDatabaseManager+Address.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBWDatabaseManager+Address.m"; sourceTree = "<group>"; };
@@ -343,8 +361,8 @@
 		2CF24D561C965C7200C7EDB9 /* YYSpriteSheetImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYSpriteSheetImage.h; sourceTree = "<group>"; };
 		2CF24D571C965C7200C7EDB9 /* YYSpriteSheetImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYSpriteSheetImage.m; sourceTree = "<group>"; };
 		2CF24D5E1C965F6500C7EDB9 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
-		2CF24D601C97880500C7EDB9 /* PrimaryButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrimaryButton.h; sourceTree = "<group>"; };
-		2CF24D611C97880500C7EDB9 /* PrimaryButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrimaryButton.m; sourceTree = "<group>"; };
+		2CF24D601C97880500C7EDB9 /* PrimarySolidButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrimarySolidButton.h; sourceTree = "<group>"; };
+		2CF24D611C97880500C7EDB9 /* PrimarySolidButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrimarySolidButton.m; sourceTree = "<group>"; };
 		2CF24D631C97890400C7EDB9 /* RecoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecoverViewController.h; sourceTree = "<group>"; };
 		2CF24D641C97890400C7EDB9 /* RecoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecoverViewController.m; sourceTree = "<group>"; };
 		2CF24D671C97A53200C7EDB9 /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
@@ -428,6 +446,28 @@
 			path = "aes-pbkdf2";
 			sourceTree = "<group>";
 		};
+		2C5886591CFD88EF004BBD6C /* SignIn */ = {
+			isa = PBXGroup;
+			children = (
+				2C58865B1CFD8903004BBD6C /* SignInViewController.h */,
+				2C58865C1CFD8903004BBD6C /* SignInViewController.m */,
+			);
+			path = SignIn;
+			sourceTree = "<group>";
+		};
+		2C58865A1CFD88EF004BBD6C /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				2C58865E1CFD8912004BBD6C /* SignUpViewController.h */,
+				2C58865F1CFD8912004BBD6C /* SignUpViewController.m */,
+				2C5886611CFDB5F4004BBD6C /* SignUpMasterPasswordViewController.h */,
+				2C5886621CFDB5F4004BBD6C /* SignUpMasterPasswordViewController.m */,
+				2C5886641CFDB622004BBD6C /* SignUpSettingsViewController.h */,
+				2C5886651CFDB622004BBD6C /* SignUpSettingsViewController.m */,
+			);
+			path = SignUp;
+			sourceTree = "<group>";
+		};
 		2C77D2601CA8C05F001DDB1F /* API */ = {
 			isa = PBXGroup;
 			children = (
@@ -461,6 +501,8 @@
 		2C9CAEE01C868B61008194EB /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				2C5886591CFD88EF004BBD6C /* SignIn */,
+				2C58865A1CFD88EF004BBD6C /* SignUp */,
 				2C9CAEF91C868B61008194EB /* LockScreen */,
 				2C9CAEF61C868B61008194EB /* Dashboard */,
 				2C9CAF071C868B61008194EB /* Send */,
@@ -603,6 +645,8 @@
 				2C9CAF191C868B61008194EB /* UIColor+CBW.m */,
 				2C77D2711CAA10EE001DDB1F /* UIFont+CBW.h */,
 				2C77D2721CAA10EE001DDB1F /* UIFont+CBW.m */,
+				2C58866A1CFE7BD1004BBD6C /* UIView+Yoyo.h */,
+				2C58866B1CFE7BD1004BBD6C /* UIView+Yoyo.m */,
 				2C9CAF1A1C868B61008194EB /* UIViewController+Appearance.h */,
 				2C9CAF1B1C868B61008194EB /* UIViewController+Appearance.m */,
 				2C1684AA1CACEE4200BD434A /* NSNull+SafePatch.h */,
@@ -715,8 +759,10 @@
 				2C9CAF3E1C868B61008194EB /* DefaultSectionHeaderView.m */,
 				2CAA7DE91CF010B000B0701C /* DefaultSectionFooterView.h */,
 				2CAA7DEA1CF010B000B0701C /* DefaultSectionFooterView.m */,
-				2CF24D601C97880500C7EDB9 /* PrimaryButton.h */,
-				2CF24D611C97880500C7EDB9 /* PrimaryButton.m */,
+				2CF24D601C97880500C7EDB9 /* PrimarySolidButton.h */,
+				2CF24D611C97880500C7EDB9 /* PrimarySolidButton.m */,
+				2C5886671CFDC96E004BBD6C /* InversedSolidButton.h */,
+				2C5886681CFDC96E004BBD6C /* InversedSolidButton.m */,
 				2C175E941CE2C03700DF5698 /* ResponderLabel.h */,
 				2C175E951CE2C03700DF5698 /* ResponderLabel.m */,
 			);
@@ -1070,6 +1116,7 @@
 				2C77D25B1CA66207001DDB1F /* CBWDatabaseManager+Address.m in Sources */,
 				2C18E2331CAE672C0080EF1E /* FormControlInputCell.m in Sources */,
 				2C9CAF701C868B61008194EB /* TransactionCell.m in Sources */,
+				2C58865D1CFD8903004BBD6C /* SignInViewController.m in Sources */,
 				2C9CAF671C868B61008194EB /* AddressCell.m in Sources */,
 				2C1E8C4F1CA42A7D006F86E1 /* Base64.m in Sources */,
 				2CF24D591C965C7200C7EDB9 /* YYAnimatedImageView.m in Sources */,
@@ -1088,6 +1135,7 @@
 				2C9CAF651C868B61008194EB /* SystemManager.m in Sources */,
 				2C9CAF551C868B61008194EB /* ProfileViewController.m in Sources */,
 				2C77D2631CA8C095001DDB1F /* CBWRequest.m in Sources */,
+				2C5886631CFDB5F4004BBD6C /* SignUpMasterPasswordViewController.m in Sources */,
 				2C1684A91CACAA2D00BD434A /* CBWRequest+Tools.m in Sources */,
 				2C9CAF481C868B61008194EB /* AddressViewController.m in Sources */,
 				2C175E991CE4484F00DF5698 /* UIViewController+AcitivityMonitor.m in Sources */,
@@ -1105,8 +1153,9 @@
 				2C19FD161CB4F5EB009BC78C /* SendToAddressCell.m in Sources */,
 				2C069C411CC72D4F0054791C /* UIViewController+AlertMessage.m in Sources */,
 				2C9CAF621C868B61008194EB /* CBWRecipient.m in Sources */,
-				2CF24D621C97880500C7EDB9 /* PrimaryButton.m in Sources */,
+				2CF24D621C97880500C7EDB9 /* PrimarySolidButton.m in Sources */,
 				2CD0A91A1CA02ACA006AF02F /* FMDatabasePool.m in Sources */,
+				2C5886661CFDB622004BBD6C /* SignUpSettingsViewController.m in Sources */,
 				2C9CAF4A1C868B61008194EB /* BaseFormViewController.m in Sources */,
 				2CF24D651C97890400C7EDB9 /* RecoverViewController.m in Sources */,
 				2C77D2731CAA10EE001DDB1F /* UIFont+CBW.m in Sources */,
@@ -1115,7 +1164,9 @@
 				2CD0A9221CA02CF5006AF02F /* CBWDatabaseManager+Account.m in Sources */,
 				2CD0A91F1CA02B45006AF02F /* CBWDatabaseManager.m in Sources */,
 				2C9CAF581C868B61008194EB /* SendViewController.m in Sources */,
+				2C5886601CFD8912004BBD6C /* SignUpViewController.m in Sources */,
 				2C9CAF681C868B61008194EB /* AddressHeaderView.m in Sources */,
+				2C58866C1CFE7BD1004BBD6C /* UIView+Yoyo.m in Sources */,
 				2CEFC3561CA4CBD600FECCA4 /* CBWAccountStore.m in Sources */,
 				2CF24D781C97A53200C7EDB9 /* AFURLResponseSerialization.m in Sources */,
 				2CDCB16F1CC47A8E00722BCF /* AccountsManagerViewController.m in Sources */,
@@ -1129,6 +1180,7 @@
 				2C9CAF601C868B61008194EB /* CBWAccount.m in Sources */,
 				2C9CAF4B1C868B61008194EB /* BaseListViewController.m in Sources */,
 				2CEFC35C1CA4D65C00FECCA4 /* CBWTransactionStore.m in Sources */,
+				2C5886691CFDC96E004BBD6C /* InversedSolidButton.m in Sources */,
 				2C9CAF631C868B61008194EB /* CBWRecordObject.m in Sources */,
 				2C1684A61CACA89D00BD434A /* CBWRequest+Transaction.m in Sources */,
 				2C91B57E1CF7102E001037E6 /* DashboardBalanceTitleView.m in Sources */,

@@ -20,9 +20,10 @@
 
 - (UILabel *)badgeLabel {
     if (!_badgeLabel) {
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.contentView.frame) - CBWLayoutCommonHorizontalPadding, (CGRectGetHeight(self.contentView.frame) - CBWLayoutCommonHorizontalPadding) / 2.f, CBWLayoutCommonHorizontalPadding, CBWLayoutCommonHorizontalPadding)];
+        CGFloat padding = CBWLayoutCommonPadding;
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.contentView.frame) - padding, (CGRectGetHeight(self.contentView.frame) - padding) / 2.f, padding, padding)];
         label.font = [UIFont systemFontOfSize:UIFont.smallSystemFontSize];
-        label.layer.cornerRadius = CBWLayoutCommonHorizontalPadding / 2.f;
+        label.layer.cornerRadius = padding / 2.f;
         label.clipsToBounds = YES;
         label.backgroundColor = [UIColor CBWPrimaryColor];
         label.textColor = [UIColor CBWWhiteColor];
@@ -47,11 +48,12 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
+    CGFloat padding = CBWLayoutCommonPadding;
     if (self.badgeLabel.text.length > 1) {
         CGSize badgeTextSize = [self.badgeLabel.text sizeWithFont:self.badgeLabel.font maxSize:self.contentView.bounds.size];
-        self.badgeLabel.frame = CGRectMake(CGRectGetWidth(self.contentView.frame) - CBWLayoutCommonHorizontalPadding - badgeTextSize.width, (CGRectGetHeight(self.contentView.frame) - CBWLayoutCommonHorizontalPadding) / 2.f, CBWLayoutCommonHorizontalPadding + badgeTextSize.width, CBWLayoutCommonHorizontalPadding);
+        self.badgeLabel.frame = CGRectMake(CGRectGetWidth(self.contentView.frame) - padding - badgeTextSize.width, (CGRectGetHeight(self.contentView.frame) - padding) / 2.f, padding + badgeTextSize.width, padding);
     } else {
-        self.badgeLabel.frame = CGRectMake(CGRectGetWidth(self.contentView.frame) - CBWLayoutCommonHorizontalPadding, (CGRectGetHeight(self.contentView.frame) - CBWLayoutCommonHorizontalPadding) / 2.f, CBWLayoutCommonHorizontalPadding, CBWLayoutCommonHorizontalPadding);
+        self.badgeLabel.frame = CGRectMake(CGRectGetWidth(self.contentView.frame) - padding, (CGRectGetHeight(self.contentView.frame) - padding) / 2.f, padding, padding);
     }
     
     CGRect detailFrame = self.detailTextLabel.frame;

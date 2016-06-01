@@ -8,14 +8,14 @@
 
 #import "AppDelegate.h"
 #import "DashboardViewController.h"
-#import "LockScreenController.h"
-#import "MasterPasswordViewController.h"
+#import "SignInViewController.h"
+#import "SignUpViewController.h"
 
 #import "Installation.h"
 #import "SystemManager.h"
 #import "Guard.h"
 
-@interface AppDelegate ()<LockScreenControllerDelegate>
+@interface AppDelegate ()<SignInViewControllerDelegate, SignUpViewControllerDelegate>
 @property (nonatomic, strong) UIWindow *lockScreenWindow;
 @end
 
@@ -75,10 +75,14 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     
-    LockScreenController *lockScreenController = (LockScreenController *)self.lockScreenWindow.rootViewController;
-    UIViewController *viewController = [lockScreenController.childViewControllers lastObject];
-    if ([viewController isKindOfClass:[MasterPasswordViewController class]]) {
-        [((MasterPasswordViewController *)viewController) showKeyboard];
+//    LockScreenController *lockScreenController = (LockScreenController *)self.lockScreenWindow.rootViewController;
+//    UIViewController *viewController = [lockScreenController.childViewControllers lastObject];
+//    if ([viewController isKindOfClass:[MasterPasswordViewController class]]) {
+//        [((MasterPasswordViewController *)viewController) showKeyboard];
+//    }
+    UIViewController *lockScreenViewController = self.lockScreenWindow.rootViewController;
+    if ([lockScreenViewController isKindOfClass:[SignInViewController class]]) {
+        [((SignInViewController *)lockScreenViewController) showKeyboard];
     }
 }
 
@@ -92,24 +96,34 @@
 - (void)lockScreen {
     if (!_lockScreenWindow) {
         _lockScreenWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-//        _lockScreenWindow.windowLevel = UIWindowLevelAlert;
     }
     
     if (!self.lockScreenWindow.rootViewController) {
-        LockScreenController *lockScreenController = [[LockScreenController alloc] init];
-        lockScreenController.actionType = [[SystemManager defaultManager] isWalletInstalled] ? LockScreenActionTypeSignIn : LockScreenActionTypeSignUp;
-        lockScreenController.delegate = self;
-        self.lockScreenWindow.rootViewController = lockScreenController;
+//        LockScreenController *lockScreenController = [[LockScreenController alloc] init];
+//        lockScreenController.actionType = [[SystemManager defaultManager] isWalletInstalled] ? LockScreenActionTypeSignIn : LockScreenActionTypeSignUp;
+//        lockScreenController.delegate = self;
+//        self.lockScreenWindow.rootViewController = lockScreenController;
+        if ([[SystemManager defaultManager] isWalletInstalled]) {
+            SignInViewController *signInViewController = [[SignInViewController alloc] init];
+            signInViewController.delegate = self;
+            self.lockScreenWindow.rootViewController = signInViewController;
+        } else{
+            SignUpViewController *signUpViewController = [[SignUpViewController alloc] init];
+            signUpViewController.delegate = self;
+            self.lockScreenWindow.rootViewController = signUpViewController;
+        }
     }
     
+    self.lockScreenWindow.windowLevel = UIWindowLevelAlert;// overlay on the status bar
     [self.lockScreenWindow makeKeyAndVisible];
 }
 /// unlock
 - (void)unlockScreen {
-    [UIView animateWithDuration:CBWAnimateDurationFast animations:^{
+    [UIView animateWithDuration:CBWAnimateDuration animations:^{
         self.lockScreenWindow.rootViewController.view.alpha = 0;
     } completion:^(BOOL finished) {
         if (finished) {
+            self.lockScreenWindow.windowLevel = UIWindowLevelNormal;
             self.lockScreenWindow.rootViewController = nil;
             [self.lockScreenWindow resignKeyWindow];
             [self.window makeKeyAndVisible];
@@ -117,10 +131,20 @@
     }];
 }
 
-#pragma mark - LockScreenControllerDelegate
-- (void)lockScreenController:(LockScreenController *)controller didUnlockWithActionType:(LockScreenActionType)type {
-    // unlock
+#pragma mark - <SignInViewControllerDelegate>
+- (void)signInViewControllerDidUnlock:(SignInViewController *)vc {
     [self unlockScreen];
 }
+
+#pragma mark - <SignUpViewControllerDelegate>
+- (void)SignUpViewControllerDidComplete:(SignUpViewController *)vc {
+    [self unlockScreen];
+}
+
+//#pragma mark - LockScreenControllerDelegate
+//- (void)lockScreenController:(LockScreenController *)controller didUnlockWithActionType:(LockScreenActionType)type {
+//    // unlock
+//    [self unlockScreen];
+//}
 
 @end

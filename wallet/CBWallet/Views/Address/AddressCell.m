@@ -91,7 +91,7 @@ static const CGFloat kAddressCellBalanceLabelHeight = 16.f;
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    CGFloat labelAreaLeft = CBWLayoutCommonHorizontalPadding;
+    CGFloat labelAreaLeft = CBWLayoutCommonPadding;
     CGFloat labelAreaWidth = CGRectGetWidth(self.contentView.bounds) - labelAreaLeft * 2.f;
     
     // label

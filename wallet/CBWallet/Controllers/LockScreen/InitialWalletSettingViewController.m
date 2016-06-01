@@ -2,13 +2,13 @@
 //  SignInSettingViewController.m
 //  wallet
 //
-//  Created by Zin on 16/2/15.
+//  Created by Zin (noteon.com) on 16/2/15.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
 #import "InitialWalletSettingViewController.h"
 
-#import "PrimaryButton.h"
+#import "PrimarySolidButton.h"
 
 //#import "SystemManager.h"
 #import "CBWBackup.h"
@@ -125,7 +125,7 @@
         
         UITableViewHeaderFooterView *view = [[UITableViewHeaderFooterView alloc] initWithFrame:CGRectMake(0, 0, stageWidth, CBWCellHeightDefault + CBWLayoutCommonVerticalPadding * 3.f)];
 
-        PrimaryButton *button = [[PrimaryButton alloc] initWithFrame:CGRectMake(20.f, CBWCellHeightDefault, stageWidth - 40.f, CBWCellHeightDefault)];
+        PrimarySolidButton *button = [[PrimarySolidButton alloc] initWithFrame:CGRectMake(20.f, CBWCellHeightDefault, stageWidth - 40.f, CBWCellHeightDefault)];
         [button setTitle:NSLocalizedStringFromTable(@"Button complete", @"CBW", @"Complete Initial Settings") forState:UIControlStateNormal];
         [button addTarget:self action:@selector(p_handleCreate:) forControlEvents:UIControlEventTouchUpInside];
         [view.contentView addSubview:button];

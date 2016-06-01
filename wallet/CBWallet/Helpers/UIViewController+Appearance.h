@@ -10,4 +10,6 @@
 
 @interface UIViewController (Appearance)
 - (void)setupAppearance;
+/// hair line
+- (UIView *)generateSeparatorWithFrame:(CGRect)frame;
 @end

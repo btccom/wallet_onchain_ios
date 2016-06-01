@@ -12,6 +12,12 @@
 "Confirmed" = "Confirmed";
 "Watched Account" = "Watched Account";
 
+"Title welcome" = "Welcome";
+"Description welcome" = "Your personal bitcoin wallet.";
+"Title new" = "New Wallet";
+"Title settings" = "Settings";
+"Title recover" = "Recover Wallet";
+
 "Navigation create_or_recover" = "Welcome";
 "Navigation master_password" = "Master Password";
 "Navigation initial_wallet_setting" = "Setting";
@@ -35,12 +41,16 @@
 "Navigation change_password" = "Change Password";
 "Navigation create_address" = "Create Address";
 
-"Button create_wallet" = "Create Wallet";
-"Button recover_wallet" = "Recover Wallet";
+"Button create_wallet" = "New Wallet";
+"Button recover_wallet" = "Recover your wallet.";
+"Button back" = "Back";
+"Button next" = "Next";
+"Button recover" = "Recover";
 "Button master_password" = "Master Password";
 "Button unlock" = "Unlock";
+"Button hint" = "Want a hint?";
 "Button scan_qrcode" = "Scan QRCode";
-"Button recover_from_icloud" = "Recover From iCloud";
+"Button recover_from_icloud" = "iCloud";
 "Button photo_library" = "Photo Library";
 "Button send" = "Send";
 "Button receive" = "Receive";
@@ -68,6 +78,9 @@
 "Description Fee 1" = "Medium";
 "Description Fee 2" = "High";
 
+"Alert Message need_strong_password" = "Please enter a strong master password.";
+"Alert Message confirm_password" = "Passwords don't match.";
+"Alert Message need_hint" = "Please enter a hint";
 "Alert Title confirm_to_create_wallet" = "Good";
 "Alert Message confirm_to_create_wallet" = "Everything is ready.\nCreate a whole new wallet now?";
 "Alert Message invalid_address" = "Invalid bitcoin address.";
@@ -82,6 +95,7 @@
 "Alert Message need_new_password" = "Please enter your new password.";
 "Alert Message new_password_not_match" = "Please confirm your new password.";
 "Alert Message invalid_master_password" = "Invalid master password.";
+"Alert Message need_master_password" = "Please enter your master password.";
 "Alert Message invalid_current_password" = "Current password is fault.";
 "Alert Title new_account" = "New Account";
 "Alert Message new_account" = "Please enter a label to specify the account.";
@@ -109,6 +123,8 @@
 
 "Tip scan_qrcode" = "Scan a QRCode please.";
 "Tip loading" = "Loading data...";
+"Tip about_master_password" = "Master password should be more than 8 characters...";
+"Tip hint_%@" = "Hint: %@";
 
 // Initial Wallet Setting
 "Initial Cell icloud" = "iCloud";

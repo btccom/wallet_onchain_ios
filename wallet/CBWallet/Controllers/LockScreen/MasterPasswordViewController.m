@@ -9,7 +9,7 @@
 #import "MasterPasswordViewController.h"
 #import "LockScreenController.h"
 
-#import "PrimaryButton.h"
+#import "PrimarySolidButton.h"
 #import "FormControlInputCell.h"
 
 #import "SSKeychain.h"
@@ -263,7 +263,7 @@
         
         UITableViewHeaderFooterView *view = [[UITableViewHeaderFooterView alloc] initWithFrame:CGRectMake(0, 0, stageWidth, CBWCellHeightDefault + CBWLayoutCommonVerticalPadding * 3.f)];
         
-        PrimaryButton *button = [[PrimaryButton alloc] initWithFrame:CGRectMake(16.f, CBWLayoutCommonVerticalPadding * 2.f, stageWidth - 40.f, CBWCellHeightDefault)];
+        PrimarySolidButton *button = [[PrimarySolidButton alloc] initWithFrame:CGRectMake(16.f, CBWLayoutCommonVerticalPadding * 2.f, stageWidth - 40.f, CBWCellHeightDefault)];
         [button setTitle:(self.actionType == LockScreenActionTypeSignIn ? NSLocalizedStringFromTable(@"Button unlock", @"CBW", nil) : NSLocalizedStringFromTable(@"Button create_wallet", @"CBW", @"Create Wallet")) forState:UIControlStateNormal];
         [button addTarget:self action:@selector(p_handleNext:) forControlEvents:UIControlEventTouchUpInside];
         button.enabled = NO;

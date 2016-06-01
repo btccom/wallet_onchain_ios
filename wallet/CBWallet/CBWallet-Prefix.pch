@@ -26,8 +26,11 @@ typedef NS_ENUM(NSUInteger, LockScreenActionType) {
     LockScreenActionTypeSignIn
 };
 
-static const NSTimeInterval CBWAnimateDuration = 0.55;
+/// 0.5
+static const NSTimeInterval CBWAnimateDuration = 0.5;
+/// 0.2
 static const NSTimeInterval CBWAnimateDurationFast = 0.2;
+/// 0.87
 static const NSTimeInterval CBWAnimateDUrationSlow = 0.87;
 
 static const CGFloat CBWDisabledOpacity = .5f;
@@ -36,6 +39,7 @@ static const CGFloat CBWCornerRadiusMini = 2.f;
 
 static const CGFloat CBWListSectionHeaderHeight = 32.f;
 
+/// 48
 static const CGFloat CBWCellHeightDefault = 48.f;
 static const CGFloat CBWCellHeightTransaction = 76.f;
 static const CGFloat CBWCellHeightAddress = 48.f;
@@ -51,13 +55,15 @@ static const CGFloat CBWCellHeightAddressWithMetadata = 76.f;
 #define SCREEN_MIN_LENGTH (MIN(SCREEN_WIDTH, SCREEN_HEIGHT))
 
 #define HD_IMAGE_PORTRAIT_HEIGHT ceilf(SCREEN_WIDTH / 16.f * 9.f)
+#define SCREEN_HEIGHT_GOLDEN_SMALL ceilf(SCREEN_HEIGHT * 0.382)
+#define SCREEN_HEIGHT_GOLDEN_BIG ceilf(SCREEN_HEIGHT * 0.618)
 
 #define IS_IPHONE_4_OR_LESS (IS_IPHONE && SCREEN_MAX_LENGTH < 568.0)
 #define IS_IPHONE_5 (IS_IPHONE && SCREEN_MAX_LENGTH == 568.0)
 #define IS_IPHONE_6 (IS_IPHONE && SCREEN_MAX_LENGTH == 667.0)
 #define IS_IPHONE_6P (IS_IPHONE && SCREEN_MAX_LENGTH == 736.0)
 
-#define CBWLayoutCommonHorizontalPadding ((IS_IPHONE_6P) ? 20.f : 16.f)
+#define CBWLayoutCommonPadding ((IS_IPHONE_6P) ? 20.f : 16.f)
 
 static const CGFloat CBWLayoutCommonVerticalPadding = 16.f;
 static const CGFloat CBWLayoutInnerSpace = 8.f;

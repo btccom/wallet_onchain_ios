@@ -27,6 +27,13 @@
     return UIStatusBarStyleDefault;
 }
 
+- (UIView *)generateSeparatorWithFrame:(CGRect)frame {
+    frame.size.height = 1 / [UIScreen mainScreen].scale;
+    UIView *separator = [[UIView alloc] initWithFrame:frame];
+    separator.backgroundColor = [UIColor CBWSeparatorColor];
+    return separator;
+}
+
 #pragma - Private Method
 - (void)p_hideNavigationBarHairline {
     UIImageView *hairline = [self p_findHairlineImageViewUnder:self.navigationController.navigationBar];

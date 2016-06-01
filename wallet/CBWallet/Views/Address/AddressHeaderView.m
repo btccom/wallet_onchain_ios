@@ -48,7 +48,7 @@ static const CGFloat kAddressHeaderViewLabelHeight = 20.f;
 
 - (UILabel *)addressLabel {
     if (!_addressLabel) {
-        ResponderLabel *label = [[ResponderLabel alloc] initWithFrame:CGRectMake(CBWLayoutCommonHorizontalPadding, kAddressHeaderViewVerticalPadding + HD_IMAGE_PORTRAIT_HEIGHT + kAddressHeaderViewSubviewMargin, SCREEN_WIDTH - CBWLayoutCommonHorizontalPadding * 2.f, kAddressHeaderViewAddressHeight)];
+        ResponderLabel *label = [[ResponderLabel alloc] initWithFrame:CGRectMake(CBWLayoutCommonPadding, kAddressHeaderViewVerticalPadding + HD_IMAGE_PORTRAIT_HEIGHT + kAddressHeaderViewSubviewMargin, SCREEN_WIDTH - CBWLayoutCommonPadding * 2.f, kAddressHeaderViewAddressHeight)];
         label.font = [UIFont fontWithName:@"Courier" size:UIFont.labelFontSize];
         label.textAlignment = NSTextAlignmentCenter;
         [self addSubview:label];

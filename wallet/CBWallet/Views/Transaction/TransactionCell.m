@@ -147,7 +147,7 @@ static const CGFloat kTransactionCellVerticalPadding = CBWLayoutCommonVerticalPa
 - (void)layoutSubviews {
     [super layoutSubviews];
 
-    CGFloat horizontalPadding = CBWLayoutCommonHorizontalPadding;
+    CGFloat horizontalPadding = CBWLayoutCommonPadding;
     // icon
     CGRect iconFrame = self.iconView.frame;
     iconFrame.size = self.iconView.image.size;

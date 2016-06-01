@@ -38,7 +38,7 @@
     NSString *hint = [self.datas.firstObject count] > 1 ? [[self.datas firstObject] lastObject] : @"";
     
     NSString *hintFromBase64 = [[NSString alloc] initWithData:[[NSData alloc] initWithBase64EncodedString:hint options:0] encoding:NSUTF8StringEncoding];
-    if (hintFromBase64) {
+    if (hintFromBase64.length > 0) {
         return hintFromBase64;
     }
     
@@ -213,12 +213,14 @@
         return NO;
     }
     
+    BOOL saved = YES;
     // save encrypted seed
-    [SSKeychain setPassword:encryptedSeed forService:CBWKeychainSeedService account:CBWKeychainAccountDefault];
+    saved = saved && [SSKeychain setPassword:encryptedSeed forService:CBWKeychainSeedService account:CBWKeychainAccountDefault];
     // save hint
     NSString *hint = self.hint;//[[self.datas firstObject] lastObject];
     if (hint) {
-        [SSKeychain setPassword:hint forService:CBWKeychainHintService account:CBWKeychainAccountDefault];
+        saved = saved && [SSKeychain setPassword:hint forService:CBWKeychainHintService account:CBWKeychainAccountDefault];
+        DLog(@"saved hint: %@", [SSKeychain passwordForService:CBWKeychainHintService account:CBWKeychainAccountDefault]);
     }
     
     // guard
@@ -292,7 +294,7 @@
                 [address saveWithError:nil];
             }
             
-            DLog(@"recovered user addresses (%ld)", adderssStore.count);
+            DLog(@"recovered user addresses (%ld)", (unsigned long)adderssStore.count);
         }
     }];
     

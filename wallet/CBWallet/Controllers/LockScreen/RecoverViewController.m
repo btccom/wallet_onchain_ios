@@ -2,7 +2,7 @@
 //  RecoverViewController.m
 //  CBWallet
 //
-//  Created by Zin on 16/3/15.
+//  Created by Zin (noteon.com) on 16/3/15.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
@@ -13,7 +13,7 @@
 
 #import "UIViewController+AlertMessage.h"
 
-#import "PrimaryButton.h"
+#import "PrimarySolidButton.h"
 
 #import "CBWBackup.h"
 #import "CBWRecovery.h"
@@ -37,14 +37,14 @@
     CGFloat stageHeight = CGRectGetHeight(self.view.frame);
     
     if ([CBWBackup isiCloudAccountSignedIn]) {
-        PrimaryButton *iCloudButton = [[PrimaryButton alloc] initWithFrame:CGRectMake(20.f, stageHeight * 0.6f, stageWidth - 40.f, CBWCellHeightDefault)];
+        PrimarySolidButton *iCloudButton = [[PrimarySolidButton alloc] initWithFrame:CGRectMake(20.f, stageHeight * 0.6f, stageWidth - 40.f, CBWCellHeightDefault)];
         [iCloudButton addTarget:self action:@selector(p_handleFetchiCloudData:) forControlEvents:UIControlEventTouchUpInside];
         [iCloudButton setTitle:NSLocalizedStringFromTable(@"Button recover_from_icloud", @"CBW", nil) forState:UIControlStateNormal];
         [self.view addSubview:iCloudButton];
         _iCloudButton = iCloudButton;
     }
     
-    PrimaryButton *photoLibraryButton = [[PrimaryButton alloc] initWithFrame:CGRectMake(20.f, stageHeight * 0.6f + CBWCellHeightDefault + 16.f, stageWidth - 40.f, CBWCellHeightDefault)];
+    PrimarySolidButton *photoLibraryButton = [[PrimarySolidButton alloc] initWithFrame:CGRectMake(20.f, stageHeight * 0.6f + CBWCellHeightDefault + 16.f, stageWidth - 40.f, CBWCellHeightDefault)];
     [photoLibraryButton addTarget:self action:@selector(p_handleOpenPhotoLibrary:) forControlEvents:UIControlEventTouchUpInside];
     [photoLibraryButton setTitle:NSLocalizedStringFromTable(@"Button photo_library", @"CBW", "Photo Library") forState:UIControlStateNormal];
     [self.view addSubview:photoLibraryButton];

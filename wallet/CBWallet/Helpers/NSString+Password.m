@@ -11,6 +11,9 @@
 @implementation NSString (Password)
 
 - (NSInteger)passwordStrength {
+    if (self.length == 0) {
+        return 0;
+    }
     return 100;
 }
 

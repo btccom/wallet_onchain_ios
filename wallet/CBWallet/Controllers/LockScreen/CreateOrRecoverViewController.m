@@ -2,7 +2,7 @@
 //  CreateOrRecoverViewController.m
 //  wallet
 //
-//  Created by Zin on 16/2/25.
+//  Created by Zin (noteon.com) on 16/2/25.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
@@ -14,7 +14,7 @@
 // recover
 #import "RecoverViewController.h"
 
-#import "PrimaryButton.h"
+#import "PrimarySolidButton.h"
 
 #import "CBWRecovery.h"
 #import "Guard.h"
@@ -37,11 +37,11 @@
     
     CGFloat stageWidth = CGRectGetWidth(self.view.frame);
     CGFloat stageHeight = CGRectGetHeight(self.view.frame);
-    PrimaryButton *createButton = [[PrimaryButton alloc] initWithFrame:CGRectMake(20.f, stageHeight * 0.6f, stageWidth - 40.f, CBWCellHeightDefault)];
+    PrimarySolidButton *createButton = [[PrimarySolidButton alloc] initWithFrame:CGRectMake(20.f, stageHeight * 0.6f, stageWidth - 40.f, CBWCellHeightDefault)];
     [createButton addTarget:self action:@selector(p_handleCreate:) forControlEvents:UIControlEventTouchUpInside];
     [createButton setTitle:NSLocalizedStringFromTable(@"Button create_wallet", @"CBW", "Create Wallet") forState:UIControlStateNormal];
     [self.view addSubview:createButton];
-    PrimaryButton *recoverButton = [[PrimaryButton alloc] initWithFrame:CGRectOffset(createButton.frame, 0, CBWCellHeightDefault + 16.f)];
+    PrimarySolidButton *recoverButton = [[PrimarySolidButton alloc] initWithFrame:CGRectOffset(createButton.frame, 0, CBWCellHeightDefault + 16.f)];
     [recoverButton addTarget:self action:@selector(p_handleRecover:) forControlEvents:UIControlEventTouchUpInside];
     [recoverButton setTitle:NSLocalizedStringFromTable(@"Button recover_wallet", @"CBW", "Recover Wallet") forState:UIControlStateNormal];
     [self.view addSubview:recoverButton];
