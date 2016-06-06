@@ -15,7 +15,7 @@ NSString *const CBWRequestAPIPath = @"";
 NSString *const CBWRequestAPIVersion = @"v3";
 
 NSString *const CBWRequestResponseErrorNumberKey = @"err_no";
-NSString *const CBWRequestResponseErrorMessageKey = @"message";
+NSString *const CBWRequestResponseErrorMessageKey = @"err_msg";
 NSString *const CBWRequestResponseDataKey = @"data";
 NSString *const CBWRequestResponseDataTotalCountKey = @"total_count";
 NSString *const CBWRequestResponseDataPageKey = @"page";
@@ -55,6 +55,8 @@ NSString *const CBWRequestResponseDataListKey = @"list";
         
         NSInteger statusCode = ((NSHTTPURLResponse *)response).statusCode;
         
+        DLog(@"request response [%ld]: \n%@", (long)statusCode, responseObject);
+        
         if (statusCode == 404) {
             completion([NSError errorWithDomain:CBWRequestErrorDomain code:statusCode userInfo:@{NSLocalizedDescriptionKey: @"404: endpoint is not found."}], statusCode, nil);
             NSLog(@"request error, 404");
@@ -75,7 +77,7 @@ NSString *const CBWRequestResponseDataListKey = @"list";
         
         NSInteger errorNumber = [[responseObject objectForKey:CBWRequestResponseErrorNumberKey] integerValue];
         if (errorNumber > 0) {
-            NSString *errorMessage = [responseObject objectForKey:CBWRequestErrorMessageKey];
+            NSString *errorMessage = [responseObject objectForKey:CBWRequestResponseErrorMessageKey];
             if (!errorMessage) {
                 errorMessage = [self errorMessageWithCode:errorNumber];
             }
@@ -83,7 +85,6 @@ NSString *const CBWRequestResponseDataListKey = @"list";
             return;
         }
         
-        DLog(@"request response [%ld]", (long)statusCode);
         completion(nil, statusCode, [responseObject objectForKey:CBWRequestResponseDataKey]);
     }];
     [dataTask resume];

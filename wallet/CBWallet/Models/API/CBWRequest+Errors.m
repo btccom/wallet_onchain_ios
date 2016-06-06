@@ -9,7 +9,6 @@
 #import "CBWRequest+Errors.h"
 
 NSString *const CBWRequestErrorDomain = @"COM.BTC.API";
-NSString *const CBWRequestErrorMessageKey = @"message";
 
 @implementation CBWRequest (Errors)
 
