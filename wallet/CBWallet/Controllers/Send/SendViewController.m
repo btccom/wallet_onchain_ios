@@ -544,7 +544,7 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
         if (section == 1) {
             CBWAddressStore *addressStore = [[CBWAddressStore alloc] initWithAccountIdx:self.account.idx];
             [addressStore fetch];
-            return [NSString stringWithFormat:NSLocalizedStringFromTable(@"Send Footer available_balance_%@", @"CBW", nil), [@([addressStore totalBalance]) satoshiBTCString]];
+            return [NSString stringWithFormat:NSLocalizedStringFromTable(@"Send Footer available_balance_%@_fee_%@", @"CBW", nil), [@([addressStore totalBalance]) satoshiBTCString], [[CBWFee defaultFee].value satoshiBTCString]];
         }
     }
     return nil;
