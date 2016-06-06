@@ -709,6 +709,7 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
 #pragma mark <UITableViewDelegate>
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     DefaultSectionHeaderView *headerView = (DefaultSectionHeaderView *)[super tableView:tableView viewForHeaderInSection:section];
+    headerView.detailTextLabel.text = nil;
     if (self.mode == SendViewControllerModeAdvanced) {
         if (section == kSendViewControllerAdvancedSectionFrom) {
             __block long long balance = 0;
