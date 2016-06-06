@@ -185,11 +185,17 @@
     
     NSMutableArray *messages = [NSMutableArray array];
     
-    // valid password
-    double score = [password passwordStrength];
-    DLog(@"score: %f", score);
-    if (score < 60) {
-        [messages addObject:NSLocalizedStringFromTable(@"Alert Message need_strong_password", @"CBW", @"Please input a strong password.")];
+    // valid password for create
+    if (self.recoverEnabled) {
+        if (password.length == 0) {
+            [messages addObject:NSLocalizedStringFromTable(@"Alert Message need_master_password", @"CBW", nil)];
+        }
+    } else {
+        double score = [password passwordStrength];
+        DLog(@"score: %f", score);
+        if (score < 60) {
+            [messages addObject:NSLocalizedStringFromTable(@"Alert Message need_strong_password", @"CBW", @"Please input a strong password.")];
+        }
     }
     
     // confirm
