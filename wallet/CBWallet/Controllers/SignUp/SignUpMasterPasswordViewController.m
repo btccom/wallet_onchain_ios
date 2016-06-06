@@ -47,6 +47,7 @@
     UITextField *passwordField = [self p_newTextFieldAtY: HD_IMAGE_PORTRAIT_HEIGHT + padding - top placeholder:NSLocalizedStringFromTable(@"Placeholder master_password", @"CBW", nil)];
     passwordField.secureTextEntry = YES;
     passwordField.returnKeyType = UIReturnKeyNext;
+    passwordField.clearButtonMode = UITextFieldViewModeWhileEditing;
     [scrollView addSubview:passwordField];
     _passwordField = passwordField;
     [scrollView addSubview:[self generateSeparatorWithFrame:CGRectOffset(passwordField.frame, 0, CBWCellHeightDefault)]];
@@ -80,6 +81,7 @@
         UITextField *confirmPasswordField = [self p_newTextFieldAtY:CGRectGetMaxY(passwordField.frame) placeholder:NSLocalizedStringFromTable(@"Placeholder confirm_master_password", @"CBW", nil)];
         confirmPasswordField.secureTextEntry = YES;
         confirmPasswordField.returnKeyType = UIReturnKeyNext;
+        confirmPasswordField.clearButtonMode = UITextFieldViewModeWhileEditing;
         [scrollView addSubview:confirmPasswordField];
         _confirmPasswordField = confirmPasswordField;
         [scrollView addSubview:[self generateSeparatorWithFrame:CGRectOffset(confirmPasswordField.frame, 0, CBWCellHeightDefault)]];
@@ -100,6 +102,7 @@
         // hint
         UITextField *hintField = [self p_newTextFieldAtY:CGRectGetMaxY(tipLabel.frame) + padding placeholder:NSLocalizedStringFromTable(@"Placeholder hint", @"CBW", nil)];
         hintField.returnKeyType = UIReturnKeyDone;
+        hintField.clearButtonMode = UITextFieldViewModeWhileEditing;
         [scrollView addSubview:hintField];
         _hintField = hintField;
         [scrollView addSubview:[self generateSeparatorWithFrame:CGRectOffset(hintField.frame, 0, CBWCellHeightDefault)]];
