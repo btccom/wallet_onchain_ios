@@ -277,25 +277,25 @@
         CKContainer *container = [CKContainer defaultContainer];
         [container accountStatusWithCompletionHandler:^(CKAccountStatus accountStatus, NSError * _Nullable error) {
             if (accountStatus == CKAccountStatusAvailable) {
-                [self saveToCloudKitWithCompletion:^(NSError *error) {
+//                [self saveToCloudKitWithCompletion:^(NSError *error) {
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        if (error) {
-                            
-                            UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Failed", @"CBW", nil) message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
-                            UIAlertAction *okay = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Okay", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
-                            [alert addAction:okay];
-                            [viewController presentViewController:alert animated:YES completion:^{
-                                [aSwitch setOn:NO animated:YES];
-                            }];
-                            
-                        } else {
+//                        if (error) {
+//                            
+//                            UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Failed", @"CBW", nil) message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
+//                            UIAlertAction *okay = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Okay", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
+//                            [alert addAction:okay];
+//                            [viewController presentViewController:alert animated:YES completion:^{
+//                                [aSwitch setOn:NO animated:YES];
+//                            }];
+//                            
+//                        } else {
                             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:CBWUserDefaultsiCloudEnabledKey];
                             if ([[NSUserDefaults standardUserDefaults] synchronize]) {
                                 [aSwitch setOn:YES animated:YES];
                             }
-                        }
+//                        }
                     });
-                }];
+//                }];
             } else {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil) message:NSLocalizedStringFromTable(@"Alert Message need_icloud_account_signed_in", @"CBW", nil) preferredStyle:UIAlertControllerStyleAlert];
