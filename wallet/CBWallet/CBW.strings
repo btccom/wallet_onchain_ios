@@ -169,7 +169,7 @@
 
 // send
 "Send Section from" = "From";
-"Send Section from_balance_%@" = "Balance: %@";
+"Send Section from_balance_%@" = "Selected Balance: %@";
 "Send Section to" = "To";
 "Send Section change" = "Change";
 "Send Section fee" = "Fee";
