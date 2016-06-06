@@ -10,7 +10,6 @@
 
 @interface NSString (Password)
 
-/// max 100
-- (NSInteger)passwordStrength;
+- (double)passwordStrength;
 
 @end

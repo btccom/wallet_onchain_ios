@@ -91,6 +91,7 @@
         NSString *tip = NSLocalizedStringFromTable(@"Tip about_master_password", @"CBW", nil);
         tipHeight = [tip sizeWithFont:tipFont maxSize:CGSizeMake(tipWidth, tipHeight)].height;
         UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(padding, CGRectGetMaxY(confirmPasswordField.frame) + CBWLayoutInnerSpace, tipWidth, tipHeight)];
+        tipLabel.numberOfLines = 0;
         tipLabel.font = tipFont;
         tipLabel.textColor = [UIColor CBWSubTextColor];
         tipLabel.text = tip;
@@ -185,7 +186,9 @@
     NSMutableArray *messages = [NSMutableArray array];
     
     // valid password
-    if ([password passwordStrength] < 80) {
+    double score = [password passwordStrength];
+    DLog(@"score: %f", score);
+    if (score < 60) {
         [messages addObject:NSLocalizedStringFromTable(@"Alert Message need_strong_password", @"CBW", @"Please input a strong password.")];
     }
     

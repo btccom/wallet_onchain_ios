@@ -85,10 +85,14 @@ static const NSTimeInterval kGuardAvaibleTimeDefault = 3 * 60; // 默认3分钟
 
 - (void)signOut {
     if ([CBWDatabaseManager deleteAllDatas]) {
+        
         [SSKeychain deletePasswordForService:CBWKeychainSeedService account:CBWKeychainAccountDefault];
         [SSKeychain deletePasswordForService:CBWKeychainHintService account:CBWKeychainAccountDefault];
         [SSKeychain deletePasswordForService:CBWKeychainMasterPasswordService account:CBWKeychainAccountDefault];
+        [SSKeychain deletePasswordForService:CBWKeychainAccountDefault account:CBWKeychainAccountDefault];
+        
         [CBWBackup deleteCloudKitRecord];
+        
         [CBWTransactionStore deleteAllCaches];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:CBWNotificationSignedOut object:nil];

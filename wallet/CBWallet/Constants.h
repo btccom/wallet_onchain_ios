@@ -21,7 +21,7 @@ static NSString *const CBWUserDefaultsTestnetEnabled = @"cbw.user.defaults.testn
 /// bool value
 static NSString *const CBWUserDefaultsiCloudEnabledKey = @"cbw.user.defaults.icloud.enabled";
 /// bool value
-static NSString *const CBWUserDefaultsTouchIdEnabledKey = @"cbw.user.defaults.touchid.enabled";
+//static NSString *const CBWUserDefaultsTouchIdEnabledKey = @"cbw.user.defaults.touchid.enabled";
 
 /// intenger value
 static NSString *const CBWUserDefaultsLocalVersion = @"cbw.user.defaults.localVersion";
@@ -30,9 +30,18 @@ static NSString *const CBWUserDefaultsLocalVersion = @"cbw.user.defaults.localVe
 static NSString *const  CBWUserDefaultsiCloudSyncDateKey = @"cbw.user.defaults.icloud.sync.date";
 
 // Keychain
+// services
 static NSString *const CBWKeychainSeedService = @"com.btc.wallet.seed";
 static NSString *const CBWKeychainHintService = @"com.btc.wallet.hint";
+/// master password field
 static NSString *const CBWKeychainMasterPasswordService = @"com.btc.wallet.masterPassword";
+/// if enabled touch id, ON or others
+static NSString *const CBWKeychainTouchIDService = @"com.btc.wallet.touchID";
+
+/// keychain touch id on value
+static NSString *const CBWKeychainTouchIDON = @"ON";
+
+// keychain account
 static NSString *const CBWKeychainAccountDefault = @"com.btc.wallet";
 
 // Notification

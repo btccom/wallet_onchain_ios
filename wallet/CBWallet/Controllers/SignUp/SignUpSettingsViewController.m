@@ -43,8 +43,21 @@
     [self.view addSubview:aSwitch];
     _iCloudSwitch = aSwitch;
     
+    // password tip label
+    UIFont *tipFont = [UIFont systemFontOfSize:[UIFont smallSystemFontSize]];
+    CGFloat tipWidth = CGRectGetWidth(iCloudLabel.frame);
+    CGFloat tipHeight = CGRectGetHeight(self.view.frame);
+    NSString *tip = NSLocalizedStringFromTable(@"Tip about_iCloud", @"CBW", nil);
+    tipHeight = [tip sizeWithFont:tipFont maxSize:CGSizeMake(tipWidth, tipHeight)].height;
+    UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(padding, CGRectGetMaxY(iCloudLabel.frame) + CBWLayoutInnerSpace, tipWidth, tipHeight)];
+    tipLabel.numberOfLines = 0;
+    tipLabel.font = tipFont;
+    tipLabel.textColor = [UIColor CBWSubTextColor];
+    tipLabel.text = tip;
+    [self.view addSubview:tipLabel];
+    
     // next button
-    PrimarySolidButton *completeButton = [[PrimarySolidButton alloc] initWithFrame:CGRectOffset(iCloudLabel.frame, 0, CBWCellHeightDefault + padding)];
+    PrimarySolidButton *completeButton = [[PrimarySolidButton alloc] initWithFrame:CGRectOffset(tipLabel.frame, 0, CBWCellHeightDefault + padding)];
     [completeButton setTitle:NSLocalizedStringFromTable(@"Button complete", @"CBW", nil) forState:UIControlStateNormal];
     [completeButton addTarget:self action:@selector(p_handleComplete) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:completeButton];

@@ -78,7 +78,7 @@
 "Description Fee 1" = "Medium";
 "Description Fee 2" = "High";
 
-"Alert Message need_strong_password" = "Please enter a strong master password.";
+"Alert Message need_strong_password" = "Please enter a strong master password.\nMore than 8 characters.\nContains numbers, letters and symbols.";
 "Alert Message confirm_password" = "Passwords don't match.";
 "Alert Message need_hint" = "Please enter a hint";
 "Alert Title confirm_to_create_wallet" = "Good";
@@ -123,7 +123,8 @@
 
 "Tip scan_qrcode" = "Scan a QRCode please.";
 "Tip loading" = "Loading data...";
-"Tip about_master_password" = "Master password should be more than 8 characters...";
+"Tip about_master_password" = "Master password should be more than 8 characters.\nSupporsed to contain letters, numbers and symbols.";
+"Tip about_iCloud" = "Use CloudKit to backup your seed and wallet user data. Please sign in and enable iCloud Dirve in your \"iPhone -> Settings -> iCloud -> iCloud Drive\"";
 "Tip hint_%@" = "Hint: %@";
 
 // Initial Wallet Setting

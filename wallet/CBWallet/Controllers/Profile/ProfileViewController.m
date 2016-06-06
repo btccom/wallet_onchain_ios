@@ -28,7 +28,7 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
 //    kProfileSectionSettings,
     kProfileSectionSecurity,
     kProfileSectionBackup,
-    kProfileSectionNetwork,
+//    kProfileSectionNetwork,
     kProfileSectionSignOut
 };
 
@@ -87,8 +87,8 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
                       @{NSLocalizedStringFromTable(@"Profile Section backup", @"CBW", nil): @[
                             NSLocalizedStringFromTable(@"Profile Cell export", @"CBW", @"Export"),
                             NSLocalizedStringFromTable(@"Profile Cell iCloud", @"CBW", @"iCloud")]},
-                      @{NSLocalizedStringFromTable(@"Profile Section network", @"CBW", nil): @[
-                                NSLocalizedStringFromTable(@"Profile Cell testnet", @"CBW", @"Testnet")]},
+//                      @{NSLocalizedStringFromTable(@"Profile Section network", @"CBW", nil): @[
+//                                NSLocalizedStringFromTable(@"Profile Cell testnet", @"CBW", @"Testnet")]},
                       @[NSLocalizedStringFromTable(@"Profile Cell sign_out", @"CBW", nil)]
                       ];
 }
@@ -126,13 +126,17 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
 }
 - (void)p_handleToggleTouchIdEnabled:(id)sender {
     DLog(@"toggle touch id");
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:CBWUserDefaultsTouchIdEnabledKey]) {
+//    if ([[NSUserDefaults standardUserDefaults] boolForKey:CBWUserDefaultsTouchIdEnabledKey]) {
+    if ([[SSKeychain passwordForService:CBWKeychainTouchIDService account:CBWKeychainAccountDefault] isEqualToString:CBWKeychainTouchIDON]) {
         // turn off
         if ([SSKeychain deletePasswordForService:CBWKeychainMasterPasswordService account:CBWKeychainAccountDefault]) {
-            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:CBWUserDefaultsTouchIdEnabledKey];
-            if ([[NSUserDefaults standardUserDefaults] synchronize]) {
+            if ([SSKeychain deletePasswordForService:CBWKeychainTouchIDService account:CBWKeychainAccountDefault]) {
                 [self.touchIDSwitch setOn:NO animated:YES];
             }
+//            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:CBWUserDefaultsTouchIdEnabledKey];
+//            if ([[NSUserDefaults standardUserDefaults] synchronize]) {
+//                [self.touchIDSwitch setOn:NO animated:YES];
+//            }
         }
         return;
     }
@@ -147,12 +151,18 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
                 if (success) {
                     // authorized
                     if ([SSKeychain setPassword:[Guard globalGuard].code forService:CBWKeychainMasterPasswordService account:CBWKeychainAccountDefault]) {
-                        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:CBWUserDefaultsTouchIdEnabledKey];
-                        if ([[NSUserDefaults standardUserDefaults] synchronize]) {
+                        if ([SSKeychain setPassword:CBWKeychainTouchIDON forService:CBWKeychainTouchIDService account:CBWKeychainAccountDefault]) {
                             [self.touchIDSwitch setOn:YES animated:YES];
                         } else {
+                            [SSKeychain deletePasswordForService:CBWKeychainMasterPasswordService account:CBWKeychainAccountDefault];
                             [self.touchIDSwitch setOn:NO animated:YES];
                         }
+//                        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:CBWUserDefaultsTouchIdEnabledKey];
+//                        if ([[NSUserDefaults standardUserDefaults] synchronize]) {
+//                            [self.touchIDSwitch setOn:YES animated:YES];
+//                        } else {
+//                            [self.touchIDSwitch setOn:NO animated:YES];
+//                        }
                     }
                 } else if (error) {
                     [self.touchIDSwitch setOn:NO animated:YES];
@@ -259,7 +269,7 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
                     self.touchIDSwitch = aSwitch;
                 }
                 cell.accessoryView = self.touchIDSwitch;
-                self.touchIDSwitch.on = [[NSUserDefaults standardUserDefaults] boolForKey:CBWUserDefaultsTouchIdEnabledKey];
+                self.touchIDSwitch.on = [[SSKeychain passwordForService:CBWKeychainTouchIDService account:CBWKeychainAccountDefault] isEqualToString:CBWKeychainTouchIDON];//[[NSUserDefaults standardUserDefaults] boolForKey:CBWUserDefaultsTouchIdEnabledKey];
             }
         }
         
@@ -279,16 +289,16 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
         }
         
         // set testnet cell stuff
-        if (indexPath.section == kProfileSectionNetwork) {
-            // testnet
-            if (!self.testnetSwitch) {
-                UISwitch *aSwitch = [[UISwitch alloc] init];
-                [aSwitch addTarget:self action:@selector(p_handleToggleTestnetEnabled:) forControlEvents:UIControlEventValueChanged];
-                self.testnetSwitch = aSwitch;
-            }
-            cell.accessoryView = self.testnetSwitch;
-            self.testnetSwitch.on = [[NSUserDefaults standardUserDefaults] boolForKey:CBWUserDefaultsTestnetEnabled];
-        }
+//        if (indexPath.section == kProfileSectionNetwork) {
+//            // testnet
+//            if (!self.testnetSwitch) {
+//                UISwitch *aSwitch = [[UISwitch alloc] init];
+//                [aSwitch addTarget:self action:@selector(p_handleToggleTestnetEnabled:) forControlEvents:UIControlEventValueChanged];
+//                self.testnetSwitch = aSwitch;
+//            }
+//            cell.accessoryView = self.testnetSwitch;
+//            self.testnetSwitch.on = [[NSUserDefaults standardUserDefaults] boolForKey:CBWUserDefaultsTestnetEnabled];
+//        }
         
         // set sign out with danger color
         if (indexPath.section == kProfileSectionSignOut) {
@@ -389,11 +399,11 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
             break;
         }
             
-        case kProfileSectionNetwork: {
-            [tableView deselectRowAtIndexPath:indexPath animated:YES];
-            [self p_handleToggleTestnetEnabled:nil];
-            break;
-        }
+//        case kProfileSectionNetwork: {
+//            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+//            [self p_handleToggleTestnetEnabled:nil];
+//            break;
+//        }
             
         case kProfileSectionSignOut: {
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Alert Title sign_out", @"CBW", nil) message:NSLocalizedStringFromTable(@"Alert Message sign_out", @"CBW", nil) preferredStyle:UIAlertControllerStyleAlert];

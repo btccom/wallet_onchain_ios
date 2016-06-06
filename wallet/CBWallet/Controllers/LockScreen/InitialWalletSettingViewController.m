@@ -12,6 +12,7 @@
 
 //#import "SystemManager.h"
 #import "CBWBackup.h"
+#import "SSKeychain.h"
 
 @import LocalAuthentication;
 
@@ -106,7 +107,8 @@
             case 1: {
                 cell.textLabel.text = NSLocalizedStringFromTable(@"Initial Cell touch_id", @"CBW", @"Touch ID");
                 UISwitch *aSwitch = [[UISwitch alloc] init];
-                aSwitch.on = [[NSUserDefaults standardUserDefaults] boolForKey:CBWUserDefaultsTouchIdEnabledKey];
+//                aSwitch.on = [[NSUserDefaults standardUserDefaults] boolForKey:CBWUserDefaultsTouchIdEnabledKey];
+                aSwitch.on = [[SSKeychain passwordForService:CBWKeychainTouchIDService account:CBWKeychainAccountDefault] isEqualToString:CBWKeychainTouchIDON];
                 [aSwitch addTarget:self action:@selector(p_toggleTouchIDEnabled:) forControlEvents:UIControlEventValueChanged];
                 self.touchIDSwitch = aSwitch;
                 cell.accessoryView = aSwitch;

@@ -15,6 +15,8 @@
 
 #import "SSKeychain.h"
 
+@import LocalAuthentication;
+
 @interface SignInViewController ()<UITextFieldDelegate>
 
 @property (nonatomic, weak) UIView *inputView;
@@ -22,6 +24,7 @@
 @property (nonatomic, weak) UIButton *unlockButton;
 
 @property (nonatomic, assign) BOOL displayingHint;
+@property (nonatomic, assign, getter=isKeyboardShown) BOOL keyboardShown;
 
 @end
 
@@ -91,7 +94,67 @@
 #pragma mark - Public Method
 - (void)showKeyboard {
     DLog(@"show keyboard");
-    [self.masterPasswordField becomeFirstResponder];
+//    if (![[NSUserDefaults standardUserDefaults] boolForKey:CBWUserDefaultsTouchIdEnabledKey]) {
+    if (![[SSKeychain passwordForService:CBWKeychainTouchIDService account:CBWKeychainAccountDefault] isEqualToString:CBWKeychainTouchIDON]) {
+        [self.masterPasswordField becomeFirstResponder];
+        return;
+    }
+    
+    if (self.isKeyboardShown) {
+        return;
+    }
+    
+    self.keyboardShown = YES;
+    LAContext *context = [LAContext new];
+    NSError *error = nil;
+    if ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error]) {
+        [context evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics localizedReason:NSLocalizedString(@"Alert Message verify_touchid", nil) reply:^(BOOL success, NSError * _Nullable error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (success) {
+                    // TODO: check domain status
+                    self.masterPasswordField.text = [SSKeychain passwordForService:CBWKeychainMasterPasswordService account:CBWKeychainAccountDefault];
+                    if (![self p_handleUnlock]) {
+                        NSLog(@"delete wrong password in keychain");
+                    }
+                } else if (error) {
+                    NSString *message = nil;
+                    BOOL showAlert = NO;
+                    switch (error.code) {
+                        case LAErrorAuthenticationFailed: {
+                            showAlert = YES;
+                            message = NSLocalizedString(@"There was a problem verifying your identity.", nil);
+                            break;
+                        }
+                            
+                        case LAErrorUserCancel: {
+                            message = NSLocalizedString(@"You canceled to enter password.", nil);
+                            break;
+                        }
+                            
+                        case LAErrorUserFallback: {
+                            message = NSLocalizedString(@"You pressed password.", nil);
+                            break;
+                        }
+                            
+                        default:
+                            message = NSLocalizedString(@"Touch ID may not be configured.", nil);
+                            break;
+                    }
+                    if (showAlert) {
+                        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Error", nil) message:message preferredStyle:UIAlertControllerStyleAlert];
+                        UIAlertAction *okay = [UIAlertAction actionWithTitle:NSLocalizedString(@"Okay", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                            [self.masterPasswordField becomeFirstResponder];
+                        }];
+                        [alertController addAction:okay];
+                        [self presentViewController:alertController animated:YES completion:nil];
+                    } else {
+                        NSLog(@"message: %@, error: %@", message, error);
+                        [self.masterPasswordField becomeFirstResponder];
+                    }
+                }
+            });
+        }];
+    }
 }
 
 #pragma mark - Private Method
@@ -105,22 +168,24 @@
 }
 - (void)p_handleEditingDidEnd {
 }
-- (void)p_handleUnlock {
+- (BOOL)p_handleUnlock {
     DLog(@"handle unlock");
     
     NSString *password = self.masterPasswordField.text;
     
     if (password.length == 0) {
         [self.inputView yoyoWithOffset:CGSizeMake(10.f, 0) animateDuration:CBWAnimateDuration];
-        return;
+        return NO;
     }
     
     if ([[Guard globalGuard] checkInWithCode:password]) {
         [self p_handleEndEditing];
         [self.delegate signInViewControllerDidUnlock:self];
+        return YES;
     } else {
         [self.inputView yoyoWithOffset:CGSizeMake(10.f, 0) animateDuration:CBWAnimateDuration];
     };
+    return NO;
 }
 
 - (void)p_toggleHint:(UIButton *)hintButton {

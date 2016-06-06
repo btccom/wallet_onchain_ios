@@ -12,6 +12,8 @@
 #import "Guard.h"
 #import "CBWBackup.h"
 
+#import "NSString+Password.h"
+
 static NSString *const kPasswordViewControllerCurrentPasswordCellIdentifier = @"cell.current.password";
 static NSString *const kPasswordViewControllerNewPasswordCellIdentifier = @"cell.new.password";
 static NSString *const kPasswordViewControllerConfirmPasswordCellIdentifier = @"cell.confirm.password";
@@ -67,10 +69,18 @@ static NSString *const kPasswordViewControllerSaveButtonCellIdentifier = @"cell.
     if (self.aNewPassword.length == 0) {
         [message appendString:[NSString stringWithFormat:@"%@\n", NSLocalizedStringFromTable(@"Alert Message need_new_password", @"CBW", nil)]];
     } else {
+        // valid password
+        double score = [self.aNewPassword passwordStrength];
+        DLog(@"score: %f", score);
+        if (score < 60) {
+            [message appendString:NSLocalizedStringFromTable(@"Alert Message need_strong_password", @"CBW", @"Please input a strong password.")];
+        }
+        // confirm password
         if (![self.aNewPassword isEqualToString:self.confirmPassword]) {
             [message appendString:[NSString stringWithFormat:@"%@", NSLocalizedStringFromTable(@"Alert Message new_password_not_match", @"CBW", nil)]];
         }
     }
+    
     if (message.length > 0) {
         [self alertMessage:message withTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil)];
         

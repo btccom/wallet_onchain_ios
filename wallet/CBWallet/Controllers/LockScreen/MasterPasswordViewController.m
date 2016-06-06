@@ -44,7 +44,8 @@
 }
 
 - (void)showKeyboard {
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:CBWUserDefaultsTouchIdEnabledKey]) {
+//    if (![[NSUserDefaults standardUserDefaults] boolForKey:CBWUserDefaultsTouchIdEnabledKey]) {
+    if (![[SSKeychain passwordForService:CBWKeychainTouchIDService account:CBWKeychainAccountDefault] isEqualToString:CBWKeychainTouchIDON]) {
         [self.masterPasswordCell.textField becomeFirstResponder];
         return;
     }
@@ -112,7 +113,7 @@
     NSMutableArray *messages = [NSMutableArray array];
     
     // valid password
-    if ([password passwordStrength] < 80) {
+    if ([password passwordStrength] < 60) {
         [messages addObject:NSLocalizedStringFromTable(@"Alert Message need_strong_password", @"CBW", @"Please input a strong password.")];
     }
     
