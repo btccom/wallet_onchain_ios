@@ -138,6 +138,12 @@
     DLog(@"sign up master password dealloc!");
 }
 
+- (void)becomeFirstResponder {
+    if (self.passwordField.text.length == 0) {
+        [self.passwordField becomeFirstResponder];
+    }
+}
+
 #pragma mark - Private Method
 
 - (UITextField *)p_newTextFieldAtY:(CGFloat)y placeholder:(NSString *)placeholder {

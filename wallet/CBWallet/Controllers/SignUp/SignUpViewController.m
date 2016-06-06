@@ -265,6 +265,8 @@ static const CGFloat kSignUpViewControllerTitleBottomMargin = 10.f;
         
         self.titleLabel.frame = CGRectMake(CBWLayoutCommonPadding, HD_IMAGE_PORTRAIT_HEIGHT * 0.618 - kSignUpViewControllerTitleLabelHeight / 2.f, CGRectGetWidth(self.titleLabel.frame), CGRectGetHeight(self.titleLabel.frame));
         self.scrollView.frame = self.view.bounds;
+    } completion:^(BOOL finished) {
+        [self.masterPasswordViewController becomeFirstResponder];// 激活输入框
     }];
     
     if (self.action != kSignUpViewControllerActionRecover) {

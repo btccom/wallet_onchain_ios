@@ -24,4 +24,6 @@
 
 @property (nonatomic, weak) id<SignUpMasterPasswordViewControllerDelegate> delegate;
 
+- (void)becomeFirstResponder;
+
 @end
