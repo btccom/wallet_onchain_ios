@@ -129,15 +129,15 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
 //    if ([[NSUserDefaults standardUserDefaults] boolForKey:CBWUserDefaultsTouchIdEnabledKey]) {
     if ([[SSKeychain passwordForService:CBWKeychainTouchIDService account:CBWKeychainAccountDefault] isEqualToString:CBWKeychainTouchIDON]) {
         // turn off
-        if ([SSKeychain deletePasswordForService:CBWKeychainMasterPasswordService account:CBWKeychainAccountDefault]) {
-            if ([SSKeychain deletePasswordForService:CBWKeychainTouchIDService account:CBWKeychainAccountDefault]) {
-                [self.touchIDSwitch setOn:NO animated:YES];
-            }
+        [SSKeychain deletePasswordForService:CBWKeychainMasterPasswordService account:CBWKeychainAccountDefault];
+        [SSKeychain deletePasswordForService:CBWKeychainTouchIDService account:CBWKeychainAccountDefault];
+        [self.touchIDSwitch setOn:NO animated:YES];
+//        if ([SSKeychain deletePasswordForService:CBWKeychainMasterPasswordService account:CBWKeychainAccountDefault]) {
 //            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:CBWUserDefaultsTouchIdEnabledKey];
 //            if ([[NSUserDefaults standardUserDefaults] synchronize]) {
 //                [self.touchIDSwitch setOn:NO animated:YES];
 //            }
-        }
+//        }
         return;
     }
     
@@ -269,6 +269,7 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
                     self.touchIDSwitch = aSwitch;
                 }
                 cell.accessoryView = self.touchIDSwitch;
+                DLog(@"touch id %@", [SSKeychain passwordForService:CBWKeychainTouchIDService account:CBWKeychainAccountDefault]);
                 self.touchIDSwitch.on = [[SSKeychain passwordForService:CBWKeychainTouchIDService account:CBWKeychainAccountDefault] isEqualToString:CBWKeychainTouchIDON];//[[NSUserDefaults standardUserDefaults] boolForKey:CBWUserDefaultsTouchIdEnabledKey];
             }
         }
