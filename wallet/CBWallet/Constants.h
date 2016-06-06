@@ -53,6 +53,7 @@ static NSString *const CBWNotificationWalletRecovered = @"cbw.notification.walle
 
 // common error
 static NSString *const CBWErrorDomain = @"cbw.error";
+static const NSInteger CBWErrorCodeUserCanceledTransaction = 70001;
 
 // Cache
 static NSString *const CBWCacheSubfix = @".cache";

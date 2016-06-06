@@ -162,6 +162,8 @@ static NSString *const kTransactionViewControllerCellIdentifierIO = @"transactio
         ((TransactionDataCell *)cell).hashEnabled = NO;
     }
     
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     switch (indexPath.section) {
         case kTransactionViewControllerSectionSummary: {
             if (indexPath.row == 0) {
@@ -184,6 +186,8 @@ static NSString *const kTransactionViewControllerCellIdentifierIO = @"transactio
             // 处理查询地址的显示
             if ([cell.textLabel.text isEqualToString:self.transaction.queryAddress]) {
                 cell.textLabel.textColor = [UIColor CBWSubTextColor];
+            } else {
+                cell.selectionStyle = UITableViewCellSelectionStyleDefault;
             }
             break;
         }
@@ -194,6 +198,8 @@ static NSString *const kTransactionViewControllerCellIdentifierIO = @"transactio
             // 处理查询地址的显示
             if ([cell.textLabel.text isEqualToString:self.transaction.queryAddress]) {
                 cell.textLabel.textColor = [UIColor CBWSubTextColor];
+            } else {
+                cell.selectionStyle = UITableViewCellSelectionStyleDefault;
             }
             break;
         }
@@ -223,7 +229,6 @@ static NSString *const kTransactionViewControllerCellIdentifierIO = @"transactio
     return headerView;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSString *selecteAddress = nil;
     switch (indexPath.section) {
         case kTransactionViewControllerSectionInputs: {

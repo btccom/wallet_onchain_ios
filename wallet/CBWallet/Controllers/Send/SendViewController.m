@@ -220,7 +220,10 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
             // send
             [self sendToAddresses:@{self.quicklyToAddress: @([self.quicklyToAmountInBTC BTC2SatoshiValue])} withCompletion:^(NSError *error) {
                 if (error) {
-                    [self alertErrorMessage:error.localizedDescription];
+                    if (!([error.domain isEqualToString:CBWErrorDomain] && error.code == CBWErrorCodeUserCanceledTransaction)) {
+                        // user canceled action won't trigger alert
+                        [self alertErrorMessage:error.localizedDescription];
+                    }
                     return;
                 }
                 
@@ -248,9 +251,13 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
                 NSString *addressString = [CBWAddress addressStringWithIdx:idx acountIdx:self.account.idx];
                 changeAddress = [CBWAddress newAdress:addressString withLabel:@"" idx:idx accountRid:self.account.rid accountIdx:self.account.idx inStore:addressStore];
             }
+            // send
             [self sendToAddresses:[toAddresses copy] withChangeAddress:changeAddress fee:[self.fee.value longLongValue] completion:^(NSError *error) {
                 if (error) {
-                    [self alertErrorMessage:error.localizedDescription];
+                    if (!([error.domain isEqualToString:CBWErrorDomain] && error.code == CBWErrorCodeUserCanceledTransaction)) {
+                        // user canceled action won't trigger alert
+                        [self alertErrorMessage:error.localizedDescription];
+                    }
                     if (!self.advancedChangeAddress) {
                         // 新建地址作为找零地址，在发款失败时移除内存
                         [changeAddress deleteFromStore];
