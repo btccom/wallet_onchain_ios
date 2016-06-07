@@ -16,6 +16,7 @@
 }
 
 - (void)layoutSubviews {
+    self.detailTextLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:UIFont.labelFontSize];
     [super layoutSubviews];
     
     if (self.isHashEnabled) {
@@ -29,10 +30,9 @@
         frame.size.width = width;
         frame.size.height = CGRectGetHeight(self.contentView.frame);
         self.detailTextLabel.frame = frame;
-    } else {
-        self.detailTextLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:UIFont.labelFontSize];
-        self.detailTextLabel.lineBreakMode = NSLineBreakByClipping;
-        self.detailTextLabel.numberOfLines = 1;
+//    } else {
+//        self.detailTextLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+//        self.detailTextLabel.numberOfLines = 1;
     }
 }
 
