@@ -10,7 +10,8 @@
 
 typedef NS_ENUM(NSUInteger, TransactionType) {
     TransactionTypeSend = 0,
-    TransactionTypeReceive
+    TransactionTypeReceive,
+    TransactionTypeInternal
 };
 
 @interface CBWTransaction : CBWRecordObject
@@ -47,7 +48,7 @@ typedef NS_ENUM(NSUInteger, TransactionType) {
 
 
 // 需计算的属性
-@property (nonatomic, assign, readonly) TransactionType type;
+@property (nonatomic, assign) TransactionType type;
 /// 相关地址
 @property (nonatomic, copy, readonly, nonnull) NSArray *relatedAddresses;
 /// 查询地址，交易查询路径通常为 地址 -> 交易 -> 详情

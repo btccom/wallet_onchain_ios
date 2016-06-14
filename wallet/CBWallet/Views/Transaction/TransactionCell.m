@@ -106,16 +106,29 @@ static const CGFloat kTransactionCellVerticalPadding = CBWLayoutCommonVerticalPa
 #pragma mark - Public Method
 
 - (void)setTransaction:(CBWTransaction *)transaction {
-    if (transaction.type == TransactionTypeSend) {
-        self.iconView.tintColor = self.decreasingColor;
-        [self.iconView setImage:[[UIImage imageNamed:@"icon_send_mini"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
-    } else {
-        self.iconView.tintColor = self.increasingColor;
-        [self.iconView setImage:[[UIImage imageNamed:@"icon_receive_mini"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
+    switch (transaction.type) {
+        case TransactionTypeSend: {
+            self.iconView.tintColor = self.decreasingColor;
+            [self.iconView setImage:[[UIImage imageNamed:@"icon_send_mini"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
+            break;
+        }
+            
+        case TransactionTypeReceive: {
+            self.iconView.tintColor = self.increasingColor;
+            [self.iconView setImage:[[UIImage imageNamed:@"icon_receive_mini"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
+            break;
+        }
+            
+        case TransactionTypeInternal: {
+            self.iconView.tintColor = [UIColor CBWPrimaryColor];
+            [self.iconView setImage:[[UIImage imageNamed:@"icon_internal_mini"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
+            break;
+        }
     }
+    
     // TODO: today....
     self.dateLabel.text = [transaction.transactionTime stringWithFormat:@"yyyy-MM-dd HH:mm:ss"];
-    self.valueLabel.text = [@(ABS(transaction.value)) satoshiBTCString];
+    self.valueLabel.text = transaction.type == TransactionTypeInternal ? [@(transaction.outputsValue) satoshiBTCString] : [@(ABS(transaction.value)) satoshiBTCString];
     self.valueLabel.textColor = self.iconView.tintColor;
     if (transaction.confirmations > 0) {
         self.confirmationLabel.textColor = [UIColor CBWBlackColor];

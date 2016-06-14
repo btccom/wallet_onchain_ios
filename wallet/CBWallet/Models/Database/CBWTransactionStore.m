@@ -151,6 +151,46 @@
     }
 }
 
+- (void)addRecord:(CBWRecordObject *)record ASC:(BOOL)ASC {
+    if (!record) {
+        return;
+    }
+    if ([records containsObject:record]) {
+        if (self.account.idx > CBWRecordWatchedIDX) {// 监听账户不作处理
+            
+            CBWTransaction *newTransaction = (CBWTransaction *)record;
+            __block CBWTransaction *existedTransaction = nil;
+            [records enumerateObjectsUsingBlock:^(CBWRecordObject * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                CBWTransaction *transaction = (CBWTransaction *)obj;
+                if ([transaction.hashID isEqualToString:newTransaction.hashID]) {
+                    existedTransaction = transaction;
+                    *stop = YES;
+                }
+            }];
+            
+            if (![existedTransaction.queryAddress isEqualToString:newTransaction.queryAddress]) {
+                // 且地址也不同
+                long long existedValue = existedTransaction.value;
+                existedValue += newTransaction.value;
+                if (existedValue + existedTransaction.fee == 0) {
+                    existedTransaction.type = TransactionTypeInternal;
+                }
+                [existedTransaction setValue:@(existedValue) forKey:@"value"];
+                
+            }
+            
+            return;
+        }
+    }
+    record.store = self;
+    DLog(@"store add record: %@", record);
+    if (ASC) {
+        [records addObject:record];
+    } else {
+        [records insertObject:record atIndex:0]; /// DESC
+    }
+}
+
 #pragma - Private Method
 
 - (NSString *)p_cachedPath {
