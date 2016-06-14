@@ -15,6 +15,7 @@
     if (!_actionButton) {
         UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CBWCellHeightDefault, CBWCellHeightDefault)];
         [button setTitleColor:[UIColor CBWPrimaryColor] forState:UIControlStateNormal];
+        [button setTitleColor:[[UIColor CBWPrimaryColor] colorWithAlphaComponent:0.5] forState:UIControlStateDisabled];
 //        [button setImage:[UIImage imageNamed:@"icon_list_mini"] forState:UIControlStateNormal];
         self.accessoryView = button;
         _actionButton = button;

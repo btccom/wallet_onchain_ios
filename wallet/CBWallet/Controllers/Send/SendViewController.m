@@ -235,6 +235,18 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
         }
             
         case SendViewControllerModeAdvanced: {
+            if (self.advancedToAmountCell.actionButton.enabled) {
+                // add to data first
+                if (![self p_handleAdvancedAddToData:nil]) {
+                    return;
+                }
+            }
+            
+            if (self.advancedToDatas.count == 0) {
+                [self alertErrorMessage:NSLocalizedStringFromTable(@"Alert Message no_advanced_to_datas", @"melotic", nil)];
+                return;
+            }
+            
             // wrap to addresses
             NSMutableDictionary *toAddresses = [NSMutableDictionary dictionary];
             [self.advancedToDatas enumerateObjectsUsingBlock:^(CBWAddress * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -310,6 +322,7 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
         valid = value > 0 && valid;
         DLog(@"address: %@, value: %f", address, value);
         self.advancedToAmountCell.actionButton.enabled = valid;
+        [self p_checkIfSendButtonEnabled];
     }
     return valid;
 }
@@ -327,7 +340,7 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
             
         case SendViewControllerModeAdvanced: {
             valid = valid && self.advancedFromAddresses.count > 0;
-            valid = valid && self.advancedToDatas.count > 0;
+            valid = valid && (self.advancedToDatas.count > 0 || self.advancedToAmountCell.actionButton.isEnabled);
             self.advancedSendButtonCell.enabled = valid;
             break;
         }
@@ -337,7 +350,7 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
 
 #pragma mark Advanced Actions
 ///
-- (void)p_handleAdvancedAddToData:(id)sender {
+- (BOOL)p_handleAdvancedAddToData:(id)sender {
     [self reportActivity:@"advancedAddToData"];
     
     DLog(@"handle add advanced to data");
@@ -348,7 +361,7 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
     // check address
     if (![CBWAddress validateAddressString:addressString]) {
         [self alertMessageWithInvalidAddress:addressString];
-        return;
+        return NO;
     }
     
     // check duplicated address
@@ -362,13 +375,13 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
     if (duplicated) {
         // TODO: 错误提示，重复地址不同金额可以相加或替换
         [self alertMessage:NSLocalizedStringFromTable(@"Alert Message duplicated_send_to_address", @"CBW", nil) withTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil)];
-        return;
+        return NO;
     }
     
     // check amount
     if (self.advancedToAmountCell.textField.text.doubleValue > 21000000.0) {
         [self alertErrorMessage:NSLocalizedStringFromTable(@"Alert Message too_big_amount", @"CBW", nil)];
-        return;
+        return NO;
     }
     
     CBWAddress *address = [CBWAddress new];
@@ -384,6 +397,7 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
     [self.tableView endUpdates];
     
     [self p_checkIfSendButtonEnabled];
+    return YES;
 }
 - (void)p_handleAdvancedDeleteToData:(id)sender {
     [self reportActivity:@"advancedDeleteToData"];
