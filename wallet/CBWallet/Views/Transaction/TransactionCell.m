@@ -150,7 +150,11 @@ static const CGFloat kTransactionCellVerticalPadding = CBWLayoutCommonVerticalPa
     }
     NSString *relatedAddress = [transaction.relatedAddresses firstObject];
     if (!relatedAddress) {
+        // coinbase
         relatedAddress = @"Coinbase";
+    }
+    if (transaction.type == TransactionTypeInternal) {
+        relatedAddress = NSLocalizedStringFromTable(@"Internal Transaction", @"melotic", nil);
     }
     self.addressLabel.text = relatedAddress;
 }

@@ -11,6 +11,7 @@
 "Unconfirmed Transaction!" = "Unconfirmed";
 "Confirmed" = "Confirmed";
 "Watched Account" = "Watched Account";
+"Internal Transaction" = "Internal Transaction";
 
 "Title welcome" = "Welcome";
 "Description welcome" = "Your personal bitcoin wallet.";
