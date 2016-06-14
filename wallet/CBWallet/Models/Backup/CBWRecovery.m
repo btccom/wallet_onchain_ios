@@ -72,7 +72,7 @@
     [assetslibrary assetForURL:self.assetURL resultBlock:^(ALAsset *asset) {
         
         ALAssetRepresentation *representation = asset.defaultRepresentation;
-        //            long long size = representation.size;
+//        long long size = representation.size;
         NSUInteger size = (NSUInteger)representation.size;
         NSMutableData *rawData = [[NSMutableData alloc] initWithCapacity:size];
         void *buffer = [rawData mutableBytes];
@@ -90,7 +90,7 @@
         
         if (!detector) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                completion([NSError errorWithDomain:CBWErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedStringFromTable(@"Error detect_image_failed", @"CBW", nil)}]);
+                completion([NSError errorWithDomain:CBWErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedStringFromTable(@"Error none_CIDetector", @"CBW", nil)}]);
             });
             return;
         }
@@ -100,10 +100,18 @@
         // seed data
         CIImage *ciimg = [CIImage imageWithCGImage:seedImage.CGImage];
         NSArray *featuresR = [detector featuresInImage:ciimg];
+        
+        if (featuresR.count == 0) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completion([NSError errorWithDomain:CBWErrorDomain code:CBWErrorCodeInvalidBackupImageNoSeedData userInfo:@{NSLocalizedDescriptionKey: NSLocalizedStringFromTable(@"Error invalid_backup_image_no_seed_data", @"CBW", nil)}]);
+            });
+            return;
+        }
+        
         for (CIQRCodeFeature *featureR in featuresR) {
             DLog(@"seed and hint: %@ ", featureR.messageString);
             NSError *error = nil;
-            [datas addObject:[NSJSONSerialization JSONObjectWithData:[featureR.messageString dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingAllowFragments error:&error]];
+            id seedHintData = [NSJSONSerialization JSONObjectWithData:[featureR.messageString dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingAllowFragments error:&error];
             
             if (error) {
                 NSLog(@"Seed JSON error: %@", error);
@@ -112,6 +120,15 @@
                 });
                 return;
             }
+            
+            if (![seedHintData isKindOfClass:[NSArray class]] || [seedHintData count] != 2) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    completion([NSError errorWithDomain:CBWErrorDomain code:CBWErrorCodeInvalidBackupImageInvalidSeedData userInfo:@{NSLocalizedDescriptionKey: NSLocalizedStringFromTable(@"Error invalid_backup_image_invalid_seed_data", @"CBW", nil)}]);
+                });
+                return;
+            }
+            
+            [datas addObject:seedHintData];
             
         }
         

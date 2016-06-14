@@ -117,6 +117,8 @@
 
 "Error not_enough_balance" = "Balance is not enough.";
 "Error too_big_amount" = "Amount should be less than 21,000,000 BTC.";
+"Error invalid_backup_image_no_seed_data" = "Invalid backup image.";
+"Error invalid_backup_image_invalid_seed_data" = "Parse seed data failed.";
 
 "Label watched_account" = "Watched Account";
 "Label default_account" = "Default Account";
