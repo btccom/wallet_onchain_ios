@@ -174,6 +174,12 @@ static NSString *const kPasswordViewControllerSaveButtonCellIdentifier = @"cell.
 }
 
 #pragma mark <UITableViewDelegate>
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+    if (section == [tableView numberOfSections] - 1) {
+        return NSLocalizedStringFromTable(@"Tip about_master_password", @"CBW", nil);
+    }
+    return nil;
+}
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 2) {
         [self p_handleSave:nil];
