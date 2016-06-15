@@ -108,7 +108,9 @@ NSString *const CBWAddressInfoAmountKey = @"amount";
 }
 
 - (long long)BTC2SatoshiValue {
-    return [@([self doubleValue] * 100000000.0) longLongValue];
+    NSDecimalNumber *number = [NSDecimalNumber decimalNumberWithString:self];
+    number = [number decimalNumberByMultiplyingBy:[NSDecimalNumber decimalNumberWithMantissa:1 exponent:8 isNegative:NO]];
+    return [number longLongValue];
 }
 
 @end

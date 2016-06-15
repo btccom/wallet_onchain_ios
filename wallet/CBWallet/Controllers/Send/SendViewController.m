@@ -214,7 +214,8 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
             }
             
             // check amount
-            if (self.quicklyToAmountInBTC.doubleValue > 21000000.0) {
+            NSLog(@"quickly send amount: %lld, %lld", [self.quicklyToAmountInBTC BTC2SatoshiValue], BTC_MAX_MONEY);
+            if ([self.quicklyToAmountInBTC BTC2SatoshiValue] > BTC_MAX_MONEY) {
                 [self alertErrorMessage:NSLocalizedStringFromTable(@"Alert Message too_big_amount", @"CBW", nil)];
                 return;
             }
@@ -385,14 +386,14 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
     }
     
     // check amount
-    if (self.advancedToAmountCell.textField.text.doubleValue > 21000000.0) {
+    if ([self.advancedToAmountCell.textField.text BTC2SatoshiValue] > BTC_MAX_MONEY) {
         [self alertErrorMessage:NSLocalizedStringFromTable(@"Alert Message too_big_amount", @"CBW", nil)];
         return NO;
     }
     
     CBWAddress *address = [CBWAddress new];
     address.address = addressString;
-    address.balance = [@(self.advancedToAmountCell.textField.text.doubleValue * 100000000.0) longLongValue];
+    address.balance = [self.advancedToAmountCell.textField.text BTC2SatoshiValue];
     [self.advancedToDatas addObject:address];
     [self.tableView beginUpdates];
     [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.advancedToDatas.count - 1 inSection:kSendViewControllerAdvancedSectionTo]] withRowAnimation:((self.advancedToDatas.count > 1) ? UITableViewRowAnimationTop : UITableViewRowAnimationFade)];
@@ -468,7 +469,7 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
         UITextField *textField = [alert.textFields firstObject];
         NSString *valueString = textField.text;
         DLog(@"custom value string: %@", valueString);
-        long long value = valueString.doubleValue * 100000000;
+        long long value = [valueString BTC2SatoshiValue];
         CBWFee *fee = [CBWFee feeWithValue:@(value)];
         self.fee = fee;
         [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:kSendViewControllerAdvancedSectionFee] withRowAnimation:UITableViewRowAnimationFade];
