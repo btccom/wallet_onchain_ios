@@ -267,6 +267,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(p_handleNotification:) name:CBWNotificationWalletCreated object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(p_handleNotification:) name:CBWNotificationWalletRecovered object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(p_handleNotification:) name:CBWNotificationSignedOut object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(p_handleNotification:) name:CBWNotificationTransactionCreated object:nil];
 }
 
 - (void)p_handleNotification:(NSNotification *)notification {
@@ -276,6 +277,8 @@
     } else if ([notification.name isEqualToString:CBWNotificationWalletCreated]) {
         [self reload];
     } else if ([notification.name isEqualToString:CBWNotificationWalletRecovered]) {
+        [self reload];
+    } else if ([notification.name isEqualToString:CBWNotificationTransactionCreated]) {
         [self reload];
     } else if ([notification.name isEqualToString:CBWNotificationSignedOut]) {
         [self p_handleSignOut];

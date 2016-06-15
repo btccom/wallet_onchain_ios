@@ -212,11 +212,13 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
                 [self alertMessageWithInvalidAddress:addressString];
                 return;
             }
+            
             // check amount
             if (self.quicklyToAmountInBTC.doubleValue > 21000000.0) {
                 [self alertErrorMessage:NSLocalizedStringFromTable(@"Alert Message too_big_amount", @"CBW", nil)];
                 return;
             }
+            
             // send
             [self sendToAddresses:@{self.quicklyToAddress: @([self.quicklyToAmountInBTC BTC2SatoshiValue])} withCompletion:^(NSError *error) {
                 if (error) {
@@ -227,7 +229,10 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
                     return;
                 }
                 
-                // back
+                // nitification
+                [[NSNotificationCenter defaultCenter] postNotificationName:CBWNotificationTransactionCreated object:nil userInfo:@{@"addresses": @[addressString]}];
+                
+                // then back
                 [self p_popBack];
             }];
             
@@ -263,6 +268,7 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
                 NSString *addressString = [CBWAddress addressStringWithIdx:idx acountIdx:self.account.idx];
                 changeAddress = [CBWAddress newAdress:addressString withLabel:@"" idx:idx accountRid:self.account.rid accountIdx:self.account.idx inStore:addressStore];
             }
+            
             // send
             [self sendToAddresses:[toAddresses copy] withChangeAddress:changeAddress fee:[self.fee.value longLongValue] completion:^(NSError *error) {
                 if (error) {
@@ -279,6 +285,14 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
                 
                 // save change address
                 [changeAddress saveWithError:nil];
+                
+                // nitification
+                __block NSMutableArray *fromAddresseStrings = [NSMutableArray array];
+                [self.advancedFromAddresses enumerateObjectsUsingBlock:^(CBWAddress * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    [fromAddresseStrings addObject:obj.address];
+                }];
+                [[NSNotificationCenter defaultCenter] postNotificationName:CBWNotificationTransactionCreated object:nil userInfo:@{@"addresses": [fromAddresseStrings copy]}];
+                
                 // then back
                 [self p_popBack];
             }];
@@ -289,14 +303,6 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
         default:
             break;
     }
-    
-    // TODO: advanced
-    // check from address balance
-    // check to address
-    // check change address
-    // check fee
-    // sign inputs
-    // post
 }
 
 - (void)p_popBack {
