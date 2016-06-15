@@ -107,43 +107,41 @@
                 return;
             }
             
-            
-            NSMutableArray *unspentAddresses = [NSMutableArray array];
+            /// 包含未花交易的地址数组，
+            ///
+            /// <code>[{addressString:[BTCTransactionOutput, ...]}, ...]</code>
+            NSMutableArray<NSDictionary<NSString *, NSArray<BTCTransactionOutput *> *>*> *unspentAddressesWithOutputs = [NSMutableArray array];
             [usedAddresses enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                if (![obj isKindOfClass:[NSDictionary class]]) {
-                    return;
-                }
-                NSMutableDictionary *unspentAddress = [obj mutableCopy];
-                
-                NSString *addressString = [[unspentAddress allKeys] firstObject];
-                NSArray *unspentTxsJson = [unspentAddress objectForKey:addressString];
-                
-                // 5. 组装未花交易输出
-                __block NSMutableArray *txouts = [[NSMutableArray alloc] init];
-                [unspentTxsJson enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    // FIXME: 只获取部分未花交易？
-                    if ([obj[@"script"] length] > 0) {
-                        BTCTransactionOutput *txout = [[BTCTransactionOutput alloc] init];
-                        txout.value = [obj[@"value"] longLongValue];
-                        txout.script = [[BTCScript alloc] initWithString:obj[@"script"]];
-                        txout.index = [obj[@"tx_output_n"] intValue];
-                        txout.transactionHash = (BTCReversedData(BTCDataFromHex(obj[@"tx_hash"])));
-                        txout.confirmations = [obj[@"confirmations"] unsignedIntegerValue];
-                        [txouts addObject:txout];
+                if ([obj isKindOfClass:[NSDictionary class]]) {
+                    NSString *addressString = [[obj allKeys] firstObject];
+                    NSArray<NSDictionary *> *txoutsJSON = [obj objectForKey:addressString];
+                    
+                    // 5. 组装未花交易输出
+                    __block NSMutableArray *txouts = [[NSMutableArray alloc] init];
+                    [txoutsJSON enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                        // FIXME: 只获取部分未花交易？
+                        if ([obj[@"script"] length] > 0) {
+                            BTCTransactionOutput *txout = [[BTCTransactionOutput alloc] init];
+                            txout.value = [obj[@"value"] longLongValue];
+                            txout.script = [[BTCScript alloc] initWithString:obj[@"script"]];
+                            txout.index = [obj[@"tx_output_n"] intValue];
+                            txout.transactionHash = (BTCReversedData(BTCDataFromHex(obj[@"tx_hash"])));
+                            txout.confirmations = [obj[@"confirmations"] unsignedIntegerValue];
+                            [txouts addObject:txout];
+                        }
+                    }];
+                    
+                    if (txouts.count == 0) {
+                        DLog(@"none unspent txs");
+                    } else {
+                        [unspentAddressesWithOutputs addObject:@{addressString: [txouts copy]}];
                     }
-                }];
-                
-                if (txouts.count == 0) {
-                    DLog(@"none unspent txs");
-                } else {
-                    [unspentAddress setObject:txouts forKey:addressString];
-                    [unspentAddresses addObject:unspentAddress];
                 }
             }];
-            DLog(@"unspent txs: %@", unspentAddresses);
+            DLog(@"unspent txs: %@", unspentAddressesWithOutputs);
             
             // 未能获得有效未花交易地址
-            if (unspentAddresses.count == 0) {
+            if (unspentAddressesWithOutputs.count == 0) {
                 DLog(@"none addresses with unspent txs");
                 completion([NSError errorWithDomain:CBWErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedStringFromTable(@"Error none_address_with_unspent_txs", @"CBW", nil)}]);
                 return;
@@ -155,12 +153,11 @@
             __block BTCAmount spentCoins = 0;
             
             // 将所有处理过（统计金额）的输出作为输入
-            [unspentAddresses enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                NSDictionary *unspentAddress = obj;
-                NSArray *txouts = [[unspentAddress allValues] firstObject];
-                [txouts enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    BTCTransactionOutput *txout = obj;
-                    
+            [unspentAddressesWithOutputs enumerateObjectsUsingBlock:^(NSDictionary<NSString *,NSArray<BTCTransactionOutput *> *> * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                
+                NSArray <BTCTransactionOutput *> *txouts = [[obj allValues] firstObject];
+                
+                [txouts enumerateObjectsUsingBlock:^(BTCTransactionOutput * _Nonnull txout, NSUInteger idx, BOOL * _Nonnull stop) {
                     BTCTransactionInput *txin = [[BTCTransactionInput alloc] init];
                     txin.previousHash = txout.transactionHash;
                     txin.previousIndex = txout.index;
@@ -171,6 +168,7 @@
                     
                     spentCoins += txout.value;
                 }];
+                
             }];
             
             NSLog(@"Total satoshis to spend:       %lld", spentCoins);
@@ -192,9 +190,10 @@
             
             // 8. 签名
             DLog(@"prepare to sign tx: %@", tx);
-            [unspentAddresses enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                NSDictionary *unspentAddress = obj;
-                NSString *addressString = [[unspentAddress allKeys] firstObject];
+            __block NSInteger signedIndex = -1;
+            [unspentAddressesWithOutputs enumerateObjectsUsingBlock:^(NSDictionary<NSString *,NSArray<BTCTransactionOutput *> *> * _Nonnull unspentAddressWithOutputs, NSUInteger idx, BOOL * _Nonnull stop) {
+                
+                NSString *addressString = [[unspentAddressWithOutputs allKeys] firstObject];
                 
                 // 找到对应的 key
                 __block BTCKey *key = nil;
@@ -211,20 +210,22 @@
                     return;
                 }
                 
-                NSArray *txouts = [unspentAddress objectForKey:addressString];
-                [txouts enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    BTCTransactionOutput *txout = obj;
+                // 该地址的未花交易
+                NSArray<BTCTransactionOutput *> *txouts = [unspentAddressWithOutputs objectForKey:addressString];
+                [txouts enumerateObjectsUsingBlock:^(BTCTransactionOutput * _Nonnull txout, NSUInteger idx, BOOL * _Nonnull stop) {
                     
-                    BTCTransactionInput *txin = tx.inputs[idx];
+                    signedIndex ++;
+                    
+                    BTCTransactionInput *txin = tx.inputs[signedIndex];
                     
                     BTCScript *sigScript = [[BTCScript alloc] init];
                     
                     BTCSignatureHashType hashtype = BTCSignatureHashTypeAll;
                     
                     // 生成待签名 hash
-                    NSData *hash = [tx signatureHashForScript:txout.script inputIndex:(uint32_t)idx hashType:hashtype error:nil];
+                    NSData *hash = [tx signatureHashForScript:txout.script inputIndex:(uint32_t)signedIndex hashType:hashtype error:nil];
                     
-                    DLog(@"Hash for input %lu: %@", (unsigned long)idx, BTCHexFromData(hash));
+                    DLog(@"To sign hash for input at %lu: %@", (unsigned long)signedIndex, BTCHexFromData(hash));
                     if (!hash) {
                         completion([NSError errorWithDomain:CBWErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedStringFromTable(@"Alert Message invalid_hash_to_sign_transaction", @"CBW", nil)}]);
                         return;
@@ -247,11 +248,11 @@
             
             
             // 9. 广播
-            // Validate the signatures before returning for extra measure.
+            // 验证未花交易的第一条
             {
                 BTCScriptMachine *sm = [[BTCScriptMachine alloc] initWithTransaction:tx inputIndex:0];
                 NSError *error = nil;
-                BOOL r = [sm verifyWithOutputScript:[[(BTCTransactionOutput*)[[[[unspentAddresses firstObject] allValues] firstObject] firstObject] script] copy] error:&error];
+                BOOL r = [sm verifyWithOutputScript:[[[[[[unspentAddressesWithOutputs firstObject] allValues] firstObject] firstObject] script] copy] error:&error];
                 if (!r) {
                     // callback
                     completion(error);
