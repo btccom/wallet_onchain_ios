@@ -75,7 +75,7 @@ static NSString *const kTransactionViewControllerCellIdentifierIO = @"transactio
     _summaryDatas = [NSMutableArray arrayWithObject:self.hashId];
     if (self.transaction) {
         [baseSummaryTitles insertObject:NSLocalizedStringFromTable(@"Transaction Cell value", @"CBW", nil) atIndex:1];
-        [_summaryDatas addObject:[@(self.transaction.value) satoshiBTCString]];
+        [_summaryDatas addObject:[@((self.transaction.type == TransactionTypeInternal) ? self.transaction.outputsValue : self.transaction.value) satoshiBTCString]];
     }
     _summaryTitles = [baseSummaryTitles copy];
     
