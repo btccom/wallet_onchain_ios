@@ -116,7 +116,7 @@
 "Alert Message sure_to_send_coins_%@_fee_%@" = "Are you sure to send %@ (including fee %@).";
 "Alert Message user_canceled_transaction" = "Canceled.";
 
-"Error not_enough_balance" = "Balance is not enough.";
+"Error not_enough_balance" = "Insufficient balance.";
 "Error too_big_amount" = "Amount should be less than 21,000,000 BTC.";
 "Error invalid_backup_image_no_seed_data" = "Invalid backup image.";
 "Error invalid_backup_image_invalid_seed_data" = "Parse seed data failed.";
