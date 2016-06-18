@@ -30,7 +30,7 @@ static NSString *const kTransactionViewControllerCellIdentifierIO = @"transactio
 @interface TransactionViewController ()
 
 @property (nonatomic, strong) NSArray *sectionTitles;
-@property (nonatomic, strong) NSArray *summaryTitles;
+@property (nonatomic, strong) NSMutableArray *summaryTitles;
 @property (nonatomic, strong) NSMutableArray *summaryDatas;
 @property (nonatomic, strong) NSArray *blockTitles;
 @property (nonatomic, strong) NSArray *blockDatas;
@@ -60,30 +60,58 @@ static NSString *const kTransactionViewControllerCellIdentifierIO = @"transactio
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // navigation
     self.title = NSLocalizedStringFromTable(@"Navigation transaction", @"CBW", @"Transaction Detail");
+    if (self.navigationController.viewControllers.count > 4) {
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(p_handleBackToRoot)];
+    }
+    
+    
+    // table view
     [self.tableView registerClass:[TransactionDataCell class] forCellReuseIdentifier:kTransactionViewControllerCellIdentifierData];
     [self.tableView registerClass:[TransactionIOCell class] forCellReuseIdentifier:kTransactionViewControllerCellIdentifierIO];
     
+    if (!self.refreshControl) {
+        self.refreshControl = [[UIRefreshControl alloc] init];
+        //        self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:NSLocalizedStringFromTable(@"Tip loading", @"CBW", nil) attributes:@{NSForegroundColorAttributeName: [UIColor CBWSubTextColor]}];
+        [self.refreshControl addTarget:self action:@selector(p_fetchTransactionDetails) forControlEvents:UIControlEventValueChanged];
+    }
+    
+    // datas
     _sectionTitles = @[NSLocalizedStringFromTable(@"Transaction Section summary", @"CBW", nil),
                        NSLocalizedStringFromTable(@"Transaction Section inputs", @"CBW", nil),
                        NSLocalizedStringFromTable(@"Transaction Section outputs", @"CBW", nil),
                        NSLocalizedStringFromTable(@"Transaction Section block", @"CBW", nil)];
     
-    NSMutableArray *baseSummaryTitles = [@[NSLocalizedStringFromTable(@"Transaction Cell hash", @"CBW", nil),
-                                           NSLocalizedStringFromTable(@"Transaction Cell fee", @"CBW", nil),
-                                           NSLocalizedStringFromTable(@"Transaction Cell confirmations", @"CBW", nil)] mutableCopy];
+    _summaryTitles = [NSMutableArray arrayWithObject:NSLocalizedStringFromTable(@"Transaction Cell hash", @"CBW", nil)];
     _summaryDatas = [NSMutableArray arrayWithObject:self.hashId];
     if (self.transaction) {
-        [baseSummaryTitles insertObject:NSLocalizedStringFromTable(@"Transaction Cell value", @"CBW", nil) atIndex:1];
-        [_summaryDatas addObject:[@((self.transaction.type == TransactionTypeInternal) ? self.transaction.outputsValue : self.transaction.value) satoshiBTCString]];
+        [_summaryTitles addObjectsFromArray:@[NSLocalizedStringFromTable(@"Transaction Cell value", @"CBW", nil),
+                                                 NSLocalizedStringFromTable(@"Transaction Cell fee", @"CBW", nil),
+                                                 NSLocalizedStringFromTable(@"Transaction Cell confirmations", @"CBW", nil)]];
+        [_summaryDatas addObjectsFromArray:@[[@(self.transaction.value) satoshiBTCString],
+                                             [@(self.transaction.fee) satoshiBTCString],
+                                             [@(self.transaction.confirmations) groupingString]]];
     }
-    _summaryTitles = [baseSummaryTitles copy];
     
     _blockTitles = @[NSLocalizedStringFromTable(@"Transaction Cell time", @"CBW", nil),
                      NSLocalizedStringFromTable(@"Transaction Cell height", @"CBW", nil),
                      NSLocalizedStringFromTable(@"Transaction Cell size", @"CBW", nil)];
     
     
+    // fetch
+    [self p_fetchTransactionDetails];
+    
+    DLog(@"transaction view for address: %@", self.transaction.queryAddresses);
+}
+
+#pragma mark - Private Method
+
+- (void)p_handleBackToRoot {
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+- (void)p_fetchTransactionDetails {
     [self requestDidStart];
     CBWRequest *request = [CBWRequest request];
     [request transactionWithHash:self.hashId completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
@@ -91,33 +119,67 @@ static NSString *const kTransactionViewControllerCellIdentifierIO = @"transactio
         NSLog(@"transaction response: %@", response);
         if (!error) {
             // 填充数据
+            BOOL initial = !self.transactionDetail;
+            NSUInteger confirmations = self.transaction.confirmations;
+            if (self.transactionDetail) {
+                confirmations = self.transactionDetail.confirmations;
+            }
             self.transactionDetail = [[CBWTransaction alloc] initWithDictionary:response];
             
             if (self.transactionDetail) {
-                [self.summaryDatas addObject:[@(self.transactionDetail.fee) satoshiBTCString]];
-                [self.summaryDatas addObject:[@(self.transactionDetail.confirmations) groupingString]];
-                
-                NSString *dateFormat = @"yyyy-MM-dd HH:mm:ss";
-                NSString *blockTime = [self.transactionDetail.blockTime stringWithFormat:dateFormat];
-                if (!blockTime) {
-                    blockTime = @"N/A";
+                [self.tableView beginUpdates];
+                if (initial) {
+                    [self.summaryDatas removeObjectsInRange:NSMakeRange(1, self.summaryDatas.count - 1)];
+                    [self.summaryTitles removeObjectsInRange:NSMakeRange(1, self.summaryDatas.count - 1)];
+                    [self.summaryTitles addObjectsFromArray:@[NSLocalizedStringFromTable(@"Transaction Cell value", @"CBW", nil),
+                                                              NSLocalizedStringFromTable(@"Transaction Cell fee", @"CBW", nil),
+                                                              NSLocalizedStringFromTable(@"Transaction Cell confirmations", @"CBW", nil)]];
+                    [self.summaryDatas addObjectsFromArray:@[[@(self.transaction.value) satoshiBTCString],
+                                                             [@(self.transactionDetail.fee) satoshiBTCString],
+                                                             [@(self.transactionDetail.confirmations) groupingString]]];
+                    
+                    NSString *dateFormat = @"yyyy-MM-dd HH:mm:ss";
+                    NSString *blockTime = [self.transactionDetail.blockTime stringWithFormat:dateFormat];
+                    if (!blockTime) {
+                        blockTime = @"N/A";
+                    }
+                    NSString *blockHeight = @"N/A";
+                    if (self.transactionDetail.blockHeight >= 0) {
+                        blockHeight = [@(self.transactionDetail.blockHeight) groupingString];
+                    }
+                    self.blockDatas = @[blockTime,
+                                        blockHeight,
+                                        [NSString stringWithFormat:@"%@ Bytes", [@(self.transactionDetail.size) groupingString]]];
+                    
+                    [self.tableView reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, self.tableView.numberOfSections)] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    
+                } else if (self.transactionDetail.confirmations != confirmations) {
+                    [self.summaryDatas setObject:@(self.transactionDetail.confirmations) atIndexedSubscript:3];
+                    [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:3 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    
+                    if (!self.blockDatas) {
+                        NSString *dateFormat = @"yyyy-MM-dd HH:mm:ss";
+                        NSString *blockTime = [self.transactionDetail.blockTime stringWithFormat:dateFormat];
+                        if (!blockTime) {
+                            blockTime = @"N/A";
+                        }
+                        NSString *blockHeight = @"N/A";
+                        if (self.transactionDetail.blockHeight >= 0) {
+                            blockHeight = [@(self.transactionDetail.blockHeight) groupingString];
+                        }
+                        self.blockDatas = @[blockTime,
+                                            blockHeight,
+                                            [NSString stringWithFormat:@"%@ Bytes", [@(self.transactionDetail.size) groupingString]]];
+                        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:(self.tableView.numberOfSections - 1)] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    }
                 }
-                NSString *blockHeight = @"N/A";
-                if (self.transactionDetail.blockHeight >= 0) {
-                    blockHeight = [@(self.transactionDetail.blockHeight) groupingString];
-                }
-                self.blockDatas = @[blockTime,
-                                    blockHeight,
-                                    [NSString stringWithFormat:@"%@ Bytes", [@(self.transactionDetail.size) groupingString]]];
                 
-                // 刷新表格
-                [self.tableView reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, self.tableView.numberOfSections)] withRowAnimation:UITableViewRowAnimationAutomatic];
+                
+                [self.tableView endUpdates];
             }
         }
         
     }];
-    
-    DLog(@"transaction view for address: %@", self.transaction.queryAddress);
 }
 
 #pragma mark - <UITableViewDataSource>
@@ -184,7 +246,7 @@ static NSString *const kTransactionViewControllerCellIdentifierIO = @"transactio
                 cell.detailTextLabel.text = [i.prevValue satoshiBTCString];
             }
             // 处理查询地址的显示
-            if ([cell.textLabel.text isEqualToString:self.transaction.queryAddress]) {
+            if ([self.transaction.queryAddresses containsObject:cell.textLabel.text]) {
                 cell.textLabel.textColor = [UIColor CBWSubTextColor];
             } else {
                 cell.selectionStyle = UITableViewCellSelectionStyleDefault;
@@ -196,7 +258,7 @@ static NSString *const kTransactionViewControllerCellIdentifierIO = @"transactio
             cell.textLabel.text = [o.addresses componentsJoinedByString:@","];
             cell.detailTextLabel.text = [o.value satoshiBTCString];
             // 处理查询地址的显示
-            if ([cell.textLabel.text isEqualToString:self.transaction.queryAddress]) {
+            if ([self.transaction.queryAddresses containsObject:cell.textLabel.text]) {
                 cell.textLabel.textColor = [UIColor CBWSubTextColor];
             } else {
                 cell.selectionStyle = UITableViewCellSelectionStyleDefault;
@@ -239,7 +301,7 @@ static NSString *const kTransactionViewControllerCellIdentifierIO = @"transactio
             if (i.prevAddresses.count != 1) {
                 return;
             }
-            if ([[i.prevAddresses firstObject] isEqualToString:self.transaction.queryAddress]) {
+            if ([self.transaction.queryAddresses containsObject:[i.prevAddresses firstObject]]) {
                 return;
             }
             selecteAddress = [i.prevAddresses firstObject];
@@ -250,7 +312,7 @@ static NSString *const kTransactionViewControllerCellIdentifierIO = @"transactio
             if (o.addresses.count != 1) {
                 return;
             }
-            if ([[o.addresses firstObject] isEqualToString:self.transaction.queryAddress]) {
+            if ([self.transaction.queryAddresses containsObject:[o.addresses firstObject]]) {
                 return;
             }
             selecteAddress = [o.addresses firstObject];

@@ -24,6 +24,9 @@
 @property (nonatomic, assign) long long balance;
 /// unsigned integer
 @property (nonatomic, assign) NSUInteger txCount;
+@property (nonatomic, assign) NSUInteger unconfirmedTXCount;
+@property (nonatomic, assign) long long received;
+@property (nonatomic, assign) long long sent;
 
 @property (nonatomic, assign) long long accountRID;
 @property (nonatomic, assign) NSInteger accountIDX;
@@ -43,6 +46,8 @@
 + (nullable NSString *)addressStringWithIdx:(NSUInteger)idx acountIdx:(NSUInteger)accoundIdx;
 
 + (BOOL)validateAddressString:(nullable NSString *)addressString;
+
+- (nonnull instancetype)initWithDictionary:(nonnull NSDictionary *)dictionary;
 
 /// 仅 watched address 支持删除方法
 - (void)deleteWatchedAddressFromStore:(nonnull CBWRecordObjectStore *)store;

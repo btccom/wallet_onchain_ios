@@ -40,24 +40,25 @@ NSString *const CBWRecordObjectStoreCountKey = @"count";
     return nil;
 }
 
-- (void)addRecord:(CBWRecordObject *)record {
-    [self addRecord:record ASC:NO];
+- (BOOL)addRecord:(__kindof CBWRecordObject *)record {
+    return [self addRecord:record ASC:NO];
 }
 
-- (void)addRecord:(CBWRecordObject *)record ASC:(BOOL)ASC {
+- (BOOL)addRecord:(__kindof CBWRecordObject *)record ASC:(BOOL)ASC {
     if (!record) {
-        return;
+        return NO;
     }
     if ([records containsObject:record]) {
-        return;
+        return NO;
     }
     record.store = self;
-    DLog(@"store add record: %@", record);
+//    DLog(@"store add record: %@", record);
     if (ASC) {
         [records addObject:record];
     } else {
         [records insertObject:record atIndex:0]; /// DESC
     }
+    return YES;
 }
 
 - (void)deleteRecord:(CBWRecordObject *)record {

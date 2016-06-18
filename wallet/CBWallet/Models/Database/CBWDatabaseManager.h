@@ -9,11 +9,23 @@
 #import <Foundation/Foundation.h>
 #import "FMDB.h"
 
+typedef NS_ENUM(NSInteger, CBWDatabaseChangeType) {
+    /// failed
+    CBWDatabaseChangeTypeFail = -1,
+    /// exist, and no need to be updated
+    CBWDatabaseChangeTypeNone,
+    /// insert
+    CBWDatabaseChangeTypeInsert,
+    /// exist, update
+    CBWDatabaseChangeTypeUpdate
+};
+
 extern NSString *const DatabaseManagerDBPath;
 
 // tables
 extern NSString *const DatabaseManagerTableAccount;
 extern NSString *const DatabaseManagerTableAddress;
+extern NSString *const DatabaseManagerTableTX;
 extern NSString *const DatabaseManagerTableRecipient;
 
 // columns
@@ -44,6 +56,10 @@ extern NSString *const DatabaseManagerColDirty;
 extern NSString *const DatabaseManagerColInternal;
 /// integer / long long in satoshi
 extern NSString *const DatabaseManagerColBalance;
+/// integer / long long in satoshi
+extern NSString *const DatabaseManagerColReceived;
+/// integer / long long in satoshi
+extern NSString *const DatabaseManagerColSent;
 /// integer
 extern NSString *const DatabaseManagerColTxCount;
 /// integer
@@ -65,3 +81,4 @@ extern NSString *const DatabaseManagerColAccountIdx;
 
 #import "CBWDatabaseManager+Account.h"
 #import "CBWDatabaseManager+Address.h"
+#import "CBWDatabaseManager+TX.h"

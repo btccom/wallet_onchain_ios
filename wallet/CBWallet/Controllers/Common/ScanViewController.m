@@ -26,7 +26,7 @@
     self.view.backgroundColor = [UIColor CBWBlackColor];
     
     if (self.navigationController) {
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_close"] style:UIBarButtonItemStylePlain target:self action:@selector(p_dismiss:)];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(p_dismiss:)];
     } else {
         UIButton *closeButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 20.f, 60.f, 44.f)];
         [closeButton addTarget:self action:@selector(p_dismiss:) forControlEvents:UIControlEventTouchUpInside];

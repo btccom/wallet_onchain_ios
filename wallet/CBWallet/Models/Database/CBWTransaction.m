@@ -22,31 +22,26 @@
 - (NSArray *)relatedAddresses {
     if (!_relatedAddresses) {
         //TODO: 优化判断
-        NSString *selfAddress = ((CBWTransactionStore *)self.store).addressString;
         __block NSMutableArray *addresses = [NSMutableArray array];
         if (self.type == TransactionTypeSend) {
             [self.outputs enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 OutItem *o = obj;
-                if (![o.addresses containsObject:selfAddress]) {
-                    [o.addresses enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                        // 去重
-                        if (![addresses containsObject:obj]) {
-                            [addresses addObject:obj];
-                        }
-                    }];
-                }
+                [o.addresses enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    // 去重
+                    if (![addresses containsObject:obj] && ![self.queryAddresses containsObject:obj]) {
+                        [addresses addObject:obj];
+                    }
+                }];
             }];
         } else {
             [self.inputs enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 InputItem *i = obj;
-                if (![i.prevAddresses containsObject:selfAddress]) {
-                    [i.prevAddresses enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                        // 去重
-                        if (![addresses containsObject:obj]) {
-                            [addresses addObject:obj];
-                        }
-                    }];
-                }
+                [i.prevAddresses enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    // 去重
+                    if (![addresses containsObject:obj] && ![self.queryAddresses containsObject:obj]) {
+                        [addresses addObject:obj];
+                    }
+                }];
             }];
         }
         _relatedAddresses = [addresses copy];
@@ -80,6 +75,22 @@
     return nil;
 }
 
++ (NSArray *)batchInitWithArray:(NSArray *)array {
+    if ([array isKindOfClass:[NSArray class]]) {
+        __block NSMutableArray *transactions = [NSMutableArray array];
+        [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([obj isKindOfClass:[NSDictionary class]]) {
+                CBWTransaction *transaction = [[CBWTransaction alloc] initWithDictionary:obj];
+                if (transaction) {
+                    [transactions addObject:transaction];
+                }
+            }
+        }];
+        return [transactions copy];
+    }
+    return nil;
+}
+
 #pragma mark - Public Method
 
 - (void)deleteFromStore {
@@ -102,6 +113,10 @@
 
 #pragma mark - KVC
 - (void)setValue:(id)value forKey:(NSString *)key {
+    if ([value isKindOfClass:[NSNull class]]) {
+        return;
+    }
+    
     if ([key isEqualToString:@"inputs"]) {
         // inputs
         if ([value isKindOfClass:[NSArray class]]) {
@@ -139,6 +154,10 @@
     }
 }
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key {
+    if ([value isKindOfClass:[NSNull class]]) {
+        return;
+    }
+    
     if ([key isEqualToString:@"hash"]) {
         _hashID = value;
     } else if ([key isEqualToString:@"balance_diff"]) {
@@ -146,7 +165,6 @@
         _type = (_value > 0) ? TransactionTypeReceive : TransactionTypeSend;
     } else if ([key isEqualToString:@"block_time"]) {
         NSTimeInterval timestamp = [value doubleValue];
-        DLog(@"timestamp: %f", timestamp);
         if (timestamp > 0) {
             _blockTime = [NSDate dateWithTimeIntervalSince1970:timestamp];
         }

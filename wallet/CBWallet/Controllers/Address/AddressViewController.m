@@ -14,7 +14,9 @@
 #import "Database.h"
 #import "CBWRequest.h"
 
-@interface AddressViewController ()<AddressHeaderViewDelegate, UIScrollViewDelegate>
+#import "NSDate+Helper.h"
+
+@interface AddressViewController ()<AddressHeaderViewDelegate, UIScrollViewDelegate, CBWTransactionStoreDelegate>
 
 @property (nonatomic, strong) CBWTransactionStore *transactionStore;
 @property (nonatomic, assign) BOOL isThereMoreDatas;
@@ -28,7 +30,8 @@
 
 - (CBWTransactionStore *)transactionStore {
     if (!_transactionStore) {
-        _transactionStore = [[CBWTransactionStore alloc] initWithAddressString:self.addressString];
+        _transactionStore = [[CBWTransactionStore alloc] init];
+        _transactionStore.delegate = self;
     }
     return _transactionStore;
 }
@@ -47,7 +50,8 @@
 #pragma mark - Initialization
 
 - (instancetype)initWithAddress:(CBWAddress *)address actionType:(AddressActionType)actionType {
-    self = [super initWithStyle:(actionType == AddressActionTypeDefault) ? UITableViewStylePlain : UITableViewStyleGrouped];
+//    self = [super initWithStyle:(actionType == AddressActionTypeDefault) ? UITableViewStylePlain : UITableViewStyleGrouped];
+    self = [super initWithStyle:UITableViewStylePlain];
     if (self) {
         _address = address;
         _actionType = actionType;
@@ -110,6 +114,10 @@
         case AddressActionTypeExplore: {
             self.title = NSLocalizedStringFromTable(@"Navigation address", @"CBW", @"Address");
 //            addressHeaderView.labelEditable = NO;
+            // right navigation item
+            if (self.navigationController.viewControllers.count > 3) {
+                self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(p_handleBackToRoot)];
+            }
             
             [self.transactionStore fetch];
             [self.tableView reloadData];
@@ -169,6 +177,8 @@
         return;
     }
     
+    self.transactionStore.queryAddresses = @[self.addressString];
+    
     [self requestDidStart];
     
     CBWRequest *request = [[CBWRequest alloc] init];
@@ -187,11 +197,8 @@
             DLog(@"fetched transactions page: %lu, page size: %lu, total: %lu", (unsigned long)self.page, (unsigned long)pageSize, (unsigned long)totalCount);
             
             // 解析交易
-            [self.transactionStore addTransactionsFromJsonObject:[response objectForKey:CBWRequestResponseDataListKey] isCacheNeeded:(self.page == 1)];
-//            [self.transactionStore sort];
+            [self.transactionStore insertTransactionsFromCollection:[response objectForKey:CBWRequestResponseDataListKey]];
             
-            // 更新界面
-            [self.tableView reloadData];
 //            if ([self.tableView numberOfSections] == 0) {
 //                [self.tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationTop];
 //            } else {
@@ -202,6 +209,9 @@
 }
 
 #pragma mark Handlers
+- (void)p_handleBackToRoot {
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
 - (void)p_handleSaveNewAddress:(id)sender {
     [self reportActivity:@"saveNewAddress"];
     
@@ -254,17 +264,22 @@
 }
 
 #pragma mark - UITableDataSource
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (self.actionType == AddressActionTypeDefault || self.actionType == AddressActionTypeExplore) {
-        return NSLocalizedStringFromTable(@"Address Section transactions", @"CBW", @"Transactions");
-    }
-    return nil;
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return [self.transactionStore numberOfSections];
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.transactionStore.count;
+    return [self.transactionStore numberOfRowsInSection:section];
+}
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    NSDate *today = [NSDate date];
+    NSString *day = [self.transactionStore dayInSection:section];
+    if ([today isInSameDayWithDate:[NSDate dateFromString:day withFormat:@"yyyy-MM-dd"]]) {
+        return NSLocalizedStringFromTable(@"Today", @"CBW", nil);
+    }
+    return day;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    CBWTransaction *transaction = [self.transactionStore recordAtIndex:indexPath.row];
+    CBWTransaction *transaction = [self.transactionStore transactionAtIndexPath:indexPath];
     if (!transaction) {
         DefaultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:BaseTableViewCellDefaultIdentifier forIndexPath:indexPath];
         cell.textLabel.text = @"NaN";
@@ -277,10 +292,8 @@
 }
 
 #pragma mark <UITableViewDelegate>
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    DefaultSectionHeaderView *headerView = (DefaultSectionHeaderView *)[super tableView:tableView viewForHeaderInSection:section];
-    headerView.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTable(@"%@ Txs", @"CBW", nil), [@(self.address.txCount) groupingString]];
-    return headerView;
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return CBWListSectionHeaderHeight;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return CBWCellHeightTransaction;
@@ -288,9 +301,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.actionType == AddressActionTypeDefault || self.actionType == AddressActionTypeExplore) {
         // goto transaction
-        CBWTransaction *transaction = [self.transactionStore recordAtIndex:indexPath.row];
-        transaction.queryAddress = self.addressString;
-//        CBWTransaction *transaction = [self.transactionStore transactionAtIndexPath:indexPath];
+        CBWTransaction *transaction = [self.transactionStore transactionAtIndexPath:indexPath];
         if (transaction) {
             TransactionViewController *transactionViewController = [[TransactionViewController alloc] initWithTransaction:transaction];
             [self.navigationController pushViewController:transactionViewController animated:YES];
@@ -322,6 +333,27 @@
             if (contentHeight - (offsetTop + height) < 200.f) {
                 [self p_requestTransactions];
             }
+        }
+    }
+}
+
+#pragma mark - <CBWTransactionStoreDelegate>
+- (void)transactionStoreWillUpdate:(CBWTransactionStore *)store {
+}
+- (void)transactionStoreDidUpdate:(CBWTransactionStore *)store {
+    [self.tableView reloadData];
+}
+- (void)transactionStore:(CBWTransactionStore *)store didInsertSection:(NSString *)section atIndex:(NSUInteger)index {
+    [self.tableView insertSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:UITableViewRowAnimationFade];
+}
+- (void)transactionStore:(CBWTransactionStore *)store didUpdateRecord:(__kindof CBWRecordObject * _Nonnull)record atIndexPath:(NSIndexPath * _Nullable)indexPath forChangeType:(CBWTransactionStoreChangeType)changeType toNewIndexPath:(NSIndexPath * _Nullable)newIndexPath {
+    if (changeType == CBWTransactionStoreChangeTypeInsert) {
+        [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    } else if (changeType == CBWTransactionStoreChangeTypeUpdate) {
+        if ([indexPath isEqual:newIndexPath]) {
+            [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        } else {
+            [self.tableView moveRowAtIndexPath:indexPath toIndexPath:newIndexPath];
         }
     }
 }

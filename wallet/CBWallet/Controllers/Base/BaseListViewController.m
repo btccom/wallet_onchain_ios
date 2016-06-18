@@ -5,6 +5,7 @@
 //  Created by Zin (noteon.com) on 16/2/25.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
+// TODO: 下拉刷新需要刷新锁屏等待时间
 
 #import "BaseListViewController.h"
 

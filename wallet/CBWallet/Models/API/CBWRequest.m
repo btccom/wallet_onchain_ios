@@ -55,7 +55,7 @@ NSString *const CBWRequestResponseDataListKey = @"list";
         
         NSInteger statusCode = ((NSHTTPURLResponse *)response).statusCode;
         
-        DLog(@"request response [%ld]: \n%@", (long)statusCode, responseObject);
+        DLog(@"request response [%ld]", (long)statusCode);
         
         if (statusCode == 404) {
             completion([NSError errorWithDomain:CBWRequestErrorDomain code:statusCode userInfo:@{NSLocalizedDescriptionKey: @"404: endpoint is not found."}], statusCode, nil);

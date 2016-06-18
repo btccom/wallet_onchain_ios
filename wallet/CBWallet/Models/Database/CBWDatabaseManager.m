@@ -14,6 +14,7 @@ NSString *const DatabaseManagerDBPath = @"cbwdb.ss";// sqlite storage
 // tables
 NSString *const DatabaseManagerTableAccount = @"account";
 NSString *const DatabaseManagerTableAddress = @"address";
+NSString *const DatabaseManagerTableTX = @"tx";
 NSString *const DatabaseManagerTableRecipient = @"recipient";
 
 // columns
@@ -33,6 +34,8 @@ NSString *const DatabaseManagerColArchived = @"archived";
 NSString *const DatabaseManagerColDirty = @"dirty";
 NSString *const DatabaseManagerColInternal = @"internal";
 NSString *const DatabaseManagerColBalance = @"balance";
+NSString *const DatabaseManagerColReceived = @"received";
+NSString *const DatabaseManagerColSent = @"sent";
 NSString *const DatabaseManagerColTxCount = @"txCount";
 NSString *const DatabaseManagerColAccountRid = @"accountRid";
 NSString *const DatabaseManagerColAccountIdx = @"accountIdx";
@@ -61,6 +64,8 @@ NSString *const DatabaseManagerColAccountIdx = @"accountIdx";
         deleted = [db executeUpdate:deleteAccountSQL];
         NSString *deleteAddressSQL = [NSString stringWithFormat:@"DELETE FROM %@", DatabaseManagerTableAddress];
         [db executeUpdate:deleteAddressSQL];
+        NSString *deleteTXSQL = [NSString stringWithFormat:@"DELETE FROM %@", DatabaseManagerTableTX];
+        [db executeUpdate:deleteTXSQL];
         [db close];
     }
     return deleted;

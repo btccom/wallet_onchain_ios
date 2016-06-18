@@ -128,7 +128,7 @@
         [datas addObject:[accountItemsDictionary copy]];
     }
     
-    DLog(@"formated datas: %@", datas);
+//    DLog(@"formated datas: %@", datas);
     return [datas copy];
 }
 
@@ -245,10 +245,10 @@
                         backupRecord[@"dataString"] = dataString;
                         [database saveRecord:backupRecord completionHandler:^(CKRecord * _Nullable record, NSError * _Nullable error) {
                             if (error) {
-                                NSLog(@"save error: %@", error);
+//                                NSLog(@"save error: %@", error);
                                 completion(error);
                             } else {
-                                DLog(@"saved record: %@", record);
+//                                DLog(@"saved record: %@", record);
                                 completion(nil);
                             }
                         }];

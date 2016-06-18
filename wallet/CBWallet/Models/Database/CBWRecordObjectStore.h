@@ -12,7 +12,7 @@
 extern NSString *const _Nonnull CBWRecordObjectStoreCountKey;
 
 @interface CBWRecordObjectStore : NSObject {
-    NSMutableArray<CBWRecordObject *> *records;
+    NSMutableArray<__kindof CBWRecordObject *> *records;
 }
 
 /// 获取数据库中全部记录，会触发 flush
@@ -23,9 +23,9 @@ extern NSString *const _Nonnull CBWRecordObjectStoreCountKey;
 @property (nonatomic, assign, readonly) NSUInteger count;
 - (nullable id)recordAtIndex:(NSUInteger)idx;
 /// 加入内存, DESC, insert at index:0
-- (void)addRecord:(nullable CBWRecordObject *)record;
+- (BOOL)addRecord:(__kindof CBWRecordObject * _Nullable)record;
 ///
-- (void)addRecord:(nullable CBWRecordObject *)record ASC:(BOOL)ASC;
+- (BOOL)addRecord:(__kindof CBWRecordObject * _Nullable)record ASC:(BOOL)ASC;
 /// 移出内存
 - (void)deleteRecord:(nullable CBWRecordObject *)record;
 

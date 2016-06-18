@@ -57,15 +57,13 @@
     self.receiveButton.frame = CGRectOffset(frame, CGRectGetWidth(frame), 0);
     [self.receiveButton centerVerticallyWithPadding:CBWLayoutInnerSpace];
     
-    if (!_overlayBackgroundView) {
-        CGFloat screenHeight = CGRectGetHeight([UIScreen mainScreen].bounds);
-//        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, -screenHeight, CGRectGetWidth(self.bounds), screenHeight + CGRectGetHeight(self.bounds))];
-//        view.backgroundColor = [UIColor CBWSeparatorColor];
-        UIVisualEffectView *view = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight]];
-        view.frame = CGRectMake(0, -screenHeight, CGRectGetWidth(self.bounds), screenHeight + CGRectGetHeight(self.bounds));
-        [self insertSubview:view atIndex:0];
-        _overlayBackgroundView = view;
-    }
+//    if (!_overlayBackgroundView) {
+//        CGFloat screenHeight = CGRectGetHeight([UIScreen mainScreen].bounds);
+//        UIVisualEffectView *view = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight]];
+//        view.frame = CGRectMake(0, -screenHeight, CGRectGetWidth(self.bounds), screenHeight + CGRectGetHeight(self.bounds));
+//        [self insertSubview:view atIndex:0];
+//        _overlayBackgroundView = view;
+//    }
 }
 
 @end

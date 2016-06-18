@@ -5,6 +5,7 @@
 //  Created by Zin (noteon.com) on 16/3/26.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
+// TODO: CRU with dictionary
 
 #import "CBWDatabaseManager+Address.h"
 #import "CBWAddressStore.h"
@@ -62,6 +63,8 @@
         address.dirty = [results boolForColumn:DatabaseManagerColDirty];
         address.internal = [results boolForColumn:DatabaseManagerColInternal];
         address.balance = [results longLongIntForColumn:DatabaseManagerColBalance];
+        address.received = [results longLongIntForColumn:DatabaseManagerColReceived];
+        address.sent = [results longLongIntForColumn:DatabaseManagerColSent];
         address.txCount = [results intForColumn:DatabaseManagerColTxCount];
         address.accountIDX = [results intForColumn:DatabaseManagerColAccountIdx];
         address.accountRID = [results intForColumn:DatabaseManagerColAccountRid];
@@ -96,7 +99,7 @@
     FMDatabase *db = [self db];
     if ([db open]) {
         
-        NSString *sql = [NSString stringWithFormat:@"INSERT INTO %@ (%@, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", DatabaseManagerTableAddress,
+        NSString *sql = [NSString stringWithFormat:@"INSERT INTO %@ (%@, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", DatabaseManagerTableAddress,
                          DatabaseManagerColCreationDate,
                          DatabaseManagerColModificationDate,
                          DatabaseManagerColIdx,
@@ -106,6 +109,8 @@
                          DatabaseManagerColDirty,
                          DatabaseManagerColInternal,
                          DatabaseManagerColBalance,
+                         DatabaseManagerColReceived,
+                         DatabaseManagerColSent,
                          DatabaseManagerColTxCount,
                          DatabaseManagerColAccountRid,
                          DatabaseManagerColAccountIdx];
@@ -120,6 +125,8 @@
                    @(address.dirty),
                    @(address.internal),
                    @(address.balance),
+                   @(address.received),
+                   @(address.sent),
                    @(address.txCount),
                    @(address.accountRID),
                    @(address.accountIDX)];
@@ -159,7 +166,7 @@
     FMDatabase *db = [self db];
     if ([db open]) {
         
-        NSString *sql = [NSString stringWithFormat:@"UPDATE %@ SET %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ? WHERE %@ = ?", DatabaseManagerTableAddress,
+        NSString *sql = [NSString stringWithFormat:@"UPDATE %@ SET %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ? WHERE %@ = ?", DatabaseManagerTableAddress,
                          DatabaseManagerColCreationDate,
                          DatabaseManagerColModificationDate,
                          DatabaseManagerColIdx,
@@ -169,6 +176,8 @@
                          DatabaseManagerColDirty,
                          DatabaseManagerColInternal,
                          DatabaseManagerColBalance,
+                         DatabaseManagerColReceived,
+                         DatabaseManagerColSent,
                          DatabaseManagerColTxCount,
                          DatabaseManagerColAccountRid,
                          DatabaseManagerColAccountIdx,
@@ -183,6 +192,8 @@
                    @(address.dirty),
                    @(address.internal),
                    @(address.balance),
+                   @(address.received),
+                   @(address.sent),
                    @(address.txCount),
                    @(address.accountRID),
                    @(address.accountIDX),

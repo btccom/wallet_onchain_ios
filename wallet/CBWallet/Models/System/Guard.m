@@ -93,8 +93,6 @@ static const NSTimeInterval kGuardAvaibleTimeDefault = 3 * 60; // 默认3分钟
         
         [CBWBackup deleteCloudKitRecord];
         
-        [CBWTransactionStore deleteAllCaches];
-        
         [[NSNotificationCenter defaultCenter] postNotificationName:CBWNotificationSignedOut object:nil];
         
         [self checkOut];

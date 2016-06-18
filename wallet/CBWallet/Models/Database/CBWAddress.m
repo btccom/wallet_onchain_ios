@@ -121,6 +121,14 @@
     return NO;
 }
 
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary {
+    self = [super init];
+    if (self) {
+        [self setValuesForKeysWithDictionary:dictionary];
+    }
+    return self;
+}
+
 - (BOOL)saveWithError:(NSError *__autoreleasing  _Nullable *)error {
     BOOL initial = self.rid < 0;
     if (initial) {
@@ -184,6 +192,10 @@
 
 #pragma mark - KVC
 - (void)setValue:(id)value forKey:(NSString *)key {
+    if ([value isKindOfClass:[NSNull class]]) {
+        return;
+    }
+    
     if ([key isEqualToString:@"balance"]) {
         self.balance = [value isKindOfClass:[NSNull class]] ? 0 : [value longLongValue];
     } else {
@@ -191,8 +203,14 @@
     }
 }
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key {
+    if ([value isKindOfClass:[NSNull class]]) {
+        return;
+    }
+    
     if ([key isEqualToString:@"tx_count"]) {
-        self.txCount = [value isKindOfClass:[NSNull class]] ? 0 : [value unsignedIntegerValue];
+        self.txCount = [value unsignedIntegerValue];
+    } else if ([key isEqualToString:@"unconfirmed_tx_count"]) {
+        self.unconfirmedTXCount = [value unsignedIntegerValue];
     }
 }
 
