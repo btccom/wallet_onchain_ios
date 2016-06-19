@@ -73,7 +73,6 @@ static NSString *const kTransactionViewControllerCellIdentifierIO = @"transactio
     
     if (!self.refreshControl) {
         self.refreshControl = [[UIRefreshControl alloc] init];
-        //        self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:NSLocalizedStringFromTable(@"Tip loading", @"CBW", nil) attributes:@{NSForegroundColorAttributeName: [UIColor CBWSubTextColor]}];
         [self.refreshControl addTarget:self action:@selector(p_fetchTransactionDetails) forControlEvents:UIControlEventValueChanged];
     }
     

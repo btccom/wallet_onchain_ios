@@ -95,6 +95,11 @@
             [self.transactionStore fetch];
             [self.tableView reloadData];
             
+            if (!self.refreshControl) {
+                self.refreshControl = [[UIRefreshControl alloc] init];
+                [self.refreshControl addTarget:self action:@selector(p_requestAddressSummary) forControlEvents:UIControlEventValueChanged];
+            }
+            
             // 请求摘要及交易信息
             [self p_requestAddressSummary];
             
@@ -121,6 +126,11 @@
             
             [self.transactionStore fetch];
             [self.tableView reloadData];
+            
+            if (!self.refreshControl) {
+                self.refreshControl = [[UIRefreshControl alloc] init];
+                [self.refreshControl addTarget:self action:@selector(p_requestAddressSummary) forControlEvents:UIControlEventValueChanged];
+            }
             
             // 请求摘要及交易信息
             [self p_requestAddressSummary];
@@ -166,7 +176,6 @@
         if (self.address.txCount > 0) {
             // 重置分页信息后获取交易
             self.page = 0;
-            [self.transactionStore flush];
             [self p_requestTransactions];
         }
     }];
@@ -351,7 +360,7 @@
         [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     } else if (changeType == CBWTransactionStoreChangeTypeUpdate) {
         if ([indexPath isEqual:newIndexPath]) {
-            [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         } else {
             [self.tableView moveRowAtIndexPath:indexPath toIndexPath:newIndexPath];
         }
