@@ -8,6 +8,20 @@
 
 #import "CBWRecordObject.h"
 
+
+/// 可通过查询数据库判断，但不一定准确，例如恢复帐户时，可能有遗漏地址
+typedef NS_ENUM(NSUInteger, AddressScope) {
+    /// 未知
+    AddressScopeUnknown,
+    /// 外部地址
+    AddressScopeExternal,
+    /// 私有账户地址
+    AddressScopePrivate,
+    /// 观察地址
+    AddressScopeWatched
+};
+
+
 @class CBWAddressStore, BTCKey;
 
 @interface CBWAddress : CBWRecordObject
@@ -35,6 +49,8 @@
 @property (nonatomic, strong, readonly, nullable) BTCKey *privateKey;
 
 @property (nonatomic, strong, readonly, nullable) NSString *testAddress;
+
+@property (nonatomic, assign, readonly) AddressScope scope;
 
 /// create or import
 + (nonnull instancetype)newAdress:(nonnull NSString *)aAddress withLabel:(nullable NSString *)label idx:(NSInteger)idx archived:(BOOL)archived dirty:(BOOL)dirty internal:(BOOL)internal accountRid:(long long)accountRid accountIdx:(NSInteger)accountIdx inStore:(nonnull CBWAddressStore *)store;

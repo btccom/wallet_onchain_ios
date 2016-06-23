@@ -25,7 +25,7 @@ extern NSString *const DatabaseManagerDBPath;
 // tables
 extern NSString *const DatabaseManagerTableAccount;
 extern NSString *const DatabaseManagerTableAddress;
-extern NSString *const DatabaseManagerTableTX;
+
 extern NSString *const DatabaseManagerTableRecipient;
 
 // columns

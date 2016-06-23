@@ -14,7 +14,6 @@ NSString *const DatabaseManagerDBPath = @"cbwdb.ss";// sqlite storage
 // tables
 NSString *const DatabaseManagerTableAccount = @"account";
 NSString *const DatabaseManagerTableAddress = @"address";
-NSString *const DatabaseManagerTableTX = @"tx";
 NSString *const DatabaseManagerTableRecipient = @"recipient";
 
 // columns

@@ -7,28 +7,28 @@ CREATE TABLE IF NOT EXISTS 'tx' (
     'creationDate' DATE,
     'hash' TEXT,
     'value' INTEGER,
-    'fee' INTEGER,
-    'confirmations' INTEGER,
-    'isCoinbase' INTEGER,
     'blockHeight' INTEGER,
     'blockTime' DATE,
-    'queryAddresses' TEXT,
+    'queryAddress' TEXT,
     'relatedAddresses' TEXT
 );
-CREATE INDEX IF NOT EXISTS 'tx_query' ON 'tx' ('hash', 'queryAddress', 'accountIdx');
+CREATE INDEX IF NOT EXISTS 'tx_query' ON 'tx' ('hash', 'queryAddress');
 CREATE TABLE IF NOT EXISTS 'transaction' (
-    'hash' TEXT PRIMARY KEY,
+    'rid' INTEGER PRIMARY KEY AUTOINCREMENT,
     'creationDate' DATE,
-    'value' INTEGER,
+    'hash' TEXT,
     'fee' INTEGER,
-    'confirmations' INTEGER,
     'inputsValue' INTEGER,
-    'outputsValue' INTEGER,
+    'inputsCount' INTEGER,
     'inputs' TEXT,
+    'outputsValue' INTEGER,
+    'outputsCount' INTEGER,
     'outputs' TEXT,
     'isCoinbase' INTEGER,
     'blockHeight' INTEGER,
     'blockTime' DATE,
+    'size' INTEGER,
+    'version' INTEGER,
     'accountIdx' INTEGER
 );
-CREATE INDEX IF NOT EXISTS 'transaction_query' ON 'transaction' ('accountIdx');
+CREATE INDEX IF NOT EXISTS 'transaction_query' ON 'transaction' ('hash', 'accountIdx');

@@ -8,6 +8,15 @@
 
 #import "CBWDatabaseManager+TX.h"
 
+NSString *const DatabaseManagerTableTX = @"tx";
+
+NSString *const DatabaseManagerTXColHash = @"hash";
+NSString *const DatabaseManagerTXColValue = @"value";
+NSString *const DatabaseManagerTXColBlockHeight = @"blockHeight";
+NSString *const DatabaseManagerTXColBlockDate = @"blockDate";
+NSString *const DatabaseManagerTXColQueryAddress = @"queryAddress";
+NSString *const DatabaseManagerTXColRelatedAddresses = @"relatedAddresses";
+
 @implementation CBWDatabaseManager (TX)
 
 - (void)txFetchWithAccountIDX:(NSInteger)idx completion:(void(^)(NSArray *response))completion {
