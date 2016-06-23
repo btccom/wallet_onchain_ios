@@ -30,11 +30,6 @@ extern NSString *const DatabaseManagerTXColRelatedAddresses;
 /// 或用于在地址页面显示交易摘要
 @interface CBWDatabaseManager (TX)
 
-
-
-
-// move these to (transaction)
-- (void)txFetchWithAccountIDX:(NSInteger)idx completion:(void(^)(NSArray *response))completion;
 - (void)txFetchWithAddressString:(NSString *)addressString completion:(void(^)(NSArray *response))completion;
 
 - (BOOL)txCheck:(CBWTransaction *)transaction;

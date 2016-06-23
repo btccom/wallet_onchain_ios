@@ -56,7 +56,7 @@
         [self.delegate transactionStoreWillUpdate:self];
     }
     
-    [[CBWDatabaseManager defaultManager] txFetchWithAccountIDX:self.account.idx completion:^(NSArray *response) {
+    [[CBWDatabaseManager defaultManager] transactionFetchWithAccountIDX:self.account.idx completion:^(NSArray *response) {
         NSArray *transactions = [CBWTransaction batchInitWithArray:response];
         [transactions enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             if ([obj isKindOfClass:[CBWTransaction class]]) {
