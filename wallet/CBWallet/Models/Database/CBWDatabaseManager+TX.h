@@ -43,7 +43,7 @@ extern NSString *const DatabaseManagerTXColRelatedAddresses;
 /// 一次拉取全部交易
 - (void)txFetchWithQueryAddress:(NSString *)address completion:(void(^)(NSArray *response))completion;
 /// 分页拉取交易
-- (void)txFetchWithQueryAddress:(NSString *)address page:(NSUInteger)page pagesize:(NSUInteger)pagesize completion:(void (^)(NSArray *))completion;
+- (void)txFetchWithQueryAddress:(NSString *)address page:(NSUInteger)page pagesize:(NSUInteger)pagesize completion:(void (^)(NSArray *response))completion;
 /// 查询本地全部交易数量
 - (NSUInteger)txCountWithQueryAddress:(NSString *)address;
 @end

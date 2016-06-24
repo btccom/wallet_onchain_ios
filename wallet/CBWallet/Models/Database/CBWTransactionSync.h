@@ -19,6 +19,8 @@ typedef void(^syncCompletionBlock) (NSError *error, NSDictionary<NSString *, NSD
 
 @interface CBWTransactionSync : NSObject
 
+@property (nonatomic, assign) NSInteger accountIDX;
+
 - (void)syncWithAddresses:(NSArray<NSString *> *)addresses progress:(syncProgressBlock)progress completion:(syncCompletionBlock)completion;
 
 @end

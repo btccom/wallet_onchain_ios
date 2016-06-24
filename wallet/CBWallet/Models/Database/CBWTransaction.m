@@ -128,6 +128,18 @@
                 }
             }];
             _inputs = [inputs copy];
+        } else if ([value isKindOfClass:[NSString class]]) {
+            id object = [NSJSONSerialization JSONObjectWithData:[value dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
+            if ([object isKindOfClass:[NSArray class]]) {
+                __block NSMutableArray *inputs = [NSMutableArray array];// capacity = vin_size
+                [object enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    InputItem *i = [[InputItem alloc] initWithDictionary:obj];
+                    if (i) {
+                        [inputs addObject:i];
+                    }
+                }];
+                _inputs = [inputs copy];
+            }
         }
     } else if ([key isEqualToString:@"outputs"]) {
         // outputs
@@ -140,6 +152,18 @@
                 }
             }];
             _outputs = [outs copy];
+        } else if ([value isKindOfClass:[NSString class]]) {
+            id object = [NSJSONSerialization JSONObjectWithData:[value dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
+            if ([object isKindOfClass:[NSArray class]]) {
+                __block NSMutableArray *outs = [NSMutableArray array];
+                [object enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    OutItem *o = [[OutItem alloc] initWithDictionary:obj];
+                    if (o) {
+                        [outs addObject:o];
+                    }
+                }];
+                _outputs = [outs copy];
+            }
         }
     } else if ([key isEqualToString:@"fee"]) {
         _fee = [value longLongValue];
@@ -185,6 +209,8 @@
         _outputsValue = [value longLongValue];
     } else if ([key isEqualToString:@"is_coinbase"]) {
         _isCoinbase = [value boolValue];
+    } else if ([key isEqualToString:@"accountIdx"]) {
+        _accountIDX = [value integerValue];
     }
 }
 

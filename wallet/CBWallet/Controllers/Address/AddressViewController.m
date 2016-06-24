@@ -16,11 +16,10 @@
 
 #import "NSDate+Helper.h"
 
-@interface AddressViewController ()<AddressHeaderViewDelegate, UIScrollViewDelegate, CBWTransactionStoreDelegate>
+@interface AddressViewController ()<AddressHeaderViewDelegate, UIScrollViewDelegate>
 
-@property (nonatomic, strong) CBWTransactionStore *transactionStore;
+@property (nonatomic, strong) CBWTXStore *transactionStore;
 @property (nonatomic, assign) BOOL isThereMoreDatas;
-@property (nonatomic, assign) NSUInteger page;
 
 @property (nonatomic, strong) NSString *addressString;
 
@@ -28,10 +27,9 @@
 
 @implementation AddressViewController
 
-- (CBWTransactionStore *)transactionStore {
+- (CBWTXStore *)transactionStore {
     if (!_transactionStore) {
-        _transactionStore = [[CBWTransactionStore alloc] init];
-        _transactionStore.delegate = self;
+        _transactionStore = [[CBWTXStore alloc] init];
     }
     return _transactionStore;
 }
@@ -55,7 +53,6 @@
     if (self) {
         _address = address;
         _actionType = actionType;
-        _page = 0;
     }
     return self;
 }
@@ -175,46 +172,49 @@
         }
         if (self.address.txCount > 0) {
             // 重置分页信息后获取交易
-            self.page = 0;
             [self p_requestTransactions];
         }
     }];
 }
 - (void)p_requestTransactions {
-    if (self.requesting) {
-        DLog(@"fetching more? fetching");
-        return;
+    if (self.transactionStore.page < self.transactionStore.pageTotal) {
+        [self.transactionStore fetchNextPage];
+        [self.tableView reloadData];
     }
-    
-    self.transactionStore.queryAddresses = @[self.addressString];
-    
-    [self requestDidStart];
-    
-    CBWRequest *request = [[CBWRequest alloc] init];
-    
-    [request addressTransactionsWithAddressString:self.addressString page:(self.page + 1) pagesize:10 completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
-        
-        [self requestDidStop];
-        
-        if (!error) {
-            // 分页
-            NSUInteger totalCount = [[response objectForKey:CBWRequestResponseDataTotalCountKey] unsignedIntegerValue];
-            NSUInteger pageSize = [[response objectForKey:CBWRequestResponseDataPageSizeKey] unsignedIntegerValue];
-            self.page = [[response objectForKey:CBWRequestResponseDataPageKey] unsignedIntegerValue];
-            self.isThereMoreDatas = totalCount > pageSize * self.page;
-            
-            DLog(@"fetched transactions page: %lu, page size: %lu, total: %lu", (unsigned long)self.page, (unsigned long)pageSize, (unsigned long)totalCount);
-            
-            // 解析交易
-            [self.transactionStore insertTransactionsFromCollection:[response objectForKey:CBWRequestResponseDataListKey]];
-            
-//            if ([self.tableView numberOfSections] == 0) {
-//                [self.tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationTop];
-//            } else {
-//                [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
-//            }
-        }
-    }];
+//    if (self.requesting) {
+//        DLog(@"fetching more? fetching");
+//        return;
+//    }
+//    
+//    self.transactionStore.queryAddresses = @[self.addressString];
+//    
+//    [self requestDidStart];
+//    
+//    CBWRequest *request = [[CBWRequest alloc] init];
+//    
+//    [request addressTransactionsWithAddressString:self.addressString page:(self.page + 1) pagesize:10 completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
+//        
+//        [self requestDidStop];
+//        
+//        if (!error) {
+//            // 分页
+//            NSUInteger totalCount = [[response objectForKey:CBWRequestResponseDataTotalCountKey] unsignedIntegerValue];
+//            NSUInteger pageSize = [[response objectForKey:CBWRequestResponseDataPageSizeKey] unsignedIntegerValue];
+//            self.page = [[response objectForKey:CBWRequestResponseDataPageKey] unsignedIntegerValue];
+//            self.isThereMoreDatas = totalCount > pageSize * self.page;
+//            
+//            DLog(@"fetched transactions page: %lu, page size: %lu, total: %lu", (unsigned long)self.page, (unsigned long)pageSize, (unsigned long)totalCount);
+//            
+//            // 解析交易
+//            [self.transactionStore insertTransactionsFromCollection:[response objectForKey:CBWRequestResponseDataListKey]];
+//            
+////            if ([self.tableView numberOfSections] == 0) {
+////                [self.tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationTop];
+////            } else {
+////                [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+////            }
+//        }
+//    }];
 }
 
 #pragma mark Handlers
@@ -346,25 +346,25 @@
     }
 }
 
-#pragma mark - <CBWTransactionStoreDelegate>
-- (void)transactionStoreWillUpdate:(CBWTransactionStore *)store {
-}
-- (void)transactionStoreDidUpdate:(CBWTransactionStore *)store {
-    [self.tableView reloadData];
-}
-- (void)transactionStore:(CBWTransactionStore *)store didInsertSection:(NSString *)section atIndex:(NSUInteger)index {
-    [self.tableView insertSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:UITableViewRowAnimationFade];
-}
-- (void)transactionStore:(CBWTransactionStore *)store didUpdateRecord:(__kindof CBWRecordObject * _Nonnull)record atIndexPath:(NSIndexPath * _Nullable)indexPath forChangeType:(CBWTransactionStoreChangeType)changeType toNewIndexPath:(NSIndexPath * _Nullable)newIndexPath {
-    if (changeType == CBWTransactionStoreChangeTypeInsert) {
-        [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (changeType == CBWTransactionStoreChangeTypeUpdate) {
-        if ([indexPath isEqual:newIndexPath]) {
-            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-        } else {
-            [self.tableView moveRowAtIndexPath:indexPath toIndexPath:newIndexPath];
-        }
-    }
-}
+//#pragma mark - <CBWTransactionStoreDelegate>
+//- (void)transactionStoreWillUpdate:(CBWTransactionStore *)store {
+//}
+//- (void)transactionStoreDidUpdate:(CBWTransactionStore *)store {
+//    [self.tableView reloadData];
+//}
+//- (void)transactionStore:(CBWTransactionStore *)store didInsertSection:(NSString *)section atIndex:(NSUInteger)index {
+//    [self.tableView insertSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:UITableViewRowAnimationFade];
+//}
+//- (void)transactionStore:(CBWTransactionStore *)store didUpdateRecord:(__kindof CBWRecordObject * _Nonnull)record atIndexPath:(NSIndexPath * _Nullable)indexPath forChangeType:(CBWTransactionStoreChangeType)changeType toNewIndexPath:(NSIndexPath * _Nullable)newIndexPath {
+//    if (changeType == CBWTransactionStoreChangeTypeInsert) {
+//        [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+//    } else if (changeType == CBWTransactionStoreChangeTypeUpdate) {
+//        if ([indexPath isEqual:newIndexPath]) {
+//            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+//        } else {
+//            [self.tableView moveRowAtIndexPath:indexPath toIndexPath:newIndexPath];
+//        }
+//    }
+//}
 
 @end

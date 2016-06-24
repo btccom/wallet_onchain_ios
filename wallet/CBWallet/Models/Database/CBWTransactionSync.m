@@ -70,6 +70,9 @@ NSString *const CBWTransactionSyncConfirmedCountKey = @"confirmedCount";
             if (comparedAddresses.count > 0) {
                 // 3. pull tx address by address
                 [self p_pullTXsWithAddresses:comparedAddresses updatedAddresses:nil progress:progress completion:completion];
+            } else {
+                // no need to update
+                completion(nil, nil);
             }
         }
     }];
@@ -80,10 +83,19 @@ NSString *const CBWTransactionSyncConfirmedCountKey = @"confirmedCount";
     
     [addresses enumerateObjectsUsingBlock:^(CBWAddress * _Nonnull address, NSUInteger idx, BOOL * _Nonnull stop) {
         [[CBWDatabaseManager defaultManager] txFetchWithQueryAddress:address.address completion:^(NSArray *response) {
-            DLog(@"local tx count [%lu] for address: %@", (unsigned long)response.count, address.address);
+            DLog(@"local tx count [%lu] for address: %@, responsed [%lu]", (unsigned long)response.count, address.address, (unsigned long)address.txCount);
+            
             NSArray<CBWTransaction *> *txs = [CBWTransaction batchInitWithArray:response];
+            
+            DLog(@"local tx count [%lu]", (unsigned long)txs.count);
+            DLog(@"response, first object: %@", response.firstObject);
+            if (response.count > 5) {
+                DLog(@"response, first 5 objects: %@", [response subarrayWithRange:NSMakeRange(0, 5)]);
+            }
+            
             CBWTransaction *firstTX = [txs firstObject];
             CBWTransaction *lastTX = [txs lastObject];
+            
             __block NSInteger unconfirmedTXCount = 0;
             __block CBWTransaction *firstUnconfirmedTX = nil;
             [txs enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(CBWTransaction * _Nonnull tx, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -92,7 +104,11 @@ NSString *const CBWTransactionSyncConfirmedCountKey = @"confirmedCount";
                     firstUnconfirmedTX = tx;
                 }
             }];
-            if (![address.firstTXHashID isEqualToString:firstTX.hashID] ||
+            
+            DLog(@"responsed address first tx hash: %@ \n last tx hash: %@ \nunconfirmed tx count: %lu", address.firstTXHashID, address.lastTXHashID, (unsigned long)address.unconfirmedTXCount);
+            DLog(@"local address first tx hash: %@ \n last tx hash: %@ \nunconfirmed tx count: %lu", firstTX.hashID, lastTX.hashID, (unsigned long)unconfirmedTXCount);
+            
+            if (!([address.firstTXHashID isEqualToString:firstTX.hashID] || [txs containsObject:firstTX]) || // first tx 可能因 api 原因造成排序不一致，如 https://blockchain.info/address/1L6Xzog5krZ4KZF344NvGZMRpx2bND7ogE?format=json&offset=1158 vs https://chain.api.btc.com/v3/address/1L6Xzog5krZ4KZF344NvGZMRpx2bND7ogE/tx?page=24 最早的两个交易
                 ![address.lastTXHashID isEqualToString:lastTX.hashID] ||
                 !(address.unconfirmedTXCount == unconfirmedTXCount)) {
                 CBWAddress *localAddress = [[CBWAddress alloc] initWithDictionary:@{@"address": address.address}];
@@ -137,21 +153,28 @@ NSString *const CBWTransactionSyncConfirmedCountKey = @"confirmedCount";
                     // transaction table
                     NSString *hash = [obj objectForKey:@"hash"];
                     transaction = [[CBWDatabaseManager defaultManager] transactionWithHash:hash];
-                    if (transaction && transaction.blockHeight == -1) {
-                        // update transaction
-                        [transaction setValuesForKeysWithDictionary:obj];
-                        if ([[CBWDatabaseManager defaultManager] transactionUpdateTransaction:transaction]) {
-                            updated ++;
+                    if (transaction) {
+                        if (transaction.blockHeight == -1) {
+                            // update transaction
+                            [transaction setValuesForKeysWithDictionary:obj];
+                            if ([[CBWDatabaseManager defaultManager] transactionUpdateTransaction:transaction]) {
+                                updated ++;
+                            }
                         }
                     } else {
                         transaction = [[CBWTransaction alloc] initWithDictionary:obj];
+                        transaction.accountIDX = self.accountIDX;
                         if (transaction && [[CBWDatabaseManager defaultManager] transactionInsertTransaction:transaction]) {
                             inserted ++;
                         }
                     }
                     // tx table
                     if (transaction) {
-                        [[CBWDatabaseManager defaultManager] txSave:transaction withCompletion:^(CBWDatabaseChangeType changeType) {}];
+                        transaction.queryAddress = responsedAddress.address;
+                        transaction.queryAddresses = @[responsedAddress.address];
+                        [[CBWDatabaseManager defaultManager] txSave:transaction withCompletion:^(CBWDatabaseChangeType changeType) {
+                            DLog(@"tx saved: %ld", (long)changeType);
+                        }];
                     }
                 }
             }];

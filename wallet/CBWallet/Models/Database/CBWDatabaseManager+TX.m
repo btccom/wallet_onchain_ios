@@ -119,8 +119,9 @@ NSString *const DatabaseManagerTXColRelatedAddresses = @"relatedAddresses";
 }
 
 - (void)txFetchWithQueryAddress:(NSString *)address completion:(void (^)(NSArray *))completion {
-    NSString *sql = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ? ORDER BY %@ DESC", DatabaseManagerTableTX,
+    NSString *sql = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ? ORDER BY %@, %@", DatabaseManagerTableTX,
                      DatabaseManagerTXColQueryAddress,
+                     DatabaseManagerTXColBlockTime,
                      DatabaseManagerTXColCreatedAt];
     FMDatabase *db = [self db];
     if ([db open]) {
@@ -140,11 +141,11 @@ NSString *const DatabaseManagerTXColRelatedAddresses = @"relatedAddresses";
 }
 
 - (void)txFetchWithQueryAddress:(NSString *)address page:(NSUInteger)page pagesize:(NSUInteger)pagesize completion:(void (^)(NSArray *))completion {
-    NSString *sql = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ? LIMIT %lu OFFSET %lu ORDER BY %@ DESC", DatabaseManagerTableTX,
+    NSString *sql = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ? ORDER BY %@ DESC LIMIT %lu OFFSET %lu", DatabaseManagerTableTX,
                      DatabaseManagerTXColQueryAddress,
+                     DatabaseManagerTXColCreatedAt,
                      (unsigned long)pagesize,
-                     (unsigned long)pagesize * (page - 1),
-                     DatabaseManagerTXColCreatedAt];
+                     (unsigned long)pagesize * (page - 1)];
     FMDatabase *db = [self db];
     if ([db open]) {
         

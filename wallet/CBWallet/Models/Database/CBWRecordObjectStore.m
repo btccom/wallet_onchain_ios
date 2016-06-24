@@ -8,6 +8,7 @@
 
 #import "CBWRecordObjectStore.h"
 
+const NSInteger CBWRecordObjectStorePagesizeDefault = 10;
 NSString *const CBWRecordObjectStoreCountKey = @"count";
 
 @implementation CBWRecordObjectStore
@@ -25,7 +26,7 @@ NSString *const CBWRecordObjectStoreCountKey = @"count";
 }
 
 - (void)flush {
-    DLog(@"%p remove all records", self);
+    DLog(@"%p %@ remove all records", self, self.class);
     [records removeAllObjects];
 }
 

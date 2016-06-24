@@ -72,13 +72,13 @@ NSString *const DatabaseManagerTransactionColAccountIDX = @"accountIdx";
                          DatabaseManagerTransactionColAccountIDX];
         NSMutableArray *inputsArray = [NSMutableArray arrayWithCapacity:transaction.inputs.count];
         [transaction.inputs enumerateObjectsUsingBlock:^(InputItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            [inputsArray addObject:obj.description];
+            [inputsArray addObject:[obj dictionaryWithValuesForKeys:@[@"prev_addresses", @"prev_value"]]];
         }];
         NSData *inputsData = [NSJSONSerialization dataWithJSONObject:inputsArray options:0 error:nil];
         NSString *inputs = [[NSString alloc] initWithData:inputsData encoding:NSUTF8StringEncoding];
         NSMutableArray *outputsArray = [NSMutableArray arrayWithCapacity:transaction.outputs.count];
         [transaction.outputs enumerateObjectsUsingBlock:^(OutItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            [outputsArray addObject:obj.description];
+            [outputsArray addObject:[obj dictionaryWithValuesForKeys:@[@"addresses", @"value"]]];
         }];
         NSData *outputsData = [NSJSONSerialization dataWithJSONObject:outputsArray options:0 error:nil];
         NSString *outputs = [[NSString alloc] initWithData:outputsData encoding:NSUTF8StringEncoding];
@@ -174,11 +174,11 @@ NSString *const DatabaseManagerTransactionColAccountIDX = @"accountIdx";
 }
 
 - (void)transactionFetchWithAccountIDX:(NSInteger)idx page:(NSUInteger)page pagesize:(NSUInteger)pagesize completion:(void (^)(NSArray *))completion {
-    NSString *sql = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ? LIMIT %lu OFFSET %lu ORDER BY %@ DESC", DatabaseManagerTableTransaction,
+    NSString *sql = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ? ORDER BY %@ DESC LIMIT %lu OFFSET %lu", DatabaseManagerTableTransaction,
                      DatabaseManagerTransactionColAccountIDX,
+                     DatabaseManagerTransactionColCreatedAt,
                      (unsigned long)pagesize,
-                     (unsigned long)pagesize * (page - 1),
-                     DatabaseManagerTransactionColCreatedAt];
+                     (unsigned long)pagesize * (page - 1)];
     FMDatabase *db = [self db];
     if ([db open]) {
         
