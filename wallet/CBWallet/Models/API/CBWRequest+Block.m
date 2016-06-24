@@ -8,6 +8,8 @@
 
 #import "CBWRequest+Block.h"
 
+NSString *const BlockHeightKey = @"height";
+
 @implementation CBWRequest (Block)
 
 - (void)blockLatestWithCompletion:(CBWRequestCompletion)completion {

@@ -8,6 +8,8 @@
 
 #import "CBWRequest.h"
 
+extern NSString  * _Nonnull const BlockHeightKey;
+
 @interface CBWRequest (Block)
 - (void)blockLatestWithCompletion:(nullable CBWRequestCompletion)completion;
 @end

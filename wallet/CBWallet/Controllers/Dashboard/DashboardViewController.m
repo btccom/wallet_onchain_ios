@@ -6,8 +6,6 @@
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
-// TODO: 获取批量获取地址摘要信息，对比 tx count，如果发生变化（变多），则获取最新交易信息，page size = MIN(delta, maxSize)
-// TODO: 将新交易重新排序后缓存，刷新UI
 // TODO: 使用唯一的 address store，address store 使用单例模式，通过设置 account 改变数据
 // FIXME: 更新地址余额不需要触发 iCloud 同步
 
@@ -25,6 +23,8 @@
 #import "Guard.h"
 #import "Database.h"
 #import "CBWRequest.h"
+
+#import "BlockMonitor.h"
 
 #import "NSString+CBWAddress.h"
 #import "NSDate+Helper.h"
@@ -130,6 +130,8 @@
         [self.refreshControl addTarget:self action:@selector(sync) forControlEvents:UIControlEventValueChanged];
     }
     
+    [[BlockMonitor defaultMonitor] begin];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(p_handleNotification:) name:BlockMonitorNotificationNewBlock object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -363,6 +365,13 @@
         [self reload];
     } else if ([notification.name isEqualToString:CBWNotificationSignedOut]) {
         [self p_handleSignOut];
+    } else if ([notification.name isEqualToString:BlockMonitorNotificationNewBlock]) {
+        DLog(@"new block height: %lu", (unsigned long)[BlockMonitor defaultMonitor].height);
+        if (self.isVisible) {
+            [self.tableView reloadData];
+        } else {
+            self.neededToRefresh = YES;
+        }
     }
 }
 
@@ -449,6 +458,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TransactionCell *cell = [tableView dequeueReusableCellWithIdentifier:BaseListViewCellTransactionIdentifier forIndexPath:indexPath];
     CBWTransaction *transaction = [self.transactionStore transactionAtIndexPath:indexPath];
+    transaction.latestBlockHeight = [BlockMonitor defaultMonitor].height;
     if (transaction) {
         [cell setTransaction:transaction];
     }

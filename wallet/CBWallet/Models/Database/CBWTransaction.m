@@ -12,6 +12,13 @@
 @implementation CBWTransaction
 @synthesize relatedAddresses = _relatedAddresses;
 
+- (void)setLatestBlockHeight:(NSUInteger)latestBlockHeight {
+    _latestBlockHeight = latestBlockHeight;
+    if (self.blockHeight > 0) {
+        _confirmations = _latestBlockHeight - self.blockHeight;
+    }
+}
+
 - (NSDate *)transactionTime {
     if (self.blockHeight < 0) {
         return self.creationDate;

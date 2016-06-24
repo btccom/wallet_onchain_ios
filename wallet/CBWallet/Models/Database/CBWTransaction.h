@@ -65,6 +65,8 @@ typedef NS_ENUM(NSUInteger, TransactionType) {
 /// int 确认数 = lastest block height - block height( > -1)，初始值来自 api，后会根据块高度变化更新
 @property (nonatomic, assign, readonly) NSUInteger confirmations;
 
+@property (nonatomic, assign) NSUInteger latestBlockHeight;
+
 
 // TODO: delete
 @property (nonatomic, copy, nullable) NSArray *queryAddresses;
