@@ -29,7 +29,7 @@
 #import "NSString+CBWAddress.h"
 #import "NSDate+Helper.h"
 
-@interface DashboardViewController ()<ProfileViewControllerDelegate, AddressListViewControllerDelegate, ScanViewControllerDelegate>//, CBWTransactionStoreDelegate>
+@interface DashboardViewController ()<ProfileViewControllerDelegate, AddressListViewControllerDelegate, ScanViewControllerDelegate, UIScrollViewDelegate>//, CBWTransactionStoreDelegate>
 
 @property (nonatomic, strong) CBWAccountStore *accountStore;
 //@property (nonatomic, strong) CBWTransactionStore *transactionStore;
@@ -538,6 +538,19 @@
         sendViewController.quicklyToAddress = addressString;
         sendViewController.quicklyToAmountInBTC = amountString;
         [self.navigationController pushViewController:sendViewController animated:YES];
+    }
+}
+
+#pragma mark <UIScrollViewDelegate>
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    if (self.transactionStore.page < self.transactionStore.pageTotal) {
+        CGFloat contentHeight = scrollView.contentSize.height;
+        CGFloat offsetTop = targetContentOffset->y;
+        CGFloat height = CGRectGetHeight(scrollView.frame);
+        if (contentHeight - (offsetTop + height) < 200.f) {
+            [self.transactionStore fetchNextPage];
+            [self.tableView reloadData];
+        }
     }
 }
 
