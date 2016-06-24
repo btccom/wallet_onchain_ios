@@ -40,6 +40,7 @@
 @property (nonatomic, assign, getter=isVisible) BOOL visible;
 @property (nonatomic, assign, getter=isNeededToRefresh) BOOL neededToRefresh;
 
+/// navigation bar title view
 @property (nonatomic, weak) DashboardBalanceTitleView *balanceTitleView;
 
 @end

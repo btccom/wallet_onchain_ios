@@ -22,6 +22,8 @@ extern NSString *const _Nonnull CBWRequestResponseDataListKey;
 
 typedef void(^CBWRequestCompletion) (NSError * _Nullable error, NSInteger statusCode, id _Nullable response);
 
+typedef BOOL(^CBWRequestCheckCompletion) (NSError * _Nullable error, NSInteger statusCode, id _Nullable response);
+
 /// based on AFNetworking 3.0
 @interface CBWRequest : NSObject
 

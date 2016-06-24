@@ -4,29 +4,29 @@ ALTER TABLE 'address' ADD COLUMN 'sent' INTEGER;
 CREATE INDEX IF NOT EXISTS 'address_query' ON 'address' ('address', 'accountIdx');
 CREATE TABLE IF NOT EXISTS 'tx' (
     'rid' INTEGER PRIMARY KEY AUTOINCREMENT,
-    'creationDate' DATE,
+    'created_at' DATE,
     'hash' TEXT,
-    'value' INTEGER,
-    'blockHeight' INTEGER,
-    'blockTime' DATE,
+    'balance_diff' INTEGER,
+    'block_height' INTEGER,
+    'block_time' DATE,
     'queryAddress' TEXT,
     'relatedAddresses' TEXT
 );
 CREATE INDEX IF NOT EXISTS 'tx_query' ON 'tx' ('hash', 'queryAddress');
 CREATE TABLE IF NOT EXISTS 'transaction' (
     'rid' INTEGER PRIMARY KEY AUTOINCREMENT,
-    'creationDate' DATE,
+    'created_at' DATE,
     'hash' TEXT,
     'fee' INTEGER,
-    'inputsValue' INTEGER,
-    'inputsCount' INTEGER,
+    'inputs_value' INTEGER,
+    'inputs_count' INTEGER,
     'inputs' TEXT,
-    'outputsValue' INTEGER,
-    'outputsCount' INTEGER,
+    'outputs_value' INTEGER,
+    'outputs_count' INTEGER,
     'outputs' TEXT,
-    'isCoinbase' INTEGER,
-    'blockHeight' INTEGER,
-    'blockTime' DATE,
+    'is_coinbase' INTEGER,
+    'block_height' INTEGER,
+    'block_time' DATE,
     'size' INTEGER,
     'version' INTEGER,
     'accountIdx' INTEGER

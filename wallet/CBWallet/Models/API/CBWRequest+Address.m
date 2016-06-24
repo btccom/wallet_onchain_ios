@@ -16,9 +16,35 @@
 }
 
 - (void)addressSummariesWithAddressStrings:(NSArray *)addressStrings completion:(CBWRequestCompletion)completion {
-    NSString *addresses = [addressStrings componentsJoinedByString:@","];
+    NSArray *lastStrings = nil;
+    NSMutableArray *queryStrings = [addressStrings mutableCopy];
+    if (queryStrings.count > 50) {
+        NSRange lastRange = NSMakeRange(50, queryStrings.count - 50);
+        lastStrings = [queryStrings subarrayWithRange:lastRange];
+        [queryStrings removeObjectsInRange:lastRange];
+    }
+    
+    NSString *addresses = [queryStrings componentsJoinedByString:@","];
     NSString *path = [NSString stringWithFormat:@"address/%@", addresses];
-    [self requestWithPath:path parameters:nil completion:completion];
+    [self requestWithPath:path parameters:nil completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
+        // call back
+        completion(error, statusCode, response);
+        // then
+        if (lastStrings.count > 0) {
+            // next round
+            [self addressSummariesWithAddressStrings:lastStrings completion:completion];
+        }
+    }];
+}
+
+- (void)addressTransactionsWithAddressString:(nonnull NSString *)addressString page:(NSUInteger)page pagesize:(NSUInteger)pagesize checkCompletion:(nullable CBWRequestCheckCompletion)checkCompletion {
+    
+    [self addressTransactionsWithAddressString:addressString page:page pagesize:pagesize completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
+        if (!checkCompletion(error, statusCode, response)) {
+            [self addressTransactionsWithAddressString:addressString page:(page + 1) pagesize:pagesize checkCompletion:checkCompletion];
+        }
+    }];
+    
 }
 
 - (void)addressTransactionsWithAddressString:(NSString *)addressString page:(NSUInteger)page pagesize:(NSUInteger)pagesize completion:(CBWRequestCompletion)completion {

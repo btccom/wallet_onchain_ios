@@ -36,6 +36,7 @@
 		2C1E8C501CA42A7D006F86E1 /* NSData+CommonCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E8C4B1CA42A7D006F86E1 /* NSData+CommonCrypto.m */; };
 		2C1E8C511CA42A7D006F86E1 /* PBKDF2.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E8C4D1CA42A7D006F86E1 /* PBKDF2.m */; };
 		2C23CDBA1D1B82AD00C0ABA5 /* CBWDatabaseManager+Transaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C23CDB91D1B82AD00C0ABA5 /* CBWDatabaseManager+Transaction.m */; };
+		2C23CDBD1D1BBABC00C0ABA5 /* CBWTransactionSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C23CDBC1D1BBABC00C0ABA5 /* CBWTransactionSync.m */; };
 		2C58865D1CFD8903004BBD6C /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C58865C1CFD8903004BBD6C /* SignInViewController.m */; };
 		2C5886601CFD8912004BBD6C /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C58865F1CFD8912004BBD6C /* SignUpViewController.m */; };
 		2C5886631CFDB5F4004BBD6C /* SignUpMasterPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5886621CFDB5F4004BBD6C /* SignUpMasterPasswordViewController.m */; };
@@ -193,6 +194,8 @@
 		2C1E8C4D1CA42A7D006F86E1 /* PBKDF2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBKDF2.m; sourceTree = "<group>"; };
 		2C23CDB81D1B82AD00C0ABA5 /* CBWDatabaseManager+Transaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBWDatabaseManager+Transaction.h"; sourceTree = "<group>"; };
 		2C23CDB91D1B82AD00C0ABA5 /* CBWDatabaseManager+Transaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBWDatabaseManager+Transaction.m"; sourceTree = "<group>"; };
+		2C23CDBB1D1BBABC00C0ABA5 /* CBWTransactionSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBWTransactionSync.h; sourceTree = "<group>"; };
+		2C23CDBC1D1BBABC00C0ABA5 /* CBWTransactionSync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBWTransactionSync.m; sourceTree = "<group>"; };
 		2C58865B1CFD8903004BBD6C /* SignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInViewController.h; sourceTree = "<group>"; };
 		2C58865C1CFD8903004BBD6C /* SignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInViewController.m; sourceTree = "<group>"; };
 		2C58865E1CFD8912004BBD6C /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
@@ -707,6 +710,8 @@
 				2C23CDB81D1B82AD00C0ABA5 /* CBWDatabaseManager+Transaction.h */,
 				2C23CDB91D1B82AD00C0ABA5 /* CBWDatabaseManager+Transaction.m */,
 				2CEFC35D1CA4D67D00FECCA4 /* Database.h */,
+				2C23CDBB1D1BBABC00C0ABA5 /* CBWTransactionSync.h */,
+				2C23CDBC1D1BBABC00C0ABA5 /* CBWTransactionSync.m */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -1096,6 +1101,7 @@
 				2C9CAF4D1C868B61008194EB /* BaseViewController.m in Sources */,
 				2C9CAF531C868B61008194EB /* LockScreenController.m in Sources */,
 				2C18E2301CAE672C0080EF1E /* BaseFormControlCell.m in Sources */,
+				2C23CDBD1D1BBABC00C0ABA5 /* CBWTransactionSync.m in Sources */,
 				2C9CAF611C868B61008194EB /* CBWAddress.m in Sources */,
 				2C77D2661CA8C14E001DDB1F /* CBWRequest+Address.m in Sources */,
 				2C1684AF1CAD17C500BD434A /* TransactionDataCell.m in Sources */,

@@ -206,6 +206,11 @@
     return nil;
 }
 
+- (NSString *)description {
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:[self dictionaryWithValuesForKeys:@[@"addresses", @"value"]] options:0 error:nil];
+    return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+}
+
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key {
     // ignore
 }
@@ -227,12 +232,26 @@
     return self;
 }
 
+- (NSString *)description {
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:[self dictionaryWithValuesForKeys:@[@"prev_addresses", @"prev_value"]] options:0 error:nil];
+    return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+}
+
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key {
     if ([key isEqualToString:@"prev_addresses"]) {
         _prevAddresses = value;
     } else if ([key isEqualToString:@"prev_value"]) {
         _prevValue = value;
     }
+}
+
+- (id)valueForUndefinedKey:(NSString *)key {
+    if ([key isEqualToString:@"prev_addresses"]) {
+        return self.prevAddresses;
+    } else if ([key isEqualToString:@"prev_value"]) {
+        return self.prevValue;
+    }
+    return nil;
 }
 
 @end

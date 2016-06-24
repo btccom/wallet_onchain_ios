@@ -13,37 +13,45 @@ extern NSString *const DatabaseManagerTableTransaction;
 /// string
 extern NSString *const DatabaseManagerTransactionColHash;
 /// bool (integer)
-extern NSString *const DatabaseManagerTransactionIsCoinbase;
+extern NSString *const DatabaseManagerTransactionColIsCoinbase;
 /// integer, = inputs value - outpus value
-extern NSString *const DatabaseManagerTransactionFee;
+extern NSString *const DatabaseManagerTransactionColFee;
 /// integer -1 (unconfirmed) or > -1
 extern NSString *const DatabaseManagerTransactionColBlockHeight;
 /// date optional
-extern NSString *const DatabaseManagerTransactionColBlockDate;
+extern NSString *const DatabaseManagerTransactionColBlockTime;
 /// integer
-extern NSString *const DatabaseManagerTransactionSize;
+extern NSString *const DatabaseManagerTransactionColSize;
 /// integer
-extern NSString *const DatabaseManagerTransactionVersion;
+extern NSString *const DatabaseManagerTransactionColVersion;
 /// integer
-extern NSString *const DatabaseManagerTransactionInputsValue;
+extern NSString *const DatabaseManagerTransactionColInputsValue;
 /// integer
-extern NSString *const DatabaseManagerTransactionInputsCount;
+extern NSString *const DatabaseManagerTransactionColInputsCount;
 /// string (array json)
-extern NSString *const DatabaseManagerTransactionInputs;
+extern NSString *const DatabaseManagerTransactionColInputs;
 /// integer
-extern NSString *const DatabaseManagerTransactionOutputsValue;
+extern NSString *const DatabaseManagerTransactionColOutputsValue;
 /// integer
-extern NSString *const DatabaseManagerTransactionOutputsCount;
+extern NSString *const DatabaseManagerTransactionColOutputsCount;
 /// string (array json)
-extern NSString *const DatabaseManagerTransactionOutputs;
+extern NSString *const DatabaseManagerTransactionColOutputs;
 /// integer
-extern NSString *const DatabaseManagerTransactionAccountIDX;
+extern NSString *const DatabaseManagerTransactionColAccountIDX;
+
+@class CBWTransaction, CBWTransactionStore;
 
 /// 完整交易，包含输入输出内容，并有交易归属账户的 idx，用于在 dashboard 显示
 @interface CBWDatabaseManager (Transaction)
 
-- (void)transactionFetchWithAccountIDX:(NSInteger)idx completion:(void(^)(NSArray *response))completion;
-
+- (CBWTransaction *)transactionWithHash:(NSString *)hash;
+/// call <code>trnasactionWithHash:</code> first to check
+- (BOOL)transactionInsertTransaction:(CBWTransaction *)transaction;
+/// just update block height, block time, size, version
+- (BOOL)transactionUpdateTransaction:(CBWTransaction *)transaction;
+/// check then insert or update
 - (void)transactionSave:(CBWTransaction *)transaction withCompletion:(void (^)(CBWDatabaseChangeType changeType))completion;
+
+- (void)transactionFetchWithAccountIDX:(NSInteger)idx completion:(void(^)(NSArray *response))completion;
 
 @end

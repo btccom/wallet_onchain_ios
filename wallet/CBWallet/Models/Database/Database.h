@@ -11,3 +11,4 @@
 #import "CBWAccountStore.h"
 #import "CBWAddressStore.h"
 #import "CBWTransactionStore.h"
+#import "CBWTransactionSync.h"

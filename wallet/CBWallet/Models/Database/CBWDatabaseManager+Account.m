@@ -16,14 +16,14 @@
 - (void)fetchAccountsToStore:(CBWAccountStore *)store {
     FMDatabase *db = [self db];
     if ([db open]) {
-        NSString *sql = [NSString stringWithFormat:@"SELECT * FROM %@ ORDER BY %@", DatabaseManagerTableAccount, DatabaseManagerColIdx];
+        NSString *sql = [NSString stringWithFormat:@"SELECT * FROM %@ ORDER BY %@", DatabaseManagerTableAccount, DatabaseManagerColIDX];
         FMResultSet *results = [db executeQuery:sql];
         while ([results next]) {
             CBWAccount *account = [[CBWAccount alloc] init];
-            account.rid = [results intForColumn:DatabaseManagerColRid];
+            account.rid = [results intForColumn:DatabaseManagerColRID];
             account.creationDate = [results dateForColumn:DatabaseManagerColCreationDate];
             account.modificationDate = [results dateForColumn:DatabaseManagerColModificationDate];
-            account.idx = [results intForColumn:DatabaseManagerColIdx];
+            account.idx = [results intForColumn:DatabaseManagerColIDX];
             account.label = [results stringForColumn:DatabaseManagerColLabel];
             [store addRecord:account];
         }
@@ -60,7 +60,7 @@
         NSString *sql = [NSString stringWithFormat:@"INSERT INTO %@ (%@, %@, %@, %@, %@) VALUES (?, ?, ?, ?, ?)", DatabaseManagerTableAccount,
                          DatabaseManagerColCreationDate,
                          DatabaseManagerColModificationDate,
-                         DatabaseManagerColIdx,
+                         DatabaseManagerColIDX,
                          DatabaseManagerColLabel,
                          DatabaseManagerColCustomDefaultEnabled];
         
@@ -86,10 +86,10 @@
     if ([db open]) {
         
         NSString *sql = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ?", DatabaseManagerTableAccount,
-                         DatabaseManagerColIdx];
+                         DatabaseManagerColIDX];
         FMResultSet *result = [db executeQuery:sql, @(idx)];
         if ([result next]) {
-            rid = [result intForColumn:DatabaseManagerColRid];
+            rid = [result intForColumn:DatabaseManagerColRID];
         }
         
         [db close];
@@ -107,10 +107,10 @@
         NSString *sql = [NSString stringWithFormat:@"UPDATE %@ SET %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ? WHERE %@ = ?", DatabaseManagerTableAccount,
                          DatabaseManagerColCreationDate,
                          DatabaseManagerColModificationDate,
-                         DatabaseManagerColIdx,
+                         DatabaseManagerColIDX,
                          DatabaseManagerColLabel,
                          DatabaseManagerColCustomDefaultEnabled,
-                         DatabaseManagerColRid];
+                         DatabaseManagerColRID];
         updated = [db executeUpdate:sql,
                    account.creationDate,
                    account.modificationDate,
@@ -145,7 +145,7 @@
     if ([db open]) {
         
         NSString *sql = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ?", DatabaseManagerTableAccount,
-                         DatabaseManagerColIdx];
+                         DatabaseManagerColIDX];
         FMResultSet *results = [db executeQuery:sql,
                                 @(0)];
         if ([results next]) {

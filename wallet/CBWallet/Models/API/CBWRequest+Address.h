@@ -12,12 +12,21 @@
 
 /// 获取地址摘要
 - (void)addressSummaryWithAddressString:(nonnull NSString *)addressString completion:(nullable CBWRequestCompletion)completion;
-/// 批量获取地址摘要，最多50个
+/// 批量获取地址摘要，超过50个触发轮询
+///@param completion 为每轮回调，需要手动检查 completion -> response 中地址是否已经全部完成；也可以通过 completion 执行次数来判断是否完成，即 199 个地址会触发 4 次回调
 - (void)addressSummariesWithAddressStrings:(nonnull NSArray *)addressStrings completion:(nullable CBWRequestCompletion)completion;
-/// 获取地址交易列表
+
+/// 递归获取交易列表
+///@param completion 每页回调，返回 NO 时继续查询下一页
+- (void)addressTransactionsWithAddressString:(nonnull NSString *)addressString page:(NSUInteger)page pagesize:(NSUInteger)pagesize checkCompletion:(nullable CBWRequestCheckCompletion)checkCompletion;
+
+/// 分页获取地址交易列表
 - (void)addressTransactionsWithAddressString:(nonnull NSString *)addressString page:(NSUInteger)page pagesize:(NSUInteger)pagesize completion:(nullable CBWRequestCompletion)completion;
 /// API不支持多个地址查询，这里通过递归的方式拉取全部地址交易，默认每个地址只拉取10个交易
 //- (void)addressTransactionsWithAddressStrings:(nonnull NSArray *)addressStrings completion:(nullable CBWRequestCompletion)completion;
+
+// TODO: delete this
+/// To be deleted
 - (void)addressTransactionsWithAddressStrings:(nonnull NSArray *)addressStrings completion:(void(^ _Nullable)(NSError * _Nullable error, NSInteger status, id _Nullable response, NSString * _Nonnull queryAddress))completion;
 
 /// 分页获取未花列表

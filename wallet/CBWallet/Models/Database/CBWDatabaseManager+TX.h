@@ -17,7 +17,7 @@ extern NSString *const DatabaseManagerTXColValue;
 /// integer -1 (unconfirmed) or > -1
 extern NSString *const DatabaseManagerTXColBlockHeight;
 /// date optional
-extern NSString *const DatabaseManagerTXColBlockDate;
+extern NSString *const DatabaseManagerTXColBlockTime;
 /// string
 extern NSString *const DatabaseManagerTXColQueryAddress;
 /// string (array json)
@@ -30,9 +30,11 @@ extern NSString *const DatabaseManagerTXColRelatedAddresses;
 /// 或用于在地址页面显示交易摘要
 @interface CBWDatabaseManager (TX)
 
-- (void)txFetchWithAddressString:(NSString *)addressString completion:(void(^)(NSArray *response))completion;
+- (void)txFetchWithQueryAddress:(NSString *)address completion:(void(^)(NSArray *response))completion;
 
-- (BOOL)txCheck:(CBWTransaction *)transaction;
+- (CBWTransaction *)txWithHash:(NSString *)hash andQueryAddress:(NSString *)address;
+- (BOOL)txInsertTransaction:(CBWTransaction *)transaction;
+- (BOOL)txUpdateTransaction:(CBWTransaction *)transaction;
 /// check tx, transaction
 ///
 /// then save(insert or update) transaction, tx

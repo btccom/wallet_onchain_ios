@@ -45,6 +45,10 @@ typedef NS_ENUM(NSUInteger, AddressScope) {
 @property (nonatomic, assign) long long accountRID;
 @property (nonatomic, assign) NSInteger accountIDX;
 
+@property (nonatomic, copy, nullable) NSString *firstTXHashID;
+@property (nonatomic, copy, nullable) NSString *lastTXHashID;
+@property (nonatomic, copy, nullable) NSString *firstUnconfirmedTXHashID;
+
 /// only for account idx > 0
 @property (nonatomic, strong, readonly, nullable) BTCKey *privateKey;
 
@@ -64,6 +68,7 @@ typedef NS_ENUM(NSUInteger, AddressScope) {
 + (BOOL)validateAddressString:(nullable NSString *)addressString;
 
 - (nonnull instancetype)initWithDictionary:(nonnull NSDictionary *)dictionary;
++ (nullable NSArray<CBWAddress *> *)batchInitWithArray:(nullable NSArray<NSDictionary *> *)array;
 
 /// 仅 watched address 支持删除方法
 - (void)deleteWatchedAddressFromStore:(nonnull CBWRecordObjectStore *)store;
