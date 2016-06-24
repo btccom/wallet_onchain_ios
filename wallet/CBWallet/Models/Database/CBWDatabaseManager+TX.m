@@ -10,8 +10,9 @@
 
 #import "CBWTransaction.h"
 
-NSString *const DatabaseManagerTableTX = @"tx";
+NSString *const DatabaseManagerTableTX = @"txmap";
 
+NSString *const DatabaseManagerTXColCreatedAt = @"created_at";
 NSString *const DatabaseManagerTXColHash = @"hash";
 NSString *const DatabaseManagerTXColValue = @"balance_diff";
 NSString *const DatabaseManagerTXColBlockHeight = @"block_height";
@@ -22,12 +23,12 @@ NSString *const DatabaseManagerTXColRelatedAddresses = @"relatedAddresses";
 @implementation CBWDatabaseManager (TX)
 
 - (CBWTransaction *)txWithHash:(NSString *)hash andQueryAddress:(NSString *)address {
-    NSString *sql = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ? AND %@ = ?", DatabaseManagerTableTransaction, DatabaseManagerTXColHash, DatabaseManagerTXColQueryAddress];
+    NSString *sql = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ? AND %@ = ?", DatabaseManagerTableTX, DatabaseManagerTXColHash, DatabaseManagerTXColQueryAddress];
     FMDatabase *db = [self db];
     if ([db open]) {
         
         CBWTransaction *transaction = nil;
-        FMResultSet *rs = [self.db executeQuery:sql, hash, address];
+        FMResultSet *rs = [db executeQuery:sql, hash, address];
         if ([rs next]) {
             transaction = [[CBWTransaction alloc] initWithDictionary:[rs resultDictionary]];
         }
@@ -46,7 +47,7 @@ NSString *const DatabaseManagerTXColRelatedAddresses = @"relatedAddresses";
     if ([db open]) {
         
         NSString *sql = [NSString stringWithFormat:@"INSERT INTO %@ (%@, %@, %@, %@, %@, %@, %@) VALUES (?, ?, ?, ?, ?, ?, ?)", DatabaseManagerTableTX,
-                         DatabaseManagerColCreationDate,
+                         DatabaseManagerTXColCreatedAt,
                          DatabaseManagerTXColHash,
                          DatabaseManagerTXColValue,
                          DatabaseManagerTXColBlockHeight,
@@ -118,22 +119,24 @@ NSString *const DatabaseManagerTXColRelatedAddresses = @"relatedAddresses";
 }
 
 - (void)txFetchWithQueryAddress:(NSString *)address completion:(void (^)(NSArray *))completion {
-    NSString *sql = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ? ORDER BY %@ DESC", DatabaseManagerTableTX, DatabaseManagerTXColQueryAddress, DatabaseManagerColCreationDate];
+    NSString *sql = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ? ORDER BY %@ DESC", DatabaseManagerTableTX,
+                     DatabaseManagerTXColQueryAddress,
+                     DatabaseManagerTXColCreatedAt];
     FMDatabase *db = [self db];
     if ([db open]) {
         
         NSMutableArray *list = [NSMutableArray array];
-        FMResultSet *rs = [self.db executeQuery:sql, address];
+        FMResultSet *rs = [db executeQuery:sql,
+                           address];
         while ([rs next]) {
             [list addObject:[rs resultDictionary]];
         }
         completion([list copy]);
         
         [db close];
-        return;
+    } else {
+        completion(nil);
     }
-    
-    completion(nil);
 }
 
 - (void)txFetchWithQueryAddress:(NSString *)address page:(NSUInteger)page pagesize:(NSUInteger)pagesize completion:(void (^)(NSArray *))completion {
@@ -141,12 +144,12 @@ NSString *const DatabaseManagerTXColRelatedAddresses = @"relatedAddresses";
                      DatabaseManagerTXColQueryAddress,
                      (unsigned long)pagesize,
                      (unsigned long)pagesize * (page - 1),
-                     DatabaseManagerColCreationDate];
+                     DatabaseManagerTXColCreatedAt];
     FMDatabase *db = [self db];
     if ([db open]) {
         
         NSMutableArray *list = [NSMutableArray array];
-        FMResultSet *rs = [self.db executeQuery:sql, address];
+        FMResultSet *rs = [db executeQuery:sql, address];
         while ([rs next]) {
             [list addObject:[rs resultDictionary]];
         }

@@ -10,8 +10,9 @@
 
 #import "CBWTransaction.h"
 
-NSString *const DatabaseManagerTableTransaction = @"transaction";
+NSString *const DatabaseManagerTableTransaction = @"tx";// transaction 是 sql 关键字
 
+NSString *const DatabaseManagerTransactionColCreatedAt = @"created_at";
 NSString *const DatabaseManagerTransactionColHash = @"hash";
 NSString *const DatabaseManagerTransactionColIsCoinbase = @"is_coinbase";
 NSString *const DatabaseManagerTransactionColFee = @"fee";
@@ -35,7 +36,7 @@ NSString *const DatabaseManagerTransactionColAccountIDX = @"accountIdx";
     if ([db open]) {
         
         CBWTransaction *transaction = nil;
-        FMResultSet *rs = [self.db executeQuery:sql, hash];
+        FMResultSet *rs = [db executeQuery:sql, hash];
         if ([rs next]) {
             transaction = [[CBWTransaction alloc] initWithDictionary:[rs resultDictionary]];
         }
@@ -54,7 +55,7 @@ NSString *const DatabaseManagerTransactionColAccountIDX = @"accountIdx";
     if ([db open]) {
         
         NSString *sql = [NSString stringWithFormat:@"INSERT INTO %@ (%@, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", DatabaseManagerTableTransaction,
-                         DatabaseManagerColCreationDate,
+                         DatabaseManagerTransactionColCreatedAt,
                          DatabaseManagerTransactionColHash,
                          DatabaseManagerTransactionColIsCoinbase,
                          DatabaseManagerTransactionColFee,
@@ -69,9 +70,17 @@ NSString *const DatabaseManagerTransactionColAccountIDX = @"accountIdx";
                          DatabaseManagerTransactionColOutputsCount,
                          DatabaseManagerTransactionColOutputs,
                          DatabaseManagerTransactionColAccountIDX];
-        NSData *inputsData = [NSJSONSerialization dataWithJSONObject:transaction.inputs options:0 error:nil];
+        NSMutableArray *inputsArray = [NSMutableArray arrayWithCapacity:transaction.inputs.count];
+        [transaction.inputs enumerateObjectsUsingBlock:^(InputItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [inputsArray addObject:obj.description];
+        }];
+        NSData *inputsData = [NSJSONSerialization dataWithJSONObject:inputsArray options:0 error:nil];
         NSString *inputs = [[NSString alloc] initWithData:inputsData encoding:NSUTF8StringEncoding];
-        NSData *outputsData = [NSJSONSerialization dataWithJSONObject:transaction.outputs options:0 error:nil];
+        NSMutableArray *outputsArray = [NSMutableArray arrayWithCapacity:transaction.outputs.count];
+        [transaction.outputs enumerateObjectsUsingBlock:^(OutItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [outputsArray addObject:obj.description];
+        }];
+        NSData *outputsData = [NSJSONSerialization dataWithJSONObject:outputsArray options:0 error:nil];
         NSString *outputs = [[NSString alloc] initWithData:outputsData encoding:NSUTF8StringEncoding];
         inserted = [db executeUpdate:sql,
                     transaction.creationDate,
@@ -146,12 +155,12 @@ NSString *const DatabaseManagerTransactionColAccountIDX = @"accountIdx";
 }
 
 - (void)transactionFetchWithAccountIDX:(NSInteger)idx completion:(void (^)(NSArray *))completion {
-    NSString *sql = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ? ORDER BY %@ DESC", DatabaseManagerTableTransaction, DatabaseManagerTransactionColAccountIDX, DatabaseManagerColCreationDate];
+    NSString *sql = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ? ORDER BY %@ DESC", DatabaseManagerTableTransaction, DatabaseManagerTransactionColAccountIDX, DatabaseManagerTransactionColCreatedAt];
     FMDatabase *db = [self db];
     if ([db open]) {
         
         NSMutableArray *list = [NSMutableArray array];
-        FMResultSet *rs = [self.db executeQuery:sql, @(idx)];
+        FMResultSet *rs = [db executeQuery:sql, @(idx)];
         while ([rs next]) {
             [list addObject:[rs resultDictionary]];
         }
@@ -169,12 +178,12 @@ NSString *const DatabaseManagerTransactionColAccountIDX = @"accountIdx";
                      DatabaseManagerTransactionColAccountIDX,
                      (unsigned long)pagesize,
                      (unsigned long)pagesize * (page - 1),
-                     DatabaseManagerColCreationDate];
+                     DatabaseManagerTransactionColCreatedAt];
     FMDatabase *db = [self db];
     if ([db open]) {
         
         NSMutableArray *list = [NSMutableArray array];
-        FMResultSet *rs = [self.db executeQuery:sql, @(idx)];
+        FMResultSet *rs = [db executeQuery:sql, @(idx)];
         while ([rs next]) {
             [list addObject:[rs resultDictionary]];
         }

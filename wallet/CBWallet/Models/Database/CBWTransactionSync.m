@@ -25,7 +25,7 @@ if (addresses.count > 1) {\
     [lastAddresses removeLastObject];\
     [self p_pullTXsWithAddresses:[lastAddresses copy] updatedAddresses:[mutableUpdatedAddresses copy] progress:progress completion:completion];\
 } else {\
-    completion(nil, [updatedAddresses copy]);\
+    completion(nil, [mutableUpdatedAddresses copy]);\
 }}
 
 NSString *const CBWTransactionSyncInsertedCountKey = @"insertedCount";
@@ -35,7 +35,13 @@ NSString *const CBWTransactionSyncConfirmedCountKey = @"confirmedCount";
 
 - (void)syncWithAddresses:(NSArray<NSString *> *)addresses progress:(syncProgressBlock)progress completion:(syncCompletionBlock)completion {
     // 1. fetch address summary
-    double totalRound = ceil(addresses.count / 50);
+    double totalRound = ceil(addresses.count / 50.0);
+    DLog(@"sync address summary need %f round", totalRound);
+    if (totalRound == 0) {
+        completion([NSError errorWithDomain:CBWErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedStringFromTable(@"Error none_address_need_sync", @"CBW", nil)}], nil);
+        return;
+    }
+    
     __block double currentRound = 0;
     __block NSMutableArray<CBWAddress *> *responsedAddresses = [NSMutableArray array];
     CBWRequest *request = [[CBWRequest alloc] init];
@@ -46,21 +52,26 @@ NSString *const CBWTransactionSyncConfirmedCountKey = @"confirmedCount";
         if (parsedAddresses.count > 0) {
             [responsedAddresses addObjectsFromArray:parsedAddresses];
         }
+        DLog(@"responsed addresses: \n%@", responsedAddresses);
         
         // check round
         currentRound += 1.0;
+        
+        // progress
+        progress([NSString stringWithFormat:NSLocalizedStringFromTable(@"Message TransactionSync progresss_address_summary_percent_%f", @"CBW", nil), 100.0 * currentRound / totalRound]);
+        
+        DLog(@"sync address summary current round %f", currentRound);
         if (currentRound == totalRound) {// 1. end
             // progress
-            progress(NSLocalizedStringFromTable(@"Message TransactionSync progress_compare_addresses_updated", @"CBW", nil));
+            progress(NSLocalizedStringFromTable(@"Message TransactionSync progress_compare_addresses_to_sync", @"CBW", nil));
             // 2. detect which address need to be updated
             NSArray<NSArray<CBWAddress *> *> *comparedAddresses = [self p_compareLocalTXWithAddresses:[responsedAddresses copy]];
+            DLog(@"updated addresses count: %lu", (unsigned long)comparedAddresses.count);
             if (comparedAddresses.count > 0) {
+                // 3. pull tx address by address
                 [self p_pullTXsWithAddresses:comparedAddresses updatedAddresses:nil progress:progress completion:completion];
             }
         }
-        
-        // progress
-        progress([NSString stringWithFormat:NSLocalizedStringFromTable(@"Message TransactionSync progresss_address_summary_%f", @"CBW", nil), currentRound / totalRound]);
     }];
 }
 
@@ -69,6 +80,7 @@ NSString *const CBWTransactionSyncConfirmedCountKey = @"confirmedCount";
     
     [addresses enumerateObjectsUsingBlock:^(CBWAddress * _Nonnull address, NSUInteger idx, BOOL * _Nonnull stop) {
         [[CBWDatabaseManager defaultManager] txFetchWithQueryAddress:address.address completion:^(NSArray *response) {
+            DLog(@"local tx count [%lu] for address: %@", (unsigned long)response.count, address.address);
             NSArray<CBWTransaction *> *txs = [CBWTransaction batchInitWithArray:response];
             CBWTransaction *firstTX = [txs firstObject];
             CBWTransaction *lastTX = [txs lastObject];
@@ -98,6 +110,7 @@ NSString *const CBWTransactionSyncConfirmedCountKey = @"confirmedCount";
 
 /// 逐个地址去拉取交易
 - (void)p_pullTXsWithAddresses:(NSArray<NSArray<CBWAddress *> *> *)addresses updatedAddresses:(NSDictionary<NSString *, NSDictionary<NSString *, NSNumber *> *> *)updatedAddresses progress:(syncProgressBlock)progress completion:(syncCompletionBlock)completion {
+    
     NSArray<CBWAddress *> *lastObject = [addresses lastObject];
     CBWAddress *responsedAddress = [lastObject firstObject];
     CBWAddress *localAddress = [lastObject lastObject];
@@ -144,12 +157,12 @@ NSString *const CBWTransactionSyncConfirmedCountKey = @"confirmedCount";
             }];
             
             // check page
-            NSUInteger totalCount = [[response objectForKey:CBWRequestResponseDataTotalCountKey] unsignedIntegerValue];
-            NSUInteger pagesize = [[response objectForKey:CBWRequestResponseDataPageSizeKey] unsignedIntegerValue];
+            double totalCount = [[response objectForKey:CBWRequestResponseDataTotalCountKey] doubleValue];
+            double pagesize = [[response objectForKey:CBWRequestResponseDataPageSizeKey] doubleValue];
             NSUInteger totalPage = ceil(totalCount / pagesize);
             NSUInteger page = [[response objectForKey:CBWRequestResponseDataPageKey] unsignedIntegerValue];
             
-            progress([NSString stringWithFormat:NSLocalizedStringFromTable(@"Message TransactionSync progress_fetch_all_tx_address_%@_%lu_%@lu", @"CBW", nil), responsedAddress.address, (unsigned long)page, (unsigned long)totalPage]);
+            progress([NSString stringWithFormat:NSLocalizedStringFromTable(@"Message TransactionSync progress_fetch_all_tx_address_%@_%lu_%lu", @"CBW", nil), responsedAddress.address, (unsigned long)page, (unsigned long)totalPage]);
             
             if (totalPage == page) {
                 // update and next address

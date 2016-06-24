@@ -2,7 +2,7 @@ ALTER TABLE 'address' ADD COLUMN 'unconfirmedTXCount' INTEGER;
 ALTER TABLE 'address' ADD COLUMN 'received' INTEGER;
 ALTER TABLE 'address' ADD COLUMN 'sent' INTEGER;
 CREATE INDEX IF NOT EXISTS 'address_query' ON 'address' ('address', 'accountIdx');
-CREATE TABLE IF NOT EXISTS 'tx' (
+CREATE TABLE IF NOT EXISTS 'txmap' (
     'rid' INTEGER PRIMARY KEY AUTOINCREMENT,
     'created_at' DATE,
     'hash' TEXT,
@@ -12,8 +12,8 @@ CREATE TABLE IF NOT EXISTS 'tx' (
     'queryAddress' TEXT,
     'relatedAddresses' TEXT
 );
-CREATE INDEX IF NOT EXISTS 'tx_query' ON 'tx' ('hash', 'queryAddress');
-CREATE TABLE IF NOT EXISTS 'transaction' (
+CREATE INDEX IF NOT EXISTS 'tx_query' ON 'txmap' ('hash', 'queryAddress');
+CREATE TABLE IF NOT EXISTS 'tx' (
     'rid' INTEGER PRIMARY KEY AUTOINCREMENT,
     'created_at' DATE,
     'hash' TEXT,
@@ -31,4 +31,4 @@ CREATE TABLE IF NOT EXISTS 'transaction' (
     'version' INTEGER,
     'accountIdx' INTEGER
 );
-CREATE INDEX IF NOT EXISTS 'transaction_query' ON 'transaction' ('hash', 'accountIdx');
+CREATE INDEX IF NOT EXISTS 'transaction_query' ON 'tx' ('hash', 'accountIdx');

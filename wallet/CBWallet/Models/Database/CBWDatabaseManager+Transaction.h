@@ -10,6 +10,8 @@
 
 extern NSString *const DatabaseManagerTableTransaction;
 
+/// date
+extern NSString *const DatabaseManagerTransactionColCreatedAt;
 /// string
 extern NSString *const DatabaseManagerTransactionColHash;
 /// bool (integer)

@@ -10,6 +10,8 @@
 
 extern NSString *const DatabaseManagerTableTX;
 
+/// date
+extern NSString *const DatabaseManagerTXColCreatedAt;
 /// string
 extern NSString *const DatabaseManagerTXColHash;
 /// integer, output value of query address - input value of query address
