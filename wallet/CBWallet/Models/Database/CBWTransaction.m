@@ -10,7 +10,7 @@
 #import "CBWTransactionStore.h"
 
 @implementation CBWTransaction
-@synthesize relatedAddresses = _relatedAddresses;
+@synthesize relatedAddresses = _relatedAddresses, value = _value;
 
 - (void)setLatestBlockHeight:(NSUInteger)latestBlockHeight {
     _latestBlockHeight = latestBlockHeight;
@@ -56,12 +56,36 @@
     return _relatedAddresses;
 }
 
-//- (NSUInteger)confirmedCount {
-//    if (self.blockHeight > -1) {
-//        return MAX(((TransactionStore *)self.store).blockHeight - self.blockHeight + 1, 0);
-//    }
-//    return 0;
-//}
+- (long long)value {
+    if (_value == 0) {
+        __block long long inputValue = 0;
+        [self.inputs enumerateObjectsUsingBlock:^(InputItem * _Nonnull i, NSUInteger idx, BOOL * _Nonnull stop) {
+            [i.prevAddresses enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if ([self.relatedAddresses containsObject:obj]) {
+                    inputValue += [i.prevValue longLongValue];
+                    *stop = YES;
+                }
+            }];
+        }];
+        
+        __block long long outputValue = 0;
+        [self.outputs enumerateObjectsUsingBlock:^(OutItem * _Nonnull o, NSUInteger idx, BOOL * _Nonnull stop) {
+            [o.addresses enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if ([self.relatedAddresses containsObject:obj]) {
+                    outputValue += [o.value longLongValue];
+                    *stop = YES;
+                }
+            }];
+        }];
+        
+        _value = outputValue - inputValue;
+        if (_value + self.fee == 0) {
+            _value = self.outputsValue;
+        }
+    }
+    return _value;
+}
+
 #pragma mark - Initialization
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary {
     if (!dictionary || ![dictionary isKindOfClass:[NSDictionary class]]) {
