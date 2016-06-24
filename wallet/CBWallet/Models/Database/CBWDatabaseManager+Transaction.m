@@ -31,7 +31,8 @@ NSString *const DatabaseManagerTransactionColAccountIDX = @"accountIdx";
 
 - (CBWTransaction *)transactionWithHash:(NSString *)hash {
     NSString *sql = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ?", DatabaseManagerTableTransaction, DatabaseManagerTransactionColHash];
-    if ([self.db open]) {
+    FMDatabase *db = [self db];
+    if ([db open]) {
         
         CBWTransaction *transaction = nil;
         FMResultSet *rs = [self.db executeQuery:sql, hash];
@@ -39,7 +40,7 @@ NSString *const DatabaseManagerTransactionColAccountIDX = @"accountIdx";
             transaction = [[CBWTransaction alloc] initWithDictionary:[rs resultDictionary]];
         }
         
-        [self.db close];
+        [db close];
         
         return transaction;
     }
@@ -146,7 +147,8 @@ NSString *const DatabaseManagerTransactionColAccountIDX = @"accountIdx";
 
 - (void)transactionFetchWithAccountIDX:(NSInteger)idx completion:(void (^)(NSArray *))completion {
     NSString *sql = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ? ORDER BY %@ DESC", DatabaseManagerTableTransaction, DatabaseManagerTransactionColAccountIDX, DatabaseManagerColCreationDate];
-    if ([self.db open]) {
+    FMDatabase *db = [self db];
+    if ([db open]) {
         
         NSMutableArray *list = [NSMutableArray array];
         FMResultSet *rs = [self.db executeQuery:sql, @(idx)];
@@ -155,12 +157,50 @@ NSString *const DatabaseManagerTransactionColAccountIDX = @"accountIdx";
         }
         completion([list copy]);
         
-        [self.db close];
+        [db close];
         return;
     }
     
     completion(nil);
 }
 
+- (void)transactionFetchWithAccountIDX:(NSInteger)idx page:(NSUInteger)page pagesize:(NSUInteger)pagesize completion:(void (^)(NSArray *))completion {
+    NSString *sql = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ? LIMIT %lu OFFSET %lu ORDER BY %@ DESC", DatabaseManagerTableTransaction,
+                     DatabaseManagerTransactionColAccountIDX,
+                     (unsigned long)pagesize,
+                     (unsigned long)pagesize * (page - 1),
+                     DatabaseManagerColCreationDate];
+    FMDatabase *db = [self db];
+    if ([db open]) {
+        
+        NSMutableArray *list = [NSMutableArray array];
+        FMResultSet *rs = [self.db executeQuery:sql, @(idx)];
+        while ([rs next]) {
+            [list addObject:[rs resultDictionary]];
+        }
+        completion([list copy]);
+        
+        [db close];
+        return;
+    }
+    
+    completion(nil);
+}
+
+- (NSUInteger)transactionCountWithAccountIDX:(NSInteger)idx {
+    NSUInteger count = 0;
+    NSString *sql = [NSString stringWithFormat:@"SELECT COUNT(*) FROM %@ WHERE %@ = ?", DatabaseManagerTableTransaction, DatabaseManagerTransactionColAccountIDX];
+    FMDatabase *db = [self db];
+    if ([db open]) {
+        
+        FMResultSet *rs = [db executeQuery:sql, @(idx)];
+        if ([rs next]) {
+            count = [rs intForColumnIndex:0];
+        }
+        
+        [db close];
+    }
+    return count;
+}
 
 @end

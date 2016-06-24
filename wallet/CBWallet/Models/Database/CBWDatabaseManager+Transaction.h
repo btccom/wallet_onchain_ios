@@ -53,5 +53,7 @@ extern NSString *const DatabaseManagerTransactionColAccountIDX;
 - (void)transactionSave:(CBWTransaction *)transaction withCompletion:(void (^)(CBWDatabaseChangeType changeType))completion;
 
 - (void)transactionFetchWithAccountIDX:(NSInteger)idx completion:(void(^)(NSArray *response))completion;
+- (void)transactionFetchWithAccountIDX:(NSInteger)idx page:(NSUInteger)page pagesize:(NSUInteger)pagesize completion:(void (^)(NSArray *))completion;
+- (NSUInteger)transactionCountWithAccountIDX:(NSInteger)idx;
 
 @end

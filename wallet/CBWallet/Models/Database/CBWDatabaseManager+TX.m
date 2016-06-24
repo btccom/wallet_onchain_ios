@@ -23,7 +23,8 @@ NSString *const DatabaseManagerTXColRelatedAddresses = @"relatedAddresses";
 
 - (CBWTransaction *)txWithHash:(NSString *)hash andQueryAddress:(NSString *)address {
     NSString *sql = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ? AND %@ = ?", DatabaseManagerTableTransaction, DatabaseManagerTXColHash, DatabaseManagerTXColQueryAddress];
-    if ([self.db open]) {
+    FMDatabase *db = [self db];
+    if ([db open]) {
         
         CBWTransaction *transaction = nil;
         FMResultSet *rs = [self.db executeQuery:sql, hash, address];
@@ -31,7 +32,7 @@ NSString *const DatabaseManagerTXColRelatedAddresses = @"relatedAddresses";
             transaction = [[CBWTransaction alloc] initWithDictionary:[rs resultDictionary]];
         }
         
-        [self.db close];
+        [db close];
         
         return transaction;
     }
@@ -118,7 +119,8 @@ NSString *const DatabaseManagerTXColRelatedAddresses = @"relatedAddresses";
 
 - (void)txFetchWithQueryAddress:(NSString *)address completion:(void (^)(NSArray *))completion {
     NSString *sql = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ? ORDER BY %@ DESC", DatabaseManagerTableTX, DatabaseManagerTXColQueryAddress, DatabaseManagerColCreationDate];
-    if ([self.db open]) {
+    FMDatabase *db = [self db];
+    if ([db open]) {
         
         NSMutableArray *list = [NSMutableArray array];
         FMResultSet *rs = [self.db executeQuery:sql, address];
@@ -127,11 +129,50 @@ NSString *const DatabaseManagerTXColRelatedAddresses = @"relatedAddresses";
         }
         completion([list copy]);
         
-        [self.db close];
+        [db close];
         return;
     }
     
     completion(nil);
+}
+
+- (void)txFetchWithQueryAddress:(NSString *)address page:(NSUInteger)page pagesize:(NSUInteger)pagesize completion:(void (^)(NSArray *))completion {
+    NSString *sql = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ? LIMIT %lu OFFSET %lu ORDER BY %@ DESC", DatabaseManagerTableTX,
+                     DatabaseManagerTXColQueryAddress,
+                     (unsigned long)pagesize,
+                     (unsigned long)pagesize * (page - 1),
+                     DatabaseManagerColCreationDate];
+    FMDatabase *db = [self db];
+    if ([db open]) {
+        
+        NSMutableArray *list = [NSMutableArray array];
+        FMResultSet *rs = [self.db executeQuery:sql, address];
+        while ([rs next]) {
+            [list addObject:[rs resultDictionary]];
+        }
+        completion([list copy]);
+        
+        [db close];
+        return;
+    }
+    
+    completion(nil);
+}
+
+- (NSUInteger)txCountWithQueryAddress:(NSString *)address {
+    NSUInteger count = 0;
+    NSString *sql = [NSString stringWithFormat:@"SELECT COUNT(*) FROM %@ WHERE %@ = ?", DatabaseManagerTableTX, DatabaseManagerTXColQueryAddress];
+    FMDatabase *db = [self db];
+    if ([db open]) {
+        
+        FMResultSet *rs = [db executeQuery:sql, address];
+        if ([rs next]) {
+            count = [rs intForColumnIndex:0];
+        }
+        
+        [db close];
+    }
+    return count;
 }
 
 @end

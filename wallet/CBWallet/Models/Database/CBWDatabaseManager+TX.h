@@ -30,8 +30,6 @@ extern NSString *const DatabaseManagerTXColRelatedAddresses;
 /// 或用于在地址页面显示交易摘要
 @interface CBWDatabaseManager (TX)
 
-- (void)txFetchWithQueryAddress:(NSString *)address completion:(void(^)(NSArray *response))completion;
-
 - (CBWTransaction *)txWithHash:(NSString *)hash andQueryAddress:(NSString *)address;
 - (BOOL)txInsertTransaction:(CBWTransaction *)transaction;
 - (BOOL)txUpdateTransaction:(CBWTransaction *)transaction;
@@ -40,4 +38,10 @@ extern NSString *const DatabaseManagerTXColRelatedAddresses;
 /// then save(insert or update) transaction, tx
 - (void)txSave:(CBWTransaction *)transaction withCompletion:(void (^)(CBWDatabaseChangeType changeType))completion;
 
+/// 一次拉取全部交易
+- (void)txFetchWithQueryAddress:(NSString *)address completion:(void(^)(NSArray *response))completion;
+/// 分页拉取交易
+- (void)txFetchWithQueryAddress:(NSString *)address page:(NSUInteger)page pagesize:(NSUInteger)pagesize completion:(void (^)(NSArray *))completion;
+/// 查询本地全部交易数量
+- (NSUInteger)txCountWithQueryAddress:(NSString *)address;
 @end
