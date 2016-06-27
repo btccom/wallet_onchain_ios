@@ -15,7 +15,7 @@
 - (void)setLatestBlockHeight:(NSUInteger)latestBlockHeight {
     _latestBlockHeight = latestBlockHeight;
     if (self.blockHeight > 0) {
-        _confirmations = _latestBlockHeight - self.blockHeight;
+        _confirmations = _latestBlockHeight - self.blockHeight + 1;
     }
 }
 
@@ -204,6 +204,15 @@
         _version = [value unsignedIntegerValue];
     } else if ([key isEqualToString:@"confirmations"]) {
         _confirmations = [value unsignedIntegerValue];
+    } else if ([key isEqualToString:@"relatedAddresses"]) {
+        if ([value isKindOfClass:[NSArray class]]) {
+            _relatedAddresses = [value copy];
+        } else if ([value isKindOfClass:[NSString class]]) {
+            id object = [NSJSONSerialization JSONObjectWithData:[value dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
+            if ([object isKindOfClass:[NSArray class]]) {
+                _relatedAddresses = object;
+            }
+        }
     } else {
         [super setValue:value forKey:key];
     }

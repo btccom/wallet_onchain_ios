@@ -8,6 +8,7 @@
 
 // TODO: 使用唯一的 address store，address store 使用单例模式，通过设置 account 改变数据
 // FIXME: 更新地址余额不需要触发 iCloud 同步
+// TODO: address summary
 
 #import "DashboardViewController.h"
 #import "ProfileViewController.h"
@@ -152,7 +153,6 @@
     }
     
     [self reloadTransactions];
-    [self sync];
 }
 
 - (void)sync {
@@ -167,6 +167,7 @@
         return;
     }
     
+    // transaction
     CBWTransactionSync *sync = [[CBWTransactionSync alloc] init];
     sync.accountIDX = self.account.idx;
     [sync syncWithAddresses:addressStore.allAddressStrings progress:^(NSString *message) {
@@ -197,6 +198,12 @@
             return;
         }
         DLog(@"checked, no need to update");
+    }];
+    
+    // summary
+    CBWRequest *request = [[CBWRequest alloc] init];
+    [request addressSummariesWithAddressStrings:addressStore.allAddressStrings completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
+        [addressStore updateAddresses:response];
     }];
 }
 

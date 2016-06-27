@@ -13,6 +13,7 @@
 
 #import "Database.h"
 #import "CBWRequest.h"
+#import "BlockMonitor.h"
 
 #import "NSDate+Helper.h"
 
@@ -30,6 +31,7 @@
 - (CBWTXStore *)transactionStore {
     if (!_transactionStore) {
         _transactionStore = [[CBWTXStore alloc] init];
+        _transactionStore.queryAddresses = @[self.addressString];
     }
     return _transactionStore;
 }
@@ -295,6 +297,7 @@
         // return empty cell
         return cell;
     }
+    transaction.latestBlockHeight = [BlockMonitor defaultMonitor].height;
     TransactionCell *cell = [tableView dequeueReusableCellWithIdentifier:BaseListViewCellTransactionIdentifier forIndexPath:indexPath];
     [cell setTransaction:transaction];
     return cell;
@@ -334,14 +337,13 @@
 
 #pragma mark <UIScrollViewDelegate>
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
-    if (!self.requesting) {
-        if (self.isThereMoreDatas) {
-            CGFloat contentHeight = scrollView.contentSize.height;
-            CGFloat offsetTop = targetContentOffset->y;
-            CGFloat height = CGRectGetHeight(scrollView.frame);
-            if (contentHeight - (offsetTop + height) < 200.f) {
-                [self p_requestTransactions];
-            }
+    if (self.transactionStore.page < self.transactionStore.pageTotal) {
+        CGFloat contentHeight = scrollView.contentSize.height;
+        CGFloat offsetTop = targetContentOffset->y;
+        CGFloat height = CGRectGetHeight(scrollView.frame);
+        if (contentHeight - (offsetTop + height) < 200.f) {
+            [self.transactionStore fetchNextPage];
+            [self.tableView reloadData];
         }
     }
 }

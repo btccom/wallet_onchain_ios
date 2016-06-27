@@ -170,6 +170,7 @@ NSString *const CBWTransactionSyncConfirmedCountKey = @"confirmedCount";
                     }
                     // tx table
                     if (transaction) {
+                        [transaction setValuesForKeysWithDictionary:obj];
                         transaction.queryAddress = responsedAddress.address;
                         transaction.queryAddresses = @[responsedAddress.address];
                         [[CBWDatabaseManager defaultManager] txSave:transaction withCompletion:^(CBWDatabaseChangeType changeType) {

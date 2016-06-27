@@ -64,6 +64,7 @@
 - (void)flush {
     [super flush];
     _page = 0;
+    _pageTotal = -1;
     [self.sections removeAllObjects];
     [self.rows removeAllObjects];
 }
@@ -116,6 +117,7 @@
     __block NSArray *collection = nil;
     if (self.queryAddresses.count == 1) {
         [[CBWDatabaseManager defaultManager] txFetchWithQueryAddress:[self.queryAddresses firstObject] page:self.page pagesize:self.pagesize completion:^(NSArray *response) {
+            DLog(@"db response: %@", response);
             collection = response;
         }];
     } else {
@@ -140,6 +142,9 @@
 }
 /// 判断交易类型
 - (void)p_detectTypeOfTransaction:(CBWTransaction *)transaction {
+    if (self.queryAddresses.count == 1) {
+        return;
+    }
     __block long long accountInputsValue = 0;
     __block long long accountOutputsValue = 0;
     [transaction.inputs enumerateObjectsUsingBlock:^(InputItem * _Nonnull item, NSUInteger idx, BOOL * _Nonnull stop) {

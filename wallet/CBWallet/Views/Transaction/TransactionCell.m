@@ -149,7 +149,7 @@ static const CGFloat kTransactionCellVerticalPadding = CBWLayoutCommonVerticalPa
         self.confirmationLabel.backgroundColor = [UIColor CBWDangerColor];
     }
     NSString *relatedAddress = [transaction.relatedAddresses firstObject];
-    if (!relatedAddress) {
+    if (transaction.isCoinbase) {
         // coinbase
         relatedAddress = @"Coinbase";
     }
