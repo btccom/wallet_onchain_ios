@@ -9,8 +9,6 @@
 #import "CBWTransactionStore.h"
 #import "CBWAccount.h"
 
-#import "CBWDatabaseManager.h"
-
 #import "NSDate+Helper.h"
 
 @interface CBWTransactionStore ()
@@ -24,14 +22,6 @@
 
 @implementation CBWTransactionStore
 
-/// 更新查询账户时，清空当前存在的记录，仅用在 dashboard
-- (void)setAccount:(CBWAccount *)account {
-    if (![_account isEqual:account]) {
-        _account = account;
-        [self fetch];
-    }
-}
-
 - (NSMutableArray *)sections {
     if (!_sections) {
         _sections = [[NSMutableArray alloc] init];
@@ -44,30 +34,6 @@
         _rows = [[NSMutableDictionary alloc] init];
     }
     return _rows;
-}
-
-- (void)fetch {
-    [super fetch];
-    [self fetchWithLimit:50 offset:records.count];
-}
-
-- (void)fetchWithLimit:(NSUInteger)limit offset:(NSUInteger)offset {
-    if ([self.delegate respondsToSelector:@selector(transactionStoreWillUpdate:)]) {
-        [self.delegate transactionStoreWillUpdate:self];
-    }
-    
-    [[CBWDatabaseManager defaultManager] transactionFetchWithAccountIDX:self.account.idx completion:^(NSArray *response) {
-        NSArray *transactions = [CBWTransaction batchInitWithArray:response];
-        [transactions enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            if ([obj isKindOfClass:[CBWTransaction class]]) {
-                [self p_addTransaction:obj];// FIXME: 从数据库加载的数据可能会更新 store 内的数据（从API获取的）如 confirmations，block time
-            }
-        }];
-        
-        if ([self.delegate respondsToSelector:@selector(transactionStoreDidUpdate:)]) {
-            [self.delegate transactionStoreDidUpdate:self];
-        }
-    }];
 }
 
 - (NSInteger)insertTransactionsFromCollection:(id)collection {
@@ -93,25 +59,8 @@
     // check and save
     __block NSInteger insertedCount = 0;
     [transactions enumerateObjectsUsingBlock:^(CBWTransaction * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        [[CBWDatabaseManager defaultManager] txSave:obj withCompletion:^(CBWDatabaseChangeType changeType) {
-            switch (changeType) {
-                case CBWDatabaseChangeTypeFail:
-                    break;
-                    
-                case CBWDatabaseChangeTypeNone: {
-                    break;
-                }
-                    
-                case CBWDatabaseChangeTypeInsert: {
-                    insertedCount ++;
-                    [self p_addTransaction:obj];
-                    break;
-                }
-                case CBWDatabaseChangeTypeUpdate: {
-                    break;
-                }
-            }
-        }];
+        insertedCount ++;
+        [self p_addTransaction:obj];
     }];
     
     if ([self.delegate respondsToSelector:@selector(transactionStoreDidUpdate:)]) {
@@ -233,44 +182,6 @@
         return NO;
     }
     
-    // 新增记录
-    
-    if (self.account.idx == CBWRecordWatchedIDX) {
-        // 观察地址，直接返回
-        return YES;
-    }
-    
-    // 根据输入及输出值与账户地址关联的输入输出值比较判断（基于账户）交易类型
-    CBWTransaction *transaction = record;
-    __block long long accountInputsValue = 0;
-    __block long long accountOutputsValue = 0;
-    [transaction.inputs enumerateObjectsUsingBlock:^(InputItem * _Nonnull item, NSUInteger idx, BOOL * _Nonnull stop) {
-        [item.prevAddresses enumerateObjectsUsingBlock:^(NSString * _Nonnull address, NSUInteger idx, BOOL * _Nonnull addressStop) {
-            if ([self.queryAddresses containsObject:address]) {// 此处不严谨，仅对当前 api 及钱包有效
-                accountInputsValue += [item.prevValue longLongValue];
-                *addressStop = YES;// 找到一个即可，避免重复添加
-            }
-        }];
-    }];
-    [transaction.outputs enumerateObjectsUsingBlock:^(OutItem * _Nonnull item, NSUInteger idx, BOOL * _Nonnull stop) {
-        [item.addresses enumerateObjectsUsingBlock:^(NSString * _Nonnull address, NSUInteger idx, BOOL * _Nonnull addressStop) {
-            if ([self.queryAddresses containsObject:address]) {
-                accountOutputsValue += [item.value longLongValue];
-                *addressStop = YES;
-            }
-        }];
-    }];
-    if (accountOutputsValue == transaction.outputsValue && accountInputsValue == transaction.inputsValue) {
-        [transaction setValue:@(accountOutputsValue) forKey:@"value"];
-        transaction.type = TransactionTypeInternal;
-    } else {
-        [transaction setValue:@(accountOutputsValue - accountInputsValue) forKey:@"value"];
-        if (accountOutputsValue > accountInputsValue) {
-            transaction.type = TransactionTypeReceive;
-        } else {
-            transaction.type = TransactionTypeSend;
-        }
-    }
     return YES;
 
 }
@@ -280,7 +191,8 @@
 /// 加入 store
 - (BOOL)p_addTransaction:(CBWTransaction *)transaction {
     if ([self addRecord:transaction ASC:YES]) {
-        transaction.queryAddresses = self.queryAddresses;
+        transaction.queryAddress = self.addressString;
+        transaction.queryAddresses = @[self.addressString];
         [self p_didAddTransaction:transaction];
         return YES;
     }

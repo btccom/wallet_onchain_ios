@@ -7,7 +7,7 @@
 //
 
 #import "TransactionViewController.h"
-#import "AddressViewController.h"
+#import "AddressExplorerViewController.h"
 
 #import "TransactionDataCell.h"
 #import "TransactionIOCell.h"
@@ -321,7 +321,7 @@ static NSString *const kTransactionViewControllerCellIdentifierIO = @"transactio
     if (selecteAddress) {
         CBWAddress *address = [[CBWAddress alloc] init];
         address.address = selecteAddress;
-        AddressViewController *addressViewController = [[AddressViewController alloc] initWithAddress:address actionType:AddressActionTypeExplore];
+        AddressExplorerViewController *addressViewController = [[AddressExplorerViewController alloc] initWithAddress:address explorerType:AddressExplorerTypeExternal];
         [self.navigationController pushViewController:addressViewController animated:YES];
     }
 }

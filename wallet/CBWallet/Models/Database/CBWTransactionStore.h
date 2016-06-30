@@ -27,16 +27,10 @@ typedef NS_ENUM(NSUInteger, CBWTransactionStoreChangeType) {
 - (void)transactionStoreDidUpdate:(CBWTransactionStore * _Nonnull)store;
 @end
 
-@class CBWAccount;
 ///
 @interface CBWTransactionStore : CBWRecordObjectStore
 
-@property (nullable, nonatomic, strong) CBWAccount *account;
-//@property (nullable, nonatomic, copy) NSString *addressString;
-/// 查询的相关地址，在 dashboard 可以用来判断交易是否为内部转移
-@property (nullable, nonatomic, copy) NSArray *queryAddresses;
-
-@property (nonatomic, assign) NSInteger blockHeight;
+@property (nullable, nonatomic, copy) NSString *addressString;
 
 @property (nullable, nonatomic, weak) id<CBWTransactionStoreDelegate> delegate;
 
@@ -47,20 +41,10 @@ typedef NS_ENUM(NSUInteger, CBWTransactionStoreChangeType) {
 ///@param collection NSArray or NSDictionary
 - (NSInteger)insertTransactionsFromCollection:(nonnull id)collection;
 
-
-
-///// 用于通过 api 获取到数据后，加入到 store 中
-//- (void)addTransactionsFromJsonObject:(nonnull id)jsonObject isCacheNeeded:(BOOL)isCacheNeeded;
-///// 用于通过 api 获取到数据后，加入到 store 中，指定查询地址
-//- (void)addTransactionsFromJsonObject:(nonnull id)jsonObject isCacheNeeded:(BOOL)isCacheNeeded queryAddress:(nullable NSString *)queryAddress;
-///// 重新排序，适用于从不同地址获取交易列表
-//- (void)sort;
 /// 按日排序后
 - (NSUInteger)numberOfSections;
 - (NSUInteger)numberOfRowsInSection:(NSUInteger)section;
 - (nullable NSString *)dayInSection:(NSUInteger)section;
 - (nullable CBWTransaction *)transactionAtIndexPath:(nonnull NSIndexPath *)indexPath;
-
-//+ (void)deleteAllCaches;
 
 @end
