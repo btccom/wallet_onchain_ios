@@ -17,6 +17,7 @@ NSString *const CBWRequestAPIVersion = @"v3";
 NSString *const CBWRequestResponseErrorNumberKey = @"err_no";
 NSString *const CBWRequestResponseErrorMessageKey = @"err_msg";
 NSString *const CBWRequestResponseDataKey = @"data";
+
 NSString *const CBWRequestResponseDataTotalCountKey = @"total_count";
 NSString *const CBWRequestResponseDataPageKey = @"page";
 NSString *const CBWRequestResponseDataPageSizeKey = @"pagesize";

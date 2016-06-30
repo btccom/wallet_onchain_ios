@@ -8,6 +8,20 @@
 
 #import "CBWRecordObject.h"
 
+
+/// 可通过查询数据库判断，但不一定准确，例如恢复帐户时，可能有遗漏地址
+typedef NS_ENUM(NSUInteger, AddressScope) {
+    /// 未知
+    AddressScopeUnknown,
+    /// 外部地址
+    AddressScopeExternal,
+    /// 私有账户地址
+    AddressScopePrivate,
+    /// 观察地址
+    AddressScopeWatched
+};
+
+
 @class CBWAddressStore, BTCKey;
 
 @interface CBWAddress : CBWRecordObject
@@ -31,10 +45,16 @@
 @property (nonatomic, assign) long long accountRID;
 @property (nonatomic, assign) NSInteger accountIDX;
 
+@property (nonatomic, copy, nullable) NSString *firstTXHashID;
+@property (nonatomic, copy, nullable) NSString *lastTXHashID;
+@property (nonatomic, copy, nullable) NSString *firstUnconfirmedTXHashID;
+
 /// only for account idx > 0
 @property (nonatomic, strong, readonly, nullable) BTCKey *privateKey;
 
 @property (nonatomic, strong, readonly, nullable) NSString *testAddress;
+
+@property (nonatomic, assign, readonly) AddressScope scope;
 
 /// create or import
 + (nonnull instancetype)newAdress:(nonnull NSString *)aAddress withLabel:(nullable NSString *)label idx:(NSInteger)idx archived:(BOOL)archived dirty:(BOOL)dirty internal:(BOOL)internal accountRid:(long long)accountRid accountIdx:(NSInteger)accountIdx inStore:(nonnull CBWAddressStore *)store;
@@ -48,6 +68,7 @@
 + (BOOL)validateAddressString:(nullable NSString *)addressString;
 
 - (nonnull instancetype)initWithDictionary:(nonnull NSDictionary *)dictionary;
++ (nullable NSArray<CBWAddress *> *)batchInitWithArray:(nullable NSArray<NSDictionary *> *)array;
 
 /// 仅 watched address 支持删除方法
 - (void)deleteWatchedAddressFromStore:(nonnull CBWRecordObjectStore *)store;

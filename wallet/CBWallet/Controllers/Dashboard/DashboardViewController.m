@@ -6,10 +6,9 @@
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
-// TODO: 获取批量获取地址摘要信息，对比 tx count，如果发生变化（变多），则获取最新交易信息，page size = MIN(delta, maxSize)
-// TODO: 将新交易重新排序后缓存，刷新UI
 // TODO: 使用唯一的 address store，address store 使用单例模式，通过设置 account 改变数据
 // FIXME: 更新地址余额不需要触发 iCloud 同步
+// TODO: address summary
 
 #import "DashboardViewController.h"
 #import "ProfileViewController.h"
@@ -26,13 +25,15 @@
 #import "Database.h"
 #import "CBWRequest.h"
 
+#import "BlockMonitor.h"
+
 #import "NSString+CBWAddress.h"
 #import "NSDate+Helper.h"
 
-@interface DashboardViewController ()<ProfileViewControllerDelegate, AddressListViewControllerDelegate, ScanViewControllerDelegate, CBWTransactionStoreDelegate>
+@interface DashboardViewController ()<ProfileViewControllerDelegate, AddressListViewControllerDelegate, ScanViewControllerDelegate, UIScrollViewDelegate>
 
 @property (nonatomic, strong) CBWAccountStore *accountStore;
-@property (nonatomic, strong) CBWTransactionStore *transactionStore;
+@property (nonatomic, strong) CBWTXStore *transactionStore;
 @property (nonatomic, strong) CBWAccount *account;
 @property (nonatomic, weak) DashboardHeaderView *headerView;
 @property (nonatomic, assign) BOOL isThereMoreDatas;
@@ -40,6 +41,7 @@
 @property (nonatomic, assign, getter=isVisible) BOOL visible;
 @property (nonatomic, assign, getter=isNeededToRefresh) BOOL neededToRefresh;
 
+/// navigation bar title view
 @property (nonatomic, weak) DashboardBalanceTitleView *balanceTitleView;
 
 @end
@@ -70,10 +72,9 @@
     return _accountStore;
 }
 
-- (CBWTransactionStore *)transactionStore {
+- (CBWTXStore *)transactionStore {
     if (!_transactionStore) {
-        _transactionStore = [CBWTransactionStore new];
-        _transactionStore.delegate = self;
+        _transactionStore = [CBWTXStore new];
     }
     return _transactionStore;
 }
@@ -87,8 +88,8 @@
         [_account addObserver:self forKeyPath:@"label" options: NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:nil];
         self.headerView.sendButton.enabled = _account.idx >= 0;
         self.headerView.receiveButton.enabled = _account.idx >= 0;
-        
-        self.transactionStore.account = account;
+       
+        [self sync];
     }
 }
 
@@ -117,10 +118,11 @@
     
     if (!self.refreshControl) {
         self.refreshControl = [[UIRefreshControl alloc] init];
-//        self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:NSLocalizedStringFromTable(@"Tip loading", @"CBW", nil) attributes:@{NSForegroundColorAttributeName: [UIColor CBWSubTextColor]}];
-        [self.refreshControl addTarget:self action:@selector(reloadTransactions) forControlEvents:UIControlEventValueChanged];
+        [self.refreshControl addTarget:self action:@selector(sync) forControlEvents:UIControlEventValueChanged];
     }
     
+    [[BlockMonitor defaultMonitor] begin];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(p_handleNotification:) name:BlockMonitorNotificationNewBlock object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -153,15 +155,62 @@
     [self reloadTransactions];
 }
 
+- (void)sync {
+    CBWAddressStore *addressStore = [[CBWAddressStore alloc] initWithAccountIdx:self.account.idx];
+    [addressStore fetch];
+    self.balanceTitleView.balance = [@(addressStore.totalBalance) satoshiBTCString];
+    DLog(@"dashboard all addresses: %@", addressStore.allAddressStrings);
+    
+    if (addressStore.allAddressStrings.count == 0) {
+        DLog(@"no address to fetch");
+        [self.refreshControl endRefreshing];
+        return;
+    }
+    
+    // transaction
+    CBWTransactionSync *sync = [[CBWTransactionSync alloc] init];
+    sync.accountIDX = self.account.idx;
+    [sync syncWithAddresses:addressStore.allAddressStrings progress:^(NSString *message) {
+        DLog(@"sync progress: \n%@", message);
+    } completion:^(NSError *error, NSDictionary<NSString *,NSDictionary<NSString *,NSNumber *> *> *updatedAddresses) {
+        DLog(@"sync done: \n%@", updatedAddresses);
+        [self.refreshControl endRefreshing];
+        
+        if (updatedAddresses == 0) {
+            DLog(@"no need to update");
+            return;
+        }
+        
+        __block BOOL needUpdate = NO;
+        [updatedAddresses enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSDictionary<NSString *,NSNumber *> * _Nonnull obj, BOOL * _Nonnull stop) {
+            [obj enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSNumber * _Nonnull obj, BOOL * _Nonnull stop) {
+                if (obj.integerValue > 0) {
+                    needUpdate = YES;
+                    *stop = YES;
+                }
+            }];
+            if (needUpdate) {
+                *stop = YES;
+            }
+        }];
+        if (needUpdate) {
+            [self reloadTransactions];
+            return;
+        }
+        DLog(@"checked, no need to update");
+    }];
+    
+    // summary
+    CBWRequest *request = [[CBWRequest alloc] init];
+    [request addressSummariesWithAddressStrings:addressStore.allAddressStrings completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
+        [addressStore updateAddresses:response];
+    }];
+}
+
 - (void)reloadTransactions {
     
     if (!self.account) {
         return;
-    }
-    
-    if (self.requesting) {
-        // TODO: 停止之前的请求
-        [self requestDidStop];
     }
     
     // 1. get account address list
@@ -180,106 +229,9 @@
     if (self.account.idx != CBWRecordWatchedIDX) {
         self.transactionStore.queryAddresses = addressStore.allAddressStrings;
     }
-    
-    // 2. check addresses' summary
-    [self requestDidStart];
-    CBWRequest *request = [CBWRequest new];
-    [request addressSummariesWithAddressStrings:addressStore.allAddressStrings completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
-        
-        if (error) {
-            // failed
-            [self requestDidStop];
-            return;
-        }
-        
-        if (![response isKindOfClass:[NSArray class]] && ![response isKindOfClass:[NSDictionary class]]) {
-            // or invalid response format
-            [self requestDidStop];
-            return;
-        }
-        
-        // 3. try to find addresses to featch transactions
-        NSArray *responseObjects = nil;
-        if ([response isKindOfClass:[NSArray class]]) {
-            responseObjects = response;
-        } else if ([response isKindOfClass:[NSDictionary class]]) {
-            // 只有一个结果
-            responseObjects = @[response];
-        }
-        __block NSMutableArray *updatedAddresses = [NSMutableArray array];
-        __block NSMutableArray *unupdatedAddresses = [NSMutableArray array];
-        [responseObjects enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            if ([obj isKindOfClass:[NSDictionary class]]) {
-                
-                CBWAddress *responsedAddress = [[CBWAddress alloc] initWithDictionary:obj];
-                NSString *addressString = responsedAddress.address;
-                
-                CBWAddress *address = [addressStore addressWithAddressString:addressString];
-                
-                NSUInteger responsedTXCount = responsedAddress.txCount;
-                NSUInteger responsedUnconfirmedTXCount = responsedAddress.unconfirmedTXCount;
-                
-                if (responsedTXCount != address.txCount || responsedUnconfirmedTXCount != address.unconfirmedTXCount) {
-                    [updatedAddresses addObject:addressString];
-                } else {
-                    [unupdatedAddresses addObject:addressString];
-                }
-                
-            }
-        }];
-        
-        // and detect if need to fetch
-        [updatedAddresses addObjectsFromArray:unupdatedAddresses];// 暂时没有缓存逻辑，全部拉取
-        NSArray *addresses = [updatedAddresses copy];
-        if (addresses.count == 0) {
-            // NO
-            [self requestDidStop];
-            return;
-        }
-        // YES
-        DLog(@"try to load transactions with addresses: %@", addresses);
-        
-        // TODO: 指定查询的数量 number = MAX(MAX(unconfirmedTXCount), txCountDiff)
-        // if (address.firstTX) {
-        //     fetch(number);
-        // } else {
-        //     if (same lastTX) {
-        //         page = floor(txCount / pageSize) + 1;
-        //         fetch(page);
-        //     } else {
-        //         fetch(responsedTXCount);
-        //     }
-        // }
-        // 简化为，如果有 firstTX，只加载差值，否则加载全部
-        
-        // 4. fetch transactions
-        [request addressTransactionsWithAddressStrings:addresses completion:^(NSError * _Nullable error, NSInteger status, id  _Nullable response, NSString * _Nonnull queryAddress) {
-            
-            [self requestDidStop];
-            
-            if (error) {
-                [self alertErrorMessage:error.localizedDescription];
-                return;
-            }
-            
-            DLog(@"transactions received. query address: %@", queryAddress);
-            // specify the watched address
-            if (self.account.idx == CBWRecordWatchedIDX) {
-                self.transactionStore.queryAddresses = @[queryAddress];
-            }
-            // parse transactions
-            NSArray *list = [response objectForKey:CBWRequestResponseDataListKey];
-            [self.transactionStore insertTransactionsFromCollection:list];
-            
-        }];
-        
-        // 5. update addresses
-        [addressStore updateAddresses:response];
-        
-        // 6. update the account balance displayed
-        self.balanceTitleView.balance = [@(addressStore.totalBalance) satoshiBTCString];
-        
-    }];
+    self.transactionStore.accountIDX = self.account.idx;
+    [self.transactionStore fetch];
+    [self.tableView reloadData];
 }
 
 #pragma mark - Private Method
@@ -306,6 +258,14 @@
         [self reload];
     } else if ([notification.name isEqualToString:CBWNotificationSignedOut]) {
         [self p_handleSignOut];
+    } else if ([notification.name isEqualToString:BlockMonitorNotificationNewBlock]) {
+        DLog(@"new block height: %lu", (unsigned long)[BlockMonitor defaultMonitor].height);
+        [self sync];
+        if (self.isVisible) {
+            [self.tableView reloadData];
+        } else {
+            self.neededToRefresh = YES;
+        }
     }
 }
 
@@ -383,7 +343,7 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     NSDate *today = [NSDate date];
     NSString *day = [self.transactionStore dayInSection:section];
-    if ([today isInSameDayWithDate:[NSDate dateFromString:day withFormat:@"yyyy-MM-dd"]]) {
+    if ([today isInSameDayWithDate:[NSDate dateFromString:day withFormat:self.transactionStore.dateFormat]]) {
         return NSLocalizedStringFromTable(@"Today", @"CBW", nil);
     }
     return day;
@@ -392,6 +352,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TransactionCell *cell = [tableView dequeueReusableCellWithIdentifier:BaseListViewCellTransactionIdentifier forIndexPath:indexPath];
     CBWTransaction *transaction = [self.transactionStore transactionAtIndexPath:indexPath];
+    transaction.latestBlockHeight = [BlockMonitor defaultMonitor].height;
     if (transaction) {
         [cell setTransaction:transaction];
     }
@@ -474,36 +435,16 @@
     }
 }
 
-#pragma mark - <CBWTransactionStoreDelegate>
-- (void)transactionStoreWillUpdate:(CBWTransactionStore *)store {
-    DLog(@"begin updates");
-}
-- (void)transactionStoreDidUpdate:(CBWTransactionStore *)store {
-    DLog(@"end updates");
-    [self.tableView reloadData];
-}
-- (void)transactionStore:(CBWTransactionStore *)store didInsertSection:(NSString *)section atIndex:(NSUInteger)index {
-    DLog(@"insert section: %@", section);
-    if (self.isVisible) {
-        [self.tableView insertSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:UITableViewRowAnimationFade];
-    } else {
-        self.neededToRefresh = YES;
-    }
-}
-- (void)transactionStore:(CBWTransactionStore *)store didUpdateRecord:(__kindof CBWRecordObject *)record atIndexPath:(NSIndexPath *)indexPath forChangeType:(CBWTransactionStoreChangeType)changeType toNewIndexPath:(NSIndexPath *)newIndexPath {
-    DLog(@"insert row: %@", indexPath);
-    if (self.isVisible) {
-        if (changeType == CBWTransactionStoreChangeTypeInsert) {
-            [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        } else if (changeType == CBWTransactionStoreChangeTypeUpdate) {
-            if ([indexPath isEqual:newIndexPath]) {
-                [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            } else {
-                [self.tableView moveRowAtIndexPath:indexPath toIndexPath:newIndexPath];
-            }
+#pragma mark <UIScrollViewDelegate>
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    if (self.transactionStore.page < self.transactionStore.pageTotal) {
+        CGFloat contentHeight = scrollView.contentSize.height;
+        CGFloat offsetTop = targetContentOffset->y;
+        CGFloat height = CGRectGetHeight(scrollView.frame);
+        if (contentHeight - (offsetTop + height) < 200.f) {
+            [self.transactionStore fetchNextPage];
+            [self.tableView reloadData];
         }
-    } else {
-        self.neededToRefresh = YES;
     }
 }
 

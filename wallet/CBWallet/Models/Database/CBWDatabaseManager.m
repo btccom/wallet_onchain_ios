@@ -14,15 +14,14 @@ NSString *const DatabaseManagerDBPath = @"cbwdb.ss";// sqlite storage
 // tables
 NSString *const DatabaseManagerTableAccount = @"account";
 NSString *const DatabaseManagerTableAddress = @"address";
-NSString *const DatabaseManagerTableTX = @"tx";
 NSString *const DatabaseManagerTableRecipient = @"recipient";
 
 // columns
 // common
-NSString *const DatabaseManagerColRid = @"rid";
+NSString *const DatabaseManagerColRID = @"rid";
 NSString *const DatabaseManagerColCreationDate = @"creationDate";
 NSString *const DatabaseManagerColModificationDate = @"modificationDate";
-NSString *const DatabaseManagerColIdx = @"idx";
+NSString *const DatabaseManagerColIDX = @"idx";
 NSString *const DatabaseManagerColAddress = @"address";
 NSString *const DatabaseManagerColLabel = @"label";
 
@@ -36,9 +35,9 @@ NSString *const DatabaseManagerColInternal = @"internal";
 NSString *const DatabaseManagerColBalance = @"balance";
 NSString *const DatabaseManagerColReceived = @"received";
 NSString *const DatabaseManagerColSent = @"sent";
-NSString *const DatabaseManagerColTxCount = @"txCount";
-NSString *const DatabaseManagerColAccountRid = @"accountRid";
-NSString *const DatabaseManagerColAccountIdx = @"accountIdx";
+NSString *const DatabaseManagerColTXCount = @"txCount";
+NSString *const DatabaseManagerColAccountRID = @"accountRid";
+NSString *const DatabaseManagerColAccountIDX = @"accountIdx";
 
 @implementation CBWDatabaseManager
 

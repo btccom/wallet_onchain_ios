@@ -25,19 +25,19 @@ extern NSString *const DatabaseManagerDBPath;
 // tables
 extern NSString *const DatabaseManagerTableAccount;
 extern NSString *const DatabaseManagerTableAddress;
-extern NSString *const DatabaseManagerTableTX;
+
 extern NSString *const DatabaseManagerTableRecipient;
 
 // columns
 // common
 /// integer
-extern NSString *const DatabaseManagerColRid;
+extern NSString *const DatabaseManagerColRID;
 /// date
 extern NSString *const DatabaseManagerColCreationDate;
 /// date
 extern NSString *const DatabaseManagerColModificationDate;
 /// integer
-extern NSString *const DatabaseManagerColIdx;
+extern NSString *const DatabaseManagerColIDX;
 /// text / string
 extern NSString *const DatabaseManagerColAddress;
 /// text / string
@@ -61,11 +61,11 @@ extern NSString *const DatabaseManagerColReceived;
 /// integer / long long in satoshi
 extern NSString *const DatabaseManagerColSent;
 /// integer
-extern NSString *const DatabaseManagerColTxCount;
+extern NSString *const DatabaseManagerColTXCount;
 /// integer
-extern NSString *const DatabaseManagerColAccountRid;
+extern NSString *const DatabaseManagerColAccountRID;
 /// integer
-extern NSString *const DatabaseManagerColAccountIdx;
+extern NSString *const DatabaseManagerColAccountIDX;
 
 @interface CBWDatabaseManager : NSObject
 
@@ -82,3 +82,4 @@ extern NSString *const DatabaseManagerColAccountIdx;
 #import "CBWDatabaseManager+Account.h"
 #import "CBWDatabaseManager+Address.h"
 #import "CBWDatabaseManager+TX.h"
+#import "CBWDatabaseManager+Transaction.h"

@@ -129,6 +129,20 @@
     return self;
 }
 
++ (NSArray<CBWAddress *> *)batchInitWithArray:(NSArray<NSDictionary *> *)array {
+    if (array) {
+        __block NSMutableArray *addresses = [NSMutableArray arrayWithCapacity:array.count];
+        [array enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([obj isKindOfClass:[NSDictionary class]]) {
+                CBWAddress *address = [[CBWAddress alloc] initWithDictionary:obj];
+                [addresses addObject:address];
+            }
+        }];
+        return [addresses copy];
+    }
+    return nil;
+}
+
 - (BOOL)saveWithError:(NSError *__autoreleasing  _Nullable *)error {
     BOOL initial = self.rid < 0;
     if (initial) {
@@ -211,6 +225,10 @@
         self.txCount = [value unsignedIntegerValue];
     } else if ([key isEqualToString:@"unconfirmed_tx_count"]) {
         self.unconfirmedTXCount = [value unsignedIntegerValue];
+    } else if ([key isEqualToString:@"first_tx"]) {
+        _firstTXHashID = value;
+    } else if ([key isEqualToString:@"last_tx"]) {
+        _lastTXHashID = value;
     }
 }
 

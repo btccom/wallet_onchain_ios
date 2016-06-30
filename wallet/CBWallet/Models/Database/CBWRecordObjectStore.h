@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "CBWRecordObject.h"
 
+extern const NSInteger CBWRecordObjectStorePagesizeDefault;
 extern NSString *const _Nonnull CBWRecordObjectStoreCountKey;
 
 @interface CBWRecordObjectStore : NSObject {

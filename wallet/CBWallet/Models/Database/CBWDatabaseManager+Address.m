@@ -22,7 +22,7 @@
     FMDatabase *db = [self db];
     if ([db open]) {
         NSMutableString *sql = [NSMutableString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ?", DatabaseManagerTableAddress,
-                                DatabaseManagerColAccountIdx];
+                                DatabaseManagerColAccountIDX];
         FMResultSet *results = nil;
         DLog(@"database manager fetch all addresses of account: %ld", (long)accountIdx);
         results = [db executeQuery:sql,
@@ -40,7 +40,7 @@
     FMDatabase *db = [self db];
     if ([db open]) {
         NSMutableString *sql = [NSMutableString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ? AND %@ = ?", DatabaseManagerTableAddress,
-                                DatabaseManagerColAccountIdx,
+                                DatabaseManagerColAccountIDX,
                                 DatabaseManagerColArchived];
         FMResultSet *results = nil;
         DLog(@"database manager fetch %@ addresses of account: %ld", (archived ? @"archived" : @"unarchived"), (long)accountIdx);
@@ -55,8 +55,8 @@
 - (void)p_transformResultSet:(FMResultSet *)results toStore:(CBWAddressStore *)store {
     while ([results next]) {
         CBWAddress *address = [[CBWAddress alloc] init];
-        address.rid = [results intForColumn:DatabaseManagerColRid];
-        address.idx = [results intForColumn:DatabaseManagerColIdx];
+        address.rid = [results intForColumn:DatabaseManagerColRID];
+        address.idx = [results intForColumn:DatabaseManagerColIDX];
         address.address = [results stringForColumn:DatabaseManagerColAddress];
         address.label = [results stringForColumn:DatabaseManagerColLabel];
         address.archived = [results boolForColumn:DatabaseManagerColArchived];
@@ -65,9 +65,9 @@
         address.balance = [results longLongIntForColumn:DatabaseManagerColBalance];
         address.received = [results longLongIntForColumn:DatabaseManagerColReceived];
         address.sent = [results longLongIntForColumn:DatabaseManagerColSent];
-        address.txCount = [results intForColumn:DatabaseManagerColTxCount];
-        address.accountIDX = [results intForColumn:DatabaseManagerColAccountIdx];
-        address.accountRID = [results intForColumn:DatabaseManagerColAccountRid];
+        address.txCount = [results intForColumn:DatabaseManagerColTXCount];
+        address.accountIDX = [results intForColumn:DatabaseManagerColAccountIDX];
+        address.accountRID = [results intForColumn:DatabaseManagerColAccountRID];
         [store addRecord:address];
     }
 }
@@ -102,7 +102,7 @@
         NSString *sql = [NSString stringWithFormat:@"INSERT INTO %@ (%@, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", DatabaseManagerTableAddress,
                          DatabaseManagerColCreationDate,
                          DatabaseManagerColModificationDate,
-                         DatabaseManagerColIdx,
+                         DatabaseManagerColIDX,
                          DatabaseManagerColAddress,
                          DatabaseManagerColLabel,
                          DatabaseManagerColArchived,
@@ -111,9 +111,9 @@
                          DatabaseManagerColBalance,
                          DatabaseManagerColReceived,
                          DatabaseManagerColSent,
-                         DatabaseManagerColTxCount,
-                         DatabaseManagerColAccountRid,
-                         DatabaseManagerColAccountIdx];
+                         DatabaseManagerColTXCount,
+                         DatabaseManagerColAccountRID,
+                         DatabaseManagerColAccountIDX];
         
         created = [db executeUpdate:sql,
                    address.creationDate,
@@ -151,7 +151,7 @@
                          DatabaseManagerColAddress];
         FMResultSet *result = [db executeQuery:sql, aAddress];
         if ([result next]) {
-            rid = [result intForColumn:DatabaseManagerColRid];
+            rid = [result intForColumn:DatabaseManagerColRID];
         }
         
         [db close];
@@ -169,7 +169,7 @@
         NSString *sql = [NSString stringWithFormat:@"UPDATE %@ SET %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ?, %@ = ? WHERE %@ = ?", DatabaseManagerTableAddress,
                          DatabaseManagerColCreationDate,
                          DatabaseManagerColModificationDate,
-                         DatabaseManagerColIdx,
+                         DatabaseManagerColIDX,
                          DatabaseManagerColAddress,
                          DatabaseManagerColLabel,
                          DatabaseManagerColArchived,
@@ -178,10 +178,10 @@
                          DatabaseManagerColBalance,
                          DatabaseManagerColReceived,
                          DatabaseManagerColSent,
-                         DatabaseManagerColTxCount,
-                         DatabaseManagerColAccountRid,
-                         DatabaseManagerColAccountIdx,
-                         DatabaseManagerColRid];
+                         DatabaseManagerColTXCount,
+                         DatabaseManagerColAccountRID,
+                         DatabaseManagerColAccountIDX,
+                         DatabaseManagerColRID];
         updated = [db executeUpdate:sql,
                    address.creationDate,
                    address.modificationDate,
@@ -216,7 +216,7 @@
     if ([db open]) {
         
         NSString *sql = [NSString stringWithFormat:@"DELETE FROM %@ WHERE %@ = ? AND %@ = ?", DatabaseManagerTableAddress,
-                         DatabaseManagerColRid,
+                         DatabaseManagerColRID,
                          DatabaseManagerColAddress];
         if (![db executeUpdate:sql,
               @(address.rid),
@@ -241,7 +241,7 @@
     if ([db open]) {
         
         NSString *sql = [NSString stringWithFormat:@"SELECT COUNT(*) FROM %@ WHERE %@ = ?", DatabaseManagerTableAddress,
-                         DatabaseManagerColAccountIdx];
+                         DatabaseManagerColAccountIDX];
         FMResultSet *results = [db executeQuery:sql,
                                 @(accountIdx)];
         if ([results next]) {

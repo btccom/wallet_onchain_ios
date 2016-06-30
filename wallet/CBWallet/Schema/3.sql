@@ -2,33 +2,33 @@ ALTER TABLE 'address' ADD COLUMN 'unconfirmedTXCount' INTEGER;
 ALTER TABLE 'address' ADD COLUMN 'received' INTEGER;
 ALTER TABLE 'address' ADD COLUMN 'sent' INTEGER;
 CREATE INDEX IF NOT EXISTS 'address_query' ON 'address' ('address', 'accountIdx');
-CREATE TABLE IF NOT EXISTS 'tx' (
+CREATE TABLE IF NOT EXISTS 'txmap' (
     'rid' INTEGER PRIMARY KEY AUTOINCREMENT,
-    'creationDate' DATE,
+    'created_at' DATE,
     'hash' TEXT,
-    'value' INTEGER,
-    'fee' INTEGER,
-    'confirmations' INTEGER,
-    'isCoinbase' INTEGER,
-    'blockHeight' INTEGER,
-    'blockTime' DATE,
-    'queryAddresses' TEXT,
+    'balance_diff' INTEGER,
+    'block_height' INTEGER,
+    'block_time' DATE,
+    'queryAddress' TEXT,
     'relatedAddresses' TEXT
 );
-CREATE INDEX IF NOT EXISTS 'tx_query' ON 'tx' ('hash', 'queryAddress', 'accountIdx');
-CREATE TABLE IF NOT EXISTS 'transaction' (
-    'hash' TEXT PRIMARY KEY,
-    'creationDate' DATE,
-    'value' INTEGER,
+CREATE INDEX IF NOT EXISTS 'tx_query' ON 'txmap' ('hash', 'queryAddress');
+CREATE TABLE IF NOT EXISTS 'tx' (
+    'rid' INTEGER PRIMARY KEY AUTOINCREMENT,
+    'created_at' DATE,
+    'hash' TEXT,
     'fee' INTEGER,
-    'confirmations' INTEGER,
-    'inputsValue' INTEGER,
-    'outputsValue' INTEGER,
+    'inputs_value' INTEGER,
+    'inputs_count' INTEGER,
     'inputs' TEXT,
+    'outputs_value' INTEGER,
+    'outputs_count' INTEGER,
     'outputs' TEXT,
-    'isCoinbase' INTEGER,
-    'blockHeight' INTEGER,
-    'blockTime' DATE,
+    'is_coinbase' INTEGER,
+    'block_height' INTEGER,
+    'block_time' DATE,
+    'size' INTEGER,
+    'version' INTEGER,
     'accountIdx' INTEGER
 );
-CREATE INDEX IF NOT EXISTS 'transaction_query' ON 'transaction' ('accountIdx');
+CREATE INDEX IF NOT EXISTS 'transaction_query' ON 'tx' ('hash', 'accountIdx');

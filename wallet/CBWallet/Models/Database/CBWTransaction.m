@@ -10,7 +10,14 @@
 #import "CBWTransactionStore.h"
 
 @implementation CBWTransaction
-@synthesize relatedAddresses = _relatedAddresses;
+@synthesize relatedAddresses = _relatedAddresses, value = _value;
+
+- (void)setLatestBlockHeight:(NSUInteger)latestBlockHeight {
+    _latestBlockHeight = latestBlockHeight;
+    if (self.blockHeight > 0) {
+        _confirmations = _latestBlockHeight - self.blockHeight + 1;
+    }
+}
 
 - (NSDate *)transactionTime {
     if (self.blockHeight < 0) {
@@ -49,12 +56,36 @@
     return _relatedAddresses;
 }
 
-//- (NSUInteger)confirmedCount {
-//    if (self.blockHeight > -1) {
-//        return MAX(((TransactionStore *)self.store).blockHeight - self.blockHeight + 1, 0);
-//    }
-//    return 0;
-//}
+- (long long)value {
+    if (_value == 0) {
+        __block long long inputValue = 0;
+        [self.inputs enumerateObjectsUsingBlock:^(InputItem * _Nonnull i, NSUInteger idx, BOOL * _Nonnull stop) {
+            [i.prevAddresses enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if ([self.relatedAddresses containsObject:obj]) {
+                    inputValue += [i.prevValue longLongValue];
+                    *stop = YES;
+                }
+            }];
+        }];
+        
+        __block long long outputValue = 0;
+        [self.outputs enumerateObjectsUsingBlock:^(OutItem * _Nonnull o, NSUInteger idx, BOOL * _Nonnull stop) {
+            [o.addresses enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if ([self.relatedAddresses containsObject:obj]) {
+                    outputValue += [o.value longLongValue];
+                    *stop = YES;
+                }
+            }];
+        }];
+        
+        _value = outputValue - inputValue;
+        if (_value + self.fee == 0) {
+            _value = self.outputsValue;
+        }
+    }
+    return _value;
+}
+
 #pragma mark - Initialization
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary {
     if (!dictionary || ![dictionary isKindOfClass:[NSDictionary class]]) {
@@ -128,6 +159,18 @@
                 }
             }];
             _inputs = [inputs copy];
+        } else if ([value isKindOfClass:[NSString class]]) {
+            id object = [NSJSONSerialization JSONObjectWithData:[value dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
+            if ([object isKindOfClass:[NSArray class]]) {
+                __block NSMutableArray *inputs = [NSMutableArray array];// capacity = vin_size
+                [object enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    InputItem *i = [[InputItem alloc] initWithDictionary:obj];
+                    if (i) {
+                        [inputs addObject:i];
+                    }
+                }];
+                _inputs = [inputs copy];
+            }
         }
     } else if ([key isEqualToString:@"outputs"]) {
         // outputs
@@ -140,6 +183,18 @@
                 }
             }];
             _outputs = [outs copy];
+        } else if ([value isKindOfClass:[NSString class]]) {
+            id object = [NSJSONSerialization JSONObjectWithData:[value dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
+            if ([object isKindOfClass:[NSArray class]]) {
+                __block NSMutableArray *outs = [NSMutableArray array];
+                [object enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    OutItem *o = [[OutItem alloc] initWithDictionary:obj];
+                    if (o) {
+                        [outs addObject:o];
+                    }
+                }];
+                _outputs = [outs copy];
+            }
         }
     } else if ([key isEqualToString:@"fee"]) {
         _fee = [value longLongValue];
@@ -149,6 +204,15 @@
         _version = [value unsignedIntegerValue];
     } else if ([key isEqualToString:@"confirmations"]) {
         _confirmations = [value unsignedIntegerValue];
+    } else if ([key isEqualToString:@"relatedAddresses"]) {
+        if ([value isKindOfClass:[NSArray class]]) {
+            _relatedAddresses = [value copy];
+        } else if ([value isKindOfClass:[NSString class]]) {
+            id object = [NSJSONSerialization JSONObjectWithData:[value dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
+            if ([object isKindOfClass:[NSArray class]]) {
+                _relatedAddresses = object;
+            }
+        }
     } else {
         [super setValue:value forKey:key];
     }
@@ -185,6 +249,8 @@
         _outputsValue = [value longLongValue];
     } else if ([key isEqualToString:@"is_coinbase"]) {
         _isCoinbase = [value boolValue];
+    } else if ([key isEqualToString:@"accountIdx"]) {
+        _accountIDX = [value integerValue];
     }
 }
 
@@ -204,6 +270,11 @@
 
 - (instancetype)init {
     return nil;
+}
+
+- (NSString *)description {
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:[self dictionaryWithValuesForKeys:@[@"addresses", @"value"]] options:0 error:nil];
+    return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
 }
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key {
@@ -227,12 +298,26 @@
     return self;
 }
 
+- (NSString *)description {
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:[self dictionaryWithValuesForKeys:@[@"prev_addresses", @"prev_value"]] options:0 error:nil];
+    return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+}
+
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key {
     if ([key isEqualToString:@"prev_addresses"]) {
         _prevAddresses = value;
     } else if ([key isEqualToString:@"prev_value"]) {
         _prevValue = value;
     }
+}
+
+- (id)valueForUndefinedKey:(NSString *)key {
+    if ([key isEqualToString:@"prev_addresses"]) {
+        return self.prevAddresses;
+    } else if ([key isEqualToString:@"prev_value"]) {
+        return self.prevValue;
+    }
+    return nil;
 }
 
 @end
