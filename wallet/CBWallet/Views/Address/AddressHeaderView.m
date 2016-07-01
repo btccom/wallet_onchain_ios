@@ -18,7 +18,7 @@ static const CGFloat kAddressHeaderViewLabelHeight = 20.f;
 
 @interface AddressHeaderView()<UITextFieldDelegate>
 
-@property (nonatomic, weak) UIImageView * _Nullable qrcodeImageView;
+@property (nonatomic, weak, readwrite) UIImageView * _Nullable qrcodeImageView;
 @property (nonatomic, weak) UILabel * _Nullable addressLabel;
 @property (nonatomic, weak, readwrite) UITextField * _Nullable labelField;
 
@@ -31,6 +31,11 @@ static const CGFloat kAddressHeaderViewLabelHeight = 20.f;
     _labelEditable = labelEditable;
     self.labelField.userInteractionEnabled = labelEditable;
     self.labelField.placeholder = labelEditable ? NSLocalizedStringFromTable(@"Placeholder add_label_for_address", @"CBW", nil) : nil;
+}
+
+- (void)setPlaceholder:(NSString *)placeholder {
+    _placeholder = [placeholder copy];
+    self.labelField.placeholder = _placeholder;
 }
 
 - (NSString *)label {
@@ -83,7 +88,11 @@ static const CGFloat kAddressHeaderViewLabelHeight = 20.f;
 }
 
 - (void)setAddress:(NSString *)address withLabel:(NSString *)label {
-    [self.qrcodeImageView setImage:[address qrcodeImageWithSize:self.qrcodeImageView.frame.size]];
+    NSString *qrcodeString = address;
+    if (label.length > 0) {
+        qrcodeString = [NSString stringWithFormat:@"bitcoin:%@?label=%@", address, label];
+    }
+    [self.qrcodeImageView setImage:[qrcodeString qrcodeImageWithSize:self.qrcodeImageView.frame.size]];
     self.addressLabel.attributedText = [address attributedAddressWithAlignment:NSTextAlignmentCenter];
     self.labelField.text = label;
 }

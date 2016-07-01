@@ -23,8 +23,10 @@
 @interface AddressHeaderView : UIView
 
 @property (nonatomic, assign, getter=isLabelEditable) BOOL labelEditable;
-@property (nonatomic, strong, readonly) NSString * _Nullable label;
+@property (nonatomic, strong, readonly, nullable) NSString *label;
+@property (nonatomic, copy, nullable) NSString *placeholder;
 @property (nonatomic, weak, nullable) id<AddressHeaderViewDelegate> delegate;
+@property (nonatomic, weak, readonly, nullable) UIImageView *qrcodeImageView;
 
 - (void)setAddress:(nonnull NSString *)address withLabel:(nullable NSString *)label;
 

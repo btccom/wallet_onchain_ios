@@ -7,9 +7,10 @@
 //
 
 #import "AddressExplorerViewController.h"
-#import "AddressHeaderView.h"
 #import "TransactionViewController.h"
-#import "AddressListViewController.h"
+
+#import "AddressHeaderView.h"
+#import "FormControlInputCell.h"
 
 #import "Database.h"
 #import "CBWRequest.h"
@@ -18,8 +19,13 @@
 #import "CBWTransactionStore.h"
 
 #import "NSDate+Helper.h"
+#import "NSString+CBWAddress.h"
+
+static NSString *const kAddressExplorerReceiveAmountCellIdentifier = @"cell.receive.amount";
 
 @interface AddressExplorerViewController ()<AddressHeaderViewDelegate, UIScrollViewDelegate, CBWTransactionStoreDelegate>
+
+@property (nonatomic, weak) AddressHeaderView *headerView;
 
 @property (nonatomic, strong) CBWTransactionStore *transactionStore;
 @property (nonatomic, assign) BOOL isThereMoreDatas;
@@ -54,7 +60,7 @@
 #pragma mark - Initialization
 
 - (instancetype)initWithAddress:(CBWAddress *)address explorerType:(AddressExplorerType)explorerType {
-    self = [super initWithStyle:UITableViewStylePlain];
+    self = [super initWithStyle:(AddressExplorerTypeReceive == explorerType) ? UITableViewStyleGrouped : UITableViewStylePlain];
     if (self) {
         _address = address;
         _explorerType = explorerType;
@@ -79,23 +85,22 @@
     [addressHeaderView setAddress:self.addressString withLabel:self.address.label];
     addressHeaderView.delegate = self;
     [self.tableView setTableHeaderView:addressHeaderView];
+    _headerView = addressHeaderView;
     switch (self.explorerType) {
             
         case AddressExplorerTypeReceive: {
             self.title = NSLocalizedStringFromTable(@"Navigation receive", @"CBW", @"Receive");
+            [self.tableView registerClass:[FormControlInputCell class] forCellReuseIdentifier:kAddressExplorerReceiveAmountCellIdentifier];
             break;
         }
             
         case AddressExplorerTypeExternal: {
             self.title = NSLocalizedStringFromTable(@"Navigation address", @"CBW", @"Address");
-//            addressHeaderView.labelEditable = NO;
+            
             // right navigation item
             if (self.navigationController.viewControllers.count > 3) {
                 self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(p_handleBackToRoot)];
             }
-            
-            [self.transactionStore fetch];
-            [self.tableView reloadData];
             
             if (!self.refreshControl) {
                 self.refreshControl = [[UIRefreshControl alloc] init];
@@ -124,13 +129,16 @@
     // 获取地址信息
     [request addressSummaryWithAddressString:self.addressString completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
         [self requestDidStop];
+        
         // 保存地址信息
         [self.address updateWithDictionary:response];
         if (self.address.rid >= 0) {
             [self.address saveWithError:nil];
         }
+        
         if (self.address.txCount > 0) {
             // 重置分页信息后获取交易
+            self.page = 0;
             [self p_requestTransactions];
         }
     }];
@@ -160,12 +168,6 @@
             
             // 解析交易
             [self.transactionStore insertTransactionsFromCollection:[response objectForKey:CBWRequestResponseDataListKey]];
-            
-//            if ([self.tableView numberOfSections] == 0) {
-//                [self.tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationTop];
-//            } else {
-//                [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
-//            }
         }
     }];
 }
@@ -174,65 +176,36 @@
 - (void)p_handleBackToRoot {
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
-- (void)p_handleSaveNewAddress:(id)sender {
-    [self reportActivity:@"saveNewAddress"];
-    
-    [self.view endEditing:YES];
-    
-    [self.address saveWithError:nil];
-    
-    [self.navigationController popViewControllerAnimated:YES];
-//    // 设置
-//    self.actionType = AddressActionTypeDefault;
-//    // 移除按钮
-//    self.navigationItem.rightBarButtonItem = nil;
-//    // 加载交易
-//    [self.transactionStore fetch];
-//    [self.tableView reloadData];
-//    [self p_requestAddressSummary];
-}
-
-- (void)p_handleShare:(id)sender {
-    DLog(@"clicked share");
-}
-
-- (void)p_handleArchive:(id)sender {
-    DLog(@"clicked archive, %ld, %ld", (long)self.address.accountIDX, (long)self.address.idx);
-    if (self.address.accountIDX == CBWRecordWatchedIDX) {
-        DLog(@"to delete watched address");
-        [self.address deleteWatchedAddressFromStore:self.address.store];
-        [self.navigationController popViewControllerAnimated:YES];
-        return;
-    }
-    
-    self.address.archived = !self.address.archived;
-    [self.address saveWithError:nil];
-    
-    // pop back
-    if (((CBWAddressStore *)self.address.store).isArchived) {
-        // 检查是否为空
-        if (self.address.store.count == 0) {
-            // TODO: improve
-            NSArray *viewControllers = self.navigationController.viewControllers;
-            UIViewController *vc = [viewControllers objectAtIndex:(viewControllers.count - 3)];
-            if ([vc isKindOfClass:[AddressListViewController class]]) {
-//                [((AddressListViewController *)vc) reload];
-                [self.navigationController popToViewController:vc animated:YES];
-                return;
-            }
+- (void)p_handleAmountChanged:(UITextField *)sender {
+    if (sender) {
+        NSMutableString *qrcodeString = [NSMutableString stringWithFormat:@"bitcoin:%@", self.address.address];
+        NSMutableArray *parameters = [NSMutableArray array];
+        if (self.address.label.length > 0) {
+            [parameters addObject:[NSString stringWithFormat:@"label=%@", self.address.label]];
         }
+        NSString *value = sender.text;
+        if ([value BTC2SatoshiValue] > 0) {
+            [parameters addObject:[NSString stringWithFormat:@"value=%@", value]];
+        }
+        if (parameters.count > 0) {
+            [qrcodeString appendFormat:@"?%@", [parameters componentsJoinedByString:@"&"]];
+        }
+        self.headerView.qrcodeImageView.image = [qrcodeString qrcodeImageWithSize:self.headerView.qrcodeImageView.bounds.size];
     }
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - UITableDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [self.transactionStore numberOfSections];
+    return (AddressExplorerTypeExternal == self.explorerType) ? [self.transactionStore numberOfSections] : 1;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.transactionStore numberOfRowsInSection:section];
+    return (AddressExplorerTypeExternal == self.explorerType) ? [self.transactionStore numberOfRowsInSection:section] : 1;
 }
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if (AddressExplorerTypeReceive == self.explorerType) {
+        return nil;
+    }
+    
     NSDate *today = [NSDate date];
     NSString *day = [self.transactionStore dayInSection:section];
     if ([today isInSameDayWithDate:[NSDate dateFromString:day withFormat:@"yyyy-MM-dd"]]) {
@@ -241,6 +214,15 @@
     return day;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (AddressExplorerTypeReceive == self.explorerType) {
+        FormControlInputCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kAddressExplorerReceiveAmountCellIdentifier forIndexPath:indexPath];
+        cell.inputType = FormControlInputTypeBitcoinAmount;
+        cell.textField.placeholder = NSLocalizedStringFromTable(@"Placeholder receive_amount", @"CBW", nil);
+        [cell.textField addTarget:self action:@selector(p_handleAmountChanged:) forControlEvents:UIControlEventEditingChanged];
+        return cell;
+    }
+    
     CBWTransaction *transaction = [self.transactionStore transactionAtIndexPath:indexPath];
     if (!transaction) {
         DefaultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:BaseTableViewCellDefaultIdentifier forIndexPath:indexPath];
@@ -272,19 +254,9 @@
     }
 }
 
-#pragma mark <AddressHeaderViewDelegate>
-- (void)addressHeaderViewDidEndEditing:(AddressHeaderView *)view {
-    [self reportActivity:@"addressLabelChanged"];
-    
-    DLog(@"address's label changed: %@", view.label);
-}
-- (void)addressHeaderViewDidEditingChanged:(AddressHeaderView *)view {
-    self.address.label = view.label;
-}
-
 #pragma mark <UIScrollViewDelegate>
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
-    if (!self.requesting && self.isThereMoreDatas) {
+    if (AddressExplorerTypeExternal == self.explorerType && !self.requesting && self.isThereMoreDatas) {
         CGFloat contentHeight = scrollView.contentSize.height;
         CGFloat offsetTop = targetContentOffset->y;
         CGFloat height = CGRectGetHeight(scrollView.frame);

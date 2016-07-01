@@ -73,6 +73,7 @@
 "Placeholder confirm_password" = "Confirm Password";
 "Placeholder account_label" = "Account Label";
 "Placeholder enter_new_hint" = "Please Enter Hint";
+"Placeholder receive_amount" = "Enter amount in BTC";
 
 "Description Fee -1" = "Custom";
 "Description Fee 0" = "Low";

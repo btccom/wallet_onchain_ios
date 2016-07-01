@@ -11,6 +11,7 @@
 #import "AddressListViewController.h"
 #import "ArchivedAdressListViewController.h"
 #import "ScanViewController.h"
+#import "AddressExplorerViewController.h"
 
 #import "Database.h"
 
@@ -247,9 +248,16 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (void)p_pushToAddress:(CBWAddress *)address {
-    AddressViewController *addressViewController = [[AddressViewController alloc] initWithAddress:address actionType:self.actionType];
-    if (addressViewController) {
-        [self.navigationController pushViewController:addressViewController animated:YES];
+    if (AddressActionTypeReceive == self.actionType) {
+        AddressExplorerViewController *addressViewController = [[AddressExplorerViewController alloc] initWithAddress:address explorerType:AddressExplorerTypeReceive];
+        if (addressViewController) {
+            [self.navigationController pushViewController:addressViewController animated:YES];
+        }
+    } else {
+        AddressViewController *addressViewController = [[AddressViewController alloc] initWithAddress:address actionType:self.actionType];
+        if (addressViewController) {
+            [self.navigationController pushViewController:addressViewController animated:YES];
+        }
     }
 }
 #pragma mark - <UITableViewDataSource>
