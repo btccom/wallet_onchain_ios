@@ -150,6 +150,11 @@
 "Profile Section network" = "Network";
 "Profile Cell testnet" = "Testnet";
 "Profile Cell sign_out" = "Delete All Datas";
+"Profile Section analytics" = "Analytics";
+"Profile Cell balance" = "Balance";
+"Profile Cell received" = "Received";
+"Profile Cell sent" = "Sent";
+"Profile Cell tx_count" = "TX";
 
 // Address List
 "Address Section receive_address" = "Address";

@@ -17,4 +17,6 @@
 - (BOOL)checkAccountLabel:(NSString *)label;
 + (BOOL)checkAccountInstalled;
 
+- (NSDictionary *)analyzeAllAccountAddresses;
+
 @end

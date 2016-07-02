@@ -24,6 +24,7 @@
 
 typedef NS_ENUM(NSUInteger, kProfileSection) {
     kProfileSectionAccounts = 0,
+    kProfileSectionAnalytics,
 //    kProfileSectionAllTransactions,
 //    kProfileSectionSettings,
     kProfileSectionSecurity,
@@ -39,9 +40,18 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
 @property (nonatomic, strong) UISwitch *touchIDSwitch;
 @property (nonatomic, strong) UISwitch *testnetSwitch;
 
+@property (nonatomic, strong) NSDictionary *accountAnalytics;
+
 @end
 
 @implementation ProfileViewController
+
+- (NSDictionary *)accountAnalytics {
+    if (!_accountAnalytics) {
+        _accountAnalytics = [CBWAccountStore analyzeAllAccountAddresses];
+    }
+    return _accountAnalytics;
+}
 
 #pragma mark - Initialization
 
@@ -83,6 +93,7 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
     }
     
     _tableStrings = @[@{NSLocalizedStringFromTable(@"Profile Section accounts", @"CBW", @"Accounts"): @[]},
+                      @{NSLocalizedStringFromTable(@"Profile Section analytics", @"CBW", nil): @[]},
                       @{NSLocalizedStringFromTable(@"Profile Section security", @"CBW", nil): securityCells},
                       @{NSLocalizedStringFromTable(@"Profile Section backup", @"CBW", nil): @[
                             NSLocalizedStringFromTable(@"Profile Cell export", @"CBW", @"Export"),
@@ -216,8 +227,10 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
     return self.tableStrings.count;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == kProfileSectionAccounts) {
+    if (kProfileSectionAccounts == section) {
         return self.accountStore.count;
+    } else if (kProfileSectionAnalytics == section) {
+        return self.accountAnalytics.count;
     }
     id sectionStrings = self.tableStrings[section];
     if ([sectionStrings isKindOfClass:[NSDictionary class]]) {
@@ -243,11 +256,37 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
     cell.accessoryView = nil;
     cell.textLabel.textColor = [UIColor CBWTextColor];
     
-    if (indexPath.section == kProfileSectionAccounts) {
+    if (kProfileSectionAccounts == indexPath.section) {
     
         CBWAccount *account = [self.accountStore recordAtIndex:indexPath.row];
         cell.textLabel.text = account.label;
 
+    } else if (kProfileSectionAnalytics == indexPath.section) {
+        switch (indexPath.row) {
+            case 0: {
+                cell.textLabel.text = NSLocalizedStringFromTable(@"Profile Cell balance", @"CBW", nil);
+                cell.detailTextLabel.text = [[self.accountAnalytics objectForKey:CBWAccountTotalBalanceKey] satoshiBTCString];
+                break;
+            }
+            case 1: {
+                cell.textLabel.text = NSLocalizedStringFromTable(@"Profile Cell received", @"CBW", nil);
+                cell.detailTextLabel.text = [[self.accountAnalytics objectForKey:CBWAccountTotalReceivedKey] satoshiBTCString];
+                break;
+            }
+            case 2: {
+                cell.textLabel.text = NSLocalizedStringFromTable(@"Profile Cell sent", @"CBW", nil);
+                cell.detailTextLabel.text = [[self.accountAnalytics objectForKey:CBWAccountTotalSentKey] satoshiBTCString];
+                break;
+            }
+            case 3: {
+                cell.textLabel.text = NSLocalizedStringFromTable(@"Profile Cell tx_count", @"CBW", nil);
+                cell.detailTextLabel.text = [[self.accountAnalytics objectForKey:CBWAccountTotalTXCountKey] stringValue];
+                break;
+            }
+                
+            default:
+                break;
+        }
     } else {
 
         // set text label

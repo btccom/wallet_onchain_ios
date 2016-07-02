@@ -9,6 +9,11 @@
 #import "CBWRecordObjectStore.h"
 #import "CBWAccount.h"
 
+extern NSString * _Nonnull const CBWAccountTotalBalanceKey;
+extern NSString * _Nonnull const CBWAccountTotalReceivedKey;
+extern NSString * _Nonnull const CBWAccountTotalSentKey;
+extern NSString * _Nonnull const CBWAccountTotalTXCountKey;
+
 extern NSString *const _Nonnull AccountStoreWatchedAccountLabel;
 
 @interface CBWAccountStore : CBWRecordObjectStore
@@ -17,5 +22,7 @@ extern NSString *const _Nonnull AccountStoreWatchedAccountLabel;
 
 /// get watched only account
 - (nonnull CBWAccount *)watchedAccount;
+
++ (nonnull NSDictionary *)analyzeAllAccountAddresses;
 
 @end

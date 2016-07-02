@@ -156,4 +156,35 @@
     return installed;
 }
 
+- (NSDictionary *)analyzeAllAccountAddresses {
+    NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+    
+    FMDatabase *db = [self db];
+    if ([db open]) {
+        
+        NSString *sql = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE %@ > ?", DatabaseManagerTableAddress,
+                         DatabaseManagerColAccountIDX];
+        FMResultSet *resultSet = [db executeQuery:sql,
+                                  @(CBWRecordWatchedIDX)];
+        long long balance = 0;
+        long long received = 0;
+        long long sent = 0;
+        NSInteger txCount = 0;
+        while ([resultSet next]) {
+            balance += [resultSet longForColumn:DatabaseManagerColBalance];
+            received += [resultSet longForColumn:DatabaseManagerColReceived];
+            sent += [resultSet longForColumn:DatabaseManagerColSent];
+            txCount += [resultSet intForColumn:DatabaseManagerColTXCount];
+        }
+        
+        [dictionary setObject:@(balance) forKey:CBWAccountTotalBalanceKey];
+        [dictionary setObject:@(received) forKey:CBWAccountTotalReceivedKey];
+        [dictionary setObject:@(sent) forKey:CBWAccountTotalSentKey];
+        [dictionary setObject:@(txCount) forKey:CBWAccountTotalTXCountKey];
+        
+        [db close];
+    }
+    return [dictionary copy];
+}
+
 @end

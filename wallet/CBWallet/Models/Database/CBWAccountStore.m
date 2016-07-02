@@ -9,6 +9,11 @@
 #import "CBWAccountStore.h"
 #import "CBWDatabaseManager.h"
 
+NSString *const CBWAccountTotalBalanceKey = @"totalBalance";
+NSString *const CBWAccountTotalReceivedKey = @"totalReceived";
+NSString *const CBWAccountTotalSentKey = @"totalSent";
+NSString *const CBWAccountTotalTXCountKey = @"totalTXCount";
+
 NSString *const AccountStoreWatchedAccountLabel = @"Label watched_account";
 
 @implementation CBWAccountStore
@@ -40,6 +45,10 @@ NSString *const AccountStoreWatchedAccountLabel = @"Label watched_account";
         }
     }];
     return account;
+}
+
++ (nonnull NSDictionary *)analyzeAllAccountAddresses {
+    return [[CBWDatabaseManager defaultManager] analyzeAllAccountAddresses];
 }
 
 @end
