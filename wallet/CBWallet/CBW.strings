@@ -74,6 +74,7 @@
 "Placeholder account_label" = "Account Label";
 "Placeholder enter_new_hint" = "Please Enter Hint";
 "Placeholder receive_amount" = "Enter amount in BTC";
+"Placeholder custom_fee" = "Set custom fee in BTC";
 
 "Description Fee -1" = "Custom";
 "Description Fee 0" = "Low";
@@ -116,6 +117,9 @@
 "Alert Message duplicated_account_label" = "Label (%@) is duplicated.";
 "Alert Message sure_to_send_coins_%@_fee_%@" = "Are you sure to send %@ (including fee %@).";
 "Alert Message user_canceled_transaction" = "Canceled.";
+"Alert Message custom_fee_tip" = "Transaction fee should never be less than 0.000001 BTC";
+"Alert Message custom_fee_update_error" = "Can't update for now, try again later.";
+"Alert Message custom_fee_deleted" = "Custom transaction fee has been removed.";
 
 "Error not_enough_balance" = "Insufficient balance.";
 "Error too_big_amount" = "Amount should be less than 21,000,000 BTC.";
@@ -155,6 +159,8 @@
 "Profile Cell received" = "Received";
 "Profile Cell sent" = "Sent";
 "Profile Cell tx_count" = "TX";
+"Profile Cell custom_fee" = "Custom Fee";
+"Profile Cell custom_fee_undefined" = "Undefined";
 
 // Address List
 "Address Section receive_address" = "Address";

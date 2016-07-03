@@ -18,6 +18,10 @@
 @implementation CBWFee
 
 + (instancetype)defaultFee {
+    NSNumber *userDefaultFee = [[NSUserDefaults standardUserDefaults] objectForKey:CBWUserDefaultsCustomFee];
+    if (userDefaultFee > 0) {
+        return [self feeWithValue:userDefaultFee];
+    }
     return [self feeWithLevel:CBWFeeLevelMedium];
 }
 

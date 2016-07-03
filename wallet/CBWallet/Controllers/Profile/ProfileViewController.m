@@ -19,12 +19,14 @@
 #import "SSKeychain.h"
 
 #import "NSDate+Helper.h"
+#import "NSString+CBWAddress.h"
 
 @import LocalAuthentication;
 
 typedef NS_ENUM(NSUInteger, kProfileSection) {
     kProfileSectionAccounts = 0,
     kProfileSectionAnalytics,
+    kProfileSectionCustomFee,
 //    kProfileSectionAllTransactions,
 //    kProfileSectionSettings,
     kProfileSectionSecurity,
@@ -94,6 +96,7 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
     
     _tableStrings = @[@{NSLocalizedStringFromTable(@"Profile Section accounts", @"CBW", @"Accounts"): @[]},
                       @{NSLocalizedStringFromTable(@"Profile Section analytics", @"CBW", nil): @[]},
+                      @[NSLocalizedStringFromTable(@"Profile Cell custom_fee", @"CBW", nil)],
                       @{NSLocalizedStringFromTable(@"Profile Section security", @"CBW", nil): securityCells},
                       @{NSLocalizedStringFromTable(@"Profile Section backup", @"CBW", nil): @[
                             NSLocalizedStringFromTable(@"Profile Cell export", @"CBW", @"Export"),
@@ -134,6 +137,73 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
 - (void)p_handleToggleiCloudEnabled:(id)sender {
     DLog(@"toggle icloud");
     [CBWBackup toggleiCloudBySwith:self.iCloudSwitch inViewController:self];
+}
+- (void)p_handleUpdateCustomFee {
+    UIAlertController *feeController = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Profile Cell custom_fee", @"CBW", nil) message:NSLocalizedStringFromTable(@"Alert Message custom_fee_tip", @"CBW", nil) preferredStyle:UIAlertControllerStyleAlert];
+    [feeController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = NSLocalizedStringFromTable(@"Placeholder custom_fee", @"CBW", nil);
+        textField.text = [NSString stringWithFormat:@"%f", [[[NSUserDefaults standardUserDefaults] objectForKey:CBWUserDefaultsCustomFee] doubleValue] / 100000000.0];
+        textField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    }];
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Cancel", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
+    [feeController addAction:cancel];
+    
+    UIAlertAction *save = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Save", @"CBW", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UITextField *feeField = [[feeController textFields] firstObject];
+        NSString *fee = feeField.text;
+        if ([fee BTC2SatoshiValue] > 0) {
+            [[NSUserDefaults standardUserDefaults] setObject:@([fee BTC2SatoshiValue]) forKey:CBWUserDefaultsCustomFee];
+            if ([[NSUserDefaults standardUserDefaults] synchronize]) {
+//                [self alertMessage:NSLocalizedStringFromTable(@"Success", @"CBW", nil) withTitle:@""];
+                [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:kProfileSectionCustomFee] withRowAnimation:UITableViewRowAnimationAutomatic];
+            } else {
+                [self alertMessage:NSLocalizedStringFromTable(@"Alert Message custom_fee_update_error", @"CBW", nil) withTitle:@""];
+            }
+        } else {
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:CBWUserDefaultsCustomFee];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:kProfileSectionCustomFee] withRowAnimation:UITableViewRowAnimationAutomatic];
+//            [self alertMessage:NSLocalizedStringFromTable(@"Alert Message custom_fee_deleted", @"CBW", nil) withTitle:@""];
+        }
+    }];
+    [feeController addAction:save];
+    
+    [self presentViewController:feeController animated:YES completion:nil];
+}
+- (void)p_handleUpdateHint {
+    UIAlertController *hintController = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Profile Cell change_hint", @"CBW", nil) message:nil preferredStyle:UIAlertControllerStyleAlert];
+    [hintController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = NSLocalizedStringFromTable(@"Placeholder enter_new_hint", @"CBW", nil);
+        textField.text = [SSKeychain passwordForService:CBWKeychainHintService account:CBWKeychainAccountDefault];
+    }];
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Cancel", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
+    [hintController addAction:cancel];
+    
+    UIAlertAction *save = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Save", @"CBW", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UITextField *hintField = [[hintController textFields] firstObject];
+        NSString *hint = hintField.text;
+        if (hint.length > 0) {
+            if ([SSKeychain setPassword:hint forService:CBWKeychainHintService account:CBWKeychainAccountDefault]) {
+                [self alertMessage:NSLocalizedStringFromTable(@"Success", @"CBW", nil) withTitle:@""];
+                // 重新备份到 iCloud
+                [CBWBackup saveToCloudKitWithCompletion:^(NSError *error) {
+                    // TODO: handle error
+                    if (error) {
+                        DLog(@"changed hint, update iCloud backup failed. \n%@", error);
+                    }
+                }];
+            } else {
+                [self alertMessage:NSLocalizedStringFromTable(@"Alert Message update_hint_error", @"CBW", nil) withTitle:@""];
+            }
+        } else {
+            [self alertErrorMessage:NSLocalizedStringFromTable(@"Alert Message empty_hint", @"CBW", nil)];
+        }
+    }];
+    [hintController addAction:save];
+    
+    [self presentViewController:hintController animated:YES completion:nil];
 }
 - (void)p_handleToggleTouchIdEnabled:(id)sender {
     DLog(@"toggle touch id");
@@ -298,6 +368,16 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
             cell.textLabel.text = [sectionStrings objectAtIndex:indexPath.row];
         }
         
+        // set custom fee cell stuff
+        if (kProfileSectionCustomFee == indexPath.section) {
+            NSNumber *userDefaultFee = [[NSUserDefaults standardUserDefaults] objectForKey:CBWUserDefaultsCustomFee];
+            if (userDefaultFee > 0) {
+                cell.detailTextLabel.text = [userDefaultFee satoshiBTCString];
+            } else {
+                cell.detailTextLabel.text = NSLocalizedStringFromTable(@"Profile Cell custom_fee_undefined", @"CBW", nil);
+            }
+        }
+        
         // set touch id cell stuff
         if (indexPath.section == kProfileSectionSecurity) {
             if (indexPath.row == 2) {
@@ -379,38 +459,7 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
                 }
                     
                 case 1: {
-                    UIAlertController *hintController = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Profile Cell change_hint", @"CBW", nil) message:nil preferredStyle:UIAlertControllerStyleAlert];
-                    [hintController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-                        textField.placeholder = NSLocalizedStringFromTable(@"Placeholder enter_new_hint", @"CBW", nil);
-                        textField.text = [SSKeychain passwordForService:CBWKeychainHintService account:CBWKeychainAccountDefault];
-                    }];
-                    
-                    UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Cancel", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
-                    [hintController addAction:cancel];
-                    
-                    UIAlertAction *save = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Save", @"CBW", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                        UITextField *hintField = [[hintController textFields] firstObject];
-                        NSString *hint = hintField.text;
-                        if (hint.length > 0) {
-                            if ([SSKeychain setPassword:hint forService:CBWKeychainHintService account:CBWKeychainAccountDefault]) {
-                                [self alertMessage:NSLocalizedStringFromTable(@"Success", @"CBW", nil) withTitle:@""];
-                                // 重新备份到 iCloud
-                                [CBWBackup saveToCloudKitWithCompletion:^(NSError *error) {
-                                    // TODO: handle error
-                                    if (error) {
-                                        DLog(@"changed hint, update iCloud backup failed. \n%@", error);
-                                    }
-                                }];
-                            } else {
-                                [self alertMessage:NSLocalizedStringFromTable(@"Alert Message update_hint_error", @"CBW", nil) withTitle:@""];
-                            }
-                        } else {
-                            [self alertErrorMessage:NSLocalizedStringFromTable(@"Alert Message empty_hint", @"CBW", nil)];
-                        }
-                    }];
-                    [hintController addAction:save];
-                    
-                    [self presentViewController:hintController animated:YES completion:nil];
+                    [self p_handleUpdateHint];
                     
                     break;
                 }
@@ -420,6 +469,12 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
                     break;
                 }
             }
+            break;
+        }
+            
+        case kProfileSectionCustomFee: {
+            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+            [self p_handleUpdateCustomFee];
             break;
         }
             
