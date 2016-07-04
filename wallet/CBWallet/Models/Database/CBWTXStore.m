@@ -117,7 +117,6 @@
     __block NSArray *collection = nil;
     if (self.queryAddresses.count == 1) {
         [[CBWDatabaseManager defaultManager] txFetchWithQueryAddress:[self.queryAddresses firstObject] page:self.page pagesize:self.pagesize completion:^(NSArray *response) {
-            DLog(@"db response: %@", response);
             collection = response;
         }];
     } else {

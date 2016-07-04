@@ -6,9 +6,8 @@
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
-// TODO: 使用唯一的 address store，address store 使用单例模式，通过设置 account 改变数据
 // FIXME: 更新地址余额不需要触发 iCloud 同步
-// TODO: address summary
+// TODO: watched account 不存在内部转移交易
 
 #import "DashboardViewController.h"
 #import "ProfileViewController.h"
@@ -226,9 +225,9 @@
     }
     
     // 指定查询地址
-    if (self.account.idx != CBWRecordWatchedIDX) {
+//    if (self.account.idx != CBWRecordWatchedIDX) {
         self.transactionStore.queryAddresses = addressStore.allAddressStrings;
-    }
+//    }
     self.transactionStore.accountIDX = self.account.idx;
     [self.transactionStore fetch];
     [self.tableView reloadData];
@@ -260,6 +259,10 @@
         [self p_handleSignOut];
     } else if ([notification.name isEqualToString:BlockMonitorNotificationNewBlock]) {
         DLog(@"new block height: %lu", (unsigned long)[BlockMonitor defaultMonitor].height);
+        if (self.accountStore.count == 0) {
+            return;
+        }
+        
         [self sync];
         if (self.isVisible) {
             [self.tableView reloadData];

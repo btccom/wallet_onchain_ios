@@ -48,9 +48,13 @@ NSString *const CBWTransactionSyncConfirmedCountKey = @"confirmedCount";
     [request addressSummariesWithAddressStrings:addresses completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
         
         // parse response
-        NSArray *parsedAddresses = [CBWAddress batchInitWithArray:response];
-        if (parsedAddresses.count > 0) {
-            [responsedAddresses addObjectsFromArray:parsedAddresses];
+        if ([response isKindOfClass:[NSDictionary class]]) {
+            [responsedAddresses addObject:[[CBWAddress alloc] initWithDictionary:response]];
+        } else if ([response isKindOfClass:[NSArray class]]) {
+            NSArray *parsedAddresses = [CBWAddress batchInitWithArray:response];
+            if (parsedAddresses.count > 0) {
+                [responsedAddresses addObjectsFromArray:parsedAddresses];
+            }
         }
         DLog(@"responsed addresses: \n%@", responsedAddresses);
         
