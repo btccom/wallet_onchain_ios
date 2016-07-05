@@ -87,6 +87,9 @@
         [_account addObserver:self forKeyPath:@"label" options: NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:nil];
         self.headerView.sendButton.enabled = _account.idx >= 0;
         self.headerView.receiveButton.enabled = _account.idx >= 0;
+        
+        [self.transactionStore flush];
+        [self.tableView reloadData];
        
         [self sync];
     }
