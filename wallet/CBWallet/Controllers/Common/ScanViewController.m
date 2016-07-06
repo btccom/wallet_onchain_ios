@@ -11,10 +11,11 @@
 
 @interface ScanViewController ()<AVCaptureMetadataOutputObjectsDelegate>
 
-@property (nonatomic, weak) UIView                          *cameraView;
-@property (nonatomic) BOOL                                  isReading;
-@property (nonatomic, strong) AVCaptureSession              *captureSession;
-@property (nonatomic, strong) AVCaptureVideoPreviewLayer    *previewLayer;
+@property (nonatomic, weak) UIView *laser;
+@property (nonatomic, weak) UIView *cameraView;
+@property (nonatomic) BOOL isReading;
+@property (nonatomic, strong) AVCaptureSession *captureSession;
+@property (nonatomic, strong) AVCaptureVideoPreviewLayer *previewLayer;
 
 @end
 
@@ -23,19 +24,38 @@
 #pragma mark - View Life Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor CBWBlackColor];
+    self.view.backgroundColor = [UIColor blackColor];
     
     if (self.navigationController) {
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(p_dismiss:)];
+        UIBarButtonItem *closeButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(p_dismiss:)];
+        closeButtonItem.tintColor = [UIColor whiteColor];
+        self.navigationItem.leftBarButtonItem = closeButtonItem;
     } else {
         UIButton *closeButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 20.f, 60.f, 44.f)];
         [closeButton addTarget:self action:@selector(p_dismiss:) forControlEvents:UIControlEventTouchUpInside];
-        [closeButton setImage:[UIImage imageNamed:@"navigation_close"] forState:UIControlStateNormal];
+        [closeButton setImage:[[UIImage imageNamed:@"navigation_close"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
+        closeButton.tintColor = [UIColor whiteColor];
         [self.view addSubview:closeButton];
     }
     
+    CGFloat width = roundf(SCREEN_WIDTH * 0.75);
+    UIView *whiteView = [[UIView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - width) / 2, (SCREEN_HEIGHT - width) / 2, width, width)];
+    whiteView.backgroundColor = [UIColor whiteColor];
+    UIView *maskView = [[UIView alloc] initWithFrame:self.view.bounds];
+    maskView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.2];
+    [maskView addSubview:whiteView];
+    
+    CGRect laserFrame = whiteView.frame;
+    laserFrame.size.height = 1;
+    UIView *laser = [[UIView alloc] initWithFrame:laserFrame];
+    laser.backgroundColor = [UIColor greenColor];
+    laser.hidden = YES;
+    [self.view addSubview:laser];
+    _laser = laser;
+    
     UIView *cameraView = [[UIView alloc] initWithFrame:self.view.bounds];
     [self.view insertSubview:cameraView atIndex:0];
+    cameraView.maskView = maskView;
     _cameraView = cameraView;
     
     UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.frame) - 120.f, CGRectGetWidth(self.view.frame), 20.f)];
@@ -50,6 +70,18 @@
     [super viewDidAppear:animated];
     
     [self p_startReading];
+    
+    if (self.laser.hidden) {
+        self.laser.hidden = NO;
+        CAKeyframeAnimation *scanningAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position.y"];
+        scanningAnimation.values = @[@0, @(CGRectGetWidth(self.laser.frame)), @0];
+        scanningAnimation.calculationMode = kCAAnimationCubic;
+        scanningAnimation.timingFunctions = @[[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut], [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+        scanningAnimation.duration = CBWAnimateDUrationSlow * 2;
+        scanningAnimation.repeatCount = HUGE_VALF;
+        scanningAnimation.additive = YES;
+        [self.laser.layer addAnimation:scanningAnimation forKey:@"scanning"];
+    }
 }
 
 #pragma mark - Private Method
