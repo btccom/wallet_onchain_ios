@@ -8,6 +8,8 @@
 
 #import "AddressCardView.h"
 
+#import "NSString+CBWAddress.h"
+
 @interface AddressCardView ()
 
 @property (nonatomic, weak, readwrite) UITextField *addressLabelField;
@@ -169,6 +171,11 @@
     self.txLabel.frame = txFrame;
     
     self.qrcodeButton.center = CGPointMake(CGRectGetWidth(self.frame) - CGRectGetWidth(self.qrcodeButton.frame) / 2.0, CGRectGetMidY(self.addressLabel.frame));
+    
+    CGRect addressFrame = self.addressLabel.frame;
+    addressFrame.size.width = CGRectGetMinX(self.qrcodeButton.frame) - CBWLayoutInnerSpace - CGRectGetMinX(addressFrame);
+    self.addressLabel.frame = addressFrame;
+    self.addressLabel.attributedText = [self.addressLabel.text attributedAddressWithAlignment:NSTextAlignmentLeft];
     
     if (!_backgroundView) {
         UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
