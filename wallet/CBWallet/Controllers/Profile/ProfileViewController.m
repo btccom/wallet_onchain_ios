@@ -144,6 +144,7 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
         textField.placeholder = NSLocalizedStringFromTable(@"Placeholder custom_fee", @"CBW", nil);
         textField.text = [NSString stringWithFormat:@"%f", [[[NSUserDefaults standardUserDefaults] objectForKey:CBWUserDefaultsCustomFee] doubleValue] / 100000000.0];
         textField.clearButtonMode = UITextFieldViewModeWhileEditing;
+        textField.keyboardType = UIKeyboardTypeDecimalPad;
     }];
     
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Cancel", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
