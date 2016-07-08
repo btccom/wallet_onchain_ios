@@ -12,6 +12,16 @@
 @implementation CBWTransaction
 @synthesize relatedAddresses = _relatedAddresses, value = _value;
 
+- (TransactionType)type {
+    if (TransactionTypeInternal == _type) {
+        return _type;
+    }
+    if (self.value > 0) {
+        return TransactionTypeReceive;
+    }
+    return TransactionTypeSend;
+}
+
 - (void)setLatestBlockHeight:(NSUInteger)latestBlockHeight {
     _latestBlockHeight = latestBlockHeight;
     if (self.blockHeight > 0) {
@@ -61,9 +71,10 @@
         __block long long inputValue = 0;
         [self.inputs enumerateObjectsUsingBlock:^(InputItem * _Nonnull i, NSUInteger idx, BOOL * _Nonnull stop) {
             [i.prevAddresses enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                if ([self.relatedAddresses containsObject:obj]) {
+//                if ([self.relatedAddresses containsObject:obj]) {
+                if ([self.queryAddresses containsObject:obj]) {
                     inputValue += [i.prevValue longLongValue];
-                    *stop = YES;
+//                    *stop = YES;
                 }
             }];
         }];
@@ -71,15 +82,16 @@
         __block long long outputValue = 0;
         [self.outputs enumerateObjectsUsingBlock:^(OutItem * _Nonnull o, NSUInteger idx, BOOL * _Nonnull stop) {
             [o.addresses enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                if ([self.relatedAddresses containsObject:obj]) {
+//                if ([self.relatedAddresses containsObject:obj]) {
+                if ([self.queryAddresses containsObject:obj]) {
                     outputValue += [o.value longLongValue];
-                    *stop = YES;
+//                    *stop = YES;
                 }
             }];
         }];
         
         _value = outputValue - inputValue;
-        if (_value + self.fee == 0) {
+        if (_value + self.fee == 0) {// internal transaction
             _value = self.outputsValue;
         }
     }

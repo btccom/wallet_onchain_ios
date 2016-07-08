@@ -54,8 +54,10 @@ extern NSString *const DatabaseManagerTransactionColAccountIDX;
 /// check then insert or update
 - (void)transactionSave:(CBWTransaction *)transaction withCompletion:(void (^)(CBWDatabaseChangeType changeType))completion;
 
-- (void)transactionFetchWithAccountIDX:(NSInteger)idx completion:(void(^)(NSArray *response))completion;
+//- (void)transactionFetchWithAccountIDX:(NSInteger)idx completion:(void(^)(NSArray *response))completion;
 - (void)transactionFetchWithAccountIDX:(NSInteger)idx page:(NSUInteger)page pagesize:(NSUInteger)pagesize completion:(void (^)(NSArray *response))completion;
 - (NSUInteger)transactionCountWithAccountIDX:(NSInteger)idx;
+
+- (void)transactionFetchWithAddresses:(NSArray *)addresses page:(NSUInteger)page pagesize:(NSUInteger)pagesize completion:(void (^)(NSArray *response))completion;
 
 @end

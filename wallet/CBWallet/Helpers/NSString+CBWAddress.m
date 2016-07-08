@@ -112,6 +112,9 @@ NSString *const CBWAddressInfoAmountKey = @"amount";
         return 0;
     }
     NSDecimalNumber *number = [NSDecimalNumber decimalNumberWithString:self];
+    if (number <= 0) {
+        return 0;
+    }
     number = [number decimalNumberByMultiplyingBy:[NSDecimalNumber decimalNumberWithMantissa:1 exponent:8 isNegative:NO]];
     return [number longLongValue];
 }

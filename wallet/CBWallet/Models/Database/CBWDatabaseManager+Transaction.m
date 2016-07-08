@@ -154,24 +154,24 @@ NSString *const DatabaseManagerTransactionColAccountIDX = @"accountIdx";
     completion(CBWDatabaseChangeTypeFail);
 }
 
-- (void)transactionFetchWithAccountIDX:(NSInteger)idx completion:(void (^)(NSArray *))completion {
-    NSString *sql = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ? ORDER BY %@ DESC", DatabaseManagerTableTransaction, DatabaseManagerTransactionColAccountIDX, DatabaseManagerTransactionColCreatedAt];
-    FMDatabase *db = [self db];
-    if ([db open]) {
-        
-        NSMutableArray *list = [NSMutableArray array];
-        FMResultSet *rs = [db executeQuery:sql, @(idx)];
-        while ([rs next]) {
-            [list addObject:[rs resultDictionary]];
-        }
-        completion([list copy]);
-        
-        [db close];
-        return;
-    }
-    
-    completion(nil);
-}
+//- (void)transactionFetchWithAccountIDX:(NSInteger)idx completion:(void (^)(NSArray *))completion {
+//    NSString *sql = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ? ORDER BY %@ DESC", DatabaseManagerTableTransaction, DatabaseManagerTransactionColAccountIDX, DatabaseManagerTransactionColCreatedAt];
+//    FMDatabase *db = [self db];
+//    if ([db open]) {
+//        
+//        NSMutableArray *list = [NSMutableArray array];
+//        FMResultSet *rs = [db executeQuery:sql, @(idx)];
+//        while ([rs next]) {
+//            [list addObject:[rs resultDictionary]];
+//        }
+//        completion([list copy]);
+//        
+//        [db close];
+//        return;
+//    }
+//    
+//    completion(nil);
+//}
 
 - (void)transactionFetchWithAccountIDX:(NSInteger)idx page:(NSUInteger)page pagesize:(NSUInteger)pagesize completion:(void (^)(NSArray *))completion {
     NSString *sql = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ? ORDER BY %@ DESC LIMIT %lu OFFSET %lu", DatabaseManagerTableTransaction,
@@ -190,6 +190,36 @@ NSString *const DatabaseManagerTransactionColAccountIDX = @"accountIdx";
         completion([list copy]);
         
         [db close];
+        return;
+    }
+    
+    completion(nil);
+}
+
+- (void)transactionFetchWithAddresses:(NSArray *)addresses page:(NSUInteger)page pagesize:(NSUInteger)pagesize completion:(void (^)(NSArray *response))completion {
+    NSMutableString *sql = [NSMutableString stringWithFormat:@"SELECT * FROM %@", DatabaseManagerTableTransaction];
+    __block NSMutableArray *condations = [NSMutableArray array];
+    [addresses enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass:[NSString class]]) {
+            [condations addObject:[NSString stringWithFormat:@"%@ LIKE '%%%@%%' OR %@ LIKE '%%%@%%'", DatabaseManagerTransactionColInputs, obj, DatabaseManagerTransactionColOutputs, obj]];
+        }
+    }];
+    if (condations.count > 0) {
+        [sql appendFormat:@" WHERE %@", [condations componentsJoinedByString:@" OR "]];
+    }
+    [sql appendFormat:@" ORDER BY %@ DESC LIMIT %lu OFFSET %lu", DatabaseManagerTransactionColCreatedAt, (unsigned long)pagesize, (unsigned long)pagesize * (page - 1)];
+    
+    FMDatabase *db = [self db];
+    if ([db open]) {
+        
+        NSMutableArray *list = [NSMutableArray array];
+        FMResultSet *rs = [db executeQuery:sql];
+        while ([rs next]) {
+            [list addObject:[rs resultDictionary]];
+        }
+        completion([list copy]);
+        
+        [db class];
         return;
     }
     
