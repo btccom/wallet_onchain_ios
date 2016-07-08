@@ -58,7 +58,7 @@
     cameraView.maskView = maskView;
     _cameraView = cameraView;
     
-    UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.frame) - 120.f, CGRectGetWidth(self.view.frame), 20.f)];
+    UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(whiteView.frame) + CBWLayoutCommonVerticalPadding, CGRectGetWidth(self.view.frame), 20.f)];
     tipLabel.font = [UIFont systemFontOfSize:UIFont.labelFontSize];
     tipLabel.textColor = [UIColor CBWMutedTextColor];
     tipLabel.textAlignment = NSTextAlignmentCenter;
@@ -74,9 +74,9 @@
     if (self.laser.hidden) {
         self.laser.hidden = NO;
         CAKeyframeAnimation *scanningAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position.y"];
-        scanningAnimation.values = @[@0, @(CGRectGetWidth(self.laser.frame)), @0];
+        scanningAnimation.values = @[@0, @(CGRectGetWidth(self.laser.frame))];
         scanningAnimation.calculationMode = kCAAnimationCubic;
-        scanningAnimation.timingFunctions = @[[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut], [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+        scanningAnimation.timingFunctions = @[[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
         scanningAnimation.duration = CBWAnimateDUrationSlow * 2;
         scanningAnimation.repeatCount = HUGE_VALF;
         scanningAnimation.additive = YES;
