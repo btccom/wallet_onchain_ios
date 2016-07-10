@@ -77,9 +77,12 @@
 "Placeholder custom_fee" = "Set custom fee in BTC";
 
 "Description Fee -1" = "Custom";
-"Description Fee 0" = "Low";
-"Description Fee 1" = "Medium";
-"Description Fee 2" = "High";
+"Description Fee 0" = "Lowest";
+"Description Fee 1" = "Low";
+"Description Fee 2" = "Medium";
+"Description Fee 3" = "Default";
+"Description Fee 4" = "High";
+"Description Fee 5" = "Highest";
 
 "Alert Message need_strong_password" = "Please enter a strong master password.\nMore than 8 characters.\nContains numbers, letters and symbols.";
 "Alert Message confirm_password" = "Passwords don't match.";

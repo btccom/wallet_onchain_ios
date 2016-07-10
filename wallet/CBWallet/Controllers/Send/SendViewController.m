@@ -445,11 +445,11 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
         [actionSheet addAction:feeAction];
     }
     
-    NSString *customFeeString = [NSString stringWithFormat:@"Description Fee %ld", (long)CBWFeeLevelCustom];
-    UIAlertAction *customFeeAction = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(customFeeString, @"CBW", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [self p_handleAdvancedCustomFee];
-    }];
-    [actionSheet addAction:customFeeAction];
+//    NSString *customFeeString = [NSString stringWithFormat:@"Description Fee %ld", (long)CBWFeeLevelCustom];
+//    UIAlertAction *customFeeAction = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(customFeeString, @"CBW", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//        [self p_handleAdvancedCustomFee];
+//    }];
+//    [actionSheet addAction:customFeeAction];
     
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Cancel", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
     [actionSheet addAction:cancelAction];
@@ -457,28 +457,28 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
     [self presentViewController:actionSheet animated:YES completion:nil];
 }
 
-- (void)p_handleAdvancedCustomFee {
-    [self reportActivity:@"advancedCustomFee"];
-    
-    NSString *customFeeString = [NSString stringWithFormat:@"Description Fee %ld", (long)CBWFeeLevelCustom];
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(customFeeString, @"CBW", nil) message:nil preferredStyle:UIAlertControllerStyleAlert];
-    [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.keyboardType = UIKeyboardTypeDecimalPad;
-    }];
-    UIAlertAction *okay = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Okay", @"CBW", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        UITextField *textField = [alert.textFields firstObject];
-        NSString *valueString = textField.text;
-        DLog(@"custom value string: %@", valueString);
-        long long value = [valueString BTC2SatoshiValue];
-        CBWFee *fee = [CBWFee feeWithValue:@(value)];
-        self.fee = fee;
-        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:kSendViewControllerAdvancedSectionFee] withRowAnimation:UITableViewRowAnimationFade];
-    }];
-    [alert addAction:okay];
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Cancel", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
-    [alert addAction:cancel];
-    [self presentViewController:alert animated:YES completion:nil];
-}
+//- (void)p_handleAdvancedCustomFee {
+//    [self reportActivity:@"advancedCustomFee"];
+//    
+//    NSString *customFeeString = [NSString stringWithFormat:@"Description Fee %ld", (long)CBWFeeLevelCustom];
+//    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(customFeeString, @"CBW", nil) message:nil preferredStyle:UIAlertControllerStyleAlert];
+//    [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+//        textField.keyboardType = UIKeyboardTypeDecimalPad;
+//    }];
+//    UIAlertAction *okay = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Okay", @"CBW", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//        UITextField *textField = [alert.textFields firstObject];
+//        NSString *valueString = textField.text;
+//        DLog(@"custom value string: %@", valueString);
+//        long long value = [valueString BTC2SatoshiValue];
+//        CBWFee *fee = [CBWFee feeWithValue:@(value)];
+//        self.fee = fee;
+//        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:kSendViewControllerAdvancedSectionFee] withRowAnimation:UITableViewRowAnimationFade];
+//    }];
+//    [alert addAction:okay];
+//    UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Cancel", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
+//    [alert addAction:cancel];
+//    [self presentViewController:alert animated:YES completion:nil];
+//}
 - (void)p_reloadAdvancedSectionFrom {
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:kSendViewControllerAdvancedSectionFrom] withRowAnimation:UITableViewRowAnimationNone];
 }

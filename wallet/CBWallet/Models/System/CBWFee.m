@@ -18,15 +18,18 @@
 @implementation CBWFee
 
 + (instancetype)defaultFee {
-    NSNumber *userDefaultFee = [[NSUserDefaults standardUserDefaults] objectForKey:CBWUserDefaultsCustomFee];
-    if (userDefaultFee > 0) {
-        return [self feeWithValue:userDefaultFee];
+    NSNumber *defaultsLevel = [[NSUserDefaults standardUserDefaults] objectForKey:CBWUserDefaultsFeeLevel];
+    if (!defaultsLevel) {
+        return [self feeWithLevel:CBWFeeLevelDefault];
     }
-    return [self feeWithLevel:CBWFeeLevelMedium];
+    return [self feeWithLevel:[defaultsLevel unsignedIntegerValue]];
 }
 
 + (instancetype)feeWithLevel:(CBWFeeLevel)level {
     CBWFee *fee = [[self alloc] init];
+    if (level >= [self values].count) {
+        level = CBWFeeLevelDefault;
+    }
     fee.level = level;
     return fee;
 }
@@ -53,7 +56,7 @@
 }
 
 + (NSArray *)values {
-    return @[@1000, @10000, @20000];
+    return @[@500, @1000, @5000, @10000, @50000, @100000];
 }
 
 @end

@@ -15,6 +15,7 @@
 #import "CBWAccountStore.h"
 #import "CBWBackup.h"
 #import "Guard.h"
+#import "CBWFee.h"
 
 #import "SSKeychain.h"
 
@@ -138,39 +139,64 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
     DLog(@"toggle icloud");
     [CBWBackup toggleiCloudBySwith:self.iCloudSwitch inViewController:self];
 }
+//- (void)p_handleUpdateCustomFee {
+//    UIAlertController *feeController = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Profile Cell custom_fee", @"CBW", nil) message:NSLocalizedStringFromTable(@"Alert Message custom_fee_tip", @"CBW", nil) preferredStyle:UIAlertControllerStyleAlert];
+//    [feeController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+//        textField.placeholder = NSLocalizedStringFromTable(@"Placeholder custom_fee", @"CBW", nil);
+//        textField.text = [NSString stringWithFormat:@"%f", [[[NSUserDefaults standardUserDefaults] objectForKey:CBWUserDefaultsCustomFee] doubleValue] / 100000000.0];
+//        textField.clearButtonMode = UITextFieldViewModeWhileEditing;
+//        textField.keyboardType = UIKeyboardTypeDecimalPad;
+//    }];
+//    
+//    UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Cancel", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
+//    [feeController addAction:cancel];
+//    
+//    UIAlertAction *save = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Save", @"CBW", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//        UITextField *feeField = [[feeController textFields] firstObject];
+//        NSString *fee = feeField.text;
+//        if ([fee BTC2SatoshiValue] > 0) {
+//            [[NSUserDefaults standardUserDefaults] setObject:@([fee BTC2SatoshiValue]) forKey:CBWUserDefaultsCustomFee];
+//            if ([[NSUserDefaults standardUserDefaults] synchronize]) {
+////                [self alertMessage:NSLocalizedStringFromTable(@"Success", @"CBW", nil) withTitle:@""];
+//                [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:kProfileSectionCustomFee] withRowAnimation:UITableViewRowAnimationAutomatic];
+//            } else {
+//                [self alertMessage:NSLocalizedStringFromTable(@"Alert Message custom_fee_update_error", @"CBW", nil) withTitle:@""];
+//            }
+//        } else {
+//            [[NSUserDefaults standardUserDefaults] removeObjectForKey:CBWUserDefaultsCustomFee];
+//            [[NSUserDefaults standardUserDefaults] synchronize];
+//            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:kProfileSectionCustomFee] withRowAnimation:UITableViewRowAnimationAutomatic];
+////            [self alertMessage:NSLocalizedStringFromTable(@"Alert Message custom_fee_deleted", @"CBW", nil) withTitle:@""];
+//        }
+//    }];
+//    [feeController addAction:save];
+//    
+//    [self presentViewController:feeController animated:YES completion:nil];
+//}
 - (void)p_handleUpdateCustomFee {
-    UIAlertController *feeController = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Profile Cell custom_fee", @"CBW", nil) message:NSLocalizedStringFromTable(@"Alert Message custom_fee_tip", @"CBW", nil) preferredStyle:UIAlertControllerStyleAlert];
-    [feeController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.placeholder = NSLocalizedStringFromTable(@"Placeholder custom_fee", @"CBW", nil);
-        textField.text = [NSString stringWithFormat:@"%f", [[[NSUserDefaults standardUserDefaults] objectForKey:CBWUserDefaultsCustomFee] doubleValue] / 100000000.0];
-        textField.clearButtonMode = UITextFieldViewModeWhileEditing;
-        textField.keyboardType = UIKeyboardTypeDecimalPad;
-    }];
+    [self reportActivity:@"updateCustomFee"];
     
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Cancel", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
-    [feeController addAction:cancel];
-    
-    UIAlertAction *save = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Save", @"CBW", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        UITextField *feeField = [[feeController textFields] firstObject];
-        NSString *fee = feeField.text;
-        if ([fee BTC2SatoshiValue] > 0) {
-            [[NSUserDefaults standardUserDefaults] setObject:@([fee BTC2SatoshiValue]) forKey:CBWUserDefaultsCustomFee];
+    DLog(@"to select fee");
+    UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Profile Cell custom_fee", @"CBW", nil) message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    NSUInteger count = CBWFee.values.count;
+    for (NSUInteger i = 0; i < count; i ++) {
+        CBWFee *fee = [CBWFee feeWithLevel:i];
+        UIAlertAction *feeAction = [UIAlertAction actionWithTitle:[NSString stringWithFormat:@"%@ (%@)", [fee.value satoshiBTCString], fee.description] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            [[NSUserDefaults standardUserDefaults] setObject:@(i) forKey:CBWUserDefaultsFeeLevel];
             if ([[NSUserDefaults standardUserDefaults] synchronize]) {
-//                [self alertMessage:NSLocalizedStringFromTable(@"Success", @"CBW", nil) withTitle:@""];
                 [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:kProfileSectionCustomFee] withRowAnimation:UITableViewRowAnimationAutomatic];
             } else {
                 [self alertMessage:NSLocalizedStringFromTable(@"Alert Message custom_fee_update_error", @"CBW", nil) withTitle:@""];
             }
-        } else {
-            [[NSUserDefaults standardUserDefaults] removeObjectForKey:CBWUserDefaultsCustomFee];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:kProfileSectionCustomFee] withRowAnimation:UITableViewRowAnimationAutomatic];
-//            [self alertMessage:NSLocalizedStringFromTable(@"Alert Message custom_fee_deleted", @"CBW", nil) withTitle:@""];
-        }
-    }];
-    [feeController addAction:save];
+        }];
+        [actionSheet addAction:feeAction];
+    }
     
-    [self presentViewController:feeController animated:YES completion:nil];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Cancel", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
+    [actionSheet addAction:cancelAction];
+    
+    [self presentViewController:actionSheet animated:YES completion:nil];
 }
 - (void)p_handleUpdateHint {
     UIAlertController *hintController = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Profile Cell change_hint", @"CBW", nil) message:nil preferredStyle:UIAlertControllerStyleAlert];
@@ -371,11 +397,11 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
         
         // set custom fee cell stuff
         if (kProfileSectionCustomFee == indexPath.section) {
-            NSNumber *userDefaultFee = [[NSUserDefaults standardUserDefaults] objectForKey:CBWUserDefaultsCustomFee];
-            if (userDefaultFee > 0) {
-                cell.detailTextLabel.text = [userDefaultFee satoshiBTCString];
-            } else {
+            NSNumber *userDefaultFee = [[NSUserDefaults standardUserDefaults] objectForKey:CBWUserDefaultsFeeLevel];
+            if (!userDefaultFee) {
                 cell.detailTextLabel.text = NSLocalizedStringFromTable(@"Profile Cell custom_fee_undefined", @"CBW", nil);
+            } else {
+                cell.detailTextLabel.text = [[[CBWFee feeWithLevel:[userDefaultFee unsignedIntegerValue]] value] satoshiBTCString];
             }
         }
         

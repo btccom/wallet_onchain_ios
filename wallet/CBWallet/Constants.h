@@ -16,7 +16,8 @@ static const NSInteger CBWMaxVisibleConfirmation = 100;
 // User Defaults
 
 /// number, use long long value
-static NSString *const CBWUserDefaultsCustomFee = @"cbw.user.defaults.fee.custom";
+//static NSString *const CBWUserDefaultsCustomFee = @"cbw.user.defaults.fee.custom";
+static NSString *const CBWUserDefaultsFeeLevel = @"cbw.user.defaults.fee.level";
 
 /// bool value
 static NSString *const CBWUserDefaultsTestnetEnabled = @"cbw.user.defaults.testnet.enabled";

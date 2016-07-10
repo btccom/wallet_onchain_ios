@@ -10,9 +10,12 @@
 
 typedef NS_ENUM(NSInteger, CBWFeeLevel) {
     CBWFeeLevelCustom = -1,
+    CBWFeeLevelLowest,
     CBWFeeLevelLow,
     CBWFeeLevelMedium,
-    CBWFeeLevelHigh
+    CBWFeeLevelDefault,
+    CBWFeeLevelHigh,
+    CBWFeeLevelHighest
 };
 
 @interface CBWFee : NSObject
@@ -24,7 +27,7 @@ typedef NS_ENUM(NSInteger, CBWFeeLevel) {
 + (instancetype)defaultFee;
 + (instancetype)feeWithLevel:(CBWFeeLevel)level;
 /// value in satoshi
-+ (instancetype)feeWithValue:(NSNumber *)value;
+//+ (instancetype)feeWithValue:(NSNumber *)value;
 + (NSArray *)values;
 
 @end
