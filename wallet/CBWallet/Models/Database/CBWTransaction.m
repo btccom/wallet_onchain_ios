@@ -71,10 +71,8 @@
         __block long long inputValue = 0;
         [self.inputs enumerateObjectsUsingBlock:^(InputItem * _Nonnull i, NSUInteger idx, BOOL * _Nonnull stop) {
             [i.prevAddresses enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//                if ([self.relatedAddresses containsObject:obj]) {
                 if ([self.queryAddresses containsObject:obj]) {
                     inputValue += [i.prevValue longLongValue];
-//                    *stop = YES;
                 }
             }];
         }];
@@ -82,16 +80,14 @@
         __block long long outputValue = 0;
         [self.outputs enumerateObjectsUsingBlock:^(OutItem * _Nonnull o, NSUInteger idx, BOOL * _Nonnull stop) {
             [o.addresses enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//                if ([self.relatedAddresses containsObject:obj]) {
                 if ([self.queryAddresses containsObject:obj]) {
                     outputValue += [o.value longLongValue];
-//                    *stop = YES;
                 }
             }];
         }];
         
-        _value = outputValue - inputValue;
-        if (_value + self.fee == 0) {// internal transaction
+        _value = outputValue - inputValue + self.fee;
+        if (0 == _value) {// internal transaction
             _value = self.outputsValue;
         }
     }
