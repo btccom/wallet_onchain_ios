@@ -124,6 +124,7 @@
     [headerView.qrcodeButton addTarget:self action:@selector(p_handlePresentQRCodeImage) forControlEvents:UIControlEventTouchUpInside];
     self.tableView.tableHeaderView = headerView;
     
+    DLog(@"action type: %ld", (long)self.actionType);
     switch (self.actionType) {
         case AddressActionTypeDefault: {
             self.title = NSLocalizedStringFromTable(@"Navigation address", @"CBW", @"Address");
@@ -214,8 +215,13 @@
     // 获取地址信息
     [request addressSummaryWithAddressString:self.addressString completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
         [self requestDidStop];
-        // 保存地址信息
+        // 更新地址信息
         [self.address updateWithDictionary:response];
+        AddressCardView *headerView = (AddressCardView *)self.tableView.tableHeaderView;
+        headerView.balanceLabel.text = [@(self.address.balance) satoshiBTCString];
+        headerView.receivedLabel.text = [@(self.address.received) satoshiBTCString];
+        headerView.txLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)self.address.txCount];
+        // 保存地址信息
         if (self.address.rid >= 0) {
             [self.address saveWithError:nil];
         }

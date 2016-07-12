@@ -8,6 +8,8 @@
 
 #import "AddressCardView.h"
 
+#import "ResponderLabel.h"
+
 #import "NSString+CBWAddress.h"
 
 @interface AddressCardView ()
@@ -45,7 +47,7 @@
 
 - (UILabel *)addressLabel {
     if (!_addressLabel) {
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.addressLabelField.frame), CGRectGetMaxY(self.addressLabelField.frame), CGRectGetWidth(self.addressLabelField.frame), 18)];
+        ResponderLabel *label = [[ResponderLabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.addressLabelField.frame), CGRectGetMaxY(self.addressLabelField.frame), CGRectGetWidth(self.addressLabelField.frame), 18)];
         label.font = [UIFont monospacedFontOfSize:14];
         label.textColor = [UIColor CBWWhiteColor];
         [self addSubview:label];

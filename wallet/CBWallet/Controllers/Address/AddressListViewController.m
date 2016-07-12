@@ -152,7 +152,7 @@
         return;
     }
     // add watched address
-    if (self.account.idx < 0) {
+    if (CBWRecordWatchedIDX == self.account.idx) {
         DLog(@"can not create address with account idx < 0 (watched only)");
         DLog(@"create manualy");
         
