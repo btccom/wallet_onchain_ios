@@ -33,7 +33,6 @@
         fromAddresses = [[store availableAddresses] mutableCopy];
     }
     if (fromAddresses.count == 0) {
-//        [self alertErrorMessage:NSLocalizedStringFromTable(@"Alert Message none_from_address_selected_to_send", @"CBW", nil)];
         completion([NSError errorWithDomain:CBWErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedStringFromTable(@"Alert Message none_from_address_selected_to_send", @"CBW", nil)}]);
         return;
     }
@@ -74,6 +73,16 @@
     } completion:^(NSError * _Nullable error, NSArray * _Nullable newAddresses) {
         
         if (error) {
+            if ([error.domain isEqualToString:CBWRequestErrorDomain] && CBWRequestErrorCodeNotEnoughBalance == error.code) {
+                __block long long *totalBalance = 0;
+                [fromAddresses enumerateObjectsUsingBlock:^(CBWAddress * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    totalBalance += obj.balance;
+                }];
+                if (totalBalance > 0) {
+                    completion([NSError errorWithDomain:CBWRequestErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedStringFromTable(@"Error balance_unspent_not_match", @"CBW", nil)}]);
+                    return;
+                }
+            }
             completion(error);
             return;
         }

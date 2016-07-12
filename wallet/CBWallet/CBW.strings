@@ -124,6 +124,7 @@
 "Alert Message custom_fee_update_error" = "Can't update for now, try again later.";
 "Alert Message custom_fee_deleted" = "Custom transaction fee has been removed.";
 
+"Error balance_unspent_not_match" = "Could not fetch enough unspent balance. Please try later.";
 "Error not_enough_balance" = "Insufficient balance.";
 "Error too_big_amount" = "Amount should be less than 21,000,000 BTC.";
 "Error invalid_backup_image_no_seed_data" = "Invalid backup image.";
