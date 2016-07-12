@@ -63,7 +63,7 @@ NSString *const DatabaseManagerColAccountIDX = @"accountIdx";
         deleted = [db executeUpdate:deleteAccountSQL];
         NSString *deleteAddressSQL = [NSString stringWithFormat:@"DELETE FROM %@", DatabaseManagerTableAddress];
         [db executeUpdate:deleteAddressSQL];
-        NSString *deleteTXSQL = [NSString stringWithFormat:@"DELETE FROM %@", DatabaseManagerTableTX];
+        NSString *deleteTXSQL = [NSString stringWithFormat:@"DELETE FROM %@", DatabaseManagerTableTransaction];
         [db executeUpdate:deleteTXSQL];
         [db close];
     }

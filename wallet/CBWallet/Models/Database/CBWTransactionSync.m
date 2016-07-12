@@ -86,7 +86,7 @@ NSString *const CBWTransactionSyncConfirmedCountKey = @"confirmedCount";
     __block NSMutableArray<NSArray<CBWAddress *> *> *comparedAddress = [NSMutableArray array];
     
     [addresses enumerateObjectsUsingBlock:^(CBWAddress * _Nonnull address, NSUInteger idx, BOOL * _Nonnull stop) {
-        [[CBWDatabaseManager defaultManager] txFetchWithQueryAddress:address.address completion:^(NSArray *response) {
+        [[CBWDatabaseManager defaultManager] transactionFetchWithAddresses:@[address.address] page:0 pagesize:0 completion:^(NSArray *response) {
             DLog(@"local tx count [%lu] for address: %@, responsed [%lu]", (unsigned long)response.count, address.address, (unsigned long)address.txCount);
             
             NSArray<CBWTransaction *> *txs = [CBWTransaction batchInitWithArray:response];
@@ -172,15 +172,6 @@ NSString *const CBWTransactionSyncConfirmedCountKey = @"confirmedCount";
                             inserted ++;
                         }
                     }
-                    // tx table
-                    if (transaction) {
-                        [transaction setValuesForKeysWithDictionary:obj];
-                        transaction.queryAddress = responsedAddress.address;
-                        transaction.queryAddresses = @[responsedAddress.address];
-                        [[CBWDatabaseManager defaultManager] txSave:transaction withCompletion:^(CBWDatabaseChangeType changeType) {
-                            DLog(@"tx saved: %ld", (long)changeType);
-                        }];
-                    }
                 }
             }];
             
@@ -230,10 +221,6 @@ NSString *const CBWTransactionSyncConfirmedCountKey = @"confirmedCount";
                                 inserted ++;
                             }
                         }
-                        // tx table
-                        if (transaction) {
-                            [[CBWDatabaseManager defaultManager] txSave:transaction withCompletion:^(CBWDatabaseChangeType changeType) {}];
-                        }
                         if ([hash isEqualToString:localAddress.firstUnconfirmedTXHashID]) {
                             touchedTheUnconfirmedTX = YES;
                             *stop = YES;
@@ -280,10 +267,6 @@ NSString *const CBWTransactionSyncConfirmedCountKey = @"confirmedCount";
                             if (transaction && [[CBWDatabaseManager defaultManager] transactionInsertTransaction:transaction]) {
                                 inserted ++;
                             }
-                        }
-                        // tx table
-                        if (transaction) {
-                            [[CBWDatabaseManager defaultManager] txSave:transaction withCompletion:^(CBWDatabaseChangeType changeType) {}];
                         }
                         if ([hash isEqualToString:localAddress.lastTXHashID]) {
                             touchedTheLastTX = YES;

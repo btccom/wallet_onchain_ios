@@ -152,6 +152,8 @@
     if (!self.account) {
         self.account = [self.accountStore customDefaultAccount];
         DLog(@"dashboard reloaded account: %@", self.account);
+    } else {
+        [self sync];
     }
     
     [self reloadTransactions];

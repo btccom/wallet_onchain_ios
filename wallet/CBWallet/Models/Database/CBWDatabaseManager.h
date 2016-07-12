@@ -82,4 +82,3 @@ extern NSString *const DatabaseManagerColAccountIDX;
 #import "CBWDatabaseManager+Account.h"
 #import "CBWDatabaseManager+Address.h"
 #import "CBWDatabaseManager+TX.h"
-#import "CBWDatabaseManager+Transaction.h"

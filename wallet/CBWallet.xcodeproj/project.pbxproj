@@ -36,7 +36,7 @@
 		2C1E8C4F1CA42A7D006F86E1 /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E8C491CA42A7D006F86E1 /* Base64.m */; };
 		2C1E8C501CA42A7D006F86E1 /* NSData+CommonCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E8C4B1CA42A7D006F86E1 /* NSData+CommonCrypto.m */; };
 		2C1E8C511CA42A7D006F86E1 /* PBKDF2.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E8C4D1CA42A7D006F86E1 /* PBKDF2.m */; };
-		2C23CDBA1D1B82AD00C0ABA5 /* CBWDatabaseManager+Transaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C23CDB91D1B82AD00C0ABA5 /* CBWDatabaseManager+Transaction.m */; };
+		2C23CDBA1D1B82AD00C0ABA5 /* CBWDatabaseManager+TX.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C23CDB91D1B82AD00C0ABA5 /* CBWDatabaseManager+TX.m */; };
 		2C23CDBD1D1BBABC00C0ABA5 /* CBWTransactionSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C23CDBC1D1BBABC00C0ABA5 /* CBWTransactionSync.m */; };
 		2C58865D1CFD8903004BBD6C /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C58865C1CFD8903004BBD6C /* SignInViewController.m */; };
 		2C5886601CFD8912004BBD6C /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C58865F1CFD8912004BBD6C /* SignUpViewController.m */; };
@@ -100,13 +100,11 @@
 		2C9CAF7E1C868B98008194EB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF781C868B98008194EB /* main.m */; };
 		2C9CAF811C868BCB008194EB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C9CAF7F1C868BCB008194EB /* LaunchScreen.storyboard */; };
 		2CA16DAC1CC451A5004E68ED /* PasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA16DAB1CC451A5004E68ED /* PasswordViewController.m */; };
-		2CA4E6CB1D1288DF00884AD1 /* CBWDatabaseManager+TX.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA4E6CA1D1288DF00884AD1 /* CBWDatabaseManager+TX.m */; };
 		2CAA7DEB1CF010B000B0701C /* DefaultSectionFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAA7DEA1CF010B000B0701C /* DefaultSectionFooterView.m */; };
 		2CC12C901D29CFFC00687CE6 /* PasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA16DAB1CC451A5004E68ED /* PasswordViewController.m */; };
 		2CC12C911D29CFFC00687CE6 /* NSDate+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C16849F1CAB5F4800BD434A /* NSDate+Helper.m */; };
 		2CC12C921D29CFFC00687CE6 /* UIColor+CBW.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF191C868B61008194EB /* UIColor+CBW.m */; };
 		2CC12C931D29CFFC00687CE6 /* CBWRecordObjectStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEFC3521CA4CBAC00FECCA4 /* CBWRecordObjectStore.m */; };
-		2CC12C941D29CFFC00687CE6 /* CBWDatabaseManager+TX.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA4E6CA1D1288DF00884AD1 /* CBWDatabaseManager+TX.m */; };
 		2CC12C951D29CFFC00687CE6 /* FormControlInputActionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C19FCFC1CB32C92009BC78C /* FormControlInputActionCell.m */; };
 		2CC12C961D29CFFC00687CE6 /* BlockMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC20F861D1D5C7500F51106 /* BlockMonitor.m */; };
 		2CC12C971D29CFFC00687CE6 /* RecipientViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF091C868B61008194EB /* RecipientViewController.m */; };
@@ -153,7 +151,7 @@
 		2CC12CC01D29CFFC00687CE6 /* AESCrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E8C471CA42A7D006F86E1 /* AESCrypt.m */; };
 		2CC12CC11D29CFFC00687CE6 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF24D681C97A53200C7EDB9 /* AFHTTPSessionManager.m */; };
 		2CC12CC21D29CFFC00687CE6 /* InitialWalletSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAEFD1C868B61008194EB /* InitialWalletSettingViewController.m */; };
-		2CC12CC31D29CFFC00687CE6 /* CBWDatabaseManager+Transaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C23CDB91D1B82AD00C0ABA5 /* CBWDatabaseManager+Transaction.m */; };
+		2CC12CC31D29CFFC00687CE6 /* CBWDatabaseManager+TX.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C23CDB91D1B82AD00C0ABA5 /* CBWDatabaseManager+TX.m */; };
 		2CC12CC41D29CFFC00687CE6 /* MasterPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF011C868B61008194EB /* MasterPasswordViewController.m */; };
 		2CC12CC51D29CFFC00687CE6 /* CBWTransaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF271C868B61008194EB /* CBWTransaction.m */; };
 		2CC12CC61D29CFFC00687CE6 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD0A9171CA02ACA006AF02F /* FMResultSet.m */; };
@@ -329,8 +327,8 @@
 		2C1E8C4B1CA42A7D006F86E1 /* NSData+CommonCrypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+CommonCrypto.m"; sourceTree = "<group>"; };
 		2C1E8C4C1CA42A7D006F86E1 /* PBKDF2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBKDF2.h; sourceTree = "<group>"; };
 		2C1E8C4D1CA42A7D006F86E1 /* PBKDF2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBKDF2.m; sourceTree = "<group>"; };
-		2C23CDB81D1B82AD00C0ABA5 /* CBWDatabaseManager+Transaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBWDatabaseManager+Transaction.h"; sourceTree = "<group>"; };
-		2C23CDB91D1B82AD00C0ABA5 /* CBWDatabaseManager+Transaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBWDatabaseManager+Transaction.m"; sourceTree = "<group>"; };
+		2C23CDB81D1B82AD00C0ABA5 /* CBWDatabaseManager+TX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBWDatabaseManager+TX.h"; sourceTree = "<group>"; };
+		2C23CDB91D1B82AD00C0ABA5 /* CBWDatabaseManager+TX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBWDatabaseManager+TX.m"; sourceTree = "<group>"; };
 		2C23CDBB1D1BBABC00C0ABA5 /* CBWTransactionSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBWTransactionSync.h; sourceTree = "<group>"; };
 		2C23CDBC1D1BBABC00C0ABA5 /* CBWTransactionSync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBWTransactionSync.m; sourceTree = "<group>"; };
 		2C58865B1CFD8903004BBD6C /* SignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInViewController.h; sourceTree = "<group>"; };
@@ -454,8 +452,6 @@
 		2C9CAF821C868CAE008194EB /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = CBWallet/Info.plist; sourceTree = SOURCE_ROOT; };
 		2CA16DAA1CC451A5004E68ED /* PasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasswordViewController.h; sourceTree = "<group>"; };
 		2CA16DAB1CC451A5004E68ED /* PasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PasswordViewController.m; sourceTree = "<group>"; };
-		2CA4E6C91D1288DF00884AD1 /* CBWDatabaseManager+TX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBWDatabaseManager+TX.h"; sourceTree = "<group>"; };
-		2CA4E6CA1D1288DF00884AD1 /* CBWDatabaseManager+TX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBWDatabaseManager+TX.m"; sourceTree = "<group>"; };
 		2CAA7DE91CF010B000B0701C /* DefaultSectionFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultSectionFooterView.h; sourceTree = "<group>"; };
 		2CAA7DEA1CF010B000B0701C /* DefaultSectionFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultSectionFooterView.m; sourceTree = "<group>"; };
 		2CC12D1A1D29CFFC00687CE6 /* CBWallet Enterprise.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CBWallet Enterprise.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -866,10 +862,8 @@
 				2CD0A9211CA02CF5006AF02F /* CBWDatabaseManager+Account.m */,
 				2C77D2591CA66207001DDB1F /* CBWDatabaseManager+Address.h */,
 				2C77D25A1CA66207001DDB1F /* CBWDatabaseManager+Address.m */,
-				2CA4E6C91D1288DF00884AD1 /* CBWDatabaseManager+TX.h */,
-				2CA4E6CA1D1288DF00884AD1 /* CBWDatabaseManager+TX.m */,
-				2C23CDB81D1B82AD00C0ABA5 /* CBWDatabaseManager+Transaction.h */,
-				2C23CDB91D1B82AD00C0ABA5 /* CBWDatabaseManager+Transaction.m */,
+				2C23CDB81D1B82AD00C0ABA5 /* CBWDatabaseManager+TX.h */,
+				2C23CDB91D1B82AD00C0ABA5 /* CBWDatabaseManager+TX.m */,
 				2CEFC35D1CA4D67D00FECCA4 /* Database.h */,
 				2C23CDBB1D1BBABC00C0ABA5 /* CBWTransactionSync.h */,
 				2C23CDBC1D1BBABC00C0ABA5 /* CBWTransactionSync.m */,
@@ -1343,7 +1337,6 @@
 				2CC12C911D29CFFC00687CE6 /* NSDate+Helper.m in Sources */,
 				2CC12C921D29CFFC00687CE6 /* UIColor+CBW.m in Sources */,
 				2CC12C931D29CFFC00687CE6 /* CBWRecordObjectStore.m in Sources */,
-				2CC12C941D29CFFC00687CE6 /* CBWDatabaseManager+TX.m in Sources */,
 				2CC12C951D29CFFC00687CE6 /* FormControlInputActionCell.m in Sources */,
 				2CC12C961D29CFFC00687CE6 /* BlockMonitor.m in Sources */,
 				2CC12C971D29CFFC00687CE6 /* RecipientViewController.m in Sources */,
@@ -1390,7 +1383,7 @@
 				2CC12CC01D29CFFC00687CE6 /* AESCrypt.m in Sources */,
 				2CC12CC11D29CFFC00687CE6 /* AFHTTPSessionManager.m in Sources */,
 				2CC12CC21D29CFFC00687CE6 /* InitialWalletSettingViewController.m in Sources */,
-				2CC12CC31D29CFFC00687CE6 /* CBWDatabaseManager+Transaction.m in Sources */,
+				2CC12CC31D29CFFC00687CE6 /* CBWDatabaseManager+TX.m in Sources */,
 				2CC12CC41D29CFFC00687CE6 /* MasterPasswordViewController.m in Sources */,
 				2CC12CC51D29CFFC00687CE6 /* CBWTransaction.m in Sources */,
 				2CC12CC61D29CFFC00687CE6 /* FMResultSet.m in Sources */,
@@ -1471,7 +1464,6 @@
 				2C1684A01CAB5F4800BD434A /* NSDate+Helper.m in Sources */,
 				2C9CAF5E1C868B61008194EB /* UIColor+CBW.m in Sources */,
 				2CEFC3531CA4CBAC00FECCA4 /* CBWRecordObjectStore.m in Sources */,
-				2CA4E6CB1D1288DF00884AD1 /* CBWDatabaseManager+TX.m in Sources */,
 				2C19FCFD1CB32C92009BC78C /* FormControlInputActionCell.m in Sources */,
 				2CC20F871D1D5C7500F51106 /* BlockMonitor.m in Sources */,
 				2C9CAF571C868B61008194EB /* RecipientViewController.m in Sources */,
@@ -1518,7 +1510,7 @@
 				2C1E8C4E1CA42A7D006F86E1 /* AESCrypt.m in Sources */,
 				2CF24D741C97A53200C7EDB9 /* AFHTTPSessionManager.m in Sources */,
 				2C9CAF521C868B61008194EB /* InitialWalletSettingViewController.m in Sources */,
-				2C23CDBA1D1B82AD00C0ABA5 /* CBWDatabaseManager+Transaction.m in Sources */,
+				2C23CDBA1D1B82AD00C0ABA5 /* CBWDatabaseManager+TX.m in Sources */,
 				2C9CAF541C868B61008194EB /* MasterPasswordViewController.m in Sources */,
 				2C9CAF641C868B61008194EB /* CBWTransaction.m in Sources */,
 				2CD0A91C1CA02ACA006AF02F /* FMResultSet.m in Sources */,

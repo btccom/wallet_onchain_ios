@@ -40,12 +40,7 @@
 
 - (NSInteger)pageTotal {
     if (_pageTotal < 0) {
-        NSUInteger count = 0;
-        if (self.queryAddresses.count == 1) {
-            count = [[CBWDatabaseManager defaultManager] txCountWithQueryAddress:[self.queryAddresses firstObject]];
-        } else {
-            count = [[CBWDatabaseManager defaultManager] transactionCountWithAccountIDX:self.accountIDX];
-        }
+        NSUInteger count = [[CBWDatabaseManager defaultManager] transactionCountWithAddresses:self.queryAddresses];
         _pageTotal = ceil(count / (double)self.pagesize);
     }
     return _pageTotal;
@@ -120,6 +115,8 @@
     [[CBWDatabaseManager defaultManager] transactionFetchWithAddresses:self.queryAddresses page:self.page pagesize:self.pagesize completion:^(NSArray *response) {
         collection = response;
     }];
+    
+    DLog(@"database response: \n%@", collection);
     
 //    if (self.queryAddresses.count == 1) {
 //        [[CBWDatabaseManager defaultManager] txFetchWithQueryAddress:[self.queryAddresses firstObject] page:self.page pagesize:self.pagesize completion:^(NSArray *response) {
