@@ -1,17 +1,17 @@
 //
-//  DashboardHeaderView.m
+//  AccountHeaderView.m
 //  wallet
 //
-//  Created by Zin on 16/2/26.
+//  Created by Zin (noteon.com) on 16/2/26.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
-#import "DashboardHeaderView.h"
-#import "DashboardHeaderActionButton.h"
+#import "AccountHeaderView.h"
+#import "AccountHeaderActionButton.h"
 
 #import "UIButton+VerticalLayout.h"
 
-@interface DashboardHeaderView ()
+@interface AccountHeaderView ()
 
 @property (nonatomic, weak, readwrite) UIButton * _Nullable sendButton;
 @property (nonatomic, weak, readwrite) UIButton * _Nullable receiveButton;
@@ -20,11 +20,11 @@
 
 @end
 
-@implementation DashboardHeaderView
+@implementation AccountHeaderView
 
 - (UIButton *)sendButton {
     if (!_sendButton) {
-        UIButton *button = [[DashboardHeaderActionButton alloc] initWithImage:[UIImage imageNamed:@"icon_send"] title:NSLocalizedStringFromTable(@"Button send", @"CBW", @"Send")];
+        UIButton *button = [[AccountHeaderActionButton alloc] initWithImage:[UIImage imageNamed:@"icon_send"] title:NSLocalizedStringFromTable(@"Button send", @"CBW", @"Send")];
         [button setTitleColor:[UIColor CBWRedColor] forState:UIControlStateNormal];
         [button setTitleColor:[[UIColor CBWRedColor] colorWithAlphaComponent:.5]  forState:UIControlStateDisabled];
         [self addSubview:button];
@@ -36,7 +36,7 @@
 
 - (UIButton *)receiveButton {
     if (!_receiveButton) {
-        UIButton *button = [[DashboardHeaderActionButton alloc] initWithImage:[UIImage imageNamed:@"icon_receive"] title:NSLocalizedStringFromTable(@"Button receive", @"CBW", @"Receive")];
+        UIButton *button = [[AccountHeaderActionButton alloc] initWithImage:[UIImage imageNamed:@"icon_receive"] title:NSLocalizedStringFromTable(@"Button receive", @"CBW", @"Receive")];
         [button setTitleColor:[UIColor CBWGreenColor] forState:UIControlStateNormal];
         [button setTitleColor:[[UIColor CBWGreenColor] colorWithAlphaComponent:.5]  forState:UIControlStateDisabled];
         [self addSubview:button];

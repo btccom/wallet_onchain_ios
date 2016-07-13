@@ -48,7 +48,6 @@
 		2C77D2631CA8C095001DDB1F /* CBWRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D2621CA8C095001DDB1F /* CBWRequest.m */; };
 		2C77D2661CA8C14E001DDB1F /* CBWRequest+Address.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D2651CA8C14E001DDB1F /* CBWRequest+Address.m */; };
 		2C77D2731CAA10EE001DDB1F /* UIFont+CBW.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D2721CAA10EE001DDB1F /* UIFont+CBW.m */; };
-		2C91B57E1CF7102E001037E6 /* DashboardBalanceTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C91B57D1CF7102E001037E6 /* DashboardBalanceTitleView.m */; };
 		2C91B5811CF71F14001037E6 /* NSNumber+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C91B5801CF71F14001037E6 /* NSNumber+Helper.m */; };
 		2C9829031CBA49C2004CB2D3 /* CBWBackup.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9829021CBA49C2004CB2D3 /* CBWBackup.m */; };
 		2C9829061CBA49CC004CB2D3 /* CBWRecovery.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9829051CBA49CC004CB2D3 /* CBWRecovery.m */; };
@@ -63,7 +62,6 @@
 		2C9CAF4D1C868B61008194EB /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAEF01C868B61008194EB /* BaseViewController.m */; };
 		2C9CAF4E1C868B61008194EB /* ScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAEF31C868B61008194EB /* ScanViewController.m */; };
 		2C9CAF4F1C868B61008194EB /* ImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAEF51C868B61008194EB /* ImagePickerController.m */; };
-		2C9CAF501C868B61008194EB /* DashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAEF81C868B61008194EB /* DashboardViewController.m */; };
 		2C9CAF511C868B61008194EB /* CreateOrRecoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAEFB1C868B61008194EB /* CreateOrRecoverViewController.m */; };
 		2C9CAF521C868B61008194EB /* InitialWalletSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAEFD1C868B61008194EB /* InitialWalletSettingViewController.m */; };
 		2C9CAF531C868B61008194EB /* LockScreenController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAEFF1C868B61008194EB /* LockScreenController.m */; };
@@ -90,8 +88,6 @@
 		2C9CAF681C868B61008194EB /* AddressHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF331C868B61008194EB /* AddressHeaderView.m */; };
 		2C9CAF6C1C868B61008194EB /* DefaultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF3C1C868B61008194EB /* DefaultTableViewCell.m */; };
 		2C9CAF6D1C868B61008194EB /* DefaultSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF3E1C868B61008194EB /* DefaultSectionHeaderView.m */; };
-		2C9CAF6E1C868B61008194EB /* DashboardHeaderActionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF411C868B61008194EB /* DashboardHeaderActionButton.m */; };
-		2C9CAF6F1C868B61008194EB /* DashboardHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF431C868B61008194EB /* DashboardHeaderView.m */; };
 		2C9CAF701C868B61008194EB /* TransactionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF461C868B61008194EB /* TransactionCell.m */; };
 		2C9CAF791C868B98008194EB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF721C868B98008194EB /* AppDelegate.m */; };
 		2C9CAF7A1C868B98008194EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C9CAF731C868B98008194EB /* Assets.xcassets */; };
@@ -169,7 +165,6 @@
 		2CC12CD21D29CFFC00687CE6 /* AddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAEE51C868B61008194EB /* AddressViewController.m */; };
 		2CC12CD31D29CFFC00687CE6 /* UIViewController+AcitivityMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C175E981CE4484F00DF5698 /* UIViewController+AcitivityMonitor.m */; };
 		2CC12CD41D29CFFC00687CE6 /* NSNumber+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C91B5801CF71F14001037E6 /* NSNumber+Helper.m */; };
-		2CC12CD51D29CFFC00687CE6 /* DashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAEF81C868B61008194EB /* DashboardViewController.m */; };
 		2CC12CD61D29CFFC00687CE6 /* TransactionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF101C868B61008194EB /* TransactionViewController.m */; };
 		2CC12CD71D29CFFC00687CE6 /* NSData+CommonCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E8C4B1CA42A7D006F86E1 /* NSData+CommonCrypto.m */; };
 		2CC12CD81D29CFFC00687CE6 /* SendFromAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C19FD121CB4AD58009BC78C /* SendFromAddressCell.m */; };
@@ -206,7 +201,6 @@
 		2CC12CF71D29CFFC00687CE6 /* BaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAEEE1C868B61008194EB /* BaseTableViewController.m */; };
 		2CC12CF81D29CFFC00687CE6 /* SSKeychainQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDCB1711CC5DCF200722BCF /* SSKeychainQuery.m */; };
 		2CC12CF91D29CFFC00687CE6 /* CreateOrRecoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAEFB1C868B61008194EB /* CreateOrRecoverViewController.m */; };
-		2CC12CFA1D29CFFC00687CE6 /* DashboardHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF431C868B61008194EB /* DashboardHeaderView.m */; };
 		2CC12CFB1D29CFFC00687CE6 /* AddressCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C03C0C71D2637150056729F /* AddressCardView.m */; };
 		2CC12CFC1D29CFFC00687CE6 /* CBWAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF1F1C868B61008194EB /* CBWAccount.m */; };
 		2CC12CFD1D29CFFC00687CE6 /* BaseListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAEEC1C868B61008194EB /* BaseListViewController.m */; };
@@ -214,8 +208,6 @@
 		2CC12CFF1D29CFFC00687CE6 /* InversedSolidButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5886681CFDC96E004BBD6C /* InversedSolidButton.m */; };
 		2CC12D001D29CFFC00687CE6 /* CBWRecordObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF251C868B61008194EB /* CBWRecordObject.m */; };
 		2CC12D011D29CFFC00687CE6 /* CBWRequest+Transaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1684A51CACA89D00BD434A /* CBWRequest+Transaction.m */; };
-		2CC12D021D29CFFC00687CE6 /* DashboardBalanceTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C91B57D1CF7102E001037E6 /* DashboardBalanceTitleView.m */; };
-		2CC12D031D29CFFC00687CE6 /* DashboardHeaderActionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF411C868B61008194EB /* DashboardHeaderActionButton.m */; };
 		2CC12D041D29CFFC00687CE6 /* SessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF2D1C868B61008194EB /* SessionManager.m */; };
 		2CC12D051D29CFFC00687CE6 /* NSString+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF151C868B61008194EB /* NSString+Helper.m */; };
 		2CC12D061D29CFFC00687CE6 /* DefaultSectionFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAA7DEA1CF010B000B0701C /* DefaultSectionFooterView.m */; };
@@ -242,6 +234,10 @@
 		2CD0A91F1CA02B45006AF02F /* CBWDatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD0A91E1CA02B45006AF02F /* CBWDatabaseManager.m */; };
 		2CD0A9221CA02CF5006AF02F /* CBWDatabaseManager+Account.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD0A9211CA02CF5006AF02F /* CBWDatabaseManager+Account.m */; };
 		2CD7EEBA1CD2F38100B5B884 /* SendViewController+Send.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD7EEB91CD2F38100B5B884 /* SendViewController+Send.m */; };
+		2CDB49FB1D3647A2009299F5 /* AccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB49FA1D3647A2009299F5 /* AccountViewController.m */; };
+		2CDB4A031D3649D9009299F5 /* AccountHeaderActionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB49FE1D3649D9009299F5 /* AccountHeaderActionButton.m */; };
+		2CDB4A041D3649D9009299F5 /* AccountHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A001D3649D9009299F5 /* AccountHeaderView.m */; };
+		2CDB4A051D3649D9009299F5 /* AccountNavigationTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A021D3649D9009299F5 /* AccountNavigationTitleView.m */; };
 		2CDCB16F1CC47A8E00722BCF /* AccountsManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDCB16E1CC47A8E00722BCF /* AccountsManagerViewController.m */; };
 		2CDCB1721CC5DCF200722BCF /* SSKeychainQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDCB1711CC5DCF200722BCF /* SSKeychainQuery.m */; };
 		2CEFC3531CA4CBAC00FECCA4 /* CBWRecordObjectStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEFC3521CA4CBAC00FECCA4 /* CBWRecordObjectStore.m */; };
@@ -352,8 +348,6 @@
 		2C77D2651CA8C14E001DDB1F /* CBWRequest+Address.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBWRequest+Address.m"; sourceTree = "<group>"; };
 		2C77D2711CAA10EE001DDB1F /* UIFont+CBW.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+CBW.h"; sourceTree = "<group>"; };
 		2C77D2721CAA10EE001DDB1F /* UIFont+CBW.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+CBW.m"; sourceTree = "<group>"; };
-		2C91B57C1CF7102E001037E6 /* DashboardBalanceTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardBalanceTitleView.h; sourceTree = "<group>"; };
-		2C91B57D1CF7102E001037E6 /* DashboardBalanceTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardBalanceTitleView.m; sourceTree = "<group>"; };
 		2C91B57F1CF71F14001037E6 /* NSNumber+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+Helper.h"; sourceTree = "<group>"; };
 		2C91B5801CF71F14001037E6 /* NSNumber+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+Helper.m"; sourceTree = "<group>"; };
 		2C9829011CBA49C2004CB2D3 /* CBWBackup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBWBackup.h; sourceTree = "<group>"; };
@@ -381,8 +375,6 @@
 		2C9CAEF31C868B61008194EB /* ScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanViewController.m; sourceTree = "<group>"; };
 		2C9CAEF41C868B61008194EB /* ImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagePickerController.h; sourceTree = "<group>"; };
 		2C9CAEF51C868B61008194EB /* ImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagePickerController.m; sourceTree = "<group>"; };
-		2C9CAEF71C868B61008194EB /* DashboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardViewController.h; sourceTree = "<group>"; };
-		2C9CAEF81C868B61008194EB /* DashboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardViewController.m; sourceTree = "<group>"; };
 		2C9CAEFA1C868B61008194EB /* CreateOrRecoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateOrRecoverViewController.h; sourceTree = "<group>"; };
 		2C9CAEFB1C868B61008194EB /* CreateOrRecoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateOrRecoverViewController.m; sourceTree = "<group>"; };
 		2C9CAEFC1C868B61008194EB /* InitialWalletSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InitialWalletSettingViewController.h; sourceTree = "<group>"; };
@@ -435,10 +427,6 @@
 		2C9CAF3C1C868B61008194EB /* DefaultTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultTableViewCell.m; sourceTree = "<group>"; };
 		2C9CAF3D1C868B61008194EB /* DefaultSectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultSectionHeaderView.h; sourceTree = "<group>"; };
 		2C9CAF3E1C868B61008194EB /* DefaultSectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultSectionHeaderView.m; sourceTree = "<group>"; };
-		2C9CAF401C868B61008194EB /* DashboardHeaderActionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardHeaderActionButton.h; sourceTree = "<group>"; };
-		2C9CAF411C868B61008194EB /* DashboardHeaderActionButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardHeaderActionButton.m; sourceTree = "<group>"; };
-		2C9CAF421C868B61008194EB /* DashboardHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardHeaderView.h; sourceTree = "<group>"; };
-		2C9CAF431C868B61008194EB /* DashboardHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardHeaderView.m; sourceTree = "<group>"; };
 		2C9CAF451C868B61008194EB /* TransactionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionCell.h; sourceTree = "<group>"; };
 		2C9CAF461C868B61008194EB /* TransactionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionCell.m; sourceTree = "<group>"; };
 		2C9CAF711C868B98008194EB /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = CBWallet/AppDelegate.h; sourceTree = SOURCE_ROOT; };
@@ -481,6 +469,14 @@
 		2CD0A9211CA02CF5006AF02F /* CBWDatabaseManager+Account.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBWDatabaseManager+Account.m"; sourceTree = "<group>"; };
 		2CD7EEB81CD2F38100B5B884 /* SendViewController+Send.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SendViewController+Send.h"; sourceTree = "<group>"; };
 		2CD7EEB91CD2F38100B5B884 /* SendViewController+Send.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SendViewController+Send.m"; sourceTree = "<group>"; };
+		2CDB49F91D3647A2009299F5 /* AccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountViewController.h; sourceTree = "<group>"; };
+		2CDB49FA1D3647A2009299F5 /* AccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountViewController.m; sourceTree = "<group>"; };
+		2CDB49FD1D3649D9009299F5 /* AccountHeaderActionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountHeaderActionButton.h; sourceTree = "<group>"; };
+		2CDB49FE1D3649D9009299F5 /* AccountHeaderActionButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountHeaderActionButton.m; sourceTree = "<group>"; };
+		2CDB49FF1D3649D9009299F5 /* AccountHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountHeaderView.h; sourceTree = "<group>"; };
+		2CDB4A001D3649D9009299F5 /* AccountHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountHeaderView.m; sourceTree = "<group>"; };
+		2CDB4A011D3649D9009299F5 /* AccountNavigationTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountNavigationTitleView.h; sourceTree = "<group>"; };
+		2CDB4A021D3649D9009299F5 /* AccountNavigationTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountNavigationTitleView.m; sourceTree = "<group>"; };
 		2CDCB16D1CC47A8E00722BCF /* AccountsManagerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountsManagerViewController.h; sourceTree = "<group>"; };
 		2CDCB16E1CC47A8E00722BCF /* AccountsManagerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountsManagerViewController.m; sourceTree = "<group>"; };
 		2CDCB1701CC5DCF200722BCF /* SSKeychainQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKeychainQuery.h; sourceTree = "<group>"; };
@@ -666,7 +662,7 @@
 				2C5886591CFD88EF004BBD6C /* SignIn */,
 				2C58865A1CFD88EF004BBD6C /* SignUp */,
 				2C9CAEF91C868B61008194EB /* LockScreen */,
-				2C9CAEF61C868B61008194EB /* Dashboard */,
+				2CDB49F81D3647A2009299F5 /* Account */,
 				2C9CAF071C868B61008194EB /* Send */,
 				2C9CAEE11C868B61008194EB /* Address */,
 				2C9CAF0C1C868B61008194EB /* Transaction */,
@@ -721,15 +717,6 @@
 				2C9CAEF51C868B61008194EB /* ImagePickerController.m */,
 			);
 			path = Common;
-			sourceTree = "<group>";
-		};
-		2C9CAEF61C868B61008194EB /* Dashboard */ = {
-			isa = PBXGroup;
-			children = (
-				2C9CAEF71C868B61008194EB /* DashboardViewController.h */,
-				2C9CAEF81C868B61008194EB /* DashboardViewController.m */,
-			);
-			path = Dashboard;
 			sourceTree = "<group>";
 		};
 		2C9CAEF91C868B61008194EB /* LockScreen */ = {
@@ -900,8 +887,8 @@
 		2C9CAF2E1C868B61008194EB /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2CDB49FC1D3649D9009299F5 /* Account */,
 				2C19FD101CB4AD22009BC78C /* Send */,
-				2C9CAF3F1C868B61008194EB /* Dashboard */,
 				2C9CAF2F1C868B61008194EB /* Address */,
 				2C9CAF441C868B61008194EB /* Transaction */,
 				2C9CAF341C868B61008194EB /* Common */,
@@ -941,19 +928,6 @@
 				2C175E951CE2C03700DF5698 /* ResponderLabel.m */,
 			);
 			path = Common;
-			sourceTree = "<group>";
-		};
-		2C9CAF3F1C868B61008194EB /* Dashboard */ = {
-			isa = PBXGroup;
-			children = (
-				2C9CAF401C868B61008194EB /* DashboardHeaderActionButton.h */,
-				2C9CAF411C868B61008194EB /* DashboardHeaderActionButton.m */,
-				2C9CAF421C868B61008194EB /* DashboardHeaderView.h */,
-				2C9CAF431C868B61008194EB /* DashboardHeaderView.m */,
-				2C91B57C1CF7102E001037E6 /* DashboardBalanceTitleView.h */,
-				2C91B57D1CF7102E001037E6 /* DashboardBalanceTitleView.m */,
-			);
-			path = Dashboard;
 			sourceTree = "<group>";
 		};
 		2C9CAF441C868B61008194EB /* Transaction */ = {
@@ -1041,6 +1015,28 @@
 				2CD0A9171CA02ACA006AF02F /* FMResultSet.m */,
 			);
 			path = fmdb;
+			sourceTree = "<group>";
+		};
+		2CDB49F81D3647A2009299F5 /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				2CDB49F91D3647A2009299F5 /* AccountViewController.h */,
+				2CDB49FA1D3647A2009299F5 /* AccountViewController.m */,
+			);
+			path = Account;
+			sourceTree = "<group>";
+		};
+		2CDB49FC1D3649D9009299F5 /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				2CDB49FD1D3649D9009299F5 /* AccountHeaderActionButton.h */,
+				2CDB49FE1D3649D9009299F5 /* AccountHeaderActionButton.m */,
+				2CDB49FF1D3649D9009299F5 /* AccountHeaderView.h */,
+				2CDB4A001D3649D9009299F5 /* AccountHeaderView.m */,
+				2CDB4A011D3649D9009299F5 /* AccountNavigationTitleView.h */,
+				2CDB4A021D3649D9009299F5 /* AccountNavigationTitleView.m */,
+			);
+			path = Account;
 			sourceTree = "<group>";
 		};
 		2CF24C3C1C96357B00C7EDB9 /* Vendors */ = {
@@ -1401,7 +1397,6 @@
 				2CC12CD21D29CFFC00687CE6 /* AddressViewController.m in Sources */,
 				2CC12CD31D29CFFC00687CE6 /* UIViewController+AcitivityMonitor.m in Sources */,
 				2CC12CD41D29CFFC00687CE6 /* NSNumber+Helper.m in Sources */,
-				2CC12CD51D29CFFC00687CE6 /* DashboardViewController.m in Sources */,
 				2CC12CD61D29CFFC00687CE6 /* TransactionViewController.m in Sources */,
 				2CC12CD71D29CFFC00687CE6 /* NSData+CommonCrypto.m in Sources */,
 				2CC12CD81D29CFFC00687CE6 /* SendFromAddressCell.m in Sources */,
@@ -1438,7 +1433,6 @@
 				2CC12CF71D29CFFC00687CE6 /* BaseTableViewController.m in Sources */,
 				2CC12CF81D29CFFC00687CE6 /* SSKeychainQuery.m in Sources */,
 				2CC12CF91D29CFFC00687CE6 /* CreateOrRecoverViewController.m in Sources */,
-				2CC12CFA1D29CFFC00687CE6 /* DashboardHeaderView.m in Sources */,
 				2CC12CFB1D29CFFC00687CE6 /* AddressCardView.m in Sources */,
 				2CC12CFC1D29CFFC00687CE6 /* CBWAccount.m in Sources */,
 				2CC12CFD1D29CFFC00687CE6 /* BaseListViewController.m in Sources */,
@@ -1446,8 +1440,6 @@
 				2CC12CFF1D29CFFC00687CE6 /* InversedSolidButton.m in Sources */,
 				2CC12D001D29CFFC00687CE6 /* CBWRecordObject.m in Sources */,
 				2CC12D011D29CFFC00687CE6 /* CBWRequest+Transaction.m in Sources */,
-				2CC12D021D29CFFC00687CE6 /* DashboardBalanceTitleView.m in Sources */,
-				2CC12D031D29CFFC00687CE6 /* DashboardHeaderActionButton.m in Sources */,
 				2CC12D041D29CFFC00687CE6 /* SessionManager.m in Sources */,
 				2CC12D051D29CFFC00687CE6 /* NSString+Helper.m in Sources */,
 				2CC12D061D29CFFC00687CE6 /* DefaultSectionFooterView.m in Sources */,
@@ -1487,6 +1479,7 @@
 				2C18E2111CAE64E00080EF1E /* CBWRequest+Errors.m in Sources */,
 				2C1684AC1CACEE4200BD434A /* NSNull+SafePatch.m in Sources */,
 				2CF24D5A1C965C7200C7EDB9 /* YYFrameImage.m in Sources */,
+				2CDB4A051D3649D9009299F5 /* AccountNavigationTitleView.m in Sources */,
 				2C9CAF7E1C868B98008194EB /* main.m in Sources */,
 				2CF24D771C97A53200C7EDB9 /* AFURLRequestSerialization.m in Sources */,
 				2CF24D791C97A53200C7EDB9 /* AFURLSessionManager.m in Sources */,
@@ -1503,6 +1496,7 @@
 				2C77D25B1CA66207001DDB1F /* CBWDatabaseManager+Address.m in Sources */,
 				2C18E2331CAE672C0080EF1E /* FormControlInputCell.m in Sources */,
 				2C9CAF701C868B61008194EB /* TransactionCell.m in Sources */,
+				2CDB4A041D3649D9009299F5 /* AccountHeaderView.m in Sources */,
 				2C58865D1CFD8903004BBD6C /* SignInViewController.m in Sources */,
 				2C9CAF671C868B61008194EB /* AddressCell.m in Sources */,
 				2C1E8C4F1CA42A7D006F86E1 /* Base64.m in Sources */,
@@ -1518,8 +1512,10 @@
 				2C9CAF4E1C868B61008194EB /* ScanViewController.m in Sources */,
 				2CF24D581C965C7200C7EDB9 /* SSKeychain.m in Sources */,
 				2CD7EEBA1CD2F38100B5B884 /* SendViewController+Send.m in Sources */,
+				2CDB4A031D3649D9009299F5 /* AccountHeaderActionButton.m in Sources */,
 				2CF24D761C97A53200C7EDB9 /* AFSecurityPolicy.m in Sources */,
 				2C9CAF6D1C868B61008194EB /* DefaultSectionHeaderView.m in Sources */,
+				2CDB49FB1D3647A2009299F5 /* AccountViewController.m in Sources */,
 				2C9CAF651C868B61008194EB /* SystemManager.m in Sources */,
 				2C9CAF551C868B61008194EB /* ProfileViewController.m in Sources */,
 				2C77D2631CA8C095001DDB1F /* CBWRequest.m in Sources */,
@@ -1528,7 +1524,6 @@
 				2C9CAF481C868B61008194EB /* AddressViewController.m in Sources */,
 				2C175E991CE4484F00DF5698 /* UIViewController+AcitivityMonitor.m in Sources */,
 				2C91B5811CF71F14001037E6 /* NSNumber+Helper.m in Sources */,
-				2C9CAF501C868B61008194EB /* DashboardViewController.m in Sources */,
 				2C9CAF5A1C868B61008194EB /* TransactionViewController.m in Sources */,
 				2C1E8C501CA42A7D006F86E1 /* NSData+CommonCrypto.m in Sources */,
 				2C19FD131CB4AD58009BC78C /* SendFromAddressCell.m in Sources */,
@@ -1565,7 +1560,6 @@
 				2C9CAF4C1C868B61008194EB /* BaseTableViewController.m in Sources */,
 				2CDCB1721CC5DCF200722BCF /* SSKeychainQuery.m in Sources */,
 				2C9CAF511C868B61008194EB /* CreateOrRecoverViewController.m in Sources */,
-				2C9CAF6F1C868B61008194EB /* DashboardHeaderView.m in Sources */,
 				2C03C0C81D2637150056729F /* AddressCardView.m in Sources */,
 				2C9CAF601C868B61008194EB /* CBWAccount.m in Sources */,
 				2C9CAF4B1C868B61008194EB /* BaseListViewController.m in Sources */,
@@ -1573,8 +1567,6 @@
 				2C5886691CFDC96E004BBD6C /* InversedSolidButton.m in Sources */,
 				2C9CAF631C868B61008194EB /* CBWRecordObject.m in Sources */,
 				2C1684A61CACA89D00BD434A /* CBWRequest+Transaction.m in Sources */,
-				2C91B57E1CF7102E001037E6 /* DashboardBalanceTitleView.m in Sources */,
-				2C9CAF6E1C868B61008194EB /* DashboardHeaderActionButton.m in Sources */,
 				2C9CAF661C868B61008194EB /* SessionManager.m in Sources */,
 				2C9CAF5C1C868B61008194EB /* NSString+Helper.m in Sources */,
 				2CAA7DEB1CF010B000B0701C /* DefaultSectionFooterView.m in Sources */,

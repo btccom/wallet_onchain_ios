@@ -1,8 +1,8 @@
 //
-//  DashboardViewController.h
+//  AccountViewController.h
 //  wallet
 //
-//  Created by Zin on 16/2/15.
+//  Created by Zin (noteon.com) on 16/2/15.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
@@ -15,7 +15,7 @@
 /// - Send
 /// - Receive
 /// - Recent Transactions
-@interface DashboardViewController : BaseListViewController
+@interface AccountViewController : BaseListViewController
 
 - (void)reload;
 - (void)reloadTransactions;

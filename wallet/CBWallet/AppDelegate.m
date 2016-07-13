@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "DashboardViewController.h"
+#import "AccountViewController.h"
 #import "SignInViewController.h"
 #import "SignUpViewController.h"
 
@@ -33,8 +33,8 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor CBWBlackColor];
     
-    DashboardViewController *dashboardViewController = [[DashboardViewController alloc] init];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:dashboardViewController];
+    AccountViewController *accountViewController = [[AccountViewController alloc] init];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:accountViewController];
     self.window.rootViewController = navigationController;
     
     // ui color

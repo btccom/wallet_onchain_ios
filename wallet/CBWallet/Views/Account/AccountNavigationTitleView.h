@@ -1,5 +1,5 @@
 //
-//  DashboardBalanceTitleView.h
+//  AccountNavigationTitleView.h
 //  CBWallet
 //
 //  Created by Zin on 16/5/26.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DashboardBalanceTitleView : UIView
+@interface AccountNavigationTitleView : UIView
 
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *balance;

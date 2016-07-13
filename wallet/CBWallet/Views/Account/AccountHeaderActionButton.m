@@ -1,14 +1,14 @@
 //
-//  DashboardHeaderActionButton.m
+//  AccountHeaderActionButton.m
 //  wallet
 //
-//  Created by Zin on 16/2/26.
+//  Created by Zin (noteon.com) on 16/2/26.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
-#import "DashboardHeaderActionButton.h"
+#import "AccountHeaderActionButton.h"
 
-@implementation DashboardHeaderActionButton
+@implementation AccountHeaderActionButton
 - (instancetype)initWithImage:(UIImage *)image title:(NSString *)title {
     self = [super init];
     if (self) {

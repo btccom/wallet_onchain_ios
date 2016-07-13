@@ -1,14 +1,14 @@
 //
-//  DashboardBalanceTitleView.m
+//  AccountNavigationTitleView.m
 //  CBWallet
 //
 //  Created by Zin on 16/5/26.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
-#import "DashboardBalanceTitleView.h"
+#import "AccountNavigationTitleView.h"
 
-@interface DashboardBalanceTitleView ()
+@interface AccountNavigationTitleView ()
 
 @property (nonatomic, weak) UILabel *titleLabel;
 @property (nonatomic, weak) UILabel *balanceLabel;
@@ -18,7 +18,7 @@
 
 @end
 
-@implementation DashboardBalanceTitleView
+@implementation AccountNavigationTitleView
 
 - (UILabel *)titleLabel {
     if (!_titleLabel) {

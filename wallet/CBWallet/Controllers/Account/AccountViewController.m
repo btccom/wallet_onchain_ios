@@ -1,5 +1,5 @@
 //
-//  DashboardViewController.m
+//  AccountViewController.m
 //  wallet
 //
 //  Created by Zin (noteon.com) on 16/2/15.
@@ -9,7 +9,7 @@
 // FIXME: 更新地址余额不需要触发 iCloud 同步
 // TODO: watched account 不存在内部转移交易
 
-#import "DashboardViewController.h"
+#import "AccountViewController.h"
 #import "ProfileViewController.h"
 #import "AddressListViewController.h"// explorer or receive
 #import "ScanViewController.h"// scan to explorer or send
@@ -17,8 +17,8 @@
 #import "TransactionViewController.h" // transaction detail
 #import "SendViewController.h"// send
 
-#import "DashboardHeaderView.h"
-#import "DashboardBalanceTitleView.h"
+#import "AccountHeaderView.h"
+#import "AccountNavigationTitleView.h"
 
 #import "Guard.h"
 #import "Database.h"
@@ -29,30 +29,30 @@
 #import "NSString+CBWAddress.h"
 #import "NSDate+Helper.h"
 
-@interface DashboardViewController ()<ProfileViewControllerDelegate, AddressListViewControllerDelegate, ScanViewControllerDelegate, UIScrollViewDelegate>
+@interface AccountViewController ()<ProfileViewControllerDelegate, AddressListViewControllerDelegate, ScanViewControllerDelegate, UIScrollViewDelegate>
 
 @property (nonatomic, strong) CBWAccountStore *accountStore;
 @property (nonatomic, strong) CBWTXStore *transactionStore;
 @property (nonatomic, strong) CBWAccount *account;
-@property (nonatomic, weak) DashboardHeaderView *headerView;
+@property (nonatomic, weak) AccountHeaderView *headerView;
 @property (nonatomic, assign) BOOL isThereMoreDatas;
 
 @property (nonatomic, assign, getter=isVisible) BOOL visible;
 @property (nonatomic, assign, getter=isNeededToRefresh) BOOL neededToRefresh;
 
 /// navigation bar title view
-@property (nonatomic, weak) DashboardBalanceTitleView *balanceTitleView;
+@property (nonatomic, weak) AccountNavigationTitleView *balanceTitleView;
 
 @end
 
-@implementation DashboardViewController
+@implementation AccountViewController
 @synthesize title = _title;
 
 #pragma mark - Property
 
-- (DashboardBalanceTitleView *)balanceTitleView {
+- (AccountNavigationTitleView *)balanceTitleView {
     if (!_balanceTitleView) {
-        DashboardBalanceTitleView *view = [[DashboardBalanceTitleView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 44)];
+        AccountNavigationTitleView *view = [[AccountNavigationTitleView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 44)];
         self.navigationItem.titleView = view;
         _balanceTitleView = view;
     }
@@ -99,7 +99,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    self.title = NSLocalizedStringFromTable(@"Navigation dashboard", @"CBW", @"Dashboard");
+    self.title = NSLocalizedStringFromTable(@"Navigation account", @"CBW", @"Account");
     // set navigation buttons
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"navigation_drawer"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleProfile:)];
 //    self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_book"] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleAddressList:)], [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"navigation_scan"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleScan:)]];
@@ -110,13 +110,13 @@
     
     // set table header
     CGFloat offsetHeight = -64.f;// status bar height + navigation bar height
-    CGRect dashboardHeaderViewframe = self.view.bounds;
-    dashboardHeaderViewframe.size.height = roundf(CGRectGetWidth(dashboardHeaderViewframe) / 16.f * 9.f) + offsetHeight;
-    DashboardHeaderView *dashboardHeaderView = [[DashboardHeaderView alloc] initWithFrame:dashboardHeaderViewframe];
-    [dashboardHeaderView.sendButton addTarget:self action:@selector(p_handleSend:) forControlEvents:UIControlEventTouchUpInside];
-    [dashboardHeaderView.receiveButton addTarget:self action:@selector(p_handleReceive:) forControlEvents:UIControlEventTouchUpInside];
-    self.tableView.tableHeaderView = dashboardHeaderView;
-    _headerView = dashboardHeaderView;
+    CGRect accountHeaderViewframe = self.view.bounds;
+    accountHeaderViewframe.size.height = roundf(CGRectGetWidth(accountHeaderViewframe) / 16.f * 9.f) + offsetHeight;
+    AccountHeaderView *accountHeaderView = [[AccountHeaderView alloc] initWithFrame:accountHeaderViewframe];
+    [accountHeaderView.sendButton addTarget:self action:@selector(p_handleSend:) forControlEvents:UIControlEventTouchUpInside];
+    [accountHeaderView.receiveButton addTarget:self action:@selector(p_handleReceive:) forControlEvents:UIControlEventTouchUpInside];
+    self.tableView.tableHeaderView = accountHeaderView;
+    _headerView = accountHeaderView;
     
     if (!self.refreshControl) {
         self.refreshControl = [[UIRefreshControl alloc] init];
@@ -151,7 +151,7 @@
     // TODO: save to get last selected account
     if (!self.account) {
         self.account = [self.accountStore customDefaultAccount];
-        DLog(@"dashboard reloaded account: %@", self.account);
+        DLog(@"reloaded account: %@", self.account);
     } else {
         [self sync];
     }
@@ -163,7 +163,7 @@
     CBWAddressStore *addressStore = [[CBWAddressStore alloc] initWithAccountIdx:self.account.idx];
     [addressStore fetch];
     self.balanceTitleView.balance = [@(addressStore.totalBalance) satoshiBTCString];
-    DLog(@"dashboard all addresses: %@", addressStore.allAddressStrings);
+    DLog(@"account sync with addresses: %@", addressStore.allAddressStrings);
     
     if (addressStore.allAddressStrings.count == 0) {
         DLog(@"no address to fetch");
@@ -221,7 +221,7 @@
     CBWAddressStore *addressStore = [[CBWAddressStore alloc] initWithAccountIdx:self.account.idx];
     [addressStore fetch];
     self.balanceTitleView.balance = [@(addressStore.totalBalance) satoshiBTCString];
-    DLog(@"dashboard all addresses: %@", addressStore.allAddressStrings);
+    DLog(@"account reload transactions with addresses: %@", addressStore.allAddressStrings);
     
     if (addressStore.allAddressStrings.count == 0) {
         DLog(@"no address to fetch");
@@ -385,7 +385,7 @@
 
 #pragma mark - <ProfileViewControllerDelegate>
 - (void)profileViewController:(ProfileViewController *)viewController didSelectAccount:(CBWAccount *)account {
-    DLog(@"dashboard selected account: %@", account);
+    DLog(@"selected account: %@", account);
     
     self.account = account;
     [self reloadTransactions];

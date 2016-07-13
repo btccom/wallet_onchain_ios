@@ -58,7 +58,7 @@ typedef NS_ENUM(NSUInteger, TransactionType) {
 
 
 // calculated properties
-/// 交易类型，在账户 dashboard 会出现内部转移交易
+/// 交易类型，在账户交易列表会出现内部转移交易
 @property (nonatomic, assign) TransactionType type;
 /// 如果没有 block time 使用 creation date
 @property (nonatomic, strong, readonly, nonnull) NSDate *transactionTime;

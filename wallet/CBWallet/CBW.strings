@@ -23,7 +23,7 @@
 "Navigation master_password" = "Master Password";
 "Navigation initial_wallet_setting" = "Setting";
 
-"Navigation dashboard" = "Wallet";
+"Navigation account" = "Wallet";
 "Navigation profile" = "Profile";
 "Navigation send" = "Send";
 "Navigation quickly_send" = "Quickly";
