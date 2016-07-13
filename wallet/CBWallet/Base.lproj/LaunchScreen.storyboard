@@ -21,7 +21,7 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="GYB-XM-6MG">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaunchLogo" translatesAutoresizingMaskIntoConstraints="NO" id="yPV-MO-7kF">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="image_logo" translatesAutoresizingMaskIntoConstraints="NO" id="yPV-MO-7kF">
                                 <rect key="frame" x="268" y="64" width="64" height="48"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="64" id="X5C-hI-vEG"/>
@@ -47,7 +47,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="LaunchLogo" width="64" height="48"/>
         <image name="background" width="375" height="667"/>
+        <image name="image_logo" width="64" height="48"/>
     </resources>
 </document>

@@ -43,7 +43,7 @@
     [background addSubview:backgroundImage];
     
     // logo
-    UIImageView *logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LaunchLogo"]];
+    UIImageView *logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"image_logo"]];
     logoView.frame = CGRectOffset(logoView.bounds, (SCREEN_WIDTH - CGRectGetWidth(logoView.bounds)) / 2, 64);
     [self.view addSubview:logoView];
     
