@@ -221,6 +221,7 @@
         headerView.balanceLabel.text = [@(self.address.balance) satoshiBTCString];
         headerView.receivedLabel.text = [@(self.address.received) satoshiBTCString];
         headerView.txLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)self.address.txCount];
+        [headerView setNeedsLayout];
         // 保存地址信息
         if (self.address.rid >= 0) {
             [self.address saveWithError:nil];
