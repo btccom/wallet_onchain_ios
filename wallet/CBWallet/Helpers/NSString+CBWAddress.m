@@ -111,6 +111,10 @@ NSString *const CBWAddressInfoAmountKey = @"amount";
     if (!self || self.length == 0) {
         return 0;
     }
+    NSCharacterSet *characterSet = [NSCharacterSet characterSetWithCharactersInString:@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ`~!@#$%^&*()-_=+[{]}\\|;:'\",<>/?"];
+    if ([self rangeOfCharacterFromSet:characterSet].location != NSNotFound) {
+        return 0;
+    }
     NSDecimalNumber *number = [NSDecimalNumber decimalNumberWithString:self];
     if (number <= 0) {
         return 0;
