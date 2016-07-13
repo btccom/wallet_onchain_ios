@@ -75,11 +75,6 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     
-//    LockScreenController *lockScreenController = (LockScreenController *)self.lockScreenWindow.rootViewController;
-//    UIViewController *viewController = [lockScreenController.childViewControllers lastObject];
-//    if ([viewController isKindOfClass:[MasterPasswordViewController class]]) {
-//        [((MasterPasswordViewController *)viewController) showKeyboard];
-//    }
     UIViewController *lockScreenViewController = self.lockScreenWindow.rootViewController;
     if ([lockScreenViewController isKindOfClass:[SignInViewController class]]) {
         [((SignInViewController *)lockScreenViewController) showKeyboard];
@@ -99,10 +94,6 @@
     }
     
     if (!self.lockScreenWindow.rootViewController) {
-//        LockScreenController *lockScreenController = [[LockScreenController alloc] init];
-//        lockScreenController.actionType = [[SystemManager defaultManager] isWalletInstalled] ? LockScreenActionTypeSignIn : LockScreenActionTypeSignUp;
-//        lockScreenController.delegate = self;
-//        self.lockScreenWindow.rootViewController = lockScreenController;
         if ([[SystemManager defaultManager] isWalletInstalled]) {
             SignInViewController *signInViewController = [[SignInViewController alloc] init];
             signInViewController.delegate = self;
@@ -140,11 +131,5 @@
 - (void)SignUpViewControllerDidComplete:(SignUpViewController *)vc {
     [self unlockScreen];
 }
-
-//#pragma mark - LockScreenControllerDelegate
-//- (void)lockScreenController:(LockScreenController *)controller didUnlockWithActionType:(LockScreenActionType)type {
-//    // unlock
-//    [self unlockScreen];
-//}
 
 @end
