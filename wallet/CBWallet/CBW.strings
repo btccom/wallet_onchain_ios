@@ -32,7 +32,7 @@
 "Navigation transaction_list" = "Transaction List";
 "Navigation transaction" = "Transaction";
 "Navigation receive" = "Receive";
-"Navigation address_list" = "Address List";
+"Navigation address_list" = "Address Book";
 "Navigation archived_address_list" = "Archived";
 "Navigation address" = "Address";
 "Navigation select_address" = "Select Address";
