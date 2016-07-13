@@ -42,6 +42,11 @@
     backgroundImage.image = [UIImage imageNamed:@"background"];
     [background addSubview:backgroundImage];
     
+    // logo
+    UIImageView *logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LaunchLogo"]];
+    logoView.frame = CGRectOffset(logoView.bounds, (SCREEN_WIDTH - CGRectGetWidth(logoView.bounds)) / 2, 64);
+    [self.view addSubview:logoView];
+    
     CGFloat padding = CBWLayoutCommonPadding;
     
     // input view

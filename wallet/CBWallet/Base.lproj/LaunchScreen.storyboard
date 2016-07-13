@@ -21,11 +21,20 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="GYB-XM-6MG">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaunchLogo" translatesAutoresizingMaskIntoConstraints="NO" id="yPV-MO-7kF">
+                                <rect key="frame" x="268" y="64" width="64" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="64" id="X5C-hI-vEG"/>
+                                    <constraint firstAttribute="height" constant="48" id="xvG-aO-Ldm"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.086274509803921567" green="0.47843137254901957" blue="0.85098039215686272" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="yPV-MO-7kF" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="0Yw-80-8bI"/>
                             <constraint firstItem="GYB-XM-6MG" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="topMargin" id="P8I-Yh-90r"/>
+                            <constraint firstItem="yPV-MO-7kF" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="44" id="ZFF-fu-XUz"/>
                             <constraint firstItem="GYB-XM-6MG" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="-20" id="a5i-jd-4kv"/>
                             <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="GYB-XM-6MG" secondAttribute="bottom" id="jW5-6P-lz2"/>
                             <constraint firstAttribute="trailingMargin" secondItem="GYB-XM-6MG" secondAttribute="trailing" constant="-20" id="zpN-kS-cLU"/>
@@ -38,6 +47,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="background" width="29" height="29"/>
+        <image name="LaunchLogo" width="64" height="48"/>
+        <image name="background" width="375" height="667"/>
     </resources>
 </document>
