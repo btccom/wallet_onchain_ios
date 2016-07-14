@@ -239,6 +239,8 @@
 		2CDB4A181D375F3D009299F5 /* DrawerStaticTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A161D375F3D009299F5 /* DrawerStaticTableViewCell.m */; };
 		2CDB4A1B1D379F5E009299F5 /* DrawerSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A1A1D379F5E009299F5 /* DrawerSectionHeaderView.m */; };
 		2CDB4A1C1D379F5E009299F5 /* DrawerSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A1A1D379F5E009299F5 /* DrawerSectionHeaderView.m */; };
+		2CDB4A201D37C2EB009299F5 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A1F1D37C2EB009299F5 /* SWRevealViewController.m */; };
+		2CDB4A211D37C2EB009299F5 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A1F1D37C2EB009299F5 /* SWRevealViewController.m */; };
 		2CDCB16F1CC47A8E00722BCF /* AccountsManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDCB16E1CC47A8E00722BCF /* AccountsManagerViewController.m */; };
 		2CDCB1721CC5DCF200722BCF /* SSKeychainQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDCB1711CC5DCF200722BCF /* SSKeychainQuery.m */; };
 		2CEFC3531CA4CBAC00FECCA4 /* CBWRecordObjectStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEFC3521CA4CBAC00FECCA4 /* CBWRecordObjectStore.m */; };
@@ -479,6 +481,8 @@
 		2CDB4A161D375F3D009299F5 /* DrawerStaticTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawerStaticTableViewCell.m; sourceTree = "<group>"; };
 		2CDB4A191D379F5E009299F5 /* DrawerSectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawerSectionHeaderView.h; sourceTree = "<group>"; };
 		2CDB4A1A1D379F5E009299F5 /* DrawerSectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawerSectionHeaderView.m; sourceTree = "<group>"; };
+		2CDB4A1E1D37C2EB009299F5 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
+		2CDB4A1F1D37C2EB009299F5 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		2CDCB16D1CC47A8E00722BCF /* AccountsManagerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountsManagerViewController.h; sourceTree = "<group>"; };
 		2CDCB16E1CC47A8E00722BCF /* AccountsManagerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountsManagerViewController.m; sourceTree = "<group>"; };
 		2CDCB1701CC5DCF200722BCF /* SSKeychainQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKeychainQuery.h; sourceTree = "<group>"; };
@@ -1055,9 +1059,19 @@
 			path = Drawer;
 			sourceTree = "<group>";
 		};
+		2CDB4A1D1D37C2EB009299F5 /* SWRevealViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2CDB4A1E1D37C2EB009299F5 /* SWRevealViewController.h */,
+				2CDB4A1F1D37C2EB009299F5 /* SWRevealViewController.m */,
+			);
+			path = SWRevealViewController;
+			sourceTree = "<group>";
+		};
 		2CF24C3C1C96357B00C7EDB9 /* Vendors */ = {
 			isa = PBXGroup;
 			children = (
+				2CDB4A1D1D37C2EB009299F5 /* SWRevealViewController */,
 				2C1E8C451CA42A7D006F86E1 /* aes-pbkdf2 */,
 				2CD0A90C1CA02ACA006AF02F /* fmdb */,
 				2CF24D661C97A53200C7EDB9 /* AFNetworking */,
@@ -1449,6 +1463,7 @@
 				2CC12CF61D29CFFC00687CE6 /* FMDatabase.m in Sources */,
 				2CC12CF71D29CFFC00687CE6 /* BaseTableViewController.m in Sources */,
 				2CC12CF81D29CFFC00687CE6 /* SSKeychainQuery.m in Sources */,
+				2CDB4A211D37C2EB009299F5 /* SWRevealViewController.m in Sources */,
 				2CC12CFB1D29CFFC00687CE6 /* AddressCardView.m in Sources */,
 				2CC12CFC1D29CFFC00687CE6 /* CBWAccount.m in Sources */,
 				2CC12CFD1D29CFFC00687CE6 /* BaseListViewController.m in Sources */,
@@ -1520,6 +1535,7 @@
 				2C9CAF671C868B61008194EB /* AddressCell.m in Sources */,
 				2C1E8C4F1CA42A7D006F86E1 /* Base64.m in Sources */,
 				2CF24D591C965C7200C7EDB9 /* YYAnimatedImageView.m in Sources */,
+				2CDB4A201D37C2EB009299F5 /* SWRevealViewController.m in Sources */,
 				2C1E8C4E1CA42A7D006F86E1 /* AESCrypt.m in Sources */,
 				2CF24D741C97A53200C7EDB9 /* AFHTTPSessionManager.m in Sources */,
 				2C23CDBA1D1B82AD00C0ABA5 /* CBWDatabaseManager+TX.m in Sources */,
