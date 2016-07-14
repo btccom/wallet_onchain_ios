@@ -11,12 +11,14 @@
 @interface UIColor (CBW)
 
 + (instancetype)CBWPrimaryColor;
++ (instancetype)CBWPrimaryDarkColor;
 + (instancetype)CBWWhiteColor;
 + (instancetype)CBWBlackColor;
 + (instancetype)CBWGrayColor;
 + (instancetype)CBWLightGrayColor;
 + (instancetype)CBWExtraLightGrayColor;
 
++ (instancetype)CBWDrawerBackgroundColor;
 /// white
 + (instancetype)CBWBackgroundColor;
 /// black

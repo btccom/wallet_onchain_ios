@@ -11,6 +11,7 @@
 
 #import "AccountViewController.h"
 #import "ProfileViewController.h"
+#import "DrawerViewController.h"
 #import "AddressListViewController.h"// explorer or receive
 #import "ScanViewController.h"// scan to explorer or send
 #import "TransactionListViewController.h"// list all transactions
@@ -281,10 +282,13 @@
 
 /// present profile
 - (void)p_handleProfile:(id)sender {
-    ProfileViewController *profileViewController = [[ProfileViewController alloc] initWithAccountStore:self.accountStore];
-    profileViewController.delegate = self;
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:profileViewController];
-    [self presentViewController:navigationController animated:YES completion:nil];
+//    ProfileViewController *profileViewController = [[ProfileViewController alloc] initWithAccountStore:self.accountStore];
+//    profileViewController.delegate = self;
+//    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:profileViewController];
+//    [self presentViewController:navigationController animated:YES completion:nil];
+    DrawerViewController *drawer = [[DrawerViewController alloc] init];
+    drawer.currentAccount = self.account;
+    [self presentViewController:drawer animated:YES completion:nil];
 }
 
 /// push address list

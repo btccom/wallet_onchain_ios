@@ -19,6 +19,9 @@
 #import "NSNull+SafePatch.h"
 #import "Constants.h"
 
+#define VERSION [[[NSBundle mainBundle] infoDictionary] valueForKey:@"CFBundleShortVersionString"]
+#define BUNDLE_VERSION [[[NSBundle mainBundle] infoDictionary] valueForKey:@"CFBundleVersion"]
+
 typedef NS_ENUM(NSUInteger, LockScreenActionType) {
     /// 注册，初始化钱包，create or recover
     LockScreenActionTypeSignUp,
@@ -41,9 +44,14 @@ static const CGFloat CBWListSectionHeaderHeight = 32.f;
 
 /// 48
 static const CGFloat CBWCellHeightDefault = 48.f;
+/// 76
 static const CGFloat CBWCellHeightTransaction = 76.f;
+/// 48
 static const CGFloat CBWCellHeightAddress = 48.f;
+/// 76
 static const CGFloat CBWCellHeightAddressWithMetadata = 76.f;
+/// 86
+static const CGFloat CBWCellHeightDrawerAccount = 86.f;
 
 #define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 #define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)

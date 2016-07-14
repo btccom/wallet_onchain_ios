@@ -45,6 +45,16 @@
     return NO;
 }
 
+- (BOOL)isEqual:(id)object {
+    if ([object isKindOfClass:[CBWAccount class]]) {
+        CBWAccount *account = (CBWAccount *)object;
+        if (account.idx == self.idx) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
 - (NSString *)description {
     return [NSString stringWithFormat:@"account %@: idx = %ld", self.label, (long)self.idx];
 }

@@ -229,6 +229,16 @@
 		2CDB4A031D3649D9009299F5 /* AccountHeaderActionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB49FE1D3649D9009299F5 /* AccountHeaderActionButton.m */; };
 		2CDB4A041D3649D9009299F5 /* AccountHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A001D3649D9009299F5 /* AccountHeaderView.m */; };
 		2CDB4A051D3649D9009299F5 /* AccountNavigationTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A021D3649D9009299F5 /* AccountNavigationTitleView.m */; };
+		2CDB4A091D371CF4009299F5 /* DrawerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A081D371CF4009299F5 /* DrawerViewController.m */; };
+		2CDB4A0A1D371CF4009299F5 /* DrawerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A081D371CF4009299F5 /* DrawerViewController.m */; };
+		2CDB4A0E1D371E49009299F5 /* DrawerStaticCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A0D1D371E49009299F5 /* DrawerStaticCellModel.m */; };
+		2CDB4A0F1D371E49009299F5 /* DrawerStaticCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A0D1D371E49009299F5 /* DrawerStaticCellModel.m */; };
+		2CDB4A131D3726B9009299F5 /* DrawerAccountTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A121D3726B9009299F5 /* DrawerAccountTableViewCell.m */; };
+		2CDB4A141D3726B9009299F5 /* DrawerAccountTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A121D3726B9009299F5 /* DrawerAccountTableViewCell.m */; };
+		2CDB4A171D375F3D009299F5 /* DrawerStaticTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A161D375F3D009299F5 /* DrawerStaticTableViewCell.m */; };
+		2CDB4A181D375F3D009299F5 /* DrawerStaticTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A161D375F3D009299F5 /* DrawerStaticTableViewCell.m */; };
+		2CDB4A1B1D379F5E009299F5 /* DrawerSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A1A1D379F5E009299F5 /* DrawerSectionHeaderView.m */; };
+		2CDB4A1C1D379F5E009299F5 /* DrawerSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A1A1D379F5E009299F5 /* DrawerSectionHeaderView.m */; };
 		2CDCB16F1CC47A8E00722BCF /* AccountsManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDCB16E1CC47A8E00722BCF /* AccountsManagerViewController.m */; };
 		2CDCB1721CC5DCF200722BCF /* SSKeychainQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDCB1711CC5DCF200722BCF /* SSKeychainQuery.m */; };
 		2CEFC3531CA4CBAC00FECCA4 /* CBWRecordObjectStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEFC3521CA4CBAC00FECCA4 /* CBWRecordObjectStore.m */; };
@@ -459,6 +469,16 @@
 		2CDB4A001D3649D9009299F5 /* AccountHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountHeaderView.m; sourceTree = "<group>"; };
 		2CDB4A011D3649D9009299F5 /* AccountNavigationTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountNavigationTitleView.h; sourceTree = "<group>"; };
 		2CDB4A021D3649D9009299F5 /* AccountNavigationTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountNavigationTitleView.m; sourceTree = "<group>"; };
+		2CDB4A071D371CF4009299F5 /* DrawerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawerViewController.h; sourceTree = "<group>"; };
+		2CDB4A081D371CF4009299F5 /* DrawerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawerViewController.m; sourceTree = "<group>"; };
+		2CDB4A0C1D371E49009299F5 /* DrawerStaticCellModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawerStaticCellModel.h; sourceTree = "<group>"; };
+		2CDB4A0D1D371E49009299F5 /* DrawerStaticCellModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawerStaticCellModel.m; sourceTree = "<group>"; };
+		2CDB4A111D3726B9009299F5 /* DrawerAccountTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawerAccountTableViewCell.h; sourceTree = "<group>"; };
+		2CDB4A121D3726B9009299F5 /* DrawerAccountTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawerAccountTableViewCell.m; sourceTree = "<group>"; };
+		2CDB4A151D375F3D009299F5 /* DrawerStaticTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawerStaticTableViewCell.h; sourceTree = "<group>"; };
+		2CDB4A161D375F3D009299F5 /* DrawerStaticTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawerStaticTableViewCell.m; sourceTree = "<group>"; };
+		2CDB4A191D379F5E009299F5 /* DrawerSectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawerSectionHeaderView.h; sourceTree = "<group>"; };
+		2CDB4A1A1D379F5E009299F5 /* DrawerSectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawerSectionHeaderView.m; sourceTree = "<group>"; };
 		2CDCB16D1CC47A8E00722BCF /* AccountsManagerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountsManagerViewController.h; sourceTree = "<group>"; };
 		2CDCB16E1CC47A8E00722BCF /* AccountsManagerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountsManagerViewController.m; sourceTree = "<group>"; };
 		2CDCB1701CC5DCF200722BCF /* SSKeychainQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKeychainQuery.h; sourceTree = "<group>"; };
@@ -639,6 +659,7 @@
 		2C9CAEE01C868B61008194EB /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				2CDB4A061D371CCF009299F5 /* Drawer */,
 				2C5886591CFD88EF004BBD6C /* SignIn */,
 				2C58865A1CFD88EF004BBD6C /* SignUp */,
 				2CDB49F81D3647A2009299F5 /* Account */,
@@ -849,6 +870,7 @@
 		2C9CAF2E1C868B61008194EB /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2CDB4A101D37269F009299F5 /* Drawer */,
 				2CDB49FC1D3649D9009299F5 /* Account */,
 				2C19FD101CB4AD22009BC78C /* Send */,
 				2C9CAF2F1C868B61008194EB /* Address */,
@@ -999,6 +1021,38 @@
 				2CDB4A021D3649D9009299F5 /* AccountNavigationTitleView.m */,
 			);
 			path = Account;
+			sourceTree = "<group>";
+		};
+		2CDB4A061D371CCF009299F5 /* Drawer */ = {
+			isa = PBXGroup;
+			children = (
+				2CDB4A0B1D371E21009299F5 /* Models */,
+				2CDB4A071D371CF4009299F5 /* DrawerViewController.h */,
+				2CDB4A081D371CF4009299F5 /* DrawerViewController.m */,
+			);
+			path = Drawer;
+			sourceTree = "<group>";
+		};
+		2CDB4A0B1D371E21009299F5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				2CDB4A0C1D371E49009299F5 /* DrawerStaticCellModel.h */,
+				2CDB4A0D1D371E49009299F5 /* DrawerStaticCellModel.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		2CDB4A101D37269F009299F5 /* Drawer */ = {
+			isa = PBXGroup;
+			children = (
+				2CDB4A111D3726B9009299F5 /* DrawerAccountTableViewCell.h */,
+				2CDB4A121D3726B9009299F5 /* DrawerAccountTableViewCell.m */,
+				2CDB4A151D375F3D009299F5 /* DrawerStaticTableViewCell.h */,
+				2CDB4A161D375F3D009299F5 /* DrawerStaticTableViewCell.m */,
+				2CDB4A191D379F5E009299F5 /* DrawerSectionHeaderView.h */,
+				2CDB4A1A1D379F5E009299F5 /* DrawerSectionHeaderView.m */,
+			);
+			path = Drawer;
 			sourceTree = "<group>";
 		};
 		2CF24C3C1C96357B00C7EDB9 /* Vendors */ = {
@@ -1296,10 +1350,12 @@
 				2CC12C921D29CFFC00687CE6 /* UIColor+CBW.m in Sources */,
 				2CC12C931D29CFFC00687CE6 /* CBWRecordObjectStore.m in Sources */,
 				2CC12C951D29CFFC00687CE6 /* FormControlInputActionCell.m in Sources */,
+				2CDB4A0F1D371E49009299F5 /* DrawerStaticCellModel.m in Sources */,
 				2CC12C961D29CFFC00687CE6 /* BlockMonitor.m in Sources */,
 				2CC12C971D29CFFC00687CE6 /* RecipientViewController.m in Sources */,
 				2CC12C981D29CFFC00687CE6 /* BaseViewController.m in Sources */,
 				2CC12C9A1D29CFFC00687CE6 /* BaseFormControlCell.m in Sources */,
+				2CDB4A141D3726B9009299F5 /* DrawerAccountTableViewCell.m in Sources */,
 				2CC12C9B1D29CFFC00687CE6 /* CBWTransactionSync.m in Sources */,
 				2CC12C9C1D29CFFC00687CE6 /* CBWAddress.m in Sources */,
 				2CC12C9D1D29CFFC00687CE6 /* CBWRequest+Address.m in Sources */,
@@ -1321,6 +1377,7 @@
 				2CC12CAD1D29CFFC00687CE6 /* AFURLRequestSerialization.m in Sources */,
 				2CC12CAE1D29CFFC00687CE6 /* AFURLSessionManager.m in Sources */,
 				2CC12CAF1D29CFFC00687CE6 /* YYSpriteSheetImage.m in Sources */,
+				2CDB4A181D375F3D009299F5 /* DrawerStaticTableViewCell.m in Sources */,
 				2CC12CB01D29CFFC00687CE6 /* ArchivedAdressListViewController.m in Sources */,
 				2CC12CB11D29CFFC00687CE6 /* UIButton+VerticalLayout.m in Sources */,
 				2CC12CB21D29CFFC00687CE6 /* AddressListViewController.m in Sources */,
@@ -1344,6 +1401,7 @@
 				2CC12CC61D29CFFC00687CE6 /* FMResultSet.m in Sources */,
 				2CC12CC71D29CFFC00687CE6 /* FMDatabaseQueue.m in Sources */,
 				2CC12CC81D29CFFC00687CE6 /* ScanViewController.m in Sources */,
+				2CDB4A0A1D371CF4009299F5 /* DrawerViewController.m in Sources */,
 				2CC12CC91D29CFFC00687CE6 /* SSKeychain.m in Sources */,
 				2CC12CCA1D29CFFC00687CE6 /* SendViewController+Send.m in Sources */,
 				2CC12CCB1D29CFFC00687CE6 /* AFSecurityPolicy.m in Sources */,
@@ -1385,6 +1443,7 @@
 				2CC12CF11D29CFFC00687CE6 /* CBWAccountStore.m in Sources */,
 				2CC12CF21D29CFFC00687CE6 /* AFURLResponseSerialization.m in Sources */,
 				2CC12CF31D29CFFC00687CE6 /* AccountsManagerViewController.m in Sources */,
+				2CDB4A1C1D379F5E009299F5 /* DrawerSectionHeaderView.m in Sources */,
 				2CC12CF41D29CFFC00687CE6 /* CBWRecovery.m in Sources */,
 				2CC12CF51D29CFFC00687CE6 /* Guard.m in Sources */,
 				2CC12CF61D29CFFC00687CE6 /* FMDatabase.m in Sources */,
@@ -1409,9 +1468,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CDB4A131D3726B9009299F5 /* DrawerAccountTableViewCell.m in Sources */,
 				2CA16DAC1CC451A5004E68ED /* PasswordViewController.m in Sources */,
 				2C1684A01CAB5F4800BD434A /* NSDate+Helper.m in Sources */,
 				2C9CAF5E1C868B61008194EB /* UIColor+CBW.m in Sources */,
+				2CDB4A0E1D371E49009299F5 /* DrawerStaticCellModel.m in Sources */,
 				2CEFC3531CA4CBAC00FECCA4 /* CBWRecordObjectStore.m in Sources */,
 				2C19FCFD1CB32C92009BC78C /* FormControlInputActionCell.m in Sources */,
 				2CC20F871D1D5C7500F51106 /* BlockMonitor.m in Sources */,
@@ -1425,7 +1486,9 @@
 				2C19FD0C1CB3FBC7009BC78C /* NSNumber+Satoshi.m in Sources */,
 				2CCE7F3E1D20DCAB00D30570 /* AddressExplorerViewController.m in Sources */,
 				2C1684A31CAB6B4B00BD434A /* CBWRequest+Block.m in Sources */,
+				2CDB4A1B1D379F5E009299F5 /* DrawerSectionHeaderView.m in Sources */,
 				2C1684B21CAD1A6500BD434A /* TransactionIOCell.m in Sources */,
+				2CDB4A091D371CF4009299F5 /* DrawerViewController.m in Sources */,
 				2CD0A9191CA02ACA006AF02F /* FMDatabaseAdditions.m in Sources */,
 				2C9829031CBA49C2004CB2D3 /* CBWBackup.m in Sources */,
 				2C9CAF561C868B61008194EB /* SettingsViewController.m in Sources */,
@@ -1483,6 +1546,7 @@
 				2C19FD131CB4AD58009BC78C /* SendFromAddressCell.m in Sources */,
 				2CEFC3601CA501B200FECCA4 /* Installation.m in Sources */,
 				2C9CAF5B1C868B61008194EB /* NSString+CBWAddress.m in Sources */,
+				2CDB4A171D375F3D009299F5 /* DrawerStaticTableViewCell.m in Sources */,
 				2CEFC3591CA4D25000FECCA4 /* CBWAddressStore.m in Sources */,
 				2C9CAF5F1C868B61008194EB /* UIViewController+Appearance.m in Sources */,
 				2C9CAF791C868B98008194EB /* AppDelegate.m in Sources */,
