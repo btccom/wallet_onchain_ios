@@ -62,8 +62,6 @@
 		2C9CAF4D1C868B61008194EB /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAEF01C868B61008194EB /* BaseViewController.m */; };
 		2C9CAF4E1C868B61008194EB /* ScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAEF31C868B61008194EB /* ScanViewController.m */; };
 		2C9CAF4F1C868B61008194EB /* ImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAEF51C868B61008194EB /* ImagePickerController.m */; };
-		2C9CAF551C868B61008194EB /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF041C868B61008194EB /* ProfileViewController.m */; };
-		2C9CAF561C868B61008194EB /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF061C868B61008194EB /* SettingsViewController.m */; };
 		2C9CAF571C868B61008194EB /* RecipientViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF091C868B61008194EB /* RecipientViewController.m */; };
 		2C9CAF581C868B61008194EB /* SendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF0B1C868B61008194EB /* SendViewController.m */; };
 		2C9CAF591C868B61008194EB /* TransactionListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF0E1C868B61008194EB /* TransactionListViewController.m */; };
@@ -91,9 +89,7 @@
 		2C9CAF7D1C868B98008194EB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2C9CAF771C868B98008194EB /* InfoPlist.strings */; };
 		2C9CAF7E1C868B98008194EB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF781C868B98008194EB /* main.m */; };
 		2C9CAF811C868BCB008194EB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C9CAF7F1C868BCB008194EB /* LaunchScreen.storyboard */; };
-		2CA16DAC1CC451A5004E68ED /* PasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA16DAB1CC451A5004E68ED /* PasswordViewController.m */; };
 		2CAA7DEB1CF010B000B0701C /* DefaultSectionFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAA7DEA1CF010B000B0701C /* DefaultSectionFooterView.m */; };
-		2CC12C901D29CFFC00687CE6 /* PasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA16DAB1CC451A5004E68ED /* PasswordViewController.m */; };
 		2CC12C911D29CFFC00687CE6 /* NSDate+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C16849F1CAB5F4800BD434A /* NSDate+Helper.m */; };
 		2CC12C921D29CFFC00687CE6 /* UIColor+CBW.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF191C868B61008194EB /* UIColor+CBW.m */; };
 		2CC12C931D29CFFC00687CE6 /* CBWRecordObjectStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEFC3521CA4CBAC00FECCA4 /* CBWRecordObjectStore.m */; };
@@ -112,7 +108,6 @@
 		2CC12CA21D29CFFC00687CE6 /* TransactionIOCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1684B11CAD1A6500BD434A /* TransactionIOCell.m */; };
 		2CC12CA31D29CFFC00687CE6 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD0A9101CA02ACA006AF02F /* FMDatabaseAdditions.m */; };
 		2CC12CA41D29CFFC00687CE6 /* CBWBackup.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9829021CBA49C2004CB2D3 /* CBWBackup.m */; };
-		2CC12CA51D29CFFC00687CE6 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF061C868B61008194EB /* SettingsViewController.m */; };
 		2CC12CA61D29CFFC00687CE6 /* CBWFee.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C19FD181CB5E4A2009BC78C /* CBWFee.m */; };
 		2CC12CA71D29CFFC00687CE6 /* TransactionListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF0E1C868B61008194EB /* TransactionListViewController.m */; };
 		2CC12CA81D29CFFC00687CE6 /* YYImageCoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF24D551C965C7200C7EDB9 /* YYImageCoder.m */; };
@@ -151,7 +146,6 @@
 		2CC12CCB1D29CFFC00687CE6 /* AFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF24D6D1C97A53200C7EDB9 /* AFSecurityPolicy.m */; };
 		2CC12CCC1D29CFFC00687CE6 /* DefaultSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF3E1C868B61008194EB /* DefaultSectionHeaderView.m */; };
 		2CC12CCD1D29CFFC00687CE6 /* SystemManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF2A1C868B61008194EB /* SystemManager.m */; };
-		2CC12CCE1D29CFFC00687CE6 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF041C868B61008194EB /* ProfileViewController.m */; };
 		2CC12CCF1D29CFFC00687CE6 /* CBWRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D2621CA8C095001DDB1F /* CBWRequest.m */; };
 		2CC12CD01D29CFFC00687CE6 /* SignUpMasterPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5886621CFDB5F4004BBD6C /* SignUpMasterPasswordViewController.m */; };
 		2CC12CD11D29CFFC00687CE6 /* CBWRequest+Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1684A81CACAA2D00BD434A /* CBWRequest+Tools.m */; };
@@ -186,7 +180,6 @@
 		2CC12CF01D29CFFC00687CE6 /* UIView+Yoyo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C58866B1CFE7BD1004BBD6C /* UIView+Yoyo.m */; };
 		2CC12CF11D29CFFC00687CE6 /* CBWAccountStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEFC3551CA4CBD600FECCA4 /* CBWAccountStore.m */; };
 		2CC12CF21D29CFFC00687CE6 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF24D711C97A53200C7EDB9 /* AFURLResponseSerialization.m */; };
-		2CC12CF31D29CFFC00687CE6 /* AccountsManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDCB16E1CC47A8E00722BCF /* AccountsManagerViewController.m */; };
 		2CC12CF41D29CFFC00687CE6 /* CBWRecovery.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9829051CBA49CC004CB2D3 /* CBWRecovery.m */; };
 		2CC12CF51D29CFFC00687CE6 /* Guard.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C99A17B1CA0E434007D7AC3 /* Guard.m */; };
 		2CC12CF61D29CFFC00687CE6 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD0A90E1CA02ACA006AF02F /* FMDatabase.m */; };
@@ -229,7 +222,27 @@
 		2CDB4A031D3649D9009299F5 /* AccountHeaderActionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB49FE1D3649D9009299F5 /* AccountHeaderActionButton.m */; };
 		2CDB4A041D3649D9009299F5 /* AccountHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A001D3649D9009299F5 /* AccountHeaderView.m */; };
 		2CDB4A051D3649D9009299F5 /* AccountNavigationTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A021D3649D9009299F5 /* AccountNavigationTitleView.m */; };
-		2CDCB16F1CC47A8E00722BCF /* AccountsManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDCB16E1CC47A8E00722BCF /* AccountsManagerViewController.m */; };
+		2CDB4A091D371CF4009299F5 /* DrawerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A081D371CF4009299F5 /* DrawerViewController.m */; };
+		2CDB4A0A1D371CF4009299F5 /* DrawerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A081D371CF4009299F5 /* DrawerViewController.m */; };
+		2CDB4A0E1D371E49009299F5 /* DrawerStaticCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A0D1D371E49009299F5 /* DrawerStaticCellModel.m */; };
+		2CDB4A0F1D371E49009299F5 /* DrawerStaticCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A0D1D371E49009299F5 /* DrawerStaticCellModel.m */; };
+		2CDB4A131D3726B9009299F5 /* DrawerAccountTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A121D3726B9009299F5 /* DrawerAccountTableViewCell.m */; };
+		2CDB4A141D3726B9009299F5 /* DrawerAccountTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A121D3726B9009299F5 /* DrawerAccountTableViewCell.m */; };
+		2CDB4A171D375F3D009299F5 /* DrawerStaticTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A161D375F3D009299F5 /* DrawerStaticTableViewCell.m */; };
+		2CDB4A181D375F3D009299F5 /* DrawerStaticTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A161D375F3D009299F5 /* DrawerStaticTableViewCell.m */; };
+		2CDB4A1B1D379F5E009299F5 /* DrawerSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A1A1D379F5E009299F5 /* DrawerSectionHeaderView.m */; };
+		2CDB4A1C1D379F5E009299F5 /* DrawerSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A1A1D379F5E009299F5 /* DrawerSectionHeaderView.m */; };
+		2CDB4A201D37C2EB009299F5 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A1F1D37C2EB009299F5 /* SWRevealViewController.m */; };
+		2CDB4A211D37C2EB009299F5 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A1F1D37C2EB009299F5 /* SWRevealViewController.m */; };
+		2CDB4A261D387C8C009299F5 /* BlankViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A251D387C8C009299F5 /* BlankViewController.m */; };
+		2CDB4A271D387C8C009299F5 /* BlankViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A251D387C8C009299F5 /* BlankViewController.m */; };
+		2CDB4A2A1D38C46C009299F5 /* UIViewController+RevealEnabled.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A291D38C46C009299F5 /* UIViewController+RevealEnabled.m */; };
+		2CDB4A2B1D38C46C009299F5 /* UIViewController+RevealEnabled.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A291D38C46C009299F5 /* UIViewController+RevealEnabled.m */; };
+		2CDB4A2E1D38C86F009299F5 /* DrawerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A2D1D38C86F009299F5 /* DrawerTableViewCell.m */; };
+		2CDB4A2F1D38C86F009299F5 /* DrawerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A2D1D38C86F009299F5 /* DrawerTableViewCell.m */; };
+		2CDB4A351D38E46D009299F5 /* PasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A321D38E46D009299F5 /* PasswordViewController.m */; };
+		2CDB4A361D38E46D009299F5 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A341D38E46D009299F5 /* SettingsViewController.m */; };
+		2CDB4A391D38E479009299F5 /* AccountsManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A381D38E479009299F5 /* AccountsManagerViewController.m */; };
 		2CDCB1721CC5DCF200722BCF /* SSKeychainQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDCB1711CC5DCF200722BCF /* SSKeychainQuery.m */; };
 		2CEFC3531CA4CBAC00FECCA4 /* CBWRecordObjectStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEFC3521CA4CBAC00FECCA4 /* CBWRecordObjectStore.m */; };
 		2CEFC3561CA4CBD600FECCA4 /* CBWAccountStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEFC3551CA4CBD600FECCA4 /* CBWAccountStore.m */; };
@@ -365,10 +378,6 @@
 		2C9CAEF31C868B61008194EB /* ScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanViewController.m; sourceTree = "<group>"; };
 		2C9CAEF41C868B61008194EB /* ImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagePickerController.h; sourceTree = "<group>"; };
 		2C9CAEF51C868B61008194EB /* ImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagePickerController.m; sourceTree = "<group>"; };
-		2C9CAF031C868B61008194EB /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
-		2C9CAF041C868B61008194EB /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
-		2C9CAF051C868B61008194EB /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
-		2C9CAF061C868B61008194EB /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		2C9CAF081C868B61008194EB /* RecipientViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecipientViewController.h; sourceTree = "<group>"; };
 		2C9CAF091C868B61008194EB /* RecipientViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipientViewController.m; sourceTree = "<group>"; };
 		2C9CAF0A1C868B61008194EB /* SendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendViewController.h; sourceTree = "<group>"; };
@@ -420,8 +429,6 @@
 		2C9CAF781C868B98008194EB /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = CBWallet/main.m; sourceTree = SOURCE_ROOT; };
 		2C9CAF801C868BCB008194EB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = CBWallet/Base.lproj/LaunchScreen.storyboard; sourceTree = SOURCE_ROOT; };
 		2C9CAF821C868CAE008194EB /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = CBWallet/Info.plist; sourceTree = SOURCE_ROOT; };
-		2CA16DAA1CC451A5004E68ED /* PasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasswordViewController.h; sourceTree = "<group>"; };
-		2CA16DAB1CC451A5004E68ED /* PasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PasswordViewController.m; sourceTree = "<group>"; };
 		2CAA7DE91CF010B000B0701C /* DefaultSectionFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultSectionFooterView.h; sourceTree = "<group>"; };
 		2CAA7DEA1CF010B000B0701C /* DefaultSectionFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultSectionFooterView.m; sourceTree = "<group>"; };
 		2CC12D1A1D29CFFC00687CE6 /* CBWallet Enterprise.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CBWallet Enterprise.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -459,8 +466,31 @@
 		2CDB4A001D3649D9009299F5 /* AccountHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountHeaderView.m; sourceTree = "<group>"; };
 		2CDB4A011D3649D9009299F5 /* AccountNavigationTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountNavigationTitleView.h; sourceTree = "<group>"; };
 		2CDB4A021D3649D9009299F5 /* AccountNavigationTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountNavigationTitleView.m; sourceTree = "<group>"; };
-		2CDCB16D1CC47A8E00722BCF /* AccountsManagerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountsManagerViewController.h; sourceTree = "<group>"; };
-		2CDCB16E1CC47A8E00722BCF /* AccountsManagerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountsManagerViewController.m; sourceTree = "<group>"; };
+		2CDB4A071D371CF4009299F5 /* DrawerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawerViewController.h; sourceTree = "<group>"; };
+		2CDB4A081D371CF4009299F5 /* DrawerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawerViewController.m; sourceTree = "<group>"; };
+		2CDB4A0C1D371E49009299F5 /* DrawerStaticCellModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawerStaticCellModel.h; sourceTree = "<group>"; };
+		2CDB4A0D1D371E49009299F5 /* DrawerStaticCellModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawerStaticCellModel.m; sourceTree = "<group>"; };
+		2CDB4A111D3726B9009299F5 /* DrawerAccountTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawerAccountTableViewCell.h; sourceTree = "<group>"; };
+		2CDB4A121D3726B9009299F5 /* DrawerAccountTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawerAccountTableViewCell.m; sourceTree = "<group>"; };
+		2CDB4A151D375F3D009299F5 /* DrawerStaticTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawerStaticTableViewCell.h; sourceTree = "<group>"; };
+		2CDB4A161D375F3D009299F5 /* DrawerStaticTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawerStaticTableViewCell.m; sourceTree = "<group>"; };
+		2CDB4A191D379F5E009299F5 /* DrawerSectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawerSectionHeaderView.h; sourceTree = "<group>"; };
+		2CDB4A1A1D379F5E009299F5 /* DrawerSectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawerSectionHeaderView.m; sourceTree = "<group>"; };
+		2CDB4A1E1D37C2EB009299F5 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
+		2CDB4A1F1D37C2EB009299F5 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
+		2CDB4A231D3872A4009299F5 /* UIViewControllerUserInteractionSetable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewControllerUserInteractionSetable.h; sourceTree = "<group>"; };
+		2CDB4A241D387C8C009299F5 /* BlankViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlankViewController.h; sourceTree = "<group>"; };
+		2CDB4A251D387C8C009299F5 /* BlankViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlankViewController.m; sourceTree = "<group>"; };
+		2CDB4A281D38C46C009299F5 /* UIViewController+RevealEnabled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+RevealEnabled.h"; sourceTree = "<group>"; };
+		2CDB4A291D38C46C009299F5 /* UIViewController+RevealEnabled.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+RevealEnabled.m"; sourceTree = "<group>"; };
+		2CDB4A2C1D38C86F009299F5 /* DrawerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawerTableViewCell.h; sourceTree = "<group>"; };
+		2CDB4A2D1D38C86F009299F5 /* DrawerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawerTableViewCell.m; sourceTree = "<group>"; };
+		2CDB4A311D38E46D009299F5 /* PasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasswordViewController.h; sourceTree = "<group>"; };
+		2CDB4A321D38E46D009299F5 /* PasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PasswordViewController.m; sourceTree = "<group>"; };
+		2CDB4A331D38E46D009299F5 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		2CDB4A341D38E46D009299F5 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		2CDB4A371D38E479009299F5 /* AccountsManagerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountsManagerViewController.h; sourceTree = "<group>"; };
+		2CDB4A381D38E479009299F5 /* AccountsManagerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountsManagerViewController.m; sourceTree = "<group>"; };
 		2CDCB1701CC5DCF200722BCF /* SSKeychainQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKeychainQuery.h; sourceTree = "<group>"; };
 		2CDCB1711CC5DCF200722BCF /* SSKeychainQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKeychainQuery.m; sourceTree = "<group>"; };
 		2CEFC3511CA4CBAC00FECCA4 /* CBWRecordObjectStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBWRecordObjectStore.h; sourceTree = "<group>"; };
@@ -639,13 +669,14 @@
 		2C9CAEE01C868B61008194EB /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				2CDB4A061D371CCF009299F5 /* Drawer */,
 				2C5886591CFD88EF004BBD6C /* SignIn */,
 				2C58865A1CFD88EF004BBD6C /* SignUp */,
 				2CDB49F81D3647A2009299F5 /* Account */,
 				2C9CAF071C868B61008194EB /* Send */,
 				2C9CAEE11C868B61008194EB /* Address */,
 				2C9CAF0C1C868B61008194EB /* Transaction */,
-				2C9CAF021C868B61008194EB /* Profile */,
+				2CDB4A301D38E46D009299F5 /* Settings */,
 				2C9CAEF11C868B61008194EB /* Common */,
 				2C9CAEE81C868B61008194EB /* Base */,
 			);
@@ -683,6 +714,9 @@
 				2C175E981CE4484F00DF5698 /* UIViewController+AcitivityMonitor.m */,
 				2C069C3F1CC72D4F0054791C /* UIViewController+AlertMessage.h */,
 				2C069C401CC72D4F0054791C /* UIViewController+AlertMessage.m */,
+				2CDB4A281D38C46C009299F5 /* UIViewController+RevealEnabled.h */,
+				2CDB4A291D38C46C009299F5 /* UIViewController+RevealEnabled.m */,
+				2CDB4A231D3872A4009299F5 /* UIViewControllerUserInteractionSetable.h */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -694,23 +728,10 @@
 				2C9CAEF31C868B61008194EB /* ScanViewController.m */,
 				2C9CAEF41C868B61008194EB /* ImagePickerController.h */,
 				2C9CAEF51C868B61008194EB /* ImagePickerController.m */,
+				2CDB4A241D387C8C009299F5 /* BlankViewController.h */,
+				2CDB4A251D387C8C009299F5 /* BlankViewController.m */,
 			);
 			path = Common;
-			sourceTree = "<group>";
-		};
-		2C9CAF021C868B61008194EB /* Profile */ = {
-			isa = PBXGroup;
-			children = (
-				2C9CAF031C868B61008194EB /* ProfileViewController.h */,
-				2C9CAF041C868B61008194EB /* ProfileViewController.m */,
-				2CDCB16D1CC47A8E00722BCF /* AccountsManagerViewController.h */,
-				2CDCB16E1CC47A8E00722BCF /* AccountsManagerViewController.m */,
-				2C9CAF051C868B61008194EB /* SettingsViewController.h */,
-				2C9CAF061C868B61008194EB /* SettingsViewController.m */,
-				2CA16DAA1CC451A5004E68ED /* PasswordViewController.h */,
-				2CA16DAB1CC451A5004E68ED /* PasswordViewController.m */,
-			);
-			path = Profile;
 			sourceTree = "<group>";
 		};
 		2C9CAF071C868B61008194EB /* Send */ = {
@@ -849,6 +870,7 @@
 		2C9CAF2E1C868B61008194EB /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2CDB4A101D37269F009299F5 /* Drawer */,
 				2CDB49FC1D3649D9009299F5 /* Account */,
 				2C19FD101CB4AD22009BC78C /* Send */,
 				2C9CAF2F1C868B61008194EB /* Address */,
@@ -982,6 +1004,8 @@
 		2CDB49F81D3647A2009299F5 /* Account */ = {
 			isa = PBXGroup;
 			children = (
+				2CDB4A371D38E479009299F5 /* AccountsManagerViewController.h */,
+				2CDB4A381D38E479009299F5 /* AccountsManagerViewController.m */,
 				2CDB49F91D3647A2009299F5 /* AccountViewController.h */,
 				2CDB49FA1D3647A2009299F5 /* AccountViewController.m */,
 			);
@@ -1001,9 +1025,64 @@
 			path = Account;
 			sourceTree = "<group>";
 		};
+		2CDB4A061D371CCF009299F5 /* Drawer */ = {
+			isa = PBXGroup;
+			children = (
+				2CDB4A0B1D371E21009299F5 /* Models */,
+				2CDB4A071D371CF4009299F5 /* DrawerViewController.h */,
+				2CDB4A081D371CF4009299F5 /* DrawerViewController.m */,
+			);
+			path = Drawer;
+			sourceTree = "<group>";
+		};
+		2CDB4A0B1D371E21009299F5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				2CDB4A0C1D371E49009299F5 /* DrawerStaticCellModel.h */,
+				2CDB4A0D1D371E49009299F5 /* DrawerStaticCellModel.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		2CDB4A101D37269F009299F5 /* Drawer */ = {
+			isa = PBXGroup;
+			children = (
+				2CDB4A111D3726B9009299F5 /* DrawerAccountTableViewCell.h */,
+				2CDB4A121D3726B9009299F5 /* DrawerAccountTableViewCell.m */,
+				2CDB4A151D375F3D009299F5 /* DrawerStaticTableViewCell.h */,
+				2CDB4A161D375F3D009299F5 /* DrawerStaticTableViewCell.m */,
+				2CDB4A191D379F5E009299F5 /* DrawerSectionHeaderView.h */,
+				2CDB4A1A1D379F5E009299F5 /* DrawerSectionHeaderView.m */,
+				2CDB4A2C1D38C86F009299F5 /* DrawerTableViewCell.h */,
+				2CDB4A2D1D38C86F009299F5 /* DrawerTableViewCell.m */,
+			);
+			path = Drawer;
+			sourceTree = "<group>";
+		};
+		2CDB4A1D1D37C2EB009299F5 /* SWRevealViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2CDB4A1E1D37C2EB009299F5 /* SWRevealViewController.h */,
+				2CDB4A1F1D37C2EB009299F5 /* SWRevealViewController.m */,
+			);
+			path = SWRevealViewController;
+			sourceTree = "<group>";
+		};
+		2CDB4A301D38E46D009299F5 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				2CDB4A311D38E46D009299F5 /* PasswordViewController.h */,
+				2CDB4A321D38E46D009299F5 /* PasswordViewController.m */,
+				2CDB4A331D38E46D009299F5 /* SettingsViewController.h */,
+				2CDB4A341D38E46D009299F5 /* SettingsViewController.m */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		2CF24C3C1C96357B00C7EDB9 /* Vendors */ = {
 			isa = PBXGroup;
 			children = (
+				2CDB4A1D1D37C2EB009299F5 /* SWRevealViewController */,
 				2C1E8C451CA42A7D006F86E1 /* aes-pbkdf2 */,
 				2CD0A90C1CA02ACA006AF02F /* fmdb */,
 				2CF24D661C97A53200C7EDB9 /* AFNetworking */,
@@ -1291,15 +1370,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2CC12C901D29CFFC00687CE6 /* PasswordViewController.m in Sources */,
+				2CDB4A2F1D38C86F009299F5 /* DrawerTableViewCell.m in Sources */,
 				2CC12C911D29CFFC00687CE6 /* NSDate+Helper.m in Sources */,
 				2CC12C921D29CFFC00687CE6 /* UIColor+CBW.m in Sources */,
 				2CC12C931D29CFFC00687CE6 /* CBWRecordObjectStore.m in Sources */,
 				2CC12C951D29CFFC00687CE6 /* FormControlInputActionCell.m in Sources */,
+				2CDB4A0F1D371E49009299F5 /* DrawerStaticCellModel.m in Sources */,
 				2CC12C961D29CFFC00687CE6 /* BlockMonitor.m in Sources */,
 				2CC12C971D29CFFC00687CE6 /* RecipientViewController.m in Sources */,
 				2CC12C981D29CFFC00687CE6 /* BaseViewController.m in Sources */,
 				2CC12C9A1D29CFFC00687CE6 /* BaseFormControlCell.m in Sources */,
+				2CDB4A141D3726B9009299F5 /* DrawerAccountTableViewCell.m in Sources */,
 				2CC12C9B1D29CFFC00687CE6 /* CBWTransactionSync.m in Sources */,
 				2CC12C9C1D29CFFC00687CE6 /* CBWAddress.m in Sources */,
 				2CC12C9D1D29CFFC00687CE6 /* CBWRequest+Address.m in Sources */,
@@ -1310,7 +1391,6 @@
 				2CC12CA21D29CFFC00687CE6 /* TransactionIOCell.m in Sources */,
 				2CC12CA31D29CFFC00687CE6 /* FMDatabaseAdditions.m in Sources */,
 				2CC12CA41D29CFFC00687CE6 /* CBWBackup.m in Sources */,
-				2CC12CA51D29CFFC00687CE6 /* SettingsViewController.m in Sources */,
 				2CC12CA61D29CFFC00687CE6 /* CBWFee.m in Sources */,
 				2CC12CA71D29CFFC00687CE6 /* TransactionListViewController.m in Sources */,
 				2CC12CA81D29CFFC00687CE6 /* YYImageCoder.m in Sources */,
@@ -1321,6 +1401,7 @@
 				2CC12CAD1D29CFFC00687CE6 /* AFURLRequestSerialization.m in Sources */,
 				2CC12CAE1D29CFFC00687CE6 /* AFURLSessionManager.m in Sources */,
 				2CC12CAF1D29CFFC00687CE6 /* YYSpriteSheetImage.m in Sources */,
+				2CDB4A181D375F3D009299F5 /* DrawerStaticTableViewCell.m in Sources */,
 				2CC12CB01D29CFFC00687CE6 /* ArchivedAdressListViewController.m in Sources */,
 				2CC12CB11D29CFFC00687CE6 /* UIButton+VerticalLayout.m in Sources */,
 				2CC12CB21D29CFFC00687CE6 /* AddressListViewController.m in Sources */,
@@ -1344,14 +1425,16 @@
 				2CC12CC61D29CFFC00687CE6 /* FMResultSet.m in Sources */,
 				2CC12CC71D29CFFC00687CE6 /* FMDatabaseQueue.m in Sources */,
 				2CC12CC81D29CFFC00687CE6 /* ScanViewController.m in Sources */,
+				2CDB4A0A1D371CF4009299F5 /* DrawerViewController.m in Sources */,
 				2CC12CC91D29CFFC00687CE6 /* SSKeychain.m in Sources */,
 				2CC12CCA1D29CFFC00687CE6 /* SendViewController+Send.m in Sources */,
 				2CC12CCB1D29CFFC00687CE6 /* AFSecurityPolicy.m in Sources */,
 				2CC12CCC1D29CFFC00687CE6 /* DefaultSectionHeaderView.m in Sources */,
 				2CC12CCD1D29CFFC00687CE6 /* SystemManager.m in Sources */,
-				2CC12CCE1D29CFFC00687CE6 /* ProfileViewController.m in Sources */,
 				2CC12CCF1D29CFFC00687CE6 /* CBWRequest.m in Sources */,
 				2CC12CD01D29CFFC00687CE6 /* SignUpMasterPasswordViewController.m in Sources */,
+				2CDB4A2B1D38C46C009299F5 /* UIViewController+RevealEnabled.m in Sources */,
+				2CDB4A271D387C8C009299F5 /* BlankViewController.m in Sources */,
 				2CC12CD11D29CFFC00687CE6 /* CBWRequest+Tools.m in Sources */,
 				2CC12CD21D29CFFC00687CE6 /* AddressViewController.m in Sources */,
 				2CC12CD31D29CFFC00687CE6 /* UIViewController+AcitivityMonitor.m in Sources */,
@@ -1384,12 +1467,13 @@
 				2CC12CF01D29CFFC00687CE6 /* UIView+Yoyo.m in Sources */,
 				2CC12CF11D29CFFC00687CE6 /* CBWAccountStore.m in Sources */,
 				2CC12CF21D29CFFC00687CE6 /* AFURLResponseSerialization.m in Sources */,
-				2CC12CF31D29CFFC00687CE6 /* AccountsManagerViewController.m in Sources */,
+				2CDB4A1C1D379F5E009299F5 /* DrawerSectionHeaderView.m in Sources */,
 				2CC12CF41D29CFFC00687CE6 /* CBWRecovery.m in Sources */,
 				2CC12CF51D29CFFC00687CE6 /* Guard.m in Sources */,
 				2CC12CF61D29CFFC00687CE6 /* FMDatabase.m in Sources */,
 				2CC12CF71D29CFFC00687CE6 /* BaseTableViewController.m in Sources */,
 				2CC12CF81D29CFFC00687CE6 /* SSKeychainQuery.m in Sources */,
+				2CDB4A211D37C2EB009299F5 /* SWRevealViewController.m in Sources */,
 				2CC12CFB1D29CFFC00687CE6 /* AddressCardView.m in Sources */,
 				2CC12CFC1D29CFFC00687CE6 /* CBWAccount.m in Sources */,
 				2CC12CFD1D29CFFC00687CE6 /* BaseListViewController.m in Sources */,
@@ -1409,9 +1493,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2CA16DAC1CC451A5004E68ED /* PasswordViewController.m in Sources */,
+				2CDB4A131D3726B9009299F5 /* DrawerAccountTableViewCell.m in Sources */,
 				2C1684A01CAB5F4800BD434A /* NSDate+Helper.m in Sources */,
 				2C9CAF5E1C868B61008194EB /* UIColor+CBW.m in Sources */,
+				2CDB4A0E1D371E49009299F5 /* DrawerStaticCellModel.m in Sources */,
 				2CEFC3531CA4CBAC00FECCA4 /* CBWRecordObjectStore.m in Sources */,
 				2C19FCFD1CB32C92009BC78C /* FormControlInputActionCell.m in Sources */,
 				2CC20F871D1D5C7500F51106 /* BlockMonitor.m in Sources */,
@@ -1423,12 +1508,14 @@
 				2C77D2661CA8C14E001DDB1F /* CBWRequest+Address.m in Sources */,
 				2C1684AF1CAD17C500BD434A /* TransactionDataCell.m in Sources */,
 				2C19FD0C1CB3FBC7009BC78C /* NSNumber+Satoshi.m in Sources */,
+				2CDB4A361D38E46D009299F5 /* SettingsViewController.m in Sources */,
 				2CCE7F3E1D20DCAB00D30570 /* AddressExplorerViewController.m in Sources */,
 				2C1684A31CAB6B4B00BD434A /* CBWRequest+Block.m in Sources */,
+				2CDB4A1B1D379F5E009299F5 /* DrawerSectionHeaderView.m in Sources */,
 				2C1684B21CAD1A6500BD434A /* TransactionIOCell.m in Sources */,
+				2CDB4A091D371CF4009299F5 /* DrawerViewController.m in Sources */,
 				2CD0A9191CA02ACA006AF02F /* FMDatabaseAdditions.m in Sources */,
 				2C9829031CBA49C2004CB2D3 /* CBWBackup.m in Sources */,
-				2C9CAF561C868B61008194EB /* SettingsViewController.m in Sources */,
 				2C19FD191CB5E4A2009BC78C /* CBWFee.m in Sources */,
 				2C9CAF591C868B61008194EB /* TransactionListViewController.m in Sources */,
 				2CF24D5C1C965C7200C7EDB9 /* YYImageCoder.m in Sources */,
@@ -1439,6 +1526,7 @@
 				2C9CAF7E1C868B98008194EB /* main.m in Sources */,
 				2CF24D771C97A53200C7EDB9 /* AFURLRequestSerialization.m in Sources */,
 				2CF24D791C97A53200C7EDB9 /* AFURLSessionManager.m in Sources */,
+				2CDB4A391D38E479009299F5 /* AccountsManagerViewController.m in Sources */,
 				2CF24D5D1C965C7200C7EDB9 /* YYSpriteSheetImage.m in Sources */,
 				2C9CAF491C868B61008194EB /* ArchivedAdressListViewController.m in Sources */,
 				2C9CAF5D1C868B61008194EB /* UIButton+VerticalLayout.m in Sources */,
@@ -1457,6 +1545,7 @@
 				2C9CAF671C868B61008194EB /* AddressCell.m in Sources */,
 				2C1E8C4F1CA42A7D006F86E1 /* Base64.m in Sources */,
 				2CF24D591C965C7200C7EDB9 /* YYAnimatedImageView.m in Sources */,
+				2CDB4A201D37C2EB009299F5 /* SWRevealViewController.m in Sources */,
 				2C1E8C4E1CA42A7D006F86E1 /* AESCrypt.m in Sources */,
 				2CF24D741C97A53200C7EDB9 /* AFHTTPSessionManager.m in Sources */,
 				2C23CDBA1D1B82AD00C0ABA5 /* CBWDatabaseManager+TX.m in Sources */,
@@ -1471,7 +1560,6 @@
 				2C9CAF6D1C868B61008194EB /* DefaultSectionHeaderView.m in Sources */,
 				2CDB49FB1D3647A2009299F5 /* AccountViewController.m in Sources */,
 				2C9CAF651C868B61008194EB /* SystemManager.m in Sources */,
-				2C9CAF551C868B61008194EB /* ProfileViewController.m in Sources */,
 				2C77D2631CA8C095001DDB1F /* CBWRequest.m in Sources */,
 				2C5886631CFDB5F4004BBD6C /* SignUpMasterPasswordViewController.m in Sources */,
 				2C1684A91CACAA2D00BD434A /* CBWRequest+Tools.m in Sources */,
@@ -1481,9 +1569,12 @@
 				2C9CAF5A1C868B61008194EB /* TransactionViewController.m in Sources */,
 				2C1E8C501CA42A7D006F86E1 /* NSData+CommonCrypto.m in Sources */,
 				2C19FD131CB4AD58009BC78C /* SendFromAddressCell.m in Sources */,
+				2CDB4A2A1D38C46C009299F5 /* UIViewController+RevealEnabled.m in Sources */,
 				2CEFC3601CA501B200FECCA4 /* Installation.m in Sources */,
 				2C9CAF5B1C868B61008194EB /* NSString+CBWAddress.m in Sources */,
+				2CDB4A171D375F3D009299F5 /* DrawerStaticTableViewCell.m in Sources */,
 				2CEFC3591CA4D25000FECCA4 /* CBWAddressStore.m in Sources */,
+				2CDB4A261D387C8C009299F5 /* BlankViewController.m in Sources */,
 				2C9CAF5F1C868B61008194EB /* UIViewController+Appearance.m in Sources */,
 				2C9CAF791C868B98008194EB /* AppDelegate.m in Sources */,
 				2C175E961CE2C03700DF5698 /* ResponderLabel.m in Sources */,
@@ -1493,6 +1584,7 @@
 				2CF24D621C97880500C7EDB9 /* PrimarySolidButton.m in Sources */,
 				2CD0A91A1CA02ACA006AF02F /* FMDatabasePool.m in Sources */,
 				2C5886661CFDB622004BBD6C /* SignUpSettingsViewController.m in Sources */,
+				2CDB4A2E1D38C86F009299F5 /* DrawerTableViewCell.m in Sources */,
 				2C9CAF4A1C868B61008194EB /* BaseFormViewController.m in Sources */,
 				2C77D2731CAA10EE001DDB1F /* UIFont+CBW.m in Sources */,
 				2CC20F841D1D1CB800F51106 /* CBWTXStore.m in Sources */,
@@ -1506,7 +1598,6 @@
 				2C58866C1CFE7BD1004BBD6C /* UIView+Yoyo.m in Sources */,
 				2CEFC3561CA4CBD600FECCA4 /* CBWAccountStore.m in Sources */,
 				2CF24D781C97A53200C7EDB9 /* AFURLResponseSerialization.m in Sources */,
-				2CDCB16F1CC47A8E00722BCF /* AccountsManagerViewController.m in Sources */,
 				2C9829061CBA49CC004CB2D3 /* CBWRecovery.m in Sources */,
 				2C99A17C1CA0E434007D7AC3 /* Guard.m in Sources */,
 				2CD0A9181CA02ACA006AF02F /* FMDatabase.m in Sources */,
@@ -1515,6 +1606,7 @@
 				2C03C0C81D2637150056729F /* AddressCardView.m in Sources */,
 				2C9CAF601C868B61008194EB /* CBWAccount.m in Sources */,
 				2C9CAF4B1C868B61008194EB /* BaseListViewController.m in Sources */,
+				2CDB4A351D38E46D009299F5 /* PasswordViewController.m in Sources */,
 				2CEFC35C1CA4D65C00FECCA4 /* CBWTransactionStore.m in Sources */,
 				2C5886691CFDC96E004BBD6C /* InversedSolidButton.m in Sources */,
 				2C9CAF631C868B61008194EB /* CBWRecordObject.m in Sources */,

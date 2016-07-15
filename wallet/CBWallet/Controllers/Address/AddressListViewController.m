@@ -70,6 +70,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // 检测 account
+    if (!self.account) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil) message:NSLocalizedStringFromTable(@"Alert Message invalid_account", @"CBW", nil) preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okay = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Okay", @"CBW", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            if (self.navigationController) {
+                [self.navigationController popViewControllerAnimated:YES];
+            } else if (self.presentingViewController) {
+                [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+            }
+        }];
+        [alert addAction:okay];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
+    
     switch (self.actionType) {
         case AddressActionTypeDefault: {
             self.title = NSLocalizedStringFromTable(@"Navigation address_list", @"CBW", @"Address List");
@@ -156,13 +170,15 @@
         DLog(@"can not create address with account idx < 0 (watched only)");
         DLog(@"create manualy");
         
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Alert Title new_watched_address", @"CBW", nil) message:NSLocalizedStringFromTable(@"Alert Message new_address", @"CBW", nil) preferredStyle:UIAlertControllerStyleAlert];
-        [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Alert Title new_watched_address", @"CBW", nil) message:NSLocalizedStringFromTable(@"Alert Message new_address", @"CBW", nil) preferredStyle:UIAlertControllerStyleAlert];
+        [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
             textField.font = [UIFont monospacedFontOfSize:UIFont.labelFontSize];
             textField.placeholder = NSLocalizedStringFromTable(@"Placeholder bitcoin_address", @"CBW", nil);
         }];
+        
+        __weak typeof(alert) weakAlert = alert;
         UIAlertAction *saveAction = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Alert Action save_address", @"CBW", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            NSString *addressString = [alertController.textFields firstObject].text;
+            NSString *addressString = [weakAlert.textFields firstObject].text;
             if (addressString.length > 0) {
                 if ([CBWAddress validateAddressString:addressString]) {
                     [self p_saveAddressString:addressString withIdx:CBWRecordWatchedIDX];
@@ -178,10 +194,10 @@
             [self p_handleScan:nil];
         }];
         UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Cancel", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
-        [alertController addAction:cancelAction];
-        [alertController addAction:saveAction];
-        [alertController addAction:scanAction];
-        [self presentViewController:alertController animated:YES completion:nil];
+        [alert addAction:cancelAction];
+        [alert addAction:saveAction];
+        [alert addAction:scanAction];
+        [self presentViewController:alert animated:YES completion:nil];
         
         return;
     }

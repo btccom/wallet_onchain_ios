@@ -13,6 +13,9 @@
 + (instancetype)CBWPrimaryColor {
     return [self colorWithRed:22.f/255.f green:122.f/255.f blue:217.f/255.f alpha:1.f];
 }
++ (instancetype)CBWPrimaryDarkColor {
+    return [self colorWithRed:17.f/255.f green:97.f/255.f blue:173.f/255.f alpha:1.f];
+}
 + (instancetype)CBWWhiteColor {
     return [self colorWithWhite:1.f alpha:1.f];
 }
@@ -27,6 +30,10 @@
 }
 + (instancetype)CBWExtraLightGrayColor {
     return [self colorWithWhite:241.f/255.f alpha:1.f];
+}
+
++ (instancetype)CBWDrawerBackgroundColor {
+    return [self colorWithRed:16.f/255.f green:91.f/255.f blue:162.f/255.f alpha:1.f];
 }
 
 /// white

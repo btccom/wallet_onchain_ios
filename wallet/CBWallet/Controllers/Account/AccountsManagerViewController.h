@@ -11,8 +11,6 @@
 
 @interface AccountsManagerViewController : BaseListViewController
 
-@property (nonatomic, strong, nonnull) CBWAccountStore *accountStore;
-
-- (nonnull instancetype)initWithAccountStore:(nonnull CBWAccountStore *)store;
+@property (nonatomic, strong) CBWAccountStore *accountStore;
 
 @end

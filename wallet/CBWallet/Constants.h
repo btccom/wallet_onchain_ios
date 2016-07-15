@@ -15,6 +15,8 @@ static const NSInteger CBWMaxVisibleConfirmation = 100;
 
 // User Defaults
 
+static NSString *const CBWUserDefaultsBlockHeight = @"cbw.user.defaults.block.height";
+
 /// number, use long long value
 //static NSString *const CBWUserDefaultsCustomFee = @"cbw.user.defaults.fee.custom";
 static NSString *const CBWUserDefaultsFeeLevel = @"cbw.user.defaults.fee.level";
@@ -55,6 +57,8 @@ static NSString *const CBWNotificationSignedOut = @"cbw.notification.signed.out"
 static NSString *const CBWNotificationWalletCreated = @"cbw.notification.wallet.created";
 static NSString *const CBWNotificationWalletRecovered = @"cbw.notification.wallet.recovered";
 
+static NSString *const CBWNotificationAccountCreated = @"cbw.notification.account.created";
+static NSString *const CBWNotificationAccountUpdated = @"cbw.notification.account.updated";
 static NSString *const CBWNotificationTransactionCreated = @"cbw.notification.transaction.created";
 
 // common error

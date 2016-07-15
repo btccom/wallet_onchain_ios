@@ -10,7 +10,7 @@
 "%@ Confirmations" = "%@ Confirmations";
 "Unconfirmed Transaction!" = "Unconfirmed";
 "Confirmed" = "Confirmed";
-"Watched Account" = "Watched Account";
+"Watched Account" = "Watched Addresses";
 "Internal Transaction" = "Internal Transaction";
 
 "Title welcome" = "Welcome";
@@ -123,6 +123,7 @@
 "Alert Message custom_fee_tip" = "Transaction fee should never be less than 0.000001 BTC";
 "Alert Message custom_fee_update_error" = "Can't update for now, try again later.";
 "Alert Message custom_fee_deleted" = "Custom transaction fee has been removed.";
+"Alert Message invalid_account" = "Invalid account.";
 
 "Error balance_unspent_not_match" = "Could not fetch enough unspent balance. Please try later.";
 "Error not_enough_balance" = "Insufficient balance.";
@@ -130,9 +131,10 @@
 "Error invalid_backup_image_no_seed_data" = "Invalid backup image.";
 "Error invalid_backup_image_invalid_seed_data" = "Parse seed data failed.";
 
-"Label watched_account" = "Watched Account";
+"Label watched_account" = "Watched Addresses";
 "Label default_account" = "Default Account";
 
+"Tip watched_account" = "Not used to send or receive coins.";
 "Tip scan_qrcode" = "Scan a QRCode please.";
 "Tip loading" = "Loading data...";
 "Tip about_master_password" = "Master password should be more than 8 characters.\nSupporsed to contain letters, numbers and symbols.";
@@ -165,6 +167,12 @@
 "Profile Cell tx_count" = "TX";
 "Profile Cell custom_fee" = "Custom Fee";
 "Profile Cell custom_fee_undefined" = "Undefined";
+
+// Drawer
+"Drawer Section accounts" = "Accounts";
+"Drawer Cell manage_accounts" = "Manage Accounts";
+"Drawer Cell settings" = "Settings";
+"Drawer Cell block_height" = "Block Height";
 
 // Address List
 "Address Section receive_address" = "Address";

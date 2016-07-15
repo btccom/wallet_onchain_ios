@@ -8,17 +8,16 @@
 
 #import "BaseListViewController.h"
 
-/// 首页
-/// - Profile
-/// - Address List
-/// - Scan
-/// - Send
-/// - Receive
-/// - Recent Transactions
-@interface AccountViewController : BaseListViewController
+#import "UIViewControllerUserInteractionSetable.h"
 
-- (void)reload;
-- (void)reloadTransactions;
+@class CBWAccount;
+
+/// Account
+@interface AccountViewController : BaseListViewController <UIViewControllerUserInteractionSetable>
+
+- (instancetype)initWithAccount:(CBWAccount *)account;
+
+- (void)sync;
 
 @end
 

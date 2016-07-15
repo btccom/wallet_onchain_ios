@@ -7,7 +7,7 @@
 //
 
 #import "AccountsManagerViewController.h"
-#import "CBWAccountStore.h"
+#import "Database.h"
 
 @interface AccountsManagerViewController ()
 
@@ -15,16 +15,12 @@
 
 @implementation AccountsManagerViewController
 
-- (instancetype)initWithAccountStore:(id)store {
-    self = [super initWithNibName:nil bundle:nil];
+- (instancetype)init {
+    self = [super init];
     if (self) {
-        _accountStore = store;
+        NSLog(@"new accounts manager");
     }
     return self;
-}
-
-- (instancetype)init {
-    return nil;
 }
 
 - (void)viewDidLoad {
@@ -32,11 +28,12 @@
     // Do any additional setup after loading the view.
     self.title = NSLocalizedStringFromTable(@"Navigation manage_accounts", @"CBW", nil);
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_create"] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleCreateAccount:)];
+    
+    [self enableRevealInteraction];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)dealloc {
+    NSLog(@"accounts manager dealloc");
 }
 
 #pragma mark - Private Method
@@ -49,8 +46,10 @@
     }];
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Cancel", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
     [alert addAction:cancel];
+    
+    __weak typeof(alert) weakAlert = alert;
     UIAlertAction *save = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Save", @"CBW", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        UITextField *textField = [alert.textFields firstObject];
+        UITextField *textField = [weakAlert.textFields firstObject];
         NSString *label = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         if (label.length > 0) {
             [self p_createAccountWithLabel:label];
@@ -69,13 +68,18 @@
     }
     NSUInteger idx = self.accountStore.count - 1;// remove watched account
     CBWAccount *account = [CBWAccount newAccountWithIdx:idx label:label inStore:self.accountStore];
-    DLog(@"create account: %@", account.label);
+    DLog(@"create account: %@ at %ld", account.label, (long)idx);
     NSError *error = nil;
     [account saveWithError:&error];
     if (error) {
         NSLog(@"create account error: %@", error);
         return;
     }
+    [self.accountStore fetch];
+    DLog(@"new account count: %ld", (long)(self.accountStore.count - 1));
+    // created
+    [[NSNotificationCenter defaultCenter] postNotificationName:CBWNotificationAccountCreated object:nil userInfo:nil];
+    // reload
     [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationTop];
 }
 
@@ -105,8 +109,10 @@
     }];
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Cancel", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
     [alert addAction:cancel];
+    
+    __weak typeof(alert) weakAlert = alert;
     UIAlertAction *save = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Save", @"CBW", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        UITextField *textField = [alert.textFields firstObject];
+        UITextField *textField = [weakAlert.textFields firstObject];
         NSString *label = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         if (label.length > 0) {
             
@@ -123,8 +129,12 @@
             NSError *error = nil;
             [account saveWithError:&error];
             if (!error) {
+                // updated
+                [[NSNotificationCenter defaultCenter] postNotificationName:CBWNotificationAccountUpdated object:nil userInfo:nil];
+                // reload
                 [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
             }
+            
         } else {
             [self alertErrorMessage:NSLocalizedStringFromTable(@"Alert Message need_account_label", @"CBW", nil)];
         }

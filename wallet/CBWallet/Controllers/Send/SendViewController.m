@@ -106,17 +106,6 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = NSLocalizedStringFromTable(@"Navigation send", @"CBW", @"Quickly Send");
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedStringFromTable(@"Navigation advanced_send", @"CBW", @"Advanced Send") style:UIBarButtonItemStylePlain target:self action:@selector(p_handleSwitchMode:)];
-    
-    _advancedSectionTitles = @[NSLocalizedStringFromTable(@"Send Section from", @"CBW", nil),
-                               NSLocalizedStringFromTable(@"Send Section to", @"CBW", nil),
-                               @"",
-                               NSLocalizedStringFromTable(@"Send Section change", @"CBW", nil),
-                               NSLocalizedStringFromTable(@"Send Section fee", @"CBW", nil),
-                               @""];
-    
-    
     // 检测 account
     if (!self.account) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil) message:NSLocalizedStringFromTable(@"Alert Message invalid_account", @"CBW", nil) preferredStyle:UIAlertControllerStyleAlert];
@@ -130,6 +119,16 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
         [alert addAction:okay];
         [self presentViewController:alert animated:YES completion:nil];
     }
+    
+    self.title = NSLocalizedStringFromTable(@"Navigation send", @"CBW", @"Quickly Send");
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedStringFromTable(@"Navigation advanced_send", @"CBW", @"Advanced Send") style:UIBarButtonItemStylePlain target:self action:@selector(p_handleSwitchMode:)];
+    
+    _advancedSectionTitles = @[NSLocalizedStringFromTable(@"Send Section from", @"CBW", nil),
+                               NSLocalizedStringFromTable(@"Send Section to", @"CBW", nil),
+                               @"",
+                               NSLocalizedStringFromTable(@"Send Section change", @"CBW", nil),
+                               NSLocalizedStringFromTable(@"Send Section fee", @"CBW", nil),
+                               @""];
     
     [self p_checkIfSendButtonEnabled];
     

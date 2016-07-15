@@ -187,4 +187,29 @@
     return [dictionary copy];
 }
 
+- (NSDictionary *)analyzeAccountWithIDX:(NSInteger)idx {
+    NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+    
+    FMDatabase *db = [self db];
+    if ([db open]) {
+        
+        NSString *sql = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = ?", DatabaseManagerTableAddress,
+                         DatabaseManagerColAccountIDX];
+        FMResultSet *resultSet = [db executeQuery:sql,
+                                  @(idx)];
+        long long balance = 0;
+        NSInteger txCount = 0;
+        while ([resultSet next]) {
+            balance += [resultSet longLongIntForColumn:DatabaseManagerColBalance];
+            txCount += [resultSet intForColumn:DatabaseManagerColTXCount];
+        }
+        
+        [dictionary setObject:@(balance) forKey:CBWAccountTotalBalanceKey];
+        [dictionary setObject:@(txCount) forKey:CBWAccountTotalTXCountKey];
+        
+        [db close];
+    }
+    return [dictionary copy];
+}
+
 @end

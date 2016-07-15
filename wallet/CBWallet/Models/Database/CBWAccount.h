@@ -25,4 +25,6 @@
 
 + (BOOL)checkLabel:(nonnull NSString *)label;
 
+- (nullable NSDictionary *)analyze;
+
 @end

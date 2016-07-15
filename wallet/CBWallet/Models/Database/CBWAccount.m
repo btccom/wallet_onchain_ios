@@ -28,6 +28,10 @@
     return [[CBWDatabaseManager defaultManager] checkAccountLabel:label];
 }
 
+- (nullable NSDictionary *)analyze {
+    return [[CBWDatabaseManager defaultManager] analyzeAccountWithIDX:self.idx];
+}
+
 - (void)deleteFromStore {
     DLog(@"will never delete an account");
     return;
@@ -41,6 +45,16 @@
     [[CBWDatabaseManager defaultManager] saveAccount:self];
     if (initial) {
         [self.store didChangeValueForKey:CBWRecordObjectStoreCountKey];
+    }
+    return NO;
+}
+
+- (BOOL)isEqual:(id)object {
+    if ([object isKindOfClass:[CBWAccount class]]) {
+        CBWAccount *account = (CBWAccount *)object;
+        if (account.idx == self.idx) {
+            return YES;
+        }
     }
     return NO;
 }
