@@ -10,7 +10,6 @@
 // TODO: watched account 不存在内部转移交易
 
 #import "AccountViewController.h"
-#import "SWRevealViewController.h"
 #import "AddressListViewController.h"// explorer or receive
 #import "ScanViewController.h"// scan to explorer or send
 #import "TransactionListViewController.h"// list all transactions
@@ -31,9 +30,8 @@
 
 @interface AccountViewController ()<AddressListViewControllerDelegate, ScanViewControllerDelegate, UIScrollViewDelegate>
 
-@property (nonatomic, strong) CBWAccountStore *accountStore;
-@property (nonatomic, strong) CBWTXStore *transactionStore;
 @property (nonatomic, strong) CBWAccount *account;
+@property (nonatomic, strong) CBWTXStore *transactionStore;
 @property (nonatomic, weak) AccountHeaderView *headerView;
 @property (nonatomic, assign) BOOL isThereMoreDatas;
 
@@ -69,13 +67,6 @@
     self.balanceTitleView.title = title;
 }
 
-- (CBWAccountStore *)accountStore {
-    if (!_accountStore) {
-        _accountStore = [[CBWAccountStore alloc] init];
-    }
-    return _accountStore;
-}
-
 - (CBWTXStore *)transactionStore {
     if (!_transactionStore) {
         _transactionStore = [CBWTXStore new];
@@ -83,39 +74,33 @@
     return _transactionStore;
 }
 
-- (void)setAccount:(CBWAccount *)account {
-    if (![_account isEqual:account]) {
-        if (_account) {
-            [_account removeObserver:self forKeyPath:@"label"];
+#pragma mark - View Life Cycle
+
+- (instancetype)initWithAccount:(CBWAccount *)account {
+    self = [super initWithStyle:UITableViewStylePlain];
+    if (self) {
+        if (!account) {
+            return nil;
         }
         _account = account;
-        [_account addObserver:self forKeyPath:@"label" options: NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:nil];
-        self.headerView.sendButton.enabled = _account.idx != CBWRecordWatchedIDX;
-        self.headerView.receiveButton.enabled = _account.idx != CBWRecordWatchedIDX;
-        
-        [self.transactionStore flush];
-        [self.tableView reloadData];
-       
-        [self sync];
     }
+    return self;
+}
+- (instancetype)initWithStyle:(UITableViewStyle)style {
+    return nil;
+}
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    return nil;
 }
 
-#pragma mark - View Life Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    self.title = NSLocalizedStringFromTable(@"Navigation account", @"CBW", @"Account");
+    self.title = self.account.label;
     
-    // reveal view controller
-    SWRevealViewController *revealViewController = [self revealViewController];
-    [self.view addGestureRecognizer:revealViewController.panGestureRecognizer];
-    [self.view addGestureRecognizer:revealViewController.tapGestureRecognizer];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"navigation_drawer"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] style:UIBarButtonItemStylePlain target:revealViewController action:@selector(revealToggle:)];
-    
+    // navigation
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_book"] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleAddressList:)];
-    
-    [self p_registerNotifications];
-    
+    [self enableRevealInteraction];
     
     // set table header
     CGFloat offsetHeight = -64.f;// status bar height + navigation bar height
@@ -127,13 +112,20 @@
     self.tableView.tableHeaderView = accountHeaderView;
     _headerView = accountHeaderView;
     
+    // refresh control
     if (!self.refreshControl) {
         self.refreshControl = [[UIRefreshControl alloc] init];
         [self.refreshControl addTarget:self action:@selector(sync) forControlEvents:UIControlEventValueChanged];
     }
     
-    [[BlockMonitor defaultMonitor] begin];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(p_handleNotification:) name:BlockMonitorNotificationNewBlock object:nil];
+    // notifications
+    [self p_registerNotifications];
+    
+    // account and data
+    self.headerView.sendButton.enabled = self.account.idx != CBWRecordWatchedIDX;
+    self.headerView.receiveButton.enabled = self.headerView.sendButton.enabled;
+    [self reloadTransactions];
+    [self sync];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -150,25 +142,11 @@
 }
 
 #pragma mark - Public Method
-- (void)reload {
-    [self.accountStore fetch];
-    if (self.accountStore.count == 0) {
-        NSLog(@"try to load with out any account");
+- (void)sync {
+    if (!self.account) {
         return;
     }
-    // set default account
-    // TODO: save to get last selected account
-    if (!self.account) {
-        self.account = [self.accountStore customDefaultAccount];
-        DLog(@"reloaded account: %@", self.account);
-    } else {
-        [self sync];
-    }
     
-    [self reloadTransactions];
-}
-
-- (void)sync {
     CBWAddressStore *addressStore = [[CBWAddressStore alloc] initWithAccountIdx:self.account.idx];
     [addressStore fetch];
     self.balanceTitleView.balance = [@(addressStore.totalBalance) satoshiBTCString];
@@ -247,35 +225,23 @@
     [self.tableView reloadData];
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:CBWNotificationTransactionCreated object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:BlockMonitorNotificationNewBlock object:nil];
+}
+
 #pragma mark - Private Method
 
 - (void)p_registerNotifications {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(p_handleNotification:) name:CBWNotificationCheckedIn object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(p_handleNotification:) name:CBWNotificationCheckedOut object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(p_handleNotification:) name:CBWNotificationWalletCreated object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(p_handleNotification:) name:CBWNotificationWalletRecovered object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(p_handleNotification:) name:CBWNotificationSignedOut object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(p_handleNotification:) name:CBWNotificationTransactionCreated object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(p_handleNotification:) name:BlockMonitorNotificationNewBlock object:nil];
 }
 
 - (void)p_handleNotification:(NSNotification *)notification {
-    DLog(@"notification: %@", notification);
-    if ([notification.name isEqualToString:CBWNotificationCheckedIn]) {
-        // TODO: 区分 launch 时的 check in
-        [self reload];
-    } else if ([notification.name isEqualToString:CBWNotificationWalletCreated]) {
-        [self reload];
-    } else if ([notification.name isEqualToString:CBWNotificationWalletRecovered]) {
-        [self reload];
-    } else if ([notification.name isEqualToString:CBWNotificationTransactionCreated]) {
-        [self reload];
-    } else if ([notification.name isEqualToString:CBWNotificationSignedOut]) {
-        [self p_handleSignOut];
+    if ([notification.name isEqualToString:CBWNotificationTransactionCreated]) {
+        [self sync];
     } else if ([notification.name isEqualToString:BlockMonitorNotificationNewBlock]) {
         DLog(@"new block height: %lu", (unsigned long)[BlockMonitor defaultMonitor].height);
-        if (self.accountStore.count == 0) {
-            return;
-        }
         
         [self sync];
         if (self.isVisible) {
@@ -314,25 +280,6 @@
     AddressListViewController *addressListViewController = [[AddressListViewController alloc] initWithAccount:self.account];
     addressListViewController.actionType = AddressActionTypeReceive;
     [self.navigationController pushViewController:addressListViewController animated:YES];
-}
-
-/// signed out
-- (void)p_handleSignOut {
-    DLog(@"sign out \n-------");
-    self.account = nil;
-    [self.accountStore flush];
-    [self.transactionStore flush];
-    // 更新界面
-    [self.tableView reloadData];
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-#pragma mark - KVO
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
-    if ([keyPath isEqualToString:@"label"]) {
-        DLog(@"label changed: %@", change);
-        self.title = [change objectForKey:NSKeyValueChangeNewKey];
-    }
 }
 
 #pragma mark - <UITableViewDataSource>

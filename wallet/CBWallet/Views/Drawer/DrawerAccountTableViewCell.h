@@ -2,16 +2,14 @@
 //  DrawerAccountTableViewCell.h
 //  CBWallet
 //
-//  Created by Zin on 16/7/14.
+//  Created by Zin (noteon.com) on 16/7/14.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "DrawerTableViewCell.h"
 
-@interface DrawerAccountTableViewCell : UITableViewCell
+@interface DrawerAccountTableViewCell : DrawerTableViewCell
 
 @property (nonatomic, weak, readonly, nullable) UILabel *balanceLabel;
-
-- (void)becomeCurrent:(BOOL)current animated:(BOOL)animated;
 
 @end

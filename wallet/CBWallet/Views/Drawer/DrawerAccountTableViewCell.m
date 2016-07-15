@@ -2,7 +2,7 @@
 //  DrawerAccountTableViewCell.m
 //  CBWallet
 //
-//  Created by Zin on 16/7/14.
+//  Created by Zin (noteon.com) on 16/7/14.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
@@ -46,7 +46,6 @@
 }
 
 - (void)becomeCurrent:(BOOL)current animated:(BOOL)animated {
-    // Configure the view for the selected state
     if (animated) {
         [UIView animateWithDuration:CBWAnimateDuration delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
             self.selectedIndicator.alpha = current ? 1.0 : 0;
@@ -58,7 +57,7 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-    
+    // Configure the view for the selected state
 }
 
 - (void)willMoveToSuperview:(UIView *)newSuperview {

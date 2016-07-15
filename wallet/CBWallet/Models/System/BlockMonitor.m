@@ -31,6 +31,14 @@ NSString *const BlockMonitorNotificationNewBlock = @"notification.block.new";
     return staticInstance;
 }
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _height = [[NSUserDefaults standardUserDefaults] integerForKey:CBWUserDefaultsBlockHeight];
+    }
+    return self;
+}
+
 - (void)begin {
     if (!_timer) {
         _timer = [NSTimer scheduledTimerWithTimeInterval:20 target:self selector:@selector(p_timerFired) userInfo:nil repeats:YES];
@@ -48,6 +56,8 @@ NSString *const BlockMonitorNotificationNewBlock = @"notification.block.new";
             if (responsedBlockHeight > self.height) {
                 _height = responsedBlockHeight;
                 [[NSNotificationCenter defaultCenter] postNotificationName:BlockMonitorNotificationNewBlock object:nil userInfo:@{BlockHeightKey: @(responsedBlockHeight)}];
+                [[NSUserDefaults standardUserDefaults] setInteger:_height forKey:CBWUserDefaultsBlockHeight];
+                [[NSUserDefaults standardUserDefaults] synchronize];
             };
         }];
     }

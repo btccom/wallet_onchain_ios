@@ -19,4 +19,6 @@
 
 - (NSDictionary *)analyzeAllAccountAddresses;
 
+- (NSDictionary *)analyzeAccountWithIDX:(NSInteger)idx;
+
 @end

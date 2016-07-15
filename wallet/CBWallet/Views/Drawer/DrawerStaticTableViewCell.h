@@ -2,12 +2,12 @@
 //  DrawerStaticTableViewCell.h
 //  CBWallet
 //
-//  Created by Zin on 16/7/14.
+//  Created by Zin (noteon.com) on 16/7/14.
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "DrawerTableViewCell.h"
 
-@interface DrawerStaticTableViewCell : UITableViewCell
+@interface DrawerStaticTableViewCell : DrawerTableViewCell
 
 @end

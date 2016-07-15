@@ -10,7 +10,7 @@
 
 #import "SWRevealViewController.h"
 #import "DrawerViewController.h"
-#import "AccountViewController.h"
+#import "BlankViewController.h"
 #import "SignInViewController.h"
 #import "SignUpViewController.h"
 
@@ -38,14 +38,15 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor CBWBlackColor];
     
-    AccountViewController *accountViewController = [[AccountViewController alloc] init];
-    UINavigationController *accountNavigationController = [[UINavigationController alloc] initWithRootViewController:accountViewController];
+//    AccountViewController *accountViewController = [[AccountViewController alloc] init];
+//    UINavigationController *accountNavigationController = [[UINavigationController alloc] initWithRootViewController:accountViewController];
     
     DrawerViewController *drawerViewController = [[DrawerViewController alloc] init];
     
-    SWRevealViewController *revealViewController = [[SWRevealViewController alloc] initWithRearViewController:drawerViewController frontViewController:accountNavigationController];
+    SWRevealViewController *revealViewController = [[SWRevealViewController alloc] initWithRearViewController:drawerViewController frontViewController:[BlankViewController new]];
     revealViewController.rearViewRevealWidth = REVEAL_WIDTH;
     revealViewController.delegate = self;
+    [revealViewController setFrontViewPosition:FrontViewPositionRight];// load drawer view controller
     
     self.window.rootViewController = revealViewController;
     

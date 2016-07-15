@@ -15,8 +15,9 @@
 /// Account
 @interface AccountViewController : BaseListViewController <UIViewControllerUserInteractionSetable>
 
-- (void)reload;
-- (void)reloadTransactions;
+- (instancetype)initWithAccount:(CBWAccount *)account;
+
+- (void)sync;
 
 @end
 

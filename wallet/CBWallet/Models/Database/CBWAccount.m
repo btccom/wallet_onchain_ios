@@ -28,6 +28,10 @@
     return [[CBWDatabaseManager defaultManager] checkAccountLabel:label];
 }
 
+- (nullable NSDictionary *)analyze {
+    return [[CBWDatabaseManager defaultManager] analyzeAccountWithIDX:self.idx];
+}
+
 - (void)deleteFromStore {
     DLog(@"will never delete an account");
     return;

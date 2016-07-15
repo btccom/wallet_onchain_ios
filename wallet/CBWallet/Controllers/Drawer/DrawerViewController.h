@@ -12,6 +12,4 @@
 
 @interface DrawerViewController : BaseListViewController
 
-@property (nonatomic, weak) CBWAccount *currentAccount;
-
 @end

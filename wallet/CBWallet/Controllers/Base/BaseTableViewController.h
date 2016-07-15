@@ -11,6 +11,7 @@
 #import <UIKit/UIKit.h>
 #import "UIViewController+AlertMessage.h"
 #import "UIViewController+AcitivityMonitor.h"
+#import "UIViewController+RevealEnabled.h"
 
 #import "DefaultSectionHeaderView.h"
 #import "DefaultSectionFooterView.h"

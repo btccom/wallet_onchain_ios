@@ -6,9 +6,6 @@
 //  Copyright © 2016年 Bitmain. All rights reserved.
 //
 
-#import "ProfileViewController.h"
-#import "TransactionListViewController.h"
-#import "AccountsManagerViewController.h"
 #import "SettingsViewController.h"
 #import "PasswordViewController.h"
 
@@ -25,18 +22,16 @@
 @import LocalAuthentication;
 
 typedef NS_ENUM(NSUInteger, kProfileSection) {
-    kProfileSectionAccounts = 0,
     kProfileSectionAnalytics,
     kProfileSectionCustomFee,
 //    kProfileSectionAllTransactions,
-//    kProfileSectionSettings,
     kProfileSectionSecurity,
     kProfileSectionBackup,
 //    kProfileSectionNetwork,
     kProfileSectionSignOut
 };
 
-@interface ProfileViewController ()
+@interface SettingsViewController ()
 
 @property (nonatomic, strong) NSArray *tableStrings;
 @property (nonatomic, strong) UISwitch *iCloudSwitch;
@@ -47,7 +42,7 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
 
 @end
 
-@implementation ProfileViewController
+@implementation SettingsViewController
 
 - (NSDictionary *)accountAnalytics {
     if (!_accountAnalytics) {
@@ -57,15 +52,6 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
 }
 
 #pragma mark - Initialization
-
-- (instancetype)initWithAccountStore:(CBWAccountStore *)store {
-    self = [super initWithStyle:UITableViewStyleGrouped];
-    if (self) {
-        _accountStore = store;
-    }
-    return self;
-}
-
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithStyle:UITableViewStyleGrouped];
     return self;
@@ -80,11 +66,11 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = NSLocalizedStringFromTable(@"Navigation profile", @"CBW", @"Profile");
+    self.title = NSLocalizedStringFromTable(@"Navigation settings", @"CBW", @"Settings");
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedStringFromTable(@"Navigation manage_accounts", @"CBW", nil) style:UIBarButtonItemStylePlain target:self action:@selector(p_handleManageAccounts:)];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismiss:)];//[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_close"] style:UIBarButtonItemStylePlain target:self action:@selector(dismiss:)];
+    [self enableRevealInteraction];
     
+    // data
     NSMutableArray *securityCells = [NSMutableArray arrayWithObjects:
                                      NSLocalizedStringFromTable(@"Profile Cell change_password", @"CBW", @"Settings"),
                                      NSLocalizedStringFromTable(@"Profile Cell change_hint", @"CBW", @"Chnage Hint"),
@@ -95,8 +81,7 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
         [securityCells addObject:NSLocalizedStringFromTable(@"Profile Cell touchid", @"CBW", nil)];
     }
     
-    _tableStrings = @[@{NSLocalizedStringFromTable(@"Profile Section accounts", @"CBW", @"Accounts"): @[]},
-                      @{NSLocalizedStringFromTable(@"Profile Section analytics", @"CBW", nil): @[]},
+    _tableStrings = @[@{NSLocalizedStringFromTable(@"Profile Section analytics", @"CBW", nil): @[]},
                       @[NSLocalizedStringFromTable(@"Profile Cell custom_fee", @"CBW", nil)],
                       @{NSLocalizedStringFromTable(@"Profile Section security", @"CBW", nil): securityCells},
                       @{NSLocalizedStringFromTable(@"Profile Section backup", @"CBW", nil): @[
@@ -106,13 +91,6 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
 //                                NSLocalizedStringFromTable(@"Profile Cell testnet", @"CBW", @"Testnet")]},
                       @[NSLocalizedStringFromTable(@"Profile Cell sign_out", @"CBW", nil)]
                       ];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    // account store could be updated
-    [self.tableView reloadData];
 }
 
 #pragma mark - Private Method
@@ -131,48 +109,10 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
     }];
 }
 #pragma mark Handlers
-- (void)p_handleManageAccounts:(id)sender {
-    AccountsManagerViewController *managerViewController = [[AccountsManagerViewController alloc] initWithAccountStore:self.accountStore];
-    [self.navigationController pushViewController:managerViewController animated:YES];
-}
 - (void)p_handleToggleiCloudEnabled:(id)sender {
     DLog(@"toggle icloud");
     [CBWBackup toggleiCloudBySwith:self.iCloudSwitch inViewController:self];
 }
-//- (void)p_handleUpdateCustomFee {
-//    UIAlertController *feeController = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Profile Cell custom_fee", @"CBW", nil) message:NSLocalizedStringFromTable(@"Alert Message custom_fee_tip", @"CBW", nil) preferredStyle:UIAlertControllerStyleAlert];
-//    [feeController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-//        textField.placeholder = NSLocalizedStringFromTable(@"Placeholder custom_fee", @"CBW", nil);
-//        textField.text = [NSString stringWithFormat:@"%f", [[[NSUserDefaults standardUserDefaults] objectForKey:CBWUserDefaultsCustomFee] doubleValue] / 100000000.0];
-//        textField.clearButtonMode = UITextFieldViewModeWhileEditing;
-//        textField.keyboardType = UIKeyboardTypeDecimalPad;
-//    }];
-//    
-//    UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Cancel", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
-//    [feeController addAction:cancel];
-//    
-//    UIAlertAction *save = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Save", @"CBW", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//        UITextField *feeField = [[feeController textFields] firstObject];
-//        NSString *fee = feeField.text;
-//        if ([fee BTC2SatoshiValue] > 0) {
-//            [[NSUserDefaults standardUserDefaults] setObject:@([fee BTC2SatoshiValue]) forKey:CBWUserDefaultsCustomFee];
-//            if ([[NSUserDefaults standardUserDefaults] synchronize]) {
-////                [self alertMessage:NSLocalizedStringFromTable(@"Success", @"CBW", nil) withTitle:@""];
-//                [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:kProfileSectionCustomFee] withRowAnimation:UITableViewRowAnimationAutomatic];
-//            } else {
-//                [self alertMessage:NSLocalizedStringFromTable(@"Alert Message custom_fee_update_error", @"CBW", nil) withTitle:@""];
-//            }
-//        } else {
-//            [[NSUserDefaults standardUserDefaults] removeObjectForKey:CBWUserDefaultsCustomFee];
-//            [[NSUserDefaults standardUserDefaults] synchronize];
-//            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:kProfileSectionCustomFee] withRowAnimation:UITableViewRowAnimationAutomatic];
-////            [self alertMessage:NSLocalizedStringFromTable(@"Alert Message custom_fee_deleted", @"CBW", nil) withTitle:@""];
-//        }
-//    }];
-//    [feeController addAction:save];
-//    
-//    [self presentViewController:feeController animated:YES completion:nil];
-//}
 - (void)p_handleUpdateCustomFee {
     [self reportActivity:@"updateCustomFee"];
     
@@ -199,17 +139,19 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
     [self presentViewController:actionSheet animated:YES completion:nil];
 }
 - (void)p_handleUpdateHint {
-    UIAlertController *hintController = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Profile Cell change_hint", @"CBW", nil) message:nil preferredStyle:UIAlertControllerStyleAlert];
-    [hintController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Profile Cell change_hint", @"CBW", nil) message:nil preferredStyle:UIAlertControllerStyleAlert];
+    [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.placeholder = NSLocalizedStringFromTable(@"Placeholder enter_new_hint", @"CBW", nil);
         textField.text = [SSKeychain passwordForService:CBWKeychainHintService account:CBWKeychainAccountDefault];
     }];
     
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Cancel", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
-    [hintController addAction:cancel];
+    [alert addAction:cancel];
     
+    
+    __weak typeof(alert) weakAlert = alert;
     UIAlertAction *save = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Save", @"CBW", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        UITextField *hintField = [[hintController textFields] firstObject];
+        UITextField *hintField = [[weakAlert textFields] firstObject];
         NSString *hint = hintField.text;
         if (hint.length > 0) {
             if ([SSKeychain setPassword:hint forService:CBWKeychainHintService account:CBWKeychainAccountDefault]) {
@@ -228,9 +170,9 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
             [self alertErrorMessage:NSLocalizedStringFromTable(@"Alert Message empty_hint", @"CBW", nil)];
         }
     }];
-    [hintController addAction:save];
+    [alert addAction:save];
     
-    [self presentViewController:hintController animated:YES completion:nil];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 - (void)p_handleToggleTouchIdEnabled:(id)sender {
     DLog(@"toggle touch id");
@@ -324,9 +266,7 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
     return self.tableStrings.count;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (kProfileSectionAccounts == section) {
-        return self.accountStore.count;
-    } else if (kProfileSectionAnalytics == section) {
+    if (kProfileSectionAnalytics == section) {
         return self.accountAnalytics.count;
     }
     id sectionStrings = self.tableStrings[section];
@@ -353,12 +293,7 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
     cell.accessoryView = nil;
     cell.textLabel.textColor = [UIColor CBWTextColor];
     
-    if (kProfileSectionAccounts == indexPath.section) {
-    
-        CBWAccount *account = [self.accountStore recordAtIndex:indexPath.row];
-        cell.textLabel.text = account.label;
-
-    } else if (kProfileSectionAnalytics == indexPath.section) {
+    if (kProfileSectionAnalytics == indexPath.section) {
         switch (indexPath.row) {
             case 0: {
                 cell.textLabel.text = NSLocalizedStringFromTable(@"Profile Cell balance", @"CBW", nil);
@@ -460,22 +395,6 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
     [self reportActivity:@"selectCell"];
     
     switch (indexPath.section) {
-        case kProfileSectionAccounts: {
-            if ([self.delegate respondsToSelector:@selector(profileViewController:didSelectAccount:)]) {
-                [self.delegate profileViewController:self didSelectAccount:[self.accountStore recordAtIndex:indexPath.row]];
-            }
-            break;
-        }
-//        case kProfileSectionAllTransactions: {
-//            TransactionListViewController *transactionListViewController = [[TransactionListViewController alloc] init];
-//            [self.navigationController pushViewController:transactionListViewController animated:YES];
-//            break;
-//        }
-//        case kProfileSectionSettings: {
-//            SettingsViewController *settingsViewController = [[SettingsViewController alloc] init];
-//            [self.navigationController pushViewController:settingsViewController animated:YES];
-//            break;
-//        }
         case kProfileSectionSecurity: {
             [tableView deselectRowAtIndexPath:indexPath animated:YES];
             switch (indexPath.row) {
@@ -536,8 +455,9 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
             UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Cancel", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
             [alert addAction:cancel];
             
+            __weak typeof(alert) weakAlert = alert;
             UIAlertAction *backupAndDelete = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Alert Action backup_delete", @"CBW", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                NSString *code = [alert.textFields firstObject].text;
+                NSString *code = [weakAlert.textFields firstObject].text;
                 if (code.length == 0) {
                     [self alertErrorMessage:NSLocalizedStringFromTable(@"Alert Message need_current_password", @"CBW", nil)];
                 } else {
@@ -559,7 +479,7 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
             [alert addAction:backupAndDelete];
             
             UIAlertAction *delete = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Delete", @"CBW", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                NSString *code = [alert.textFields firstObject].text;
+                NSString *code = [weakAlert.textFields firstObject].text;
                 if (code.length == 0) {
                     [self alertErrorMessage:NSLocalizedStringFromTable(@"Alert Message need_current_password", @"CBW", nil)];
                 } else {
