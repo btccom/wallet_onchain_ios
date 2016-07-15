@@ -36,4 +36,13 @@
     self.detailTextLabel.textColor = [[UIColor CBWWhiteColor] colorWithAlphaComponent:0.6];
 }
 
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    
+    CGFloat width = REVEAL_WIDTH;
+    CGFloat detailLeft = CGRectGetMaxX(self.textLabel.frame) + CBWLayoutInnerSpace;
+    CGFloat detailWidth = width - detailLeft - MIN(CGRectGetMinX(self.textLabel.frame), CGRectGetMinX(self.imageView.frame));
+    self.detailTextLabel.frame = CGRectMake(detailLeft, CGRectGetMinY(self.textLabel.frame), detailWidth, CGRectGetHeight(self.textLabel.frame));
+}
+
 @end

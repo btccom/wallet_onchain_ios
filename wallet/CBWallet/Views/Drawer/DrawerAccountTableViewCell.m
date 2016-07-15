@@ -95,7 +95,7 @@
     detailFrame.origin.y = CGRectGetMaxY(self.textLabel.frame) + textDetailMargin;
     self.detailTextLabel.frame = detailFrame;
     
-    CGFloat width = CGRectGetWidth(self.contentView.frame);
+    CGFloat width = REVEAL_WIDTH;
     CGFloat balanceLeft = CGRectGetMaxX(self.detailTextLabel.frame) + CBWLayoutInnerSpace;
     CGFloat balanceWidth = width - balanceLeft - CGRectGetMinX(self.detailTextLabel.frame);
     self.balanceLabel.frame = CGRectMake(balanceLeft, CGRectGetMinY(self.detailTextLabel.frame), balanceWidth, detailHeight);

@@ -10,8 +10,7 @@
 // TODO: watched account 不存在内部转移交易
 
 #import "AccountViewController.h"
-#import "ProfileViewController.h"
-#import "DrawerViewController.h"
+#import "SWRevealViewController.h"
 #import "AddressListViewController.h"// explorer or receive
 #import "ScanViewController.h"// scan to explorer or send
 #import "TransactionListViewController.h"// list all transactions
@@ -30,7 +29,7 @@
 #import "NSString+CBWAddress.h"
 #import "NSDate+Helper.h"
 
-@interface AccountViewController ()<ProfileViewControllerDelegate, AddressListViewControllerDelegate, ScanViewControllerDelegate, UIScrollViewDelegate>
+@interface AccountViewController ()<AddressListViewControllerDelegate, ScanViewControllerDelegate, UIScrollViewDelegate>
 
 @property (nonatomic, strong) CBWAccountStore *accountStore;
 @property (nonatomic, strong) CBWTXStore *transactionStore;
@@ -47,9 +46,14 @@
 @end
 
 @implementation AccountViewController
-@synthesize title = _title;
+@synthesize title = _title, userInteractionDisabled = _userInteractionDisabled;
 
 #pragma mark - Property
+
+- (void)setUserInteractionDisabled:(BOOL)userInteractionDisabled {
+    _userInteractionDisabled = userInteractionDisabled;
+    self.headerView.userInteractionEnabled = !userInteractionDisabled;
+}
 
 - (AccountNavigationTitleView *)balanceTitleView {
     if (!_balanceTitleView) {
@@ -86,8 +90,8 @@
         }
         _account = account;
         [_account addObserver:self forKeyPath:@"label" options: NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:nil];
-        self.headerView.sendButton.enabled = _account.idx >= 0;
-        self.headerView.receiveButton.enabled = _account.idx >= 0;
+        self.headerView.sendButton.enabled = _account.idx != CBWRecordWatchedIDX;
+        self.headerView.receiveButton.enabled = _account.idx != CBWRecordWatchedIDX;
         
         [self.transactionStore flush];
         [self.tableView reloadData];
@@ -101,9 +105,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     self.title = NSLocalizedStringFromTable(@"Navigation account", @"CBW", @"Account");
-    // set navigation buttons
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"navigation_drawer"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleProfile:)];
-//    self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_book"] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleAddressList:)], [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"navigation_scan"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleScan:)]];
+    
+    // reveal view controller
+    SWRevealViewController *revealViewController = [self revealViewController];
+    [self.view addGestureRecognizer:revealViewController.panGestureRecognizer];
+    [self.view addGestureRecognizer:revealViewController.tapGestureRecognizer];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"navigation_drawer"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] style:UIBarButtonItemStylePlain target:revealViewController action:@selector(revealToggle:)];
+    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_book"] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleAddressList:)];
     
     [self p_registerNotifications];
@@ -280,17 +288,6 @@
 
 #pragma mark Navigation
 
-/// present profile
-- (void)p_handleProfile:(id)sender {
-//    ProfileViewController *profileViewController = [[ProfileViewController alloc] initWithAccountStore:self.accountStore];
-//    profileViewController.delegate = self;
-//    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:profileViewController];
-//    [self presentViewController:navigationController animated:YES completion:nil];
-    DrawerViewController *drawer = [[DrawerViewController alloc] init];
-    drawer.currentAccount = self.account;
-    [self presentViewController:drawer animated:YES completion:nil];
-}
-
 /// push address list
 - (void)p_handleAddressList:(id)sender {
     AddressListViewController *addressListViewController = [[AddressListViewController alloc] initWithAccount:self.account];
@@ -303,12 +300,6 @@
     ScanViewController *imagePickerViewController = [[ScanViewController alloc] init];
     imagePickerViewController.delegate = self;
     [self presentViewController:imagePickerViewController animated:YES completion:nil];
-}
-
-/// push transactions
-- (void)p_handleTransactionList:(id)sender {
-    TransactionListViewController *transactionListViewController = [[TransactionListViewController alloc] init];
-    [self.navigationController pushViewController:transactionListViewController animated:YES];
 }
 
 /// push send
@@ -385,16 +376,6 @@
         TransactionViewController *transactionViewController = [[TransactionViewController alloc] initWithTransaction:transaction];
         [self.navigationController pushViewController:transactionViewController animated:YES];
     }
-}
-
-#pragma mark - <ProfileViewControllerDelegate>
-- (void)profileViewController:(ProfileViewController *)viewController didSelectAccount:(CBWAccount *)account {
-    DLog(@"selected account: %@", account);
-    
-    self.account = account;
-    [self reloadTransactions];
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - <AddressListViewControllerDelegate>

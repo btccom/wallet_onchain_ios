@@ -483,6 +483,7 @@
 		2CDB4A1A1D379F5E009299F5 /* DrawerSectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawerSectionHeaderView.m; sourceTree = "<group>"; };
 		2CDB4A1E1D37C2EB009299F5 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		2CDB4A1F1D37C2EB009299F5 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
+		2CDB4A231D3872A4009299F5 /* UIViewControllerUserInteractionSetable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewControllerUserInteractionSetable.h; sourceTree = "<group>"; };
 		2CDCB16D1CC47A8E00722BCF /* AccountsManagerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountsManagerViewController.h; sourceTree = "<group>"; };
 		2CDCB16E1CC47A8E00722BCF /* AccountsManagerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountsManagerViewController.m; sourceTree = "<group>"; };
 		2CDCB1701CC5DCF200722BCF /* SSKeychainQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKeychainQuery.h; sourceTree = "<group>"; };
@@ -708,6 +709,7 @@
 				2C175E981CE4484F00DF5698 /* UIViewController+AcitivityMonitor.m */,
 				2C069C3F1CC72D4F0054791C /* UIViewController+AlertMessage.h */,
 				2C069C401CC72D4F0054791C /* UIViewController+AlertMessage.m */,
+				2CDB4A231D3872A4009299F5 /* UIViewControllerUserInteractionSetable.h */,
 			);
 			path = Base;
 			sourceTree = "<group>";

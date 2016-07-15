@@ -7,15 +7,20 @@
 //
 
 #import "AppDelegate.h"
+
+#import "SWRevealViewController.h"
+#import "DrawerViewController.h"
 #import "AccountViewController.h"
 #import "SignInViewController.h"
 #import "SignUpViewController.h"
+
+#import "UIViewControllerUserInteractionSetable.h"
 
 #import "Installation.h"
 #import "SystemManager.h"
 #import "Guard.h"
 
-@interface AppDelegate ()<SignInViewControllerDelegate, SignUpViewControllerDelegate>
+@interface AppDelegate ()<SignInViewControllerDelegate, SignUpViewControllerDelegate, SWRevealViewControllerDelegate>
 @property (nonatomic, strong) UIWindow *lockScreenWindow;
 @end
 
@@ -34,8 +39,15 @@
     self.window.backgroundColor = [UIColor CBWBlackColor];
     
     AccountViewController *accountViewController = [[AccountViewController alloc] init];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:accountViewController];
-    self.window.rootViewController = navigationController;
+    UINavigationController *accountNavigationController = [[UINavigationController alloc] initWithRootViewController:accountViewController];
+    
+    DrawerViewController *drawerViewController = [[DrawerViewController alloc] init];
+    
+    SWRevealViewController *revealViewController = [[SWRevealViewController alloc] initWithRearViewController:drawerViewController frontViewController:accountNavigationController];
+    revealViewController.rearViewRevealWidth = REVEAL_WIDTH;
+    revealViewController.delegate = self;
+    
+    self.window.rootViewController = revealViewController;
     
     // ui color
     [[UILabel appearance] setTextColor:[UIColor CBWTextColor]];
@@ -130,6 +142,27 @@
 #pragma mark - <SignUpViewControllerDelegate>
 - (void)SignUpViewControllerDidComplete:(SignUpViewController *)vc {
     [self unlockScreen];
+}
+
+#pragma mark - <SWRevealViewControllerDelegate>
+- (void)revealController:(SWRevealViewController *)revealController willMoveToPosition:(FrontViewPosition)position {
+    if (FrontViewPositionRight == position) {
+        // show drawer
+        if ([revealController.frontViewController isKindOfClass:[UINavigationController class]]) {
+            UIViewController <UIViewControllerUserInteractionSetable> *currentViewController = [((UINavigationController *)revealController.frontViewController).viewControllers lastObject];
+            if ([currentViewController conformsToProtocol:@protocol(UIViewControllerUserInteractionSetable)]) {
+                currentViewController.userInteractionDisabled = YES;
+            }
+        }
+    } else {
+        // hide drawer
+        if ([revealController.frontViewController isKindOfClass:[UINavigationController class]]) {
+            UIViewController <UIViewControllerUserInteractionSetable> *currentViewController = [((UINavigationController *)revealController.frontViewController).viewControllers lastObject];
+            if ([currentViewController conformsToProtocol:@protocol(UIViewControllerUserInteractionSetable)]) {
+                currentViewController.userInteractionDisabled = NO;
+            }
+        }
+    }
 }
 
 @end

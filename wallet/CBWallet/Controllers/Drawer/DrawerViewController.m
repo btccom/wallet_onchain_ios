@@ -29,6 +29,9 @@ static NSString *const kDrawerStaticCellIdentifier = @"drawer.cell.static";
 @interface DrawerViewController ()
 
 @property (nonatomic, strong) NSArray *datas;
+/// CBWAccount or DrawerStaticCellModel
+@property (nonatomic, strong) id selectedCellData;
+@property (nonatomic, strong) NSIndexPath *selectedIndexPath;
 
 @property (nonatomic, strong) CBWAccountStore *accountStore;
 
@@ -81,6 +84,13 @@ static NSString *const kDrawerStaticCellIdentifier = @"drawer.cell.static";
     [self.tableView registerClass:[DrawerAccountTableViewCell class] forCellReuseIdentifier:kDrawerAccountCellIdentifier];
     [self.tableView registerClass:[DrawerStaticTableViewCell class] forCellReuseIdentifier:kDrawerStaticCellIdentifier];
 }
+
+#pragma mark - Handle Events
+
+/// handle checking in
+/// handle signing out
+/// handle accounts updated
+/// handle transactions updated
 
 #pragma mark - <UITableViewDataSource>
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -172,7 +182,7 @@ static NSString *const kDrawerStaticCellIdentifier = @"drawer.cell.static";
         id sectionData = [self.datas objectAtIndex:section];
         if ([sectionData isKindOfClass:[NSDictionary class]]) {
             if ([[[sectionData allValues] firstObject] isEqual:self.accountStore]) {
-                return 64;
+                return 44;
             }
         }
         return CBWListSectionHeaderHeight;

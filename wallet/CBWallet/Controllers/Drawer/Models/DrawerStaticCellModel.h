@@ -14,6 +14,8 @@
 @property (nonatomic, copy, nullable) NSString *text;
 @property (nonatomic, copy, nullable) NSString *detail;
 
+@property (nonatomic, copy, nullable) NSString *controllerClassName;
+
 @property (nonatomic, weak, nullable) UITableViewCell *cell;
 
 @end
