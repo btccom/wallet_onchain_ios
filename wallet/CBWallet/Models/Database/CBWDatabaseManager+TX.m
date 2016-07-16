@@ -193,6 +193,34 @@ NSString *const DatabaseManagerTransactionColAccountIDX = @"accountIdx";
     completion(nil);
 }
 
+- (void)transactionSummaryWithAddress:(NSString *)address completion:(void (^)(NSArray *))completion {
+    NSMutableString *sql = [NSMutableString stringWithFormat:@"SELECT %@, %@ FROM %@ WHERE %@ LIKE '%%%@%%' OR %@ LIKE '%%%@%%' ORDER BY %@",
+                            DatabaseManagerTransactionColHash,
+                            DatabaseManagerTransactionColBlockHeight,
+                            DatabaseManagerTableTransaction,
+                            DatabaseManagerTransactionColInputs,
+                            address,
+                            DatabaseManagerTransactionColOutputs,
+                            address,
+                            DatabaseManagerTransactionColCreatedAt];
+    
+    FMDatabase *db = [self db];
+    if ([db open]) {
+        
+        NSMutableArray *list = [NSMutableArray array];
+        FMResultSet *rs = [db executeQuery:sql];
+        while ([rs next]) {
+            [list addObject:[rs resultDictionary]];
+        }
+        completion([list copy]);
+        
+        [db class];
+        return;
+    }
+    
+    completion(nil);
+}
+
 - (NSUInteger)transactionCountWithAddresses:(NSArray *)addresses {
     NSUInteger count = 0;
     NSMutableString *sql = [NSMutableString stringWithFormat:@"SELECT COUNT(*) FROM %@", DatabaseManagerTableTransaction];

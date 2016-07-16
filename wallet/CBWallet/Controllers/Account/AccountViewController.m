@@ -11,7 +11,7 @@
 
 #import "AccountViewController.h"
 #import "AddressListViewController.h"// explorer or receive
-#import "ScanViewController.h"// scan to explorer or send
+//#import "ScanViewController.h"// scan to explorer or send
 #import "TransactionListViewController.h"// list all transactions
 #import "TransactionViewController.h" // transaction detail
 #import "SendViewController.h"// send
@@ -28,7 +28,7 @@
 #import "NSString+CBWAddress.h"
 #import "NSDate+Helper.h"
 
-@interface AccountViewController ()<AddressListViewControllerDelegate, ScanViewControllerDelegate, UIScrollViewDelegate>
+@interface AccountViewController ()<AddressListViewControllerDelegate, UIScrollViewDelegate>
 
 @property (nonatomic, strong) CBWAccount *account;
 @property (nonatomic, strong) CBWTXStore *transactionStore;
@@ -37,6 +37,8 @@
 
 @property (nonatomic, assign, getter=isVisible) BOOL visible;
 @property (nonatomic, assign, getter=isNeededToRefresh) BOOL neededToRefresh;
+
+@property (nonatomic, assign, getter=isSynced) BOOL synced;
 
 /// navigation bar title view
 @property (nonatomic, weak) AccountNavigationTitleView *balanceTitleView;
@@ -124,8 +126,9 @@
     // account and data
     self.headerView.sendButton.enabled = self.account.idx != CBWRecordWatchedIDX;
     self.headerView.receiveButton.enabled = self.headerView.sendButton.enabled;
-    [self reloadTransactions];
-    [self sync];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self reloadTransactions];
+    });
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -133,6 +136,15 @@
     self.visible = YES;
     if (self.isNeededToRefresh) {
         [self.tableView reloadData];
+    }
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    if (!self.isSynced) {
+        [self sync];
+        _synced = YES;
     }
 }
 
@@ -147,55 +159,9 @@
         return;
     }
     
-    CBWAddressStore *addressStore = [[CBWAddressStore alloc] initWithAccountIdx:self.account.idx];
-    [addressStore fetch];
-    self.balanceTitleView.balance = [@(addressStore.totalBalance) satoshiBTCString];
-    DLog(@"account sync with addresses: %@", addressStore.allAddressStrings);
-    
-    if (addressStore.allAddressStrings.count == 0) {
-        DLog(@"no address to fetch");
-        [self.refreshControl endRefreshing];
-        return;
-    }
-    
-    // transaction
-    CBWTransactionSync *sync = [[CBWTransactionSync alloc] init];
-    sync.accountIDX = self.account.idx;
-    [sync syncWithAddresses:addressStore.allAddressStrings progress:^(NSString *message) {
-        DLog(@"sync progress: \n%@", message);
-    } completion:^(NSError *error, NSDictionary<NSString *,NSDictionary<NSString *,NSNumber *> *> *updatedAddresses) {
-        DLog(@"sync done: \n%@", updatedAddresses);
-        [self.refreshControl endRefreshing];
-        
-        if (updatedAddresses == 0) {
-            DLog(@"no need to update");
-            return;
-        }
-        
-        __block BOOL needUpdate = NO;
-        [updatedAddresses enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSDictionary<NSString *,NSNumber *> * _Nonnull obj, BOOL * _Nonnull stop) {
-            [obj enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSNumber * _Nonnull obj, BOOL * _Nonnull stop) {
-                if (obj.integerValue > 0) {
-                    needUpdate = YES;
-                    *stop = YES;
-                }
-            }];
-            if (needUpdate) {
-                *stop = YES;
-            }
-        }];
-        if (needUpdate) {
-            [self reloadTransactions];
-            return;
-        }
-        DLog(@"checked, no need to update");
-    }];
-    
-    // summary
-    CBWRequest *request = [[CBWRequest alloc] init];
-    [request addressSummariesWithAddressStrings:addressStore.allAddressStrings completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
-        [addressStore updateAddresses:response];
-    }];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self p_sync];
+    });
 }
 
 - (void)reloadTransactions {
@@ -207,12 +173,16 @@
     // 1. get account address list
     CBWAddressStore *addressStore = [[CBWAddressStore alloc] initWithAccountIdx:self.account.idx];
     [addressStore fetch];
-    self.balanceTitleView.balance = [@(addressStore.totalBalance) satoshiBTCString];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.balanceTitleView.balance = [@(addressStore.totalBalance) satoshiBTCString];
+    });
     DLog(@"account reload transactions with addresses: %@", addressStore.allAddressStrings);
     
     if (addressStore.allAddressStrings.count == 0) {
         DLog(@"no address to fetch");
-        [self.refreshControl endRefreshing];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.refreshControl endRefreshing];
+        });
         return;
     }
     
@@ -222,7 +192,9 @@
 //    }
     self.transactionStore.accountIDX = self.account.idx;
     [self.transactionStore fetch];
-    [self.tableView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
 }
 
 - (void)dealloc {
@@ -261,12 +233,12 @@
     [self.navigationController pushViewController:addressListViewController animated:YES];
 }
 
-/// present scan
-- (void)p_handleScan:(id)sender {
-    ScanViewController *imagePickerViewController = [[ScanViewController alloc] init];
-    imagePickerViewController.delegate = self;
-    [self presentViewController:imagePickerViewController animated:YES completion:nil];
-}
+///// present scan
+//- (void)p_handleScan:(id)sender {
+//    ScanViewController *imagePickerViewController = [[ScanViewController alloc] init];
+//    imagePickerViewController.delegate = self;
+//    [self presentViewController:imagePickerViewController animated:YES completion:nil];
+//}
 
 /// push send
 - (void)p_handleSend:(id)sender {
@@ -280,6 +252,62 @@
     AddressListViewController *addressListViewController = [[AddressListViewController alloc] initWithAccount:self.account];
     addressListViewController.actionType = AddressActionTypeReceive;
     [self.navigationController pushViewController:addressListViewController animated:YES];
+}
+
+- (void)p_sync {
+    CBWAddressStore *addressStore = [[CBWAddressStore alloc] initWithAccountIdx:self.account.idx];
+    [addressStore fetch];
+    self.balanceTitleView.balance = [@(addressStore.totalBalance) satoshiBTCString];
+    DLog(@"account sync with addresses: %@", addressStore.allAddressStrings);
+    
+    if (addressStore.allAddressStrings.count == 0) {
+        DLog(@"no address to fetch");
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.refreshControl endRefreshing];
+        });
+        return;
+    }
+    
+    // transaction
+    CBWTransactionSync *sync = [[CBWTransactionSync alloc] init];
+    sync.accountIDX = self.account.idx;
+    [sync syncWithAddresses:addressStore.allAddressStrings progress:^(NSString *message) {
+        DLog(@"sync progress: \n%@", message);
+    } completion:^(NSError *error, NSDictionary<NSString *,NSDictionary<NSString *,NSNumber *> *> *updatedAddresses) {
+        DLog(@"sync done: \n%@", updatedAddresses);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.refreshControl endRefreshing];
+        });
+        
+        if (updatedAddresses == 0) {
+            DLog(@"no need to update");
+            return;
+        }
+        
+        __block BOOL needUpdate = NO;
+        [updatedAddresses enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSDictionary<NSString *,NSNumber *> * _Nonnull obj, BOOL * _Nonnull stop) {
+            [obj enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSNumber * _Nonnull obj, BOOL * _Nonnull stop) {
+                if (obj.integerValue > 0) {
+                    needUpdate = YES;
+                    *stop = YES;
+                }
+            }];
+            if (needUpdate) {
+                *stop = YES;
+            }
+        }];
+        if (needUpdate) {
+            [self reloadTransactions];
+            return;
+        }
+        DLog(@"checked, no need to update");
+    }];
+    
+    // summary
+    CBWRequest *request = [[CBWRequest alloc] init];
+    [request addressSummariesWithAddressStrings:addressStore.allAddressStrings completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
+        [addressStore updateAddresses:response];
+    }];
 }
 
 #pragma mark - <UITableViewDataSource>
@@ -331,49 +359,49 @@
     [self reloadTransactions];
 }
 
-#pragma mark - <ScanViewControllerDelegate>
-- (BOOL)scanViewControllerWillDismiss:(ScanViewController *)viewController {
-    [self dismissViewControllerAnimated:YES completion:nil];
-    return YES;
-}
-
-- (void)scanViewController:(ScanViewController *)viewController didScanString:(NSString *)string {
-    [self dismissViewControllerAnimated:YES completion:nil];
-    // decode qr code string
-    NSDictionary *addressInfo = [string addressInfo];
-    if (!addressInfo) {
-        [self alertMessageWithInvalidAddress:nil];
-        return;
-    }
-    // check address
-    NSString *addressString = [addressInfo objectForKey:CBWAddressInfoAddressKey];
-    if (![CBWAddress validateAddressString:addressString]) {
-        [self alertMessageWithInvalidAddress:addressString];
-    }
-    // handle
-    if (self.account.idx == CBWRecordWatchedIDX) {
-        // create watched address
-        NSString *label = [addressInfo objectForKey:CBWAddressInfoLabelKey];
-        DLog(@"To create address: %@ labeled: %@", addressString, label);
-        
-        CBWAddressStore *addressStore = [[CBWAddressStore alloc] initWithAccountIdx:self.account.idx];
-        [addressStore fetch];
-        CBWAddress *address = [CBWAddress newAdress:addressString withLabel:label idx:CBWRecordWatchedIDX accountRid:self.account.rid accountIdx:self.account.idx inStore:addressStore];
-        NSError *error = nil;
-        [address saveWithError:&error];
-        if (!error) {
-            [self alertMessage:NSLocalizedStringFromTable(@"Alert Message create_watched_address_success", @"CBW", nil) withTitle:NSLocalizedStringFromTable(@"Success", @"CBW", nil)];
-            [self reloadTransactions];
-        }
-    } else {
-        // send to address
-        NSString *amountString = [addressInfo objectForKey:CBWAddressInfoAmountKey];
-        SendViewController *sendViewController = [[SendViewController alloc] initWithAccount:self.account];
-        sendViewController.quicklyToAddress = addressString;
-        sendViewController.quicklyToAmountInBTC = amountString;
-        [self.navigationController pushViewController:sendViewController animated:YES];
-    }
-}
+//#pragma mark - <ScanViewControllerDelegate>
+//- (BOOL)scanViewControllerWillDismiss:(ScanViewController *)viewController {
+//    [self dismissViewControllerAnimated:YES completion:nil];
+//    return YES;
+//}
+//
+//- (void)scanViewController:(ScanViewController *)viewController didScanString:(NSString *)string {
+//    [self dismissViewControllerAnimated:YES completion:nil];
+//    // decode qr code string
+//    NSDictionary *addressInfo = [string addressInfo];
+//    if (!addressInfo) {
+//        [self alertMessageWithInvalidAddress:nil];
+//        return;
+//    }
+//    // check address
+//    NSString *addressString = [addressInfo objectForKey:CBWAddressInfoAddressKey];
+//    if (![CBWAddress validateAddressString:addressString]) {
+//        [self alertMessageWithInvalidAddress:addressString];
+//    }
+//    // handle
+//    if (self.account.idx == CBWRecordWatchedIDX) {
+//        // create watched address
+//        NSString *label = [addressInfo objectForKey:CBWAddressInfoLabelKey];
+//        DLog(@"To create address: %@ labeled: %@", addressString, label);
+//        
+//        CBWAddressStore *addressStore = [[CBWAddressStore alloc] initWithAccountIdx:self.account.idx];
+//        [addressStore fetch];
+//        CBWAddress *address = [CBWAddress newAdress:addressString withLabel:label idx:CBWRecordWatchedIDX accountRid:self.account.rid accountIdx:self.account.idx inStore:addressStore];
+//        NSError *error = nil;
+//        [address saveWithError:&error];
+//        if (!error) {
+//            [self alertMessage:NSLocalizedStringFromTable(@"Alert Message create_watched_address_success", @"CBW", nil) withTitle:NSLocalizedStringFromTable(@"Success", @"CBW", nil)];
+//            [self reloadTransactions];
+//        }
+//    } else {
+//        // send to address
+//        NSString *amountString = [addressInfo objectForKey:CBWAddressInfoAmountKey];
+//        SendViewController *sendViewController = [[SendViewController alloc] initWithAccount:self.account];
+//        sendViewController.quicklyToAddress = addressString;
+//        sendViewController.quicklyToAmountInBTC = amountString;
+//        [self.navigationController pushViewController:sendViewController animated:YES];
+//    }
+//}
 
 #pragma mark <UIScrollViewDelegate>
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {

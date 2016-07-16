@@ -86,18 +86,17 @@ NSString *const CBWTransactionSyncConfirmedCountKey = @"confirmedCount";
     __block NSMutableArray<NSArray<CBWAddress *> *> *comparedAddress = [NSMutableArray array];
     
     [addresses enumerateObjectsUsingBlock:^(CBWAddress * _Nonnull address, NSUInteger idx, BOOL * _Nonnull stop) {
-        [[CBWDatabaseManager defaultManager] transactionFetchWithAddresses:@[address.address] page:0 pagesize:0 completion:^(NSArray *response) {
+        [[CBWDatabaseManager defaultManager] transactionSummaryWithAddress:address.address completion:^(NSArray *response) {
+            DLog(@"response first object: %@", [response firstObject]);
             DLog(@"local tx count [%lu] for address: %@, responsed [%lu]", (unsigned long)response.count, address.address, (unsigned long)address.txCount);
             
             NSArray<CBWTransaction *> *txs = [CBWTransaction batchInitWithArray:response];
             
-            DLog(@"local tx count [%lu]", (unsigned long)txs.count);
-            DLog(@"response, first object: %@", response.firstObject);
-            if (response.count > 5) {
-                DLog(@"response, first 5 objects: %@", [response subarrayWithRange:NSMakeRange(0, 5)]);
-            }
+            DLog(@"local tx inited count [%lu]", (unsigned long)txs.count);
             
+            /// local first tx
             CBWTransaction *firstTX = [txs firstObject];
+            /// local last tx
             CBWTransaction *lastTX = [txs lastObject];
             
             __block NSInteger unconfirmedTXCount = 0;

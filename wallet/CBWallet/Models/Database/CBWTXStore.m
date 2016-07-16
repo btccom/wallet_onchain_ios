@@ -118,16 +118,6 @@
     
     DLog(@"database response: \n%@", collection);
     
-//    if (self.queryAddresses.count == 1) {
-//        [[CBWDatabaseManager defaultManager] txFetchWithQueryAddress:[self.queryAddresses firstObject] page:self.page pagesize:self.pagesize completion:^(NSArray *response) {
-//            collection = response;
-//        }];
-//    } else {
-//        [[CBWDatabaseManager defaultManager] transactionFetchWithAccountIDX:self.accountIDX page:self.page pagesize:self.pagesize completion:^(NSArray *response) {
-//            collection = response;
-//        }];
-//    }
-    
     NSArray<CBWTransaction *> *txs = [CBWTransaction batchInitWithArray:collection];
     [txs enumerateObjectsUsingBlock:^(CBWTransaction * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         [self p_addTransaction:obj];

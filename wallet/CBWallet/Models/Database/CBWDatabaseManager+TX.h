@@ -56,6 +56,10 @@ extern NSString *const DatabaseManagerTransactionColAccountIDX;
 
 - (NSUInteger)transactionCountWithAddresses:(NSArray *)addresses;
 
+/// fetch transactions with addresses
 - (void)transactionFetchWithAddresses:(NSArray *)addresses page:(NSUInteger)page pagesize:(NSUInteger)pagesize completion:(void (^)(NSArray *response))completion;
+
+/// fetch transaction summary with address
+- (void)transactionSummaryWithAddress:(NSString *)address completion:(void (^)(NSArray *response))completion;
 
 @end
