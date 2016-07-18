@@ -110,6 +110,7 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
 }
 #pragma mark Handlers
 - (void)p_handleToggleiCloudEnabled:(id)sender {
+    [self reportActivity:@"toggle iCloud"];
     DLog(@"toggle icloud");
     [CBWBackup toggleiCloudBySwith:self.iCloudSwitch inViewController:self];
 }
@@ -175,19 +176,13 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
     [self presentViewController:alert animated:YES completion:nil];
 }
 - (void)p_handleToggleTouchIdEnabled:(id)sender {
+    [self reportActivity:@"toggle Touch ID"];
     DLog(@"toggle touch id");
-//    if ([[NSUserDefaults standardUserDefaults] boolForKey:CBWUserDefaultsTouchIdEnabledKey]) {
     if ([[SSKeychain passwordForService:CBWKeychainTouchIDService account:CBWKeychainAccountDefault] isEqualToString:CBWKeychainTouchIDON]) {
         // turn off
         [SSKeychain deletePasswordForService:CBWKeychainMasterPasswordService account:CBWKeychainAccountDefault];
         [SSKeychain deletePasswordForService:CBWKeychainTouchIDService account:CBWKeychainAccountDefault];
         [self.touchIDSwitch setOn:NO animated:YES];
-//        if ([SSKeychain deletePasswordForService:CBWKeychainMasterPasswordService account:CBWKeychainAccountDefault]) {
-//            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:CBWUserDefaultsTouchIdEnabledKey];
-//            if ([[NSUserDefaults standardUserDefaults] synchronize]) {
-//                [self.touchIDSwitch setOn:NO animated:YES];
-//            }
-//        }
         return;
     }
     
@@ -207,12 +202,6 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
                             [SSKeychain deletePasswordForService:CBWKeychainMasterPasswordService account:CBWKeychainAccountDefault];
                             [self.touchIDSwitch setOn:NO animated:YES];
                         }
-//                        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:CBWUserDefaultsTouchIdEnabledKey];
-//                        if ([[NSUserDefaults standardUserDefaults] synchronize]) {
-//                            [self.touchIDSwitch setOn:YES animated:YES];
-//                        } else {
-//                            [self.touchIDSwitch setOn:NO animated:YES];
-//                        }
                     }
                 } else if (error) {
                     [self.touchIDSwitch setOn:NO animated:YES];

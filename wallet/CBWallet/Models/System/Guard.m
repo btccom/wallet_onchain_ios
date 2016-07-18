@@ -114,7 +114,14 @@ static const NSTimeInterval kGuardAvaibleTimeDefault = 3 * 60; // 默认3分钟
         if (decryptedSeed) {// success
             encryptedSeed = [AESCrypt encrypt:decryptedSeed password:aNewCode];
             if (encryptedSeed) {
+                // seed
                 [SSKeychain setPassword:encryptedSeed forService:CBWKeychainSeedService account:CBWKeychainAccountDefault];
+                // touch id
+                if ([[SSKeychain passwordForService:CBWKeychainTouchIDService account:CBWKeychainAccountDefault] isEqualToString:CBWKeychainTouchIDON]) {
+                    [SSKeychain setPassword:aNewCode forService:CBWKeychainMasterPasswordService account:CBWKeychainAccountDefault];
+                }
+                // new code
+                _code = aNewCode;
                 return YES;
             }
         }
