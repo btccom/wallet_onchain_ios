@@ -1071,10 +1071,10 @@
 		2CDB4A301D38E46D009299F5 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				2CDB4A311D38E46D009299F5 /* PasswordViewController.h */,
-				2CDB4A321D38E46D009299F5 /* PasswordViewController.m */,
 				2CDB4A331D38E46D009299F5 /* SettingsViewController.h */,
 				2CDB4A341D38E46D009299F5 /* SettingsViewController.m */,
+				2CDB4A311D38E46D009299F5 /* PasswordViewController.h */,
+				2CDB4A321D38E46D009299F5 /* PasswordViewController.m */,
 			);
 			path = Settings;
 			sourceTree = "<group>";

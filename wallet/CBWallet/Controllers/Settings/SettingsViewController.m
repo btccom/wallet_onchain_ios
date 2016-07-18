@@ -250,6 +250,20 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
     }
 }
 
+- (void)p_confirmToSignOut {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Alert Title confirm_to_sign_out", @"CBW", nil) message:NSLocalizedStringFromTable(@"Alert Message confirm_to_sign_out", @"CBW", nil) preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Cancel", @"CBW", nil) style:UIAlertActionStyleCancel handler:nil];
+    [alert addAction:cancel];
+    
+    UIAlertAction *confirm = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Yes", @"CBW", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [[Guard globalGuard] signOut];
+    }];
+    [alert addAction:confirm];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.tableStrings.count;
@@ -458,7 +472,7 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
                                 NSLog(@"export to photo library error: \n%@", error);
                                 [self alertMessage:error.localizedDescription withTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil)];
                             } else {
-                                [[Guard globalGuard] signOut];
+                                [self p_confirmToSignOut];
                             }
                         }];
                     }
@@ -475,7 +489,7 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
                     if (![[Guard globalGuard] checkCode:code]) {
                         [self alertErrorMessage:NSLocalizedStringFromTable(@"Alert Message invalid_master_password", @"CBW", nil)];
                     } else {
-                        [[Guard globalGuard] signOut];
+                        [self p_confirmToSignOut];
                     }
                 }
             }];

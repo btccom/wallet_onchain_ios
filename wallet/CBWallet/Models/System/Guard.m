@@ -75,7 +75,7 @@ static const NSTimeInterval kGuardAvaibleTimeDefault = 3 * 60; // 默认3分钟
 }
 
 - (void)checkOut {
-    _code = @"";
+    _code = nil;
     [self p_invalidateTimer];
 //    [self.timer invalidate];
     // notification
@@ -89,7 +89,7 @@ static const NSTimeInterval kGuardAvaibleTimeDefault = 3 * 60; // 默认3分钟
         [SSKeychain deletePasswordForService:CBWKeychainSeedService account:CBWKeychainAccountDefault];
         [SSKeychain deletePasswordForService:CBWKeychainHintService account:CBWKeychainAccountDefault];
         [SSKeychain deletePasswordForService:CBWKeychainMasterPasswordService account:CBWKeychainAccountDefault];
-        [SSKeychain deletePasswordForService:CBWKeychainAccountDefault account:CBWKeychainAccountDefault];
+        [SSKeychain deletePasswordForService:CBWKeychainTouchIDService account:CBWKeychainAccountDefault];
         
         [CBWBackup deleteCloudKitRecord];
         
