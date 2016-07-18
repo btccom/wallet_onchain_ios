@@ -111,8 +111,9 @@ NSString *const CBWTransactionSyncConfirmedCountKey = @"confirmedCount";
             DLog(@"responsed address first tx hash: %@ \n last tx hash: %@ \nunconfirmed tx count: %lu", address.firstTXHashID, address.lastTXHashID, (unsigned long)address.unconfirmedTXCount);
             DLog(@"local address first tx hash: %@ \n last tx hash: %@ \nunconfirmed tx count: %lu", firstTX.hashID, lastTX.hashID, (unsigned long)unconfirmedTXCount);
             
-            if (!([address.firstTXHashID isEqualToString:firstTX.hashID] || [txs containsObject:firstTX]) || // first tx 可能因 api 原因造成排序不一致，如 https://blockchain.info/address/1L6Xzog5krZ4KZF344NvGZMRpx2bND7ogE?format=json&offset=1158 vs https://chain.api.btc.com/v3/address/1L6Xzog5krZ4KZF344NvGZMRpx2bND7ogE/tx?page=24 最早的两个交易
-                ![address.lastTXHashID isEqualToString:lastTX.hashID] ||
+            // first tx 可能因 api 原因造成排序不一致，如 https://blockchain.info/address/1L6Xzog5krZ4KZF344NvGZMRpx2bND7ogE?format=json&offset=1158 vs https://chain.api.btc.com/v3/address/1L6Xzog5krZ4KZF344NvGZMRpx2bND7ogE/tx?page=24 最早的两个交易
+            if (!([address.firstTXHashID isEqualToString:firstTX.hashID] || [txs containsObject:firstTX]) ||
+                !([address.lastTXHashID isEqualToString:lastTX.hashID] || [txs containsObject:lastTX]) ||
                 !(address.unconfirmedTXCount == unconfirmedTXCount)) {
                 CBWAddress *localAddress = [[CBWAddress alloc] initWithDictionary:@{@"address": address.address}];
                 localAddress.firstTXHashID = firstTX.hashID;

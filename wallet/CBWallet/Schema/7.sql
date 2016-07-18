@@ -5,7 +5,7 @@ DROP TABLE IF EXISTS 'tx';
 CREATE TABLE IF NOT EXISTS 'tx' (
     'rid' INTEGER PRIMARY KEY AUTOINCREMENT,
     'created_at' DATE,
-    'hash' TEXT,
+    'hash' TEXT UNIQUE,
     'fee' INTEGER,
     'inputs_value' INTEGER,
     'inputs_count' INTEGER,
