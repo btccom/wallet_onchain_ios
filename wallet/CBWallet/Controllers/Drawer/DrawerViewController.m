@@ -302,7 +302,7 @@ static NSString *const kDrawerStaticCellIdentifier = @"drawer.cell.static";
             _selectedCellData = account;
             if (account) {
                 AccountViewController *accountViewController = [[AccountViewController alloc] initWithAccount:account];
-                [[self revealViewController] setFrontViewController:[[UINavigationController alloc] initWithRootViewController:accountViewController] animated:YES];
+                [[self revealViewController] setFrontViewController:[[UINavigationController alloc] initWithRootViewController:accountViewController]];
             }
         }
     }
@@ -327,7 +327,7 @@ static NSString *const kDrawerStaticCellIdentifier = @"drawer.cell.static";
                                 ((AccountsManagerViewController *)viewController).accountStore = self.accountStore;
                             }
                             
-                            [[self revealViewController] setFrontViewController:[[UINavigationController alloc] initWithRootViewController:viewController] animated:YES];
+                            [[self revealViewController] setFrontViewController:[[UINavigationController alloc] initWithRootViewController:viewController]];
                         }
                     }
                 }
