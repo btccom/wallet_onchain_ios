@@ -257,7 +257,6 @@
 - (void)p_sync {
     CBWAddressStore *addressStore = [[CBWAddressStore alloc] initWithAccountIdx:self.account.idx];
     [addressStore fetch];
-    self.balanceTitleView.balance = [@(addressStore.totalBalance) satoshiBTCString];
     DLog(@"account sync with addresses: %@", addressStore.allAddressStrings);
     
     if (addressStore.allAddressStrings.count == 0) {
