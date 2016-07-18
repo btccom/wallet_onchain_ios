@@ -94,7 +94,7 @@ static const CGFloat kTransactionCellVerticalPadding = CBWLayoutCommonVerticalPa
     if (!_dateLabel) {
         UILabel *label = [[UILabel alloc] init];
         label.font = [UIFont systemFontOfSize:kTransactionCellDateLabelFontSize];
-        label.textColor = [UIColor CBWMutedTextColor];
+        label.textColor = [UIColor CBWSubTextColor];
         [self.contentView addSubview:label];
         _dateLabel = label;
     }
@@ -126,8 +126,7 @@ static const CGFloat kTransactionCellVerticalPadding = CBWLayoutCommonVerticalPa
         }
     }
     
-    // TODO: today....
-    self.dateLabel.text = [transaction.transactionTime stringWithFormat:@"yyyy-MM-dd HH:mm:ss"];
+    self.dateLabel.text = [transaction.transactionTime stringWithFormat:([transaction.transactionTime isInSameDayWithDate:[NSDate date]] ? @"HH:mm:ss" : @"yyyy-MM-dd HH:mm:ss")];
     self.valueLabel.text = transaction.type == TransactionTypeInternal ? [@(transaction.outputsValue) satoshiBTCString] : [@(ABS(transaction.value)) satoshiBTCString];
     self.valueLabel.textColor = self.iconView.tintColor;
     if (transaction.confirmations > 0) {

@@ -23,13 +23,13 @@
     return [self colorWithWhite:58.f/255.f alpha:1.f];
 };
 + (instancetype)CBWGrayColor {
-    return [self colorWithWhite:138.f/255.f alpha:1.f];
+    return [self colorWithWhite:168.f/255.f alpha:1.f];
 }
 + (instancetype)CBWLightGrayColor {
     return [self colorWithWhite:220.f/255.f alpha:1.f];
 }
 + (instancetype)CBWExtraLightGrayColor {
-    return [self colorWithWhite:241.f/255.f alpha:1.f];
+    return [self colorWithWhite:250.f/255.f alpha:1.f];
 }
 
 + (instancetype)CBWDrawerBackgroundColor {
