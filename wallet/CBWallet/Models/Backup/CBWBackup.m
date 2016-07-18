@@ -149,9 +149,11 @@
         return nil;
     }
     
+    CGFloat borderWidth = 40;
+    
     // 种子数据二维码
     NSString *seedAndHint = [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:[datas firstObject] options:0 error:nil] encoding:NSUTF8StringEncoding];
-    UIImage *seedAndHintImage = [BTCQRCode imageForString:seedAndHint size:CGSizeMake(800.f, 800.f) scale:2.f];
+    UIImage *seedAndHintImage = [self drawImage:[BTCQRCode imageForString:seedAndHint size:CGSizeMake(800.f, 800.f) scale:2.f] withBorderWitdh:borderWidth];
     
     // 种子数据二维码压入第一帧
     YYImageEncoder *encoder = [[YYImageEncoder alloc] initWithType:YYImageTypePNG];
@@ -176,7 +178,7 @@
     DLog(@"account string groups: %d", groups);
     for (int i = 0; i < groups; i++) {
         NSString *slicedString = [accountsBase64String substringWithRange:NSMakeRange(i * maxCharacterCount, MIN(accountsBase64String.length - i *maxCharacterCount, maxCharacterCount))];
-        UIImage *qrCodeImage = [BTCQRCode imageForString:slicedString size:CGSizeMake(800.f, 800.f) scale:2.f];
+        UIImage *qrCodeImage = [self drawImage:[BTCQRCode imageForString:slicedString size:CGSizeMake(800.f, 800.f) scale:2.f] withBorderWitdh:borderWidth];
         // 逐帧压入
         [encoder addImage:qrCodeImage duration:0];
     }
@@ -186,6 +188,27 @@
     YYImage *image = [YYImage imageWithData:apngData scale:2.f];
     
     return image;
+}
+
++ (UIImage *)drawImage:(UIImage *)image withBorderWitdh:(CGFloat)width {
+    CGSize size = image.size;
+    size.width += width * 2;
+    size.height += width * 2;
+    
+    UIGraphicsBeginImageContext(size);
+    
+    [image drawInRect:CGRectMake(width, width, image.size.width, image.size.height)];
+    
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    [[UIColor CBWPrimaryColor] setStroke];
+    CGRect frame = CGRectMake(0, 0, size.width, size.height);
+    CGContextStrokeRectWithWidth(ctx, frame, width);
+    
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return newImage;
 }
 
 + (void)saveToLocalPhotoLibraryWithCompleiton:(void (^)(NSURL *, NSError *))completion {
