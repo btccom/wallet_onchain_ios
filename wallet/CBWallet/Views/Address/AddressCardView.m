@@ -106,8 +106,9 @@
 - (UILabel *)balanceLabel {
     if (!_balanceLabel) {
         UILabel *label = [[UILabel alloc] init];
-        label.font = [UIFont systemFontOfSize:16];
         label.textColor = [UIColor CBWWhiteColor];
+        label.adjustsFontSizeToFitWidth = YES;
+        label.minimumScaleFactor = 0.5;
         [self.statView addSubview:label];
         _balanceLabel = label;
     }
@@ -117,8 +118,9 @@
 - (UILabel *)receivedLabel {
     if (!_receivedLabel) {
         UILabel *label = [[UILabel alloc] init];
-        label.font = [UIFont systemFontOfSize:16];
         label.textColor = [UIColor CBWWhiteColor];
+        label.adjustsFontSizeToFitWidth = YES;
+        label.minimumScaleFactor = 0.5;
         [self.statView addSubview:label];
         _receivedLabel = label;
     }
@@ -128,8 +130,9 @@
 - (UILabel *)txLabel {
     if (!_txLabel) {
         UILabel *label = [[UILabel alloc] init];
-        label.font = [UIFont systemFontOfSize:16];
         label.textColor = [UIColor CBWWhiteColor];
+        label.adjustsFontSizeToFitWidth = YES;
+        label.minimumScaleFactor = 0.5;
         label.textAlignment = NSTextAlignmentRight;
         [self.statView addSubview:label];
         _txLabel = label;
