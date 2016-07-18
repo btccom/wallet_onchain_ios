@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-/// has sub title
+/// has sub title on the right
 @interface DefaultTableViewCell : UITableViewCell
 
 @end

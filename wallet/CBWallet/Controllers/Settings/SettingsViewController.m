@@ -1,5 +1,5 @@
 //
-//  ProfileViewController.m
+//  SettingsViewController.m
 //  wallet
 //
 //  Created by Zin (noteon.com) on 16/2/24.
@@ -9,7 +9,7 @@
 #import "SettingsViewController.h"
 #import "PasswordViewController.h"
 
-#import "CBWAccountStore.h"
+#import "Database.h"
 #import "CBWBackup.h"
 #import "Guard.h"
 #import "CBWFee.h"
@@ -21,14 +21,12 @@
 
 @import LocalAuthentication;
 
-typedef NS_ENUM(NSUInteger, kProfileSection) {
-    kProfileSectionAnalytics,
-    kProfileSectionCustomFee,
-//    kProfileSectionAllTransactions,
-    kProfileSectionSecurity,
-    kProfileSectionBackup,
-//    kProfileSectionNetwork,
-    kProfileSectionSignOut
+typedef NS_ENUM(NSUInteger, kSettingsSection) {
+    kSettingsSectionCustomFee,
+    kSettingsSectionSecurity,
+    kSettingsSectionBackup,
+//    kSettingsSectionNetwork,
+    kSettingsSectionSignOut
 };
 
 @interface SettingsViewController ()
@@ -38,18 +36,9 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
 @property (nonatomic, strong) UISwitch *touchIDSwitch;
 @property (nonatomic, strong) UISwitch *testnetSwitch;
 
-@property (nonatomic, strong) NSDictionary *accountAnalytics;
-
 @end
 
 @implementation SettingsViewController
-
-- (NSDictionary *)accountAnalytics {
-    if (!_accountAnalytics) {
-        _accountAnalytics = [CBWAccountStore analyzeAllAccountAddresses];
-    }
-    return _accountAnalytics;
-}
 
 #pragma mark - Initialization
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -81,8 +70,7 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
         [securityCells addObject:NSLocalizedStringFromTable(@"Profile Cell touchid", @"CBW", nil)];
     }
     
-    _tableStrings = @[@{NSLocalizedStringFromTable(@"Profile Section analytics", @"CBW", nil): @[]},
-                      @[NSLocalizedStringFromTable(@"Profile Cell custom_fee", @"CBW", nil)],
+    _tableStrings = @[@[NSLocalizedStringFromTable(@"Profile Cell custom_fee", @"CBW", nil)],
                       @{NSLocalizedStringFromTable(@"Profile Section security", @"CBW", nil): securityCells},
                       @{NSLocalizedStringFromTable(@"Profile Section backup", @"CBW", nil): @[
                             NSLocalizedStringFromTable(@"Profile Cell export", @"CBW", @"Export"),
@@ -126,7 +114,7 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
             
             [[NSUserDefaults standardUserDefaults] setObject:@(i) forKey:CBWUserDefaultsFeeLevel];
             if ([[NSUserDefaults standardUserDefaults] synchronize]) {
-                [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:kProfileSectionCustomFee] withRowAnimation:UITableViewRowAnimationAutomatic];
+                [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:kSettingsSectionCustomFee] withRowAnimation:UITableViewRowAnimationAutomatic];
             } else {
                 [self alertMessage:NSLocalizedStringFromTable(@"Alert Message custom_fee_update_error", @"CBW", nil) withTitle:@""];
             }
@@ -269,9 +257,6 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
     return self.tableStrings.count;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (kProfileSectionAnalytics == section) {
-        return self.accountAnalytics.count;
-    }
     id sectionStrings = self.tableStrings[section];
     if ([sectionStrings isKindOfClass:[NSDictionary class]]) {
         return [[[sectionStrings allObjects] firstObject] count];
@@ -295,85 +280,57 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
     cell.detailTextLabel.text = nil;
     cell.accessoryView = nil;
     cell.textLabel.textColor = [UIColor CBWTextColor];
-    
-    if (kProfileSectionAnalytics == indexPath.section) {
-        switch (indexPath.row) {
-            case 0: {
-                cell.textLabel.text = NSLocalizedStringFromTable(@"Profile Cell balance", @"CBW", nil);
-                cell.detailTextLabel.text = [[self.accountAnalytics objectForKey:CBWAccountTotalBalanceKey] satoshiBTCString];
-                break;
-            }
-            case 1: {
-                cell.textLabel.text = NSLocalizedStringFromTable(@"Profile Cell received", @"CBW", nil);
-                cell.detailTextLabel.text = [[self.accountAnalytics objectForKey:CBWAccountTotalReceivedKey] satoshiBTCString];
-                break;
-            }
-            case 2: {
-                cell.textLabel.text = NSLocalizedStringFromTable(@"Profile Cell sent", @"CBW", nil);
-                cell.detailTextLabel.text = [[self.accountAnalytics objectForKey:CBWAccountTotalSentKey] satoshiBTCString];
-                break;
-            }
-            case 3: {
-                cell.textLabel.text = NSLocalizedStringFromTable(@"Profile Cell tx_count", @"CBW", nil);
-                cell.detailTextLabel.text = [[self.accountAnalytics objectForKey:CBWAccountTotalTXCountKey] stringValue];
-                break;
-            }
-                
-            default:
-                break;
-        }
-    } else {
 
-        // set text label
-        id sectionStrings = self.tableStrings[indexPath.section];
-        if ([sectionStrings isKindOfClass:[NSDictionary class]]) {
-            id object = [[[sectionStrings allObjects] firstObject] objectAtIndex:indexPath.row];
-            cell.textLabel.text = object;
+    // set text label
+    id sectionStrings = self.tableStrings[indexPath.section];
+    if ([sectionStrings isKindOfClass:[NSDictionary class]]) {
+        id object = [[[sectionStrings allObjects] firstObject] objectAtIndex:indexPath.row];
+        cell.textLabel.text = object;
+    } else {
+        cell.textLabel.text = [sectionStrings objectAtIndex:indexPath.row];
+    }
+    
+    // set custom fee cell stuff
+    if (kSettingsSectionCustomFee == indexPath.section) {
+        NSNumber *userDefaultFee = [[NSUserDefaults standardUserDefaults] objectForKey:CBWUserDefaultsFeeLevel];
+        if (!userDefaultFee) {
+            cell.detailTextLabel.text = NSLocalizedStringFromTable(@"Profile Cell custom_fee_undefined", @"CBW", nil);
         } else {
-            cell.textLabel.text = [sectionStrings objectAtIndex:indexPath.row];
+            cell.detailTextLabel.text = [[[CBWFee feeWithLevel:[userDefaultFee unsignedIntegerValue]] value] satoshiBTCString];
         }
-        
-        // set custom fee cell stuff
-        if (kProfileSectionCustomFee == indexPath.section) {
-            NSNumber *userDefaultFee = [[NSUserDefaults standardUserDefaults] objectForKey:CBWUserDefaultsFeeLevel];
-            if (!userDefaultFee) {
-                cell.detailTextLabel.text = NSLocalizedStringFromTable(@"Profile Cell custom_fee_undefined", @"CBW", nil);
-            } else {
-                cell.detailTextLabel.text = [[[CBWFee feeWithLevel:[userDefaultFee unsignedIntegerValue]] value] satoshiBTCString];
+    }
+    
+    // set touch id cell stuff
+    if (kSettingsSectionSecurity == indexPath.section) {
+        if (indexPath.row == 2) {
+            // touch id
+            if (!self.touchIDSwitch) {
+                UISwitch *aSwitch = [[UISwitch alloc] init];
+                [aSwitch addTarget:self action:@selector(p_handleToggleTouchIdEnabled:) forControlEvents:UIControlEventValueChanged];
+                self.touchIDSwitch = aSwitch;
             }
+            cell.accessoryView = self.touchIDSwitch;
+            DLog(@"touch id %@", [SSKeychain passwordForService:CBWKeychainTouchIDService account:CBWKeychainAccountDefault]);
+            self.touchIDSwitch.on = [[SSKeychain passwordForService:CBWKeychainTouchIDService account:CBWKeychainAccountDefault] isEqualToString:CBWKeychainTouchIDON];//[[NSUserDefaults standardUserDefaults] boolForKey:CBWUserDefaultsTouchIdEnabledKey];
         }
-        
-        // set touch id cell stuff
-        if (indexPath.section == kProfileSectionSecurity) {
-            if (indexPath.row == 2) {
-                // touch id
-                if (!self.touchIDSwitch) {
-                    UISwitch *aSwitch = [[UISwitch alloc] init];
-                    [aSwitch addTarget:self action:@selector(p_handleToggleTouchIdEnabled:) forControlEvents:UIControlEventValueChanged];
-                    self.touchIDSwitch = aSwitch;
-                }
-                cell.accessoryView = self.touchIDSwitch;
-                DLog(@"touch id %@", [SSKeychain passwordForService:CBWKeychainTouchIDService account:CBWKeychainAccountDefault]);
-                self.touchIDSwitch.on = [[SSKeychain passwordForService:CBWKeychainTouchIDService account:CBWKeychainAccountDefault] isEqualToString:CBWKeychainTouchIDON];//[[NSUserDefaults standardUserDefaults] boolForKey:CBWUserDefaultsTouchIdEnabledKey];
+    }
+    
+    // set icloud cell stuff
+    if (kSettingsSectionBackup == indexPath.section) {
+        if (indexPath.row == 1) {
+            // iCloud
+            cell.detailTextLabel.text = [[[NSUserDefaults standardUserDefaults] objectForKey:CBWUserDefaultsiCloudSyncDateKey] stringWithFormat:@"yyyy-MM-dd HH:mm:ss"];
+            if (!self.iCloudSwitch) {
+                UISwitch *aSwitch = [[UISwitch alloc] init];
+                [aSwitch addTarget:self action:@selector(p_handleToggleiCloudEnabled:) forControlEvents:UIControlEventValueChanged];
+                self.iCloudSwitch = aSwitch;
             }
+            cell.accessoryView = self.iCloudSwitch;
+            self.iCloudSwitch.on = [[NSUserDefaults standardUserDefaults] boolForKey:CBWUserDefaultsiCloudEnabledKey];
         }
-        
-        // set icloud cell stuff
-        if (indexPath.section == kProfileSectionBackup) {
-            if (indexPath.row == 1) {
-                // iCloud
-                cell.detailTextLabel.text = [[[NSUserDefaults standardUserDefaults] objectForKey:CBWUserDefaultsiCloudSyncDateKey] stringWithFormat:@"yyyy-MM-dd HH:mm:ss"];
-                if (!self.iCloudSwitch) {
-                    UISwitch *aSwitch = [[UISwitch alloc] init];
-                    [aSwitch addTarget:self action:@selector(p_handleToggleiCloudEnabled:) forControlEvents:UIControlEventValueChanged];
-                    self.iCloudSwitch = aSwitch;
-                }
-                cell.accessoryView = self.iCloudSwitch;
-                self.iCloudSwitch.on = [[NSUserDefaults standardUserDefaults] boolForKey:CBWUserDefaultsiCloudEnabledKey];
-            }
-        }
-        
-        // set testnet cell stuff
+    }
+    
+    // set testnet cell stuff
 //        if (indexPath.section == kProfileSectionNetwork) {
 //            // testnet
 //            if (!self.testnetSwitch) {
@@ -384,12 +341,12 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
 //            cell.accessoryView = self.testnetSwitch;
 //            self.testnetSwitch.on = [[NSUserDefaults standardUserDefaults] boolForKey:CBWUserDefaultsTestnetEnabled];
 //        }
-        
-        // set sign out with danger color
-        if (indexPath.section == kProfileSectionSignOut) {
-            cell.textLabel.textColor = [UIColor CBWDangerColor];
-        }
+    
+    // set sign out with danger color
+    if (kSettingsSectionSignOut == indexPath.section) {
+        cell.textLabel.textColor = [UIColor CBWDangerColor];
     }
+    
     
     return cell;
 }
@@ -398,7 +355,7 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
     [self reportActivity:@"selectCell"];
     
     switch (indexPath.section) {
-        case kProfileSectionSecurity: {
+        case kSettingsSectionSecurity: {
             [tableView deselectRowAtIndexPath:indexPath animated:YES];
             switch (indexPath.row) {
                 case 0: {
@@ -421,13 +378,13 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
             break;
         }
             
-        case kProfileSectionCustomFee: {
+        case kSettingsSectionCustomFee: {
             [tableView deselectRowAtIndexPath:indexPath animated:YES];
             [self p_handleUpdateCustomFee];
             break;
         }
             
-        case kProfileSectionBackup: {
+        case kSettingsSectionBackup: {
             [tableView deselectRowAtIndexPath:indexPath animated:YES];
             if (indexPath.row == 0) {
                 // export
@@ -449,7 +406,7 @@ typedef NS_ENUM(NSUInteger, kProfileSection) {
 //            break;
 //        }
             
-        case kProfileSectionSignOut: {
+        case kSettingsSectionSignOut: {
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Alert Title sign_out", @"CBW", nil) message:NSLocalizedStringFromTable(@"Alert Message sign_out", @"CBW", nil) preferredStyle:UIAlertControllerStyleAlert];
             [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
                 textField.secureTextEntry = YES;

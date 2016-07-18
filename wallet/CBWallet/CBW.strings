@@ -148,6 +148,13 @@
 "Initial Cell touch_id" = "Touch ID";
 "MasterPassword Section hint_%@" = "Hint: %@";
 
+// Accounts
+"Accounts Manager Section analytics" = "Analytics";
+"AMA Cell totalBalance" = "Total Balance";
+"AMA Cell totalReceived" = "Total Received";
+"AMA Cell totalSent" = "Total Sent";
+"AMA Cell totalTXCount" = "TX Count";
+
 // Profile
 "Profile Section accounts" = "Accounts";
 "Profile Cell all_transactions" = "All Transactions";

@@ -1,5 +1,5 @@
 //
-//  ProfileViewController.h
+//  SettingsViewController.h
 //  wallet
 //
 //  Created by Zin (noteon.com) on 16/2/24.

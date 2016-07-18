@@ -9,17 +9,29 @@
 #import "AccountsManagerViewController.h"
 #import "Database.h"
 
+typedef NS_ENUM(NSUInteger, kAccountsManagerSection) {
+    kAccountsManagerSectionAccounts,
+    kAccountsManagerSectionAnalytics
+};
+
 @interface AccountsManagerViewController ()
+
+@property (nonatomic, strong) NSDictionary *accountAnalytics;
+@property (nonatomic, weak) UIView *accountsBackgroundView;
 
 @end
 
 @implementation AccountsManagerViewController
 
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        NSLog(@"new accounts manager");
+- (NSDictionary *)accountAnalytics {
+    if (!_accountAnalytics) {
+        _accountAnalytics = [CBWAccountStore analyzeAllAccountAddresses];
     }
+    return _accountAnalytics;
+}
+
+- (instancetype)initWithStyle:(UITableViewStyle)style {
+    self = [super initWithStyle:UITableViewStyleGrouped];
     return self;
 }
 
@@ -29,11 +41,24 @@
     self.title = NSLocalizedStringFromTable(@"Navigation manage_accounts", @"CBW", nil);
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_create"] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleCreateAccount:)];
     
+    self.tableView.backgroundColor = [UIColor CBWSeparatorColor];
+    
     [self enableRevealInteraction];
 }
 
-- (void)dealloc {
-    NSLog(@"accounts manager dealloc");
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if (!self.accountsBackgroundView) {
+        UIView *view = [[UIView alloc] initWithFrame:self.view.bounds];
+        CGRect whiteViewFrame = [self.tableView rectForSection:kAccountsManagerSectionAccounts];
+        whiteViewFrame.size.height += whiteViewFrame.origin.y + CGRectGetHeight(view.frame);
+        whiteViewFrame.origin.y = -CGRectGetHeight(view.frame);
+        UIView *whiteView = [[UIView alloc] initWithFrame:whiteViewFrame];
+        whiteView.backgroundColor = [UIColor CBWBackgroundColor];
+        [view addSubview:whiteView];
+        [self.tableView insertSubview:view atIndex:0];
+        self.accountsBackgroundView = view;
+    }
 }
 
 #pragma mark - Private Method
@@ -84,20 +109,79 @@
 }
 
 #pragma mark - <UITableViewDataSource>
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 2;// accounts, analytics
+}
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (kAccountsManagerSectionAnalytics == section) {
+        return self.accountAnalytics.count;
+    }
     return self.accountStore.count - 1;// remove watched account
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:BaseTableViewCellDefaultIdentifier forIndexPath:indexPath];
+    
+    if (kAccountsManagerSectionAnalytics == indexPath.section) {
+        NSString *key = [[[self.accountAnalytics allKeys] sortedArrayUsingSelector:@selector(compare:)] objectAtIndex:indexPath.row];
+        NSString *keyText = [NSString stringWithFormat:@"AMA Cell %@", key];
+        cell.textLabel.text = NSLocalizedStringFromTable(keyText, @"CBW", nil);
+        if ([key isEqualToString:CBWAccountTotalTXCountKey]) {
+            cell.detailTextLabel.text = [[self.accountAnalytics objectForKey:key] groupingString];
+        } else {
+            cell.detailTextLabel.text = [[self.accountAnalytics objectForKey:key] satoshiBTCString];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.backgroundColor = [UIColor CBWSeparatorColor];
+        return cell;
+    }
+    
     CBWAccount *account = [self.accountStore recordAtIndex:indexPath.row];
     cell.textLabel.text = account.label;
+    cell.detailTextLabel.text = nil;
+    cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+    cell.backgroundColor = [UIColor CBWBackgroundColor];
     return cell;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if (kAccountsManagerSectionAnalytics == section) {
+        return NSLocalizedStringFromTable(@"Accounts Manager Section analytics", @"CBW", nil);
+    }
+    return nil;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (kAccountsManagerSectionAnalytics == indexPath.section) {
+        return CBWCellHeightMin;
+    }
+    return [super tableView:tableView heightForRowAtIndexPath:indexPath];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return CGFLOAT_MIN;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (kAccountsManagerSectionAnalytics == section) {
+        return CBWCellHeightDefault;
+    }
+    return CGFLOAT_MIN;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    DefaultSectionHeaderView *view = (DefaultSectionHeaderView *)[super tableView:tableView viewForHeaderInSection:section];
+    view.contentView.backgroundColor = [UIColor CBWSeparatorColor];
+    return view;
 }
 
 #pragma mark <UITableViewDelegate>
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    if (kAccountsManagerSectionAnalytics == indexPath.section) {
+        return;
+    }
     
     CBWAccount *account = [self.accountStore recordAtIndex:indexPath.row];
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Alert Title change_account_label", @"CBW", nil) message:NSLocalizedStringFromTable(@"Alert Message change_account_label", @"CBW", nil) preferredStyle:UIAlertControllerStyleAlert];

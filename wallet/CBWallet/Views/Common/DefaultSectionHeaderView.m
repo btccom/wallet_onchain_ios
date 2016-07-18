@@ -34,7 +34,7 @@
 - (void)willMoveToSuperview:(UIView *)newSuperview {
     self.textLabel.font = [UIFont systemFontOfSize:UIFont.smallSystemFontSize weight:UIFontWeightBold];
     self.textLabel.textColor = [UIColor CBWSubTextColor];
-    self.contentView.backgroundColor = [UIColor CBWBackgroundColor];
+    self.contentView.backgroundColor = self.contentView.backgroundColor ? self.contentView.backgroundColor : [UIColor CBWBackgroundColor];
     
     if (!self.isTopHairlineHidden) {
         CGRect hairlineFrame = newSuperview.bounds;
