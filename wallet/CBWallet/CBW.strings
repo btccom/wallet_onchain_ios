@@ -155,27 +155,19 @@
 "AMA Cell totalSent" = "Total Sent";
 "AMA Cell totalTXCount" = "TX Count";
 
-// Profile
-"Profile Section accounts" = "Accounts";
-"Profile Cell all_transactions" = "All Transactions";
-"Profile Cell settings" = "Settings";
-"Profile Section backup" = "Backup";
-"Profile Cell export" = "Export";
-"Profile Cell iCloud" = "iCloud";
-"Profile Section security" = "Security";
-"Profile Cell change_password" = "Change Password";
-"Profile Cell change_hint" = "Change Hint";
-"Profile Cell touchid" = "Touch ID";
-"Profile Section network" = "Network";
-"Profile Cell testnet" = "Testnet";
-"Profile Cell sign_out" = "Delete All Datas";
-"Profile Section analytics" = "Analytics";
-"Profile Cell balance" = "Balance";
-"Profile Cell received" = "Received";
-"Profile Cell sent" = "Sent";
-"Profile Cell tx_count" = "TX";
-"Profile Cell custom_fee" = "Custom Fee";
-"Profile Cell custom_fee_undefined" = "Undefined";
+// Settings
+"Settings Section backup" = "Backup";
+"Settings Cell export" = "Export";
+"Settings Cell iCloud" = "iCloud";
+"Settings Section security" = "Security";
+"Settings Cell change_password" = "Change Password";
+"Settings Cell change_hint" = "Change Hint";
+"Settings Cell touchid" = "Touch ID";
+"Settings Section network" = "Network";
+"Settings Cell testnet" = "Testnet";
+"Settings Cell sign_out" = "Delete All Datas";
+"Settings Cell custom_fee" = "Custom Fee";
+"Settings Cell custom_fee_undefined" = "Default";
 
 // Drawer
 "Drawer Section accounts" = "Accounts";

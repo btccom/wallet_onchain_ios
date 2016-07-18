@@ -61,23 +61,23 @@ typedef NS_ENUM(NSUInteger, kSettingsSection) {
     
     // data
     NSMutableArray *securityCells = [NSMutableArray arrayWithObjects:
-                                     NSLocalizedStringFromTable(@"Profile Cell change_password", @"CBW", @"Settings"),
-                                     NSLocalizedStringFromTable(@"Profile Cell change_hint", @"CBW", @"Chnage Hint"),
+                                     NSLocalizedStringFromTable(@"Settings Cell change_password", @"CBW", @"Settings"),
+                                     NSLocalizedStringFromTable(@"Settings Cell change_hint", @"CBW", @"Chnage Hint"),
                                      nil];
     NSError *error = nil;
     LAContext *laContext = [[LAContext alloc] init];
     if ([laContext canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error]) {
-        [securityCells addObject:NSLocalizedStringFromTable(@"Profile Cell touchid", @"CBW", nil)];
+        [securityCells addObject:NSLocalizedStringFromTable(@"Settings Cell touchid", @"CBW", nil)];
     }
     
-    _tableStrings = @[@[NSLocalizedStringFromTable(@"Profile Cell custom_fee", @"CBW", nil)],
-                      @{NSLocalizedStringFromTable(@"Profile Section security", @"CBW", nil): securityCells},
-                      @{NSLocalizedStringFromTable(@"Profile Section backup", @"CBW", nil): @[
-                            NSLocalizedStringFromTable(@"Profile Cell export", @"CBW", @"Export"),
-                            NSLocalizedStringFromTable(@"Profile Cell iCloud", @"CBW", @"iCloud")]},
-//                      @{NSLocalizedStringFromTable(@"Profile Section network", @"CBW", nil): @[
-//                                NSLocalizedStringFromTable(@"Profile Cell testnet", @"CBW", @"Testnet")]},
-                      @[NSLocalizedStringFromTable(@"Profile Cell sign_out", @"CBW", nil)]
+    _tableStrings = @[@[NSLocalizedStringFromTable(@"Settings Cell custom_fee", @"CBW", nil)],
+                      @{NSLocalizedStringFromTable(@"Settings Section security", @"CBW", nil): securityCells},
+                      @{NSLocalizedStringFromTable(@"Settings Section backup", @"CBW", nil): @[
+                            NSLocalizedStringFromTable(@"Settings Cell export", @"CBW", @"Export"),
+                            NSLocalizedStringFromTable(@"Settings Cell iCloud", @"CBW", @"iCloud")]},
+//                      @{NSLocalizedStringFromTable(@"Settings Section network", @"CBW", nil): @[
+//                                NSLocalizedStringFromTable(@"Settings Cell testnet", @"CBW", @"Testnet")]},
+                      @[NSLocalizedStringFromTable(@"Settings Cell sign_out", @"CBW", nil)]
                       ];
 }
 
@@ -106,7 +106,7 @@ typedef NS_ENUM(NSUInteger, kSettingsSection) {
     [self reportActivity:@"updateCustomFee"];
     
     DLog(@"to select fee");
-    UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Profile Cell custom_fee", @"CBW", nil) message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Settings Cell custom_fee", @"CBW", nil) message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     NSUInteger count = CBWFee.values.count;
     for (NSUInteger i = 0; i < count; i ++) {
         CBWFee *fee = [CBWFee feeWithLevel:i];
@@ -128,7 +128,7 @@ typedef NS_ENUM(NSUInteger, kSettingsSection) {
     [self presentViewController:actionSheet animated:YES completion:nil];
 }
 - (void)p_handleUpdateHint {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Profile Cell change_hint", @"CBW", nil) message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTable(@"Settings Cell change_hint", @"CBW", nil) message:nil preferredStyle:UIAlertControllerStyleAlert];
     [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.placeholder = NSLocalizedStringFromTable(@"Placeholder enter_new_hint", @"CBW", nil);
         textField.text = [SSKeychain passwordForService:CBWKeychainHintService account:CBWKeychainAccountDefault];
@@ -294,7 +294,7 @@ typedef NS_ENUM(NSUInteger, kSettingsSection) {
     if (kSettingsSectionCustomFee == indexPath.section) {
         NSNumber *userDefaultFee = [[NSUserDefaults standardUserDefaults] objectForKey:CBWUserDefaultsFeeLevel];
         if (!userDefaultFee) {
-            cell.detailTextLabel.text = NSLocalizedStringFromTable(@"Profile Cell custom_fee_undefined", @"CBW", nil);
+            cell.detailTextLabel.text = NSLocalizedStringFromTable(@"Settings Cell custom_fee_undefined", @"CBW", nil);
         } else {
             cell.detailTextLabel.text = [[[CBWFee feeWithLevel:[userDefaultFee unsignedIntegerValue]] value] satoshiBTCString];
         }
@@ -331,7 +331,7 @@ typedef NS_ENUM(NSUInteger, kSettingsSection) {
     }
     
     // set testnet cell stuff
-//        if (indexPath.section == kProfileSectionNetwork) {
+//        if (indexPath.section == kSettingsSectionNetwork) {
 //            // testnet
 //            if (!self.testnetSwitch) {
 //                UISwitch *aSwitch = [[UISwitch alloc] init];
@@ -400,7 +400,7 @@ typedef NS_ENUM(NSUInteger, kSettingsSection) {
             break;
         }
             
-//        case kProfileSectionNetwork: {
+//        case kSettingsSectionNetwork: {
 //            [tableView deselectRowAtIndexPath:indexPath animated:YES];
 //            [self p_handleToggleTestnetEnabled:nil];
 //            break;
