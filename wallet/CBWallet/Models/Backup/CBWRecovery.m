@@ -241,7 +241,7 @@
     }
     
     // guard
-    if (![[Guard globalGuard] checkInWithCode:code]) {
+    if (![[Guard globalGuard] checkCode:code]) {
         NSLog(@"recover failed");
         return NO;
     }
@@ -315,7 +315,7 @@
         }
     }];
     
-    return YES;
+    return [[Guard globalGuard] checkInWithCode:code];
 }
 
 /// 验证数据，从相册中恢复时，需要校验数据完整性

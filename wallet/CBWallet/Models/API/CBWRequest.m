@@ -48,7 +48,7 @@ NSString *const CBWRequestResponseDataListKey = @"list";
 //    manager.securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModePublicKey];
     // 3. create request
     NSString *urlString = [[self baseURLString] stringByAppendingPathComponent:path];
-    DLog(@"request: %@", urlString);
+//    DLog(@"request: %@", urlString);
     NSURLRequest *request = [[AFJSONRequestSerializer serializer] requestWithMethod:method URLString:urlString parameters:parameters error:nil];
     // 4. fetch
     NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
@@ -56,7 +56,7 @@ NSString *const CBWRequestResponseDataListKey = @"list";
         
         NSInteger statusCode = ((NSHTTPURLResponse *)response).statusCode;
         
-        DLog(@"request response [%ld]", (long)statusCode);
+//        DLog(@"request response [%ld]", (long)statusCode);
         
         if (statusCode == 404) {
             completion([NSError errorWithDomain:CBWRequestErrorDomain code:statusCode userInfo:@{NSLocalizedDescriptionKey: @"404: endpoint is not found."}], statusCode, nil);
@@ -95,8 +95,8 @@ NSString *const CBWRequestResponseDataListKey = @"list";
     [self requestWithPath:path method:@"GET" parameters:parameters completion:completion];
 }
 
-- (void)dealloc {
-    DLog(@"request dealloc");
-}
+//- (void)dealloc {
+//    DLog(@"request dealloc");
+//}
 
 @end

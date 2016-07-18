@@ -12,6 +12,7 @@
 #import "AccountViewController.h"
 #import "AccountsManagerViewController.h"
 #import "SettingsViewController.h"
+#import "BlankViewController.h"
 
 #import "DrawerSectionHeaderView.h"
 #import "DrawerAccountTableViewCell.h"
@@ -149,10 +150,8 @@ static NSString *const kDrawerStaticCellIdentifier = @"drawer.cell.static";
 }
 
 - (void)p_handleSignIn {
-    if (!_selectedCellData) {
+    if (!self.selectedIndexPath) {
         [self.accountStore fetch];
-        
-        [self.tableView reloadData];
         
         // select one account
         CBWAccount *account = [self.accountStore recordAtIndex:0];
@@ -165,13 +164,17 @@ static NSString *const kDrawerStaticCellIdentifier = @"drawer.cell.static";
             _selectedIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
         }
     }
+    
+    [self p_reload];
 }
 
 - (void)p_handleSignOut {
     DLog(@"------- ------- ------- ------- ------- ------- ------- \nsign out \n------- ------- ------- ------- ------- ------- -------");
     [self.accountStore flush];
-    _accountStore = nil;
+    [self.tableView reloadData];
     _selectedIndexPath = nil;
+    [[self revealViewController] setFrontViewController:[BlankViewController new]];
+    [[self revealViewController] setFrontViewPosition:FrontViewPositionRight];
 }
 
 #pragma mark - <UITableViewDataSource>
@@ -185,7 +188,7 @@ static NSString *const kDrawerStaticCellIdentifier = @"drawer.cell.static";
     }
     id sectionData = [self.datas objectAtIndex:section];
     if ([sectionData isKindOfClass:[NSDictionary class]]) {
-        if ([[[sectionData allValues] firstObject] isEqual:self.accountStore]) {
+        if ([[[sectionData allValues] firstObject] isKindOfClass:[CBWAccountStore class]]) {
             return self.accountStore.count;
         }
     }
@@ -199,7 +202,7 @@ static NSString *const kDrawerStaticCellIdentifier = @"drawer.cell.static";
     id sectionData = [self.datas objectAtIndex:indexPath.section];
     
     if ([sectionData isKindOfClass:[NSDictionary class]]) {
-        if ([[[sectionData allValues] firstObject] isEqual:self.accountStore]) {
+        if ([[[sectionData allValues] firstObject] isKindOfClass:[CBWAccountStore class]]) {
             CBWAccount *account = [self.accountStore recordAtIndex:indexPath.row];
             if (account) {
                 DrawerAccountTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kDrawerAccountCellIdentifier forIndexPath:indexPath];
@@ -252,7 +255,7 @@ static NSString *const kDrawerStaticCellIdentifier = @"drawer.cell.static";
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     id sectionData = [self.datas objectAtIndex:indexPath.section];
     if ([sectionData isKindOfClass:[NSDictionary class]]) {
-        if ([[[sectionData allValues] firstObject] isEqual:self.accountStore]) {
+        if ([[[sectionData allValues] firstObject] isKindOfClass:[CBWAccountStore class]]) {
             return CBWCellHeightDrawerAccount;
         }
     }
@@ -269,7 +272,7 @@ static NSString *const kDrawerStaticCellIdentifier = @"drawer.cell.static";
     if ([self tableView:tableView titleForHeaderInSection:section]) {
         id sectionData = [self.datas objectAtIndex:section];
         if ([sectionData isKindOfClass:[NSDictionary class]]) {
-            if ([[[sectionData allValues] firstObject] isEqual:self.accountStore]) {
+            if ([[[sectionData allValues] firstObject] isKindOfClass:[CBWAccountStore class]]) {
                 return 44;
             }
         }
@@ -297,7 +300,7 @@ static NSString *const kDrawerStaticCellIdentifier = @"drawer.cell.static";
     id sectionData = [self.datas objectAtIndex:indexPath.section];
     
     if ([sectionData isKindOfClass:[NSDictionary class]]) {
-        if ([[[sectionData allValues] firstObject] isEqual:self.accountStore]) {
+        if ([[[sectionData allValues] firstObject] isKindOfClass:[CBWAccountStore class]]) {
             CBWAccount *account = [self.accountStore recordAtIndex:indexPath.row];
             _selectedCellData = account;
             if (account) {
@@ -312,17 +315,12 @@ static NSString *const kDrawerStaticCellIdentifier = @"drawer.cell.static";
             id cellData = [sectionData objectAtIndex:indexPath.row];
             _selectedCellData = cellData;
             if ([cellData isKindOfClass:[DrawerStaticCellModel class]]) {
-                DLog(@"select static cell");
                 NSString *className = ((DrawerStaticCellModel *)cellData).controllerClassName;
-                DLog(@"class name: %@", className);
                 if (className) {
                     Class class = NSClassFromString(className);
-                    DLog(@"class: %@", class);
                     if (class) {
                         UIViewController *viewController = [[class alloc] init];
                         if (viewController) {
-                            DLog(@"view controller: %@", viewController);
-                            
                             if ([viewController isKindOfClass:[AccountsManagerViewController class]]) {
                                 ((AccountsManagerViewController *)viewController).accountStore = self.accountStore;
                             }
