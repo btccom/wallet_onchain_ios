@@ -188,14 +188,11 @@
     }
     
     // 指定查询地址
-//    if (self.account.idx != CBWRecordWatchedIDX) {
-        self.transactionStore.queryAddresses = addressStore.allAddressStrings;
-//    }
-    self.transactionStore.accountIDX = self.account.idx;
+    self.transactionStore.queryAddresses = addressStore.allAddressStrings;
     [self.transactionStore fetch];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableView reloadData];
-    });
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        [self.tableView reloadData];
+//    });
 }
 
 - (void)dealloc {
@@ -280,7 +277,7 @@
         });
         
         if (updatedAddresses == 0) {
-            DLog(@"no need to update");
+            DLog(@"no updated address");
             return;
         }
         
@@ -297,7 +294,9 @@
             }
         }];
         if (needUpdate) {
-            [self reloadTransactions];
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                [self reloadTransactions];
+            });
             return;
         }
         DLog(@"checked, no need to update");
@@ -353,11 +352,11 @@
     }
 }
 
-#pragma mark - <AddressListViewControllerDelegate>
-- (void)addressListViewControllerDidUpdate:(AddressListViewController *)controller {
-    DLog(@"address list did update");
-    [self reloadTransactions];
-}
+//#pragma mark - <AddressListViewControllerDelegate>
+//- (void)addressListViewControllerDidUpdate:(AddressListViewController *)controller {
+//    DLog(@"address list did update");
+//    [self reloadTransactions];
+//}
 
 //#pragma mark - <ScanViewControllerDelegate>
 //- (BOOL)scanViewControllerWillDismiss:(ScanViewController *)viewController {

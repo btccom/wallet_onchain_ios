@@ -1004,10 +1004,10 @@
 		2CDB49F81D3647A2009299F5 /* Account */ = {
 			isa = PBXGroup;
 			children = (
-				2CDB4A371D38E479009299F5 /* AccountsManagerViewController.h */,
-				2CDB4A381D38E479009299F5 /* AccountsManagerViewController.m */,
 				2CDB49F91D3647A2009299F5 /* AccountViewController.h */,
 				2CDB49FA1D3647A2009299F5 /* AccountViewController.m */,
+				2CDB4A371D38E479009299F5 /* AccountsManagerViewController.h */,
+				2CDB4A381D38E479009299F5 /* AccountsManagerViewController.m */,
 			);
 			path = Account;
 			sourceTree = "<group>";
