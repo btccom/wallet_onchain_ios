@@ -404,7 +404,7 @@
 
 #pragma mark <UIScrollViewDelegate>
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
-    if (self.transactionStore.page < self.transactionStore.pageTotal) {
+    if (self.transactionStore.page < self.transactionStore.pageTotal && self.transactionStore.queryAddresses.count > 0) {
         CGFloat contentHeight = scrollView.contentSize.height;
         CGFloat offsetTop = targetContentOffset->y;
         CGFloat height = CGRectGetHeight(scrollView.frame);
