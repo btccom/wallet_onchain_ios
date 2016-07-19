@@ -9,6 +9,15 @@
 #import "CBWRecordObjectStore.h"
 #import "CBWTransaction.h"
 
+@class CBWTXStore;
+
+@protocol CBWTXStoreDelegate <NSObject>
+
+@optional
+- (void)txStore:(nonnull CBWTXStore *)store didInsertAtIndexPaths:(nonnull NSArray <NSIndexPath *> *)indexPaths;
+
+@end
+
 @interface CBWTXStore : CBWRecordObjectStore
 
 ///
@@ -20,6 +29,8 @@
 @property (nonatomic, assign) NSUInteger pagesize;
 
 @property (nonatomic, copy, nullable) NSString *dateFormat;
+
+@property (nonatomic, weak, nullable) id<CBWTXStoreDelegate> delegate;
 
 - (void)fetchNextPage;
 

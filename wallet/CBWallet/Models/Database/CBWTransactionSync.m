@@ -34,11 +34,18 @@ NSString *const CBWTransactionSyncConfirmedCountKey = @"confirmedCount";
 @implementation CBWTransactionSync
 
 - (void)syncWithAddresses:(NSArray<NSString *> *)addresses progress:(syncProgressBlock)progress completion:(syncCompletionBlock)completion {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self p_syncWithAddresses:addresses progress:progress completion:completion];
+    });
+}
+- (void)p_syncWithAddresses:(NSArray<NSString *> *)addresses progress:(syncProgressBlock)progress completion:(syncCompletionBlock)completion {
     // 1. fetch address summary
     double totalRound = ceil(addresses.count / 50.0);
     DLog(@"sync address summary need %f round", totalRound);
     if (totalRound == 0) {
-        completion([NSError errorWithDomain:CBWErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedStringFromTable(@"Error none_address_need_sync", @"CBW", nil)}], nil);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completion([NSError errorWithDomain:CBWErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedStringFromTable(@"Error none_address_need_sync", @"CBW", nil)}], nil);
+        });
         return;
     }
     
