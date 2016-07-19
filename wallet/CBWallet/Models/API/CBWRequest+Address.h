@@ -18,6 +18,7 @@
 
 /// 递归获取交易列表
 ///@param completion 每页回调，返回 NO 时继续查询下一页
+///@param pagesize 0 使用默认最大值
 - (void)addressTransactionsWithAddressString:(nonnull NSString *)addressString page:(NSUInteger)page pagesize:(NSUInteger)pagesize checkCompletion:(nullable CBWRequestCheckCompletion)checkCompletion;
 
 /// 分页获取地址交易列表

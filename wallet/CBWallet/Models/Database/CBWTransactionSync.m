@@ -69,7 +69,7 @@ NSString *const CBWTransactionSyncConfirmedCountKey = @"confirmedCount";
             // progress
             progress(NSLocalizedStringFromTable(@"Message TransactionSync progress_compare_addresses_to_sync", @"CBW", nil));
             // 2. detect which address need to be updated
-            NSArray<NSArray<CBWAddress *> *> *comparedAddresses = [self p_compareLocalTXWithAddresses:[responsedAddresses copy]];
+            NSArray<NSArray<CBWAddress *> *> *comparedAddresses = [self p_compareLocalTXWithResponsedAddresses:[responsedAddresses copy]];
             DLog(@"updated addresses count: %lu", (unsigned long)comparedAddresses.count);
             if (comparedAddresses.count > 0) {
                 // 3. pull tx address by address
@@ -82,45 +82,50 @@ NSString *const CBWTransactionSyncConfirmedCountKey = @"confirmedCount";
     }];
 }
 
-- (NSArray<NSArray<CBWAddress *> *> *)p_compareLocalTXWithAddresses:(NSArray<CBWAddress *> *)addresses {
+- (NSArray<NSArray<CBWAddress *> *> *)p_compareLocalTXWithResponsedAddresses:(NSArray<CBWAddress *> *)responsedAddresses {
     __block NSMutableArray<NSArray<CBWAddress *> *> *comparedAddress = [NSMutableArray array];
     
-    [addresses enumerateObjectsUsingBlock:^(CBWAddress * _Nonnull address, NSUInteger idx, BOOL * _Nonnull stop) {
-        [[CBWDatabaseManager defaultManager] transactionSummaryWithAddress:address.address completion:^(NSArray *response) {
+    [responsedAddresses enumerateObjectsUsingBlock:^(CBWAddress * _Nonnull responsedAddress, NSUInteger idx, BOOL * _Nonnull stop) {
+        [[CBWDatabaseManager defaultManager] transactionSummaryWithAddress:responsedAddress.address completion:^(NSArray *response) {
             DLog(@"response first object: %@", [response firstObject]);
-            DLog(@"local tx count [%lu] for address: %@, responsed [%lu]", (unsigned long)response.count, address.address, (unsigned long)address.txCount);
+            DLog(@"local tx count [%lu] for address: %@, responsed [%lu]", (unsigned long)response.count, responsedAddress.address, (unsigned long)responsedAddress.txCount);
             
-            NSArray<CBWTransaction *> *txs = [CBWTransaction batchInitWithArray:response];
+            NSArray<CBWTransaction *> *localTXs = [CBWTransaction batchInitWithArray:response];
             
-            DLog(@"local tx inited count [%lu]", (unsigned long)txs.count);
+            DLog(@"local tx inited count [%lu]", (unsigned long)localTXs.count);
             
-            /// local first tx
-            CBWTransaction *firstTX = [txs firstObject];
-            /// local last tx
-            CBWTransaction *lastTX = [txs lastObject];
+            CBWTransaction *responsedFirstTX = [[CBWTransaction alloc] initWithDictionary:@{@"hashID": responsedAddress.firstTXHashID}];
+            CBWTransaction *responsedLastTX = [[CBWTransaction alloc] initWithDictionary:@{@"hashID": responsedAddress.lastTXHashID}];
+            
+            CBWTransaction *localFirstTX = [localTXs firstObject];
+            CBWTransaction *localLastTX = [localTXs lastObject];
             
             __block NSInteger unconfirmedTXCount = 0;
             __block CBWTransaction *firstUnconfirmedTX = nil;
-            [txs enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(CBWTransaction * _Nonnull tx, NSUInteger idx, BOOL * _Nonnull stop) {
+            [localTXs enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(CBWTransaction * _Nonnull tx, NSUInteger idx, BOOL * _Nonnull stop) {
                 if (-1 == tx.blockHeight) {
                     unconfirmedTXCount ++;
                     firstUnconfirmedTX = tx;
                 }
             }];
             
-            DLog(@"responsed address first tx hash: %@ \n last tx hash: %@ \nunconfirmed tx count: %lu", address.firstTXHashID, address.lastTXHashID, (unsigned long)address.unconfirmedTXCount);
-            DLog(@"local address first tx hash: %@ \n last tx hash: %@ \nunconfirmed tx count: %lu", firstTX.hashID, lastTX.hashID, (unsigned long)unconfirmedTXCount);
+            DLog(@"responsed address first tx hash: %@ \n last tx hash: %@ \nunconfirmed tx count: %lu", responsedAddress.firstTXHashID, responsedAddress.lastTXHashID, (unsigned long)responsedAddress.unconfirmedTXCount);
+            DLog(@"local address first tx hash: %@ \n last tx hash: %@ \nunconfirmed tx count: %lu", localFirstTX.hashID, localLastTX.hashID, (unsigned long)unconfirmedTXCount);
             
+            CBWAddress *localAddress = [[CBWAddress alloc] initWithDictionary:@{@"address": responsedAddress.address}];
+            localAddress.downToFirst = [responsedAddress.firstTXHashID isEqualToString:localFirstTX.hashID] || [localTXs containsObject:responsedFirstTX];
+            localAddress.upToDate = [responsedAddress.lastTXHashID isEqualToString:localLastTX.hashID] || [localTXs containsObject:responsedLastTX];
             // first tx 可能因 api 原因造成排序不一致，如 https://blockchain.info/address/1L6Xzog5krZ4KZF344NvGZMRpx2bND7ogE?format=json&offset=1158 vs https://chain.api.btc.com/v3/address/1L6Xzog5krZ4KZF344NvGZMRpx2bND7ogE/tx?page=24 最早的两个交易
-            if (!([address.firstTXHashID isEqualToString:firstTX.hashID] || [txs containsObject:firstTX]) ||
-                !([address.lastTXHashID isEqualToString:lastTX.hashID] || [txs containsObject:lastTX]) ||
-                !(address.unconfirmedTXCount == unconfirmedTXCount)) {
-                CBWAddress *localAddress = [[CBWAddress alloc] initWithDictionary:@{@"address": address.address}];
-                localAddress.firstTXHashID = firstTX.hashID;
-                localAddress.lastTXHashID = lastTX.hashID;
+            if (!localAddress.isDownToFirst || // 起点不同
+                !localAddress.isUpToDate || // 终点不同
+                !(responsedAddress.unconfirmedTXCount == unconfirmedTXCount) // 未确认交易数不同
+                ) {
+                localAddress.firstTXHashID = localFirstTX.hashID;
+                localAddress.lastTXHashID = localLastTX.hashID;
                 localAddress.firstUnconfirmedTXHashID = firstUnconfirmedTX.hashID;
                 localAddress.unconfirmedTXCount = unconfirmedTXCount;
-                [comparedAddress addObject:@[address, localAddress]];
+                localAddress.txCount = localTXs.count;
+                [comparedAddress addObject:@[responsedAddress, localAddress]];
             }
         }];
     }];
@@ -141,15 +146,23 @@ NSString *const CBWTransactionSyncConfirmedCountKey = @"confirmedCount";
     }
     
     // detect how to fetch address's tx
-    if (![responsedAddress.firstTXHashID isEqualToString:localAddress.firstTXHashID]) {
+    if (!localAddress.isDownToFirst) {
         
-        progress([NSString stringWithFormat:NSLocalizedStringFromTable(@"Message TransactionSync progress_fetch_all_tx_address_%@", @"CBW", nil), responsedAddress.address]);
-        
-        // fetch all
+        // fetch all?
         __block NSInteger updated = 0;
         __block NSInteger inserted = 0;
         CBWRequest *request = [CBWRequest new];
-        [request addressTransactionsWithAddressString:responsedAddress.address page:0 pagesize:0 checkCompletion:^BOOL(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
+        NSUInteger page = 0;
+        NSUInteger pagesize = 50;
+        if (0 == localAddress.unconfirmedTXCount && localAddress.isUpToDate) {
+            page = ceil(localAddress.txCount / pagesize);
+            
+            progress([NSString stringWithFormat:NSLocalizedStringFromTable(@"Message TransactionSync progress_fetch_all_tx_address_%@_start_page_%lu", @"CBW", nil), responsedAddress.address, (unsigned long)page]);
+        } else {
+            progress([NSString stringWithFormat:NSLocalizedStringFromTable(@"Message TransactionSync progress_fetch_all_tx_address_%@", @"CBW", nil), responsedAddress.address]);
+        }
+        
+        [request addressTransactionsWithAddressString:responsedAddress.address page:page pagesize:pagesize checkCompletion:^BOOL(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
             NSArray *list = [response objectForKey:CBWRequestResponseDataListKey];
             [list enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 CBWTransaction *transaction = nil;

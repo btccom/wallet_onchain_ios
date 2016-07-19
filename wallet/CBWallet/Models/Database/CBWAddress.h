@@ -56,6 +56,13 @@ typedef NS_ENUM(NSUInteger, AddressScope) {
 
 @property (nonatomic, assign, readonly) AddressScope scope;
 
+// used to compare to sync
+/// [responsedAddress.lastTXHashID isEqualToString:localLastTX.hashID] || [localTXs containsObject:responsedLastTX]
+@property (nonatomic, assign, getter=isUpToDate) BOOL upToDate;
+/// [responsedAddress.firstTXHashID isEqualToString:localFirstTX.hashID] || [localTXs containsObject:responsedFirstTX]
+@property (nonatomic, assign, getter=isDownToFirst) BOOL downToFirst;
+
+
 /// create or import
 + (nonnull instancetype)newAdress:(nonnull NSString *)aAddress withLabel:(nullable NSString *)label idx:(NSInteger)idx archived:(BOOL)archived dirty:(BOOL)dirty internal:(BOOL)internal accountRid:(long long)accountRid accountIdx:(NSInteger)accountIdx inStore:(nonnull CBWAddressStore *)store;
 
