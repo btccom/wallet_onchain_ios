@@ -72,7 +72,10 @@
 
 - (void)fetchNextPage {
     _page++;
-    [self p_fetch];
+    
+    dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self p_fetch];
+    });
 }
 
 - (NSUInteger)numberOfSections {
@@ -116,22 +119,31 @@
         collection = response;
     }];
     
-    DLog(@"database response: \n%@", collection);
+//    DLog(@"database response: \n%@", collection);
     
+    __block NSMutableArray *indexPaths = [NSMutableArray array];
     NSArray<CBWTransaction *> *txs = [CBWTransaction batchInitWithArray:collection];
     [txs enumerateObjectsUsingBlock:^(CBWTransaction * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        [self p_addTransaction:obj];
+        NSIndexPath *indexPath = [self p_addTransaction:obj];
+        if (indexPath) {
+            [indexPaths addObject:indexPath];
+        }
     }];
+    
+    if ([self.delegate respondsToSelector:@selector(txStore:didInsertAtIndexPaths:)]) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.delegate txStore:self didInsertAtIndexPaths:[indexPaths copy]];
+        });
+    }
 }
 /// 加入 store
-- (BOOL)p_addTransaction:(CBWTransaction *)transaction {
+- (NSIndexPath *)p_addTransaction:(CBWTransaction *)transaction {
     if ([self addRecord:transaction ASC:YES]) {
         [self p_detectTypeOfTransaction:transaction];
         transaction.queryAddresses = self.queryAddresses;
-        [self p_didAddTransaction:transaction];
-        return YES;
+        return [self p_didAddTransaction:transaction];
     }
-    return NO;
+    return nil;
 }
 /// 判断交易类型
 - (void)p_detectTypeOfTransaction:(CBWTransaction *)transaction {
@@ -169,7 +181,7 @@
     }
 }
 /// 整理数据，按日期分组
-- (void)p_didAddTransaction:(CBWTransaction *)transaction {
+- (NSIndexPath *)p_didAddTransaction:(CBWTransaction *)transaction {
     NSString *day = [transaction.transactionTime stringWithFormat:self.dateFormat];
     NSMutableArray<CBWTransaction *> *rows = [self p_dequeueReusableRowsAtDay:day];
     if (![rows containsObject:transaction]) {
@@ -180,6 +192,9 @@
             return [t2.transactionTime compare:t1.transactionTime];// DESC
         }];
     }
+    NSInteger section = [self.sections indexOfObject:day];
+    NSInteger row = [rows indexOfObject:transaction];
+    return [NSIndexPath indexPathForRow:row inSection:section];
 }
 /// 找出排序过的日期对应的数据
 - (NSMutableArray *)p_dequeueReusableRowsAtDay:(NSString *)day {
