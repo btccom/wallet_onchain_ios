@@ -19,7 +19,7 @@
 #import "NSDate+Helper.h"
 #import "NSString+CBWAddress.h"
 
-@interface AddressViewController ()<UIScrollViewDelegate, UITextFieldDelegate, CBWTXStoreDelegate>
+@interface AddressViewController ()<UIScrollViewDelegate, UITextFieldDelegate>
 
 @property (nonatomic, strong) CBWTXStore *transactionStore;
 @property (nonatomic, assign) BOOL isThereMoreDatas;
@@ -67,7 +67,6 @@
     if (!_transactionStore) {
         _transactionStore = [[CBWTXStore alloc] init];
         _transactionStore.queryAddresses = @[self.addressString];
-        _transactionStore.delegate = self;
     }
     return _transactionStore;
 }
@@ -142,6 +141,7 @@
 //            addressHeaderView.labelEditable = YES;
             
             [self.transactionStore fetch];
+            [self.tableView reloadData];
             
             if (!self.refreshControl) {
                 self.refreshControl = [[UIRefreshControl alloc] init];
@@ -173,6 +173,7 @@
             }
             
             [self.transactionStore fetch];
+            [self.tableView reloadData];
             
             if (!self.refreshControl) {
                 self.refreshControl = [[UIRefreshControl alloc] init];
@@ -234,6 +235,7 @@
 - (void)p_requestTransactions {
     if (self.transactionStore.page < self.transactionStore.pageTotal) {
         [self.transactionStore fetchNextPage];
+        [self.tableView reloadData];
     }
 }
 
@@ -255,6 +257,7 @@
 //    self.navigationItem.rightBarButtonItem = nil;
 //    // 加载交易
 //    [self.transactionStore fetch];
+//    [self.tableView reloadData];
 //    [self p_requestAddressSummary];
 }
 
@@ -373,8 +376,9 @@
         CGFloat contentHeight = scrollView.contentSize.height;
         CGFloat offsetTop = targetContentOffset->y;
         CGFloat height = CGRectGetHeight(scrollView.frame);
-        if (contentHeight - (offsetTop + height) < CBWCellHeightTransaction * 2) {
+        if (contentHeight - (offsetTop + height) < 200.f) {
             [self.transactionStore fetchNextPage];
+            [self.tableView reloadData];
         }
     }
 }
@@ -383,11 +387,6 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return YES;
-}
-
-#pragma mark - <CBWTXStoreDelegate>
-- (void)txStore:(CBWTXStore *)store didInsertAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths {
-    [self.tableView reloadData];
 }
 
 @end
