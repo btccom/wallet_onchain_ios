@@ -12,16 +12,14 @@
 typedef NS_ENUM(NSUInteger, AddressActionType) {
     /// default, show summary
     AddressActionTypeDefault = 0,
+    /// preview to create
+    AddressActionTypeCreate,
     /// send, won't jump to address view from list
     AddressActionTypeSend,
     /// receive change, won't jump to address view from list
     AddressActionTypeChange,
     /// receive, just label + address
-    AddressActionTypeReceive,
-    /// explore a address not stored, no label, show summary
-    AddressActionTypeExplore,
-    /// preview to create
-    AddressActionTypeCreate
+    AddressActionTypeReceive
 };
 
 /// 地址视图

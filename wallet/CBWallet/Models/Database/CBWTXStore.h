@@ -14,7 +14,7 @@
 @protocol CBWTXStoreDelegate <NSObject>
 
 @optional
-- (void)txStore:(nonnull CBWTXStore *)store didInsertAtIndexPaths:(nonnull NSArray <NSIndexPath *> *)indexPaths;
+- (void)txStoreDidCompleteFetch:(nonnull CBWTXStore *)store;
 
 @end
 

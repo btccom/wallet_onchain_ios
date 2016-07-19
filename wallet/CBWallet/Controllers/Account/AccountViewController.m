@@ -127,7 +127,9 @@
     // account and data
     self.headerView.sendButton.enabled = self.account.idx != CBWRecordWatchedIDX;
     self.headerView.receiveButton.enabled = self.headerView.sendButton.enabled;
-    [self reloadTransactions];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self reloadTransactions];
+    });
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -172,16 +174,16 @@
     // 1. get account address list
     CBWAddressStore *addressStore = [[CBWAddressStore alloc] initWithAccountIdx:self.account.idx];
     [addressStore fetch];
-    
-    self.balanceTitleView.balance = [@(addressStore.totalBalance) satoshiBTCString];
-    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.balanceTitleView.balance = [@(addressStore.totalBalance) satoshiBTCString];
+    });
     DLog(@"account reload transactions with addresses: %@", addressStore.allAddressStrings);
     
     if (addressStore.allAddressStrings.count == 0) {
         DLog(@"no address to fetch");
-        
-        [self.refreshControl endRefreshing];
-        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.refreshControl endRefreshing];
+        });
         return;
     }
     
@@ -191,6 +193,9 @@
 //    }
     self.transactionStore.accountIDX = self.account.idx;
     [self.transactionStore fetch];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
 }
 
 - (void)dealloc {
@@ -257,9 +262,9 @@
     
     if (addressStore.allAddressStrings.count == 0) {
         DLog(@"no address to fetch");
-        
-        [self.refreshControl endRefreshing];
-        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.refreshControl endRefreshing];
+        });
         return;
     }
     
@@ -270,7 +275,9 @@
         DLog(@"sync progress: \n%@", message);
     } completion:^(NSError *error, NSDictionary<NSString *,NSDictionary<NSString *,NSNumber *> *> *updatedAddresses) {
         DLog(@"sync done: \n%@", updatedAddresses);
-        [self.refreshControl endRefreshing];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.refreshControl endRefreshing];
+        });
         
         if (updatedAddresses == 0) {
             DLog(@"no need to update");
@@ -402,15 +409,19 @@
         CGFloat contentHeight = scrollView.contentSize.height;
         CGFloat offsetTop = targetContentOffset->y;
         CGFloat height = CGRectGetHeight(scrollView.frame);
-        if (contentHeight - (offsetTop + height) < CBWCellHeightTransaction * 2) {
-            [self.transactionStore fetchNextPage];
+        if (contentHeight - (offsetTop + height) < 2 * CBWCellHeightTransaction) {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                [self.transactionStore fetchNextPage];
+            });
         }
     }
 }
 
 #pragma mark <CBWTXStoreDelegate>
-- (void)txStore:(CBWTXStore *)store didInsertAtIndexPaths:(nonnull NSArray<NSIndexPath *> *)indexPaths {
-    [self.tableView reloadData];
+- (void)txStoreDidCompleteFetch:(CBWTXStore *)store {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
 }
 
 @end

@@ -66,19 +66,15 @@
 - (CBWTXStore *)transactionStore {
     if (!_transactionStore) {
         _transactionStore = [[CBWTXStore alloc] init];
-        _transactionStore.queryAddresses = @[self.addressString];
         _transactionStore.delegate = self;
+        _transactionStore.queryAddresses = @[self.addressString];
     }
     return _transactionStore;
 }
 
 - (NSString *)addressString {
     if (!_addressString) {
-        if (self.actionType == AddressActionTypeExplore) {
-            _addressString = self.address.address;
-        } else {
-            _addressString = [[NSUserDefaults standardUserDefaults] boolForKey:CBWUserDefaultsTestnetEnabled] ? self.address.testAddress : self.address.address;
-        }
+        _addressString = [[NSUserDefaults standardUserDefaults] boolForKey:CBWUserDefaultsTestnetEnabled] ? self.address.testAddress : self.address.address;
     }
     return _addressString;
 }
@@ -129,19 +125,9 @@
     switch (self.actionType) {
         case AddressActionTypeDefault: {
             self.title = NSLocalizedStringFromTable(@"Navigation address", @"CBW", @"Address");
-//            NSString *archiveItemImageName = @"navigation_trash";
-//            if (self.address.accountIdx != CBWRecordWatchedIdx) {
-//                archiveItemImageName = self.address.archived ? @"navigation_unarchive" : @"navigation_archive";
-//            }
-//            UIImage *archiveItemImage = [UIImage imageNamed:archiveItemImageName];
-//            UIBarButtonItem *archiveItem = [[UIBarButtonItem alloc] initWithImage:archiveItemImage style:UIBarButtonItemStylePlain target:self action:@selector(p_handleArchive:)];
-//            UIBarButtonItem *shareItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navigation_share"] style:UIBarButtonItemStylePlain target:self action:@selector(p_handleShare:)];
-//            self.navigationItem.rightBarButtonItems = @[archiveItem
-                                                        //,shareItem];
-//                                                        ];
-//            addressHeaderView.labelEditable = YES;
             
             [self.transactionStore fetch];
+            [self.tableView reloadData];
             
             if (!self.refreshControl) {
                 self.refreshControl = [[UIRefreshControl alloc] init];
@@ -154,41 +140,17 @@
             break;
         }
             
-        case AddressActionTypeReceive: {
-            self.title = NSLocalizedStringFromTable(@"Navigation receive", @"CBW", @"Receive");
+        case AddressActionTypeCreate: {
+            self.title = NSLocalizedStringFromTable(@"Navigation create_address", @"CBW", nil);
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(p_handleSaveNewAddress:)];
             break;
         }
             
+        case AddressActionTypeReceive: 
         case AddressActionTypeSend:
         case AddressActionTypeChange:
             // won't reach here
             break;
-            
-        case AddressActionTypeExplore: {
-            self.title = NSLocalizedStringFromTable(@"Navigation address", @"CBW", @"Address");
-//            addressHeaderView.labelEditable = NO;
-            // right navigation item
-            if (self.navigationController.viewControllers.count > 3) {
-                self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(p_handleBackToRoot)];
-            }
-            
-            [self.transactionStore fetch];
-            
-            if (!self.refreshControl) {
-                self.refreshControl = [[UIRefreshControl alloc] init];
-                [self.refreshControl addTarget:self action:@selector(p_requestAddressSummary) forControlEvents:UIControlEventValueChanged];
-            }
-            
-            // 请求摘要及交易信息
-            [self p_requestAddressSummary];
-            break;
-        }
-        case AddressActionTypeCreate: {
-            self.title = NSLocalizedStringFromTable(@"Navigation create_address", @"CBW", nil);
-//            addressHeaderView.labelEditable = YES;
-            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(p_handleSaveNewAddress:)];
-            break;
-        }
     }
 }
 
@@ -233,7 +195,9 @@
 }
 - (void)p_requestTransactions {
     if (self.transactionStore.page < self.transactionStore.pageTotal) {
-        [self.transactionStore fetchNextPage];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [self.transactionStore fetchNextPage];
+        });
     }
 }
 
@@ -249,13 +213,6 @@
     [self.address saveWithError:nil];
     
     [self.navigationController popViewControllerAnimated:YES];
-//    // 设置
-//    self.actionType = AddressActionTypeDefault;
-//    // 移除按钮
-//    self.navigationItem.rightBarButtonItem = nil;
-//    // 加载交易
-//    [self.transactionStore fetch];
-//    [self p_requestAddressSummary];
 }
 
 - (void)p_handleShare:(id)sender {
@@ -357,7 +314,7 @@
     return CBWCellHeightTransaction;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.actionType == AddressActionTypeDefault || self.actionType == AddressActionTypeExplore) {
+    if (self.actionType == AddressActionTypeDefault) {
         // goto transaction
         CBWTransaction *transaction = [self.transactionStore transactionAtIndexPath:indexPath];
         if (transaction) {
@@ -373,21 +330,25 @@
         CGFloat contentHeight = scrollView.contentSize.height;
         CGFloat offsetTop = targetContentOffset->y;
         CGFloat height = CGRectGetHeight(scrollView.frame);
-        if (contentHeight - (offsetTop + height) < CBWCellHeightTransaction * 2) {
-            [self.transactionStore fetchNextPage];
+        if (contentHeight - (offsetTop + height) < 2 * CBWCellHeightTransaction) {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                [self.transactionStore fetchNextPage];
+            });
         }
     }
+}
+
+#pragma mark - <CBWTXStoreDelegate>
+- (void)txStoreDidCompleteFetch:(CBWTXStore *)store {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
 }
 
 #pragma mark - <UITextFieldDelegat>
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return YES;
-}
-
-#pragma mark - <CBWTXStoreDelegate>
-- (void)txStore:(CBWTXStore *)store didInsertAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths {
-    [self.tableView reloadData];
 }
 
 @end
