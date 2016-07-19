@@ -408,7 +408,7 @@
         CGFloat contentHeight = scrollView.contentSize.height;
         CGFloat offsetTop = targetContentOffset->y;
         CGFloat height = CGRectGetHeight(scrollView.frame);
-        if (contentHeight - (offsetTop + height) < 200.f) {
+        if (contentHeight - (offsetTop + height) < 2 * CBWCellHeightTransaction) {
             [self.transactionStore fetchNextPage];
             [self.tableView reloadData];
         }

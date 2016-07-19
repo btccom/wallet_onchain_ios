@@ -260,7 +260,7 @@ static NSString *const kAddressExplorerReceiveAmountCellIdentifier = @"cell.rece
         CGFloat contentHeight = scrollView.contentSize.height;
         CGFloat offsetTop = targetContentOffset->y;
         CGFloat height = CGRectGetHeight(scrollView.frame);
-        if (contentHeight - (offsetTop + height) < 200.f) {
+        if (contentHeight - (offsetTop + height) < 2 * CBWCellHeightTransaction) {
             [self p_requestTransactions];
             [self.tableView reloadData];
         }
