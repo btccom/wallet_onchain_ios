@@ -116,12 +116,14 @@
         collection = response;
     }];
     
-    DLog(@"database response: \n%@", collection);
-    
     NSArray<CBWTransaction *> *txs = [CBWTransaction batchInitWithArray:collection];
     [txs enumerateObjectsUsingBlock:^(CBWTransaction * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         [self p_addTransaction:obj];
     }];
+    
+    if ([self.delegate respondsToSelector:@selector(txStoreDidCompleteFetch:)]) {
+        [self.delegate txStoreDidCompleteFetch:self];
+    }
 }
 /// 加入 store
 - (BOOL)p_addTransaction:(CBWTransaction *)transaction {

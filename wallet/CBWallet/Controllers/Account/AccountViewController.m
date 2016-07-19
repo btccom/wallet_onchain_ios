@@ -28,7 +28,7 @@
 #import "NSString+CBWAddress.h"
 #import "NSDate+Helper.h"
 
-@interface AccountViewController ()<AddressListViewControllerDelegate, UIScrollViewDelegate>
+@interface AccountViewController ()<AddressListViewControllerDelegate, UIScrollViewDelegate, CBWTXStoreDelegate>
 
 @property (nonatomic, strong) CBWAccount *account;
 @property (nonatomic, strong) CBWTXStore *transactionStore;
@@ -72,6 +72,7 @@
 - (CBWTXStore *)transactionStore {
     if (!_transactionStore) {
         _transactionStore = [CBWTXStore new];
+        _transactionStore.delegate = self;
     }
     return _transactionStore;
 }
@@ -409,10 +410,18 @@
         CGFloat offsetTop = targetContentOffset->y;
         CGFloat height = CGRectGetHeight(scrollView.frame);
         if (contentHeight - (offsetTop + height) < 2 * CBWCellHeightTransaction) {
-            [self.transactionStore fetchNextPage];
-            [self.tableView reloadData];
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                [self.transactionStore fetchNextPage];
+            });
         }
     }
+}
+
+#pragma mark <CBWTXStoreDelegate>
+- (void)txStoreDidCompleteFetch:(CBWTXStore *)store {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
 }
 
 @end
