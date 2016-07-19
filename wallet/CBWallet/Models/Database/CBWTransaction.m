@@ -86,8 +86,8 @@
             }];
         }];
         
-        _value = outputValue - inputValue + self.fee;
-        if (0 == _value) {// internal transaction
+        _value = outputValue - inputValue;
+        if (0 == _value + self.fee) {// internal transaction
             _value = self.outputsValue;
         }
     }
