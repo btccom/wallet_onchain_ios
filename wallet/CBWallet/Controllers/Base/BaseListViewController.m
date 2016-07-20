@@ -28,15 +28,21 @@ NSString *const BaseListViewCellAddressIdentifier = @"list.cell.address";
 #pragma mark - Public Method
 - (void)requestDidStart {
     self.requesting = YES;
-//    [self.refreshControl beginRefreshing];
-    DLog(@"request did start");
-//    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
+    if (!self.tableView.tableFooterView) {
+        UIActivityIndicatorView *fetchingIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        self.tableView.tableFooterView = fetchingIndicatorView;
+        [fetchingIndicatorView startAnimating];
+    }
 }
 - (void)requestDidStop {
     self.requesting = NO;
     [self.refreshControl endRefreshing];
-    DLog(@"request did stop");
-//    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    
+    if ([self.tableView.tableFooterView isKindOfClass:[UIActivityIndicatorView class]]) {
+        [((UIActivityIndicatorView *)self.tableView.tableFooterView) stopAnimating];
+        self.tableView.tableFooterView = nil;
+    }
 }
 
 #pragma mark - <UITableViewDataSource>
