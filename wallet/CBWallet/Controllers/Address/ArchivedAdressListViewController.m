@@ -82,6 +82,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     AddressCell *cell = [tableView dequeueReusableCellWithIdentifier:BaseListViewCellAddressIdentifier forIndexPath:indexPath];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     [cell setMetadataHidden:(self.actionType != AddressActionTypeDefault)];
     CBWAddress *address = [self.addressStore recordAtIndex:indexPath.row];
     [cell setAddress:address];
