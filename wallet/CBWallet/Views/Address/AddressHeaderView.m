@@ -55,6 +55,8 @@ static const CGFloat kAddressHeaderViewLabelHeight = 20.f;
     if (!_addressLabel) {
         ResponderLabel *label = [[ResponderLabel alloc] initWithFrame:CGRectMake(CBWLayoutCommonPadding, kAddressHeaderViewVerticalPadding + HD_IMAGE_PORTRAIT_HEIGHT + kAddressHeaderViewSubviewMargin, SCREEN_WIDTH - CBWLayoutCommonPadding * 2.f, kAddressHeaderViewAddressHeight)];
         label.font = [UIFont fontWithName:@"Courier" size:UIFont.labelFontSize];
+        label.adjustsFontSizeToFitWidth = YES;
+        label.minimumScaleFactor = 0.5;
         label.textAlignment = NSTextAlignmentCenter;
         [self addSubview:label];
         _addressLabel = label;
@@ -93,7 +95,8 @@ static const CGFloat kAddressHeaderViewLabelHeight = 20.f;
         qrcodeString = [NSString stringWithFormat:@"bitcoin:%@?label=%@", address, label];
     }
     [self.qrcodeImageView setImage:[qrcodeString qrcodeImageWithSize:self.qrcodeImageView.frame.size]];
-    self.addressLabel.attributedText = [address attributedAddressWithAlignment:NSTextAlignmentCenter];
+//    self.addressLabel.attributedText = [address attributedAddressWithAlignment:NSTextAlignmentCenter];
+    self.addressLabel.text = address;
     self.labelField.text = label;
 }
 
