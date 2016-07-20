@@ -176,7 +176,7 @@
 "Drawer Cell block_height" = "Block Height";
 
 // Address List
-"Address Section receive_address" = "Address";
+"Address Section change_address" = "Addresses";
 "Address Cell new_address" = "New Address";
 
 // Address
