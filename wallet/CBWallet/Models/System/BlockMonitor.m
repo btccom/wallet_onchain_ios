@@ -41,7 +41,7 @@ NSString *const BlockMonitorNotificationNewBlock = @"notification.block.new";
 
 - (void)begin {
     if (!_timer) {
-        _timer = [NSTimer scheduledTimerWithTimeInterval:20 target:self selector:@selector(p_timerFired) userInfo:nil repeats:YES];
+        _timer = [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(p_timerFired) userInfo:nil repeats:YES];
     }
     [_timer fire];
 }
