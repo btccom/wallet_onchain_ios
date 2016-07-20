@@ -146,11 +146,10 @@
             break;
         }
             
-        case AddressActionTypeReceive: 
-        case AddressActionTypeSend:
-        case AddressActionTypeChange:
-            // won't reach here
+        default: {
+            NSAssert(AddressActionTypeDefault == self.actionType || AddressActionTypeCreate == self.actionType, @"Address view controller won't support this action.");
             break;
+        }
     }
 }
 

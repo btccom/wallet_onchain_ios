@@ -9,19 +9,6 @@
 #import "BaseListViewController.h"
 @class CBWAddress;
 
-typedef NS_ENUM(NSUInteger, AddressActionType) {
-    /// default, show summary
-    AddressActionTypeDefault = 0,
-    /// preview to create
-    AddressActionTypeCreate,
-    /// send, won't jump to address view from list
-    AddressActionTypeSend,
-    /// receive change, won't jump to address view from list
-    AddressActionTypeChange,
-    /// receive, just label + address
-    AddressActionTypeReceive
-};
-
 /// 地址视图
 /// - 二维码
 /// - 地址
