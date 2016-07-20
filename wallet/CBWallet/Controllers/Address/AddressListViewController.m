@@ -278,7 +278,15 @@
 }
 #pragma mark - <UITableViewDataSource>
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.actionCells.count > 0 ? 2 : 1;
+    NSInteger actionSectionNumber = 0;
+    if (self.actionCells.count > 0) {
+        actionSectionNumber = 1;
+    }
+    NSInteger addressSectionNumber = 0;
+    if (self.addressStore.count > 0) {
+        addressSectionNumber = 1;
+    }
+    return actionSectionNumber + addressSectionNumber;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
