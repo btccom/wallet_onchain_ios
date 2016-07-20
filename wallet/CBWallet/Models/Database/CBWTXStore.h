@@ -22,7 +22,6 @@
 
 ///
 @property (nonatomic, copy, nullable) NSArray *queryAddresses;
-@property (nonatomic, assign) NSInteger accountIDX;
 
 @property (nonatomic, assign, readonly) NSUInteger page;
 @property (nonatomic, assign, readonly) NSInteger pageTotal;
