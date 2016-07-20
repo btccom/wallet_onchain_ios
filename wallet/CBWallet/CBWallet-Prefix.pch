@@ -22,11 +22,14 @@
 #define VERSION [[[NSBundle mainBundle] infoDictionary] valueForKey:@"CFBundleShortVersionString"]
 #define BUNDLE_VERSION [[[NSBundle mainBundle] infoDictionary] valueForKey:@"CFBundleVersion"]
 
-typedef NS_ENUM(NSUInteger, LockScreenActionType) {
-    /// 注册，初始化钱包，create or recover
-    LockScreenActionTypeSignUp,
-    /// 登录，如应用被唤醒时，master password
-    LockScreenActionTypeSignIn
+typedef NS_ENUM(NSUInteger, AddressActionType) {
+    /// Account's address
+    AddressActionTypeDefault,
+    AddressActionTypeCreate,
+    AddressActionTypeSend,
+    AddressActionTypeReceive,
+    AddressActionTypeChange,
+    AddressActionTypeExplore
 };
 
 /// 0.5

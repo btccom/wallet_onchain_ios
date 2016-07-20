@@ -265,7 +265,7 @@
 }
 - (void)p_pushToAddress:(CBWAddress *)address {
     if (AddressActionTypeReceive == self.actionType) {
-        AddressExplorerViewController *addressViewController = [[AddressExplorerViewController alloc] initWithAddress:address explorerType:AddressExplorerTypeReceive];
+        AddressExplorerViewController *addressViewController = [[AddressExplorerViewController alloc] initWithAddress:address actionType:self.actionType];
         if (addressViewController) {
             [self.navigationController pushViewController:addressViewController animated:YES];
         }

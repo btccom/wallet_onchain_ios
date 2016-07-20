@@ -48,7 +48,7 @@ static NSString *const kAddressExplorerReceiveAmountCellIdentifier = @"cell.rece
 
 - (NSString *)addressString {
     if (!_addressString) {
-        if (self.explorerType == AddressExplorerTypeExternal) {
+        if (AddressActionTypeExplore == self.actionType) {
             _addressString = self.address.address;
         } else {
             _addressString = [[NSUserDefaults standardUserDefaults] boolForKey:CBWUserDefaultsTestnetEnabled] ? self.address.testAddress : self.address.address;
@@ -59,11 +59,12 @@ static NSString *const kAddressExplorerReceiveAmountCellIdentifier = @"cell.rece
 
 #pragma mark - Initialization
 
-- (instancetype)initWithAddress:(CBWAddress *)address explorerType:(AddressExplorerType)explorerType {
-    self = [super initWithStyle:(AddressExplorerTypeReceive == explorerType) ? UITableViewStyleGrouped : UITableViewStylePlain];
+- (instancetype)initWithAddress:(CBWAddress *)address actionType:(AddressActionType)actionType {
+    self = [super initWithStyle:(AddressActionTypeReceive == actionType) ? UITableViewStyleGrouped : UITableViewStylePlain];
     if (self) {
         _address = address;
-        _explorerType = explorerType;
+        _actionType = actionType;
+        NSAssert(AddressActionTypeReceive == actionType || AddressActionTypeExplore == actionType, @"Address explorer view controller won't support this action: %lu", actionType);
     }
     return self;
 }
@@ -86,15 +87,15 @@ static NSString *const kAddressExplorerReceiveAmountCellIdentifier = @"cell.rece
     addressHeaderView.delegate = self;
     [self.tableView setTableHeaderView:addressHeaderView];
     _headerView = addressHeaderView;
-    switch (self.explorerType) {
+    switch (self.actionType) {
             
-        case AddressExplorerTypeReceive: {
+        case AddressActionTypeReceive: {
             self.title = NSLocalizedStringFromTable(@"Navigation receive", @"CBW", @"Receive");
             [self.tableView registerClass:[FormControlInputCell class] forCellReuseIdentifier:kAddressExplorerReceiveAmountCellIdentifier];
             break;
         }
             
-        case AddressExplorerTypeExternal: {
+        case AddressActionTypeExplore: {
             self.title = NSLocalizedStringFromTable(@"Navigation address", @"CBW", @"Address");
             
             // right navigation item
@@ -109,6 +110,10 @@ static NSString *const kAddressExplorerReceiveAmountCellIdentifier = @"cell.rece
             
             // 请求摘要及交易信息
             [self p_requestAddressSummary];
+            break;
+        }
+        default: {
+            NSAssert(AddressActionTypeReceive == self.actionType || AddressActionTypeExplore == self.actionType, @"Address explorer view controller won't support this action: %lu", self.actionType);
             break;
         }
     }
@@ -196,13 +201,13 @@ static NSString *const kAddressExplorerReceiveAmountCellIdentifier = @"cell.rece
 
 #pragma mark - UITableDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return (AddressExplorerTypeExternal == self.explorerType) ? [self.transactionStore numberOfSections] : 1;
+    return (AddressActionTypeExplore == self.actionType) ? [self.transactionStore numberOfSections] : 1;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return (AddressExplorerTypeExternal == self.explorerType) ? [self.transactionStore numberOfRowsInSection:section] : 1;
+    return (AddressActionTypeExplore == self.actionType) ? [self.transactionStore numberOfRowsInSection:section] : 1;
 }
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (AddressExplorerTypeReceive == self.explorerType) {
+    if (AddressActionTypeReceive == self.actionType) {
         return nil;
     }
     
@@ -215,7 +220,7 @@ static NSString *const kAddressExplorerReceiveAmountCellIdentifier = @"cell.rece
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (AddressExplorerTypeReceive == self.explorerType) {
+    if (AddressActionTypeReceive == self.actionType) {
         FormControlInputCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kAddressExplorerReceiveAmountCellIdentifier forIndexPath:indexPath];
         cell.inputType = FormControlInputTypeBitcoinAmount;
         cell.textField.placeholder = NSLocalizedStringFromTable(@"Placeholder receive_amount", @"CBW", nil);
@@ -244,7 +249,7 @@ static NSString *const kAddressExplorerReceiveAmountCellIdentifier = @"cell.rece
     return CBWCellHeightTransaction;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.explorerType == AddressExplorerTypeExternal) {
+    if (AddressActionTypeExplore == self.actionType) {
         // goto transaction
         CBWTransaction *transaction = [self.transactionStore transactionAtIndexPath:indexPath];
         if (transaction) {
@@ -256,7 +261,7 @@ static NSString *const kAddressExplorerReceiveAmountCellIdentifier = @"cell.rece
 
 #pragma mark <UIScrollViewDelegate>
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
-    if (AddressExplorerTypeExternal == self.explorerType && !self.requesting && self.isThereMoreDatas) {
+    if (AddressActionTypeExplore == self.actionType && !self.requesting && self.isThereMoreDatas) {
         CGFloat contentHeight = scrollView.contentSize.height;
         CGFloat offsetTop = targetContentOffset->y;
         CGFloat height = CGRectGetHeight(scrollView.frame);

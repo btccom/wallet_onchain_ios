@@ -321,7 +321,7 @@ static NSString *const kTransactionViewControllerCellIdentifierIO = @"transactio
     if (selecteAddress) {
         CBWAddress *address = [[CBWAddress alloc] init];
         address.address = selecteAddress;
-        AddressExplorerViewController *addressViewController = [[AddressExplorerViewController alloc] initWithAddress:address explorerType:AddressExplorerTypeExternal];
+        AddressExplorerViewController *addressViewController = [[AddressExplorerViewController alloc] initWithAddress:address actionType:AddressActionTypeExplore];
         [self.navigationController pushViewController:addressViewController animated:YES];
     }
 }
