@@ -244,6 +244,139 @@
 		2CDB4A361D38E46D009299F5 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A341D38E46D009299F5 /* SettingsViewController.m */; };
 		2CDB4A391D38E479009299F5 /* AccountsManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A381D38E479009299F5 /* AccountsManagerViewController.m */; };
 		2CDCB1721CC5DCF200722BCF /* SSKeychainQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDCB1711CC5DCF200722BCF /* SSKeychainQuery.m */; };
+		2CE6F2A41D40BA280048C07B /* DrawerAccountTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A121D3726B9009299F5 /* DrawerAccountTableViewCell.m */; };
+		2CE6F2A51D40BA280048C07B /* NSDate+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C16849F1CAB5F4800BD434A /* NSDate+Helper.m */; };
+		2CE6F2A61D40BA280048C07B /* UIColor+CBW.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF191C868B61008194EB /* UIColor+CBW.m */; };
+		2CE6F2A71D40BA280048C07B /* DrawerStaticCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A0D1D371E49009299F5 /* DrawerStaticCellModel.m */; };
+		2CE6F2A81D40BA280048C07B /* CBWRecordObjectStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEFC3521CA4CBAC00FECCA4 /* CBWRecordObjectStore.m */; };
+		2CE6F2A91D40BA280048C07B /* FormControlInputActionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C19FCFC1CB32C92009BC78C /* FormControlInputActionCell.m */; };
+		2CE6F2AA1D40BA280048C07B /* BlockMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC20F861D1D5C7500F51106 /* BlockMonitor.m */; };
+		2CE6F2AB1D40BA280048C07B /* RecipientViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF091C868B61008194EB /* RecipientViewController.m */; };
+		2CE6F2AC1D40BA280048C07B /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAEF01C868B61008194EB /* BaseViewController.m */; };
+		2CE6F2AD1D40BA280048C07B /* BaseFormControlCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C18E2271CAE672C0080EF1E /* BaseFormControlCell.m */; };
+		2CE6F2AE1D40BA280048C07B /* CBWTransactionSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C23CDBC1D1BBABC00C0ABA5 /* CBWTransactionSync.m */; };
+		2CE6F2AF1D40BA280048C07B /* CBWAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF211C868B61008194EB /* CBWAddress.m */; };
+		2CE6F2B01D40BA280048C07B /* CBWRequest+Address.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D2651CA8C14E001DDB1F /* CBWRequest+Address.m */; };
+		2CE6F2B11D40BA280048C07B /* TransactionDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1684AE1CAD17C500BD434A /* TransactionDataCell.m */; };
+		2CE6F2B21D40BA280048C07B /* NSNumber+Satoshi.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C19FD0B1CB3FBC7009BC78C /* NSNumber+Satoshi.m */; };
+		2CE6F2B31D40BA280048C07B /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A341D38E46D009299F5 /* SettingsViewController.m */; };
+		2CE6F2B41D40BA280048C07B /* AddressExplorerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE7F3D1D20DCAB00D30570 /* AddressExplorerViewController.m */; };
+		2CE6F2B51D40BA280048C07B /* CBWRequest+Block.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1684A21CAB6B4B00BD434A /* CBWRequest+Block.m */; };
+		2CE6F2B61D40BA280048C07B /* DrawerSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A1A1D379F5E009299F5 /* DrawerSectionHeaderView.m */; };
+		2CE6F2B71D40BA280048C07B /* TransactionIOCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1684B11CAD1A6500BD434A /* TransactionIOCell.m */; };
+		2CE6F2B81D40BA280048C07B /* DrawerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A081D371CF4009299F5 /* DrawerViewController.m */; };
+		2CE6F2B91D40BA280048C07B /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD0A9101CA02ACA006AF02F /* FMDatabaseAdditions.m */; };
+		2CE6F2BA1D40BA280048C07B /* CBWBackup.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9829021CBA49C2004CB2D3 /* CBWBackup.m */; };
+		2CE6F2BB1D40BA280048C07B /* CBWFee.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C19FD181CB5E4A2009BC78C /* CBWFee.m */; };
+		2CE6F2BC1D40BA280048C07B /* TransactionListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF0E1C868B61008194EB /* TransactionListViewController.m */; };
+		2CE6F2BD1D40BA280048C07B /* YYImageCoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF24D551C965C7200C7EDB9 /* YYImageCoder.m */; };
+		2CE6F2BE1D40BA280048C07B /* CBWRequest+Errors.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C18E2101CAE64E00080EF1E /* CBWRequest+Errors.m */; };
+		2CE6F2BF1D40BA280048C07B /* NSNull+SafePatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1684AB1CACEE4200BD434A /* NSNull+SafePatch.m */; };
+		2CE6F2C01D40BA280048C07B /* YYFrameImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF24D511C965C7200C7EDB9 /* YYFrameImage.m */; };
+		2CE6F2C11D40BA280048C07B /* AccountNavigationTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A021D3649D9009299F5 /* AccountNavigationTitleView.m */; };
+		2CE6F2C21D40BA280048C07B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF781C868B98008194EB /* main.m */; };
+		2CE6F2C31D40BA280048C07B /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF24D6F1C97A53200C7EDB9 /* AFURLRequestSerialization.m */; };
+		2CE6F2C41D40BA280048C07B /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF24D731C97A53200C7EDB9 /* AFURLSessionManager.m */; };
+		2CE6F2C51D40BA280048C07B /* AccountsManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A381D38E479009299F5 /* AccountsManagerViewController.m */; };
+		2CE6F2C61D40BA280048C07B /* YYSpriteSheetImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF24D571C965C7200C7EDB9 /* YYSpriteSheetImage.m */; };
+		2CE6F2C71D40BA280048C07B /* ArchivedAdressListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAEE71C868B61008194EB /* ArchivedAdressListViewController.m */; };
+		2CE6F2C81D40BA280048C07B /* UIButton+VerticalLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF171C868B61008194EB /* UIButton+VerticalLayout.m */; };
+		2CE6F2C91D40BA280048C07B /* AddressListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAEE31C868B61008194EB /* AddressListViewController.m */; };
+		2CE6F2CA1D40BA280048C07B /* FormControlStaticArrowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C19FD0E1CB4A0DF009BC78C /* FormControlStaticArrowCell.m */; };
+		2CE6F2CB1D40BA280048C07B /* YYImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF24D531C965C7200C7EDB9 /* YYImage.m */; };
+		2CE6F2CC1D40BA280048C07B /* NSString+Password.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E88F81CA3ADCB006F86E1 /* NSString+Password.m */; };
+		2CE6F2CD1D40BA280048C07B /* FormControlBlockButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C18E22B1CAE672C0080EF1E /* FormControlBlockButtonCell.m */; };
+		2CE6F2CE1D40BA280048C07B /* DefaultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF3C1C868B61008194EB /* DefaultTableViewCell.m */; };
+		2CE6F2CF1D40BA280048C07B /* PBKDF2.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E8C4D1CA42A7D006F86E1 /* PBKDF2.m */; };
+		2CE6F2D01D40BA280048C07B /* CBWDatabaseManager+Address.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D25A1CA66207001DDB1F /* CBWDatabaseManager+Address.m */; };
+		2CE6F2D11D40BA280048C07B /* FormControlInputCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C18E22D1CAE672C0080EF1E /* FormControlInputCell.m */; };
+		2CE6F2D21D40BA280048C07B /* TransactionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF461C868B61008194EB /* TransactionCell.m */; };
+		2CE6F2D31D40BA280048C07B /* AccountHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A001D3649D9009299F5 /* AccountHeaderView.m */; };
+		2CE6F2D41D40BA280048C07B /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C58865C1CFD8903004BBD6C /* SignInViewController.m */; };
+		2CE6F2D51D40BA280048C07B /* AddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF311C868B61008194EB /* AddressCell.m */; };
+		2CE6F2D61D40BA280048C07B /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E8C491CA42A7D006F86E1 /* Base64.m */; };
+		2CE6F2D71D40BA280048C07B /* YYAnimatedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF24D4F1C965C7200C7EDB9 /* YYAnimatedImageView.m */; };
+		2CE6F2D81D40BA280048C07B /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A1F1D37C2EB009299F5 /* SWRevealViewController.m */; };
+		2CE6F2D91D40BA280048C07B /* AESCrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E8C471CA42A7D006F86E1 /* AESCrypt.m */; };
+		2CE6F2DA1D40BA280048C07B /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF24D681C97A53200C7EDB9 /* AFHTTPSessionManager.m */; };
+		2CE6F2DB1D40BA280048C07B /* CBWDatabaseManager+TX.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C23CDB91D1B82AD00C0ABA5 /* CBWDatabaseManager+TX.m */; };
+		2CE6F2DC1D40BA280048C07B /* CBWTransaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF271C868B61008194EB /* CBWTransaction.m */; };
+		2CE6F2DD1D40BA280048C07B /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD0A9171CA02ACA006AF02F /* FMResultSet.m */; };
+		2CE6F2DE1D40BA280048C07B /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD0A9141CA02ACA006AF02F /* FMDatabaseQueue.m */; };
+		2CE6F2DF1D40BA280048C07B /* ScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAEF31C868B61008194EB /* ScanViewController.m */; };
+		2CE6F2E01D40BA280048C07B /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF24D4C1C965C7200C7EDB9 /* SSKeychain.m */; };
+		2CE6F2E11D40BA280048C07B /* SendViewController+Send.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD7EEB91CD2F38100B5B884 /* SendViewController+Send.m */; };
+		2CE6F2E21D40BA280048C07B /* AccountHeaderActionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB49FE1D3649D9009299F5 /* AccountHeaderActionButton.m */; };
+		2CE6F2E31D40BA280048C07B /* AFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF24D6D1C97A53200C7EDB9 /* AFSecurityPolicy.m */; };
+		2CE6F2E41D40BA280048C07B /* DefaultSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF3E1C868B61008194EB /* DefaultSectionHeaderView.m */; };
+		2CE6F2E51D40BA280048C07B /* AccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB49FA1D3647A2009299F5 /* AccountViewController.m */; };
+		2CE6F2E61D40BA280048C07B /* SystemManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF2A1C868B61008194EB /* SystemManager.m */; };
+		2CE6F2E71D40BA280048C07B /* CBWRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D2621CA8C095001DDB1F /* CBWRequest.m */; };
+		2CE6F2E81D40BA280048C07B /* SignUpMasterPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5886621CFDB5F4004BBD6C /* SignUpMasterPasswordViewController.m */; };
+		2CE6F2E91D40BA280048C07B /* CBWRequest+Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1684A81CACAA2D00BD434A /* CBWRequest+Tools.m */; };
+		2CE6F2EA1D40BA280048C07B /* AddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAEE51C868B61008194EB /* AddressViewController.m */; };
+		2CE6F2EB1D40BA280048C07B /* UIViewController+AcitivityMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C175E981CE4484F00DF5698 /* UIViewController+AcitivityMonitor.m */; };
+		2CE6F2EC1D40BA280048C07B /* NSNumber+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C91B5801CF71F14001037E6 /* NSNumber+Helper.m */; };
+		2CE6F2ED1D40BA280048C07B /* TransactionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF101C868B61008194EB /* TransactionViewController.m */; };
+		2CE6F2EE1D40BA280048C07B /* NSData+CommonCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E8C4B1CA42A7D006F86E1 /* NSData+CommonCrypto.m */; };
+		2CE6F2EF1D40BA280048C07B /* SendFromAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C19FD121CB4AD58009BC78C /* SendFromAddressCell.m */; };
+		2CE6F2F01D40BA280048C07B /* UIViewController+RevealEnabled.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A291D38C46C009299F5 /* UIViewController+RevealEnabled.m */; };
+		2CE6F2F11D40BA280048C07B /* Installation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEFC35F1CA501B200FECCA4 /* Installation.m */; };
+		2CE6F2F21D40BA280048C07B /* NSString+CBWAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF131C868B61008194EB /* NSString+CBWAddress.m */; };
+		2CE6F2F31D40BA280048C07B /* DrawerStaticTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A161D375F3D009299F5 /* DrawerStaticTableViewCell.m */; };
+		2CE6F2F41D40BA280048C07B /* CBWAddressStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEFC3581CA4D25000FECCA4 /* CBWAddressStore.m */; };
+		2CE6F2F51D40BA280048C07B /* BlankViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A251D387C8C009299F5 /* BlankViewController.m */; };
+		2CE6F2F61D40BA280048C07B /* UIViewController+Appearance.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF1B1C868B61008194EB /* UIViewController+Appearance.m */; };
+		2CE6F2F71D40BA280048C07B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF721C868B98008194EB /* AppDelegate.m */; };
+		2CE6F2F81D40BA280048C07B /* ResponderLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C175E951CE2C03700DF5698 /* ResponderLabel.m */; };
+		2CE6F2F91D40BA280048C07B /* SendToAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C19FD151CB4F5EB009BC78C /* SendToAddressCell.m */; };
+		2CE6F2FA1D40BA280048C07B /* UIViewController+AlertMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C069C401CC72D4F0054791C /* UIViewController+AlertMessage.m */; };
+		2CE6F2FB1D40BA280048C07B /* CBWRecipient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF231C868B61008194EB /* CBWRecipient.m */; };
+		2CE6F2FC1D40BA280048C07B /* PrimarySolidButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF24D611C97880500C7EDB9 /* PrimarySolidButton.m */; };
+		2CE6F2FD1D40BA280048C07B /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD0A9121CA02ACA006AF02F /* FMDatabasePool.m */; };
+		2CE6F2FE1D40BA280048C07B /* SignUpSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5886651CFDB622004BBD6C /* SignUpSettingsViewController.m */; };
+		2CE6F2FF1D40BA280048C07B /* DrawerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A2D1D38C86F009299F5 /* DrawerTableViewCell.m */; };
+		2CE6F3001D40BA280048C07B /* BaseFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAEEA1C868B61008194EB /* BaseFormViewController.m */; };
+		2CE6F3011D40BA280048C07B /* UIFont+CBW.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D2721CAA10EE001DDB1F /* UIFont+CBW.m */; };
+		2CE6F3021D40BA280048C07B /* CBWTXStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC20F831D1D1CB800F51106 /* CBWTXStore.m */; };
+		2CE6F3031D40BA280048C07B /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF24D6B1C97A53200C7EDB9 /* AFNetworkReachabilityManager.m */; };
+		2CE6F3041D40BA280048C07B /* ImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAEF51C868B61008194EB /* ImagePickerController.m */; };
+		2CE6F3051D40BA280048C07B /* CBWDatabaseManager+Account.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD0A9211CA02CF5006AF02F /* CBWDatabaseManager+Account.m */; };
+		2CE6F3061D40BA280048C07B /* CBWDatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD0A91E1CA02B45006AF02F /* CBWDatabaseManager.m */; };
+		2CE6F3071D40BA280048C07B /* SendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF0B1C868B61008194EB /* SendViewController.m */; };
+		2CE6F3081D40BA280048C07B /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C58865F1CFD8912004BBD6C /* SignUpViewController.m */; };
+		2CE6F3091D40BA280048C07B /* AddressHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF331C868B61008194EB /* AddressHeaderView.m */; };
+		2CE6F30A1D40BA280048C07B /* UIView+Yoyo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C58866B1CFE7BD1004BBD6C /* UIView+Yoyo.m */; };
+		2CE6F30B1D40BA280048C07B /* CBWAccountStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEFC3551CA4CBD600FECCA4 /* CBWAccountStore.m */; };
+		2CE6F30C1D40BA280048C07B /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF24D711C97A53200C7EDB9 /* AFURLResponseSerialization.m */; };
+		2CE6F30D1D40BA280048C07B /* CBWRecovery.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9829051CBA49CC004CB2D3 /* CBWRecovery.m */; };
+		2CE6F30E1D40BA280048C07B /* Guard.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C99A17B1CA0E434007D7AC3 /* Guard.m */; };
+		2CE6F30F1D40BA280048C07B /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD0A90E1CA02ACA006AF02F /* FMDatabase.m */; };
+		2CE6F3101D40BA280048C07B /* BaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAEEE1C868B61008194EB /* BaseTableViewController.m */; };
+		2CE6F3111D40BA280048C07B /* SSKeychainQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDCB1711CC5DCF200722BCF /* SSKeychainQuery.m */; };
+		2CE6F3121D40BA280048C07B /* AddressCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C03C0C71D2637150056729F /* AddressCardView.m */; };
+		2CE6F3131D40BA280048C07B /* CBWAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF1F1C868B61008194EB /* CBWAccount.m */; };
+		2CE6F3141D40BA280048C07B /* BaseListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAEEC1C868B61008194EB /* BaseListViewController.m */; };
+		2CE6F3151D40BA280048C07B /* PasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB4A321D38E46D009299F5 /* PasswordViewController.m */; };
+		2CE6F3161D40BA280048C07B /* CBWTransactionStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEFC35B1CA4D65C00FECCA4 /* CBWTransactionStore.m */; };
+		2CE6F3171D40BA280048C07B /* InversedSolidButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5886681CFDC96E004BBD6C /* InversedSolidButton.m */; };
+		2CE6F3181D40BA280048C07B /* CBWRecordObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF251C868B61008194EB /* CBWRecordObject.m */; };
+		2CE6F3191D40BA280048C07B /* CBWRequest+Transaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1684A51CACA89D00BD434A /* CBWRequest+Transaction.m */; };
+		2CE6F31A1D40BA280048C07B /* SessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF2D1C868B61008194EB /* SessionManager.m */; };
+		2CE6F31B1D40BA280048C07B /* NSString+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF151C868B61008194EB /* NSString+Helper.m */; };
+		2CE6F31C1D40BA280048C07B /* DefaultSectionFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAA7DEA1CF010B000B0701C /* DefaultSectionFooterView.m */; };
+		2CE6F31D1D40BA280048C07B /* FormControlActionButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C18E2291CAE672C0080EF1E /* FormControlActionButtonCell.m */; };
+		2CE6F31E1D40BA280048C07B /* FormControlStaticCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C18E22F1CAE672C0080EF1E /* FormControlStaticCell.m */; };
+		2CE6F3201D40BA280048C07B /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C069C491CC9C8250054791C /* CloudKit.framework */; };
+		2CE6F3211D40BA280048C07B /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C99A17F1CA1029C007D7AC3 /* libsqlite3.tbd */; };
+		2CE6F3221D40BA280048C07B /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CF24D5E1C965F6500C7EDB9 /* libz.tbd */; };
+		2CE6F3231D40BA280048C07B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CF24D111C96377600C7EDB9 /* AVFoundation.framework */; };
+		2CE6F3241D40BA280048C07B /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7181822D043721CB668D9C00 /* libPods.a */; };
+		2CE6F3261D40BA280048C07B /* Schema in Resources */ = {isa = PBXBuildFile; fileRef = 2CEFC3651CA50EF900FECCA4 /* Schema */; };
+		2CE6F3271D40BA280048C07B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2C9CAF771C868B98008194EB /* InfoPlist.strings */; };
+		2CE6F3281D40BA280048C07B /* CBW.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2C9CAF741C868B98008194EB /* CBW.strings */; };
+		2CE6F3291D40BA280048C07B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C9CAF731C868B98008194EB /* Assets.xcassets */; };
+		2CE6F32A1D40BA280048C07B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C9CAF7F1C868BCB008194EB /* LaunchScreen.storyboard */; };
 		2CEFC3531CA4CBAC00FECCA4 /* CBWRecordObjectStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEFC3521CA4CBAC00FECCA4 /* CBWRecordObjectStore.m */; };
 		2CEFC3561CA4CBD600FECCA4 /* CBWAccountStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEFC3551CA4CBD600FECCA4 /* CBWAccountStore.m */; };
 		2CEFC3591CA4D25000FECCA4 /* CBWAddressStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEFC3581CA4D25000FECCA4 /* CBWAddressStore.m */; };
@@ -493,6 +626,8 @@
 		2CDB4A381D38E479009299F5 /* AccountsManagerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountsManagerViewController.m; sourceTree = "<group>"; };
 		2CDCB1701CC5DCF200722BCF /* SSKeychainQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKeychainQuery.h; sourceTree = "<group>"; };
 		2CDCB1711CC5DCF200722BCF /* SSKeychainQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKeychainQuery.m; sourceTree = "<group>"; };
+		2CE6F3301D40BA280048C07B /* CBWallet Production.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CBWallet Production.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2CE6F3311D40BA280048C07B /* CBWallet Production-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "CBWallet Production-Info.plist"; path = "/Users/zin/Desktop/Work/Homework/Bitmain/Wallet/wallet_onchain_ios/wallet/CBWallet Production-Info.plist"; sourceTree = "<absolute>"; };
 		2CEFC3511CA4CBAC00FECCA4 /* CBWRecordObjectStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBWRecordObjectStore.h; sourceTree = "<group>"; };
 		2CEFC3521CA4CBAC00FECCA4 /* CBWRecordObjectStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBWRecordObjectStore.m; sourceTree = "<group>"; };
 		2CEFC3541CA4CBD600FECCA4 /* CBWAccountStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBWAccountStore.h; sourceTree = "<group>"; };
@@ -561,6 +696,18 @@
 				2CF24D5F1C965F6500C7EDB9 /* libz.tbd in Frameworks */,
 				2CF24D121C96377600C7EDB9 /* AVFoundation.framework in Frameworks */,
 				75C00C62AA272AEDF0E2C76C /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2CE6F31F1D40BA280048C07B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2CE6F3201D40BA280048C07B /* CloudKit.framework in Frameworks */,
+				2CE6F3211D40BA280048C07B /* libsqlite3.tbd in Frameworks */,
+				2CE6F3221D40BA280048C07B /* libz.tbd in Frameworks */,
+				2CE6F3231D40BA280048C07B /* AVFoundation.framework in Frameworks */,
+				2CE6F3241D40BA280048C07B /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -935,6 +1082,7 @@
 				E4BBEA9F1BE4E2B1886C175F /* Pods */,
 				A3DE19FDBECA89D27AA75E54 /* Frameworks */,
 				2CC12D1B1D29CFFC00687CE6 /* CBWallet Enterprise-Info.plist */,
+				2CE6F3311D40BA280048C07B /* CBWallet Production-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -943,6 +1091,7 @@
 			children = (
 				2CC4845A1C71A2EE0033D700 /* CBWallet.app */,
 				2CC12D1A1D29CFFC00687CE6 /* CBWallet Enterprise.app */,
+				2CE6F3301D40BA280048C07B /* CBWallet Production.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1202,6 +1351,26 @@
 			productReference = 2CC4845A1C71A2EE0033D700 /* CBWallet.app */;
 			productType = "com.apple.product-type.application";
 		};
+		2CE6F2A11D40BA280048C07B /* CBWallet Production */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2CE6F32D1D40BA280048C07B /* Build configuration list for PBXNativeTarget "CBWallet Production" */;
+			buildPhases = (
+				2CE6F2A21D40BA280048C07B /* Check Pods Manifest.lock */,
+				2CE6F2A31D40BA280048C07B /* Sources */,
+				2CE6F31F1D40BA280048C07B /* Frameworks */,
+				2CE6F3251D40BA280048C07B /* Resources */,
+				2CE6F32B1D40BA280048C07B /* Embed Pods Frameworks */,
+				2CE6F32C1D40BA280048C07B /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "CBWallet Production";
+			productName = wallet;
+			productReference = 2CE6F3301D40BA280048C07B /* CBWallet Production.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1224,6 +1393,9 @@
 							};
 						};
 					};
+					2CE6F2A11D40BA280048C07B = {
+						DevelopmentTeam = 76D572M8T4;
+					};
 				};
 			};
 			buildConfigurationList = 2CC484551C71A2EE0033D700 /* Build configuration list for PBXProject "CBWallet" */;
@@ -1241,6 +1413,7 @@
 			targets = (
 				2CC484591C71A2EE0033D700 /* CBWallet */,
 				2CC12C8D1D29CFFC00687CE6 /* CBWallet Enterprise */,
+				2CE6F2A11D40BA280048C07B /* CBWallet Production */,
 			);
 		};
 /* End PBXProject section */
@@ -1267,6 +1440,18 @@
 				2C9CAF7B1C868B98008194EB /* CBW.strings in Resources */,
 				2C9CAF7A1C868B98008194EB /* Assets.xcassets in Resources */,
 				2C9CAF811C868BCB008194EB /* LaunchScreen.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2CE6F3251D40BA280048C07B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2CE6F3261D40BA280048C07B /* Schema in Resources */,
+				2CE6F3271D40BA280048C07B /* InfoPlist.strings in Resources */,
+				2CE6F3281D40BA280048C07B /* CBW.strings in Resources */,
+				2CE6F3291D40BA280048C07B /* Assets.xcassets in Resources */,
+				2CE6F32A1D40BA280048C07B /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1304,6 +1489,51 @@
 			showEnvVarsInLog = 0;
 		};
 		2CC12D161D29CFFC00687CE6 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2CE6F2A21D40BA280048C07B /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		2CE6F32B1D40BA280048C07B /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2CE6F32C1D40BA280048C07B /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1619,6 +1849,136 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		2CE6F2A31D40BA280048C07B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2CE6F2A41D40BA280048C07B /* DrawerAccountTableViewCell.m in Sources */,
+				2CE6F2A51D40BA280048C07B /* NSDate+Helper.m in Sources */,
+				2CE6F2A61D40BA280048C07B /* UIColor+CBW.m in Sources */,
+				2CE6F2A71D40BA280048C07B /* DrawerStaticCellModel.m in Sources */,
+				2CE6F2A81D40BA280048C07B /* CBWRecordObjectStore.m in Sources */,
+				2CE6F2A91D40BA280048C07B /* FormControlInputActionCell.m in Sources */,
+				2CE6F2AA1D40BA280048C07B /* BlockMonitor.m in Sources */,
+				2CE6F2AB1D40BA280048C07B /* RecipientViewController.m in Sources */,
+				2CE6F2AC1D40BA280048C07B /* BaseViewController.m in Sources */,
+				2CE6F2AD1D40BA280048C07B /* BaseFormControlCell.m in Sources */,
+				2CE6F2AE1D40BA280048C07B /* CBWTransactionSync.m in Sources */,
+				2CE6F2AF1D40BA280048C07B /* CBWAddress.m in Sources */,
+				2CE6F2B01D40BA280048C07B /* CBWRequest+Address.m in Sources */,
+				2CE6F2B11D40BA280048C07B /* TransactionDataCell.m in Sources */,
+				2CE6F2B21D40BA280048C07B /* NSNumber+Satoshi.m in Sources */,
+				2CE6F2B31D40BA280048C07B /* SettingsViewController.m in Sources */,
+				2CE6F2B41D40BA280048C07B /* AddressExplorerViewController.m in Sources */,
+				2CE6F2B51D40BA280048C07B /* CBWRequest+Block.m in Sources */,
+				2CE6F2B61D40BA280048C07B /* DrawerSectionHeaderView.m in Sources */,
+				2CE6F2B71D40BA280048C07B /* TransactionIOCell.m in Sources */,
+				2CE6F2B81D40BA280048C07B /* DrawerViewController.m in Sources */,
+				2CE6F2B91D40BA280048C07B /* FMDatabaseAdditions.m in Sources */,
+				2CE6F2BA1D40BA280048C07B /* CBWBackup.m in Sources */,
+				2CE6F2BB1D40BA280048C07B /* CBWFee.m in Sources */,
+				2CE6F2BC1D40BA280048C07B /* TransactionListViewController.m in Sources */,
+				2CE6F2BD1D40BA280048C07B /* YYImageCoder.m in Sources */,
+				2CE6F2BE1D40BA280048C07B /* CBWRequest+Errors.m in Sources */,
+				2CE6F2BF1D40BA280048C07B /* NSNull+SafePatch.m in Sources */,
+				2CE6F2C01D40BA280048C07B /* YYFrameImage.m in Sources */,
+				2CE6F2C11D40BA280048C07B /* AccountNavigationTitleView.m in Sources */,
+				2CE6F2C21D40BA280048C07B /* main.m in Sources */,
+				2CE6F2C31D40BA280048C07B /* AFURLRequestSerialization.m in Sources */,
+				2CE6F2C41D40BA280048C07B /* AFURLSessionManager.m in Sources */,
+				2CE6F2C51D40BA280048C07B /* AccountsManagerViewController.m in Sources */,
+				2CE6F2C61D40BA280048C07B /* YYSpriteSheetImage.m in Sources */,
+				2CE6F2C71D40BA280048C07B /* ArchivedAdressListViewController.m in Sources */,
+				2CE6F2C81D40BA280048C07B /* UIButton+VerticalLayout.m in Sources */,
+				2CE6F2C91D40BA280048C07B /* AddressListViewController.m in Sources */,
+				2CE6F2CA1D40BA280048C07B /* FormControlStaticArrowCell.m in Sources */,
+				2CE6F2CB1D40BA280048C07B /* YYImage.m in Sources */,
+				2CE6F2CC1D40BA280048C07B /* NSString+Password.m in Sources */,
+				2CE6F2CD1D40BA280048C07B /* FormControlBlockButtonCell.m in Sources */,
+				2CE6F2CE1D40BA280048C07B /* DefaultTableViewCell.m in Sources */,
+				2CE6F2CF1D40BA280048C07B /* PBKDF2.m in Sources */,
+				2CE6F2D01D40BA280048C07B /* CBWDatabaseManager+Address.m in Sources */,
+				2CE6F2D11D40BA280048C07B /* FormControlInputCell.m in Sources */,
+				2CE6F2D21D40BA280048C07B /* TransactionCell.m in Sources */,
+				2CE6F2D31D40BA280048C07B /* AccountHeaderView.m in Sources */,
+				2CE6F2D41D40BA280048C07B /* SignInViewController.m in Sources */,
+				2CE6F2D51D40BA280048C07B /* AddressCell.m in Sources */,
+				2CE6F2D61D40BA280048C07B /* Base64.m in Sources */,
+				2CE6F2D71D40BA280048C07B /* YYAnimatedImageView.m in Sources */,
+				2CE6F2D81D40BA280048C07B /* SWRevealViewController.m in Sources */,
+				2CE6F2D91D40BA280048C07B /* AESCrypt.m in Sources */,
+				2CE6F2DA1D40BA280048C07B /* AFHTTPSessionManager.m in Sources */,
+				2CE6F2DB1D40BA280048C07B /* CBWDatabaseManager+TX.m in Sources */,
+				2CE6F2DC1D40BA280048C07B /* CBWTransaction.m in Sources */,
+				2CE6F2DD1D40BA280048C07B /* FMResultSet.m in Sources */,
+				2CE6F2DE1D40BA280048C07B /* FMDatabaseQueue.m in Sources */,
+				2CE6F2DF1D40BA280048C07B /* ScanViewController.m in Sources */,
+				2CE6F2E01D40BA280048C07B /* SSKeychain.m in Sources */,
+				2CE6F2E11D40BA280048C07B /* SendViewController+Send.m in Sources */,
+				2CE6F2E21D40BA280048C07B /* AccountHeaderActionButton.m in Sources */,
+				2CE6F2E31D40BA280048C07B /* AFSecurityPolicy.m in Sources */,
+				2CE6F2E41D40BA280048C07B /* DefaultSectionHeaderView.m in Sources */,
+				2CE6F2E51D40BA280048C07B /* AccountViewController.m in Sources */,
+				2CE6F2E61D40BA280048C07B /* SystemManager.m in Sources */,
+				2CE6F2E71D40BA280048C07B /* CBWRequest.m in Sources */,
+				2CE6F2E81D40BA280048C07B /* SignUpMasterPasswordViewController.m in Sources */,
+				2CE6F2E91D40BA280048C07B /* CBWRequest+Tools.m in Sources */,
+				2CE6F2EA1D40BA280048C07B /* AddressViewController.m in Sources */,
+				2CE6F2EB1D40BA280048C07B /* UIViewController+AcitivityMonitor.m in Sources */,
+				2CE6F2EC1D40BA280048C07B /* NSNumber+Helper.m in Sources */,
+				2CE6F2ED1D40BA280048C07B /* TransactionViewController.m in Sources */,
+				2CE6F2EE1D40BA280048C07B /* NSData+CommonCrypto.m in Sources */,
+				2CE6F2EF1D40BA280048C07B /* SendFromAddressCell.m in Sources */,
+				2CE6F2F01D40BA280048C07B /* UIViewController+RevealEnabled.m in Sources */,
+				2CE6F2F11D40BA280048C07B /* Installation.m in Sources */,
+				2CE6F2F21D40BA280048C07B /* NSString+CBWAddress.m in Sources */,
+				2CE6F2F31D40BA280048C07B /* DrawerStaticTableViewCell.m in Sources */,
+				2CE6F2F41D40BA280048C07B /* CBWAddressStore.m in Sources */,
+				2CE6F2F51D40BA280048C07B /* BlankViewController.m in Sources */,
+				2CE6F2F61D40BA280048C07B /* UIViewController+Appearance.m in Sources */,
+				2CE6F2F71D40BA280048C07B /* AppDelegate.m in Sources */,
+				2CE6F2F81D40BA280048C07B /* ResponderLabel.m in Sources */,
+				2CE6F2F91D40BA280048C07B /* SendToAddressCell.m in Sources */,
+				2CE6F2FA1D40BA280048C07B /* UIViewController+AlertMessage.m in Sources */,
+				2CE6F2FB1D40BA280048C07B /* CBWRecipient.m in Sources */,
+				2CE6F2FC1D40BA280048C07B /* PrimarySolidButton.m in Sources */,
+				2CE6F2FD1D40BA280048C07B /* FMDatabasePool.m in Sources */,
+				2CE6F2FE1D40BA280048C07B /* SignUpSettingsViewController.m in Sources */,
+				2CE6F2FF1D40BA280048C07B /* DrawerTableViewCell.m in Sources */,
+				2CE6F3001D40BA280048C07B /* BaseFormViewController.m in Sources */,
+				2CE6F3011D40BA280048C07B /* UIFont+CBW.m in Sources */,
+				2CE6F3021D40BA280048C07B /* CBWTXStore.m in Sources */,
+				2CE6F3031D40BA280048C07B /* AFNetworkReachabilityManager.m in Sources */,
+				2CE6F3041D40BA280048C07B /* ImagePickerController.m in Sources */,
+				2CE6F3051D40BA280048C07B /* CBWDatabaseManager+Account.m in Sources */,
+				2CE6F3061D40BA280048C07B /* CBWDatabaseManager.m in Sources */,
+				2CE6F3071D40BA280048C07B /* SendViewController.m in Sources */,
+				2CE6F3081D40BA280048C07B /* SignUpViewController.m in Sources */,
+				2CE6F3091D40BA280048C07B /* AddressHeaderView.m in Sources */,
+				2CE6F30A1D40BA280048C07B /* UIView+Yoyo.m in Sources */,
+				2CE6F30B1D40BA280048C07B /* CBWAccountStore.m in Sources */,
+				2CE6F30C1D40BA280048C07B /* AFURLResponseSerialization.m in Sources */,
+				2CE6F30D1D40BA280048C07B /* CBWRecovery.m in Sources */,
+				2CE6F30E1D40BA280048C07B /* Guard.m in Sources */,
+				2CE6F30F1D40BA280048C07B /* FMDatabase.m in Sources */,
+				2CE6F3101D40BA280048C07B /* BaseTableViewController.m in Sources */,
+				2CE6F3111D40BA280048C07B /* SSKeychainQuery.m in Sources */,
+				2CE6F3121D40BA280048C07B /* AddressCardView.m in Sources */,
+				2CE6F3131D40BA280048C07B /* CBWAccount.m in Sources */,
+				2CE6F3141D40BA280048C07B /* BaseListViewController.m in Sources */,
+				2CE6F3151D40BA280048C07B /* PasswordViewController.m in Sources */,
+				2CE6F3161D40BA280048C07B /* CBWTransactionStore.m in Sources */,
+				2CE6F3171D40BA280048C07B /* InversedSolidButton.m in Sources */,
+				2CE6F3181D40BA280048C07B /* CBWRecordObject.m in Sources */,
+				2CE6F3191D40BA280048C07B /* CBWRequest+Transaction.m in Sources */,
+				2CE6F31A1D40BA280048C07B /* SessionManager.m in Sources */,
+				2CE6F31B1D40BA280048C07B /* NSString+Helper.m in Sources */,
+				2CE6F31C1D40BA280048C07B /* DefaultSectionFooterView.m in Sources */,
+				2CE6F31D1D40BA280048C07B /* FormControlActionButtonCell.m in Sources */,
+				2CE6F31E1D40BA280048C07B /* FormControlStaticCell.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
@@ -1797,6 +2157,50 @@
 			};
 			name = Release;
 		};
+		2CE6F32E1D40BA280048C07B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9BBFD3CBF5D6B9AAA0955EDC /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = CBWallet/CBWallet.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				GCC_PREFIX_HEADER = "CBWallet/CBWallet-Prefix.pch";
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = "$(SRCROOT)/CBWallet Production-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.btc.WalletProduction;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+			};
+			name = Debug;
+		};
+		2CE6F32F1D40BA280048C07B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 613F431F393A1094BB6650E8 /* Pods.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = CBWallet/CBWallet.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				GCC_PREFIX_HEADER = "CBWallet/CBWallet-Prefix.pch";
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = "$(SRCROOT)/CBWallet Production-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.btc.WalletProduction;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1823,6 +2227,15 @@
 			buildConfigurations = (
 				2CC484721C71A2EE0033D700 /* Debug */,
 				2CC484731C71A2EE0033D700 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2CE6F32D1D40BA280048C07B /* Build configuration list for PBXNativeTarget "CBWallet Production" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2CE6F32E1D40BA280048C07B /* Debug */,
+				2CE6F32F1D40BA280048C07B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
