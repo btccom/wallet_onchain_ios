@@ -69,15 +69,17 @@ NSString *const CBWTransactionSyncConfirmedCountKey = @"confirmedCount";
             // progress
             progress(NSLocalizedStringFromTable(@"Message TransactionSync progress_compare_addresses_to_sync", @"CBW", nil));
             // 2. detect which address need to be updated
-            NSArray<NSArray<CBWAddress *> *> *comparedAddresses = [self p_compareLocalTXWithResponsedAddresses:[responsedAddresses copy]];
-            DLog(@"updated addresses count: %lu", (unsigned long)comparedAddresses.count);
-            if (comparedAddresses.count > 0) {
-                // 3. pull tx address by address
-                [self p_pullTXsWithAddresses:comparedAddresses updatedAddresses:nil progress:progress completion:completion];
-            } else {
-                // no need to update
-                completion(nil, nil);
-            }
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                NSArray<NSArray<CBWAddress *> *> *comparedAddresses = [self p_compareLocalTXWithResponsedAddresses:[responsedAddresses copy]];
+                DLog(@"updated addresses count: %lu", (unsigned long)comparedAddresses.count);
+                if (comparedAddresses.count > 0) {
+                    // 3. pull tx address by address
+                    [self p_pullTXsWithAddresses:comparedAddresses updatedAddresses:nil progress:progress completion:completion];
+                } else {
+                    // no need to update
+                    completion(nil, nil);
+                }
+            });
         }
     }];
 }
