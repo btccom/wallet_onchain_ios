@@ -239,7 +239,13 @@
     }
     
     // 更新视图
-    [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:self.actionCells.count > 0 ? 1 : 0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+    NSInteger addressSection = self.actionCells.count > 0 ? 1 : 0;
+    NSInteger numberOfSections = [self.tableView numberOfSections];
+    if (numberOfSections > addressSection) {
+        [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:addressSection]] withRowAnimation:UITableViewRowAnimationAutomatic];
+    } else {
+        [self.tableView insertSections:[NSIndexSet indexSetWithIndex:addressSection] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
     
     // 回调
     if (self.actionType == AddressActionTypeChange) {
