@@ -1,0 +1,92 @@
+//
+//  wallet-Prefix.pch
+//  wallet
+//
+//  Created by Zin (noteon.com) on 16/2/25.
+//  Copyright © 2016年 Bitmain. All rights reserved.
+//
+
+#ifndef wallet_Prefix_pch
+#define wallet_Prefix_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+#import "UIColor+CBW.h"
+#import "NSString+Helper.h"
+#import "NSNumber+Satoshi.h"
+#import "NSNumber+Helper.h"
+#import "UIFont+CBW.h"
+#import "NSNull+SafePatch.h"
+#import "Constants.h"
+
+#define VERSION [[[NSBundle mainBundle] infoDictionary] valueForKey:@"CFBundleShortVersionString"]
+#define BUNDLE_VERSION [[[NSBundle mainBundle] infoDictionary] valueForKey:@"CFBundleVersion"]
+
+typedef NS_ENUM(NSUInteger, AddressActionType) {
+    /// Account's address
+    AddressActionTypeDefault,
+    AddressActionTypeCreate,
+    AddressActionTypeSend,
+    AddressActionTypeReceive,
+    AddressActionTypeChange,
+    AddressActionTypeExplore
+};
+
+/// 0.5
+static const NSTimeInterval CBWAnimateDuration = 0.5;
+/// 0.2
+static const NSTimeInterval CBWAnimateDurationFast = 0.2;
+/// 0.87
+static const NSTimeInterval CBWAnimateDUrationSlow = 0.87;
+
+static const CGFloat CBWDisabledOpacity = .5f;
+
+static const CGFloat CBWCornerRadiusMini = 2.f;
+
+static const CGFloat CBWListSectionHeaderHeight = 32.f;
+
+/// 40
+static const CGFloat CBWCellHeightMin = 40.f;
+/// 48
+static const CGFloat CBWCellHeightDefault = 48.f;
+/// 76
+static const CGFloat CBWCellHeightTransaction = 76.f;
+/// 48
+static const CGFloat CBWCellHeightAddress = 48.f;
+/// 76
+static const CGFloat CBWCellHeightAddressWithMetadata = 76.f;
+/// 86
+static const CGFloat CBWCellHeightDrawerAccount = 86.f;
+
+#define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+#define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+#define IS_RETINA ([[UIScreen mainScreen] scale] >= 2.0)
+
+#define SCREEN_WIDTH ([[UIScreen mainScreen] bounds].size.width)
+#define SCREEN_HEIGHT ([[UIScreen mainScreen] bounds].size.height)
+#define SCREEN_MAX_LENGTH (MAX(SCREEN_WIDTH, SCREEN_HEIGHT))
+#define SCREEN_MIN_LENGTH (MIN(SCREEN_WIDTH, SCREEN_HEIGHT))
+
+#define HD_IMAGE_PORTRAIT_HEIGHT ceilf(SCREEN_WIDTH / 16.f * 9.f)
+#define SCREEN_HEIGHT_GOLDEN_SMALL ceilf(SCREEN_HEIGHT * 0.382)
+#define SCREEN_HEIGHT_GOLDEN_BIG ceilf(SCREEN_HEIGHT * 0.618)
+
+#define REVEAL_WIDTH ceilf(SCREEN_WIDTH * 0.8125)
+
+#define IS_IPHONE_4_OR_LESS (IS_IPHONE && SCREEN_MAX_LENGTH < 568.0)
+#define IS_IPHONE_5 (IS_IPHONE && SCREEN_MAX_LENGTH == 568.0)
+#define IS_IPHONE_6 (IS_IPHONE && SCREEN_MAX_LENGTH == 667.0)
+#define IS_IPHONE_6P (IS_IPHONE && SCREEN_MAX_LENGTH == 736.0)
+
+#define CBWLayoutCommonPadding ((IS_IPHONE_6P) ? 20.f : 16.f)
+
+static const CGFloat CBWLayoutCommonVerticalPadding = 16.f;
+static const CGFloat CBWLayoutInnerSpace = 8.f;
+
+#ifdef DEBUG
+#define DLog(...) NSLog(__VA_ARGS__)
+#else
+#define DLog(...) do {} while (0)
+#endif
+
+#endif /* wallet_Prefix_pch */

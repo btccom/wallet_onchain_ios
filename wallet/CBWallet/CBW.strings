@@ -1,0 +1,208 @@
+/* 
+  Localizable.strings
+  wallet
+
+  Created by Zin (noteon.com) on 16/2/26.
+  Copyright © 2016年 Bitmain. All rights reserved.
+*/
+
+"%d Confirmation" = "%d Confirmation";
+"%@ Confirmations" = "%@ Confirmations";
+"Unconfirmed Transaction!" = "Unconfirmed";
+"Confirmed" = "Confirmed";
+"Watched Account" = "Watched Addresses";
+"Internal Transaction" = "Internal Transaction";
+
+"Title welcome" = "Welcome";
+"Description welcome" = "Your personal bitcoin wallet.";
+"Title new" = "New Wallet";
+"Title settings" = "Settings";
+"Title recover" = "Recover Wallet";
+
+"Navigation create_or_recover" = "Welcome";
+"Navigation master_password" = "Master Password";
+"Navigation initial_wallet_setting" = "Setting";
+
+"Navigation account" = "Wallet";
+"Navigation profile" = "Profile";
+"Navigation send" = "Send";
+"Navigation quickly_send" = "Quickly";
+"Navigation advanced_send" = "Advanced";
+"Navigation all_transactions" = "All Transactions";
+"Navigation transaction_list" = "Transaction List";
+"Navigation transaction" = "Transaction";
+"Navigation receive" = "Receive";
+"Navigation address_list" = "Address Book";
+"Navigation archived_address_list" = "Archived";
+"Navigation address" = "Address";
+"Navigation select_address" = "Select Address";
+"Navigation select_balance_%@" = "%@";
+"Navigation settings" = "Settings";
+"Navigation manage_accounts" = "Manage Accounts";
+"Navigation change_password" = "Change Password";
+"Navigation create_address" = "Create Address";
+
+"Button create_wallet" = "New Wallet";
+"Button recover_wallet" = "Recover your wallet.";
+"Button back" = "Back";
+"Button next" = "Next";
+"Button recover" = "Recover";
+"Button master_password" = "Master Password";
+"Button unlock" = "Unlock";
+"Button hint" = "Want a hint?";
+"Button scan_qrcode" = "Scan QRCode";
+"Button recover_from_icloud" = "iCloud";
+"Button photo_library" = "Photo Library";
+"Button send" = "Send";
+"Button receive" = "Receive";
+"Button complete" = "Complete";
+"Button save" = "Save";
+"Button archive" = "Archive";
+"Button unarchive" = "Unarchive";
+"Button delete" = "Delete";
+
+"Placeholder master_password" = "Master Password";
+"Placeholder confirm_master_password" = "Confirm Master Password";
+"Placeholder hint" = "Hint";
+"Placeholder bitcoin_address" = "Bitcoin Address";
+"Placeholder new_address" = "New Address";
+"Placeholder amount" = "Amount in BTC";
+"Placeholder add_label_for_address" = "Add A Label";
+"Placeholder current_password" = "Current Password";
+"Placeholder new_password" = "New Password";
+"Placeholder confirm_password" = "Confirm Password";
+"Placeholder account_label" = "Account Label";
+"Placeholder enter_new_hint" = "Please Enter Hint";
+"Placeholder receive_amount" = "Enter amount in BTC";
+"Placeholder custom_fee" = "Set custom fee in BTC";
+
+"Description Fee -1" = "Custom";
+"Description Fee 0" = "Lowest";
+"Description Fee 1" = "Low";
+"Description Fee 2" = "Medium";
+"Description Fee 3" = "Default";
+"Description Fee 4" = "High";
+"Description Fee 5" = "Highest";
+
+"Alert Message need_strong_password" = "Please enter a strong master password.\nMore than 8 characters.\nContains numbers, letters and symbols.";
+"Alert Message confirm_password" = "Passwords don't match.";
+"Alert Message need_hint" = "Please enter a hint";
+"Alert Title confirm_to_create_wallet" = "Good";
+"Alert Message confirm_to_create_wallet" = "Everything is ready.\nCreate a whole new wallet now?";
+"Alert Message invalid_address" = "Invalid bitcoin address.";
+"Alert Title new_address" = "New Address";
+"Alert Title new_watched_address" = "Add Address";
+"Alert Message new_address" = "";
+"Alert Action save_address" = "Save";
+"Alert Action scan_qr_code" = "Scan QR Code";
+"Alert Message need_icloud_account_signed_in" = "Please sign in iCloud and enable it for me.";
+"Alert Message saved_to_photo_library" = "The backup data has been exported as an image to photo library.";
+"Alert Message need_current_password" = "Please enter your current password.";
+"Alert Message need_new_password" = "Please enter your new password.";
+"Alert Message new_password_not_match" = "Please confirm your new password.";
+"Alert Message invalid_master_password" = "Invalid master password.";
+"Alert Message need_master_password" = "Please enter your master password.";
+"Alert Message invalid_current_password" = "Current password is fault.";
+"Alert Title new_account" = "New Account";
+"Alert Message new_account" = "Please enter a label to specify the account.";
+"Alert Message need_account_label" = "Label is empty.";
+"Alert Title change_account_label" = "Change Account Label";
+"Alert Message change_account_label" = "";
+"Alert Message create_watched_address_success" = "Created a watched address.";
+"Alert Message enable_touchid" = "Enable touchID.";
+"Alert Message verify_touchid" = "Please verify your touchID.";
+"Alert Message update_hint_error" = "Set hint failed.";
+"Alert Message empty_hint" = "Set the hint please.";
+"Alert Title sign_out" = "Attention!";
+"Alert Message sign_out" = "This action will clear all your data from local database, keychain and iCloud.";
+"Alert Action backup_delete" = "Backup and Delete";
+"Alert Title confirm_to_sign_out" = "Confirm to delete?";
+"Alert Message confirm_to_sign_out" = "This action can't be reverted!\nBut you can still recover your wallet with the backup data image, If you did export your data.";
+"Alert Message too_big_amount" = "Amount should be less than 21,000,000 BTC.";
+"Alert Message duplicated_account_label" = "Label (%@) is duplicated.";
+"Alert Message sure_to_send_coins_%@_fee_%@" = "Are you sure to send %@ (including fee %@).";
+"Alert Message user_canceled_transaction" = "Canceled.";
+"Alert Message custom_fee_tip" = "Transaction fee should never be less than 0.000001 BTC";
+"Alert Message custom_fee_update_error" = "Can't update for now, try again later.";
+"Alert Message custom_fee_deleted" = "Custom transaction fee has been removed.";
+"Alert Message invalid_account" = "Invalid account.";
+
+"Error balance_unspent_not_match" = "Could not fetch enough unspent balance. Please try later.";
+"Error not_enough_balance" = "Insufficient balance.";
+"Error too_big_amount" = "Amount should be less than 21,000,000 BTC.";
+"Error invalid_backup_image_no_seed_data" = "Invalid backup image.";
+"Error invalid_backup_image_invalid_seed_data" = "Parse seed data failed.";
+
+"Label watched_account" = "Watched Addresses";
+"Label default_account" = "Default Account";
+
+"Tip watched_account" = "Not used to send or receive coins.";
+"Tip scan_qrcode" = "Scan a QRCode please.";
+"Tip loading" = "Loading data...";
+"Tip about_master_password" = "Master password should be more than 8 characters.\nSupporsed to contain letters, numbers and symbols.";
+"Tip about_iCloud" = "Use CloudKit to backup your seed and wallet user data. Please sign in and enable iCloud Dirve in your \"iPhone -> Settings -> iCloud -> iCloud Drive\"";
+"Tip hint_%@" = "Hint: %@";
+
+// Initial Wallet Setting
+"Initial Cell icloud" = "iCloud";
+"Initial Cell touch_id" = "Touch ID";
+"MasterPassword Section hint_%@" = "Hint: %@";
+
+// Accounts
+"Accounts Manager Section analytics" = "Analytics";
+"AMA Cell totalBalance" = "Total Balance";
+"AMA Cell totalReceived" = "Total Received";
+"AMA Cell totalSent" = "Total Sent";
+"AMA Cell totalTXCount" = "TX Count";
+
+// Settings
+"Settings Section backup" = "Backup";
+"Settings Cell export" = "Export";
+"Settings Cell iCloud" = "iCloud";
+"Settings Section security" = "Security";
+"Settings Cell change_password" = "Change Password";
+"Settings Cell change_hint" = "Change Hint";
+"Settings Cell touchid" = "Touch ID";
+"Settings Section network" = "Network";
+"Settings Cell testnet" = "Testnet";
+"Settings Cell sign_out" = "Delete All Datas";
+"Settings Cell custom_fee" = "Custom Fee";
+"Settings Cell custom_fee_undefined" = "Default";
+
+// Drawer
+"Drawer Section accounts" = "Accounts";
+"Drawer Cell manage_accounts" = "Manage Accounts";
+"Drawer Cell settings" = "Settings";
+"Drawer Cell block_height" = "Block Height";
+
+// Address List
+"Address Section change_address" = "Addresses";
+"Address Cell new_address" = "New Address";
+
+// Address
+"Address Section transactions" = "Transactions";
+
+// transaction
+"Transaction Section summary" = "Summary";
+"Transaction Section inputs" = "Input";
+"Transaction Section outputs" = "Output";
+"Transaction Section block" = "Block";
+"Transaction Cell hash" = "Hash";
+"Transaction Cell value" = "Value";
+"Transaction Cell fee" = "Fee";
+"Transaction Cell confirmations" = "Confirmations";
+"Transaction Cell height" = "Height";
+"Transaction Cell time" = "Time";
+"Transaction Cell size" = "Size";
+
+// send
+"Send Section from" = "From";
+"Send Section from_balance_%@" = "Selected balance: %@";
+"Send Section to" = "To";
+"Send Section change" = "Change";
+"Send Section fee" = "Fee";
+"Send Cell select_from_address" = "Select Address";
+"Send Cell add_recipient" = "Add";
+"Send Footer available_balance_%@_fee_%@" = "Available balance: %@ (fee %@ inclusive)";
+
+"Send Fee minimum" = "Minimum";
