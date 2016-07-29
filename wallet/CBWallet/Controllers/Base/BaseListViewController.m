@@ -29,7 +29,7 @@ NSString *const BaseListViewCellAddressIdentifier = @"list.cell.address";
 - (void)requestDidStart {
     self.requesting = YES;
     
-    if (!self.tableView.tableFooterView) {
+    if (!self.refreshControl.isRefreshing && !self.tableView.tableFooterView) {
         UIActivityIndicatorView *fetchingIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         self.tableView.tableFooterView = fetchingIndicatorView;
         [fetchingIndicatorView startAnimating];

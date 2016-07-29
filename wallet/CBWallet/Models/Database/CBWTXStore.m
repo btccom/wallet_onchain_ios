@@ -39,11 +39,13 @@
 }
 
 - (NSInteger)pageTotal {
-    if (_pageTotal < 0) {
-        NSUInteger count = [[CBWDatabaseManager defaultManager] transactionCountWithAddresses:self.queryAddresses];
-        _pageTotal = ceil(count / (double)self.pagesize);
-    }
-    return _pageTotal;
+//    if (_pageTotal < 0) {
+//        NSUInteger count = [[CBWDatabaseManager defaultManager] transactionCountWithAddresses:self.queryAddresses];
+//        _pageTotal = ceil(count / (double)self.pagesize);
+//    }
+//    return _pageTotal;
+    NSUInteger count = [[CBWDatabaseManager defaultManager] transactionCountWithAddresses:self.queryAddresses];
+    return ceil(count / (double)self.pagesize);
 }
 
 - (instancetype)init {

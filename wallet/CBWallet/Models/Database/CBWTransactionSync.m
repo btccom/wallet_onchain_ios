@@ -182,7 +182,7 @@ NSString *const CBWTransactionSyncConfirmedCountKey = @"confirmedCount";
                         }
                     } else {
                         transaction = [[CBWTransaction alloc] initWithDictionary:obj];
-                        transaction.accountIDX = self.accountIDX;
+//                        transaction.accountIDX = self.accountIDX;
                         if (transaction && [[CBWDatabaseManager defaultManager] transactionInsertTransaction:transaction]) {
                             inserted ++;
                         }

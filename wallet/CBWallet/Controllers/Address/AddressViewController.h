@@ -20,4 +20,6 @@
 
 - (nonnull instancetype)initWithAddress:(nonnull CBWAddress *)address actionType:(AddressActionType)actionType;
 
+- (void)reload;
+
 @end

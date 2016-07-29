@@ -267,7 +267,7 @@
     
     // transaction
     CBWTransactionSync *sync = [[CBWTransactionSync alloc] init];
-    sync.accountIDX = self.account.idx;
+//    sync.accountIDX = self.account.idx;
     [sync syncWithAddresses:addressStore.allAddressStrings progress:^(NSString *message) {
         DLog(@"sync progress: \n%@", message);
     } completion:^(NSError *error, NSDictionary<NSString *,NSDictionary<NSString *,NSNumber *> *> *updatedAddresses) {

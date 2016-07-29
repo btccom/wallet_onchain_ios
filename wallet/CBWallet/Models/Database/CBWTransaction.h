@@ -54,7 +54,7 @@ typedef NS_ENUM(NSUInteger, TransactionType) {
 /// int 交易版本号
 @property (nonatomic, assign, readonly) NSUInteger version;
 /// 归属账户，本地属性
-@property (nonatomic, assign) NSInteger accountIDX;
+//@property (nonatomic, assign) NSInteger accountIDX;
 
 
 // calculated properties

@@ -7,7 +7,6 @@
 //
 
 #import "AddressViewController.h"
-//#import "AddressHeaderView.h"
 #import "AddressCardView.h"
 #import "TransactionViewController.h"
 #import "AddressListViewController.h"
@@ -22,7 +21,6 @@
 @interface AddressViewController ()<UIScrollViewDelegate, UITextFieldDelegate, CBWTXStoreDelegate>
 
 @property (nonatomic, strong) CBWTXStore *transactionStore;
-@property (nonatomic, assign) BOOL isThereMoreDatas;
 
 @property (nonatomic, strong) NSString *addressString;
 
@@ -82,7 +80,6 @@
 #pragma mark - Initialization
 
 - (instancetype)initWithAddress:(CBWAddress *)address actionType:(AddressActionType)actionType {
-//    self = [super initWithStyle:(actionType == AddressActionTypeDefault) ? UITableViewStylePlain : UITableViewStyleGrouped];
     self = [super initWithStyle:UITableViewStylePlain];
     if (self) {
         _address = address;
@@ -104,10 +101,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-//    AddressHeaderView *addressHeaderView = [[AddressHeaderView alloc] init];
-//    [addressHeaderView setAddress:self.addressString withLabel:self.address.label];
-//    addressHeaderView.delegate = self;
-//    [self.tableView setTableHeaderView:addressHeaderView];
     
     AddressCardView *headerView = [[AddressCardView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, HD_IMAGE_PORTRAIT_HEIGHT)];
     headerView.addressLabelField.text = self.address.label;
@@ -135,7 +128,7 @@
             }
             
             // 请求摘要及交易信息
-            [self p_requestAddressSummary];
+            [self reload];
             
             break;
         }
@@ -160,21 +153,35 @@
         [self.address deleteFromStore];
     }
 }
-
+- (void)reload {
+    DLog(@"reload");
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self p_requestAddressSummary];
+        [self.transactionStore fetch];
+    });
+}
 #pragma mark - Private Method
 #pragma mark Request Logic
 - (void)p_requestAddressSummary {
-    if (self.requesting) {
-        DLog(@"fetching");
+    DLog(@"request address summary");
+    if (self.isRequesting) {
+        DLog(@"been fetching");
         return;
     }
     
-    [self requestDidStart];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self requestDidStart];
+    });
     
     CBWRequest *request = [[CBWRequest alloc] init];
     // 获取地址信息
     [request addressSummaryWithAddressString:self.addressString completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
-        [self requestDidStop];
+
+        if (error) {
+            [self requestDidStop];
+            return;
+        }
+        
         // 更新地址信息
         [self.address updateWithDictionary:response];
         AddressCardView *headerView = (AddressCardView *)self.tableView.tableHeaderView;
@@ -187,17 +194,50 @@
             [self.address saveWithError:nil];
         }
         if (self.address.txCount > 0) {
-            // 重置分页信息后获取交易
-            [self p_requestTransactions];
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{                
+                [self p_sync];
+            });
+        } else {
+            [self requestDidStop];
         }
     }];
 }
-- (void)p_requestTransactions {
-    if (self.transactionStore.page < self.transactionStore.pageTotal) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [self.transactionStore fetchNextPage];
+
+- (void)p_sync {
+    CBWTransactionSync *sync = [[CBWTransactionSync alloc] init];
+    [sync syncWithAddresses:@[self.addressString] progress:^(NSString *message) {
+        DLog(@"sync progress: \n%@", message);
+    } completion:^(NSError *error, NSDictionary<NSString *,NSDictionary<NSString *,NSNumber *> *> *updatedAddresses) {
+        DLog(@"sync done: \n%@", updatedAddresses);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self requestDidStop];
         });
-    }
+        
+        if (updatedAddresses == 0) {
+            DLog(@"no updated address");
+            return;
+        }
+        
+        __block BOOL needUpdate = NO;
+        [updatedAddresses enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSDictionary<NSString *,NSNumber *> * _Nonnull obj, BOOL * _Nonnull stop) {
+            [obj enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSNumber * _Nonnull obj, BOOL * _Nonnull stop) {
+                if (obj.integerValue > 0) {
+                    needUpdate = YES;
+                    *stop = YES;
+                }
+            }];
+            if (needUpdate) {
+                *stop = YES;
+            }
+        }];
+        if (needUpdate) {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                [self.transactionStore fetch];
+            });
+            return;
+        }
+        DLog(@"checked, no need to update");
+    }];
 }
 
 #pragma mark Handlers
