@@ -11,6 +11,7 @@
 #import "ResponderLabel.h"
 
 #import "NSString+CBWAddress.h"
+#import "UILabel+BTCAmount.h"
 
 @interface AddressCardView ()
 
@@ -170,6 +171,8 @@
     balanceFrame.size.height = 22;
     self.balanceLabel.frame = balanceFrame;
     self.receivedLabel.frame = CGRectOffset(balanceFrame, otherWidth + 8, 0);
+    [self.balanceLabel btc_formatZeroDecimals];
+    [self.receivedLabel btc_formatZeroDecimals];
     
     CGRect txFrame = CGRectOffset(txLabelFrame, 0, CGRectGetHeight(txLabelFrame));
     txFrame.size.height = 22;

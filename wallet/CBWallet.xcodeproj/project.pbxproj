@@ -44,6 +44,9 @@
 		2C5886661CFDB622004BBD6C /* SignUpSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5886651CFDB622004BBD6C /* SignUpSettingsViewController.m */; };
 		2C5886691CFDC96E004BBD6C /* InversedSolidButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5886681CFDC96E004BBD6C /* InversedSolidButton.m */; };
 		2C58866C1CFE7BD1004BBD6C /* UIView+Yoyo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C58866B1CFE7BD1004BBD6C /* UIView+Yoyo.m */; };
+		2C70A21C1D4AEA9A003EBCBC /* UILabel+BTCAmount.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C70A21B1D4AEA9A003EBCBC /* UILabel+BTCAmount.m */; };
+		2C70A21D1D4AEA9A003EBCBC /* UILabel+BTCAmount.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C70A21B1D4AEA9A003EBCBC /* UILabel+BTCAmount.m */; };
+		2C70A21E1D4AEA9A003EBCBC /* UILabel+BTCAmount.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C70A21B1D4AEA9A003EBCBC /* UILabel+BTCAmount.m */; };
 		2C77D25B1CA66207001DDB1F /* CBWDatabaseManager+Address.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D25A1CA66207001DDB1F /* CBWDatabaseManager+Address.m */; };
 		2C77D2631CA8C095001DDB1F /* CBWRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D2621CA8C095001DDB1F /* CBWRequest.m */; };
 		2C77D2661CA8C14E001DDB1F /* CBWRequest+Address.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C77D2651CA8C14E001DDB1F /* CBWRequest+Address.m */; };
@@ -476,6 +479,8 @@
 		2C58866A1CFE7BD1004BBD6C /* UIView+Yoyo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Yoyo.h"; sourceTree = "<group>"; };
 		2C58866B1CFE7BD1004BBD6C /* UIView+Yoyo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Yoyo.m"; sourceTree = "<group>"; };
 		2C6790F01CBCD3A5005568AD /* CBWallet.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = CBWallet.entitlements; path = CBWallet/CBWallet.entitlements; sourceTree = SOURCE_ROOT; };
+		2C70A21A1D4AEA9A003EBCBC /* UILabel+BTCAmount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+BTCAmount.h"; sourceTree = "<group>"; };
+		2C70A21B1D4AEA9A003EBCBC /* UILabel+BTCAmount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+BTCAmount.m"; sourceTree = "<group>"; };
 		2C77D2591CA66207001DDB1F /* CBWDatabaseManager+Address.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBWDatabaseManager+Address.h"; sourceTree = "<group>"; };
 		2C77D25A1CA66207001DDB1F /* CBWDatabaseManager+Address.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBWDatabaseManager+Address.m"; sourceTree = "<group>"; };
 		2C77D2611CA8C095001DDB1F /* CBWRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBWRequest.h; sourceTree = "<group>"; };
@@ -922,6 +927,8 @@
 				2C91B5801CF71F14001037E6 /* NSNumber+Helper.m */,
 				2C9CAF161C868B61008194EB /* UIButton+VerticalLayout.h */,
 				2C9CAF171C868B61008194EB /* UIButton+VerticalLayout.m */,
+				2C70A21A1D4AEA9A003EBCBC /* UILabel+BTCAmount.h */,
+				2C70A21B1D4AEA9A003EBCBC /* UILabel+BTCAmount.m */,
 				2C9CAF181C868B61008194EB /* UIColor+CBW.h */,
 				2C9CAF191C868B61008194EB /* UIColor+CBW.m */,
 				2C77D2711CAA10EE001DDB1F /* UIFont+CBW.h */,
@@ -1698,6 +1705,7 @@
 				2CC12CF11D29CFFC00687CE6 /* CBWAccountStore.m in Sources */,
 				2CC12CF21D29CFFC00687CE6 /* AFURLResponseSerialization.m in Sources */,
 				2CDB4A1C1D379F5E009299F5 /* DrawerSectionHeaderView.m in Sources */,
+				2C70A21D1D4AEA9A003EBCBC /* UILabel+BTCAmount.m in Sources */,
 				2CC12CF41D29CFFC00687CE6 /* CBWRecovery.m in Sources */,
 				2CC12CF51D29CFFC00687CE6 /* Guard.m in Sources */,
 				2CC12CF61D29CFFC00687CE6 /* FMDatabase.m in Sources */,
@@ -1843,6 +1851,7 @@
 				2C1684A61CACA89D00BD434A /* CBWRequest+Transaction.m in Sources */,
 				2C9CAF661C868B61008194EB /* SessionManager.m in Sources */,
 				2C9CAF5C1C868B61008194EB /* NSString+Helper.m in Sources */,
+				2C70A21C1D4AEA9A003EBCBC /* UILabel+BTCAmount.m in Sources */,
 				2CAA7DEB1CF010B000B0701C /* DefaultSectionFooterView.m in Sources */,
 				2C18E2311CAE672C0080EF1E /* FormControlActionButtonCell.m in Sources */,
 				2C18E2341CAE672C0080EF1E /* FormControlStaticCell.m in Sources */,
@@ -1973,6 +1982,7 @@
 				2CE6F3191D40BA280048C07B /* CBWRequest+Transaction.m in Sources */,
 				2CE6F31A1D40BA280048C07B /* SessionManager.m in Sources */,
 				2CE6F31B1D40BA280048C07B /* NSString+Helper.m in Sources */,
+				2C70A21E1D4AEA9A003EBCBC /* UILabel+BTCAmount.m in Sources */,
 				2CE6F31C1D40BA280048C07B /* DefaultSectionFooterView.m in Sources */,
 				2CE6F31D1D40BA280048C07B /* FormControlActionButtonCell.m in Sources */,
 				2CE6F31E1D40BA280048C07B /* FormControlStaticCell.m in Sources */,

@@ -17,6 +17,9 @@ NSString *const CBWAddressInfoAmountKey = @"amount";
 @implementation NSString (CBWAddress)
 
 - (NSAttributedString *)attributedAddressWithAlignment:(NSTextAlignment)alignment {
+    if (self.length == 0) {
+        return nil;
+    }
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:self];
     NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
     paragraph.alignment = alignment;
