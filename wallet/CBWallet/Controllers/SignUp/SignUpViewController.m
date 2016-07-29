@@ -383,7 +383,7 @@ static const CGFloat kSignUpViewControllerTitleBottomMargin = 10.f;
 - (void)p_createWallet {
     DLog(@"create wallet");
     // create seed
-    NSString *seed = [NSString randomStringWithLength:64];
+    NSString *seed = [NSString randomStringWithLength:256];
     // encrypt seed with key
     NSString *encryptedSeed = [AESCrypt encrypt:seed password:self.password];
     
