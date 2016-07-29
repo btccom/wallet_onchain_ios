@@ -352,55 +352,13 @@
     }
 }
 
-//#pragma mark - <AddressListViewControllerDelegate>
-//- (void)addressListViewControllerDidUpdate:(AddressListViewController *)controller {
-//    DLog(@"address list did update");
-//    [self reloadTransactions];
-//}
-
-//#pragma mark - <ScanViewControllerDelegate>
-//- (BOOL)scanViewControllerWillDismiss:(ScanViewController *)viewController {
-//    [self dismissViewControllerAnimated:YES completion:nil];
-//    return YES;
-//}
-//
-//- (void)scanViewController:(ScanViewController *)viewController didScanString:(NSString *)string {
-//    [self dismissViewControllerAnimated:YES completion:nil];
-//    // decode qr code string
-//    NSDictionary *addressInfo = [string addressInfo];
-//    if (!addressInfo) {
-//        [self alertMessageWithInvalidAddress:nil];
-//        return;
-//    }
-//    // check address
-//    NSString *addressString = [addressInfo objectForKey:CBWAddressInfoAddressKey];
-//    if (![CBWAddress validateAddressString:addressString]) {
-//        [self alertMessageWithInvalidAddress:addressString];
-//    }
-//    // handle
-//    if (self.account.idx == CBWRecordWatchedIDX) {
-//        // create watched address
-//        NSString *label = [addressInfo objectForKey:CBWAddressInfoLabelKey];
-//        DLog(@"To create address: %@ labeled: %@", addressString, label);
-//        
-//        CBWAddressStore *addressStore = [[CBWAddressStore alloc] initWithAccountIdx:self.account.idx];
-//        [addressStore fetch];
-//        CBWAddress *address = [CBWAddress newAdress:addressString withLabel:label idx:CBWRecordWatchedIDX accountRid:self.account.rid accountIdx:self.account.idx inStore:addressStore];
-//        NSError *error = nil;
-//        [address saveWithError:&error];
-//        if (!error) {
-//            [self alertMessage:NSLocalizedStringFromTable(@"Alert Message create_watched_address_success", @"CBW", nil) withTitle:NSLocalizedStringFromTable(@"Success", @"CBW", nil)];
-//            [self reloadTransactions];
-//        }
-//    } else {
-//        // send to address
-//        NSString *amountString = [addressInfo objectForKey:CBWAddressInfoAmountKey];
-//        SendViewController *sendViewController = [[SendViewController alloc] initWithAccount:self.account];
-//        sendViewController.quicklyToAddress = addressString;
-//        sendViewController.quicklyToAmountInBTC = amountString;
-//        [self.navigationController pushViewController:sendViewController animated:YES];
-//    }
-//}
+#pragma mark - <AddressListViewControllerDelegate>
+- (void)addressListViewControllerDidUpdate:(AddressListViewController *)controller {
+    DLog(@"address list did update");
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self reloadTransactions];
+    });
+}
 
 #pragma mark <UIScrollViewDelegate>
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
