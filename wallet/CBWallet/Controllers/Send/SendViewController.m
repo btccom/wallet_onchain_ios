@@ -363,7 +363,18 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
     [self.view endEditing:YES];
     
     NSString *addressString = self.advancedToAddressCell.textField.text;
+    long long amount = [self.advancedToAmountCell.textField.text BTC2SatoshiValue];
     
+    [self p_addAdvancedToDataWithAddressString:addressString amount:amount];
+    
+    self.advancedToAddressCell.textField.text = nil;
+    self.advancedToAmountCell.textField.text = nil;
+    [self p_editingChanged:self.advancedToAmountCell.textField];
+    
+    [self p_checkIfSendButtonEnabled];
+    return YES;
+}
+- (BOOL)p_addAdvancedToDataWithAddressString:(NSString *)addressString amount:(long long)amount {
     // check address
     if (![CBWAddress validateAddressString:addressString]) {
         [self alertMessageWithInvalidAddress:addressString];
@@ -373,36 +384,30 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
     // check duplicated address
     __block BOOL duplicated = NO;
     [self.advancedToDatas enumerateObjectsUsingBlock:^(CBWAddress * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([self.advancedToAddressCell.textField.text isEqualToString:obj.address]) {
+        if ([addressString isEqualToString:obj.address]) {
             duplicated = YES;
             *stop = YES;
         }
     }];
     if (duplicated) {
         // TODO: 错误提示，重复地址不同金额可以相加或替换
-        [self alertMessage:NSLocalizedStringFromTable(@"Alert Message duplicated_send_to_address", @"CBW", nil) withTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil)];
+        [self alertMessage:[NSString stringWithFormat:NSLocalizedStringFromTable(@"Alert Message duplicated_send_to_address_%@", @"CBW", nil), addressString] withTitle:NSLocalizedStringFromTable(@"Error", @"CBW", nil)];
         return NO;
     }
     
     // check amount
-    if ([self.advancedToAmountCell.textField.text BTC2SatoshiValue] > BTC_MAX_MONEY) {
+    if (amount > BTC_MAX_MONEY) {
         [self alertErrorMessage:NSLocalizedStringFromTable(@"Alert Message too_big_amount", @"CBW", nil)];
         return NO;
     }
     
     CBWAddress *address = [CBWAddress new];
     address.address = addressString;
-    address.balance = [self.advancedToAmountCell.textField.text BTC2SatoshiValue];
+    address.balance = amount;
     [self.advancedToDatas addObject:address];
     [self.tableView beginUpdates];
     [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.advancedToDatas.count - 1 inSection:kSendViewControllerAdvancedSectionTo]] withRowAnimation:((self.advancedToDatas.count > 1) ? UITableViewRowAnimationTop : UITableViewRowAnimationFade)];
-    self.advancedToAddressCell.textField.text = nil;
-    self.advancedToAmountCell.textField.text = nil;
-    [self p_editingChanged:self.advancedToAmountCell.textField];
-//    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:kSendViewControllerAdvancedSectionInput] withRowAnimation:UITableViewRowAnimationFade];
     [self.tableView endUpdates];
-    
-    [self p_checkIfSendButtonEnabled];
     return YES;
 }
 - (void)p_handleAdvancedDeleteToData:(id)sender {
@@ -808,6 +813,76 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
     
     NSDictionary *addressInfo = [string addressInfo];
     if (!addressInfo) {
+        // detect if betch send
+        /// address amount
+        ///
+        /// adddres amount
+        /// ...
+        NSArray *datas = [string componentsSeparatedByString:@"\n"];
+        DLog(@"datas: %@", datas);
+        if (datas.count > 0) {
+            // check first address
+            NSArray *firstData = [[datas firstObject] componentsSeparatedByString:@" "];
+            if ([CBWAddress validateAddressString:[firstData firstObject]]) {
+                switch (self.mode) {
+                    case SendViewControllerModeQuickly: {
+                        if (datas.count == 1) {
+                            // just send one in quickly
+                            NSString *address = [firstData firstObject];
+                            self.quicklyAddressCell.textField.text = address;
+                            self.quicklyToAddress = address;
+                            
+                            NSString *amount = @"";
+                            if (firstData.count > 1) {
+                                amount = firstData[1];
+                            }
+                            if ([amount BTC2SatoshiValue] > BTC_MAX_MONEY) {
+                                [self alertErrorMessage:NSLocalizedStringFromTable(@"Alert Message too_big_amount", @"CBW", nil)];
+                            } else {
+                                self.quicklyAmountCell.textField.text = amount;
+                                self.quicklyToAmountInBTC = amount;
+                            }
+                        } else {
+                            // switch to advanced to send to multiple addresses
+                            [self p_handleSwitchMode:nil];
+                            [datas enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                                if ([obj isKindOfClass:[NSString class]] && [obj length] > 0) {// 简单预判
+                                    NSArray<NSString *> *data = [obj componentsSeparatedByString:@" "];
+                                    NSString *address = [data firstObject];
+                                    if ([CBWAddress validateAddressString:address]) {// 地址预判
+                                        NSString *amount = @"";
+                                        if (data.count > 1) {
+                                            amount = data[1];
+                                        }
+                                        [self p_addAdvancedToDataWithAddressString:address amount:[amount BTC2SatoshiValue]];
+                                    }
+                                }
+                            }];
+                        }
+                        break;
+                    }
+                    case SendViewControllerModeAdvanced: {
+                        [datas enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                            if ([obj isKindOfClass:[NSString class]] && [obj length] > 0) {// 简单预判
+                                NSArray<NSString *> *data = [obj componentsSeparatedByString:@" "];
+                                NSString *address = [data firstObject];
+                                if ([CBWAddress validateAddressString:address]) {// 地址预判
+                                    NSString *amount = @"";
+                                    if (data.count > 1) {
+                                        amount = data[1];
+                                    }
+                                    [self p_addAdvancedToDataWithAddressString:address amount:[amount BTC2SatoshiValue]];
+                                }
+                            }
+                        }];
+                        break;
+                    }
+                }
+                [self p_checkIfSendButtonEnabled];
+                return;
+            }
+        }
+        
         [self alertMessageWithInvalidAddress:nil];
         return;
     }
@@ -819,16 +894,20 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
         case SendViewControllerModeQuickly: {
             self.quicklyAddressCell.textField.text = address;
             self.quicklyToAddress = address;
-            if (amount.doubleValue > 0) {
-                self.quicklyAmountCell.textField.text = amount;
-                self.quicklyToAmountInBTC = amount;
+            if ([amount BTC2SatoshiValue] > 0) {
+                if ([amount BTC2SatoshiValue] > BTC_MAX_MONEY) {
+                    [self alertErrorMessage:NSLocalizedStringFromTable(@"Alert Message too_big_amount", @"CBW", nil)];
+                } else {
+                    self.quicklyAmountCell.textField.text = amount;
+                    self.quicklyToAmountInBTC = amount;
+                }
             }
             [self p_checkIfSendButtonEnabled];
             break;
         }
         case SendViewControllerModeAdvanced: {
             self.advancedToAddressCell.textField.text = address;
-            if (amount.doubleValue > 0) {
+            if ([amount BTC2SatoshiValue] > 0) {
                 self.advancedToAmountCell.textField.text = amount;
             }
             [self p_editingChanged:self.advancedToAmountCell.textField];

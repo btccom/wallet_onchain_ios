@@ -71,6 +71,8 @@ NSString *const CBWAddressInfoAmountKey = @"amount";
     NSString *address = [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     address = [address stringByRemovingPercentEncoding];
     address = [address stringByReplacingOccurrencesOfString:@" " withString:@""];
+    address = [address stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    address = [address stringByReplacingOccurrencesOfString:@"\r" withString:@""];
     address = [address stringByReplacingOccurrencesOfString:@"bitcoin://" withString:@""];
     address = [address stringByReplacingOccurrencesOfString:@"bitcoin:" withString:@""];
     

@@ -126,6 +126,7 @@
 "Alert Message custom_fee_update_error" = "Can't update for now, try again later.";
 "Alert Message custom_fee_deleted" = "Custom transaction fee has been removed.";
 "Alert Message invalid_account" = "Invalid account.";
+"Alert Message duplicated_send_to_address_%@" = "Duplicated address: %@";
 
 "Error balance_unspent_not_match" = "Could not fetch enough unspent balance. Please try later.";
 "Error not_enough_balance" = "Insufficient balance.";
