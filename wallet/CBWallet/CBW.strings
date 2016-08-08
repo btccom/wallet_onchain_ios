@@ -182,6 +182,10 @@
 
 // Address
 "Address Section transactions" = "Transactions";
+// Address Explorer
+"Address Explorer Cell tx_count" = "No. Transactions";
+"Address Explorer Cell total_received" = "Total Received";
+"Address Explorer Cell final_balance" = "Final Balance";
 
 // transaction
 "Transaction Section summary" = "Summary";

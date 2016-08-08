@@ -31,6 +31,8 @@ static NSString *const kAddressExplorerReceiveAmountCellIdentifier = @"cell.rece
 @property (nonatomic, assign) BOOL isThereMoreDatas;
 @property (nonatomic, assign) NSInteger page;
 
+@property (nonatomic, strong) NSArray<NSArray *> *summaryData;
+
 @property (nonatomic, strong) NSString *addressString;
 
 @end
@@ -141,6 +143,13 @@ static NSString *const kAddressExplorerReceiveAmountCellIdentifier = @"cell.rece
             [self.address saveWithError:nil];
         }
         
+        // 摘要信息
+        self.summaryData = @[@[NSLocalizedStringFromTable(@"Address Explorer Cell tx_count", @"CBW", nil), [@(self.address.txCount) stringValue]],
+                             @[NSLocalizedStringFromTable(@"Address Explorer Cell total_received", @"CBW", nil), [@(self.address.received) satoshiBTCString]],
+                             @[NSLocalizedStringFromTable(@"Address Explorer Cell final_balance", @"CBW", nil), [@(self.address.balance) satoshiBTCString]]];
+        
+        [self.tableView reloadData];
+        
         if (self.address.txCount > 0) {
             // 重置分页信息后获取交易
             self.page = 0;
@@ -201,13 +210,34 @@ static NSString *const kAddressExplorerReceiveAmountCellIdentifier = @"cell.rece
 
 #pragma mark - UITableDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return (AddressActionTypeExplore == self.actionType) ? [self.transactionStore numberOfSections] : 1;
+    if (AddressActionTypeReceive == self.actionType) {
+        return 1;// amount input section
+    }
+    
+    NSInteger count = 0;
+    if (self.summaryData.count > 0) {
+        count += 1;
+    }
+    if (AddressActionTypeExplore == self.actionType) {
+        count += [self.transactionStore numberOfSections];
+    }
+    return count;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return (AddressActionTypeExplore == self.actionType) ? [self.transactionStore numberOfRowsInSection:section] : 1;
+    if (AddressActionTypeReceive == self.actionType) {
+        return 1;// amount input cell
+    }
+    if (0 == section && self.summaryData.count > 0) {
+        return self.summaryData.count;
+    }
+    return [self.transactionStore numberOfRowsInSection:section];
 }
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if (AddressActionTypeReceive == self.actionType) {
+        return nil;
+    }
+    
+    if (0 == section && self.summaryData.count > 0) {
         return nil;
     }
     
@@ -220,6 +250,7 @@ static NSString *const kAddressExplorerReceiveAmountCellIdentifier = @"cell.rece
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    // receive amount cell
     if (AddressActionTypeReceive == self.actionType) {
         FormControlInputCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kAddressExplorerReceiveAmountCellIdentifier forIndexPath:indexPath];
         cell.inputType = FormControlInputTypeBitcoinAmount;
@@ -228,10 +259,26 @@ static NSString *const kAddressExplorerReceiveAmountCellIdentifier = @"cell.rece
         return cell;
     }
     
+    // summary
+    if (0 == indexPath.section && self.summaryData.count > 0) {
+        DefaultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:BaseTableViewCellDefaultIdentifier forIndexPath:indexPath];
+        if (indexPath.row < self.summaryData.count) {
+            cell.textLabel.text = [self.summaryData[indexPath.row] firstObject];
+            cell.detailTextLabel.text = [self.summaryData[indexPath.row] lastObject];
+        } else {
+            // no data
+            cell.textLabel.text = @"NaN";
+            cell.detailTextLabel.text = nil;
+        }
+        return cell;
+    }
+    
+    // transaction
     CBWTransaction *transaction = [self.transactionStore transactionAtIndexPath:indexPath];
-    if (!transaction) {
+    if (!transaction) {// no data
         DefaultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:BaseTableViewCellDefaultIdentifier forIndexPath:indexPath];
         cell.textLabel.text = @"NaN";
+        cell.detailTextLabel.text = nil;
         // return empty cell
         return cell;
     }
@@ -243,9 +290,15 @@ static NSString *const kAddressExplorerReceiveAmountCellIdentifier = @"cell.rece
 
 #pragma mark <UITableViewDelegate>
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (0 == section && self.summaryData.count > 0) {
+        return CGFLOAT_MIN;
+    }
     return CBWListSectionHeaderHeight;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (0 == indexPath.section && self.summaryData.count > 0) {
+        return CBWCellHeightDefault;
+    }
     return CBWCellHeightTransaction;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -267,30 +320,49 @@ static NSString *const kAddressExplorerReceiveAmountCellIdentifier = @"cell.rece
         CGFloat height = CGRectGetHeight(scrollView.frame);
         if (contentHeight - (offsetTop + height) < 2 * CBWCellHeightTransaction) {
             [self p_requestTransactions];
-            [self.tableView reloadData];
         }
     }
 }
 
 #pragma mark - <CBWTransactionStoreDelegate>
 - (void)transactionStoreWillUpdate:(CBWTransactionStore *)store {
+    DLog(@"begin udpate");
+//    [self.tableView beginUpdates];
 }
 - (void)transactionStoreDidUpdate:(CBWTransactionStore *)store {
+    DLog(@"end update");
+//    [self.tableView endUpdates];
     [self.tableView reloadData];
 }
 - (void)transactionStore:(CBWTransactionStore *)store didInsertSection:(NSString *)section atIndex:(NSUInteger)index {
-    [self.tableView insertSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:UITableViewRowAnimationFade];
+//    NSUInteger newIndex = index;
+//    if (self.summaryData.count > 0) {
+//        newIndex += 1;
+//    }
+//    [self.tableView insertSections:[NSIndexSet indexSetWithIndex:newIndex] withRowAnimation:UITableViewRowAnimationFade];
 }
 - (void)transactionStore:(CBWTransactionStore *)store didUpdateRecord:(__kindof CBWRecordObject * _Nonnull)record atIndexPath:(NSIndexPath * _Nullable)indexPath forChangeType:(CBWTransactionStoreChangeType)changeType toNewIndexPath:(NSIndexPath * _Nullable)newIndexPath {
-    if (changeType == CBWTransactionStoreChangeTypeInsert) {
-        [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (changeType == CBWTransactionStoreChangeTypeUpdate) {
-        if ([indexPath isEqual:newIndexPath]) {
-            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-        } else {
-            [self.tableView moveRowAtIndexPath:indexPath toIndexPath:newIndexPath];
-        }
-    }
+    
+//    NSUInteger updatedSection = indexPath.section;
+//    NSUInteger updatedNewSection = newIndexPath.section;
+//    if (self.summaryData.count > 0) {
+//        updatedSection += 1;
+//        updatedNewSection += 1;
+//    }
+//    NSIndexPath *updatedIndexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:updatedSection];
+//    NSIndexPath *updatedNewIndexPath = [NSIndexPath indexPathForRow:newIndexPath.row inSection:updatedNewSection];
+//    
+//    
+//    
+//    if (changeType == CBWTransactionStoreChangeTypeInsert) {
+//        [self.tableView insertRowsAtIndexPaths:@[updatedIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+//    } else if (changeType == CBWTransactionStoreChangeTypeUpdate) {
+//        if ([updatedIndexPath isEqual:updatedNewIndexPath]) {
+//            [self.tableView reloadRowsAtIndexPaths:@[updatedIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+//        } else {
+//            [self.tableView moveRowAtIndexPath:updatedIndexPath toIndexPath:updatedNewIndexPath];
+//        }
+//    }
 }
 
 @end
