@@ -217,5 +217,5 @@
 "Send Fee minimum" = "Minimum";
 
 // confirm
-"Send Confirm Section addresses" = "Addresses";
+"Send Confirm Section addresses" = "To";
 "Send Confirm Section fee" = "Fee";
