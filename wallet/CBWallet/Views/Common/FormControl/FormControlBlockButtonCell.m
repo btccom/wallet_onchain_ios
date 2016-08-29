@@ -8,12 +8,58 @@
 
 #import "FormControlBlockButtonCell.h"
 
+@interface FormControlBlockButtonCell ()
+
+@property (nonatomic, weak) UIActivityIndicatorView *indicator;
+
+@end
+
 @implementation FormControlBlockButtonCell
+
+- (UIActivityIndicatorView *)indicator {
+    if (!_indicator) {
+        UIActivityIndicatorView *indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        [self.contentView addSubview:indicatorView];
+        _indicator = indicatorView;
+    }
+    return _indicator;
+}
 
 - (void)setEnabled:(BOOL)enabled {
     _enabled = enabled;
     self.textLabel.alpha = enabled ? 1.f : CBWDisabledOpacity;
     self.userInteractionEnabled = enabled;
+}
+
+- (void)setButtonCellStyle:(BlockButtonCellStyle)buttonCellStyle {
+    if (buttonCellStyle == _buttonCellStyle) {
+        return;
+    }
+    _buttonCellStyle = buttonCellStyle;
+    switch (buttonCellStyle) {
+        case BlockButtonCellStyleProcess: {
+            if (1 == self.textLabel.alpha) {
+                [UIView animateWithDuration:CBWAnimateDuration animations:^{
+                    self.textLabel.alpha = 0;
+                }];
+            }
+            [self.contentView bringSubviewToFront:self.indicator];
+            [self.indicator startAnimating];
+            break;
+        }
+        default: {
+            if (!_indicator) {
+                [self.indicator stopAnimating];
+                [self.indicator removeFromSuperview];
+            }
+            if (0 == self.textLabel.alpha) {
+                [UIView animateWithDuration:CBWAnimateDuration animations:^{
+                    self.textLabel.alpha = 1;
+                }];
+            }
+            break;
+        }
+    }
 }
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
@@ -46,10 +92,18 @@
             
         case BlockButtonCellStyleSuccess: {
             self.textLabel.backgroundColor = [UIColor CBWSuccessColor];
+            break;
+        }
+            
+        case BlockButtonCellStyleProcess: {
+            self.textLabel.backgroundColor = [UIColor clearColor];
+            self.indicator.center = self.textLabel.center;
+            break;
         }
             
         default:
             self.textLabel.textColor = [UIColor CBWPrimaryColor];
+            self.textLabel.backgroundColor = [UIColor clearColor];
             break;
     }
 }
