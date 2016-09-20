@@ -16,6 +16,7 @@
 #import "CBWRequest.h"
 
 #import "NSDate+Helper.h"
+#import "UILabel+BTCAmount.h"
 
 typedef NS_ENUM(NSUInteger, kTransactionViewControllerSection) {
     kTransactionViewControllerSectionSummary,
@@ -232,6 +233,9 @@ static NSString *const kTransactionViewControllerCellIdentifierIO = @"transactio
             }
             cell.textLabel.text = self.summaryTitles[indexPath.row];
             cell.detailTextLabel.text = self.summaryDatas[indexPath.row];
+            if ([cell.textLabel.text isEqualToString:NSLocalizedStringFromTable(@"Transaction Cell value", @"CBW", nil)] || [cell.textLabel.text isEqualToString:NSLocalizedStringFromTable(@"Transaction Cell fee", @"CBW", nil)]) {
+                [cell.detailTextLabel btc_formatZeroDecimals];
+            }
             break;
         }
         case kTransactionViewControllerSectionInputs: {
@@ -243,8 +247,9 @@ static NSString *const kTransactionViewControllerCellIdentifierIO = @"transactio
                 InputItem *i = self.transactionDetail.inputs[indexPath.row];
                 cell.textLabel.text = [i.prevAddresses componentsJoinedByString:@","];
                 cell.detailTextLabel.text = [i.prevValue satoshiBTCString];
+                [cell.detailTextLabel btc_formatZeroDecimals];
             }
-            // 处理查询地址的显示
+            // 查询地址置灰
             if ([self.transaction.queryAddresses containsObject:cell.textLabel.text]) {
                 cell.textLabel.textColor = [UIColor CBWSubTextColor];
             } else {
@@ -256,6 +261,7 @@ static NSString *const kTransactionViewControllerCellIdentifierIO = @"transactio
             OutItem *o = self.transactionDetail.outputs[indexPath.row];
             cell.textLabel.text = [o.addresses componentsJoinedByString:@","];
             cell.detailTextLabel.text = [o.value satoshiBTCString];
+            [cell.detailTextLabel btc_formatZeroDecimals];
             // 处理查询地址的显示
             if ([self.transaction.queryAddresses containsObject:cell.textLabel.text]) {
                 cell.textLabel.textColor = [UIColor CBWSubTextColor];

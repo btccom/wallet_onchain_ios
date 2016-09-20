@@ -13,6 +13,7 @@
 
 #import "NSString+CBWAddress.h"
 #import "NSDate+Helper.h"
+#import "UILabel+BTCAmount.h"
 
 static const CGFloat kTransactionCellDateLabelFontSize = 10.f;
 static const CGFloat kTransactionCellDateLabelHeight = 16.f;
@@ -187,6 +188,7 @@ static const CGFloat kTransactionCellVerticalPadding = CBWLayoutCommonVerticalPa
     CGRect valueFrame = CGRectMake(labelAreaLeft, 0, valueWidth, kTransactionCellAddressLabelHeight);
     self.valueLabel.frame = valueFrame;
     self.valueLabel.center = CGPointMake(CGRectGetMidX(valueFrame), CGRectGetMidY(iconFrame));
+    [self.valueLabel btc_formatZeroDecimals];
     
     CGFloat subLabelLeftRightPadding = CBWLayoutInnerSpace;
     

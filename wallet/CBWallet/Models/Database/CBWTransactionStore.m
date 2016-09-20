@@ -58,14 +58,17 @@
     }
     // check and save
     __block NSInteger insertedCount = 0;
+    NSUInteger count = transactions.count;
     [transactions enumerateObjectsUsingBlock:^(CBWTransaction * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         insertedCount ++;
         [self p_addTransaction:obj];
+        if (idx == count - 1) {
+            DLog(@"Last one");
+            if ([self.delegate respondsToSelector:@selector(transactionStoreDidUpdate:)]) {
+                [self.delegate transactionStoreDidUpdate:self];
+            }
+        }
     }];
-    
-    if ([self.delegate respondsToSelector:@selector(transactionStoreDidUpdate:)]) {
-        [self.delegate transactionStoreDidUpdate:self];
-    }
     return insertedCount;
 }
 

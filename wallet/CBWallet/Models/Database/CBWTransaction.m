@@ -257,8 +257,6 @@
         _outputsValue = [value longLongValue];
     } else if ([key isEqualToString:@"is_coinbase"]) {
         _isCoinbase = [value boolValue];
-    } else if ([key isEqualToString:@"accountIdx"]) {
-        _accountIDX = [value integerValue];
     }
 }
 
