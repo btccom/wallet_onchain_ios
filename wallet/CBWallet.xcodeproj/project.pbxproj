@@ -93,6 +93,9 @@
 		2C9CAF7E1C868B98008194EB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF781C868B98008194EB /* main.m */; };
 		2C9CAF811C868BCB008194EB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C9CAF7F1C868BCB008194EB /* LaunchScreen.storyboard */; };
 		2CAA7DEB1CF010B000B0701C /* DefaultSectionFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAA7DEA1CF010B000B0701C /* DefaultSectionFooterView.m */; };
+		2CB4A76E1D6189DA00F9C679 /* SendConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB4A76D1D6189DA00F9C679 /* SendConfirmationViewController.m */; };
+		2CB4A76F1D6189DA00F9C679 /* SendConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB4A76D1D6189DA00F9C679 /* SendConfirmationViewController.m */; };
+		2CB4A7701D6189DA00F9C679 /* SendConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB4A76D1D6189DA00F9C679 /* SendConfirmationViewController.m */; };
 		2CC12C911D29CFFC00687CE6 /* NSDate+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C16849F1CAB5F4800BD434A /* NSDate+Helper.m */; };
 		2CC12C921D29CFFC00687CE6 /* UIColor+CBW.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9CAF191C868B61008194EB /* UIColor+CBW.m */; };
 		2CC12C931D29CFFC00687CE6 /* CBWRecordObjectStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEFC3521CA4CBAC00FECCA4 /* CBWRecordObjectStore.m */; };
@@ -569,6 +572,8 @@
 		2C9CAF821C868CAE008194EB /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = CBWallet/Info.plist; sourceTree = SOURCE_ROOT; };
 		2CAA7DE91CF010B000B0701C /* DefaultSectionFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultSectionFooterView.h; sourceTree = "<group>"; };
 		2CAA7DEA1CF010B000B0701C /* DefaultSectionFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultSectionFooterView.m; sourceTree = "<group>"; };
+		2CB4A76C1D6189DA00F9C679 /* SendConfirmationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendConfirmationViewController.h; sourceTree = "<group>"; };
+		2CB4A76D1D6189DA00F9C679 /* SendConfirmationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendConfirmationViewController.m; sourceTree = "<group>"; };
 		2CC12D1A1D29CFFC00687CE6 /* CBWallet Enterprise.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CBWallet Enterprise.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CC12D1B1D29CFFC00687CE6 /* CBWallet Enterprise-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "CBWallet Enterprise-Info.plist"; path = "/Users/zin/Desktop/Work/Homework/Bitmain/Wallet/wallet_onchain_ios/wallet/CBWallet Enterprise-Info.plist"; sourceTree = "<absolute>"; };
 		2CC20F821D1D1CB800F51106 /* CBWTXStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBWTXStore.h; sourceTree = "<group>"; };
@@ -895,6 +900,8 @@
 				2C9CAF0B1C868B61008194EB /* SendViewController.m */,
 				2CD7EEB81CD2F38100B5B884 /* SendViewController+Send.h */,
 				2CD7EEB91CD2F38100B5B884 /* SendViewController+Send.m */,
+				2CB4A76C1D6189DA00F9C679 /* SendConfirmationViewController.h */,
+				2CB4A76D1D6189DA00F9C679 /* SendConfirmationViewController.m */,
 			);
 			path = Send;
 			sourceTree = "<group>";
@@ -1628,6 +1635,7 @@
 				2CC12CA21D29CFFC00687CE6 /* TransactionIOCell.m in Sources */,
 				2CC12CA31D29CFFC00687CE6 /* FMDatabaseAdditions.m in Sources */,
 				2CC12CA41D29CFFC00687CE6 /* CBWBackup.m in Sources */,
+				2CB4A76F1D6189DA00F9C679 /* SendConfirmationViewController.m in Sources */,
 				2CC12CA61D29CFFC00687CE6 /* CBWFee.m in Sources */,
 				2CC12CA71D29CFFC00687CE6 /* TransactionListViewController.m in Sources */,
 				2CC12CA81D29CFFC00687CE6 /* YYImageCoder.m in Sources */,
@@ -1823,6 +1831,7 @@
 				2CD0A91A1CA02ACA006AF02F /* FMDatabasePool.m in Sources */,
 				2C5886661CFDB622004BBD6C /* SignUpSettingsViewController.m in Sources */,
 				2CDB4A2E1D38C86F009299F5 /* DrawerTableViewCell.m in Sources */,
+				2CB4A76E1D6189DA00F9C679 /* SendConfirmationViewController.m in Sources */,
 				2C9CAF4A1C868B61008194EB /* BaseFormViewController.m in Sources */,
 				2C77D2731CAA10EE001DDB1F /* UIFont+CBW.m in Sources */,
 				2CC20F841D1D1CB800F51106 /* CBWTXStore.m in Sources */,
@@ -1954,6 +1963,7 @@
 				2CE6F2FD1D40BA280048C07B /* FMDatabasePool.m in Sources */,
 				2CE6F2FE1D40BA280048C07B /* SignUpSettingsViewController.m in Sources */,
 				2CE6F2FF1D40BA280048C07B /* DrawerTableViewCell.m in Sources */,
+				2CB4A7701D6189DA00F9C679 /* SendConfirmationViewController.m in Sources */,
 				2CE6F3001D40BA280048C07B /* BaseFormViewController.m in Sources */,
 				2CE6F3011D40BA280048C07B /* UIFont+CBW.m in Sources */,
 				2CE6F3021D40BA280048C07B /* CBWTXStore.m in Sources */,

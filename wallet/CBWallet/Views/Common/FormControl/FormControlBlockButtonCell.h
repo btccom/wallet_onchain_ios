@@ -9,14 +9,15 @@
 #import "BaseFormControlCell.h"
 
 typedef NS_ENUM(NSUInteger, BlockButtonCellStyle) {
-    /// default <code>BaseFormControllCellStatusHighlighted</code>
+    /// default <code>BaseFormControlCellStatusHighlighted</code>
     BlockButtonCellStylePrimary,
-    /// <code>BaseFormControllCellStatusDefault</code>
+    /// <code>BaseFormControlCellStatusDefault</code>
     BlockButtonCellStyleDefault,
-    /// <code>BaseFormControllCellStatusSuccess</code>
+    /// <code>BaseFormControlCellStatusSuccess</code>
     BlockButtonCellStyleSuccess,
-    /// like <code>BaseFormControllCellStatusError</code>
-    BlockButtonCellStyleDanger
+    /// like <code>BaseFormControlCellStatusError</code>
+    BlockButtonCellStyleDanger,
+    BlockButtonCellStyleProcess
 };
 
 /// align center, like sign up button

@@ -7,8 +7,9 @@
 //
 
 #import "SendViewController.h"
+#import "SendConfirmationViewController.h"
 
-@interface SendViewController (Send)
+@interface SendViewController (Send)<SendConfirmationViewControllerDelegate>
 /// 发款，快速发款，使用默认找零地址
 ///@param addresses <code><b>NSDictionary</b> {address: long long int}</code>
 - (void)sendToAddresses:(NSDictionary *)toAddresses withCompletion:(void (^)(NSError *error))completion;
