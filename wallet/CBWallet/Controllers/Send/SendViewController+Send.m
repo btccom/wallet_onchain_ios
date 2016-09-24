@@ -14,6 +14,8 @@
 
 #import <CoreBitcoin/CoreBitcoin.h>
 
+#import "NSString+CBWAddress.h"
+
 @implementation SendViewController (Send)
 
 
@@ -270,31 +272,32 @@
             }
             DLog(@"to publish transaction: %@", BTCHexFromData(tx.data));
             
-            // confirm to send
-            UIAlertController *confirm = [UIAlertController alertControllerWithTitle:self.title message:[NSString stringWithFormat:NSLocalizedStringFromTable(@"Alert Message sure_to_send_coins_%@_fee_%@", @"CBW", nil), [@(amount) satoshiBTCString], [@(fee) satoshiBTCString]] preferredStyle:UIAlertControllerStyleAlert];
-            // cancel
-            UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Cancel", @"CBW", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                completion([NSError errorWithDomain:CBWErrorDomain code:CBWErrorCodeUserCanceledTransaction userInfo:@{NSLocalizedDescriptionKey: NSLocalizedStringFromTable(@"Alert Message user_canceled_transaction", @"CBW", nil)}]);
-            }];
-            [confirm addAction:cancel];
-            // send
-            UIAlertAction *send = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Send", @"CBW", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                [request toolsPublishTxHex:BTCHexFromData(tx.data) withCompletion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
-                    
-                    // failed
-                    if (error) {
-                        completion(error);
-                        return;
-                    }
-                    
-                    // success
-                    completion(nil);
-                    
-                }];
-            }];
-            [confirm addAction:send];
-            [self presentViewController:confirm animated:YES completion:nil];
-                
+            [self presentConfirmWithTXHash:BTCHexFromData(tx.data) fee:fee];
+//            // confirm to send
+//            UIAlertController *confirm = [UIAlertController alertControllerWithTitle:self.title message:[NSString stringWithFormat:NSLocalizedStringFromTable(@"Alert Message sure_to_send_coins_%@_fee_%@", @"CBW", nil), [@(amount) satoshiBTCString], [@(fee) satoshiBTCString]] preferredStyle:UIAlertControllerStyleAlert];
+//            // cancel
+//            UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Cancel", @"CBW", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+//                completion([NSError errorWithDomain:CBWErrorDomain code:CBWErrorCodeUserCanceledTransaction userInfo:@{NSLocalizedDescriptionKey: NSLocalizedStringFromTable(@"Alert Message user_canceled_transaction", @"CBW", nil)}]);
+//            }];
+//            [confirm addAction:cancel];
+//            // send
+//            UIAlertAction *send = [UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"Send", @"CBW", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//                [request toolsPublishTxHex:BTCHexFromData(tx.data) withCompletion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
+//                    
+//                    // failed
+//                    if (error) {
+//                        completion(error);
+//                        return;
+//                    }
+//                    
+//                    // success
+//                    completion(nil);
+//                    
+//                }];
+//            }];
+//            [confirm addAction:send];
+//            [self presentViewController:confirm animated:YES completion:nil];
+            
             
         }];
     }];
@@ -358,6 +361,5 @@
         }
     }];
 }
-
 
 @end

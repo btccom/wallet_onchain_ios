@@ -9,6 +9,7 @@
 
 #import "SendViewController.h"
 #import "SendViewController+Send.h"
+#import "SendConfirmationViewController.h"
 #import "ScanViewController.h"
 #import "AddressListViewController.h"
 
@@ -61,7 +62,7 @@ static NSString *const kSendViewControllerCellAdvancedChangeIdentifier = @"advan
 /// FormControlStaticArrowCell
 static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced.cell.fee";
 
-@interface SendViewController ()<UITextFieldDelegate, ScanViewControllerDelegate, AddressListViewControllerDelegate>
+@interface SendViewController ()<UITextFieldDelegate, ScanViewControllerDelegate, AddressListViewControllerDelegate, SendConfirmationViewControllerDelegate>
 
 //@property (nonatomic, strong) CBWAddressStore *addressStore;
 
@@ -73,6 +74,8 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
 @property (nonatomic, weak) FormControlInputActionCell *advancedToAddressCell;
 @property (nonatomic, weak) FormControlInputActionCell *advancedToAmountCell;
 @property (nonatomic, weak) FormControlBlockButtonCell *advancedSendButtonCell;
+
+@property (nonatomic, strong) CBWAddress *tempAdvancedChangeAddress;
 
 
 @end
@@ -148,6 +151,62 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // TODO: cache the send data
+}
+
+#pragma mark - Public Method
+
+
+
+- (void)presentConfirmWithTXHash:(NSString *)hash fee:(long long)fee {
+    SendConfirmationViewController *vc = [[SendConfirmationViewController alloc] init];
+    if (SendViewControllerModeQuickly == self.mode) {
+        CBWAddress *address = [[CBWAddress alloc] init];
+        address.address = self.quicklyToAddress;
+        address.balance = [self.quicklyToAmountInBTC BTC2SatoshiValue];
+        vc.toAddresses = @[address];
+    } else {
+        vc.toAddresses = [self.advancedToDatas copy];
+    }
+    vc.txHash = hash;
+    vc.fee = fee;
+    vc.delegate = self;
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:nil];
+}
+
+#pragma mark - <SendConfirmationViewControllerDelegate>
+- (BOOL)sendConfirmationViewControllerWillDismiss:(SendConfirmationViewController *)viewController {
+    [self dismissViewControllerAnimated:YES completion:^{
+        if (SendConfirmationViewControllerStateSuccess == viewController.state) {
+            [self p_popBack];
+        }
+        if (SendConfirmationViewControllerStateFailed == viewController.state) {
+            if (SendViewControllerModeAdvanced == self.mode) {
+                if (!self.advancedChangeAddress) {
+                    [self.tempAdvancedChangeAddress deleteFromStore];
+                }
+            }
+        }
+    }];
+    return YES;
+}
+- (void)sendConfirmationViewController:(SendConfirmationViewController *)viewController didBroadcast:(BOOL)flag {
+    if (flag) {
+        if (SendViewControllerModeAdvanced == self.mode) {
+            // save change address
+            [self.tempAdvancedChangeAddress saveWithError:nil];
+            
+            // nitification
+            __block NSMutableArray *fromAddresseStrings = [NSMutableArray array];
+            [self.advancedFromAddresses enumerateObjectsUsingBlock:^(CBWAddress * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                [fromAddresseStrings addObject:obj.address];
+            }];
+            [[NSNotificationCenter defaultCenter] postNotificationName:CBWNotificationTransactionCreated object:nil userInfo:@{@"addresses": [fromAddresseStrings copy]}];
+        }
+        if (SendViewControllerModeQuickly == self.mode) {
+            // nitification
+            [[NSNotificationCenter defaultCenter] postNotificationName:CBWNotificationTransactionCreated object:nil userInfo:@{@"addresses": @[self.quicklyToAddress]}];
+        }
+    }
 }
 
 #pragma mark - Private Method
@@ -253,7 +312,7 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
             }
             
             // wrap to addresses
-            NSMutableDictionary *toAddresses = [NSMutableDictionary dictionary];
+            __block NSMutableDictionary *toAddresses = [NSMutableDictionary dictionary];
             [self.advancedToDatas enumerateObjectsUsingBlock:^(CBWAddress * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 [toAddresses setObject:@(obj.balance) forKey:obj.address];
             }];
@@ -268,6 +327,8 @@ static NSString *const kSendViewControllerCellAdvancedFeeIdentifier = @"advanced
                 NSString *addressString = [CBWAddress addressStringWithIdx:idx acountIdx:self.account.idx];
                 changeAddress = [CBWAddress newAdress:addressString withLabel:@"" idx:idx accountRid:self.account.rid accountIdx:self.account.idx inStore:addressStore];
             }
+            self.tempAdvancedChangeAddress = changeAddress;
+            DLog(@"advanced change address: %@", self.tempAdvancedChangeAddress.address);
             
             // send
             [self sendToAddresses:[toAddresses copy] withChangeAddress:changeAddress fee:[self.fee.value longLongValue] completion:^(NSError *error) {

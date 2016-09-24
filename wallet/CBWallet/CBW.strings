@@ -41,6 +41,7 @@
 "Navigation manage_accounts" = "Manage Accounts";
 "Navigation change_password" = "Change Password";
 "Navigation create_address" = "Create Address";
+"Navigation outgoing" = "Outgoing";
 
 "Button create_wallet" = "New Wallet";
 "Button recover_wallet" = "Recover your wallet.";
@@ -60,6 +61,9 @@
 "Button archive" = "Archive";
 "Button unarchive" = "Unarchive";
 "Button delete" = "Delete";
+"Button confirm_to_send" = "Confirm to Send";
+"Button broadcast_failed" = "Failed";
+"Button broadcast_success" = "Success";
 
 "Placeholder master_password" = "Master Password";
 "Placeholder confirm_master_password" = "Confirm Master Password";
@@ -211,3 +215,7 @@
 "Send Footer available_balance_%@_fee_%@" = "Available balance: %@ (fee %@ inclusive)";
 
 "Send Fee minimum" = "Minimum";
+
+// confirm
+"Send Confirm Section addresses" = "To";
+"Send Confirm Section fee" = "Fee";

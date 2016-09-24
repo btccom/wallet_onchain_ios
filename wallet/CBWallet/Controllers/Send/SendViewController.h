@@ -31,4 +31,6 @@ typedef NS_ENUM(NSInteger, SendViewControllerMode) {
 
 - (instancetype)initWithAccount:(CBWAccount *)account;
 
+- (void)presentConfirmWithTXHash:(NSString *)hash fee:(long long)fee;
+
 @end

@@ -66,7 +66,7 @@ static NSString *const kAddressExplorerReceiveAmountCellIdentifier = @"cell.rece
     if (self) {
         _address = address;
         _actionType = actionType;
-        NSAssert(AddressActionTypeReceive == actionType || AddressActionTypeExplore == actionType, @"Address explorer view controller won't support this action: %lu", actionType);
+        NSAssert(AddressActionTypeReceive == actionType || AddressActionTypeExplore == actionType, @"Address explorer view controller won't support this action: %lu", (unsigned long)actionType);
     }
     return self;
 }
@@ -115,7 +115,7 @@ static NSString *const kAddressExplorerReceiveAmountCellIdentifier = @"cell.rece
             break;
         }
         default: {
-            NSAssert(AddressActionTypeReceive == self.actionType || AddressActionTypeExplore == self.actionType, @"Address explorer view controller won't support this action: %lu", self.actionType);
+            NSAssert(AddressActionTypeReceive == self.actionType || AddressActionTypeExplore == self.actionType, @"Address explorer view controller won't support this action: %lu", (unsigned long)self.actionType);
             break;
         }
     }
