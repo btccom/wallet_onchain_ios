@@ -460,6 +460,7 @@ static const CGFloat kSignUpViewControllerTitleBottomMargin = 10.f;
 - (void)p_handleOpenPhotoLibrary {
     UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
     [imagePicker.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+    imagePicker.view.backgroundColor = [UIColor whiteColor];
     imagePicker.delegate = self;
     imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     [self presentViewController:imagePicker animated:YES completion:nil];

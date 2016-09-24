@@ -6,3 +6,5 @@
   Copyright © 2016年 Bitmain. All rights reserved.
 */
 CFBundleDisplayName = "Rabbit Wallet";
+NSPhotoLibraryUsageDescription = "Scan QR Code image.";
+NSCameraUsageDescription = "Scan QR Code image.";
