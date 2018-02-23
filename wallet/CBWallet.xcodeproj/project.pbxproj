@@ -207,7 +207,6 @@
 		2CC12D0B1D29CFFC00687CE6 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C99A17F1CA1029C007D7AC3 /* libsqlite3.tbd */; };
 		2CC12D0C1D29CFFC00687CE6 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CF24D5E1C965F6500C7EDB9 /* libz.tbd */; };
 		2CC12D0D1D29CFFC00687CE6 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CF24D111C96377600C7EDB9 /* AVFoundation.framework */; };
-		2CC12D0E1D29CFFC00687CE6 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7181822D043721CB668D9C00 /* libPods.a */; };
 		2CC12D101D29CFFC00687CE6 /* Schema in Resources */ = {isa = PBXBuildFile; fileRef = 2CEFC3651CA50EF900FECCA4 /* Schema */; };
 		2CC12D111D29CFFC00687CE6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2C9CAF771C868B98008194EB /* InfoPlist.strings */; };
 		2CC12D121D29CFFC00687CE6 /* CBW.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2C9CAF741C868B98008194EB /* CBW.strings */; };
@@ -377,7 +376,6 @@
 		2CE6F3211D40BA280048C07B /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C99A17F1CA1029C007D7AC3 /* libsqlite3.tbd */; };
 		2CE6F3221D40BA280048C07B /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CF24D5E1C965F6500C7EDB9 /* libz.tbd */; };
 		2CE6F3231D40BA280048C07B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CF24D111C96377600C7EDB9 /* AVFoundation.framework */; };
-		2CE6F3241D40BA280048C07B /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7181822D043721CB668D9C00 /* libPods.a */; };
 		2CE6F3261D40BA280048C07B /* Schema in Resources */ = {isa = PBXBuildFile; fileRef = 2CEFC3651CA50EF900FECCA4 /* Schema */; };
 		2CE6F3271D40BA280048C07B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2C9CAF771C868B98008194EB /* InfoPlist.strings */; };
 		2CE6F3281D40BA280048C07B /* CBW.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2C9CAF741C868B98008194EB /* CBW.strings */; };
@@ -404,7 +402,7 @@
 		2CF24D771C97A53200C7EDB9 /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF24D6F1C97A53200C7EDB9 /* AFURLRequestSerialization.m */; };
 		2CF24D781C97A53200C7EDB9 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF24D711C97A53200C7EDB9 /* AFURLResponseSerialization.m */; };
 		2CF24D791C97A53200C7EDB9 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF24D731C97A53200C7EDB9 /* AFURLSessionManager.m */; };
-		75C00C62AA272AEDF0E2C76C /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7181822D043721CB668D9C00 /* libPods.a */; };
+		9844F6CD12245D1D8433519B /* libPods-CBWallet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DAE69F258198D582386A788F /* libPods-CBWallet.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -679,9 +677,9 @@
 		2CF24D711C97A53200C7EDB9 /* AFURLResponseSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLResponseSerialization.m; sourceTree = "<group>"; };
 		2CF24D721C97A53200C7EDB9 /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
 		2CF24D731C97A53200C7EDB9 /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
-		613F431F393A1094BB6650E8 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		7181822D043721CB668D9C00 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		9BBFD3CBF5D6B9AAA0955EDC /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		AFAB70BC6D0FDC94AAD42781 /* Pods-CBWallet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CBWallet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CBWallet/Pods-CBWallet.debug.xcconfig"; sourceTree = "<group>"; };
+		D05EC5CCEBEAD2C10441BD6E /* Pods-CBWallet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CBWallet.release.xcconfig"; path = "Pods/Target Support Files/Pods-CBWallet/Pods-CBWallet.release.xcconfig"; sourceTree = "<group>"; };
+		DAE69F258198D582386A788F /* libPods-CBWallet.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CBWallet.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -693,7 +691,6 @@
 				2CC12D0B1D29CFFC00687CE6 /* libsqlite3.tbd in Frameworks */,
 				2CC12D0C1D29CFFC00687CE6 /* libz.tbd in Frameworks */,
 				2CC12D0D1D29CFFC00687CE6 /* AVFoundation.framework in Frameworks */,
-				2CC12D0E1D29CFFC00687CE6 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -705,7 +702,7 @@
 				2C99A1801CA1029C007D7AC3 /* libsqlite3.tbd in Frameworks */,
 				2CF24D5F1C965F6500C7EDB9 /* libz.tbd in Frameworks */,
 				2CF24D121C96377600C7EDB9 /* AVFoundation.framework in Frameworks */,
-				75C00C62AA272AEDF0E2C76C /* libPods.a in Frameworks */,
+				9844F6CD12245D1D8433519B /* libPods-CBWallet.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -717,7 +714,6 @@
 				2CE6F3211D40BA280048C07B /* libsqlite3.tbd in Frameworks */,
 				2CE6F3221D40BA280048C07B /* libz.tbd in Frameworks */,
 				2CE6F3231D40BA280048C07B /* AVFoundation.framework in Frameworks */,
-				2CE6F3241D40BA280048C07B /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1093,10 +1089,10 @@
 			children = (
 				2CC4845C1C71A2EE0033D700 /* CBWallet */,
 				2CC4845B1C71A2EE0033D700 /* Products */,
-				E4BBEA9F1BE4E2B1886C175F /* Pods */,
 				A3DE19FDBECA89D27AA75E54 /* Frameworks */,
 				2CC12D1B1D29CFFC00687CE6 /* CBWallet Enterprise-Info.plist */,
 				2CE6F3311D40BA280048C07B /* CBWallet Production-Info.plist */,
+				CADFBA8B36A170E718586707 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1308,16 +1304,16 @@
 			isa = PBXGroup;
 			children = (
 				2C069C491CC9C8250054791C /* CloudKit.framework */,
-				7181822D043721CB668D9C00 /* libPods.a */,
+				DAE69F258198D582386A788F /* libPods-CBWallet.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		E4BBEA9F1BE4E2B1886C175F /* Pods */ = {
+		CADFBA8B36A170E718586707 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				9BBFD3CBF5D6B9AAA0955EDC /* Pods.debug.xcconfig */,
-				613F431F393A1094BB6650E8 /* Pods.release.xcconfig */,
+				AFAB70BC6D0FDC94AAD42781 /* Pods-CBWallet.debug.xcconfig */,
+				D05EC5CCEBEAD2C10441BD6E /* Pods-CBWallet.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -1329,12 +1325,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2CC12D171D29CFFC00687CE6 /* Build configuration list for PBXNativeTarget "CBWallet Enterprise" */;
 			buildPhases = (
-				2CC12C8E1D29CFFC00687CE6 /* Check Pods Manifest.lock */,
 				2CC12C8F1D29CFFC00687CE6 /* Sources */,
 				2CC12D091D29CFFC00687CE6 /* Frameworks */,
 				2CC12D0F1D29CFFC00687CE6 /* Resources */,
-				2CC12D151D29CFFC00687CE6 /* Embed Pods Frameworks */,
-				2CC12D161D29CFFC00687CE6 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1349,12 +1342,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2CC484711C71A2EE0033D700 /* Build configuration list for PBXNativeTarget "CBWallet" */;
 			buildPhases = (
-				90D0B58709E8168299CCD555 /* Check Pods Manifest.lock */,
+				0EBB01D5273D2C14A73C6F67 /* [CP] Check Pods Manifest.lock */,
 				2CC484561C71A2EE0033D700 /* Sources */,
 				2CC484571C71A2EE0033D700 /* Frameworks */,
 				2CC484581C71A2EE0033D700 /* Resources */,
-				E00CB77A9717B77C24590B65 /* Embed Pods Frameworks */,
-				5E5C439F7172CD6AD62E8C3C /* Copy Pods Resources */,
+				F91F6DB41CA20E8165D14A31 /* [CP] Embed Pods Frameworks */,
+				E31581DD0C82CD37D9B34D5E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1369,12 +1362,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2CE6F32D1D40BA280048C07B /* Build configuration list for PBXNativeTarget "CBWallet Production" */;
 			buildPhases = (
-				2CE6F2A21D40BA280048C07B /* Check Pods Manifest.lock */,
 				2CE6F2A31D40BA280048C07B /* Sources */,
 				2CE6F31F1D40BA280048C07B /* Frameworks */,
 				2CE6F3251D40BA280048C07B /* Resources */,
-				2CE6F32B1D40BA280048C07B /* Embed Pods Frameworks */,
-				2CE6F32C1D40BA280048C07B /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1472,139 +1462,52 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2CC12C8E1D29CFFC00687CE6 /* Check Pods Manifest.lock */ = {
+		0EBB01D5273D2C14A73C6F67 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CBWallet-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		2CC12D151D29CFFC00687CE6 /* Embed Pods Frameworks */ = {
+		E31581DD0C82CD37D9B34D5E /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CBWallet/Pods-CBWallet-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		2CC12D161D29CFFC00687CE6 /* Copy Pods Resources */ = {
+		F91F6DB41CA20E8165D14A31 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		2CE6F2A21D40BA280048C07B /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		2CE6F32B1D40BA280048C07B /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		2CE6F32C1D40BA280048C07B /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		5E5C439F7172CD6AD62E8C3C /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		90D0B58709E8168299CCD555 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		E00CB77A9717B77C24590B65 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CBWallet/Pods-CBWallet-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -2015,7 +1918,6 @@
 /* Begin XCBuildConfiguration section */
 		2CC12D181D29CFFC00687CE6 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9BBFD3CBF5D6B9AAA0955EDC /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = CBWallet/CBWallet.entitlements;
@@ -2037,7 +1939,6 @@
 		};
 		2CC12D191D29CFFC00687CE6 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 613F431F393A1094BB6650E8 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = CBWallet/CBWallet.entitlements;
@@ -2139,7 +2040,7 @@
 		};
 		2CC484721C71A2EE0033D700 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9BBFD3CBF5D6B9AAA0955EDC /* Pods.debug.xcconfig */;
+			baseConfigurationReference = AFAB70BC6D0FDC94AAD42781 /* Pods-CBWallet.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = CBWallet/CBWallet.entitlements;
@@ -2159,7 +2060,7 @@
 		};
 		2CC484731C71A2EE0033D700 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 613F431F393A1094BB6650E8 /* Pods.release.xcconfig */;
+			baseConfigurationReference = D05EC5CCEBEAD2C10441BD6E /* Pods-CBWallet.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = CBWallet/CBWallet.entitlements;
@@ -2179,7 +2080,6 @@
 		};
 		2CE6F32E1D40BA280048C07B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9BBFD3CBF5D6B9AAA0955EDC /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = CBWallet/CBWallet.entitlements;
@@ -2201,7 +2101,6 @@
 		};
 		2CE6F32F1D40BA280048C07B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 613F431F393A1094BB6650E8 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = CBWallet/CBWallet.entitlements;
