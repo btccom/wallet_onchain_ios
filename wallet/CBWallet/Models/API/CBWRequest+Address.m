@@ -66,7 +66,7 @@
             NSString *addressString = [addressStrings firstObject];
             NSMutableArray *lastAddressStrings = [addressStrings mutableCopy];
             [lastAddressStrings removeObject:addressString];
-            [self addressTransactionsWithAddressString:addressString page:0 pagesize:10 completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
+            [self addressTransactionsWithAddressString:addressString page:CBWPage pagesize:10 completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
                 // callback
                 completion(error, statusCode, response, addressString);
                 if (!error && lastAddressStrings.count > 0) {
@@ -110,7 +110,7 @@
             NSString *addressString = obj;
             // 获取改地址未花交易记录
             progress([NSString stringWithFormat:NSLocalizedStringFromTable(@"Message unspent_fetch %@", @"CBW", nil), addressString]);
-            [self addressUnspentWithAddressString:addressString unspentHolder:[NSArray array] page:0 completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
+            [self addressUnspentWithAddressString:addressString unspentHolder:[NSArray array] page:CBWPage completion:^(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
                 if (error) {
                     progress(NSLocalizedStringFromTable(@"Message unspent_fetch_failed", @"CBW", nil));
                     // 出现失败即退出

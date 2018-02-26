@@ -214,7 +214,7 @@ NSString *const CBWTransactionSyncConfirmedCountKey = @"confirmedCount";
             __block NSInteger updated = 0;
             __block NSInteger inserted = 0;
             CBWRequest *request = [CBWRequest new];
-            [request addressTransactionsWithAddressString:responsedAddress.address page:0 pagesize:0 checkCompletion:^BOOL(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
+            [request addressTransactionsWithAddressString:responsedAddress.address page:CBWPage pagesize:0 checkCompletion:^BOOL(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
                 
                 __block BOOL touchedTheUnconfirmedTX = NO;
                 NSArray *list = [response objectForKey:CBWRequestResponseDataListKey];
@@ -261,7 +261,7 @@ NSString *const CBWTransactionSyncConfirmedCountKey = @"confirmedCount";
             __block NSInteger updated = 0;
             __block NSInteger inserted = 0;
             CBWRequest *request = [CBWRequest new];
-            [request addressTransactionsWithAddressString:responsedAddress.address page:0 pagesize:0 checkCompletion:^BOOL(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
+            [request addressTransactionsWithAddressString:responsedAddress.address page:CBWPage pagesize:0 checkCompletion:^BOOL(NSError * _Nullable error, NSInteger statusCode, id  _Nullable response) {
                 
                 __block BOOL touchedTheLastTX = NO;
                 NSArray *list = [response objectForKey:CBWRequestResponseDataListKey];

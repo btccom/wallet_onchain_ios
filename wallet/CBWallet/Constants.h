@@ -66,6 +66,7 @@ static NSString *const CBWErrorDomain = @"cbw.error";
 static const NSInteger CBWErrorCodeUserCanceledTransaction = 70001;
 static const NSInteger CBWErrorCodeInvalidBackupImageNoSeedData = 77001;
 static const NSInteger CBWErrorCodeInvalidBackupImageInvalidSeedData = 77002;
+static const NSInteger CBWPage = 1;
 
 // Cache
 static NSString *const CBWCacheSubfix = @".cache";

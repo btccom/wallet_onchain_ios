@@ -10,7 +10,7 @@
 #import "CBWRequest.h"
 
 #import "AFNetworking.h"
-NSString *const CBWRequestAPIHost = @"https://chain.api.btc.com";
+NSString *const CBWRequestAPIHost = @"https://wallet-chain.api.btc.com";
 NSString *const CBWRequestAPIPath = @"";
 NSString *const CBWRequestAPIVersion = @"v3";
 
