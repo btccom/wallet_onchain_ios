@@ -95,9 +95,9 @@
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     return nil;
 }
-
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showAccountTips) name:CBWNotificationWillEnterForeground object:nil];
     // Do any additional setup after loading the view, typically from a nib.
     self.title = self.account.label;
     
@@ -130,8 +130,18 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self reloadTransactions];
     });
+    
+    [self showAccountTips];
 }
-
+- (void)showAccountTips
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                    message:NSLocalizedStringFromTable(@"stop_server_tips", @"CBW", nil)
+                                                   delegate:self
+                                          cancelButtonTitle:@"Okey"
+                                          otherButtonTitles:nil,nil];
+    [alert show];
+}
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.visible = YES;
@@ -198,6 +208,7 @@
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:CBWNotificationTransactionCreated object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:BlockMonitorNotificationNewBlock object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:CBWNotificationWillEnterForeground object:nil];
 }
 
 #pragma mark - Private Method

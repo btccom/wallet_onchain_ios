@@ -126,6 +126,7 @@ static const CGFloat kSignUpViewControllerTitleBottomMargin = 10.f;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showSignUpTips) name:CBWNotificationWillEnterForeground object:nil];
     // Do any additional setup after loading the view.
     
     // background
@@ -172,14 +173,25 @@ static const CGFloat kSignUpViewControllerTitleBottomMargin = 10.f;
     [recoverButton setTitle:NSLocalizedStringFromTable(@"Button recover_wallet", @"CBW", nil) forState:UIControlStateNormal];
     [recoverButton addTarget:self action:@selector(p_presentRecover) forControlEvents:UIControlEventTouchUpInside];
     [welcomeView addSubview:recoverButton];
+    
+    [self showSignUpTips];
 }
-
+- (void)showSignUpTips
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                    message:NSLocalizedStringFromTable(@"stop_server_tips", @"CBW", nil)
+                                                   delegate:self
+                                          cancelButtonTitle:@"Okey"
+                                          otherButtonTitles:nil,nil];
+    [alert show];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
 - (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     DLog(@"sign up dealloc!");
 }
 

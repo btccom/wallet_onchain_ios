@@ -56,6 +56,7 @@ static NSString *const CBWNotificationCheckedOut = @"cbw.notification.checked.ou
 static NSString *const CBWNotificationSignedOut = @"cbw.notification.signed.out";
 static NSString *const CBWNotificationWalletCreated = @"cbw.notification.wallet.created";
 static NSString *const CBWNotificationWalletRecovered = @"cbw.notification.wallet.recovered";
+static NSString *const CBWNotificationWillEnterForeground = @"cbw.notification.will.enter.foreground";
 
 static NSString *const CBWNotificationAccountCreated = @"cbw.notification.account.created";
 static NSString *const CBWNotificationAccountUpdated = @"cbw.notification.account.updated";

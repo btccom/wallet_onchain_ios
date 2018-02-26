@@ -219,3 +219,5 @@
 // confirm
 "Send Confirm Section addresses" = "To";
 "Send Confirm Section fee" = "Fee";
+
+"stop_server_tips" = "Dear customers：\nWe want to express our deep gratitude for your support for Rabbit Wallet. Your support provides valuable contribution to our progress.\nAs the company’s strategy adjustment, we regret to announce that Rabbit Wallet will officially stop operating and no longer provide technical support from February 24th, 2018. Details are as follows:\n1. New customer registration will be closed;\n2. We would advise you to transfer your digital assets to  https://wallet.btc.com We apologize for the inconvenience caused by the terminated operation of Rabbit Wallet. Thank you for your understanding and support.";
